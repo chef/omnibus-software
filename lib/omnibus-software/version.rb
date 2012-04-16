@@ -15,8 +15,6 @@
 # limitations under the License.
 #
 
-module Omnibus
-  module Software
-    VERSION = "0.0.1"
-  end
+module OmnibusSoftware
+  VERSION = "0.0.1"
 end

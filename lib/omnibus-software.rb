@@ -17,8 +17,3 @@
 
 require "omnibus-software/version"
 
-module Omnibus
-  module Software
-    # Your code goes here...
-  end
-end
