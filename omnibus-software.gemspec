@@ -4,7 +4,7 @@ require "omnibus-software/version"
 
 Gem::Specification.new do |s|
   s.name        = "omnibus-software"
-  s.version     = Omnibus::Software::VERSION
+  s.version     = OmnibusSoftware::VERSION
   s.authors     = ["Opscode, Inc."]
   s.email       = ["legal@opscode.com"]
   s.homepage    = "http://github.com/opscode/omnibus-software"
