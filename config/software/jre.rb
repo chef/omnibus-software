@@ -16,19 +16,21 @@
 #
 
 name "jre"
-version "7u2-b13"
+version "7u3-b04"
 
 dependencies ["rsync"]
 
 # TODO: download x86 version on x86 machines
-source :url => "http://download.oracle.com/otn-pub/java/jdk/7u2-b13/jdk-7u2-linux-x64.tar.gz",
-       :md5 => "a0bbb9265b4633cfd7823928649f450c"
+source :url => "http://download.oracle.com/otn-pub/java/jdk/7u3-b04/jdk-7u3-linux-x64.tar.gz",
+       :md5 => "3d3e206cea84129f1daa8e62bf656a28",
+       :cookie => 'oraclelicensejre-7u3-oth-JPR=accept-securebackup-cookie;gpw_e24=http://www.oracle.com/technetwork/java/javase/downloads/jre-7u3-download-1501631.html',
+       :warning => "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
 
-relative_path "jdk1.7.0_02"
+relative_path "jre1.7.0_03"
 
 jre_dir = "#{install_dir}/embedded/jre"
 
 build do
   command "mkdir -p #{jre_dir}"
-  command "#{install_dir}/embedded/bin/rsync -a jre/ #{jre_dir}/"
+  command "#{install_dir}/embedded/bin/rsync -a . #{jre_dir}/"
 end
