@@ -21,7 +21,7 @@ version "7u3-b04"
 dependencies ["rsync"]
 
 # TODO: download x86 version on x86 machines
-source :url => "http://download.oracle.com/otn-pub/java/jdk/7u3-b04/jdk-7u3-linux-x64.tar.gz",
+source :url => "http://download.oracle.com/otn-pub/java/jdk/7u3-b04/jre-7u3-linux-x64.tar.gz",
        :md5 => "3d3e206cea84129f1daa8e62bf656a28",
        :cookie => 'oraclelicensejre-7u3-oth-JPR=accept-securebackup-cookie;gpw_e24=http://www.oracle.com/technetwork/java/javase/downloads/jre-7u3-download-1501631.html',
        :warning => "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
