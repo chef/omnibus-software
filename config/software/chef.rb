@@ -16,7 +16,12 @@
 #
 
 name "chef"
-version "0.10.8"
+case project.name
+when "chef", "chef-server"
+  version Omnibus::BuildVersion.version_tag
+else
+  version "0.10.8"
+end
 
 dependencies ["ruby", "rubygems", "yajl"]
 
