@@ -35,6 +35,17 @@ build do
              "--with-zlib-include=#{install_dir}/embedded/include",
              "zlib",
              "shared"].join(" ")
+  elsif platform == "freebsd"
+    command(["./config",
+             "--prefix=#{install_dir}/embedded",
+             "--with-zlib-lib=#{install_dir}/embedded/lib",
+             "--with-zlib-include=#{install_dir}/embedded/include",
+             "zlib",
+             "shared",
+             "-L#{install_dir}/embedded/lib",
+             "-I#{install_dir}/embedded/include",
+             "-R#{install_dir}/embedded/lib"].join(" "),
+            :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"})
   elsif platform == "solaris2"
     command ["./Configure",
              "solaris-sparcv9-cc",
