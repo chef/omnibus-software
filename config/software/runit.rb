@@ -27,7 +27,7 @@ working_dir = "#{project_dir}/runit-2.1.1"
 
 build do
   # put runit where we want it, not where they tell us to
-  command %q{sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"\/opt\/opscode\/service\/\";/" src/sv.c}, :cwd => working_dir
+  command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"\/opt\/' + project.name + '\/service\/\";/" src/sv.c', :cwd => working_dir
   # TODO: the following is not idempotent
   command "sed -i -e s:-static:: src/Makefile", :cwd => working_dir
 
