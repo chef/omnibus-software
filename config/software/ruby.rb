@@ -35,7 +35,7 @@ make_command =
 
 env =
   case platform
-  when "darwin"
+  when "mac_os_x"
     {
       "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
       "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
