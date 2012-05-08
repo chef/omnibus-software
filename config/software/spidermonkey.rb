@@ -52,8 +52,9 @@ build do
           :env => env,
           :cwd => working_dir)
 
-  # TODO: only do the following on 64-bit linux
-  command "mv #{install_dir}/embedded/lib64/libjs.a #{install_dir}/embedded/lib"
-  command "mv #{install_dir}/embedded/lib64/libjs.so #{install_dir}/embedded/lib"
+  if `uname -p` =~ /x86_64/
+    command "mv #{install_dir}/embedded/lib64/libjs.a #{install_dir}/embedded/lib"
+    command "mv #{install_dir}/embedded/lib64/libjs.so #{install_dir}/embedded/lib"
+  end
   command "rm -rf #{install_dir}/embedded/lib64"
 end
