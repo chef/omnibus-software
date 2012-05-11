@@ -34,7 +34,7 @@ build do
   # set up the erlang include dir
   command "mkdir -p #{install_dir}/embedded/erlang/include"
   %w{ncurses openssl zlib.h zconf.h}.each do |link|
-    command "ln -fs #{install_dir}/embedded/include/#{link} #{install_dir}/embedded/erlang/include/#{link}"
+    command "ln -fs #{install_dir}/embedded/include/#{link} #{install_dir}/embedded/erlang/include"
   end
 
   # TODO: build cross-platform. this is for linux
