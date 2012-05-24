@@ -52,7 +52,7 @@ build do
           :env => env,
           :cwd => working_dir)
 
-  if `uname -p` =~ /x86_64/
+  if `uname -m` =~ /x86_64/
     command "mv #{install_dir}/embedded/lib64/libjs.a #{install_dir}/embedded/lib"
     command "mv #{install_dir}/embedded/lib64/libjs.so #{install_dir}/embedded/lib"
   end
