@@ -16,18 +16,26 @@
 #
 
 name "chef"
-case project.name
-when "chef", "chef-server"
-  version Omnibus::BuildVersion.version_tag
-else
-  version "0.10.8"
-end
 
 dependencies ["ruby", "rubygems", "yajl"]
 
+version case project.name
+        when "chef", "chef-server"
+          ENV["CHEF_GIT_REV"] || "0.10.8"
+        else
+          "0.10.8"
+        end
+
+source :git => "git://github.com/opscode/chef"
+
+relative_path "chef"
+
+always_build true
+
 build do
-  gem ["install chef",
-      "-v #{version}",
+  rake "gem"
+
+  gem ["install chef/pkg/chef*.gem",
       "-n #{install_dir}/bin",
       "--no-rdoc --no-ri"].join(" ")
 
