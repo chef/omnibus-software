@@ -35,6 +35,13 @@ build do
        "-n #{install_dir}/bin",
        "--no-rdoc --no-ri"].join(" ")
 
+  #
+  # TODO: the "clean up" section below was cargo-culted from the
+  # clojure version of omnibus that depended on the build order of the
+  # tasks and not dependencies. if we really need to clean stuff up,
+  # we should probably stick the clean up steps somewhere else
+  #
+
   # clean up
   ["docs",
    "share/man",
