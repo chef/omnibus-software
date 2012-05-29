@@ -17,7 +17,7 @@
 
 name "chef"
 
-dependencies ["ruby", "rubygems", "yajl"]
+dependencies ["ruby", "rubygems", "yajl", "bundler"]
 
 version case project.name
         when "chef", "chef-server"
