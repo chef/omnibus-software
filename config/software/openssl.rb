@@ -29,7 +29,7 @@ build do
   # configure
   if platform == "mac_os_x"
     command ["./Configure",
-             "darwin-x86_64-cc",
+             "darwin64-x86_64-cc",
              "--prefix=#{install_dir}/embedded",
              "--with-zlib-lib=#{install_dir}/embedded/lib",
              "--with-zlib-include=#{install_dir}/embedded/include",

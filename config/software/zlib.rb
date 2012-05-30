@@ -30,7 +30,7 @@ relative_path "zlib-1.2.6"
 
 configure_env =
   case platform
-  when "darwin"
+  when "mac_os_x"
     {
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
       "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"

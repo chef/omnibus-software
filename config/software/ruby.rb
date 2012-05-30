@@ -18,7 +18,10 @@
 name "ruby"
 version "1.9.2p290"
 
-dependencies ["zlib", "ncurses", "readline", "openssl"]
+deps = ["zlib", "ncurses", "readline", "openssl"]
+deps << "gdbm" if OHAI.platform == "mac_os_x"
+dependencies deps
+
 
 source :url => 'http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p290.tar.gz',
        :md5 => '604da71839a6ae02b5b5b5e1b792d5eb'
@@ -27,10 +30,10 @@ relative_path "ruby-1.9.2-p290"
 
 env =
   case platform
-  when "darwin"
+  when "mac_os_x"
     {
-      "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+      "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
+      "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
     }
   when "solaris2"
     {
