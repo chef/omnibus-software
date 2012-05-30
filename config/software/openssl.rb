@@ -27,7 +27,7 @@ relative_path "openssl-1.0.0f"
 
 build do
   # configure
-  if platform == "darwin"
+  if platform == "mac_os_x"
     command ["./Configure",
              "darwin-x86_64-cc",
              "--prefix=#{install_dir}/embedded",
