@@ -33,6 +33,38 @@ relative_path "chef"
 always_build true
 
 build do
+  #####################################################################
+  #
+  # nasty nasty nasty hack for setting artifact version
+  #
+  #####################################################################
+  #
+  # since omnibus-ruby is not architected to intentionally let the
+  # software definitions define the #build_version and
+  # #build_iteration of the package artifact, we're going to implement
+  # a temporary hack here that lets us do so. this type of use case
+  # will become a feature of omnibus-ruby in the future, but in order
+  # to get things shipped, we'll hack it up here.
+  #
+  # <3 Stephen
+  #
+  #####################################################################
+  block do
+    project = self.project
+    if %w{chef chef-server}.include? project.name
+      git_cmd = "git describe --tags"
+      src_dir = self.project_dir
+      shell = Mixlib::ShellOut.new(git_cmd,
+                                   :cwd => src_dir)
+      shell.run_command
+      shell.error!
+      build_version = shell.stdout.chomp
+
+      project.build_version build_version
+      project.build_iteration 1
+    end
+  end
+
   rake "gem"
 
   gem ["install chef/pkg/chef*.gem",
