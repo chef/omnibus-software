@@ -28,6 +28,14 @@ source :url => 'http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p290.tar.gz',
 
 relative_path "ruby-1.9.2-p290"
 
+make_command =
+  case platform
+  when "freebsd"
+    "gmake"
+  else
+    "make"
+  end
+
 env =
   case platform
   when "mac_os_x"
@@ -49,7 +57,7 @@ env =
 
 build do
   # command "#{install_dir}/embedded/bin/autoconf", :env => env
-  command "./configure --prefix=#{install_dir}/embedded --with-opt-dir=#{install_dir}/embedded --enable-shared --disable-install-doc", :env => env
-  command "make -j #{max_build_jobs}"
-  command "make install"
+  command "./configure --prefix=#{install_dir}/embedded --with-opt-dir=#{install_dir}/embedded --enable-shared --disable-install-doc --with-out-ext=fiddle,gdbm,psych", :env => env
+  command "#{make_command} -j #{max_build_jobs}"
+  command "#{make_command} install"
 end
