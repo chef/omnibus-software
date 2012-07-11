@@ -71,7 +71,7 @@ build do
       "-n #{install_dir}/bin",
       "--no-rdoc --no-ri"].join(" ")
 
-  gem ["install highline net-ssh-multi", # TODO: include knife gems?
+  gem ["install highline net-ssh-multi ruby-shadow", # TODO: include knife gems?
        "-n #{install_dir}/bin",
        "--no-rdoc --no-ri"].join(" ")
 
