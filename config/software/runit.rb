@@ -49,7 +49,7 @@ build do
     command "cp #{bin} #{install_dir}/embedded/bin", :cwd => working_dir
   end
 
-  files_dir = File.expand_path("files/runit", Omnibus.root)
+  files_dir = File.expand_path("../../../files/runit", __FILE__)
   command "#{install_dir}/embedded/bin/rsync -a #{files_dir}/runsvdir-start #{install_dir}/embedded/bin/runsvdir-start"
 
   # set up service directories
