@@ -75,14 +75,14 @@ build do
   command "make", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "make install"
 
-  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
-    engines = %w{lib4758cca.so libaep.so libatalla.so libcswift.so libgmp.so libchil.so libnuron.so libsureware.so libubsec.so libpadlock.so libcapi.so libgost.so}
-    libraries = %w{libssl.so.1.0.0 libcrypto.so.1.0.0}
-    engines.each do |engine|
-      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/engines/#{engine}"
-    end
-    libraries.each do |library|
-      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{library}"
-    end
-  end
+#  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
+#    engines = %w{lib4758cca.so libaep.so libatalla.so libcswift.so libgmp.so libchil.so libnuron.so libsureware.so libubsec.so libpadlock.so libcapi.so libgost.so}
+#    libraries = %w{libssl.so.1.0.0 libcrypto.so.1.0.0}
+#    engines.each do |engine|
+#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/engines/#{engine}"
+#    end
+#    libraries.each do |library|
+#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{library}"
+#    end
+#  end
 end
