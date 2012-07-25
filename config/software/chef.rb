@@ -65,7 +65,7 @@ build do
     end
   end
 
-  rake "gem"
+  rake "gem", :cwd => "#{self.project_dir}/chef"
 
   gem ["install chef/pkg/chef*.gem",
       "-n #{install_dir}/bin",
