@@ -27,7 +27,8 @@ relative_path "help2man-1.40.5"
 
 make_command =
   case platform
-  when "solaris2", "freebsd"
+  when "freebsd"
+    # Really? Why would we use qmake?
     "qmake"
   else
     "make"

@@ -23,7 +23,10 @@ source :url => "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
 
 relative_path "ncurses-5.9"
 
-env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib", "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"}
+if platform == "solaris2"
+  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"})
+end
 
 ########################################################################
 #
@@ -64,4 +67,9 @@ build do
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
   command "make install", :env => env
+  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
+    %w{libtinfow.so.5.9 libncursesw.so.5.9 libpanelw.so.5.9 libmenuw.so.5.9 libformw.so.5.9 libtinfo.so.5.9 libncurses.so.5.9 libpanel.so.5.9 libmenu.so.5.9 libform.so.5.9}.each do |lib|
+      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{lib}"
+    end
+  end
 end
