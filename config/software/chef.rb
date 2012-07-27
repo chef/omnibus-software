@@ -32,6 +32,30 @@ relative_path "chef"
 
 always_build true
 
+env =
+  case platform
+  when "solaris2"
+    if Omnibus.config.solaris_compiler == "studio"
+    {
+      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+    }
+    elsif Omnibus.config.solaris_compiler == "gcc"
+    {
+      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
+    }
+    else
+      raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
+    end
+  else
+    {
+      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+    }
+  end
+
 build do
   #####################################################################
   #
@@ -65,15 +89,15 @@ build do
     end
   end
 
-  rake "gem", :cwd => "#{self.project_dir}/chef"
+  rake "gem", :cwd => "#{self.project_dir}/chef", :env => env
 
   gem ["install chef/pkg/chef*.gem",
       "-n #{install_dir}/bin",
-      "--no-rdoc --no-ri"].join(" ")
+      "--no-rdoc --no-ri"].join(" "), :env => env
 
   gem ["install highline net-ssh-multi ruby-shadow", # TODO: include knife gems?
        "-n #{install_dir}/bin",
-       "--no-rdoc --no-ri"].join(" ")
+       "--no-rdoc --no-ri"].join(" "), :env => env
 
   #
   # TODO: the "clean up" section below was cargo-culted from the
