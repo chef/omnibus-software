@@ -25,7 +25,7 @@ relative_path "ncurses-5.9"
 
 env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib", "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"}
 if platform == "solaris2"
-  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"})
+  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include", "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
 end
 
 ########################################################################
