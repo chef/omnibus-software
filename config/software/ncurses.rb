@@ -25,7 +25,10 @@ relative_path "ncurses-5.9"
 
 env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib", "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"}
 if platform == "solaris2"
-  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include", "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
+  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"})
+  env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
+  # gcc4 from opencsw fails to compile ncurses
+  env.merge!({"PATH" => "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"})
 end
 
 ########################################################################
