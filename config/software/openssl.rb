@@ -35,7 +35,7 @@ build do
              "--with-zlib-include=#{install_dir}/embedded/include",
              "zlib",
              "shared"].join(" ")
-  elsif (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc" and architecture == "sun")
+  elsif (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc" and architecture == "sparc")
     command ["/bin/sh ./Configure",
              "solaris-sparcv9-gcc",
              "--prefix=#{install_dir}/embedded",
