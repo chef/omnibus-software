@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,17 +16,17 @@
 #
 
 name "ruby"
-version "1.9.2p290"
+version "1.9.3-p194"
 
 deps = ["zlib", "ncurses", "readline", "openssl"]
 deps << "gdbm" if OHAI.platform == "mac_os_x"
 dependencies deps
 
 
-source :url => 'http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p290.tar.gz',
-       :md5 => '604da71839a6ae02b5b5b5e1b792d5eb'
+source :url => "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{version}.tar.gz",
+       :md5 => 'bc0c715c69da4d1d8bd57069c19f6c0e'
 
-relative_path "ruby-1.9.2-p290"
+relative_path "ruby-#{version}"
 
 env =
   case platform
