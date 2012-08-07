@@ -42,7 +42,7 @@ configure_env =
     elsif Omnibus.config.solaris_compiler == "gcc"
     {
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc"
     }
     else
       raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."

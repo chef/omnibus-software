@@ -34,7 +34,7 @@ env =
     }
     elsif Omnibus.config.solaris_compiler == "gcc"
     {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
     }
