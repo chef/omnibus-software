@@ -16,7 +16,7 @@
 #
 
 name "bundler"
-version "1.1.15"
+version "1.1.5"
 
 dependencies ["rubygems"]
 
