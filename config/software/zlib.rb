@@ -38,7 +38,7 @@ configure_env =
   when "solaris2"
     if Omnibus.config.solaris_compiler == "studio"
     {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -DNO_VIZ"
     }
     elsif Omnibus.config.solaris_compiler == "gcc" 

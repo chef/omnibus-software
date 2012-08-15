@@ -45,7 +45,8 @@ build do
              "shared",
              "-L#{install_dir}/embedded/lib",
              "-I#{install_dir}/embedded/include",
-             "-R#{install_dir}/embedded/lib"].join(" ")
+             "-R#{install_dir}/embedded/lib",
+             "-static-libgcc"].join(" ")
   elsif (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc" and architecture == "intel")
     # This should not require a /bin/sh, but without it we get
     # Errno::ENOEXEC: Exec format error
@@ -58,7 +59,8 @@ build do
              "shared",
              "-L#{install_dir}/embedded/lib",
              "-I#{install_dir}/embedded/include",
-             "-R#{install_dir}/embedded/lib"].join(" ")
+             "-R#{install_dir}/embedded/lib",
+             "-static-libgcc"].join(" ")
   else
     command(["./config",
              "--prefix=#{install_dir}/embedded",

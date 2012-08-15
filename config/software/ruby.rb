@@ -45,7 +45,7 @@ env =
     elsif Omnibus.config.solaris_compiler == "gcc"
     {
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
     }
     else
@@ -59,7 +59,7 @@ env =
   end
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded --with-opt-dir=#{install_dir}/embedded --with-out-ext=iconv --enable-shared --disable-install-doc", :env => env
+  command "./configure --prefix=#{install_dir}/embedded --with-opt-dir=#{install_dir}/embedded --with-out-ext=iconv,psych,fiddle --enable-shared --disable-install-doc", :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 #  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
