@@ -18,7 +18,7 @@
 name "ruby"
 version "1.9.3-p194"
 
-deps = ["zlib", "ncurses", "readline", "openssl"]
+deps = ["zlib", "ncurses", "readline", "openssl", "libyaml"]
 deps << "gdbm" if OHAI.platform == "mac_os_x"
 deps << "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 dependencies deps
