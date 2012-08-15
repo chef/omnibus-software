@@ -95,7 +95,11 @@ build do
       "-n #{install_dir}/bin",
       "--no-rdoc --no-ri"].join(" "), :env => env
 
-  gem ["install highline net-ssh-multi ruby-shadow", # TODO: include knife gems?
+  auxiliary_gems = ["highline", "net-ssh-multi"]
+  auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x"
+
+  gem ["install",
+       auxiliary_gems.join(" "),
        "-n #{install_dir}/bin",
        "--no-rdoc --no-ri"].join(" "), :env => env
 
