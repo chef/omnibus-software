@@ -59,7 +59,7 @@ env =
   end
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded --with-opt-dir=#{install_dir}/embedded --with-out-ext=iconv,fiddle --enable-shared --disable-install-doc", :env => env
+  command "./configure --prefix=#{install_dir}/embedded --with-opt-dir=#{install_dir}/embedded --with-out-ext=iconv,fiddle --with=psych --enable-shared --disable-install-doc", :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 #  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
