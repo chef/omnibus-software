@@ -25,7 +25,8 @@ relative_path "libtool-2.4"
 
 make_command =
   case platform
-  when "solaris2", "freebsd"
+  when "freebsd"
+    # Really?  Why would we use qmake?
     "qmake"
   else
     "make"

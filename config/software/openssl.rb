@@ -35,9 +35,9 @@ build do
              "--with-zlib-include=#{install_dir}/embedded/include",
              "zlib",
              "shared"].join(" ")
-  elsif platform == "solaris2"
-    command ["./Configure",
-             "solaris-sparcv9-cc",
+  elsif (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc" and architecture == "sparc")
+    command ["/bin/sh ./Configure",
+             "solaris-sparcv9-gcc",
              "--prefix=#{install_dir}/embedded",
              "--with-zlib-lib=#{install_dir}/embedded/lib",
              "--with-zlib-include=#{install_dir}/embedded/include",
@@ -45,7 +45,22 @@ build do
              "shared",
              "-L#{install_dir}/embedded/lib",
              "-I#{install_dir}/embedded/include",
-             "-R#{install_dir}/embedded/lib"].join(" ")
+             "-R#{install_dir}/embedded/lib",
+             "-static-libgcc"].join(" ")
+  elsif (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc" and architecture == "intel")
+    # This should not require a /bin/sh, but without it we get
+    # Errno::ENOEXEC: Exec format error
+    command ["/bin/sh ./Configure",
+             "solaris-x86-gcc",
+             "--prefix=#{install_dir}/embedded",
+             "--with-zlib-lib=#{install_dir}/embedded/lib",
+             "--with-zlib-include=#{install_dir}/embedded/include",
+             "zlib",
+             "shared",
+             "-L#{install_dir}/embedded/lib",
+             "-I#{install_dir}/embedded/include",
+             "-R#{install_dir}/embedded/lib",
+             "-static-libgcc"].join(" ")
   else
     command(["./config",
              "--prefix=#{install_dir}/embedded",
@@ -61,4 +76,15 @@ build do
   # make and install
   command "make", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "make install"
+
+#  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
+#    engines = %w{lib4758cca.so libaep.so libatalla.so libcswift.so libgmp.so libchil.so libnuron.so libsureware.so libubsec.so libpadlock.so libcapi.so libgost.so}
+#    libraries = %w{libssl.so.1.0.0 libcrypto.so.1.0.0}
+#    engines.each do |engine|
+#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/engines/#{engine}"
+#    end
+#    libraries.each do |library|
+#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{library}"
+#    end
+#  end
 end

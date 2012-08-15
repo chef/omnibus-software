@@ -22,7 +22,7 @@ dependencies ["rubygems"]
 
 relative_path "yajl-ruby"
 
-if platform == "solaris2"
+if (platform == "solaris2" and Omnibus.config.solaris_compiler == "studio")
   version "sparc"
   source :git => "git://github.com/Atalanta/yajl-ruby"
 

@@ -28,8 +28,12 @@ env = {
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
+if platform == "solaris2"
+  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc", "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
+end
+
 build do
   command "./configure --prefix=#{install_dir}/embedded", :env => env
   command "make -j #{max_build_jobs}", :env => env
-  command "make install"
+  command "make install", :env => env
 end
