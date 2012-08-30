@@ -19,7 +19,7 @@ name "omnibus-ctl"
 version "0.0.1"
 dependencies ["ruby","rubygems","bundler"]
 
-source :git => "http://github.com/opscode/omnibus-ctl"
+source :git => "git://github.com/opscode/omnibus-ctl.git"
 
 relative_path "omnibus-ctl"
 
