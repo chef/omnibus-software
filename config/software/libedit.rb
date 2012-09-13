@@ -15,28 +15,23 @@
 # limitations under the License.
 #
 
-name "libxml2"
-version "2.7.8"
+name "libedit"
+version "20120601-3.0"
 
-dependencies ["zlib", "libiconv"]
+source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
+       :md5 => "e50f6a7afb4de00c81650f7b1a0f5aea"
 
-source :url => "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz",
-       :md5 => "8127a65e8c3b08856093099b52599c86"
+relative_path "libedit-20120601-3.0"
 
-relative_path "libxml2-2.7.8"
-
-build do
-  cmd = ["./configure",
-         "--prefix=#{install_dir}/embedded",
-         "--with-zlib=#{install_dir}/embedded",
-         "--with-iconv=#{install_dir}/embedded",
-         "--without-python"].join(" ")
-  env = {
+env = {
     "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+    "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
   }
-  command cmd, :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "make install", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+
+build do
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make", :env => env
+  command "make install"
 end

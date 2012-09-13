@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ version "9.1.2"
 
 dependencies ["zlib",
               "openssl",
-              "readline",
+              "libedit",
               "ncurses"]
 
 source :url => "http://ftp.postgresql.org/pub/source/v9.1.2/postgresql-9.1.2.tar.gz",
@@ -38,6 +38,7 @@ build do
   patch :source => 'postgresql-9.1.2-configure-ncurses-fix.patch'
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
+           "--with-libedit-preferred",
            "--with-openssl --with-includes=#{install_dir}/embedded/include",
            "--with-libraries=#{install_dir}/embedded/lib"].join(" "), :env => configure_env
   command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
