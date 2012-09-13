@@ -18,7 +18,7 @@
 name "ruby"
 version "1.9.3-p194"
 
-deps = ["zlib", "ncurses", "readline", "openssl", "libyaml"]
+deps = ["zlib", "ncurses", "libedit", "openssl", "libyaml"]
 deps << "gdbm" if OHAI.platform == "mac_os_x"
 deps << "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 dependencies deps
@@ -59,7 +59,14 @@ env =
   end
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded --with-opt-dir=#{install_dir}/embedded --with-out-ext=iconv,fiddle --with-ext=psych --enable-shared --disable-install-doc", :env => env
+  command ["./configure",
+           "--prefix=#{install_dir}/embedded",
+           "--with-opt-dir=#{install_dir}/embedded",
+           "--with-out-ext=iconv,fiddle",
+           "--enable-shared",
+           "--with-ext=psych",
+           "--disable-install-doc",
+           "--enable-libedit"].join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 #  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
