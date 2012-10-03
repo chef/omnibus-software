@@ -75,7 +75,7 @@ build do
   #####################################################################
   block do
     project = self.project
-    if %w{chef chef-server}.include? project.name
+    if project.name == "chef"
       git_cmd = "git describe --tags"
       src_dir = self.project_dir
       shell = Mixlib::ShellOut.new(git_cmd,
@@ -84,8 +84,8 @@ build do
       shell.error!
       build_version = shell.stdout.chomp
 
-      project.build_version build_version
-      project.build_iteration 1
+      project.build_version   build_version
+      project.build_iteration ENV["CHEF_PACKAGE_ITERATION"].to_i || 1
     end
   end
 
