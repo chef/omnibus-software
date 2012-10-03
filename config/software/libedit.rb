@@ -26,11 +26,10 @@ source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
 relative_path "libedit-20120601-3.0"
 
 env = {
-    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
+    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-    "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
-    "LIBS" => "-lcurses"
+    "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
   }
 
 build do
