@@ -53,9 +53,8 @@ env =
     end
   else
     {
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LIBS" => "-lssl -ledit -lncurses -lyaml -L#{install_dir}/embedded/lib"
+      "CFLAGS" => "-I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
     }
   end
 
