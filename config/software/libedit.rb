@@ -18,20 +18,24 @@
 name "libedit"
 version "20120601-3.0"
 
+dependencies ["ncurses"]
+
 source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
        :md5 => "e50f6a7afb4de00c81650f7b1a0f5aea"
 
 relative_path "libedit-20120601-3.0"
 
 env = {
-    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
+    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
     "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
   }
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command ["./configure",
+           "--prefix=#{install_dir}/embedded"
+           ].join(" "), :env => env
   command "make", :env => env
   command "make install"
 end
