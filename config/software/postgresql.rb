@@ -16,17 +16,17 @@
 #
 
 name "postgresql"
-version "9.1.2"
+version "9.2.1"
 
 dependencies ["zlib",
               "openssl",
               "libedit",
               "ncurses"]
 
-source :url => "http://ftp.postgresql.org/pub/source/v9.1.2/postgresql-9.1.2.tar.gz",
-       :md5 => "fe01293f96e04da9879840b1996a3d2c"
+source :url => "http://ftp.postgresql.org/pub/source/v9.2.1/postgresql-9.2.1.tar.bz2",
+       :md5 => "c0b4799ea9850eae3ead14f0a60e9418"
 
-relative_path "postgresql-9.1.2"
+relative_path "postgresql-9.2.1"
 
 configure_env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -35,7 +35,6 @@ configure_env = {
 }
 
 build do
-  patch :source => 'postgresql-9.1.2-configure-ncurses-fix.patch'
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-libedit-preferred",
