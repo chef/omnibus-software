@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ name "chef"
 dependencies ["ruby", "rubygems", "yajl", "bundler"]
 
 version case project.name
-        when "chef", "chef-server"
+        when "chef"
           ENV["CHEF_GIT_REV"] || "0.10.8"
         else
           "0.10.8"
@@ -89,9 +89,33 @@ build do
     end
   end
 
-  rake "gem", :cwd => "#{self.project_dir}/chef", :env => env
+  # COMPAT HACK :( - Chef 11 finally has the core Chef code in the root of the
+  # project repo. Since the Chef Client pipeline needs to build/test Chef 10.x
+  # and 11 releases our software definition need to handle both cases
+  # gracefully.
+  block do
+    build_commands = self.builder.build_commands
+    chef_root = File.join(self.project_dir, "chef")
+    if File.exists?(chef_root)
+      build_commands.each_index do |i|
+        cmd = build_commands[i].dup
+        if cmd.is_a? Array
+          if cmd.last.is_a? Hash
+            cmd_opts = cmd.pop.dup
+            cmd_opts[:cwd] = chef_root
+            cmd << cmd_opts
+          else
+            cmd << {:cwd => chef_root}
+          end
+          build_commands[i] = cmd
+        end
+      end
+    end
+  end
 
-  gem ["install chef/pkg/chef*.gem",
+  rake "gem", :env => env
+
+  gem ["install pkg/chef*.gem",
       "-n #{install_dir}/bin",
       "--no-rdoc --no-ri"].join(" "), :env => env
 
