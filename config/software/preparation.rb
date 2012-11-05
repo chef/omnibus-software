@@ -20,8 +20,8 @@ description "the steps required to preprare the build"
 
 build do
   if platform == "windows"
-    command "mkdir #{install_dir}/embedded"
-    command "mkdir #{install_dir}/bin"
+    # command "mkdir #{install_dir}\\embedded"
+    # command "mkdir #{install_dir}\\bin"
   else
     command "mkdir -p #{install_dir}/embedded/lib"
     command "mkdir -p #{install_dir}/embedded/bin"
