@@ -19,12 +19,9 @@ name "preparation"
 description "the steps required to preprare the build"
 
 build do
-  if platform == "windows"
-    command "mkdir #{install_dir}/embedded"
-    command "mkdir #{install_dir}/bin"
-  else
-    command "mkdir -p #{install_dir}/embedded/lib"
-    command "mkdir -p #{install_dir}/embedded/bin"
-    command "mkdir -p #{install_dir}/bin"
+  block do
+    %w{embedded/lib embedded/bin bin}.each do |dir|
+      FileUtils.mkdir_p(File.expand_path(dir, install_dir))
+    end
   end
 end
