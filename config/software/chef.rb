@@ -19,12 +19,7 @@ name "chef"
 
 dependencies ["ruby", "rubygems", "yajl", "bundler"]
 
-version case project.name
-        when "chef"
-          ENV["CHEF_GIT_REV"] || "0.10.8"
-        else
-          "0.10.8"
-        end
+version ENV["CHEF_GIT_REV"] || "master"
 
 source :git => "git://github.com/opscode/chef"
 
