@@ -15,29 +15,23 @@
 # limitations under the License.
 #
 
-name "nginx"
-version "1.2.3"
+name "libgpg-error"
+version "1.9"
 
-dependencies ["openssl","pcre"]
+source :url => "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.9.tar.bz2",
+       :md5 => "521b98aa9395e7eaf0ef2236233a0796"
 
-source :url => "http://nginx.org/download/nginx-1.2.3.tar.gz",
-       :md5 => "0a986e60826d9e3b453dbefc36bf8f6c"
-
-relative_path "nginx-1.2.3"
+relative_path "libgpg-error-1.9"
 
 env = {
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-http_ssl_module",
-           "--with-debug",
-           "--with-ld-opt=-L#{install_dir}/embedded/lib",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}, :env => env
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 end
+
+

@@ -15,29 +15,23 @@
 # limitations under the License.
 #
 
-name "nginx"
-version "1.2.3"
+name "pth"
+version "2.0.7"
 
-dependencies ["openssl","pcre"]
+source :url => "ftp://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz",
+       :md5 => "9cb4a25331a4c4db866a31cbe507c793"
 
-source :url => "http://nginx.org/download/nginx-1.2.3.tar.gz",
-       :md5 => "0a986e60826d9e3b453dbefc36bf8f6c"
-
-relative_path "nginx-1.2.3"
+relative_path "pth-2.0.7"
 
 env = {
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-http_ssl_module",
-           "--with-debug",
-           "--with-ld-opt=-L#{install_dir}/embedded/lib",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}, :env => env
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 end
+
+

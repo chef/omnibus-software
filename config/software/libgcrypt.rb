@@ -15,15 +15,13 @@
 # limitations under the License.
 #
 
-name "nginx"
-version "1.2.3"
+name "libgcrypt"
+version "1.5.0"
 
-dependencies ["openssl","pcre"]
+source :url => "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.5.0.tar.bz2",
+       :md5 => "693f9c64d50c908bc4d6e01da3ff76d8"
 
-source :url => "http://nginx.org/download/nginx-1.2.3.tar.gz",
-       :md5 => "0a986e60826d9e3b453dbefc36bf8f6c"
-
-relative_path "nginx-1.2.3"
+relative_path "libgcrypt-1.5.0"
 
 env = {
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -32,12 +30,11 @@ env = {
 }
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-http_ssl_module",
-           "--with-debug",
-           "--with-ld-opt=-L#{install_dir}/embedded/lib",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}, :env => env
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 end
+
+
+
+

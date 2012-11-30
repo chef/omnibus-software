@@ -15,29 +15,25 @@
 # limitations under the License.
 #
 
-name "nginx"
-version "1.2.3"
+name "libassuan"
+version "2.0.3"
 
-dependencies ["openssl","pcre"]
+source :url => "ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-2.0.3.tar.bz2",
+       :md5 => "179d1918325fdb928c7bd90b8a514fc7"
 
-source :url => "http://nginx.org/download/nginx-1.2.3.tar.gz",
-       :md5 => "0a986e60826d9e3b453dbefc36bf8f6c"
+relative_path "libassuan-2.0.3"
 
-relative_path "nginx-1.2.3"
+dependencies ["libgpg-error","libksba"]
 
 env = {
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  "PATH" => "/opt/metarepo/embedded/bin:#{ENV['PATH']}"
 }
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-http_ssl_module",
-           "--with-debug",
-           "--with-ld-opt=-L#{install_dir}/embedded/lib",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}, :env => env
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 end
+

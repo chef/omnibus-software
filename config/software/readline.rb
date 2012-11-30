@@ -15,15 +15,15 @@
 # limitations under the License.
 #
 
-name "nginx"
-version "1.2.3"
+name "readline"
+version "6.2"
 
-dependencies ["openssl","pcre"]
+source :url => "ftp://ftp.cwru.edu/pub/bash/readline-6.2.tar.gz",
+       :md5 => "67948acb2ca081f23359d0256e9a271c"
 
-source :url => "http://nginx.org/download/nginx-1.2.3.tar.gz",
-       :md5 => "0a986e60826d9e3b453dbefc36bf8f6c"
+relative_path "readline-6.2"
 
-relative_path "nginx-1.2.3"
+#dependencies ["libgpg-error", "libassuan", "pth", "libksba", "libedit"]
 
 env = {
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -32,12 +32,11 @@ env = {
 }
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-http_ssl_module",
-           "--with-debug",
-           "--with-ld-opt=-L#{install_dir}/embedded/lib",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}, :env => env
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
 end
+
+
+
+
