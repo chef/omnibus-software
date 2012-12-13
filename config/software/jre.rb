@@ -20,7 +20,7 @@ version "7u3-b04"
 
 dependencies ["rsync"]
 
-if `uname -p` =~ /x86_64/ || `uname -m` =~ /x86_64/
+if OHAI.kernel['machine'] =~ /x86_64/
   # TODO: download x86 version on x86 machines
   source :url => "http://download.oracle.com/otn-pub/java/jdk/7u3-b04/jre-7u3-linux-x64.tar.gz",
          :md5 => "3d3e206cea84129f1daa8e62bf656a28",
