@@ -18,7 +18,7 @@
 name "ruby"
 version "1.9.3-p286"
 
-deps = ["zlib", "ncurses", "libedit", "openssl", "libyaml"]
+deps = ["zlib", "ncurses", "libedit", "openssl", "libyaml", "libiconv"]
 deps << "gdbm" if OHAI.platform == "mac_os_x"
 deps << "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 dependencies deps
@@ -61,7 +61,7 @@ build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-opt-dir=#{install_dir}/embedded",
-           "--with-out-ext=iconv,fiddle",
+           "--with-out-ext=fiddle",
            "--enable-shared",
            "--enable-libedit",
            "--with-ext=psych",
