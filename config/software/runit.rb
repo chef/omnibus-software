@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ working_dir = "#{project_dir}/runit-2.1.1"
 
 build do
   # put runit where we want it, not where they tell us to
-  command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"\/opt\/' + project.name + '\/service\/\";/" src/sv.c', :cwd => working_dir
+  command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"' + project.install_path.gsub("/", "\\/") + '\/service\/\";/" src/sv.c', :cwd => working_dir
   # TODO: the following is not idempotent
   command "sed -i -e s:-static:: src/Makefile", :cwd => working_dir
 
