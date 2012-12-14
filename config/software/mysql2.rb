@@ -15,16 +15,27 @@
 # limitations under the License.
 #
 
-name "libgcc"
-description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
+#
+# Enable MySQL support by adding the following to '/etc/chef-server/chef-server.rb':
+#
+#   database_type = 'mysql'
+#   postgresql['enable'] = false
+#   mysql['enable'] = true
+#   mysql['destructive_migrate'] = true
+#
+# Then run 'chef-server-ctl reconfigure'
+#
 
-if (platform == "solaris2" && Omnibus.config.solaris_compiler == "gcc")
-  build do
-    if File.exists?("/opt/csw/lib/libgcc_s.so.1")
-      command "cp /opt/csw/lib/libgcc_s.so.1 #{install_dir}/embedded/lib/"
-    else
-      raise "cannot find libgcc_s.so.1 -- where is your gcc compiler?"
-    end
+name "mysql2"
+versions_to_install = [ "0.3.6", "0.3.7" ]
+version versions_to_install.join("-")
+
+dependencies ["ruby", "bundler"]
+
+build do
+  gem "install rake-compiler"
+  command "mkdir -p #{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
+  versions_to_install.each do |ver|
+    gem "fetch mysql2 --version #{ver}", :cwd => "#{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
   end
 end
-
