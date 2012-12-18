@@ -16,7 +16,7 @@
 #
 
 name "omnibus-ctl"
-version "0.0.4"
+version "0.0.5"
 dependencies ["ruby","rubygems","bundler"]
 
 source :git => "git://github.com/opscode/omnibus-ctl.git"
@@ -25,7 +25,7 @@ relative_path "omnibus-ctl"
 
 build do
   gem "build omnibus-ctl.gemspec"
-  gem "install omnibus-ctl-#{version}.gem"
+  gem "install omnibus-ctl-0.0.4.gem"
   command "mkdir -p #{install_dir}/embedded/service/omnibus-ctl"
 end
 
