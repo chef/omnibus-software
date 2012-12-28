@@ -16,14 +16,14 @@
 #
 
 name "openssl"
-version "1.0.0f"
+version "1.0.1c"
 
 dependencies ["zlib"]
 
-source :url => "http://www.openssl.org/source/openssl-1.0.0f.tar.gz",
-       :md5 => "e358705fb4a8827b5e9224a73f442025"
+source :url => "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
+       :md5 => "ae412727c8c15b67880aef7bd2999b2e"
 
-relative_path "openssl-1.0.0f"
+relative_path "openssl-1.0.1c"
 
 build do
   # configure
