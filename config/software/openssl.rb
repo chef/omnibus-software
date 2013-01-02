@@ -26,65 +26,90 @@ source :url => "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
 relative_path "openssl-1.0.1c"
 
 build do
-  # configure
-  if platform == "mac_os_x"
-    command ["./Configure",
-             "darwin64-x86_64-cc",
-             "--prefix=#{install_dir}/embedded",
-             "--with-zlib-lib=#{install_dir}/embedded/lib",
-             "--with-zlib-include=#{install_dir}/embedded/include",
-             "zlib",
-             "shared"].join(" ")
-  elsif (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc" and architecture == "sparc")
-    command ["/bin/sh ./Configure",
-             "solaris-sparcv9-gcc",
-             "--prefix=#{install_dir}/embedded",
-             "--with-zlib-lib=#{install_dir}/embedded/lib",
-             "--with-zlib-include=#{install_dir}/embedded/include",
-             "zlib",
-             "shared",
-             "-L#{install_dir}/embedded/lib",
-             "-I#{install_dir}/embedded/include",
-             "-R#{install_dir}/embedded/lib",
-             "-static-libgcc"].join(" ")
-  elsif (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc" and architecture == "intel")
-    # This should not require a /bin/sh, but without it we get
-    # Errno::ENOEXEC: Exec format error
-    command ["/bin/sh ./Configure",
-             "solaris-x86-gcc",
-             "--prefix=#{install_dir}/embedded",
-             "--with-zlib-lib=#{install_dir}/embedded/lib",
-             "--with-zlib-include=#{install_dir}/embedded/include",
-             "zlib",
-             "shared",
-             "-L#{install_dir}/embedded/lib",
-             "-I#{install_dir}/embedded/include",
-             "-R#{install_dir}/embedded/lib",
-             "-static-libgcc"].join(" ")
-  else
-    command(["./config",
-             "--prefix=#{install_dir}/embedded",
-             "--with-zlib-lib=#{install_dir}/embedded/lib",
-             "--with-zlib-include=#{install_dir}/embedded/include",
-             "zlib",
-             "shared",
-             "-L#{install_dir}/embedded/lib",
-             "-I#{install_dir}/embedded/include"].join(" "),
-            :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"})
-  end
+  env = case platform
+        when "mac_os_x"
+          {
+            "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
+            "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
+          }
+        when "solaris2"
+          if Omnibus.config.solaris_compiler == "studio"
+            {
+              "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+              "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+            }
+          elsif Omnibus.config.solaris_compiler == "gcc"
+            {
+              "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+              "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
+              "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
+            }
+          else
+            raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
+          end
+        else
+          {
+            "CFLAGS" => "-I#{install_dir}/embedded/include",
+            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+          }
+        end
 
-  # make and install
-  command "make", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "make install"
+  configure_command = case platform
+                      when "mac_os_x"
+                        ["./Configure",
+                         "darwin64-x86_64-cc",
+                         "--prefix=#{install_dir}/embedded",
+                        "--with-zlib-lib=#{install_dir}/embedded/lib",
+                        "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared"].join(" ")
+                      when "solaris2"
+                        if Omnibus.config.solaris_compiler == "gcc" 
+                          if architecture == "sparc"
+                            ["/bin/sh ./Configure",
+                             "solaris-sparcv9-gcc",
+                             "--prefix=#{install_dir}/embedded",
+                            "--with-zlib-lib=#{install_dir}/embedded/lib",
+                            "--with-zlib-include=#{install_dir}/embedded/include",
+                            "zlib",
+                            "shared",
+                            "-L#{install_dir}/embedded/lib",
+                            "-I#{install_dir}/embedded/include",
+                            "-R#{install_dir}/embedded/lib",
+                            "-static-libgcc"].join(" ")
+                          else
+                            # This should not require a /bin/sh, but without it we get
+                            # Errno::ENOEXEC: Exec format error
+                            ["/bin/sh ./Configure",
+                             "solaris-x86-gcc",
+                             "--prefix=#{install_dir}/embedded",
+                            "--with-zlib-lib=#{install_dir}/embedded/lib",
+                            "--with-zlib-include=#{install_dir}/embedded/include",
+                            "zlib",
+                            "shared",
+                            "-L#{install_dir}/embedded/lib",
+                            "-I#{install_dir}/embedded/include",
+                            "-R#{install_dir}/embedded/lib",
+                            "-static-libgcc"].join(" ")
+                          end
+                        else
+                          raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
+                        end
+                      else
+                        ["./config",
+                         "--prefix=#{install_dir}/embedded",
+                        "--with-zlib-lib=#{install_dir}/embedded/lib",
+                        "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared",
+                        "disable-gost",
+                        "-L#{install_dir}/embedded/lib",
+                        "-I#{install_dir}/embedded/include",
+                        "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
+                      end
 
-#  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
-#    engines = %w{lib4758cca.so libaep.so libatalla.so libcswift.so libgmp.so libchil.so libnuron.so libsureware.so libubsec.so libpadlock.so libcapi.so libgost.so}
-#    libraries = %w{libssl.so.1.0.0 libcrypto.so.1.0.0}
-#    engines.each do |engine|
-#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/engines/#{engine}"
-#    end
-#    libraries.each do |library|
-#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{library}"
-#    end
-#  end
+  command configure_command, :env => env
+  command "make", :env => env
+  command "make install", :env => env
+
 end
