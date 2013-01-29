@@ -33,6 +33,11 @@ if platform == "solaris2"
   env.merge!({"CXX" => "/opt/csw/gcc3/bin/g++"})
 end
 
+if platform == "smartos"
+  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc"})
+  env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
+end
+
 ########################################################################
 #
 # wide-character support:
@@ -49,6 +54,24 @@ end
 ########################################################################
 
 build do
+  if platform == "smartos"
+    # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
+    # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
+    # compatibility:
+    # http://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/ncurses/patches/
+    patch :source => 'patch-aa', :plevel => 0
+    patch :source => 'patch-ab', :plevel => 0
+    patch :source => 'patch-ac', :plevel => 0
+    patch :source => 'patch-ad', :plevel => 0
+    patch :source => 'patch-cxx_cursesf.h', :plevel => 0
+    patch :source => 'patch-cxx_cursesm.h', :plevel => 0
+
+    # Opscode patches - <someara@opscode.com>
+    # The configure script from the pristine tarball detects xopen_source_extended incorrectly.
+    # Manually working around a false positive.
+    patch :source => 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', :plevel => 0
+  end
+
   # build wide-character libraries
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
