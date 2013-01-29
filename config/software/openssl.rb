@@ -48,6 +48,11 @@ build do
           else
             raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
           end
+          when "smartos"
+            {
+              "CFLAGS"  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+              "LDFLAGS" => "-L#{install_dir}/embedded/lib"
+            }
         else
           {
             "CFLAGS" => "-I#{install_dir}/embedded/include",
@@ -64,6 +69,18 @@ build do
                         "--with-zlib-include=#{install_dir}/embedded/include",
                         "zlib",
                         "shared"].join(" ")
+                      when "smartos"
+                            ["/bin/bash ./Configure",
+                             "solaris64-x86_64-gcc",
+                             "--prefix=#{install_dir}/embedded",
+                             "--with-zlib-lib=#{install_dir}/embedded/lib",
+                             "--with-zlib-include=#{install_dir}/embedded/include",
+                            "zlib",
+                            "shared",
+                             "-L#{install_dir}/embedded/lib",
+                             "-I#{install_dir}/embedded/include",
+                             "-R#{install_dir}/embedded/lib",
+                            "-static-libgcc"].join(" ")
                       when "solaris2"
                         if Omnibus.config.solaris_compiler == "gcc"
                           if architecture == "sparc"
