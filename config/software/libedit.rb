@@ -32,10 +32,20 @@ env = {
     "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
   }
 
+case platform
+when "freebsd"
+  make = "gmake"
+else
+  make = "make"
+end
+
 build do
+  if platform == "freebsd"
+    patch :source => "freebsd-vi-fix.patch"
+  end
   command ["./configure",
            "--prefix=#{install_dir}/embedded"
            ].join(" "), :env => env
-  command "make", :env => env
-  command "make install"
+  command "#{make}", :env => env
+  command "#{make} install"
 end
