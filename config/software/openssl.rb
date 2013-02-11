@@ -48,6 +48,13 @@ build do
           else
             raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
           end
+        when "freebsd"
+          {
+            "CFLAGS" => "-I#{install_dir}/embedded/include",
+            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
+            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
+            "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+          }
         else
           {
             "CFLAGS" => "-I#{install_dir}/embedded/include",
@@ -96,6 +103,16 @@ build do
                         else
                           raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
                         end
+                      when "freebsd"
+                        ["./config",
+                         "--prefix=#{install_dir}/embedded",
+                        "--with-zlib-lib=#{install_dir}/embedded/lib",
+                        "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared",
+                        "-L#{install_dir}/embedded/lib",
+                        "-I#{install_dir}/embedded/include",
+                        "-R#{install_dir}/embedded/lib"].join(" ")
                       else
                         ["./config",
                          "--prefix=#{install_dir}/embedded",
