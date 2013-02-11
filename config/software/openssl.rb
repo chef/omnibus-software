@@ -50,8 +50,8 @@ build do
           end
         when "freebsd"
           {
-            "CFLAGS" => "-I#{install_dir}/embedded/include",
-            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
+            "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+            "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
             "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
             "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
           }
