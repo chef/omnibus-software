@@ -15,17 +15,11 @@
 # limitations under the License.
 #
 
-name "omnibus-ctl"
-version "0.0.6"
-dependencies ["ruby","rubygems","bundler"]
+name "chef-gem"
+version "11.4.0.rc.0"
 
-source :git => "git://github.com/opscode/omnibus-ctl.git"
-
-relative_path "omnibus-ctl"
+dependencies ["ruby","rubygems"]
 
 build do
-  gem "build omnibus-ctl.gemspec"
-  gem "install omnibus-ctl-#{version}.gem"
-  command "mkdir -p #{install_dir}/embedded/service/omnibus-ctl"
+  gem "install chef -n #{install_dir}/embedded/bin --no-rdoc --no-ri -v #{version}"
 end
-
