@@ -16,7 +16,7 @@
 #
 
 name "chef-gem"
-version "11.4.0.rc.0"
+version "11.4.0"
 
 dependencies ["ruby","rubygems"]
 
