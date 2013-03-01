@@ -24,7 +24,7 @@ source :url => "http://curl.haxx.se/ca/cacert.pem",
 relative_path "cacerts-#{version}"
 
 build do
-  command "mkdir -p /opt/chef/embedded/ssl/certs"
+  command "mkdir -p #{install_dir}/embedded/ssl/certs"
   command "cp cacert.pem #{install_dir}/embedded/ssl/certs/cacert.pem"
   command "ln -sf #{install_dir}/embedded/ssl/certs/cacert.pem #{install_dir}/embedded/ssl/cert.pem"
 end
