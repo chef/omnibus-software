@@ -16,19 +16,20 @@
 #
 
 name "nrpe"
-version "2.13"
+version "2.14"
 
-dependencies ["zlib", "openssl", "libwrap"]
+dependencies ["zlib", "openssl"]
+dependencies [ "libwrap" ] if OHAI['platform'] != 'mac_os_x'
 
 # tarball location comes from sourceforge download redirect
-source :url => "http://voxel.dl.sourceforge.net/project/nagios/nrpe-2.x/nrpe-2.13/nrpe-2.13.tar.gz",
-       :md5 => "e5176d9b258123ce9cf5872e33a77c1a"
+source :url => "http://downloads.sourceforge.net/project/nagios/nrpe-2.x/nrpe-2.14/nrpe-2.14.tar.gz",
+       :md5 => "105857720e21674083a6d6be99e102c7"
 
-relative_path "nrpe-2.13"
+relative_path "nrpe-2.14"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -DNODAEMON=1",
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
   "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
 }
@@ -54,6 +55,6 @@ build do
   # move it
   command "mkdir -p #{install_dir}/embedded/nagios/libexec"
   command "mkdir -p #{install_dir}/embedded/nagios/bin"
-  command "cp ./src/check_nrpe #{install_dir}/embedded/nagios/libexec"
-  command "sudo cp ./src/nrpe #{install_dir}/embedded/nagios/bin"
+  command "install -m 0755 ./src/check_nrpe #{install_dir}/embedded/nagios/libexec"
+  command "install -m 0755 ./src/nrpe #{install_dir}/embedded/nagios/bin"
 end
