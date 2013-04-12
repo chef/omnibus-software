@@ -16,16 +16,16 @@
 #
 
 name "openresty"
-version "1.2.7.1"
+version "1.2.6.6"
 
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 
-source :url => "http://agentzh.org/misc/nginx/ngx_openresty-1.2.7.1.tar.gz",
-       :md5 => "87e51a962a9cc911ba85dfc95d671117"
+source :url => "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
+       :md5 => "19f04c65e93f8d38e3590db7c7123f6b"
 
-relative_path "ngx_openresty-1.2.7.1"
+relative_path "ngx_openresty-#{version}"
 
 build do
   env = {
