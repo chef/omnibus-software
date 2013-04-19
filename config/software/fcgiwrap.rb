@@ -18,7 +18,8 @@
 name "fcgiwrap"
 version "1.0.3"
 
-dependencies ["autoconf", "fcgi"]
+dependency "autoconf"
+dependency "fcgi"
 
 # TODO: deploy from the 1.0.3 tag / SHA
 source :git => "git://github.com/gnosek/fcgiwrap"

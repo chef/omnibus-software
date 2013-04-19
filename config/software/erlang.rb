@@ -18,7 +18,9 @@
 name "erlang"
 version "R15B02"
 
-dependencies ["zlib", "openssl", "ncurses"]
+dependency "zlib"
+dependency "openssl"
+dependency "ncurses"
 
 source :url => "http://www.erlang.org/download/otp_src_R15B02.tar.gz",
        :md5 => "ccbe5e032a2afe2390de8913bfe737a1"

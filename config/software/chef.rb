@@ -17,7 +17,10 @@
 
 name "chef"
 
-dependencies ["ruby", "rubygems", "yajl", "bundler"]
+dependency "ruby"
+dependency "rubygems"
+dependency "yajl"
+dependency "bundler"
 
 version ENV["CHEF_GIT_REV"] || "master"
 

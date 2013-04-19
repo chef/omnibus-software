@@ -18,7 +18,7 @@
 name "jre"
 version "7u3-b04"
 
-dependencies ["rsync"]
+dependency "rsync"
 
 if OHAI.kernel['machine'] =~ /x86_64/
   # TODO: download x86 version on x86 machines

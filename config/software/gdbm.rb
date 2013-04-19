@@ -18,7 +18,7 @@
 name "gdbm"
 version "1.9.1"
 
-dependencies ["autoconf"]
+dependency "autoconf"
 
 source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
        :md5 => "59f6e4c4193cb875964ffbe8aa384b58"

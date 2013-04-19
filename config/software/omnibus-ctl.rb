@@ -17,7 +17,10 @@
 
 name "omnibus-ctl"
 version "0.0.6"
-dependencies ["ruby","rubygems","bundler"]
+
+dependency "ruby"
+dependency "rubygems"
+dependency "bundler"
 
 source :git => "git://github.com/opscode/omnibus-ctl.git"
 

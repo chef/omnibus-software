@@ -18,8 +18,6 @@
 name "libyaml"
 version "0.1.4"
 
-dependencies []
-
 source :url => "http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz",
        :md5 => "36c852831d02cf90508c29852361d01b"
 

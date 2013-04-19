@@ -18,7 +18,7 @@
 name "unicorn"
 version "4.2.0"
 
-dependencies ["rubygems"]
+dependency "rubygems"
 
 env = { "GEM_HOME" => nil, "GEM_PATH" => nil }
 

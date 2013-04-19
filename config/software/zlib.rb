@@ -18,8 +18,6 @@
 name "zlib"
 version "1.2.6"
 
-dependencies []
-
 # TODO: this link is subject to change with each new release of zlib.
 #       we'll need to use a more robust link (sourceforge) that will
 #       not change over time.

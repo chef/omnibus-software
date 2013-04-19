@@ -18,7 +18,7 @@
 name "libedit"
 version "20120601-3.0"
 
-dependencies ["ncurses"]
+dependency "ncurses"
 
 source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
        :md5 => "e50f6a7afb4de00c81650f7b1a0f5aea"

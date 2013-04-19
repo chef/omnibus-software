@@ -18,7 +18,7 @@
 name "yajl"
 gem_version = "1.1.0"
 
-dependencies ["rubygems"]
+dependency "rubygems"
 
 relative_path "yajl-ruby"
 

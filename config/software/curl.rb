@@ -18,7 +18,8 @@
 name "curl"
 version "7.23.1"
 
-dependencies ["zlib", "openssl"]
+dependency "zlib"
+dependency "openssl"
 
 source :url => "http://curl.haxx.se/download/curl-7.23.1.tar.gz",
        :md5 => "8e23151f569fb54afef093ac0695077d"

@@ -18,7 +18,10 @@
 name "couchdb"
 version "1.0.3"
 
-dependencies ["spidermonkey", "icu", "curl", "erlang"]
+dependency "spidermonkey"
+dependency "icu"
+dependency "curl"
+dependency "erlang"
 
 source :url => "http://archive.apache.org/dist/couchdb/#{version}/apache-couchdb-#{version}.tar.gz",
        :md5 => "cfdc2ab751bf18049c5ef7866602d8ed"

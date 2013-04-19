@@ -30,7 +30,8 @@ name "mysql2"
 versions_to_install = [ "0.3.6", "0.3.7" ]
 version versions_to_install.join("-")
 
-dependencies ["ruby", "bundler"]
+dependency "ruby"
+dependency "bundler"
 
 build do
   gem "install rake-compiler"

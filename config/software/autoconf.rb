@@ -17,7 +17,6 @@
 
 name "autoconf"
 version "2.68"
-dependencies []
 
 source :url => "http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz",
        :md5 => "c3b5247592ce694f7097873aa07d66fe"
