@@ -18,10 +18,10 @@
 name "postgresql"
 version "9.2.4"
 
-dependencies ["zlib",
-              "openssl",
-              "libedit",
-              "ncurses"]
+dependency "zlib"
+dependency "openssl"
+dependency "libedit"
+dependency "ncurses"
 
 source :url => "http://ftp.postgresql.org/pub/source/v9.2.4/postgresql-9.2.4.tar.bz2",
        :md5 => "6ee5bb53b97da7c6ad9cb0825d3300dd"

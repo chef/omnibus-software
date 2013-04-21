@@ -18,7 +18,7 @@
 name "keepalived"
 version "1.1.20"
 
-dependencies ["popt"]
+dependency "popt"
 
 source :url => "http://www.keepalived.org/software/keepalived-1.1.20.tar.gz",
        :md5 => "6c3065c94bb9e2187c4b5a80f6d8be31"

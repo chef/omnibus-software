@@ -18,7 +18,9 @@
 name "fcgi"
 version "2.4.0"
 
-dependencies ["autoconf", "automake", "libtool"]
+dependency "autoconf"
+dependency "automake"
+dependency "libtool"
 
 source :url => "http://fastcgi.com/dist/fcgi-2.4.0.tar.gz",
        :md5 => "d15060a813b91383a9f3c66faf84867e"

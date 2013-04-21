@@ -18,7 +18,8 @@
 name "spawn-fcgi"
 version "1.6.3"
 
-dependencies ["fcgi", "fcgiwrap"]
+dependency "fcgi"
+dependency "fcgiwrap"
 
 source :url => "http://www.lighttpd.net/download/spawn-fcgi-1.6.3.tar.gz",
        :md5 => "6d75f9e9435056fa1e574d836d823cd0"

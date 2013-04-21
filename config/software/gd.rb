@@ -18,7 +18,10 @@
 name "gd"
 version "2.0.33"
 
-dependencies ["libiconv", "zlib", "libjpeg", "libpng"]
+dependency "libiconv"
+dependency "zlib"
+dependency "libjpeg"
+dependency "libpng"
 
 # TODO: make sure that this is where we want to download libgd from
 source :url => "https://bitbucket.org/pierrejoye/gd-libgd/get/GD_2_0_33.tar.gz",

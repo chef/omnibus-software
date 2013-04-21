@@ -18,7 +18,10 @@
 name "nagios-plugins"
 version "1.4.15"
 
-dependencies ["zlib", "openssl", "postgresql", "libiconv"]
+dependency "zlib"
+dependency "openssl"
+dependency "postgresql"
+dependency "libiconv"
 
 # the url is the location of a redirect from sourceforge
 source :url => "http://voxel.dl.sourceforge.net/project/nagiosplug/nagiosplug/1.4.15/nagios-plugins-1.4.15.tar.gz",

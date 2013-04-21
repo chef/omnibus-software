@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,7 @@
 name "rsync"
 version "3.0.9"
 
-dependencies ["popt"]
+dependency "popt"
 
 source :url => "http://rsync.samba.org/ftp/rsync/src/rsync-3.0.9.tar.gz",
        :md5 => "5ee72266fe2c1822333c407e1761b92b"
