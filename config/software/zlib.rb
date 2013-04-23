@@ -21,7 +21,7 @@ version "1.2.6"
 # TODO: this link is subject to change with each new release of zlib.
 #       we'll need to use a more robust link (sourceforge) that will
 #       not change over time.
-source :url => "http://superb-dca2.dl.sourceforge.net/project/libpng/zlib/1.2.6/zlib-1.2.6.tar.gz",
+source :url => "http://downloads.sourceforge.net/project/libpng/zlib/1.2.6/zlib-1.2.6.tar.gz",
        :md5 => "618e944d7c7cd6521551e30b32322f4a"
 
 relative_path "zlib-1.2.6"

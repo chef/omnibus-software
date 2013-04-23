@@ -23,7 +23,7 @@ dependency "openssl"
 dependency "libwrap"
 
 # tarball location comes from sourceforge download redirect
-source :url => "http://voxel.dl.sourceforge.net/project/nagios/nrpe-2.x/nrpe-2.13/nrpe-2.13.tar.gz",
+source :url => "http://downloads.sourceforge.net/project/nagios/nrpe-2.x/nrpe-2.13/nrpe-2.13.tar.gz",
        :md5 => "e5176d9b258123ce9cf5872e33a77c1a"
 
 relative_path "nrpe-2.13"
