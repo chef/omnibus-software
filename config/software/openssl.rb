@@ -70,17 +70,17 @@ build do
                         "zlib",
                         "shared"].join(" ")
                       when "smartos"
-                            ["/bin/bash ./Configure",
-                             "solaris64-x86_64-gcc",
-                             "--prefix=#{install_dir}/embedded",
-                             "--with-zlib-lib=#{install_dir}/embedded/lib",
-                             "--with-zlib-include=#{install_dir}/embedded/include",
-                            "zlib",
-                            "shared",
-                             "-L#{install_dir}/embedded/lib",
-                             "-I#{install_dir}/embedded/include",
-                             "-R#{install_dir}/embedded/lib",
-                            "-static-libgcc"].join(" ")
+                        ["/bin/bash ./Configure",
+                         "solaris64-x86_64-gcc",
+                         "--prefix=#{install_dir}/embedded",
+                         "--with-zlib-lib=#{install_dir}/embedded/lib",
+                         "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared",
+                         "-L#{install_dir}/embedded/lib",
+                         "-I#{install_dir}/embedded/include",
+                         "-R#{install_dir}/embedded/lib",
+                        "-static-libgcc"].join(" ")
                       when "solaris2"
                         if Omnibus.config.solaris_compiler == "gcc"
                           if architecture == "sparc"
