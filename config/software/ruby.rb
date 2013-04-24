@@ -55,7 +55,7 @@ env =
       raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
     end
   when "smartos"
-    {   
+    {
       "CFLAGS"  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
       "LDFLAGS" => "-L#{install_dir}/embedded/lib"
     }
@@ -71,6 +71,15 @@ build do
   # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
   patch :source => "ruby-openssl-1.0.1c.patch", :plevel => 1
 
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded",
+                       "--with-opt-dir=#{install_dir}/embedded",
+                       "--with-out-ext=fiddle",
+                       "--enable-shared",
+                       "--enable-libedit",
+                       "--with-ext=psych",
+                       "--disable-install-doc"]
+
   if platform == "smartos"
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
@@ -78,31 +87,12 @@ build do
     # https://github.com/wayneeseguin/rvm/issues/719
     patch :source => "rvm-cflags.patch", :plevel => 1
 
-    command ["./configure",
-             "--prefix=#{install_dir}/embedded",
-             "--with-opt-dir=#{install_dir}/embedded",
-             "--with-out-ext=fiddle",
-             "--enable-shared",
-             "--enable-libedit",
-             "--with-ext=psych",
-             # From RVM forum
-             # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
-             "ac_cv_func_dl_iterate_phdr=no",
-             "--disable-install-doc"].join(" "), :env => env
-  else
-    command ["./configure",
-             "--prefix=#{install_dir}/embedded",
-             "--with-opt-dir=#{install_dir}/embedded",
-             "--with-out-ext=fiddle",
-             "--enable-shared",
-             "--enable-libedit",
-             "--with-ext=psych",
-             "--disable-install-doc"].join(" "), :env => env
+    # From RVM forum
+    # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
+    configure_command << "ac_cv_func_dl_iterate_phdr=no"
   end
+
+  command configure_command.join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
-
-#  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
-#    command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/libruby.so.1"
-#  end
 end
