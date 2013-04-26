@@ -18,7 +18,6 @@
 name "ruby"
 version "1.9.3-p286"
 
-<<<<<<< HEAD
 dependency "zlib"
 dependency "ncurses"
 dependency "libedit"
@@ -49,7 +48,7 @@ env =
     elsif Omnibus.config.solaris_compiler == "gcc"
     {
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "L,DFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
     }
     else
@@ -59,7 +58,6 @@ env =
     {
       "RUBYOPT" => "",
       "CFLAGS" => "-fno-omit-frame-pointer -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      #"LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
       "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
     }
