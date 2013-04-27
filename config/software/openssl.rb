@@ -71,7 +71,7 @@ build do
                         "shared"].join(" ")
                       when "smartos"
                             ["/bin/sh ./Configure",
-                             "solaris-x86-gcc",
+                             "solaris64-x86-gcc",
                              "--prefix=#{install_dir}/embedded",
                             "--with-zlib-lib=#{install_dir}/embedded/lib",
                             "--with-zlib-include=#{install_dir}/embedded/include",
