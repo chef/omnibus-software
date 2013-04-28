@@ -48,6 +48,13 @@ end
 #
 ########################################################################
 
+case platform
+when "freebsd"
+  make = "gmake"
+else
+  make = "make"
+end
+
 build do
   # build wide-character libraries
   command(["./configure",
@@ -56,22 +63,22 @@ build do
            "--without-debug",
            "--enable-widec"].join(" "),
           :env => env)
-  command "make -j #{max_build_jobs}", :env => env
-  command "make install", :env => env
+  command "#{make} -j #{max_build_jobs}", :env => env
+  command "#{make} install", :env => env
 
   # build non-wide-character libraries
-  command "make distclean"
+  command "#{make} distclean"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared --with-termlib",
            "--without-debug"].join(" "),
           :env => env)
-  command "make -j #{max_build_jobs}", :env => env
+  command "#{make} -j #{max_build_jobs}", :env => env
 
   # installing the non-wide libraries will also install the non-wide
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
-  command "make install", :env => env
+  command "#{make} install", :env => env
 #  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 #    %w{libtinfow.so.5.9 libncursesw.so.5.9 libpanelw.so.5.9 libmenuw.so.5.9 libformw.so.5.9 libtinfo.so.5.9 libncurses.so.5.9 libpanel.so.5.9 libmenu.so.5.9 libform.so.5.9}.each do |lib|
 #      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{lib}"

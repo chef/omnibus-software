@@ -15,33 +15,31 @@
 # limitations under the License.
 #
 
-name "libiconv"
-version "1.14"
+name "libexecinfo"
+version "1.1"
 
-source :url => 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz',
-       :md5 => 'e34509b1623cec449dfeb73d7ce9c6c6'
+source :url => 'ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/itetcu/libexecinfo-1.1.tar.bz2',
+       :md5 => '8e9e81c554c1c5d735bc877448e92b91'
 
-relative_path "libiconv-1.14"
+relative_path "libexecinfo-1.1"
 
 env = {
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+  "LIBDIR" => "#{install_dir}/embedded/lib",
+  "INCLUDEDIR" => "#{install_dir}/embedded/include",
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+  "CFLAGS" => "-fno-omit-frame-pointer",
+  "BINOWN" => "#{Process.euid}",
+  "BINGRP" => "#{Process.egid}",
+  "LIBOWN" => "#{Process.euid}",
+  "LIBGRP" => "#{Process.egid}"
 }
 
 if platform == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc", "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
 end
 
-case platform
-when "freebsd"
-  make = "gmake"
-else
-  make = "make"
-end
-
-
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "#{make} -j #{max_build_jobs}", :env => env
-  command "#{make} install", :env => env
+  patch :source => "patch-execinfo.c"
+  command "make", :env => env
+  command "make install", :env => env
 end

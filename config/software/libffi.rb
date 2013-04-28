@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+# 
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,34 +15,16 @@
 # limitations under the License.
 #
 
-name "gdbm"
-version "1.9.1"
+name "libffi"
+version "3.0.9"
 
-dependency "autoconf"
+source :url => "ftp://sourceware.org/pub/libffi/libffi-3.0.9.tar.gz",
+       :md5 => "1f300a7a7f975d4046f51c3022fa5ff1"
 
-source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
-       :md5 => "59f6e4c4193cb875964ffbe8aa384b58"
-
-relative_path "gdbm-1.9.1"
-
-extra_configure_args =
-  case platform
-  when "freebsd"
-    "--with-pic"
-  else
-    ""
-  end
-
-case platform
-when "freebsd"
-  make = "gmake"
-else
-  make = "make"
-end
+relative_path "libffi-3.0.9"
 
 build do
-  command "#{install_dir}/embedded/bin/autoconf"
-  command "./configure --prefix=#{install_dir}/embedded #{extra_configure_args}"
-  command "#{make} -j #{max_build_jobs}"
-  command "#{make} install"
+  command "./configure --prefix=#{install_dir}/embedded"
+  command "make -j #{max_build_jobs}  BINOWN=root BINGRP=wheel" # TODO: is this a leftover from os x, a bug?
+  command "make install"
 end

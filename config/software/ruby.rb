@@ -24,7 +24,7 @@ dependency "libedit"
 dependency "openssl"
 dependency "libyaml"
 dependency "libiconv"
-dependency "gdbm" if OHAI.platform == "mac_os_x"
+dependency "gdbm" if OHAI.platform == "mac_os_x" or OHAI.platform == "freebsd"
 dependency "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 
 source :url => "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{version}.tar.gz",
@@ -54,6 +54,13 @@ env =
     else
       raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
     end
+  when "freebsd"
+    {
+      "RUBYOPT" => "",
+      "CFLAGS" => "-fno-omit-frame-pointer -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
+    }
   else
     {
       "CFLAGS" => "-I#{install_dir}/embedded/include",
@@ -61,7 +68,19 @@ env =
     }
   end
 
+extra_configure_args =
+  case platform
+  when "freebsd"
+    #"--with-execinfo-dir=#{install_dir}/embedded"
+    "--without-execinfo"
+  else
+    ""
+  end
+
 build do
+  if platform == "freebsd"
+    patch :source => "freebsd-libexecinfo-location.patch"
+  end
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-opt-dir=#{install_dir}/embedded",
@@ -69,9 +88,10 @@ build do
            "--enable-shared",
            "--enable-libedit",
            "--with-ext=psych",
+           extra_configure_args,
            "--disable-install-doc"].join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make install", :env => env
+  command "env - #{env.map{|k,v| k=[k,"'#{v}'"].join("=")}.join(" ")} PATH=$PATH make -j #{max_build_jobs}", :env => env
+  command "env - #{env.map{|k,v| k=[k,"'#{v}'"].join("=")}.join(" ")} PATH=$PATH make install", :env => env
 
 #  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 #    command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/libruby.so.1"
