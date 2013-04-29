@@ -33,16 +33,10 @@ extra_configure_args =
     ""
   end
 
-case platform
-when "freebsd"
-  make = "gmake"
-else
-  make = "make"
-end
 
 build do
   command "#{install_dir}/embedded/bin/autoconf"
   command "./configure --prefix=#{install_dir}/embedded #{extra_configure_args}"
-  command "#{make} -j #{max_build_jobs}"
-  command "#{make} install"
+  command "make -j #{max_build_jobs}"
+  command "make install"
 end
