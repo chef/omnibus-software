@@ -79,7 +79,6 @@ extra_configure_args =
 
 build do
   if platform == "freebsd"
-    patch :source => "freebsd-libexecinfo-location.patch"
   end
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
