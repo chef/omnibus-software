@@ -25,18 +25,16 @@ source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
 
 relative_path "gdbm-1.9.1"
 
-extra_configure_args =
-  case platform
-  when "freebsd"
-    "--with-pic"
-  else
-    ""
+build do
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded"]
+
+  if platform == "freebsd"
+    configure_command << "--with-pic"
   end
 
-
-build do
   command "#{install_dir}/embedded/bin/autoconf"
-  command "./configure --prefix=#{install_dir}/embedded #{extra_configure_args}"
+  command configure_command.join(" ")
   command "make -j #{max_build_jobs}"
   command "make install"
 end
