@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,11 @@ source :url => "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
 
 relative_path "ncurses-5.9"
 
-env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib", "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"}
+env = {
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+}
+
 if platform == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc"})
   env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
@@ -31,6 +35,9 @@ if platform == "solaris2"
   env.merge!({"PATH" => "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"})
   env.merge!({"CC" => "/opt/csw/gcc3/bin/gcc"})
   env.merge!({"CXX" => "/opt/csw/gcc3/bin/g++"})
+elsif platform == "smartos"
+  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc"})
+  env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
 end
 
 ########################################################################
@@ -49,6 +56,23 @@ end
 ########################################################################
 
 build do
+  if platform == "smartos"
+    # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
+    # These patches are taken from NetBSD pkgsrc.
+    # http://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/ncurses/patches/
+    patch :source => 'patch-aa', :plevel => 0
+    patch :source => 'patch-ab', :plevel => 0
+    patch :source => 'patch-ac', :plevel => 0
+    patch :source => 'patch-ad', :plevel => 0
+    patch :source => 'patch-cxx_cursesf.h', :plevel => 0
+    patch :source => 'patch-cxx_cursesm.h', :plevel => 0
+
+    # Opscode patches - <someara@opscode.com>
+    # The configure script from the pristine tarball detects xopen_source_extended incorrectly.
+    # Manually working around a false positive.
+    patch :source => 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', :plevel => 0
+  end
+
   # build wide-character libraries
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
