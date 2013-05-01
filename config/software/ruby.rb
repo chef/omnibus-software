@@ -54,14 +54,6 @@ env =
     else
       raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
     end
-  when "freebsd"
-    {
-      "RUBYOPT" => "",
-      "CFLAGS" => "-fno-omit-frame-pointer -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CPPFLAGS" => "-I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-    }
   else
     {
       "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
