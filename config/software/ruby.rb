@@ -54,11 +54,6 @@ env =
     else
       raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
     end
-  when "smartos"
-    {   
-      "CFLAGS"  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib"
-    }
   else
     {
       "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
