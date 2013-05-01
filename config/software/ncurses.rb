@@ -75,8 +75,10 @@ build do
   # build wide-character libraries
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--with-shared --with-termlib",
+           "--with-shared",
+           "--with-termlib",
            "--without-debug",
+           "--enable-overwrite",
            "--enable-widec"].join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
@@ -86,8 +88,10 @@ build do
   command "make distclean"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--with-shared --with-termlib",
-           "--without-debug"].join(" "),
+           "--with-shared",
+           "--with-termlib",
+           "--without-debug",
+           "--enable-overwrite"].join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
 
