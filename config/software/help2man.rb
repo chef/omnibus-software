@@ -23,17 +23,8 @@ source :url => "http://ftp.gnu.org/gnu/help2man/help2man-1.40.5.tar.gz",
 
 relative_path "help2man-1.40.5"
 
-make_command =
-  case platform
-  when "freebsd"
-    # Really? Why would we use qmake?
-    "qmake"
-  else
-    "make"
-  end
-
 build do
   command "./configure --prefix=#{install_dir}/embedded"
-  command make_command
-  command "#{make_command} install"
+  command "make"
+  command "make install"
 end
