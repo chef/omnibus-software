@@ -95,9 +95,9 @@ build do
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
   command "make install", :env => env
-#  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
-#    %w{libtinfow.so.5.9 libncursesw.so.5.9 libpanelw.so.5.9 libmenuw.so.5.9 libformw.so.5.9 libtinfo.so.5.9 libncurses.so.5.9 libpanel.so.5.9 libmenu.so.5.9 libform.so.5.9}.each do |lib|
-#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{lib}"
-#    end
-#  end
+
+  # Ensure embedded ncurses wins in the LD search path
+  if platform == "smartos"
+    command "ln -sf #{install_dir}/embedded/lib/libcurses.so #{install_dir}/embedded/lib/libcurses.so.1"
+  end
 end
