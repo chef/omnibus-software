@@ -73,6 +73,20 @@ build do
 
   if platform == "freebsd"
     configure_command << "--without-execinfo"
+  elsif platform == "smartos"
+    # Opscode patch - someara@opscode.com
+    # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
+    patch :source => "ruby-openssl-1.0.1c.patch", :plevel => 1
+
+    # Patches taken from RVM.
+    # http://bugs.ruby-lang.org/issues/5384
+    # https://www.illumos.org/issues/1587
+    # https://github.com/wayneeseguin/rvm/issues/719
+    patch :source => "rvm-cflags.patch", :plevel => 1
+
+    # From RVM forum
+    # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
+    configure_command << "ac_cv_func_dl_iterate_phdr=no"
   end
 
   command configure_command.join(" "), :env => env

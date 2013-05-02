@@ -23,7 +23,12 @@ source :url => "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
 
 relative_path "ncurses-5.9"
 
-env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib", "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"}
+env = {
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+}
+
 if platform == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc"})
   env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
@@ -49,11 +54,31 @@ end
 ########################################################################
 
 build do
+  if platform == "smartos"
+    # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
+    # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
+    # compatibility:
+    # http://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/ncurses/patches/
+    patch :source => 'patch-aa', :plevel => 0
+    patch :source => 'patch-ab', :plevel => 0
+    patch :source => 'patch-ac', :plevel => 0
+    patch :source => 'patch-ad', :plevel => 0
+    patch :source => 'patch-cxx_cursesf.h', :plevel => 0
+    patch :source => 'patch-cxx_cursesm.h', :plevel => 0
+
+    # Opscode patches - <someara@opscode.com>
+    # The configure script from the pristine tarball detects xopen_source_extended incorrectly.
+    # Manually working around a false positive.
+    patch :source => 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', :plevel => 0
+  end
+
   # build wide-character libraries
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--with-shared --with-termlib",
+           "--with-shared",
+           "--with-termlib",
            "--without-debug",
+           "--enable-overwrite",
            "--enable-widec"].join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
@@ -63,8 +88,10 @@ build do
   command "make distclean"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--with-shared --with-termlib",
-           "--without-debug"].join(" "),
+           "--with-shared",
+           "--with-termlib",
+           "--without-debug",
+           "--enable-overwrite"].join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
 
@@ -72,9 +99,9 @@ build do
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
   command "make install", :env => env
-#  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
-#    %w{libtinfow.so.5.9 libncursesw.so.5.9 libpanelw.so.5.9 libmenuw.so.5.9 libformw.so.5.9 libtinfo.so.5.9 libncurses.so.5.9 libpanel.so.5.9 libmenu.so.5.9 libform.so.5.9}.each do |lib|
-#      command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/#{lib}"
-#    end
-#  end
+
+  # Ensure embedded ncurses wins in the LD search path
+  if platform == "smartos"
+    command "ln -sf #{install_dir}/embedded/lib/libcurses.so #{install_dir}/embedded/lib/libcurses.so.1"
+  end
 end
