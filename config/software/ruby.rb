@@ -24,7 +24,7 @@ dependency "libedit"
 dependency "openssl"
 dependency "libyaml"
 dependency "libiconv"
-dependency "gdbm" if OHAI.platform == "mac_os_x"
+dependency "gdbm" if (platform == "mac_os_x" or platform == "freebsd")
 dependency "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 
 source :url => "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{version}.tar.gz",
@@ -62,18 +62,20 @@ env =
   end
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-opt-dir=#{install_dir}/embedded",
-           "--with-out-ext=fiddle",
-           "--enable-shared",
-           "--enable-libedit",
-           "--with-ext=psych",
-           "--disable-install-doc"].join(" "), :env => env
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded",
+                       "--with-opt-dir=#{install_dir}/embedded",
+                       "--with-out-ext=fiddle",
+                       "--enable-shared",
+                       "--enable-libedit",
+                       "--with-ext=psych",
+                       "--disable-install-doc"]
+
+  if platform == "freebsd"
+    configure_command << "--without-execinfo"
+  end
+
+  command configure_command.join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
-
-#  if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
-#    command "/opt/omnibus/bootstrap/bin/chrpath -r #{install_dir}/embedded/lib #{install_dir}/embedded/lib/libruby.so.1"
-#  end
 end
