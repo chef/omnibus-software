@@ -62,6 +62,7 @@ build do
                          "--prefix=#{install_dir}/embedded",
                         "--with-zlib-lib=#{install_dir}/embedded/lib",
                         "--with-zlib-include=#{install_dir}/embedded/include",
+                        "no-rc5",
                         "zlib",
                         "shared"].join(" ")
                       when "smartos"
@@ -85,6 +86,7 @@ build do
                             "--with-zlib-lib=#{install_dir}/embedded/lib",
                             "--with-zlib-include=#{install_dir}/embedded/include",
                             "zlib",
+                            "no-rc5",
                             "shared",
                             "-L#{install_dir}/embedded/lib",
                             "-I#{install_dir}/embedded/include",
@@ -99,6 +101,7 @@ build do
                             "--with-zlib-lib=#{install_dir}/embedded/lib",
                             "--with-zlib-include=#{install_dir}/embedded/include",
                             "zlib",
+                            "no-rc5",
                             "shared",
                             "-L#{install_dir}/embedded/lib",
                             "-I#{install_dir}/embedded/include",
@@ -114,6 +117,7 @@ build do
                         "--with-zlib-lib=#{install_dir}/embedded/lib",
                         "--with-zlib-include=#{install_dir}/embedded/include",
                         "zlib",
+                        "no-rc5",
                         "shared",
                         "disable-gost",
                         "-L#{install_dir}/embedded/lib",
