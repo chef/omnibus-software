@@ -26,7 +26,7 @@ relative_path "ncurses-5.9"
 env = {
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+  "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
 }
 
 if platform == "solaris2"
