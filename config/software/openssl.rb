@@ -55,28 +55,23 @@ build do
           }
         end
 
-  common_args = [
-    "--prefix=#{install_dir}/embedded",
-    "--with-zlib-lib=#{install_dir}/embedded/lib",
-    "--with-zlib-include=#{install_dir}/embedded/include",
-    "no-idea",
-    "no-mdc2",
-    "no-rc5",
-    "zlib",
-    "shared",
-    "disable-gost",
-  ].join(" ")
-
   configure_command = case platform
                       when "mac_os_x"
                         ["./Configure",
                          "darwin64-x86_64-cc",
-                         common_args,
-                        ].join(" ")
+                         "--prefix=#{install_dir}/embedded",
+                        "--with-zlib-lib=#{install_dir}/embedded/lib",
+                        "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared"].join(" ")
                       when "smartos"
                         ["/bin/bash ./Configure",
                          "solaris64-x86_64-gcc",
-                         common_args,
+                         "--prefix=#{install_dir}/embedded",
+                         "--with-zlib-lib=#{install_dir}/embedded/lib",
+                         "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared",
                          "-L#{install_dir}/embedded/lib",
                          "-I#{install_dir}/embedded/include",
                          "-R#{install_dir}/embedded/lib",
@@ -86,7 +81,11 @@ build do
                           if architecture == "sparc"
                             ["/bin/sh ./Configure",
                              "solaris-sparcv9-gcc",
-                             common_args,
+                             "--prefix=#{install_dir}/embedded",
+                            "--with-zlib-lib=#{install_dir}/embedded/lib",
+                            "--with-zlib-include=#{install_dir}/embedded/include",
+                            "zlib",
+                            "shared",
                             "-L#{install_dir}/embedded/lib",
                             "-I#{install_dir}/embedded/include",
                             "-R#{install_dir}/embedded/lib",
@@ -96,7 +95,11 @@ build do
                             # Errno::ENOEXEC: Exec format error
                             ["/bin/sh ./Configure",
                              "solaris-x86-gcc",
-                             common_args,
+                             "--prefix=#{install_dir}/embedded",
+                            "--with-zlib-lib=#{install_dir}/embedded/lib",
+                            "--with-zlib-include=#{install_dir}/embedded/include",
+                            "zlib",
+                            "shared",
                             "-L#{install_dir}/embedded/lib",
                             "-I#{install_dir}/embedded/include",
                             "-R#{install_dir}/embedded/lib",
@@ -107,7 +110,12 @@ build do
                         end
                       else
                         ["./config",
-                        common_args,
+                         "--prefix=#{install_dir}/embedded",
+                        "--with-zlib-lib=#{install_dir}/embedded/lib",
+                        "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared",
+                        "disable-gost",
                         "-L#{install_dir}/embedded/lib",
                         "-I#{install_dir}/embedded/include",
                         "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
