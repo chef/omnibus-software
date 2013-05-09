@@ -20,6 +20,7 @@ version "1.0.1c"
 
 dependency "zlib"
 dependency "cacerts"
+dependency "libgcc"
 
 source :url => "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
        :md5 => "ae412727c8c15b67880aef7bd2999b2e"
