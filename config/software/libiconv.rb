@@ -18,6 +18,8 @@
 name "libiconv"
 version "1.14"
 
+dependency "libgcc"
+
 source :url => 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz',
        :md5 => 'e34509b1623cec449dfeb73d7ce9c6c6'
 
