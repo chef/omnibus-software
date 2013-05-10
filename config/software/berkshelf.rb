@@ -16,7 +16,7 @@
 #
 
 name "berkshelf"
-version "1.3.1"
+version "1.4.3"
 
 dependency "ruby"
 dependency "rubygems"
