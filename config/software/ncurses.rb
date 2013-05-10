@@ -38,6 +38,8 @@ if platform == "solaris2"
   env.merge!({"PATH" => "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"})
   env.merge!({"CC" => "/opt/csw/gcc3/bin/gcc"})
   env.merge!({"CXX" => "/opt/csw/gcc3/bin/g++"})
+elsif platform == "smartos"
+  env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib "})
 end
 
 ########################################################################
