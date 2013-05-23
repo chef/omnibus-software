@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,11 +18,8 @@
 name "rabbitmq"
 version "2.7.1"
 
-dependencies ["erlang",
-              # TODO: "libxslt", libxslt is required to BUILD rabbitmq, but
-              # it's yet to be determined whether it needs to be there
-              # to run
-              "rsync"]
+dependency "erlang"
+dependency "rsync"
 
 source :url => "http://www.rabbitmq.com/releases/rabbitmq-server/v2.7.1/rabbitmq-server-generic-unix-2.7.1.tar.gz",
        :md5 => "34a5f9fb6f22e6681092443fcc80324f"

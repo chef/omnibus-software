@@ -1,6 +1,6 @@
-diff -ur pierrejoye-gd-libgd-5551f61978e3/src/configure pierrejoye-gd-libgd-5551f61978e3.fixed/src/configure
---- pierrejoye-gd-libgd-5551f61978e3/src/configure	2006-04-05 08:56:57.000000000 -0700
-+++ pierrejoye-gd-libgd-5551f61978e3.fixed/src/configure	2012-04-06 16:38:27.000000000 -0700
+diff -ur libgd-gd-libgd-5551f61978e3/src/configure libgd-gd-libgd-5551f61978e3.fixed/src/configure
+--- libgd-gd-libgd-5551f61978e3/src/configure	2006-04-05 08:56:57.000000000 -0700
++++ libgd-gd-libgd-5551f61978e3.fixed/src/configure	2012-04-06 16:38:27.000000000 -0700
 @@ -10953,95 +10953,8 @@
  # authors decide to do this AGAIN. Which I really hope they won't. TBB
  

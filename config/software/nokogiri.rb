@@ -15,26 +15,20 @@
 # limitations under the License.
 #
 
-name "gdbm"
-version "1.9.1"
+name "nokogiri"
+version "1.5.4"
 
-dependency "autoconf"
-
-source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
-       :md5 => "59f6e4c4193cb875964ffbe8aa384b58"
-
-relative_path "gdbm-1.9.1"
+dependencies ["ruby", "rubygems", "libxml2", "libxslt", "libiconv"]
 
 build do
-  configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
-
-  if platform == "freebsd"
-    configure_command << "--with-pic"
-  end
-
-  command "#{install_dir}/embedded/bin/autoconf"
-  command configure_command.join(" ")
-  command "make -j #{max_build_jobs}"
-  command "make install"
+  gem ["install",
+       "nokogiri",
+       "-v #{version}",
+       "--",
+       "--with-xml2-lib=#{install_dir}/embedded/lib",
+       "--with-xml2-include=#{install_dir}/embedded/include/libxml2",
+       "--with-xslt-lib=#{install_dir}/embedded/lib",
+       "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
+       "--with-iconv-include=#{install_dir}/embedded/include",
+       "--with-iconv-lib=#{install_dir}/embedded/lib"].join(" ")
 end

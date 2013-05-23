@@ -17,7 +17,10 @@
 
 name "chef"
 
-dependencies ["ruby", "rubygems", "yajl", "bundler"]
+dependency "ruby"
+dependency "rubygems"
+dependency "yajl"
+dependency "bundler"
 
 version ENV["CHEF_GIT_REV"] || "master"
 
@@ -115,7 +118,7 @@ build do
       "--no-rdoc --no-ri"].join(" "), :env => env
 
   auxiliary_gems = ["highline", "net-ssh-multi"]
-  auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x"
+  auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x" || platform == "freebsd"
 
   gem ["install",
        auxiliary_gems.join(" "),

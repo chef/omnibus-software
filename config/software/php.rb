@@ -1,13 +1,13 @@
 name "php"
 version "5.3.10"
 
-dependencies ["zlib",
-              "pcre",
-              "libxslt",
-              "libxml2",
-              "libiconv",
-              "openssl",
-              "gd"]
+dependency "zlib"
+dependency "pcre"
+dependency "libxslt"
+dependency "libxml2"
+dependency "libiconv"
+dependency "openssl"
+dependency "gd"
 
 source :url => "http://us.php.net/distributions/php-5.3.10.tar.gz",
        :md5 => "2b3d2d0ff22175685978fb6a5cbcdc13"

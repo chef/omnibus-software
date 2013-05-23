@@ -18,7 +18,9 @@
 name "openssl"
 version "1.0.1c"
 
-dependencies ["zlib", "cacerts"]
+dependency "zlib"
+dependency "cacerts"
+dependency "libgcc"
 
 source :url => "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
        :md5 => "ae412727c8c15b67880aef7bd2999b2e"
@@ -63,6 +65,18 @@ build do
                         "--with-zlib-include=#{install_dir}/embedded/include",
                         "zlib",
                         "shared"].join(" ")
+                      when "smartos"
+                        ["/bin/bash ./Configure",
+                         "solaris64-x86_64-gcc",
+                         "--prefix=#{install_dir}/embedded",
+                         "--with-zlib-lib=#{install_dir}/embedded/lib",
+                         "--with-zlib-include=#{install_dir}/embedded/include",
+                        "zlib",
+                        "shared",
+                         "-L#{install_dir}/embedded/lib",
+                         "-I#{install_dir}/embedded/include",
+                         "-R#{install_dir}/embedded/lib",
+                        "-static-libgcc"].join(" ")
                       when "solaris2"
                         if Omnibus.config.solaris_compiler == "gcc"
                           if architecture == "sparc"

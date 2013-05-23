@@ -18,7 +18,7 @@
 name "rebar"
 version "2.0.0"
 
-dependencies ["erlang"]
+dependency "erlang"
 
 source :git => "https://github.com/basho/rebar.git"
 

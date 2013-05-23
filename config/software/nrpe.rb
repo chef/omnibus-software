@@ -18,14 +18,15 @@
 name "nrpe"
 version "2.14"
 
-dependencies ["zlib", "openssl"]
-dependencies [ "libwrap" ] if OHAI['platform'] != 'mac_os_x'
+dependency "zlib"
+dependency "openssl"
+dependency "libwrap"
 
 # tarball location comes from sourceforge download redirect
-source :url => "http://downloads.sourceforge.net/project/nagios/nrpe-2.x/nrpe-2.14/nrpe-2.14.tar.gz",
+source :url => "http://downloads.sourceforge.net/project/nagios/nrpe-2.x/#{name}-#{version}/#{name}-#{version}.tar.gz",
        :md5 => "105857720e21674083a6d6be99e102c7"
 
-relative_path "nrpe-2.14"
+relative_path "#{name}-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",

@@ -18,7 +18,7 @@
 name "rubygems"
 version "1.8.24"
 
-dependencies ["ruby"]
+dependency "ruby"
 
 source :url => "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz",
        :md5 => "3a555b9d579f6a1a1e110628f5110c6b"

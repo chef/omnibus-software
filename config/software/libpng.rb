@@ -16,12 +16,12 @@
 #
 
 name "libpng"
-version "1.5.13"
+version "1.5.15"
 
-dependencies ["zlib"]
+dependency "zlib"
 
-source :url => "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-#{version}.tar.gz",
-       :md5 => "9c5a584d4eb5fe40d0f1bc2090112c65"
+source :url => "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng15/libpng-#{version}.tar.gz",
+       :md5 => "ea24254980fd820964a710e4d2a947c7"
 
 relative_path "libpng-#{version}"
 

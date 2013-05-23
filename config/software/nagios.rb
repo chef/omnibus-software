@@ -18,9 +18,11 @@
 name "nagios"
 version "3.3.1"
 
-dependencies ["gd", "php", "spawn-fcgi"]
+dependency "gd"
+dependency "php"
+dependency "spawn-fcgi"
 
-source :url => "http://iweb.dl.sourceforge.net/project/nagios/nagios-3.x/nagios-3.3.1/nagios-3.3.1.tar.gz",
+source :url => "http://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-3.3.1/nagios-3.3.1.tar.gz",
        :md5 => "c935354ce0d78a63bfabc3055fa77ad5"
 
 relative_path "nagios"
