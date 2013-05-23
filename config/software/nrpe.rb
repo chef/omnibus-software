@@ -20,7 +20,7 @@ version "2.14"
 
 dependency "zlib"
 dependency "openssl"
-dependency "libwrap"
+dependency "libwrap" unless platform == 'mac_os_x'
 
 # tarball location comes from sourceforge download redirect
 source :url => "http://downloads.sourceforge.net/project/nagios/nrpe-2.x/#{name}-#{version}/#{name}-#{version}.tar.gz",
