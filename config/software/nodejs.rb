@@ -16,12 +16,12 @@
 #
 
 name "nodejs"
-version "0.10.7"
+version "0.10.8"
 
-source :url => "http://nodejs.org/dist/v0.10.7/node-v0.10.7.tar.gz",
-       :md5 => "f7cd44c8604755ceb8668598f4d9b931"
+source :url => "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz",
+       :md5 => "c99a48ddb5c6d4a0d8624e081a97050c"
 
-relative_path "node-v0.10.7"
+relative_path "node-v#{version}"
 
 build do
   command "./configure --prefix=#{install_dir}/embedded"
