@@ -34,6 +34,14 @@ build do
             "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
             "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
           }
+        when "aix"
+        {
+            "LDFLAGS" => "-bsvr4 -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+            "CFLAGS" => "-I#{install_dir}/embedded/include",
+            "AR" => "/usr/bin/ar",
+            "CC" => "xlc",
+            "CXX" => "xlC"
+        }
         when "solaris2"
           if Omnibus.config.solaris_compiler == "studio"
             {
@@ -68,6 +76,20 @@ build do
   ].join(" ")
 
   configure_command = case platform
+                      when "aix"
+                        ["perl", "./Configure",
+                         "aix-cc",
+                         "--prefix=#{install_dir}/embedded",
+                        "--with-zlib-lib=#{install_dir}/embedded/lib",
+                        "--with-zlib-include=#{install_dir}/embedded/include",
+                        "no-rc5",
+                        "zlib",
+                        "shared",
+                        "-L#{install_dir}/embedded/lib",
+                        "-I#{install_dir}/embedded/include",
+                        "-Wl,-bsvr4",
+                        "-Wl,-R#{install_dir}/embedded/lib",
+                        "-static-libgcc"].join(" ")
                       when "mac_os_x"
                         ["./Configure",
                          "darwin64-x86_64-cc",
