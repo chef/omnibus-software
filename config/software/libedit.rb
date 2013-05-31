@@ -26,12 +26,20 @@ source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
 
 relative_path "libedit-20120601-3.0"
 
-env = {
-    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-    "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-  }
+env = case platform
+      when "aix"
+        {
+          "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+          "CFLAGS" => "-I#{install_dir}/embedded/include"
+        }
+      else
+        {
+          "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
+          "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
+          "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+          "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
+        }
+      end
 
 build do
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.

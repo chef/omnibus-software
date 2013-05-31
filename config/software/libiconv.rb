@@ -25,10 +25,18 @@ source :url => 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz',
 
 relative_path "libiconv-1.14"
 
-env = {
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-}
+env = case platform
+      when "aix"
+        {
+          "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+          "CFLAGS" => "-I#{install_dir}/embedded/include"
+        }
+      else
+        {
+          "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+          "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+        }
+      end
 
 if platform == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc", "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})

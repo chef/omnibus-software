@@ -25,9 +25,13 @@ source :url => "http://downloads.sourceforge.net/project/libpng/zlib/1.2.6/zlib-
        :md5 => "618e944d7c7cd6521551e30b32322f4a"
 
 relative_path "zlib-1.2.6"
-
 configure_env =
   case platform
+  when "aix"
+    {
+      "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+      "CFLAGS" => "-I#{install_dir}/embedded/include"
+    }
   when "mac_os_x"
     {
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
