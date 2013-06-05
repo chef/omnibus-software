@@ -25,6 +25,11 @@ relative_path "yaml-0.1.4"
 
 configure_env =
   case platform
+  when "aix"
+    {
+      "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+      "CFLAGS" => "-I#{install_dir}/embedded/include"
+    }
   when "mac_os_x"
     {
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",

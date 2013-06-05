@@ -25,11 +25,21 @@ source :url => "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
 
 relative_path "ncurses-5.9"
 
-env = {
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib"
-}
+env = case platform
+      when "aix"
+        {
+          "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+          "CFLAGS" => "-I#{install_dir}/embedded/include",
+          "CC" => "xlc",
+          "CXX" => "xlC"
+        }
+      else
+        {
+          "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+          "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+          "LDFLAGS" => "-L#{install_dir}/embedded/lib"
+        }
+      end
 
 if platform == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc"})
@@ -76,12 +86,17 @@ build do
     patch :source => 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', :plevel => 0
   end
 
+  if platform == "aix"
+    patch :source => 'patch-aix-configure', :plevel => 0
+  end
+
   # build wide-character libraries
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
            "--with-termlib",
            "--without-debug",
+           "--without-normal", # AIX doesn't like building static libs
            "--enable-overwrite",
            "--enable-widec"].join(" "),
           :env => env)

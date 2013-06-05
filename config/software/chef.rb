@@ -47,6 +47,11 @@ env =
     else
       raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
     end
+  when "aix"
+    {
+      "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+      "CFLAGS" => "-I#{install_dir}/embedded/include"
+    }
   else
     {
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -118,7 +123,7 @@ build do
       "--no-rdoc --no-ri"].join(" "), :env => env
 
   auxiliary_gems = ["highline", "net-ssh-multi"]
-  auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x" || platform == "freebsd"
+  auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x" || platform == "freebsd" || platform == "aix"
 
   gem ["install",
        auxiliary_gems.join(" "),
