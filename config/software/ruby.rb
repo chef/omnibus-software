@@ -56,7 +56,28 @@ env =
     end
   when "aix"
     {
-      # these are flags from 1.9.2-p320, -O2 horribly broke requiring openssl...
+      # see http://www.ibm.com/developerworks/aix/library/au-gnu.html
+      #
+      # specifically:
+      #
+      # "To use AIX run-time linking, you should create the shared object
+      # using gcc -shared -Wl,-G and create executables using the library
+      # by adding the -Wl,-brtl option to the link line. Technically, you
+      # can leave off the -shared option, but it does no harm and reduces
+      # confusion."
+      #
+      # AIX also uses -Wl,-blibpath instead of -R or LD_RUN_PATH, but the
+      # option is not additive, so requires /usr/lib and /lib as well (there
+      # is another compiler option to allow ld to take an -R flag in addition
+      # to turning on -brtl, but it had other side effects I couldn't fix).
+      #
+      # -O2 optimized away some configure test which caused openssl to fail
+      # (although I have not tested this on latest 1.9.3, so it may work
+      # now?)
+      #
+      # We also need prezl's M4 instead of picking up /usr/bin/m4 which
+      # barfs on ruby.
+      #
       "CFLAGS" => "-I#{install_dir}/embedded/include -O",
       "LDFLAGS" => "-L#{install_dir}/embedded/lib -Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
       "M4" => "/opt/freeware/bin/m4"
