@@ -71,9 +71,7 @@ env =
       # is another compiler option to allow ld to take an -R flag in addition
       # to turning on -brtl, but it had other side effects I couldn't fix).
       #
-      # -O2 optimized away some configure test which caused openssl to fail
-      # (although I have not tested this on latest 1.9.3, so it may work
-      # now?)
+      # -O2 optimized away some configure test which caused ext libs to fail
       #
       # We also need prezl's M4 instead of picking up /usr/bin/m4 which
       # barfs on ruby.
