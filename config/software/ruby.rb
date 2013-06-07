@@ -103,6 +103,13 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
+  # this works around a problem that appears to be identical to the ruby bug:
+  #   https://bugs.ruby-lang.org/issues/7217
+  # however as the patch was merged into 1.9.3-p429 it appears that there was a regression or
+  # it was not fixed for very old make's or something...
+  max_build_jobs = 1 if OHAI['platform_family'] == "rhel" && OHAI['platform_version'].to_f < 6
+  max_build_jobs = 1 if OHAI['platform'] == "mac_os_x"
+
   command configure_command.join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
