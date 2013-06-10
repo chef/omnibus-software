@@ -128,6 +128,7 @@ build do
   # it was not fixed for very old make's or something...
   max_build_jobs = 1 if OHAI['platform_family'] == "rhel" && OHAI['platform_version'].to_f < 6
   max_build_jobs = 1 if OHAI['platform'] == "mac_os_x"
+  max_build_jobs = 1 if OHAI['platform'] == "solaris2"
 
   command configure_command.join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
