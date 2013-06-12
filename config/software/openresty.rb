@@ -40,6 +40,7 @@ build do
            "--conf-path=#{install_dir}/embedded/conf/nginx.conf",
            "--with-http_ssl_module",
            "--with-debug",
+           "--with-http_stub_status_module",
            # Building Nginx with non-system OpenSSL
            # http://www.ruby-forum.com/topic/207287#902308
            "--with-ld-opt=\"-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz\"",
