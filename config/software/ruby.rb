@@ -130,6 +130,9 @@ build do
   max_build_jobs = 1 if OHAI['platform'] == "mac_os_x"
   max_build_jobs = 1 if OHAI['platform'] == "solaris2"
 
+  # FreeBSD make requires an argument to -j
+  max_build_jobs = 1 if OHAI['platform'] == "freebsd"
+
   command configure_command.join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
