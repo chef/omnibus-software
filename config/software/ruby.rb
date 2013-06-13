@@ -133,6 +133,14 @@ build do
   # FreeBSD make requires an argument to -j
   max_build_jobs = 1 if OHAI['platform'] == "freebsd"
 
+  # @todo expose bundle_bust() in the DSL
+  env.merge!({
+    "RUBYOPT"         => nil,
+    "BUNDLE_BIN_PATH" => nil,
+    "BUNDLE_GEMFILE"  => nil,
+    "GEM_PATH"        => nil,
+    "GEM_HOME"        => nil
+  })
   command configure_command.join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
