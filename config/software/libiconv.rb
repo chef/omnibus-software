@@ -33,6 +33,8 @@ if platform == "solaris2"
 end
 
 build do
+  patch :source => "gets-undefined-in-C11.patch",
+        :target => "./srclib/stdio.in.h"
   command "./configure --prefix=#{install_dir}/embedded", :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
