@@ -126,12 +126,14 @@ build do
   #   https://bugs.ruby-lang.org/issues/7217
   # however as the patch was merged into 1.9.3-p429 it appears that there was a regression or
   # it was not fixed for very old make's or something...
-  max_build_jobs = 1 if OHAI['platform_family'] == "rhel" && OHAI['platform_version'].to_f < 6
-  max_build_jobs = 1 if OHAI['platform'] == "mac_os_x"
-  max_build_jobs = 1 if OHAI['platform'] == "solaris2"
-
-  # FreeBSD make requires an argument to -j
-  max_build_jobs = 1 if OHAI['platform'] == "freebsd"
+  build_jobs = if ( (OHAI['platform_family'] == "rhel" && OHAI['platform_version'].to_f < 6) ||
+                   OHAI['platform'] == "mac_os_x" ||
+                   OHAI['platform'] == "solaris2"
+                  )
+                 1
+               else
+                 max_build_jobs
+               end
 
   # @todo expose bundle_bust() in the DSL
   env.merge!({
@@ -142,6 +144,6 @@ build do
     "GEM_HOME"        => nil
   })
   command configure_command.join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => env
+  command "make -j #{build_jobs}", :env => env
   command "make install", :env => env
 end
