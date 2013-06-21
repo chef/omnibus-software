@@ -16,16 +16,25 @@
 #
 
 name "openssl"
-version "1.0.1e"
 
 dependency "zlib"
 dependency "cacerts"
 dependency "libgcc"
 
-source :url => "http://www.openssl.org/source/openssl-1.0.1e.tar.gz",
-       :md5 => "66bf6f10f060d561929de96f9dfe5b8c"
 
-relative_path "openssl-1.0.1e"
+if platform == "aix"
+  # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
+  #      http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
+  version "1.0.1c"
+  source :url => "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
+         :md5 => "ae412727c8c15b67880aef7bd2999b2e"
+else
+  version "1.0.1e"
+  source :url => "http://www.openssl.org/source/openssl-1.0.1e.tar.gz",
+         :md5 => "66bf6f10f060d561929de96f9dfe5b8c"
+end
+
+relative_path "openssl-#{version}"
 
 build do
   env = case platform
@@ -43,20 +52,11 @@ build do
             "CXX" => "xlC"
         }
         when "solaris2"
-          if Omnibus.config.solaris_compiler == "studio"
-            {
-              "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-              "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-            }
-          elsif Omnibus.config.solaris_compiler == "gcc"
-            {
-              "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-              "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-              "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-            }
-          else
-            raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
-          end
+          {
+            "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+            "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
+            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
+          }
         else
           {
             "CFLAGS" => "-I#{install_dir}/embedded/include",
@@ -79,17 +79,11 @@ build do
                       when "aix"
                         ["perl", "./Configure",
                          "aix-cc",
-                         "--prefix=#{install_dir}/embedded",
-                        "--with-zlib-lib=#{install_dir}/embedded/lib",
-                        "--with-zlib-include=#{install_dir}/embedded/include",
-                        "no-rc5",
-                        "zlib",
-                        "shared",
+                         common_args,
                         "-L#{install_dir}/embedded/lib",
                         "-I#{install_dir}/embedded/include",
                         "-Wl,-bsvr4",
-                        "-Wl,-R#{install_dir}/embedded/lib",
-                        "-static-libgcc"].join(" ")
+                        "-Wl,-R#{install_dir}/embedded/lib"].join(" ")
                       when "mac_os_x"
                         ["./Configure",
                          "darwin64-x86_64-cc",
