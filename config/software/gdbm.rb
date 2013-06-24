@@ -18,8 +18,6 @@
 name "gdbm"
 version "1.9.1"
 
-dependency "autoconf"
-
 source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
        :md5 => "59f6e4c4193cb875964ffbe8aa384b58"
 
@@ -33,7 +31,6 @@ build do
     configure_command << "--with-pic"
   end
 
-  command "#{install_dir}/embedded/bin/autoconf"
   command configure_command.join(" ")
   command "make -j #{max_build_jobs}"
   command "make install"
