@@ -122,6 +122,10 @@ build do
       "-n #{install_dir}/bin",
       "--no-rdoc --no-ri"].join(" "), :env => env
 
+  # install the whole bundle, so that we get dev gems (like rspec) and can later test in CI
+  # against all the exact gems that we ship (we will run rspec unbundled in the test phase).
+  bundle "install", :env => env
+
   auxiliary_gems = ["highline", "net-ssh-multi"]
   auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x" || platform == "freebsd" || platform == "aix"
 
