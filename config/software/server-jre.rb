@@ -20,6 +20,12 @@ version "7u25"
 
 dependency "rsync"
 
+whitelist_file "jre/bin/javaws"
+whitelist_file "jre/bin/policytool"
+whitelist_file "jre/lib"
+whitelist_file "jre/plugin"
+whitelist_file "jre/bin/appletviewer"
+
 if OHAI.kernel['machine'] =~ /x86_64/
   # TODO: download x86 version on x86 machines
   source :url => "http://download.oracle.com/otn-pub/java/jdk/7u25-b15/server-jre-7u25-linux-x64.tar.gz",
