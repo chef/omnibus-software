@@ -19,6 +19,7 @@ name "nginx"
 version "1.2.3"
 
 dependency "pcre"
+dependency "openssl"
 
 source :url => "http://nginx.org/download/nginx-1.2.3.tar.gz",
        :md5 => "0a986e60826d9e3b453dbefc36bf8f6c"
