@@ -130,8 +130,18 @@ build do
                         "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
                       end
 
-  command configure_command, :env => env
-  command "make", :env => env
-  command "make install", :env => env
+  # @todo: move into omnibus-ruby
+  has_gmake = system("gmake --version")
 
+  if has_gmake
+    env.merge!({'MAKE' => 'gmake'})
+    make_binary = 'gmake'
+  else
+    make_binary = 'make'
+  end
+
+  command configure_command, :env => env
+  # make -jN is busted on openssl (http://comments.gmane.org/gmane.comp.encryption.openssl.devel/22800)
+  command "#{make_binary} -j 1", :env => env
+  command "#{make_binary} install", :env => env
 end
