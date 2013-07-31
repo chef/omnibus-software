@@ -122,19 +122,6 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
-  # this works around a problem that appears to be identical to the ruby bug:
-  #   https://bugs.ruby-lang.org/issues/7217
-  # however as the patch was merged into 1.9.3-p429 it appears that there was a regression or
-  # it was not fixed for very old make's or something...
-  build_jobs = if ( (OHAI['platform_family'] == "rhel" && OHAI['platform_version'].to_f < 6) ||
-                   OHAI['platform'] == "mac_os_x" ||
-                   OHAI['platform'] == "solaris2"
-                  )
-                 1
-               else
-                 max_build_jobs
-               end
-
   # @todo expose bundle_bust() in the DSL
   env.merge!({
     "RUBYOPT"         => nil,
@@ -143,7 +130,18 @@ build do
     "GEM_PATH"        => nil,
     "GEM_HOME"        => nil
   })
+
+  # @todo: move into omnibus-ruby
+  has_gmake = system("gmake --version")
+
+  if has_gmake
+    env.merge!({'MAKE' => 'gmake'})
+    make_binary = 'gmake'
+  else
+    make_binary = 'make'
+  end
+
   command configure_command.join(" "), :env => env
-  command "make -j #{build_jobs}", :env => env
-  command "make install", :env => env
+  command "#{make_binary} -j #{build_jobs}", :env => env
+  command "#{make_binary} install", :env => env
 end
