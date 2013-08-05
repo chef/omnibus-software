@@ -90,6 +90,10 @@ build do
     patch :source => 'patch-aix-configure', :plevel => 0
   end
 
+  if platform == "mac_os_x"
+    patch :source => '5.8-patch'
+  end
+
   # build wide-character libraries
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
