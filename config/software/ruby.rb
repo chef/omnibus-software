@@ -142,6 +142,6 @@ build do
   end
 
   command configure_command.join(" "), :env => env
-  command "#{make_binary} -j #{build_jobs}", :env => env
+  command "#{make_binary} -j #{max_build_jobs}", :env => env
   command "#{make_binary} install", :env => env
 end
