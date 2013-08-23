@@ -117,7 +117,7 @@ build do
   # installing the non-wide libraries will also install the non-wide
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
-  command "make install", :env => env
+  command "make -j #{max_build_jobs} install", :env => env
 
   # Ensure embedded ncurses wins in the LD search path
   if platform == "smartos"
