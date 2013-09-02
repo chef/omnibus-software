@@ -47,11 +47,13 @@ build do
           }
         when "aix"
         {
-            "LDFLAGS" => "-bsvr4 -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
-            "CFLAGS" => "-I#{install_dir}/embedded/include",
+            "LDFLAGS" => "-bsvr4 -maix64 -L/opt/freeware/lib64 -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+            "CFLAGS" => "-q64 -I#{install_dir}/embedded/include",
+            "LD" => "ld -b64",
             "AR" => "/usr/bin/ar",
-            "CC" => "xlc",
-            "CXX" => "xlC"
+            "CC" => "xlc -q64",
+            "CXX" => "xlC -q64",
+            "ARFLAGS" => "-X64 cru"
         }
         when "solaris2"
           {
