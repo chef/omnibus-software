@@ -24,7 +24,7 @@ dependency "bundler"
 
 version ENV["CHEF_GIT_REV"] || "master"
 
-source :git => "git://github.com/opscode/chef"
+source :git => "git://github.com/ClogenyTechnologies/chef"
 
 relative_path "chef"
 
