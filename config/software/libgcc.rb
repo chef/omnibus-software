@@ -31,7 +31,7 @@ end
 if platform == "aix"
   build do
     if File.exists?("/opt/freeware/lib/libgcc_s.a")
-      command "cp -f /opt/freeware/lib/libgcc_s.a #{install_dir}/embedded/lib/"
+      command "cp -f /opt/freeware/lib/pthread/ppc64/libgcc_s.a #{install_dir}/embedded/lib/"
     else
       raise "cannot find libgcc_s.a -- where is your gcc compiler?"
     end
