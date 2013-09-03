@@ -28,6 +28,7 @@ relative_path "libiconv-1.14"
 env = case platform
       when "aix"
         {
+          "CC" => "gcc -maix64",
           "LDFLAGS" => "-maix64 -L/opt/freeware/lib64 -L/opt/freeware/lib -Wl,-blibpath:/opt/freeware/lib64:/opt/freeware/lib:/usr/lib:/lib",
           "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
           "LD" => "ld -b64",
