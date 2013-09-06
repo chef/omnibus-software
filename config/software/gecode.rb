@@ -16,12 +16,12 @@
 #
 
 name "gecode"
-version "3.7.1"
+version "3.7.3"
 
-source :url => "http://www.gecode.org/download/gecode-3.7.1.tar.gz",
-       :md5 => "b4191d8cfafa18bd9b78594544be2a04"
+source :url => "http://www.gecode.org/download/gecode-3.7.3.tar.gz",
+       :md5 => "7a5cb9945e0bb48f222992f2106130ac"
 
-relative_path "gecode-3.7.1"
+relative_path "gecode-3.7.3"
 
 test = Mixlib::ShellOut.new("test -f /usr/bin/gcc44")
 test.run_command
