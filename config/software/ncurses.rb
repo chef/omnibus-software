@@ -116,6 +116,16 @@ build do
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
 
+  # temp hack - recreate the valid archives for aix (make generated archive are missing loader section)
+  if platform == "aix"
+    command "ar cru .libs/libtinfo.a  .libs/libtinfo.so", :env => env
+    command "ar cru .libs/libncurses.a .libs/libncurses.so", :env => env
+    command "ar cru .libs/libpanel.a  .libs/libpanel.so", :env => env
+    command "ar cru .libs/libmenu.a .libs/libmenu.so", :env => env
+    command "ar cru .libs/libform.a .libs/libform.so", :env => env
+    command "ar cru .libs/libncurses++.a .libs/libncurses++.so", :env => env
+  end
+
   # installing the non-wide libraries will also install the non-wide
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
