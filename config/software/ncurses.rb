@@ -109,9 +109,9 @@ build do
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
+           "--with-libtool",
            "--with-termlib",
            "--without-debug",
-           "--without-normal", # AIX doesn't like building static libs
            "--enable-overwrite"].join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
