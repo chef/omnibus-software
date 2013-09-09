@@ -31,7 +31,7 @@ configure_env =
   case platform
   when "aix"
     {
-      "LDFLAGS" => "-maix64 -L/opt/freeware/lib64 -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+      "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -L/opt/freeware/lib64 -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
       "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
       "LD" => "ld -b64",
       "OBJECT_MODE" => "64",
