@@ -124,7 +124,5 @@ build do
   # Ensure embedded ncurses wins in the LD search path
   if platform == "smartos"
     command "ln -sf #{install_dir}/embedded/lib/libcurses.so #{install_dir}/embedded/lib/libcurses.so.1"
-  elsif platform == "aix"
-    command "ln -sf #{install_dir}/embedded/lib/libncurses.so #{install_dir}/embedded/lib/libcurses.so"
   end
 end
