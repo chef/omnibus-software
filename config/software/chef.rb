@@ -118,7 +118,7 @@ build do
 
   # install the whole bundle, so that we get dev gems (like rspec) and can later test in CI
   # against all the exact gems that we ship (we will run rspec unbundled in the test phase).
-  bundle "install --without server docgen", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+  bundle "install --without server docgen --no-rdoc --no-ri", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
   rake "gem", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 

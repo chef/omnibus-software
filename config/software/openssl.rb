@@ -37,6 +37,8 @@ end
 relative_path "openssl-#{version}"
 
 build do
+
+  patch :source => 'openssl-1.0.1e-parallel-build.patch', :plevel => 1
   env = case platform
         when "mac_os_x"
           {
@@ -141,7 +143,8 @@ build do
   end
 
   command configure_command, :env => env
-  # make -jN is busted on openssl (http://comments.gmane.org/gmane.comp.encryption.openssl.devel/22800)
-  command "#{make_binary} -j 1", :env => env
-  command "#{make_binary} install", :env => env
+  command "#{make_binary} depend", :env => env
+  # we need a custom patch to be able to make -j
+  command "#{make_binary} -j #{max_build_jobs}", :env => env
+  command "#{make_binary} -j #{max_build_jobs} install", :env => env
 end
