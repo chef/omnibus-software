@@ -47,7 +47,7 @@ build do
           }
         when "aix"
         {
-            "LDFLAGS" => "-bsvr4 -maix64 -L#{install_dir}/embedded/lib -L/opt/freeware/lib64 -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
+            "LDFLAGS" => "-bsvr4 -maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
             "CFLAGS" => "-q64 -I#{install_dir}/embedded/include",
             "OBJECT_MODE" => "64",
             "LD" => "ld -b64",
