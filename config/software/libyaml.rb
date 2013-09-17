@@ -27,8 +27,11 @@ configure_env =
   case platform
   when "aix"
     {
-      "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
-      "CFLAGS" => "-I#{install_dir}/embedded/include"
+      "LDFLAGS" => "-maix64 -Wl,-blibpath:/usr/lib:/lib",
+      "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
+      "LD" => "ld -b64",
+      "OBJECT_MODE" => "64",
+      "ARFLAGS" => "-X64 cru "
     }
   when "mac_os_x"
     {
@@ -58,6 +61,6 @@ configure_env =
 
 build do
   command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{max_build_jobs}"
-  command "make -j #{max_build_jobs} install"
+  command "make -j #{max_build_jobs}", :env => configure_env
+  command "make -j #{max_build_jobs} install", :env => configure_env
 end
