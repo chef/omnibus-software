@@ -68,8 +68,11 @@ env =
       #
       # AIX also uses -Wl,-blibpath instead of -R or LD_RUN_PATH, but the
       # option is not additive, so requires /usr/lib and /lib as well (there
-      # is another compiler option to allow ld to take an -R flag in addition
+      # is a -bsvr4 option to allow ld to take an -R flag in addition
       # to turning on -brtl, but it had other side effects I couldn't fix).
+      #
+      # If libraries linked with gcc -shared have symbol resolution failures
+      # then it may be useful to add -bexpfull to export all symbols.
       #
       # -O2 optimized away some configure test which caused ext libs to fail
       #
