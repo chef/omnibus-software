@@ -28,10 +28,11 @@ relative_path "ncurses-5.9"
 env = case platform
       when "aix"
         {
-          "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+          "LDFLAGS" => "-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
           "CFLAGS" => "-I#{install_dir}/embedded/include",
-          "CC" => "xlc",
-          "CXX" => "xlC"
+          "OBJECT_MODE" => "64",
+          "CC" => "xlc -q64",
+          "CXX" => "xlC -q64"
         }
       else
         {
@@ -108,6 +109,7 @@ build do
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
+           "--with-libtool",
            "--with-termlib",
            "--without-debug",
            "--enable-overwrite"].join(" "),
