@@ -108,6 +108,7 @@ build do
   case platform
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
+    patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"
