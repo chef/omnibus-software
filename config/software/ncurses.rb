@@ -109,7 +109,6 @@ build do
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
-           "--with-libtool",
            "--with-termlib",
            "--without-debug",
            "--enable-overwrite"].join(" "),
