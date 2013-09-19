@@ -47,13 +47,13 @@ build do
           }
         when "aix"
         {
-            "LDFLAGS" => "-bsvr4 -maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-            "CFLAGS" => "-q64 -I#{install_dir}/embedded/include",
+            "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
+            "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
             "OBJECT_MODE" => "64",
             "LD" => "ld -b64",
             "AR" => "/usr/bin/ar",
-            "CC" => "xlc -q64",
-            "CXX" => "xlC -q64",
+            "CC" => "gcc -maix64",
+            "CXX" => "g++ -maix64",
             "ARFLAGS" => "-X64 cru"
         }
         when "solaris2"
@@ -83,12 +83,11 @@ build do
   configure_command = case platform
                       when "aix"
                         ["perl", "./Configure",
-                         "aix64-cc",
+                         "aix64-gcc",
                          common_args,
                         "-L#{install_dir}/embedded/lib",
                         "-I#{install_dir}/embedded/include",
-                        "-Wl,-bsvr4",
-                        "-Wl,-R#{install_dir}/embedded/lib"].join(" ")
+                        "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib"].join(" ")
                       when "mac_os_x"
                         ["./Configure",
                          "darwin64-x86_64-cc",
