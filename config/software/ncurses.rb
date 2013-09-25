@@ -31,8 +31,10 @@ env = case platform
           "LDFLAGS" => "-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
           "CFLAGS" => "-I#{install_dir}/embedded/include",
           "OBJECT_MODE" => "64",
-          "CC" => "xlc -q64",
-          "CXX" => "xlC -q64"
+          "CC" => "gcc -maix64",
+          "CXX" => "g++ -maix64"
+          "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
+          "ARFLAGS" => "-X64 cru"
         }
       else
         {
@@ -108,10 +110,13 @@ build do
   command "make distclean"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
+           "--with-libtool",
            "--with-shared",
            "--with-termlib",
            "--without-debug",
-           "--enable-overwrite"].join(" "),
+           "--without-normal",
+           "--enable-overwrite",
+           "--enable-widec].join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
 
