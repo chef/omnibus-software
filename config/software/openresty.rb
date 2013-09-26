@@ -16,14 +16,14 @@
 #
 
 name "openresty"
-version "1.2.6.6"
+version "1.4.2.7"
 
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 
 source :url => "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
-       :md5 => "19f04c65e93f8d38e3590db7c7123f6b"
+       :md5 => "e8f72ba6c4e602fca669605a938d35e6"
 
 relative_path "ngx_openresty-#{version}"
 
@@ -49,7 +49,7 @@ build do
            '--with-md5-asm',
            '--with-sha1-asm',
            '--with-pcre-jit',
-           '--with-luajit', # Necessary?
+           '--with-luajit',
            '--without-http_ssi_module',
            '--without-mail_smtp_module',
            '--without-mail_imap_module',
@@ -61,7 +61,7 @@ build do
            #'--with-file-aio',
            #'--with-libatomic'
           ].join(" "), :env => env
-  # When building with -j > 1, make emits errors about "Jobserver cannot be reached"
-  command "make", :env => env
+
+  command "make -j #{max_build_jobs}", :env => env
   command "make install"
 end
