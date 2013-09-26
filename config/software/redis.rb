@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,12 +16,12 @@
 #
 
 name "redis"
-version "2.4.7"
+version "2.6.16"
 
-source :url => "http://redis.googlecode.com/files/redis-2.4.7.tar.gz",
-       :md5 => "6afffb6120724183e40f1cac324ac71c"
+source :url => "http://download.redis.io/releases/redis-#{version}.tar.gz",
+       :md5 => "ca1b81bd56fe0c5e2c8ec443a95c908d"
 
-relative_path "redis-2.4.7"
+relative_path "redis-#{version}"
 
 make_args = ["PREFIX=#{install_dir}/embedded",
              "CFLAGS='-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include'",
