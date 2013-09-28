@@ -33,7 +33,7 @@ env = case platform
           "CFLAGS" => "-I#{install_dir}/embedded/include",
           "OBJECT_MODE" => "64",
           "CC" => "gcc -maix64",
-          "CXX" => "g++ -maix64"
+          "CXX" => "g++ -maix64",
           "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
           "ARFLAGS" => "-X64 cru"
         }
