@@ -19,6 +19,7 @@ name "ncurses"
 version "5.9"
 
 dependency "libgcc"
+dependency "libtool" if platform == "aix"
 
 source :url => "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
        :md5 => "8cb9c412e5f2d96bc6f459aa8c6282a1"
@@ -31,8 +32,10 @@ env = case platform
           "LDFLAGS" => "-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
           "CFLAGS" => "-I#{install_dir}/embedded/include",
           "OBJECT_MODE" => "64",
-          "CC" => "xlc -q64",
-          "CXX" => "xlC -q64"
+          "CC" => "gcc -maix64",
+          "CXX" => "g++ -maix64"
+          "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
+          "ARFLAGS" => "-X64 cru"
         }
       else
         {
@@ -92,26 +95,34 @@ build do
   end
 
   # build wide-character libraries
-  command(["./configure",
+  cmd_string = ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
            "--with-termlib",
            "--without-debug",
            "--without-normal", # AIX doesn't like building static libs
            "--enable-overwrite",
-           "--enable-widec"].join(" "),
+           "--enable-widec"]
+
+  cmd_string.join(" --with-libtool") if platform == 'aix'
+  cmd_string.join(" ")
+  command(cmd_string,
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
   command "make -j #{max_build_jobs} install", :env => env
 
   # build non-wide-character libraries
   command "make distclean"
-  command(["./configure",
+  cmd_string = ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
            "--with-termlib",
            "--without-debug",
-           "--enable-overwrite"].join(" "),
+           "--without-normal",
+           "--enable-overwrite"]
+  cmd_string.join(" --with-libtool") if platform == 'aix'
+  cmd_string.join(" ")
+  command(cmd_string,
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
 
