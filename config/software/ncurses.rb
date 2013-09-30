@@ -106,7 +106,7 @@ build do
            "--enable-widec"]
 
   cmd_array << "--with-libtool" if platform == 'aix'
-  command(cmd_array.join(" ")
+  command(cmd_array.join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
   command "make -j #{max_build_jobs} install", :env => env
