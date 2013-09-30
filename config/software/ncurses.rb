@@ -106,8 +106,7 @@ build do
            "--enable-widec"]
 
   cmd_array << "--with-libtool" if platform == 'aix'
-  cmd_array.join(" ")
-  command(cmd_array,
+  command(cmd_array.join(" ")
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
   command "make -j #{max_build_jobs} install", :env => env
@@ -122,8 +121,7 @@ build do
            "--without-normal",
            "--enable-overwrite"]
   cmd_array << "--with-libtool" if platform == 'aix'
-  cmd_array.join(" ")
-  command(cmd_array,
+  command(cmd_array.join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
 
