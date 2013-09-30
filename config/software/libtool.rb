@@ -38,7 +38,7 @@ build do
     command "./configure --prefix=#{install_dir}/embedded --with-gcc", :env => env
     command "make", :env => env
   else
-    command "./configure --prefix=#{install_dir}/embedded
+    command "./configure --prefix=#{install_dir}/embedded"
     command "make"
   end
   command "make install"
