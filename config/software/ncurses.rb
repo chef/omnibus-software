@@ -29,7 +29,7 @@ relative_path "ncurses-5.9"
 env = case platform
       when "aix"
         {
-          "LDFLAGS" => "-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
+          "LDFLAGS" => "-Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
           "CFLAGS" => "-I#{install_dir}/embedded/include",
           "OBJECT_MODE" => "64",
           "CC" => "gcc -maix64",
