@@ -34,7 +34,12 @@ build do
             "CXX" => "g++ -maix64",
         }
   end
-  command "./configure --prefix=#{install_dir}/embedded --with-gcc"
-  command "make"
+  if platform == "aix"
+    command "./configure --prefix=#{install_dir}/embedded --with-gcc", :env => env
+    command "make", :env => env
+  else
+    command "./configure --prefix=#{install_dir}/embedded --with-gcc"
+    command "make"
+  end
   command "make install"
 end
