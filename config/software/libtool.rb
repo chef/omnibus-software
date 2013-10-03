@@ -24,7 +24,22 @@ source :url => "http://ftp.gnu.org/gnu/libtool/libtool-2.4.tar.gz",
 relative_path "libtool-2.4"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded"
-  command "make"
+  env = case platform
+        when "aix"
+        {
+            "LDFLAGS" => "-L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
+            "CFLAGS" => "-maix64 -O -I#{install_dir}/embedded/include",
+            "OBJECT_MODE" => "64",
+            "CC" => "gcc -maix64",
+            "CXX" => "g++ -maix64",
+        }
+  end
+  if platform == "aix"
+    command "./configure --prefix=#{install_dir}/embedded --with-gcc", :env => env
+    command "make", :env => env
+  else
+    command "./configure --prefix=#{install_dir}/embedded"
+    command "make"
+  end
   command "make install"
 end
