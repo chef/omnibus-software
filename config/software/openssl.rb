@@ -146,7 +146,7 @@ build do
 
   command configure_command, :env => env
   command "#{make_binary} depend", :env => env
-  # we need a custom patch to be able to make -j
-  command "#{make_binary} -j #{max_build_jobs}", :env => env
-  command "#{make_binary} -j #{max_build_jobs} install", :env => env
+  # make -j N on openssl is not reliable
+  command "#{make_binary}", :env => env
+  command "#{make_binary} install", :env => env
 end
