@@ -38,7 +38,6 @@ relative_path "openssl-#{version}"
 
 build do
 
-  patch :source => 'openssl-1.0.1e-parallel-build.patch', :plevel => 1
   env = case platform
         when "mac_os_x"
           {
