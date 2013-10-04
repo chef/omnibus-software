@@ -1,0 +1,22 @@
+# This is an example software definition for a C project.
+#
+# Lots of software definitions for popular open source software
+# already exist in `opscode-omnibus`:
+#
+#  https://github.com/opscode/omnibus-software/tree/master/config/software
+#
+name "perl-extutils-embed"
+version "1.14"
+
+dependency "perl"
+
+source :url => "http://search.cpan.org/CPAN/authors/id/D/DO/DOUGM/ExtUtils-Embed-#{version}.tar.gz",
+       :md5 => "b2a2c26a18bca3ce69f8a0b1b54a0105"
+
+relative_path "ExtUtils-Embed-#{version}"
+
+build do
+    command "#{install_dir}/embedded/bin/perl Makefile.PL INSTALL_BASE=#{install_dir}/embedded"
+    command "make"
+    command "make install"
+end
