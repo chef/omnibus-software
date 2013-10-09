@@ -1,10 +1,3 @@
-# This is an example software definition for a C project.
-#
-# Lots of software definitions for popular open source software
-# already exist in `opscode-omnibus`:
-#
-#  https://github.com/opscode/omnibus-software/tree/master/config/software
-#
 name "perl"
 version "5.18.1"
 
