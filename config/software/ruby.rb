@@ -87,6 +87,7 @@ env =
       "OBJECT_MODE" => "64",
       "ARFLAGS" => "-X64 cru",
       "M4" => "/opt/freeware/bin/m4"
+      "warnflags" => "-qinfo=por"
     }
   else
     {
@@ -96,6 +97,7 @@ env =
   end
 
 build do
+  cmd_array = ["./configure",
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded",
                        "--with-out-ext=fiddle",
