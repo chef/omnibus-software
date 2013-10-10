@@ -97,6 +97,7 @@ env =
   end
 
 build do
+  cmd_array = ["./configure",
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded",
                        "--with-out-ext=fiddle",
