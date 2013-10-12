@@ -46,14 +46,15 @@ build do
           }
         when "aix"
         {
-            "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-            "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
-            "OBJECT_MODE" => "64",
+            "CC" => "xlc -q64",
+            "CXX" => "xlC -q64",
             "LD" => "ld -b64",
+            "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
+            "LDFLAGS" => "-q64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
+            "OBJECT_MODE" => "64",
             "AR" => "/usr/bin/ar",
-            "CC" => "gcc -maix64",
-            "CXX" => "g++ -maix64",
-            "ARFLAGS" => "-X64 cru"
+            "ARFLAGS" => "-X64 cru",
+            "M4" => "/opt/freeware/bin/m4",
         }
         when "solaris2"
           {
