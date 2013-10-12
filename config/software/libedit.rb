@@ -33,7 +33,6 @@ env = case platform
           "CXX" => "xlC -q64",
           "LD" => "ld -b64",
           "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
-          "CXXFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
           "OBJECT_MODE" => "64",
           "ARFLAGS" => "-X64 cru",
           "M4" => "/opt/freeware/bin/m4",
