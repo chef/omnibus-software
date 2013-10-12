@@ -28,9 +28,10 @@ relative_path "libiconv-1.14"
 env = case platform
       when "aix"
         {
-          "CC" => "gcc -maix64",
-          "LDFLAGS" => "-maix64 -Wl,-blibpath:/usr/lib:/lib",
-          "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
+          "CC" => "xlc -q64",
+          "CXX" => "xlC -q64",
+          "LDFLAGS" => "-q64 -Wl,-blibpath:/usr/lib:/lib",
+          "CFLAGS" => "-q64 -I#{install_dir}/embedded/include",
           "LD" => "ld -b64",
           "OBJECT_MODE" => "64",
           "ARFLAGS" => "-X64 cru "
