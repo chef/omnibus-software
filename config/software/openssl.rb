@@ -83,7 +83,7 @@ build do
   configure_command = case platform
                       when "aix"
                         ["perl", "./Configure",
-                         "aix64-gcc",
+                         "aix64-cc",
                          common_args,
                         "-L#{install_dir}/embedded/lib",
                         "-I#{install_dir}/embedded/include",
