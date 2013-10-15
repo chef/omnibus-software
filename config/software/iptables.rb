@@ -14,12 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "yajl"
-version "2.0.1"
+name "iptables"
+version "1.4.7"
 
-source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
 
-relative_path "yajl-#{version}"
+source :url => "ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.7.tar.bz2",
+       :md5 => "645941dd1f9e0ec1f74c61918d70d52f"
+
+relative_path "iptables-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -28,9 +30,12 @@ env = {
 }
 
 build do
-  command [
-            "./configure",
-            "--prefix=#{install_dir}/embedded",
+  command ["./configure",
+           "--prefix=#{install_dir}/embedded",
+           "--disable-debug",
+           "--enable-optimize",
            ].join(" "), :env => env
+
+  command "make -j #{max_build_jobs}", :env => env
   command "make install"
 end

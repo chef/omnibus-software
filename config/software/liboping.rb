@@ -14,12 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "yajl"
-version "2.0.1"
+name "liboping"
+version "1.6.2"
 
-source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
+dependency "perl-extutils-makemaker"
 
-relative_path "yajl-#{version}"
+source :url => "http://verplant.org/liboping/files/liboping-1.6.2.tar.gz",
+       :md5 => "6f3e0d38ea03362476ac3be8b3fd961e"
+
+relative_path "liboping-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -32,5 +35,11 @@ build do
             "./configure",
             "--prefix=#{install_dir}/embedded",
            ].join(" "), :env => env
-  command "make install"
+
+  command [
+            "PATH=#{install_dir}/embedded/bin:$PATH;", ## Need to use embedded perl
+            "make -j #{max_build_jobs}"
+          ].join(" ")
+
+  command "make install", :env => env
 end

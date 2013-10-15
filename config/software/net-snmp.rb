@@ -14,23 +14,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "yajl"
-version "2.0.1"
+name "net-snmp"
+version "5.7.2"
 
-source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
+dependency "openssl"
+dependency "perl-extutils-makemaker"
 
-relative_path "yajl-#{version}"
+source  :url => "http://downloads.sourceforge.net/project/net-snmp/net-snmp/#{version}/net-snmp-#{version}.tar.gz", ## Dear Sourceforge, kill yourself.
+        :md5 => "5bddd02e2f82b62daa79f82717737a14"
+
+relative_path "net-snmp-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+  "LD_LIBRARY_PATH" => "#{install_dir}/embedded/lib",
 }
 
 build do
-  command [
+  command [ 
+            "PATH=#{install_dir}/embedded/bin:$PATH;", ## Need to use embedded perl binary
             "./configure",
             "--prefix=#{install_dir}/embedded",
+            "--disable-debugging",
+            "--disable-embedded-perl",
            ].join(" "), :env => env
-  command "make install"
+  command "make", :env => env
+  command "make install", :env => env
 end

@@ -14,12 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "yajl"
-version "2.0.1"
+name "libpcap"
+version "1.4.0"
 
-source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
+source :url => "http://www.tcpdump.org/release/libpcap-#{version}.tar.gz",
+       :md5 => "56e88a5aabdd1e04414985ac24f7e76c"
 
-relative_path "yajl-#{version}"
+relative_path "libpcap-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -28,9 +29,9 @@ env = {
 }
 
 build do
-  command [
-            "./configure",
-            "--prefix=#{install_dir}/embedded",
+  command ["./configure",
+           "--prefix=#{install_dir}/embedded",
            ].join(" "), :env => env
-  command "make install"
+  command "make -j #{max_build_jobs}"
+  command "make install", :env => env
 end
