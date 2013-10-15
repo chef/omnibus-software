@@ -30,6 +30,7 @@ build do
            "--prefix=#{install_dir}/embedded",
            "--with-http_ssl_module",
            "--with-http_stub_status_module",
+           "--with-ipv6",
            "--with-debug",
            "--with-ld-opt=-L#{install_dir}/embedded/lib",
            "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" ")
