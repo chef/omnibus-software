@@ -16,10 +16,15 @@
 #
 
 name "ohai"
+if platform == 'windows'
+  dependency "ruby-windows" #includes rubygems
+  dependency "ruby-windows-devkit"
+else
+  dependency "ruby"
+  dependency "rubygems"
+  dependency "yajl"
+end
 
-dependency "ruby"
-dependency "rubygems"
-dependency "yajl"
 dependency "bundler"
 
 version ENV["OHAI_GIT_REV"] || "master"
