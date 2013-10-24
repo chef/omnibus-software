@@ -26,6 +26,10 @@ source :url => "http://curl.haxx.se/download/curl-7.23.1.tar.gz",
 
 relative_path 'curl-7.23.1'
 
+env = {
+    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+}
+
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
@@ -39,8 +43,9 @@ build do
            "--enable-ipv6",
            "--without-libidn",
            "--with-ssl=#{install_dir}/embedded",
-           "--with-zlib=#{install_dir}/embedded"].join(" ")
+           "--with-zlib=#{install_dir}/embedded"
+    ].join(" "), :env => env
 
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make -j #{max_build_jobs}", :env => env
   command "make install"
 end
