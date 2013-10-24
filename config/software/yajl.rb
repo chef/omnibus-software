@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2013 Robby Dyer
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,30 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 name "yajl"
-gem_version = "1.1.0"
+version "2.0.1"
 
-dependency "rubygems"
+source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
 
-relative_path "yajl-ruby"
+relative_path "yajl-#{version}"
 
-if (platform == "solaris2" and Omnibus.config.solaris_compiler == "studio")
-  version "sparc"
-  source :git => "git://github.com/Atalanta/yajl-ruby"
+env = {
+  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+}
 
-  build do
-    gem "build yajl-ruby.gemspec"
-    gem ["install yajl-ruby-#{gem_version}.gem",
-         "-n #{install_dir}/bin",
-         "--no-rdoc --no-ri"].join(" ")
-  end
-else
-  version "1.1.0"
-  build do
-    gem ["install yajl-ruby",
-         "-v #{gem_version}",
-         "-n #{install_dir}/bin",
-         "--no-rdoc --no-ri"].join(" ")
-  end
+build do
+  command [
+            "./configure",
+            "--prefix=#{install_dir}/embedded",
+           ].join(" "), :env => env
+  command "make install"
 end
