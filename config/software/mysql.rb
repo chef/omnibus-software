@@ -61,6 +61,7 @@ build do
             "-DZLIB_LIBRARY:FILEPATH=#{install_dir}/embedded/lib/libz.so",
             "-DCRYPTO_LIBRARY:FILEPATH=#{install_dir}/embedded/lib/libcrypto.so",
             "-DWITH_BUNDLED_LIBEVENT=off",
+            "-DMYSQL_UNIX_ADDR=#{install_dir}/embedded/data/mysql.sock",
             ".",
            ].join(" "), :env => env
   command "make -j #{max_build_jobs}", :env => env
