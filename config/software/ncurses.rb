@@ -31,8 +31,8 @@ env = case platform
         {
           "PATH" => "#{install_dir}/embedded/bin:" + ENV['PATH'],
           "LDFLAGS" => "-Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
-          "CXXFLAGS" => "-I#{install_dir}/embedded/include",
-          "CFLAGS" => "-g -I#{install_dir}/embedded/include",
+          "CXXFLAGS" => "-O -I#{install_dir}/embedded/include",
+          "CFLAGS" => "-O -I#{install_dir}/embedded/include",
           "OBJECT_MODE" => "64",
           "CC" => "gcc -maix64",
           "CXX" => "g++ -maix64",
