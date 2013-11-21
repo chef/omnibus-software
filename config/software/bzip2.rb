@@ -1,3 +1,7 @@
+# Install bzip2 and its shared library, libbz2.so
+# This library object is required for building Python with the bz2 module,
+# and should be picked up automatically when building Python.
+
 name "bzip2"
 version "1.0.6"
 
