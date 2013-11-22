@@ -16,14 +16,14 @@
 #
 
 name "openresty"
-version "1.4.2.7"
+version "1.4.3.6"
 
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 
 source :url => "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
-       :md5 => "e8f72ba6c4e602fca669605a938d35e6"
+       :md5 => "5e5359ae3f1b8db4046b358d84fabbc8"
 
 relative_path "ngx_openresty-#{version}"
 
