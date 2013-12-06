@@ -32,6 +32,10 @@ env = {
 }
 
 build do
+  # This is cherry-picked from change
+  # d384ce8b3492b9d76af23e621a20bed8da9c6016 of keepalived, (master
+  # branch), and should be no longer necessary after 1.2.9.
+  patch :source => "keepalived-1.2.9_opscode_centos_5.patch"
   command "./configure --prefix=#{install_dir}/embedded --disable-iconv", :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make install"
