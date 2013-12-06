@@ -16,10 +16,10 @@
 #
 
 name "redis"
-version "2.6.16"
+version "2.8.2"
 
 source :url => "http://download.redis.io/releases/redis-#{version}.tar.gz",
-       :md5 => "ca1b81bd56fe0c5e2c8ec443a95c908d"
+       :md5 => "ee527b0c37e1e2cbceb497f5f6b8112b"
 
 relative_path "redis-#{version}"
 
