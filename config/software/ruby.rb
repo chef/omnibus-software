@@ -79,13 +79,16 @@ env =
       # We also need prezl's M4 instead of picking up /usr/bin/m4 which
       # barfs on ruby.
       #
-      "CC" => "gcc -maix64",
+      "CC" => "xlc -q64",
+      "CXX" => "xlC -q64",
       "LD" => "ld -b64",
-      "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include -O",
-      "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
+      "CFLAGS" => "-q64 -O -qhot -I#{install_dir}/embedded/include",
+      "CXXFLAGS" => "-q64 -O -qhot -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-q64  -L#{install_dir}/embedded/lib -Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
       "OBJECT_MODE" => "64",
       "ARFLAGS" => "-X64 cru",
-      "M4" => "/opt/freeware/bin/m4"
+      "M4" => "/opt/freeware/bin/m4",
+      "warnflags" => "-qinfo=por"
     }
   else
     {
@@ -106,6 +109,7 @@ build do
   case platform
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
+    patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"

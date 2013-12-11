@@ -29,11 +29,15 @@ relative_path "libedit-20120601-3.0"
 env = case platform
       when "aix"
         {
-          "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-          "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
+          "CC" => "xlc -q64",
+          "CXX" => "xlC -q64",
           "LD" => "ld -b64",
+          "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
+          "CXXFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
           "OBJECT_MODE" => "64",
-          "ARFLAGS" => "-X64 cru"
+          "ARFLAGS" => "-X64 cru",
+          "M4" => "/opt/freeware/bin/m4",
+          "LDFLAGS" => "-q64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
         }
       else
         {
