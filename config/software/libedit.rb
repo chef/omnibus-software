@@ -19,7 +19,7 @@ name "libedit"
 version "20120601-3.0"
 
 dependency "ncurses"
-dependency "libgcc"
+dependency "libgcc" if (platform != "aix")
 
 source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
        :md5 => "e50f6a7afb4de00c81650f7b1a0f5aea"
