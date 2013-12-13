@@ -44,7 +44,14 @@ build do
     configure_command << "--with-pic"
   end
 
+
   command configure_command.join(" ")
+  if platform == "aix"
+    command configure_command.join(" "), :env => env
+    command "make -j #{max_build_jobs}"
+    command "make install"
+  else
   command "make -j #{max_build_jobs}"
   command "make install"
+  end
 end
