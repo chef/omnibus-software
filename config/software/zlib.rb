@@ -18,7 +18,7 @@
 name "zlib"
 version "1.2.6"
 
-dependency "libgcc"
+dependency "libgcc" if (platform != "aix")
 
 # TODO: this link is subject to change with each new release of zlib.
 #       we'll need to use a more robust link (sourceforge) that will
