@@ -45,12 +45,12 @@ build do
   end
 
 
-  command configure_command.join(" ")
   if platform == "aix"
     command configure_command.join(" "), :env => env
-    command "make -j #{max_build_jobs}"
-    command "make install"
+    command "make -j #{max_build_jobs}", :env => env
+    command "make install", :env => env
   else
+  command configure_command.join(" ")
   command "make -j #{max_build_jobs}"
   command "make install"
   end
