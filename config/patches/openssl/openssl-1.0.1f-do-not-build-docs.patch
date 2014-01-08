@@ -1,5 +1,5 @@
---- openssl-1.0.1e/Makefile.org.orig	2013-07-12 15:03:36.208991019 -0500
-+++ openssl-1.0.1e/Makefile.org	2013-07-12 15:05:25.837652014 -0500
+--- openssl-1.0.1f/Makefile.org.orig	2014-01-08 10:58:40.000000000 -0800
++++ openssl-1.0.1f/Makefile.org	2014-01-08 11:06:29.000000000 -0800
 @@ -167,7 +167,7 @@
  
  TOP=    .
@@ -9,7 +9,7 @@
  WDIRS=  windows
  LIBS=   libcrypto.a libssl.a
  SHARED_CRYPTO=libcrypto$(SHLIB_EXT)
-@@ -537,7 +537,7 @@
+@@ -538,7 +538,7 @@
  dist_pem_h:
  	(cd crypto/pem; $(MAKE) -e $(BUILDENV) pem.h; $(MAKE) clean)
  
@@ -18,7 +18,7 @@
  
  install_sw:
  	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
-@@ -602,7 +602,6 @@
+@@ -603,7 +603,6 @@
  			echo 'OpenSSL shared libraries have been installed in:'; \
  			echo '  $(INSTALLTOP)'; \
  			echo ''; \
@@ -26,7 +26,7 @@
  		fi; \
  	fi
  	cp libcrypto.pc $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/pkgconfig
-@@ -612,72 +611,4 @@
+@@ -613,72 +612,4 @@
  	cp openssl.pc $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/pkgconfig
  	chmod 644 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/pkgconfig/openssl.pc
  
