@@ -16,10 +16,10 @@
 #
 
 name "cacerts"
-version "2012.12.19-1"  # date of the file is in a comment at the start
+version "2014.01.06"  # date of the file is in a comment at the start, or in the changelog
 
 source :url => "http://curl.haxx.se/ca/cacert.pem",
-       :md5 => '349ba2d6964db9ca558c9e1daf38e428'
+       :md5 => '6253bb1b6696a190fdf7a2062003b21c'
 
 relative_path "cacerts-#{version}"
 
