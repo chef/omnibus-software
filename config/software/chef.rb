@@ -130,7 +130,7 @@ build do
   bundle "install --without server docgen", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
   auxiliary_gems = ["highline", "net-ssh-multi"]
-  auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x" || platform == "freebsd" || platform == "aix"
+  auxiliary_gems << "ruby-shadow" unless platform == "aix"
 
   gem ["install",
        auxiliary_gems.join(" "),
