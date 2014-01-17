@@ -20,7 +20,7 @@ version "1.5.17"
 
 dependency "zlib"
 
-source :url => "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng15/libpng-#{version}.tar.gz",
+source :url => "http://downloads.sourceforge.net/project/libpng/libpng15/#{version}/libpng-#{version}.tar.gz",
        :md5 => "d2e27dbd8c6579d1582b3f128fd284b4"
 
 relative_path "libpng-#{version}"
