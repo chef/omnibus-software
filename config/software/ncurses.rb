@@ -96,6 +96,10 @@ build do
     patch :source => 'patch-aix-configure', :plevel => 0
   end
 
+  if platform == "mac_os_x"
+    patch :source => 'ncurses-5.9-macosx-clang.patch', :plevel => 0
+  end
+
   # build wide-character libraries
   cmd_array = ["./configure",
            "--prefix=#{install_dir}/embedded",
