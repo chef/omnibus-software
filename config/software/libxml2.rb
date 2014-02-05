@@ -21,7 +21,7 @@ version "2.7.8"
 dependency "zlib"
 dependency "libiconv"
 
-source :url => "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz",
+source :url => "http://www.xmlsoft.org/sources/libxml2-2.7.8.tar.gz",
        :md5 => "8127a65e8c3b08856093099b52599c86"
 
 relative_path "libxml2-2.7.8"

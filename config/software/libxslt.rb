@@ -20,7 +20,7 @@ version "1.1.26"
 
 dependency "libxml2"
 
-source :url => "ftp://xmlsoft.org/libxml2/libxslt-1.1.26.tar.gz",
+source :url => "http://www.xmlsoft.org/sources/libxslt-1.1.26.tar.gz",
        :md5 => "e61d0364a30146aaa3001296f853b2b9"
 
 relative_path "libxslt-1.1.26"
