@@ -96,6 +96,17 @@ build do
     patch :source => 'patch-aix-configure', :plevel => 0
   end
 
+  if platform == "mac_os_x"
+    # References:
+    # https://github.com/Homebrew/homebrew-dupes/issues/43
+    # http://invisible-island.net/ncurses/NEWS.html#t20110409
+    #
+    # Patches ncurses for clang compiler. Changes have been accepted into
+    # upstream, but occurred shortly after the 5.9 release. We should be able
+    # to remove this after upgrading to any release created after June 2012
+    patch :source => 'ncurses-clang.patch'
+  end
+
   # build wide-character libraries
   cmd_array = ["./configure",
            "--prefix=#{install_dir}/embedded",
