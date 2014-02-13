@@ -26,6 +26,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "gdbm" if (platform == "mac_os_x" or platform == "freebsd" or platform == "aix" or platform == "rhel")
 dependency "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
+dependency "db" if platform == "rhel"
 
 source :url => "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{version}.tar.gz",
        :md5 => '8ac0dee72fe12d75c8b2d0ef5d0c2968'
