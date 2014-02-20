@@ -21,10 +21,15 @@ version "20120601-3.0"
 dependency "ncurses"
 dependency "libgcc"
 
-source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
-       :md5 => "e50f6a7afb4de00c81650f7b1a0f5aea"
+md5 = {
+  "20120601-3.0" => "e50f6a7afb4de00c81650f7b1a0f5aea",
+  "20130712-3.1" => "0891336c697362727a1fa7e60c5cb96c",
+}
 
-relative_path "libedit-20120601-3.0"
+source :url => "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz",
+       :md5 => md5[version]
+
+relative_path "libedit-#{version}"
 
 env = case platform
       when "aix"
