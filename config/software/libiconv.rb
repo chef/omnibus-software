@@ -20,10 +20,10 @@ version "1.14"
 
 dependency "libgcc"
 
-source :url => 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz',
+source :url => "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
        :md5 => 'e34509b1623cec449dfeb73d7ce9c6c6'
 
-relative_path "libiconv-1.14"
+relative_path "libiconv-#{version}"
 
 env = case platform
       when "aix"
