@@ -16,7 +16,7 @@
 #
 
 name "yajl"
-gem_version = "1.1.0"
+version "1.1.0"
 
 dependency "rubygems"
 
@@ -24,7 +24,7 @@ relative_path "yajl-ruby"
 
 build do
   gem ["install yajl-ruby",
-       "-v #{gem_version}",
+       "-v #{version}",
        "-n #{install_dir}/bin",
        "--no-rdoc --no-ri"].join(" ")
 end
