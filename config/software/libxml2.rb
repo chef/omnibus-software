@@ -21,17 +21,22 @@ version "2.7.8"
 dependency "zlib"
 dependency "libiconv"
 
-source :url => "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz",
-       :md5 => "8127a65e8c3b08856093099b52599c86"
+md5 = {
+  "2.7.8" => "8127a65e8c3b08856093099b52599c86",
+  "2.9.1" => "9c0cfef285d5c4a5c80d00904ddab380",
+}
+source :url => "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz",
+       :md5 => md5[version]
 
-relative_path "libxml2-2.7.8"
+relative_path "libxml2-#{version}"
 
 build do
   cmd = ["./configure",
          "--prefix=#{install_dir}/embedded",
          "--with-zlib=#{install_dir}/embedded",
          "--with-iconv=#{install_dir}/embedded",
-         "--without-python"].join(" ")
+         "--without-python",
+         "--without-icu"].join(" ")
   env = {
     "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
