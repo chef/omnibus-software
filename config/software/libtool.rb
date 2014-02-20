@@ -18,10 +18,15 @@
 name "libtool"
 version "2.4"
 
-source :url => "http://ftp.gnu.org/gnu/libtool/libtool-2.4.tar.gz",
-       :md5 => "b32b04148ecdd7344abc6fe8bd1bb021"
+md5 = {
+  "2.4" => "b32b04148ecdd7344abc6fe8bd1bb021",
+  "2.4.2" => "d2f3b7d4627e69e13514a40e72a24d50",
+}
 
-relative_path "libtool-2.4"
+source :url => "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz",
+       :md5 => md5[version]
+
+relative_path "libtool-#{version}"
 
 build do
   env = case platform
