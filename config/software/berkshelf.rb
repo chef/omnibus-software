@@ -18,6 +18,7 @@
 name "berkshelf"
 version "2.0.12"
 
+dependency "libffi" if version.to_f > 3.0 && platform != 'windows'
 dependency "ruby"
 dependency "rubygems"
 dependency "nokogiri"
