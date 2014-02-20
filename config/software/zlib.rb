@@ -20,13 +20,18 @@ version "1.2.6"
 
 dependency "libgcc"
 
+md5 = {
+  "1.2.6" => "618e944d7c7cd6521551e30b32322f4a",
+  "1.2.8" => "44d667c142d7cda120332623eab69f40",
+}
+
 # TODO: this link is subject to change with each new release of zlib.
 #       we'll need to use a more robust link (sourceforge) that will
 #       not change over time.
-source :url => "http://downloads.sourceforge.net/project/libpng/zlib/1.2.6/zlib-1.2.6.tar.gz",
-       :md5 => "618e944d7c7cd6521551e30b32322f4a"
+source :url => "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz",
+       :md5 => md5[version]
 
-relative_path "zlib-1.2.6"
+relative_path "zlib-#{version}"
 configure_env =
   case platform
   when "aix"
@@ -45,19 +50,10 @@ configure_env =
       "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
     }
   when "solaris2"
-    if Omnibus.config.solaris_compiler == "studio"
     {
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -DNO_VIZ"
     }
-    elsif Omnibus.config.solaris_compiler == "gcc"
-    {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib -DNO_VIZ"
-    }
-    else
-      raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
-    end
   else
     {
       "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
