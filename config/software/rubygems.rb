@@ -20,8 +20,13 @@ version "1.8.24"
 
 dependency "ruby"
 
+md5 = {
+  "1.8.24" => "3a555b9d579f6a1a1e110628f5110c6b",
+  "2.2.1" => "1f0017af0ad3d3ed52665132f80e7443",
+}
+
 source :url => "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz",
-       :md5 => "3a555b9d579f6a1a1e110628f5110c6b"
+       :md5 => md5[version]
 
 relative_path "rubygems-#{version}"
 
