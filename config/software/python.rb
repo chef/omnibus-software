@@ -22,6 +22,7 @@ dependency "ncurses"
 dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
+dependency "sqlite3"
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
        :md5 => 'b4f01a1d0ba0b46b05c73b2ac909b1df'
