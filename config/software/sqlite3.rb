@@ -36,7 +36,7 @@ env = {
 }
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "./configure --prefix=#{install_dir}/embedded --enable-readline=no", :env => env
   command "make", :env => env
   command "make install", :env => env
 end
