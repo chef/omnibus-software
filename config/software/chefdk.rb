@@ -20,6 +20,14 @@ name "chefdk"
 dependency "chef"
 dependency "berkshelf"
 
+env = {
+  # rubocop pulls in nokogiri 1.5.11, so needs PKG_CONFIG_PATH and
+  # NOKOGIRI_USE_SYSTEM_LIBRARIES until rubocop stops doing that
+  "PKG_CONFIG_PATH" => "#{install_dir}/embedded/lib/pkgconfig",
+  "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true",
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+}
+
 build do
   auxiliary_gems = []
 
@@ -33,6 +41,6 @@ build do
   gem ["install",
        auxiliary_gems.join(" "),
        "-n #{install_dir}/bin",
-       "--no-rdoc --no-ri"].join(" "), :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+       "--no-rdoc --no-ri"].join(" "), :env => env
 end
 
