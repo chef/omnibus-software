@@ -17,7 +17,11 @@
 
 name "chefdk"
 
-dependency "chef"
+if platform == 'windows'
+  dependency "chef-windows"
+else
+  dependency "chef"
+end
 dependency "berkshelf"
 
 env = {

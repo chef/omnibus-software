@@ -18,7 +18,13 @@
 name "nokogiri"
 version "1.5.4"
 
-dependencies ["ruby", "rubygems", "libxml2", "libxslt", "libiconv"]
+dependency "ruby"
+dependency "rubygems"
+unless platform == 'windows'
+  dependency "libxml2"
+  dependency "libxslt"
+  dependency "libiconv"
+end
 
 # nokogiri uses pkg-config, and on a mac that will find the system pkg-config
 # which will find the system pkg-configs which will pull in libicucore from the
