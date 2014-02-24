@@ -35,16 +35,20 @@ env = {
 build do
   auxiliary_gems = []
 
-  auxiliary_gems << "chefspec"
   auxiliary_gems << "test-kitchen"
-  auxiliary_gems << "rubocop"
   auxiliary_gems << "foodcritic"
-  auxiliary_gems << "strainer"
+  auxiliary_gems << "chefspec"
+  auxiliary_gems << "rubocop"
+# strainer build is hosed on windows
+#  auxiliary_gems << "strainer"
   auxiliary_gems << "knife-spork"
 
-  gem ["install",
-       auxiliary_gems.join(" "),
-       "-n #{install_dir}/bin",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+  # do multiple gem installs to better isolate/debug failures
+  auxiliary_gems.each do |gem|
+    gem ["install",
+         gem,
+         "-n #{install_dir}/bin",
+         "--no-rdoc --no-ri"].join(" "), :env => env
+  end
 end
 
