@@ -18,9 +18,12 @@
 name "nokogiri"
 version "1.5.4"
 
-dependency "ruby"
-dependency "rubygems"
-unless platform == 'windows'
+if platform == 'windows'
+  dependency "ruby-windows"
+  dependency "ruby-windows-devkit"
+else
+  dependency "ruby"
+  dependency "rubygems"
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
