@@ -39,16 +39,13 @@ build do
   auxiliary_gems << "foodcritic"
   auxiliary_gems << "chefspec"
   auxiliary_gems << "rubocop"
-# strainer build is hosed on windows
-#  auxiliary_gems << "strainer"
+  # strainer build is hosed on windows
+  #  auxiliary_gems << "strainer"
   auxiliary_gems << "knife-spork"
 
   # do multiple gem installs to better isolate/debug failures
-  auxiliary_gems.each do |gem|
-    gem ["install",
-         gem,
-         "-n #{install_dir}/bin",
-         "--no-rdoc --no-ri"].join(" "), :env => env
+  auxiliary_gems.each do |gem_name|
+    gem "install #{gem_name} -n #{install_dir}/bin --no-rdoc --no-ri", :env => env
   end
 end
 
