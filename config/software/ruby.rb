@@ -27,13 +27,15 @@ dependency "libiconv"
 dependency "gdbm" if (platform == "mac_os_x" or platform == "freebsd" or platform == "aix")
 dependency "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 
-md5 = {
-  "1.9.3-p484" => '8ac0dee72fe12d75c8b2d0ef5d0c2968',
-  "2.1.0" => '9e6386d53f5200a3e7069107405b93f7',
-}
+version "1.9.3-p484" do
+  source md5: '8ac0dee72fe12d75c8b2d0ef5d0c2968'
+end
 
-source :url => "http://ftp.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz",
-       :md5 => md5[version]
+version "2.1.1" do
+  source md5: 'e57fdbb8ed56e70c43f39c79da1654b2'
+end
+
+source url: "http://ftp.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 relative_path "ruby-#{version}"
 
