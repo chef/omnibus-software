@@ -18,11 +18,11 @@
 name "berkshelf"
 default_version "2.0.12"
 
-dependency "libffi" if version.to_f > 3.0 && platform != 'windows'
 if platform == 'windows'
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else
+  dependency "libffi" if version.to_f > 3.0
   dependency "ruby"
   dependency "rubygems"
 end
