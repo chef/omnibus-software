@@ -27,6 +27,7 @@ relative_path "gdbm-1.9.1"
 
 build do
   configure_command = ["./configure",
+                       "--enable-libgdbm-compat",
                        "--prefix=#{install_dir}/embedded"]
 
   if platform == "freebsd"
