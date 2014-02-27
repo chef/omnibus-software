@@ -16,7 +16,7 @@
 #
 
 name "sphinx"
-version "1.1.3"
+default_version "1.1.3"
 
 dependency "pip"
 dependency "pygments"

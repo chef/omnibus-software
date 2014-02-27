@@ -16,7 +16,7 @@
 #
 
 name "keepalived"
-version "1.2.9"
+default_version "1.2.9"
 
 dependency "popt"
 

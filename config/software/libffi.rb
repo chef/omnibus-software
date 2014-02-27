@@ -16,7 +16,7 @@
 #
 
 name "libffi"
-version "3.0.13"
+default_version "3.0.13"
 
 dependency "libgcc"
 dependency "libtool"

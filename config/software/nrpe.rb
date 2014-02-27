@@ -16,7 +16,7 @@
 #
 
 name "nrpe"
-version "2.13"
+default_version "2.13"
 
 dependency "zlib"
 dependency "openssl"

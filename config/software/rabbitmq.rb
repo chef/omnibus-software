@@ -16,7 +16,7 @@
 #
 
 name "rabbitmq"
-version "2.7.1"
+default_version "2.7.1"
 
 dependency "erlang"
 dependency "rsync"

@@ -16,7 +16,7 @@
 #
 
 name "nagios-plugins"
-version "1.4.15"
+default_version "1.4.15"
 
 dependency "zlib"
 dependency "openssl"

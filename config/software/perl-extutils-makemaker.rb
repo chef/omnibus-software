@@ -1,5 +1,5 @@
 name "perl-extutils-makemaker"
-version "6.78"
+default_version "6.78"
 
 dependency "perl"
 

@@ -16,7 +16,7 @@
 #
 
 name "rebar"
-version "2.0.0"
+default_version "2.0.0"
 
 dependency "erlang"
 

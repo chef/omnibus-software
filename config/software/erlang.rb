@@ -16,7 +16,7 @@
 #
 
 name "erlang"
-version "R15B02"
+default_version "R15B02"
 
 dependency "zlib"
 dependency "openssl"

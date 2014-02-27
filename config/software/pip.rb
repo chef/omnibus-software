@@ -16,7 +16,7 @@
 #
 
 name "pip"
-version "1.3"
+default_version "1.3"
 
 dependency "setuptools"
 

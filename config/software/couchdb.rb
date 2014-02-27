@@ -16,7 +16,7 @@
 #
 
 name "couchdb"
-version "1.0.3"
+default_version "1.0.3"
 
 dependency "spidermonkey"
 dependency "icu"

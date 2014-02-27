@@ -16,7 +16,7 @@
 #
 
 name "server-jre"
-version "7u25"
+default_version "7u25"
 
 dependency "rsync"
 

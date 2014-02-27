@@ -16,7 +16,7 @@
 #
 
 name "rsync"
-version "3.0.9"
+default_version "3.0.9"
 
 dependency "popt"
 

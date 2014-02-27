@@ -16,7 +16,7 @@
 #
 
 name "spawn-fcgi"
-version "1.6.3"
+default_version "1.6.3"
 
 dependency "fcgi"
 dependency "fcgiwrap"

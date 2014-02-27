@@ -16,7 +16,7 @@
 #
 
 name "libiconv"
-version "1.14"
+default_version "1.14"
 
 dependency "libgcc"
 

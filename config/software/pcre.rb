@@ -16,7 +16,7 @@
 #
 
 name "pcre"
-version "8.31"
+default_version "8.31"
 
 dependency "libedit"
 dependency "ncurses"

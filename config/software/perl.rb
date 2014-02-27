@@ -1,5 +1,5 @@
 name "perl"
-version "5.18.1"
+default_version "5.18.1"
 
 source :url => "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz",
        :md5 => "304cb5bd18e48c44edd6053337d3386d"

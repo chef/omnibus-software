@@ -16,7 +16,7 @@
 #
 
 name "jre"
-version "7u3-b04"
+default_version "7u3-b04"
 
 dependency "rsync"
 

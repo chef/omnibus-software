@@ -16,7 +16,7 @@
 #
 
 name "yajl"
-version "1.1.0"
+default_version "1.1.0"
 
 dependency "rubygems"
 

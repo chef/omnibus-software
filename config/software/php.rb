@@ -1,5 +1,5 @@
 name "php"
-version "5.3.10"
+default_version "5.3.10"
 
 dependency "zlib"
 dependency "pcre"

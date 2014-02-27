@@ -16,7 +16,7 @@
 #
 
 name "nginx"
-version "1.4.4"
+default_version "1.4.4"
 
 dependency "pcre"
 

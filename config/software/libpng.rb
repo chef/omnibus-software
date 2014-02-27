@@ -16,7 +16,7 @@
 #
 
 name "libpng"
-version "1.5.17"
+default_version "1.5.17"
 
 dependency "zlib"
 

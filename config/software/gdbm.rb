@@ -16,7 +16,7 @@
 #
 
 name "gdbm"
-version "1.9.1"
+default_version "1.9.1"
 
 dependency "libgcc"
 

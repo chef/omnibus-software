@@ -16,7 +16,7 @@
 #
 
 name "fcgi"
-version "2.4.0"
+default_version "2.4.0"
 
 dependency "autoconf"
 dependency "automake"

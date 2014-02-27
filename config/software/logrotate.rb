@@ -16,7 +16,7 @@
 #
 
 name "logrotate"
-version "3.8.5"
+default_version "3.8.5"
 
 dependency "popt"
 

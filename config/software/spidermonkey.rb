@@ -16,7 +16,7 @@
 #
 
 name "spidermonkey"
-version "1.8.0"
+default_version "1.8.0"
 
 source :url => "http://ftp.mozilla.org/pub/mozilla.org/js/js-1.8.0-rc1.tar.gz",
        :md5 => "eaad8815dcc66a717ddb87e9724d964e"

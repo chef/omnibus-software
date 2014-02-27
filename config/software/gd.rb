@@ -16,7 +16,7 @@
 #
 
 name "gd"
-version "2.0.33"
+default_version "2.0.33"
 
 dependency "libiconv"
 dependency "zlib"

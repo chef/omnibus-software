@@ -16,7 +16,7 @@
 #
 
 name "fcgiwrap"
-version "1.0.3"
+default_version "1.0.3"
 
 dependency "autoconf"
 dependency "fcgi"

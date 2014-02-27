@@ -19,7 +19,7 @@
 # and should be picked up automatically when building Python.
 
 name "bzip2"
-version "1.0.6"
+default_version "1.0.6"
 
 dependency "zlib"
 dependency "openssl"

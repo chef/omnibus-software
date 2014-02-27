@@ -16,7 +16,7 @@
 #
 
 name "nagios"
-version "3.3.1"
+default_version "3.3.1"
 
 dependency "gd"
 dependency "php"

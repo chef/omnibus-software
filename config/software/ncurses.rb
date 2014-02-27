@@ -16,7 +16,7 @@
 #
 
 name "ncurses"
-version "5.9"
+default_version "5.9"
 
 dependency "libgcc"
 dependency "libtool" if platform == "aix"

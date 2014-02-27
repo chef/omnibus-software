@@ -27,7 +27,7 @@ end
 
 dependency "bundler"
 
-version ENV["OHAI_GIT_REV"] || "master"
+default_version ENV["OHAI_GIT_REV"] || "master"
 
 source :git => "git://github.com/opscode/ohai"
 

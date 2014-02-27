@@ -16,7 +16,7 @@
 #
 
 name "libyaml"
-version "0.1.5"
+default_version "0.1.5"
 
 source :url => "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz",
        :md5 => "24f6093c1e840ca5df2eb09291a1dbf1"

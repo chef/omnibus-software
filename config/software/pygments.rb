@@ -16,7 +16,7 @@
 #
 
 name "pygments"
-version "1.6"
+default_version "1.6"
 
 dependency "pip"
 

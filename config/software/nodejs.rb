@@ -16,7 +16,7 @@
 #
 
 name "nodejs"
-version "0.10.10"
+default_version "0.10.10"
 
 source :url => "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz",
        :md5 => "a47a9141567dd591eec486db05b09e1c"
