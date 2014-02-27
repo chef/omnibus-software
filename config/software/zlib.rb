@@ -16,20 +16,19 @@
 #
 
 name "zlib"
-version "1.2.6"
+default_version "1.2.6"
 
 dependency "libgcc"
 
-md5 = {
-  "1.2.6" => "618e944d7c7cd6521551e30b32322f4a",
-  "1.2.8" => "44d667c142d7cda120332623eab69f40",
-}
+version "1.2.6" do
+  source md5: "618e944d7c7cd6521551e30b32322f4a"
+end
 
-# TODO: this link is subject to change with each new release of zlib.
-#       we'll need to use a more robust link (sourceforge) that will
-#       not change over time.
-source :url => "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz",
-       :md5 => md5[version]
+version "1.2.8" do
+  source md5: "44d667c142d7cda120332623eab69f40"
+end
+
+source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
 
 relative_path "zlib-#{version}"
 configure_env =

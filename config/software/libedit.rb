@@ -21,13 +21,15 @@ version "20120601-3.0"
 dependency "ncurses"
 dependency "libgcc"
 
-md5 = {
-  "20120601-3.0" => "e50f6a7afb4de00c81650f7b1a0f5aea",
-  "20130712-3.1" => "0891336c697362727a1fa7e60c5cb96c",
-}
+version "20120601-3.0" do
+  source md5: "e50f6a7afb4de00c81650f7b1a0f5aea"
+end
 
-source :url => "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz",
-       :md5 => md5[version]
+version "20130712-3.1" do
+  source md5: "0891336c697362727a1fa7e60c5cb96c"
+end
+
+source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
 
 relative_path "libedit-#{version}"
 

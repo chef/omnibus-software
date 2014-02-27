@@ -16,17 +16,20 @@
 #
 
 name "libxslt"
-version "1.1.26"
+default_version "1.1.26"
 
 dependency "libxml2"
 dependency "libtool" if platform == "solaris2"
 
-md5 = {
-  "1.1.26" => "e61d0364a30146aaa3001296f853b2b9",
-  "1.1.28" => "9667bf6f9310b957254fdcf6596600b7",
-}
-source :url => "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz",
-       :md5 => md5[version]
+version "1.1.26" do
+  source md5: "e61d0364a30146aaa3001296f853b2b9"
+end
+
+version "1.1.28" do
+  source md5: "9667bf6f9310b957254fdcf6596600b7"
+end
+
+source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 
 relative_path "libxslt-#{version}"
 

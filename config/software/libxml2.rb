@@ -21,12 +21,15 @@ version "2.7.8"
 dependency "zlib"
 dependency "libiconv"
 
-md5 = {
-  "2.7.8" => "8127a65e8c3b08856093099b52599c86",
-  "2.9.1" => "9c0cfef285d5c4a5c80d00904ddab380",
-}
-source :url => "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz",
-       :md5 => md5[version]
+version "2.7.8" do
+  source md5: "8127a65e8c3b08856093099b52599c86"
+end
+
+version "2.9.1" do
+  source md5: "9c0cfef285d5c4a5c80d00904ddab380"
+end
+
+source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
 
 relative_path "libxml2-#{version}"
 

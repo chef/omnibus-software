@@ -16,15 +16,17 @@
 #
 
 name "libtool"
-version "2.4"
+default_version "2.4"
 
-md5 = {
-  "2.4" => "b32b04148ecdd7344abc6fe8bd1bb021",
-  "2.4.2" => "d2f3b7d4627e69e13514a40e72a24d50",
-}
+version "2.4" do
+  source md5: "b32b04148ecdd7344abc6fe8bd1bb021"
+end
 
-source :url => "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz",
-       :md5 => md5[version]
+version "2.4.2" do
+  source md5: "d2f3b7d4627e69e13514a40e72a24d50"
+end
+
+source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 
 relative_path "libtool-#{version}"
 
