@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,12 +16,19 @@
 #
 
 name "libtool"
-version "2.4"
+default_version "2.4"
 
-source :url => "http://ftp.gnu.org/gnu/libtool/libtool-2.4.tar.gz",
-       :md5 => "b32b04148ecdd7344abc6fe8bd1bb021"
+version "2.4" do
+  source md5: "b32b04148ecdd7344abc6fe8bd1bb021"
+end
 
-relative_path "libtool-2.4"
+version "2.4.2" do
+  source md5: "d2f3b7d4627e69e13514a40e72a24d50"
+end
+
+source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
+
+relative_path "libtool-#{version}"
 
 build do
   env = case platform

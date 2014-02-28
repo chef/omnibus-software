@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 #
 
 name "redis"
-version "2.8.2"
+default_version "2.8.2"
 
 source :url => "http://download.redis.io/releases/redis-#{version}.tar.gz",
        :md5 => "ee527b0c37e1e2cbceb497f5f6b8112b"

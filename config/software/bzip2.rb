@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2013 Opscode, Inc.
+# Copyright:: Copyright (c) 2013-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@
 # and should be picked up automatically when building Python.
 
 name "bzip2"
-version "1.0.6"
+default_version "1.0.6"
 
 dependency "zlib"
 dependency "openssl"
