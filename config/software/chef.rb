@@ -120,7 +120,7 @@ build do
   # against all the exact gems that we ship (we will run rspec unbundled in the test phase).
   bundle "install --without server docgen", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
-  auxiliary_gems = ["highline", "net-ssh-multi"]
+  auxiliary_gems = []
   auxiliary_gems << "ruby-shadow" unless platform == "aix"
 
   gem ["install",
