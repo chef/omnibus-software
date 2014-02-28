@@ -35,7 +35,6 @@ env = {
 build do
   auxiliary_gems = []
 
-  auxiliary_gems << "test-kitchen"
   auxiliary_gems << "foodcritic"
   auxiliary_gems << "chefspec"
   auxiliary_gems << "rubocop"
