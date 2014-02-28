@@ -19,7 +19,7 @@ name "openssl"
 
 dependency "zlib"
 dependency "cacerts"
-dependency "libgcc"
+dependency "libgcc" if (platform != "aix")
 
 
 if platform == "aix"

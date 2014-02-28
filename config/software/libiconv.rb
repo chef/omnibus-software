@@ -18,7 +18,7 @@
 name "libiconv"
 default_version "1.14"
 
-dependency "libgcc"
+dependency "libgcc" if (platform != "aix")
 
 source :url => "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
        :md5 => 'e34509b1623cec449dfeb73d7ce9c6c6'
