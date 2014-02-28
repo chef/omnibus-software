@@ -113,7 +113,6 @@ build do
   command "rm -f pkg/chef-*-x86-mingw32.gem"
 
   gem ["install pkg/chef-*.gem",
-      "-n #{install_dir}/bin",
       "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
   # install the whole bundle, so that we get dev gems (like rspec) and can later test in CI
