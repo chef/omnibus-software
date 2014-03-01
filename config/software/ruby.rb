@@ -104,6 +104,13 @@ build do
                        "--with-ext=psych",
                        "--disable-install-doc"]
 
+  if ENV['RUBY_RAILSEXPRESS']
+    # apply all the railsexpress patches, concatenated together
+    # from https://github.com/skaes/rvm-patchsets/blob/master/patches/ruby/1.9.3/p448
+    # this is useful for ruby-prof memory profiling, we're not going to ship this
+    patch :source => "railsexpress-1.9.3p448-bundle.patch", :plevel =>1
+  end
+
   case platform
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
