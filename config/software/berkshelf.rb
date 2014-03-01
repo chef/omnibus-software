@@ -16,7 +16,12 @@
 #
 
 name "berkshelf"
-default_version "2.0.12"
+default_version ENV["BERKSHELF_GIT_REV"] || "master"
+
+source :git => "git@github.com:berkshelf/berkshelf.git"
+
+relative_path "berkshelf"
+always_build true
 
 if platform == 'windows'
   dependency "ruby-windows"
@@ -29,5 +34,8 @@ end
 dependency "nokogiri"
 
 build do
-  gem "install #{name} --no-rdoc --no-ri -v #{version}"
+  bundle "install --without guard"
+  bundle "exec thor gem:build"
+  gem ["install pkg/berkshelf-*.gem",
+       "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 end

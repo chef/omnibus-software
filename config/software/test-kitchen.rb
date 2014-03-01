@@ -16,7 +16,8 @@
 #
 
 name "test-kitchen"
-default_version "1.2.1"
+default_version ENV["TEST_KITCHEN_GIT_REV"] || "master"
+relative_path "test-kitchen"
 
 if platform == 'windows'
   dependency "ruby-windows"
@@ -27,5 +28,8 @@ else
 end
 
 build do
-  gem "install #{name} --no-rdoc --no-ri -v #{version}"
+  bundle "install --without guard"
+  bundle "exec rake build"
+  gem ["install pkg/test-kitchen-*.gem",
+       "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 end
