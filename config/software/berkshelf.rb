@@ -18,7 +18,7 @@
 name "berkshelf"
 default_version ENV["BERKSHELF_GIT_REV"] || "master"
 
-source :git => "git@github.com:berkshelf/berkshelf.git"
+source :git => "git://github.com/berkshelf/berkshelf"
 
 relative_path "berkshelf"
 always_build true
@@ -34,8 +34,8 @@ end
 dependency "nokogiri"
 
 build do
-  bundle "install --without guard"
-  bundle "exec thor gem:build"
+  bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+  bundle "exec thor gem:build", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
   gem ["install pkg/berkshelf-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+       "--no-rdoc --no-ri"].join(" "), :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
 end
