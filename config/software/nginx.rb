@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,12 +16,12 @@
 #
 
 name "nginx"
-version "1.4.2"
+default_version "1.4.4"
 
 dependency "pcre"
 
 source :url => "http://nginx.org/download/nginx-#{version}.tar.gz",
-       :md5 => "5053bacc7df548890f1c93735bddc81e"
+       :md5 => "5dfaba1cbeae9087f3949860a02caa9f"
 
 relative_path "nginx-#{version}"
 

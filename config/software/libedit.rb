@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,24 +16,35 @@
 #
 
 name "libedit"
-version "20120601-3.0"
+default_version "20120601-3.0"
 
 dependency "ncurses"
 dependency "libgcc"
 
-source :url => "http://www.thrysoee.dk/editline/libedit-20120601-3.0.tar.gz",
-       :md5 => "e50f6a7afb4de00c81650f7b1a0f5aea"
+version "20120601-3.0" do
+  source md5: "e50f6a7afb4de00c81650f7b1a0f5aea"
+end
 
-relative_path "libedit-20120601-3.0"
+version "20130712-3.1" do
+  source md5: "0891336c697362727a1fa7e60c5cb96c"
+end
+
+source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
+
+relative_path "libedit-#{version}"
 
 env = case platform
       when "aix"
         {
-          "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-          "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
+          "CC" => "xlc -q64",
+          "CXX" => "xlC -q64",
           "LD" => "ld -b64",
+          "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
+          "CXXFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
           "OBJECT_MODE" => "64",
-          "ARFLAGS" => "-X64 cru"
+          "ARFLAGS" => "-X64 cru",
+          "M4" => "/opt/freeware/bin/m4",
+          "LDFLAGS" => "-q64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
         }
       else
         {

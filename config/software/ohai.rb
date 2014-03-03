@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,18 @@
 #
 
 name "ohai"
+if platform == 'windows'
+  dependency "ruby-windows" #includes rubygems
+  dependency "ruby-windows-devkit"
+else
+  dependency "ruby"
+  dependency "rubygems"
+  dependency "yajl"
+end
 
-dependency "ruby"
-dependency "rubygems"
-dependency "yajl"
 dependency "bundler"
 
-version ENV["OHAI_GIT_REV"] || "master"
+default_version ENV["OHAI_GIT_REV"] || "master"
 
 source :git => "git://github.com/opscode/ohai"
 
@@ -33,20 +38,10 @@ always_build true
 env =
   case platform
   when "solaris2"
-    if Omnibus.config.solaris_compiler == "studio"
     {
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
     }
-    elsif Omnibus.config.solaris_compiler == "gcc"
-    {
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-    }
-    else
-      raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
-    end
   when "aix"
     {
       "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",

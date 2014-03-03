@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,16 +29,16 @@ if platform == "aix"
   source :url => "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
          :md5 => "ae412727c8c15b67880aef7bd2999b2e"
 else
-  version "1.0.1e"
-  source :url => "http://www.openssl.org/source/openssl-1.0.1e.tar.gz",
-         :md5 => "66bf6f10f060d561929de96f9dfe5b8c"
+  version "1.0.1f"
+  source :url => "http://www.openssl.org/source/openssl-1.0.1f.tar.gz",
+         :md5 => "f26b09c028a0541cab33da697d522b25"
 end
 
 relative_path "openssl-#{version}"
 
 build do
+  patch :source => "openssl-1.0.1f-do-not-build-docs.patch"
 
-  patch :source => 'openssl-1.0.1e-parallel-build.patch', :plevel => 1
   env = case platform
         when "mac_os_x"
           {
@@ -47,14 +47,16 @@ build do
           }
         when "aix"
         {
-            "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-            "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
-            "OBJECT_MODE" => "64",
+            "CC" => "xlc -q64",
+            "CXX" => "xlC -q64",
             "LD" => "ld -b64",
+            "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
+            "CXXFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
+            "LDFLAGS" => "-q64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
+            "OBJECT_MODE" => "64",
             "AR" => "/usr/bin/ar",
-            "CC" => "gcc -maix64",
-            "CXX" => "g++ -maix64",
-            "ARFLAGS" => "-X64 cru"
+            "ARFLAGS" => "-X64 cru",
+            "M4" => "/opt/freeware/bin/m4",
         }
         when "solaris2"
           {
@@ -83,7 +85,7 @@ build do
   configure_command = case platform
                       when "aix"
                         ["perl", "./Configure",
-                         "aix64-gcc",
+                         "aix64-cc",
                          common_args,
                         "-L#{install_dir}/embedded/lib",
                         "-I#{install_dir}/embedded/include",
@@ -146,7 +148,7 @@ build do
 
   command configure_command, :env => env
   command "#{make_binary} depend", :env => env
-  # we need a custom patch to be able to make -j
-  command "#{make_binary} -j #{max_build_jobs}", :env => env
-  command "#{make_binary} -j #{max_build_jobs} install", :env => env
+  # make -j N on openssl is not reliable
+  command "#{make_binary}", :env => env
+  command "#{make_binary} install", :env => env
 end

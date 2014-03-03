@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 #
 
 name "ncurses"
-version "5.9"
+default_version "5.9"
 
 dependency "libgcc"
 dependency "libtool" if platform == "aix"
@@ -31,7 +31,8 @@ env = case platform
         {
           "PATH" => "#{install_dir}/embedded/bin:" + ENV['PATH'],
           "LDFLAGS" => "-Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
-          "CXXFLAGS" => "-I#{install_dir}/embedded/include",
+          "CXXFLAGS" => "-O -I#{install_dir}/embedded/include",
+          "CFLAGS" => "-O -I#{install_dir}/embedded/include",
           "OBJECT_MODE" => "64",
           "CC" => "gcc -maix64",
           "CXX" => "g++ -maix64",
@@ -93,6 +94,17 @@ build do
 
   if platform == "aix"
     patch :source => 'patch-aix-configure', :plevel => 0
+  end
+
+  if platform == "mac_os_x"
+    # References:
+    # https://github.com/Homebrew/homebrew-dupes/issues/43
+    # http://invisible-island.net/ncurses/NEWS.html#t20110409
+    #
+    # Patches ncurses for clang compiler. Changes have been accepted into
+    # upstream, but occurred shortly after the 5.9 release. We should be able
+    # to remove this after upgrading to any release created after June 2012
+    patch :source => 'ncurses-clang.patch'
   end
 
   # build wide-character libraries

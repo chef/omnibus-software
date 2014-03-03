@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 #
 
 name "libwrap"
-version "7.6"
+default_version "7.6"
 
 source :url => "ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.tar.gz",
        :md5 => "e6fa25f71226d090f34de3f6b122fb5a"

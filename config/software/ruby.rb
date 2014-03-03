@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 #
 
 name "ruby"
-version "1.9.3-p448"
+default_version "1.9.3-p484"
 
 dependency "zlib"
 dependency "ncurses"
@@ -27,8 +27,15 @@ dependency "libiconv"
 dependency "gdbm" if (platform == "mac_os_x" or platform == "freebsd" or platform == "aix")
 dependency "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 
-source :url => "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{version}.tar.gz",
-       :md5 => 'a893cff26bcf351b8975ebf2a63b1023'
+version "1.9.3-p484" do
+  source md5: '8ac0dee72fe12d75c8b2d0ef5d0c2968'
+end
+
+version "2.1.1" do
+  source md5: 'e57fdbb8ed56e70c43f39c79da1654b2'
+end
+
+source url: "http://ftp.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 relative_path "ruby-#{version}"
 
@@ -40,20 +47,11 @@ env =
       "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
     }
   when "solaris2"
-    if Omnibus.config.solaris_compiler == "studio"
-    {
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-    }
-    elsif Omnibus.config.solaris_compiler == "gcc"
     {
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -O3 -g -pipe",
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
     }
-    else
-      raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
-    end
   when "aix"
     {
       # see http://www.ibm.com/developerworks/aix/library/au-gnu.html
@@ -79,13 +77,16 @@ env =
       # We also need prezl's M4 instead of picking up /usr/bin/m4 which
       # barfs on ruby.
       #
-      "CC" => "gcc -maix64",
+      "CC" => "xlc -q64",
+      "CXX" => "xlC -q64",
       "LD" => "ld -b64",
-      "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include -O",
-      "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
+      "CFLAGS" => "-q64 -O -qhot -I#{install_dir}/embedded/include",
+      "CXXFLAGS" => "-q64 -O -qhot -I#{install_dir}/embedded/include",
+      "LDFLAGS" => "-q64  -L#{install_dir}/embedded/lib -Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
       "OBJECT_MODE" => "64",
       "ARFLAGS" => "-X64 cru",
-      "M4" => "/opt/freeware/bin/m4"
+      "M4" => "/opt/freeware/bin/m4",
+      "warnflags" => "-qinfo=por"
     }
   else
     {
@@ -106,6 +107,7 @@ build do
   case platform
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
+    patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"

@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,26 +16,32 @@
 #
 
 name "zlib"
-version "1.2.6"
+default_version "1.2.6"
 
 dependency "libgcc"
 
-# TODO: this link is subject to change with each new release of zlib.
-#       we'll need to use a more robust link (sourceforge) that will
-#       not change over time.
-source :url => "http://downloads.sourceforge.net/project/libpng/zlib/1.2.6/zlib-1.2.6.tar.gz",
-       :md5 => "618e944d7c7cd6521551e30b32322f4a"
+version "1.2.6" do
+  source md5: "618e944d7c7cd6521551e30b32322f4a"
+end
 
-relative_path "zlib-1.2.6"
+version "1.2.8" do
+  source md5: "44d667c142d7cda120332623eab69f40"
+end
+
+source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
+
+relative_path "zlib-#{version}"
 configure_env =
   case platform
   when "aix"
     {
-      "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-      "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
+      "CC" => "xlc -q64",
+      "CXX" => "xlC -q64",
       "LD" => "ld -b64",
+      "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
       "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru "
+      "ARFLAGS" => "-X64 cru",
+      "LDFLAGS" => "-q64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
     }
   when "mac_os_x"
     {
@@ -43,19 +49,10 @@ configure_env =
       "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
     }
   when "solaris2"
-    if Omnibus.config.solaris_compiler == "studio"
     {
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -DNO_VIZ"
     }
-    elsif Omnibus.config.solaris_compiler == "gcc"
-    {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib -DNO_VIZ"
-    }
-    else
-      raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
-    end
   else
     {
       "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",

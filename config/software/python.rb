@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2013 Opscode, Inc.
+# Copyright:: Copyright (c) 2013-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,11 +16,12 @@
 #
 
 name "python"
-version "2.7.5"
+default_version "2.7.5"
 
 dependency "ncurses"
 dependency "zlib"
 dependency "openssl"
+dependency "bzip2"
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
        :md5 => 'b4f01a1d0ba0b46b05c73b2ac909b1df'

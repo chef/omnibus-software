@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +16,16 @@
 #
 
 name "berkshelf"
-version "1.4.3"
+default_version "2.0.12"
 
-dependency "ruby"
-dependency "rubygems"
+if platform == 'windows'
+  dependency "ruby-windows"
+  dependency "ruby-windows-devkit"
+else
+  dependency "libffi" if version.to_f > 3.0
+  dependency "ruby"
+  dependency "rubygems"
+end
 dependency "nokogiri"
 
 build do

@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,9 +21,8 @@ dependency "ruby"
 dependency "rubygems"
 dependency "yajl"
 dependency "bundler"
-dependency "ohai" if ENV["OHAI_GIT_REV"]
 
-version ENV["CHEF_GIT_REV"] || "master"
+default_version ENV["CHEF_GIT_REV"] || "master"
 
 source :git => "git://github.com/opscode/chef"
 
@@ -34,20 +33,11 @@ always_build true
 env =
   case platform
   when "solaris2"
-    if Omnibus.config.solaris_compiler == "studio"
-    {
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-    }
-    elsif Omnibus.config.solaris_compiler == "gcc"
     {
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
       "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
     }
-    else
-      raise "Sorry, #{Omnibus.config.solaris_compiler} is not a valid compiler selection."
-    end
   when "aix"
     {
       "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
@@ -131,11 +121,10 @@ build do
   bundle "install --without server docgen", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
   auxiliary_gems = ["highline", "net-ssh-multi"]
-  auxiliary_gems << "ruby-shadow" unless platform == "mac_os_x" || platform == "freebsd" || platform == "aix"
+  auxiliary_gems << "ruby-shadow" unless platform == "aix"
 
   gem ["install",
        auxiliary_gems.join(" "),
-       "-n #{install_dir}/bin",
        "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
   #

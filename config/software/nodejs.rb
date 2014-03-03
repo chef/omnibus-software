@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2013 Opscode, Inc.
+# Copyright:: Copyright (c) 2013-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 #
 
 name "nodejs"
-version "0.10.10"
+default_version "0.10.10"
 
 source :url => "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz",
        :md5 => "a47a9141567dd591eec486db05b09e1c"

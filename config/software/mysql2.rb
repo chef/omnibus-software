@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,7 @@
 
 name "mysql2"
 versions_to_install = [ "0.3.6", "0.3.7" ]
-version versions_to_install.join("-")
+default_version versions_to_install.join("-")
 
 dependency "ruby"
 dependency "bundler"

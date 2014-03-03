@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 #
 
 name "runit"
-version "2.1.1"
+default_version "2.1.1"
 
 source :url => "http://smarden.org/runit/runit-2.1.1.tar.gz",
        :md5 => "8fa53ea8f71d88da9503f62793336bc3"
@@ -55,7 +55,7 @@ build do
       file.print <<-EOH
 #!/bin/bash
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

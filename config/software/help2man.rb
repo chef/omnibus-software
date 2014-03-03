@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 #
 
 name "help2man"
-version "1.40.5"
+default_version "1.40.5"
 
 source :url => "http://ftp.gnu.org/gnu/help2man/help2man-1.40.5.tar.gz",
        :md5 => "75a7d2f93765cd367aab98986a75f88c"
