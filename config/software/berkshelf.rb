@@ -16,7 +16,7 @@
 #
 
 name "berkshelf"
-default_version ENV["BERKSHELF_GIT_REV"] || "master"
+default_version "master"
 
 source :git => "git://github.com/berkshelf/berkshelf"
 
