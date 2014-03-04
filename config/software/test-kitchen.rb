@@ -15,27 +15,23 @@
 # limitations under the License.
 #
 
-name "berkshelf"
+name "test-kitchen"
 default_version "master"
-
-source :git => "git://github.com/berkshelf/berkshelf"
-
-relative_path "berkshelf"
+relative_path "test-kitchen"
 always_build true
+source :git => "git://github.com/test-kitchen/test-kitchen"
 
 if platform == 'windows'
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else
-  dependency "libffi" if version.to_f > 3.0
   dependency "ruby"
   dependency "rubygems"
 end
-dependency "nokogiri"
 
 build do
   bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
-  bundle "exec thor gem:build", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
-  gem ["install pkg/berkshelf-*.gem",
+  bundle "exec rake build", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+  gem ["install pkg/test-kitchen-*.gem",
        "--no-rdoc --no-ri"].join(" "), :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
 end

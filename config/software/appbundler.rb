@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,11 @@
 # limitations under the License.
 #
 
-name "bundler"
-default_version "1.5.3"
+name "appbundler"
+default_version "0.1.0.beta.0"
 
-dependency "rubygems" unless platform == 'windows'
+dependency "bundler"
 
 build do
-  gem "install bundler --no-rdoc --no-ri -v '#{version}'"
+  gem "install appbundler --no-rdoc --no-ri -v '#{version}'"
 end

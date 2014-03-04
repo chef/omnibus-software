@@ -23,6 +23,9 @@ else
   dependency "chef"
 end
 dependency "berkshelf"
+dependency "test-kitchen"
+dependency "appbundler"
+dependency "rsync"
 
 env = {
   # rubocop pulls in nokogiri 1.5.11, so needs PKG_CONFIG_PATH and
@@ -33,9 +36,21 @@ env = {
 }
 
 build do
+
+  def appbuilder(app_path, bin_path)
+    gemfile = File.join(app_path, "Gemfile.lock")
+    command("#{install_dir}/embedded/bin/appbundler #{app_path} #{bin_path}",
+            :env => {
+      'RUBYOPT'         => nil,
+      'BUNDLE_BIN_PATH' => nil,
+      'BUNDLE_GEMFILE'  => gemfile,
+      'GEM_PATH'        => nil,
+      'GEM_HOME'        => nil,
+    })
+  end
+
   auxiliary_gems = []
 
-  auxiliary_gems << "test-kitchen"
   auxiliary_gems << "foodcritic"
   auxiliary_gems << "chefspec"
   auxiliary_gems << "rubocop"
@@ -46,6 +61,14 @@ build do
   # do multiple gem installs to better isolate/debug failures
   auxiliary_gems.each do |gem_name|
     gem "install #{gem_name} -n #{install_dir}/bin --no-rdoc --no-ri", :env => env
+  end
+
+  block { FileUtils.mkdir_p("#{install_dir}/embedded/apps") }
+
+  appbundler_apps = %w[chef berkshelf test-kitchen]
+  appbundler_apps.each do |app_name|
+    command "#{install_dir}/embedded/bin/rsync -a ../#{app_name} #{install_dir}/embedded/apps/"
+    appbuilder("#{install_dir}/embedded/apps/#{app_name}", "#{install_dir}/bin")
   end
 end
 
