@@ -18,6 +18,7 @@
 name "python"
 default_version "2.7.5"
 
+dependency "gdbm"
 dependency "ncurses"
 dependency "zlib"
 dependency "openssl"
@@ -36,7 +37,8 @@ env = {
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--enable-shared"].join(" "), :env => env
+           "--enable-shared",
+           "--with-dbmliborder=gdbm"].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
 
