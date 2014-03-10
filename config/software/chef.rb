@@ -22,7 +22,7 @@ dependency "rubygems"
 dependency "yajl"
 dependency "bundler"
 
-default_version ENV["CHEF_GIT_REV"] || "master"
+default_version "master"
 
 source :git => "git://github.com/opscode/chef"
 
