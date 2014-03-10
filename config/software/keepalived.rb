@@ -19,6 +19,7 @@ name "keepalived"
 default_version "1.2.9"
 
 dependency "popt"
+dependency "openssl"
 
 source :url => "http://www.keepalived.org/software/keepalived-1.2.9.tar.gz",
        :md5 => "adfad98a2cc34230867d794ebc633492"
