@@ -22,7 +22,7 @@ dependency "rubygems"
 dependency "yajl"
 dependency "bundler"
 
-default_version ENV["CHEF_GIT_REV"] || "master"
+default_version "master"
 
 source :git => "git://github.com/opscode/chef"
 
@@ -107,6 +107,10 @@ build do
     end
   end
 
+  # install the whole bundle, so that we get dev gems (like rspec) and can later test in CI
+  # against all the exact gems that we ship (we will run rspec unbundled in the test phase).
+  bundle "install --without server docgen", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+
   # install chef first so that ohai gets installed into /opt/chef/bin/ohai
   rake "gem", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
@@ -114,10 +118,6 @@ build do
 
   gem ["install pkg/chef-*.gem",
       "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
-
-  # install the whole bundle, so that we get dev gems (like rspec) and can later test in CI
-  # against all the exact gems that we ship (we will run rspec unbundled in the test phase).
-  bundle "install --without server docgen", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
 
   auxiliary_gems = []
   auxiliary_gems << "ruby-shadow" unless platform == "aix"

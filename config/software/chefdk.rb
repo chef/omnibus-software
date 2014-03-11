@@ -16,6 +16,13 @@
 #
 
 name "chefdk"
+default_version "master"
+
+source :git => "git://github.com/opscode/chef-dk"
+
+relative_path "chef-dk"
+
+always_build true
 
 if platform == 'windows'
   dependency "chef-windows"
@@ -49,6 +56,12 @@ build do
     })
   end
 
+  bundle "install", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+  rake "build", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+
+  gem ["install pkg/chef-dk*.gem",
+      "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+
   auxiliary_gems = []
 
   auxiliary_gems << "foodcritic"
@@ -65,10 +78,9 @@ build do
 
   block { FileUtils.mkdir_p("#{install_dir}/embedded/apps") }
 
-  appbundler_apps = %w[chef berkshelf test-kitchen]
+  appbundler_apps = %w[chef berkshelf test-kitchen chef-dk]
   appbundler_apps.each do |app_name|
     command "#{install_dir}/embedded/bin/rsync -a ../#{app_name} #{install_dir}/embedded/apps/"
     appbuilder("#{install_dir}/embedded/apps/#{app_name}", "#{install_dir}/bin")
   end
 end
-
