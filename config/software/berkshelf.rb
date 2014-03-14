@@ -32,6 +32,7 @@ else
   dependency "rubygems"
 end
 dependency "nokogiri"
+dependency "libarchive"
 
 build do
   bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
