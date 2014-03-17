@@ -26,19 +26,10 @@ source :url => "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz
 
 relative_path "libarchive-#{version}"
 
-env =
-  case platform
-  when "mac_os_x"
-    {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
-    }
-  else
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-    }
-  end
+env = {
+  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include "
+}
 
 # For more info: http://www.linuxfromscratch.org/blfs/view/svn/general/libarchive.html
 build do
