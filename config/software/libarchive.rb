@@ -31,9 +31,8 @@ env = {
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include "
 }
 
-# For more info: http://www.linuxfromscratch.org/blfs/view/svn/general/libarchive.html
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "./configure --prefix=#{install_dir}/embedded --without-lzma --without-lzo2 --without-nettle --without-xml2 --without-expat --without-bz2lib --without-iconv", :env => env
   command "make", :env => env
   command "make install", :env => env
 end
