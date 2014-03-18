@@ -18,6 +18,8 @@
 name "pkg-config"
 default_version "0.28"
 
+dependency "libiconv" if platform == "freebsd"
+
 source :url => 'http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz',
   :md5 => 'aa3c86e67551adc3ac865160e34a2a0d'
 
