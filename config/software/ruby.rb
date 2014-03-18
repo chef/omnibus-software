@@ -43,6 +43,12 @@ env =
   case platform
   when "mac_os_x"
     {
+      # -Qunused-arguments suppresses "argument unused during compilation"
+      # warnings. These can be produced if you compile a program that doesn't
+      # link to anything in a path given with -Lextra-libs. Normally these
+      # would be harmless, except that autoconf treats any output to stderr as
+      # a failure when it makes a test program to check your CFLAGS (regardless
+      # of the actual exit code from the compiler).
       "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses -O3 -g -pipe -Qunused-arguments",
       "LDFLAGS" => "-arch x86_64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
     }
