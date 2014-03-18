@@ -20,6 +20,7 @@ name "openssl"
 dependency "zlib"
 dependency "cacerts"
 dependency "libgcc"
+dependency "makedepend"
 
 
 if platform == "aix"
@@ -135,6 +136,9 @@ build do
                         "-I#{install_dir}/embedded/include",
                         "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
                       end
+
+  # openssl build process uses a `makedepend` tool that we build inside the bundle.
+  env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
   # @todo: move into omnibus-ruby
   has_gmake = system("gmake --version")
