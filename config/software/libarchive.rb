@@ -32,7 +32,19 @@ env = {
 }
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded --without-lzma --without-lzo2 --without-nettle --without-xml2 --without-expat --without-bz2lib --without-iconv", :env => env
+  command "./configure --prefix=#{install_dir}/embedded \
+    --without-lzma \
+    --without-lzo2 \
+    --without-nettle \
+    --without-xml2 \
+    --without-expat \
+    --without-bz2lib \
+    --without-iconv \
+    --without-zlib \
+    --disable-bsdtar \
+    --disable-bsdcpio \
+    --without-lzmadec \
+    --without-openssl", :env => env
   command "make", :env => env
   command "make install", :env => env
 end
