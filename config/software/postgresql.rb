@@ -16,17 +16,23 @@
 #
 
 name "postgresql"
-default_version "9.2.4"
+default_version "9.2.8"
 
 dependency "zlib"
 dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
 
-source :url => "http://ftp.postgresql.org/pub/source/v9.2.4/postgresql-9.2.4.tar.bz2",
-       :md5 => "6ee5bb53b97da7c6ad9cb0825d3300dd"
+version "9.2.8" do
+  source :md5 => "c5c65a9b45ee53ead0b659be21ca1b97"
+end
 
-relative_path "postgresql-9.2.4"
+version "9.3.4" do
+  source :md5 => "d0a41f54c377b2d2fab4a003b0dac762"
+end
+
+source :url => "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
+relative_path "postgresql-#{version}"
 
 configure_env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
