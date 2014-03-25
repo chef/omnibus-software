@@ -61,4 +61,11 @@ build do
   command "make -j #{max_build_jobs} install"
   # libffi's default install location of header files is aweful...
   command "cp -f #{install_dir}/embedded/lib/libffi-3.0.13/include/* #{install_dir}/embedded/include"
+
+  # On centos libffi libraries are places under /embedded/lib64
+  # move them over to lib
+  if platform == "centos"
+    command "mv #{install_dir}/embedded/lib64/* #{install_dir}/embedded/lib/"
+    command "rm -rf #{install_dir}/embedded/lib64"
+  end
 end
