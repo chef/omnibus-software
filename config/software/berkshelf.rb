@@ -38,6 +38,7 @@ dependency "libarchive"
 # ~> 3.5. Gecode 4.x is available, but 'dep-selector' is not compatible with
 # that. Therefore berkshelf needs gecode 3.x until dep-selector is updated.
 dependency "gecode"
+dependency "bundler"
 
 build do
   bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
