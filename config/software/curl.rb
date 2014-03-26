@@ -38,6 +38,8 @@ build do
            "--disable-dependency-tracking",
            "--enable-ipv6",
            "--without-libidn",
+           "--without-gnutls",
+           "--without-librtmp",
            "--with-ssl=#{install_dir}/embedded",
            "--with-zlib=#{install_dir}/embedded"].join(" ")
 
