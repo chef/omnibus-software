@@ -18,7 +18,7 @@
 name "test-kitchen"
 default_version "master"
 relative_path "test-kitchen"
-always_build true
+
 source :git => "git://github.com/test-kitchen/test-kitchen"
 
 if platform == 'windows'
