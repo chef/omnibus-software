@@ -18,7 +18,8 @@ build do
             "-de",
             "-Dprefix=#{install_dir}/embedded",
             "-Duseshrplib", ## Compile shared libperl
-            "-Dusethreads" ## Compile ithread support
+            "-Dusethreads", ## Compile ithread support
+            "-Dnoextensions='GDBM_File NDBM_File ODBM_File'"
            ].join(" "), :env => env
   command "make -j #{max_build_jobs}"
   command "make install", :env => env
