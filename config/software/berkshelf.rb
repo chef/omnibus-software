@@ -21,7 +21,6 @@ default_version "master"
 source :git => "git://github.com/berkshelf/berkshelf"
 
 relative_path "berkshelf"
-always_build true
 
 if platform == 'windows'
   dependency "ruby-windows"
