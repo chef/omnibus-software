@@ -16,7 +16,7 @@
 #
 
 name "nokogiri"
-default_version "1.5.4"
+default_version "1.6.1"
 
 if platform == 'windows'
   dependency "ruby-windows"
@@ -27,6 +27,7 @@ else
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
+  dependency "zlib"
 end
 
 # nokogiri uses pkg-config, and on a mac that will find the system pkg-config
@@ -45,10 +46,8 @@ build do
        "-v #{version}",
        "--",
        "--use-system-libraries",
-       "--with-xml2-lib=#{install_dir}/embedded/lib",
-       "--with-xml2-include=#{install_dir}/embedded/include/libxml2",
-       "--with-xslt-lib=#{install_dir}/embedded/lib",
-       "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
-       "--with-iconv-include=#{install_dir}/embedded/include",
-       "--with-iconv-lib=#{install_dir}/embedded/lib"].join(" "), :env => env
+       "--with-xml2-dir=#{install_dir}/embedded",
+       "--with-xslt-dir=#{install_dir}/embedded",
+       "--with-iconv-dir=#{install_dir}/embedded",
+       "--with-zlib-dir=#{install_dir}/embedded"].join(" "), :env => env
 end
