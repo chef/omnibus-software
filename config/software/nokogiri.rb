@@ -27,6 +27,7 @@ else
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
+  dependency "zlib"
 end
 
 # nokogiri uses pkg-config, and on a mac that will find the system pkg-config
@@ -50,5 +51,6 @@ build do
        "--with-xslt-lib=#{install_dir}/embedded/lib",
        "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
        "--with-iconv-include=#{install_dir}/embedded/include",
-       "--with-iconv-lib=#{install_dir}/embedded/lib"].join(" "), :env => env
+       "--with-iconv-lib=#{install_dir}/embedded/lib",
+       "--with-zlib-dir=#{install_dir}/embedded"].join(" "), :env => env
 end
