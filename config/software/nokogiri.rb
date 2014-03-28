@@ -46,8 +46,10 @@ build do
        "-v #{version}",
        "--",
        "--use-system-libraries",
-       "--with-xml2-dir=#{install_dir}/embedded",
-       "--with-xslt-dir=#{install_dir}/embedded",
+       "--with-xml2-lib=#{install_dir}/embedded/lib",
+       "--with-xml2-include=#{install_dir}/embedded/include/libxml2",
+       "--with-xslt-lib=#{install_dir}/embedded/lib",
+       "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
        "--with-iconv-dir=#{install_dir}/embedded",
        "--with-zlib-dir=#{install_dir}/embedded"].join(" "), :env => env
 end
