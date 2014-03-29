@@ -22,8 +22,6 @@ source :git => "git://github.com/opscode/chef-dk"
 
 relative_path "chef-dk"
 
-always_build true
-
 if platform == 'windows'
   dependency "chef-windows"
 else

@@ -33,8 +33,6 @@ source :git => "git://github.com/opscode/ohai"
 
 relative_path "ohai"
 
-always_build true
-
 env =
   case platform
   when "solaris2"
