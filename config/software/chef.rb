@@ -28,6 +28,8 @@ source :git => "git://github.com/opscode/chef"
 
 relative_path "chef"
 
+always_build true
+
 env =
   case platform
   when "solaris2"
