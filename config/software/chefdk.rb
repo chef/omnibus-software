@@ -22,6 +22,8 @@ source :git => "git://github.com/opscode/chef-dk"
 
 relative_path "chef-dk"
 
+always_build true
+
 if platform == 'windows'
   dependency "chef-windows"
 else
@@ -41,6 +43,23 @@ env = {
 }
 
 build do
+  # Nasty hack to set the artifact version until this gets fixed:
+  # https://github.com/opscode/omnibus-ruby/issues/134
+  block do
+    project = self.project
+    if project.name == "chefdk"
+      git_cmd = "git describe --tags"
+      src_dir = self.project_dir
+      shell = Mixlib::ShellOut.new(git_cmd,
+                                   :cwd => src_dir)
+      shell.run_command
+      shell.error!
+      build_version = shell.stdout.chomp
+
+      puts "Setting artifact version to '#{build_version}'"
+      project.build_version   build_version
+    end
+  end
 
   def appbuilder(app_path, bin_path)
     gemfile = File.join(app_path, "Gemfile.lock")
