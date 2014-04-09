@@ -106,9 +106,13 @@ runsvdir -P #{install_path}/service 'log: ......................................
   command "chmod 755 #{install_dir}/embedded/bin/runsvdir-start"
 
   # set up service directories
-  ["#{install_dir}/service",
-   "#{install_dir}/sv",
-   "#{install_dir}/init"].each do |dir|
-    command "mkdir -p #{dir}"
+  block do
+    ["#{install_dir}/service",
+     "#{install_dir}/sv",
+     "#{install_dir}/init"].each do |dir|
+      FileUtils.mkdir_p(dir)
+      # make sure cached builds include this dir
+      FileUtils.touch(File.join(dir, '.gitkeep'))
+    end
   end
 end
