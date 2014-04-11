@@ -22,7 +22,7 @@ source :git => "git://github.com/opscode/chef-dk"
 
 relative_path "chef-dk"
 
-always_build true
+always_build (self.project.name == "chefdk")
 
 dependency "berkshelf"
 dependency "test-kitchen"
