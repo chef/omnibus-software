@@ -48,16 +48,7 @@ build do
   block do
     project = self.project
     if project.name == "chefdk"
-      git_cmd = "git describe --tags"
-      src_dir = self.project_dir
-      shell = Mixlib::ShellOut.new(git_cmd,
-                                   :cwd => src_dir)
-      shell.run_command
-      shell.error!
-      build_version = shell.stdout.chomp
-
-      puts "Setting artifact version to '#{build_version}'"
-      project.build_version   build_version
+      project.build_version Omnibus::BuildVersion.new(self.project_dir).semver
     end
   end
 
