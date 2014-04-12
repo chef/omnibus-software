@@ -18,11 +18,11 @@
 name "version-manifest"
 description "generates a version manifest file"
 
-project_name = project.name
-project_build_version = project.build_version
-
 build do
   block do
+    project_name = project.name
+    project_build_version = project.build_version
+    
     File.open("#{install_dir}/version-manifest.txt", "w") do |f|
       f.puts "#{project_name} #{project_build_version}"
       f.puts ""

@@ -28,7 +28,7 @@ source :git => "git://github.com/opscode/chef"
 
 relative_path "chef"
 
-always_build true
+always_build (self.project.name == "chef")
 
 env =
   case platform
