@@ -16,7 +16,10 @@
 #
 
 name "chef-gem"
-default_version "11.10.4"
+
+default_version "11.12.2"
+
+version "11.10.4"
 
 dependency "ruby"
 dependency "rubygems"
