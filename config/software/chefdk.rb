@@ -24,16 +24,16 @@ relative_path "chef-dk"
 
 always_build (self.project.name == "chefdk")
 
-dependency "berkshelf"
-dependency "test-kitchen"
-dependency "appbundler"
-dependency "rsync"
-
 if platform == 'windows'
   dependency "chef-windows"
 else
   dependency "chef"
 end
+
+dependency "test-kitchen"
+dependency "appbundler"
+dependency "rsync"
+dependency "berkshelf"
 
 env = {
   # rubocop pulls in nokogiri 1.5.11, so needs PKG_CONFIG_PATH and
