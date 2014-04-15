@@ -29,6 +29,8 @@ else
   dependency "rubygems"
 end
 
+dependency "nokogiri"
+
 build do
   bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
   bundle "exec rake build", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
