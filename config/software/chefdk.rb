@@ -79,6 +79,9 @@ build do
   auxiliary_gems << {name: 'knife-spork', version: '1.3.2'}
   # strainer build is hosed on windows
   # auxiliary_gems << {name: 'strainer',    version: '3.3.0'}
+  #  auxiliary_gems << "strainer"
+  auxiliary_gems << "knife-spork"
+  auxiliary_gems << {name: 'chef-vault', version: '2.2.1'}
 
   # do multiple gem installs to better isolate/debug failures
   auxiliary_gems.each do |g|
@@ -87,7 +90,7 @@ build do
 
   block { FileUtils.mkdir_p("#{install_dir}/embedded/apps") }
 
-  appbundler_apps = %w[chef berkshelf test-kitchen chef-dk]
+  appbundler_apps = %w[chef berkshelf test-kitchen chef-dk chef-vault]
   appbundler_apps.each do |app_name|
     command "#{install_dir}/embedded/bin/rsync -a ../#{app_name} #{install_dir}/embedded/apps/"
     appbuilder("#{install_dir}/embedded/apps/#{app_name}", "#{install_dir}/bin")
