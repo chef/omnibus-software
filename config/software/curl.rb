@@ -27,8 +27,13 @@ source :url => "http://curl.haxx.se/download/curl-#{version}.tar.gz",
 relative_path "curl-#{version}"
 
 build do
+  block do
+    FileUtils.rm_rf(File.join(project_dir, 'src/tool_hugehelp.c'))
+  end
+
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
+           "--disable-manual",
            "--disable-debug",
            "--enable-optimize",
            "--disable-ldap",
