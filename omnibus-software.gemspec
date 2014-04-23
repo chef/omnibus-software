@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = OmnibusSoftware::VERSION
   s.authors     = ["Chef Software, Inc."]
   s.email       = ["legal@getchef.com"]
-  s.homepage    = "http://github.com/opscode/omnibus-software"
+  s.homepage    = "http://github.com/DataDog/omnibus-software"
   s.summary     = %q{Open Source software for use with Omnibus}
   s.description = %q{Open Source software build descriptions for use with Omnibus}
 
