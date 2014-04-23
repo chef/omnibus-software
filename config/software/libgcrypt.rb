@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2013 Robby Dyer
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,23 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "yajl"
-version "2.0.1"
+name "libgcrypt"
+version "1.5.2"
 
-source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
+dependency "libgpg-error"
 
-relative_path "yajl-#{version}"
+source :url => "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-#{version}.tar.bz2",
+       :md5 => "668aa1a1aae93f5fccb7eda4be403026"
 
-env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-}
+relative_path "libgcrypt-#{version}"
 
 build do
-  command [
-            "./configure",
-            "--prefix=#{install_dir}/embedded",
-           ].join(" "), :env => env
+  command "./configure --prefix=#{install_dir}/embedded --with-gpg-error-prefix=#{install_dir}/embedded"
+  command "make"
   command "make install"
 end

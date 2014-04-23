@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2013 Robby Dyer
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,20 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+name "iptables"
+version "1.4.7"
 
-name "curl"
-default_version "7.36.0"
 
-dependency "zlib"
-dependency "openssl"
+source :url => "ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.7.tar.bz2",
+       :md5 => "645941dd1f9e0ec1f74c61918d70d52f"
 
-source :url => "http://curl.haxx.se/download/curl-#{version}.tar.gz",
-       :md5 => "643a7030b27449e76413d501d4b8eb57"
-
-relative_path "curl-#{version}"
+relative_path "iptables-#{version}"
 
 env = {
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
 build do
@@ -35,18 +34,7 @@ build do
            "--prefix=#{install_dir}/embedded",
            "--disable-debug",
            "--enable-optimize",
-           "--disable-ldap",
-           "--disable-ldaps",
-           "--disable-rtsp",
-           "--enable-proxy",
-           "--disable-dependency-tracking",
-           "--enable-ipv6",
-           "--without-libidn",
-           "--without-gnutls",
-           "--without-librtmp",
-           "--with-ssl=#{install_dir}/embedded",
-           "--with-zlib=#{install_dir}/embedded"
-    ].join(" "), :env => env
+           ].join(" "), :env => env
 
   command "make -j #{max_build_jobs}", :env => env
   command "make install"

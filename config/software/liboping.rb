@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2013 Robby Dyer
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "yajl"
-version "2.0.1"
+name "liboping"
+version "1.6.2"
 
-source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
+dependency "perl-extutils-makemaker"
 
-relative_path "yajl-#{version}"
+source :url => "http://verplant.org/liboping/files/liboping-1.6.2.tar.gz",
+       :md5 => "6f3e0d38ea03362476ac3be8b3fd961e"
+
+relative_path "liboping-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
 }
 
 build do
@@ -32,5 +36,7 @@ build do
             "./configure",
             "--prefix=#{install_dir}/embedded",
            ].join(" "), :env => env
-  command "make install"
+
+  command "make -j #{max_build_jobs}", :env => env
+  command "make install", :env => env
 end

@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2013 Robby Dyer
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,12 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "yajl"
-version "2.0.1"
+name "libidn"
+version "1.18"
 
-source :url => "https://github.com/lloyd/yajl/archive/#{version}.tar.gz", :md5 => 'b1b9355086b4dbb2774169630c2d8d0e'
+source :url => "ftp://ftp.gnu.org/gnu/libidn/libidn-#{version}.tar.gz",
+       :md5 => "66f115347439f56386f37a3ad92c1da2"
 
-relative_path "yajl-#{version}"
+relative_path "libidn-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -28,9 +29,9 @@ env = {
 }
 
 build do
-  command [
-            "./configure",
-            "--prefix=#{install_dir}/embedded",
+  command ["./configure",
+           "--prefix=#{install_dir}/embedded",
            ].join(" "), :env => env
-  command "make install"
+  command "make -j #{max_build_jobs}"
+  command "make install", :env => env
 end
