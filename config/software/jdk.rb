@@ -32,13 +32,13 @@ whitelist_file "jdk/jre/plugin"
 if OHAI.kernel['machine'] =~ /x86_64/
   source :url => "http://download.oracle.com/otn-pub/java/jdk/7u40-b43/jdk-7u40-linux-x64.tar.gz",
          :md5 => "511ea34e4a42955bc03c28afa4b8f6cf",
-         ## Cookie fakery needed, because Oracle sucks 
-         :cookie => 'oraclelicensejdk-7u40-oth-JPR=accept-securebackup-cookie;gpw_e24=http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html'
+         ## Cookie fakery needed, because Oracle sucks balls
+         :cookie => 'oraclelicense=accept-securebackup-cookie;gpw_e24=http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html'
 else
   source :url => "http://download.oracle.com/otn-pub/java/jdk/7u40-b43/jdk-7u40-linux-i586.tar.gz",
          :md5 => "",
-         ## Once again, cookie fakery needed, because Oracle sucks 
-         :cookie => 'oraclelicensejdk-7u40-oth-JPR=accept-securebackup-cookie;gpw_e24=http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html'
+         ## Once again, cookie fakery needed, because Oracle sucks balls
+         :cookie => 'oraclelicense-7u40-oth-JPR=accept-securebackup-cookie;gpw_e24=http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html'
 end
 
 relative_path "jdk1.7.0_40"
