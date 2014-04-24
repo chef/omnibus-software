@@ -73,16 +73,16 @@ build do
 
   auxiliary_gems = []
 
-  auxiliary_gems << "foodcritic"
-  auxiliary_gems << "chefspec"
-  auxiliary_gems << "rubocop"
+  auxiliary_gems << {name: 'foodcritic',  version: '3.0.3'}
+  auxiliary_gems << {name: 'chefspec',    version: '3.4.0'}
+  auxiliary_gems << {name: 'rubocop',     version: '0.18.1'}
+  auxiliary_gems << {name: 'knife-spork', version: '1.3.2'}
   # strainer build is hosed on windows
-  #  auxiliary_gems << "strainer"
-  auxiliary_gems << "knife-spork"
+  # auxiliary_gems << {name: 'strainer',    version: '3.3.0'}
 
   # do multiple gem installs to better isolate/debug failures
-  auxiliary_gems.each do |gem_name|
-    gem "install #{gem_name} -n #{install_dir}/bin --no-rdoc --no-ri", :env => env
+  auxiliary_gems.each do |g|
+    gem "install #{g[:name]} -v #{g[:version]} -n #{install_dir}/bin --no-rdoc --no-ri", :env => env
   end
 
   block { FileUtils.mkdir_p("#{install_dir}/embedded/apps") }
