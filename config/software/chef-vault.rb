@@ -38,6 +38,6 @@ build_env = {'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
 build do
   bundle 'install --no-cache', :env => build_env
   gem 'build chef-vault.gemspec', :env => build_env
-  gem ['install pkg/chef-vault-*.gem',
+  gem ['install chef-vault-*.gem',
        '--no-rdoc --no-ri'].join(' '), :env => build_env
 end
