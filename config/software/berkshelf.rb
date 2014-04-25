@@ -34,10 +34,6 @@ end
 dependency "nokogiri"
 dependency "libarchive"
 
-# NOTE: Berkshelf is integrating the 'dep-selector' gem, which requires gecode
-# ~> 3.5. Gecode 4.x is available, but 'dep-selector' is not compatible with
-# that. Therefore berkshelf needs gecode 3.x until dep-selector is updated.
-dependency "gecode"
 dependency "bundler"
 
 build do
