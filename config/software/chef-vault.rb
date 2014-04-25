@@ -27,7 +27,6 @@ if platform == 'windows'
   dependency 'ruby-windows'
   dependency 'ruby-windows-devkit'
 else
-  dependency 'libffi'
   dependency 'ruby'
   dependency 'rubygems'
 end
