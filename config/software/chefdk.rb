@@ -34,6 +34,7 @@ dependency "test-kitchen"
 dependency "appbundler"
 dependency "rsync"
 dependency "berkshelf"
+dependency "chef-vault"
 
 env = {
   # rubocop pulls in nokogiri 1.5.11, so needs PKG_CONFIG_PATH and
@@ -87,7 +88,7 @@ build do
 
   block { FileUtils.mkdir_p("#{install_dir}/embedded/apps") }
 
-  appbundler_apps = %w[chef berkshelf test-kitchen chef-dk]
+  appbundler_apps = %w[chef berkshelf test-kitchen chef-dk chef-vault]
   appbundler_apps.each do |app_name|
     command "#{install_dir}/embedded/bin/rsync -a ../#{app_name} #{install_dir}/embedded/apps/"
     appbuilder("#{install_dir}/embedded/apps/#{app_name}", "#{install_dir}/bin")
