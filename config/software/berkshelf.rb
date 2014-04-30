@@ -30,9 +30,9 @@ else
   dependency "libffi"
   dependency "ruby"
   dependency "rubygems"
+  dependency "libarchive"
 end
 dependency "nokogiri"
-dependency "libarchive"
 
 dependency "bundler"
 
