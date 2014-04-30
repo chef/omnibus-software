@@ -32,6 +32,11 @@ version "R16B03-1" do
   relative_path "otp_src_#{version}"
 end
 
+version "R15B02" do
+  source md5: 'ccbe5e032a2afe2390de8913bfe737a1'
+  relative_path "otp_src_#{version}"
+end
+
 source :url => "http://www.erlang.org/download/otp_src_#{version}.tar.gz"
 
 env = {
