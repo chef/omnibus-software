@@ -1,10 +1,11 @@
-name "pysnmp"
-default_version "4.2.5"
+name "pysnmp-mibs"
+default_version "0.1.4"
 
 dependency "python"
 dependency "pip"
-dependency "pysnmp-mibs"
 
 build do
   command "#{install_dir}/embedded/bin/pip install -I --build #{project_dir} --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
 end
+
+
