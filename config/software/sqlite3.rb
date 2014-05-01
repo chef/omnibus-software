@@ -38,7 +38,7 @@ env = {
 build do
   # TODO: we should remove `--enable-readline=no` once it is available in
   # omnibus-software
-  command "./configure --prefix=#{install_dir}/embedded --enable-readline=no", :env => env
+  command "./configure --prefix=#{prefix} --enable-readline=no", :env => env
   command "make", :env => env
   command "make install", :env => env
 end
