@@ -14,9 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Install bzip2 and its shared library, libbz2.so
-# This library object is required for building Python with the bz2 module,
-# and should be picked up automatically when building Python.
 
 name "sqlite3"
 version "3.8.3"
