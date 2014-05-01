@@ -32,16 +32,18 @@ end
 
 dependency "test-kitchen"
 dependency "appbundler"
-dependency "rsync"
 dependency "berkshelf"
 dependency "chef-vault"
+
+sep = File::PATH_SEPARATOR || ":"
+path = "#{install_dir}/embedded/bin#{sep}#{ENV['PATH']}"
 
 env = {
   # rubocop pulls in nokogiri 1.5.11, so needs PKG_CONFIG_PATH and
   # NOKOGIRI_USE_SYSTEM_LIBRARIES until rubocop stops doing that
   "PKG_CONFIG_PATH" => "#{install_dir}/embedded/lib/pkgconfig",
   "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  "PATH" => path
 }
 
 build do
@@ -55,6 +57,9 @@ build do
   end
 
   def appbuilder(app_path, bin_path)
+    sep = File::PATH_SEPARATOR || ":"
+    path = "#{install_dir}/embedded/bin#{sep}#{ENV['PATH']}"
+
     gemfile = File.join(app_path, "Gemfile.lock")
     command("#{install_dir}/embedded/bin/appbundler #{app_path} #{bin_path}",
             :env => {
@@ -63,14 +68,15 @@ build do
       'BUNDLE_GEMFILE'  => gemfile,
       'GEM_PATH'        => nil,
       'GEM_HOME'        => nil,
+      'PATH'            => path
     })
   end
 
-  bundle "install", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
-  rake "build", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+  bundle "install", :env => {"PATH" => path}
+  rake "build", :env => env.merge({"PATH" => path})
 
   gem ["install pkg/chef-dk*.gem",
-      "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+      "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => path})
 
   auxiliary_gems = []
 
@@ -84,14 +90,14 @@ build do
 
   # do multiple gem installs to better isolate/debug failures
   auxiliary_gems.each do |g|
-    gem "install #{g[:name]} -v #{g[:version]} -n #{install_dir}/bin --no-rdoc --no-ri", :env => env
+    gem "install #{g[:name]} -v #{g[:version]} -n #{install_dir}/bin --no-rdoc --no-ri --verbose", :env => env
   end
 
   block { FileUtils.mkdir_p("#{install_dir}/embedded/apps") }
 
   appbundler_apps = %w[chef berkshelf test-kitchen chef-dk chef-vault]
   appbundler_apps.each do |app_name|
-    command "#{install_dir}/embedded/bin/rsync -a ../#{app_name} #{install_dir}/embedded/apps/"
+    block { FileUtils.cp_r("#{source_dir}/#{app_name}", "#{install_dir}/embedded/apps/") }
     appbuilder("#{install_dir}/embedded/apps/#{app_name}", "#{install_dir}/bin")
   end
 end

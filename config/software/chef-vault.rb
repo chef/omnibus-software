@@ -17,7 +17,6 @@
 
 name 'chef-vault'
 default_version 'v2.2.1'
-always_build true
 
 source :git => 'git://github.com/Nordstrom/chef-vault.git'
 
@@ -26,12 +25,13 @@ relative_path 'chef-vault'
 if platform == 'windows'
   dependency 'ruby-windows'
   dependency 'ruby-windows-devkit'
+  dependency 'chef-windows'
 else
   dependency 'ruby'
   dependency 'rubygems'
+  dependency 'chef'
 end
 
-dependency 'chef'
 
 build_env = {'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
 
