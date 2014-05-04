@@ -20,7 +20,7 @@ default_version "2.0.0"
 
 dependency "erlang"
 
-source :git => "https://github.com/basho/rebar.git"
+source :git => "https://github.com/rebar/rebar.git"
 
 relative_path "rebar"
 
