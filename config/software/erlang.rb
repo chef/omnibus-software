@@ -46,6 +46,10 @@ build do
     command "ln -fs #{install_dir}/embedded/include/#{link} #{install_dir}/embedded/erlang/include/#{link}"
   end
 
+  # lookup tgetent also in in -ltinfo
+  # ncurses --with-termlib enables building separate library and tgetent goes there
+  patch :source => 'erlang-tinfo.patch', :plevel => 1
+
   # TODO: build cross-platform. this is for linux
   command(["./configure",
            "--prefix=#{install_dir}/embedded",

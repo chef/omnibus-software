@@ -1,0 +1,13 @@
+http://git.pld-linux.org/?p=packages/erlang.git;a=blob_plain;f=erlang-tinfo.patch;h=0f0fff7821ff55b0218fe24fbd1190c7ff54456f;hb=361623bba1dd090716461f53fe027aa2e8b51939
+
+--- otp_src_R11B-0.org/erts/configure.in	2006-05-11 14:23:38.000000000 +0000
++++ otp_src_R11B-0/erts/configure.in	2006-08-24 10:48:31.840545750 +0000
+@@ -708,7 +708,7 @@
+ 
+ if test "X$host" != "Xwin32"; then
+     # try these libs
+-    termcap_libs="ncurses curses termcap termlib"
++    termcap_libs="tinfo ncurses curses termcap termlib"
+ 
+     for termcap_lib in $termcap_libs; do
+ 	AC_CHECK_LIB($termcap_lib, tgetent, TERMCAP_LIB="-l$termcap_lib")
