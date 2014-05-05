@@ -50,6 +50,9 @@ build do
   # ncurses --with-termlib enables building separate library and tgetent goes there
   patch :source => 'erlang-tinfo.patch', :plevel => 1
 
+  # need to reconf after patching configure.in
+  command "autoreconf"
+
   # TODO: build cross-platform. this is for linux
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
