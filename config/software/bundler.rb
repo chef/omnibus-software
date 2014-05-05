@@ -18,7 +18,11 @@
 name "bundler"
 default_version "1.5.3"
 
-dependency "rubygems" unless platform == 'windows'
+if platform == 'windows'
+  dependency "ruby-windows"
+else
+  dependency "rubygems"
+end
 
 build do
   gem "install bundler --no-rdoc --no-ri -v '#{version}'"
