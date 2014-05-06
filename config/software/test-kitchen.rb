@@ -32,8 +32,11 @@ end
 dependency "nokogiri"
 
 build do
-  bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
-  bundle "exec rake build", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+  # determine correct path variable, can be "Path" on windows
+  path_key = ENV.keys.grep(/\Apath\Z/i).first
+
+  bundle "install --without guard", :env => {path_key => path_with_embedded }
+  bundle "exec rake build", :env => {path_key => path_with_embedded }
   gem ["install pkg/test-kitchen-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+       "--no-rdoc --no-ri"].join(" "), :env => {path_key => path_with_embedded }
 end

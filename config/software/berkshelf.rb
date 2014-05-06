@@ -37,8 +37,12 @@ dependency "nokogiri"
 dependency "bundler"
 
 build do
-  bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
-  bundle "exec thor gem:build", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+  # determine correct path variable for windows, can be PATH or Path
+  path_key = ENV.keys.grep(/\Apath\Z/i).first
+  current_path = ENV[path_key]
+
+  bundle "install --without guard", :env => {path_key => path_with_embedded }
+  bundle "exec thor gem:build", :env => {path_key => path_with_embedded }
   gem ["install pkg/berkshelf-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+       "--no-rdoc --no-ri"].join(" "), :env => {path_key => path_with_embedded }
 end
