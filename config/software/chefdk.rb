@@ -38,14 +38,6 @@ dependency "chef-vault"
 sep = File::PATH_SEPARATOR || ":"
 path = "#{install_dir}/embedded/bin#{sep}#{ENV['PATH']}"
 
-env = {
-  # rubocop pulls in nokogiri 1.5.11, so needs PKG_CONFIG_PATH and
-  # NOKOGIRI_USE_SYSTEM_LIBRARIES until rubocop stops doing that
-  "PKG_CONFIG_PATH" => "#{install_dir}/embedded/lib/pkgconfig",
-  "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true",
-  "PATH" => path
-}
-
 build do
   # Nasty hack to set the artifact version until this gets fixed:
   # https://github.com/opscode/omnibus-ruby/issues/134
@@ -56,9 +48,20 @@ build do
     end
   end
 
+  path_key = ENV.keys.grep(/\Apath\Z/i).first
+
+  env = {
+    # rubocop pulls in nokogiri 1.5.11, so needs PKG_CONFIG_PATH and
+    # NOKOGIRI_USE_SYSTEM_LIBRARIES until rubocop stops doing that
+    "PKG_CONFIG_PATH" => "#{install_dir}/embedded/lib/pkgconfig",
+    "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true",
+    path_key => path
+  }
+
+
   def appbuilder(app_path, bin_path)
-    sep = File::PATH_SEPARATOR || ":"
-    path = "#{install_dir}/embedded/bin#{sep}#{ENV['PATH']}"
+    path_key = ENV.keys.grep(/\Apath\Z/i).first
+    path = path_with_embedded
 
     gemfile = File.join(app_path, "Gemfile.lock")
     command("#{install_dir}/embedded/bin/appbundler #{app_path} #{bin_path}",
@@ -68,15 +71,15 @@ build do
       'BUNDLE_GEMFILE'  => gemfile,
       'GEM_PATH'        => nil,
       'GEM_HOME'        => nil,
-      'PATH'            => path
+      path_key          => path
     })
   end
 
-  bundle "install", :env => {"PATH" => path}
-  rake "build", :env => env.merge({"PATH" => path})
+  bundle "install", :env => {path_key => path}
+  rake "build", :env => env.merge({path_key => path})
 
   gem ["install pkg/chef-dk*.gem",
-      "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => path})
+      "--no-rdoc --no-ri"].join(" "), :env => env.merge({path_key => path})
 
   auxiliary_gems = []
 
