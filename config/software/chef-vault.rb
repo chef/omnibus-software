@@ -15,15 +15,29 @@
 # limitations under the License.
 #
 
-name "bundler"
-default_version "1.5.3"
+name 'chef-vault'
+default_version 'v2.2.1'
+
+source :git => 'git://github.com/Nordstrom/chef-vault.git'
+
+relative_path 'chef-vault'
 
 if platform == 'windows'
-  dependency "ruby-windows"
+  dependency 'ruby-windows'
+  dependency 'ruby-windows-devkit'
+  dependency 'chef-windows'
 else
-  dependency "rubygems"
+  dependency 'ruby'
+  dependency 'rubygems'
+  dependency 'chef'
 end
 
+
+build_env = {'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+
 build do
-  gem "install bundler --no-rdoc --no-ri -v '#{version}'"
+  bundle 'install --no-cache', :env => build_env
+  gem 'build chef-vault.gemspec', :env => build_env
+  gem ['install chef-vault-*.gem',
+       '--no-rdoc --no-ri'].join(' '), :env => build_env
 end
