@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,21 @@
 # limitations under the License.
 #
 
-name "rebar"
-# In order to compile relx, we need a rebar past the 2.2.0 tag. Given
-# past experience, it makes sense to lock rebar down, so picking HEAD.
-default_version "837df640872d6a5d5d75a7308126e2769d7babad"
+name "relx"
+
+# Release tags are available, which you can use via override in
+# project config.
+default_version "master"
 
 dependency "erlang"
 
-source :git => "https://github.com/rebar/rebar.git"
+# NOTE: requires rebar > 2.2.0 Not sure what the minimum is, but
+# 837df640872d6a5d5d75a7308126e2769d7babad of rebar works.
+dependency "rebar"
 
-relative_path "rebar"
+source :git => "https://github.com/erlware/relx.git"
+
+relative_path "relx"
 
 env = {
   "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
@@ -33,6 +38,6 @@ env = {
 }
 
 build do
-  command "./bootstrap", :env => env
-  command "cp ./rebar #{install_dir}/embedded/bin/"
+  command "make", :env => env
+  command "cp ./relx #{install_dir}/embedded/bin/"
 end
