@@ -43,7 +43,7 @@ build do
   # https://github.com/opscode/omnibus-ruby/issues/134
   block do
     project = self.project
-    if project.name == "chefdk"
+    if project.name == "chefdk" || project.name == "chefdk-windows"
       project.build_version Omnibus::BuildVersion.new(self.project_dir).semver
     end
   end

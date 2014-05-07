@@ -17,7 +17,6 @@
 
 name "berkshelf"
 default_version "master"
-always_build true
 
 source :git => "git://github.com/berkshelf/berkshelf"
 
@@ -32,9 +31,10 @@ else
   dependency "rubygems"
   dependency "libarchive"
 end
-dependency "nokogiri"
 
+dependency "nokogiri"
 dependency "bundler"
+dependency "dep-selector-libgecode"
 
 build do
   # determine correct path variable for windows, can be PATH or Path
