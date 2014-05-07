@@ -31,9 +31,10 @@ else
   dependency "rubygems"
   dependency "libarchive"
 end
-dependency "nokogiri"
 
+dependency "nokogiri"
 dependency "bundler"
+dependency "dep-selector-libgecode"
 
 build do
   # determine correct path variable for windows, can be PATH or Path
