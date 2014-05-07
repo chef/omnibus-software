@@ -41,6 +41,7 @@ build do
            "--with-dbmliborder=gdbm"].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
+  command "rm -rf #{install_dir}/embedded/lib/python2.7/test"
 
   # There exists no configure flag to tell Python to not compile readline support :(
   block do
