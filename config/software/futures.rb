@@ -1,5 +1,5 @@
 name "futures"
-default_version "2.1.16"
+default_version "2.1.6"
 
 dependency "python"
 dependency "pip"
