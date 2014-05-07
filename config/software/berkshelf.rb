@@ -39,7 +39,6 @@ dependency "bundler"
 build do
   # determine correct path variable for windows, can be PATH or Path
   path_key = ENV.keys.grep(/\Apath\Z/i).first
-  current_path = ENV[path_key]
 
   bundle "install --without guard", :env => {path_key => path_with_embedded }
   bundle "exec thor gem:build", :env => {path_key => path_with_embedded }
