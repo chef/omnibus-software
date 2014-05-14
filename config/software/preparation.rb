@@ -19,8 +19,6 @@ name "preparation"
 description "the steps required to preprare the build"
 default_version '1.0.0'
 
-version "1.4.9"
-
 build do
   block do
     %w{embedded/lib embedded/bin bin}.each do |dir|
