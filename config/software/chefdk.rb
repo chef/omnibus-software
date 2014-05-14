@@ -32,6 +32,7 @@ dependency "test-kitchen"
 dependency "appbundler"
 dependency "berkshelf"
 dependency "chef-vault"
+dependency "berkflow"
 
 sep = File::PATH_SEPARATOR || ":"
 path = "#{install_dir}/embedded/bin#{sep}#{ENV['PATH']}"
@@ -86,6 +87,7 @@ build do
   auxiliary_gems << {name: 'rubocop',     version: '0.18.1'}
   auxiliary_gems << {name: 'knife-spork', version: '1.3.2'}
   auxiliary_gems << {name: 'kitchen-vagrant', version: '0.15.0'}
+  auxiliary_gems << {name: 'berkflow', version: '0.6.0'}
   # strainer build is hosed on windows
   # auxiliary_gems << {name: 'strainer',    version: '3.3.0'}
 
@@ -96,7 +98,7 @@ build do
 
   block { FileUtils.mkdir_p("#{install_dir}/embedded/apps") }
 
-  appbundler_apps = %w[chef berkshelf test-kitchen chef-dk chef-vault]
+  appbundler_apps = %w[chef berkshelf test-kitchen chef-dk chef-vault berkflow]
   appbundler_apps.each do |app_name|
     block { FileUtils.cp_r("#{source_dir}/#{app_name}", "#{install_dir}/embedded/apps/") }
     appbuilder("#{install_dir}/embedded/apps/#{app_name}", "#{install_dir}/bin")
