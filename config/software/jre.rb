@@ -37,7 +37,7 @@ jre_ver_build = 13
 jre_ver = "#{jre_ver_major}u#{jre_ver_update}"
 jre_dir = "#{jre_ver}-b#{jre_ver_build}"
 
-if OHAI.kernel['machine'] =~ /x86_64/
+if Ohai.kernel['machine'] =~ /x86_64/
   # TODO: download x86 version on x86 machines
 
 
