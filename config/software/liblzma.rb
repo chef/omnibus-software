@@ -28,11 +28,13 @@ build do
           "--prefix=#{install_dir}/embedded",
           "--disable-debug",
           "--disable-dependency-tracking"].join(" ")
+
   env = {
     "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
   }
+
   command cmd, :env => env
-  command "make install", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make install", :env => env
 end
