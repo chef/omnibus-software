@@ -15,6 +15,12 @@
 # limitations under the License.
 #
 
+#
+# NOTE: Instead of depending on this software definition, there is no
+#       reason not to include "-static-libgcc" in your LDFLAGS instead.
+#       That will probably be the best solution going forwards rather than
+#       fuss around with the dynamic linking business here.
+#
 name "libgcc"
 description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
 
