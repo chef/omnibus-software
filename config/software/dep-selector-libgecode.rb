@@ -20,8 +20,20 @@ default_version "1.0.0"
 
 dependency "bundler"
 
+# Force RHEL 5 and others to use the correct version of GCC
+test = Mixlib::ShellOut.new("test -f /usr/bin/gcc44")
+test.run_command
+
+env = if test.exitstatus == 0
+        { 'CC' => 'gcc44', 'CXX' => 'g++44' }
+      else
+        {}
+      end
+
 build do
   path_key = ENV.keys.grep(/\Apath\Z/i).first
+  env[path_key] = path_with_embedded
 
-  gem "install dep-selector-libgecode --no-rdoc --no-ri -v '#{version}'",  :env => {path_key => path_with_embedded }
+  gem "install dep-selector-libgecode --no-rdoc --no-ri -v '#{version}'",
+      env: env
 end
