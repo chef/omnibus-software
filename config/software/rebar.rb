@@ -16,9 +16,9 @@
 #
 
 name "rebar"
-# In order to compile relx, we need a rebar past the 2.2.0 tag. Given
-# past experience, it makes sense to lock rebar down, so picking HEAD.
-default_version "837df640872d6a5d5d75a7308126e2769d7babad"
+# Current version (2.3.0) suffers from a pretty bad bug that breaks tests.
+# (see https://github.com/rebar/rebar/pull/279 and https://github.com/rebar/rebar/pull/251)
+default_version "93621d0d0c98035f79790ffd24beac94581b0758"
 
 dependency "erlang"
 
