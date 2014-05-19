@@ -16,7 +16,7 @@
 #
 
 name "nokogiri"
-default_version "1.6.2"
+default_version "1.6.2.1"
 
 if platform == 'windows'
   dependency "ruby-windows"
@@ -27,6 +27,7 @@ else
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
+  dependency "liblzma"
   dependency "zlib"
 end
 
