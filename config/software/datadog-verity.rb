@@ -2,7 +2,7 @@ name "datadog-verity"
 default_version "last-stable"
 
 env = {
-  "GOROOT" => "/usr/local/go/",
+  "GOROOT" => "/usr/local/go",
   "GOPATH" => "/var/cache/omnibus/src/datadog-verity"
 }
 
