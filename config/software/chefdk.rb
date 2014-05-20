@@ -28,6 +28,7 @@ else
   dependency "chef"
 end
 
+dependency "libffi" if debian?
 dependency "test-kitchen"
 dependency "appbundler"
 dependency "berkshelf"
