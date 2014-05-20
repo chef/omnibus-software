@@ -8,6 +8,5 @@ env = {
 
 build do
    command "$GOROOT/bin/go get -d -u github.com/DataDog/verity", :env => env
-   command "cd $GOPATH/src/github.com/DataDog/verity", :env => env
-   command "$GOROOT/bin/go build -o #{install_dir}/bin/verity", :env => env
+   command "$GOROOT/bin/go build -o #{install_dir}/bin/verity $GOPATH/src/github.com/DataDog/verity/verity.go", :env => env
 end
