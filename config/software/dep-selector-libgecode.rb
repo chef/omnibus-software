@@ -20,11 +20,11 @@ default_version "1.0.0"
 
 dependency "bundler"
 
-# Force RHEL 5 and others to use the correct version of GCC
-test = Mixlib::ShellOut.new("test -f /usr/bin/gcc44")
-test.run_command
-
-env = if test.exitstatus == 0
+# On some RHEL-based systems, the default GCC that's installed is 4.1. We need
+# to use 4.4, which is provided by the gcc44 and gcc44-c++ packages. These do
+# not use the gcc binaries so we set the flags to point to the correct version
+# here.
+env = if File.exist?('/usr/bin/gcc44')
         { 'CC' => 'gcc44', 'CXX' => 'g++44' }
       else
         {}
