@@ -52,13 +52,22 @@ env =
     }
   end
 
+
+# Depending on which shell is being used, the path environment
+# variable can
+# be "PATH" or "Path". If *both* are set, only one is honored.
+path_key = ENV.keys.grep(/\Apath\Z/i).first
+
+sep = File::PATH_SEPARATOR || ":"
+env = {path_key => "#{install_dir}/embedded/bin" + sep + "#{install_dir}/embedded/mingw/bin" + sep + "#{ENV['PATH']}"}
+
 build do
 
   # install chef first so that ohai gets installed into /opt/chef/bin/ohai
-  rake "gem", :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+  rake "gem", :env => env
 
   gem ["install pkg/ohai*.gem",
       "-n #{install_dir}/bin",
-      "--no-rdoc --no-ri"].join(" "), :env => env.merge({"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"})
+      "--no-rdoc --no-ri"].join(" "), :env => env
 
 end
