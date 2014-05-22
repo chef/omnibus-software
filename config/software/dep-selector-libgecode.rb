@@ -24,14 +24,7 @@ dependency "bundler"
 # to use 4.4, which is provided by the gcc44 and gcc44-c++ packages. These do
 # not use the gcc binaries so we set the flags to point to the correct version
 # here.
-#
-# Why do we shell out here just to test for the presence of a file? Using
-# File.exist? seems to not work, but this (which was copied from the gecode
-# software definition, does.
-test = Mixlib::ShellOut.new('test -f /usr/bin/gcc44')
-test.run_command
-
-env = if test.exitstatus == 0
+env = if File.exist?('/usr/bin/gcc44')
         { 'CC' => 'gcc44', 'CXX' => 'g++44' }
       else
         {}
