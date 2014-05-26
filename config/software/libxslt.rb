@@ -16,7 +16,7 @@
 #
 
 name "libxslt"
-default_version "1.1.26"
+default_version "1.1.28"
 
 dependency "libxml2"
 dependency "libtool" if platform == "solaris2"
