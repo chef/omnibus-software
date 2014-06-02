@@ -16,7 +16,7 @@
 #
 
 name "ruby"
-default_version "1.9.3-p484"
+default_version "2.1.1"
 
 dependency "zlib"
 dependency "ncurses"
