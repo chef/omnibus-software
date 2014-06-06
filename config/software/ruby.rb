@@ -108,7 +108,8 @@ build do
                        "--enable-shared",
                        "--enable-libedit",
                        "--with-ext=psych",
-                       "--disable-install-doc"]
+                       "--disable-install-doc",
+                       "--without-gmp"]
 
   case platform
   when "aix"
