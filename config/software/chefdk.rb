@@ -38,15 +38,6 @@ sep = File::PATH_SEPARATOR || ":"
 path = "#{install_dir}/embedded/bin#{sep}#{ENV['PATH']}"
 
 build do
-  # Nasty hack to set the artifact version until this gets fixed:
-  # https://github.com/opscode/omnibus-ruby/issues/134
-  block do
-    project = self.project
-    if project.name == "chefdk" || project.name == "chefdk-windows"
-      project.build_version Omnibus::BuildVersion.new(self.project_dir).semver
-    end
-  end
-
   path_key = ENV.keys.grep(/\Apath\Z/i).first
 
   env = {
