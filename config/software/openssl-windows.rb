@@ -16,13 +16,13 @@
 #
 
 #
-# libyaml 0.1.5 fixes a security vulnerability to 0.1.4.
+# openssl 1.0.0m fixes a security vulnerability:
+#   https://www.openssl.org/news/secadv_20140605.txt
 # Since the rubyinstaller.org doesn't release ruby when a dependency gets
 # patched, we are manually patching the dependency until we get a new
 # ruby release on windows.
-# See: https://github.com/oneclick/rubyinstaller/issues/210
-# This component should be removed when libyaml 0.1.5 ships with ruby builds
-# of rubyinstaller.org
+# This component should be removed when we upgrade to the next version of
+# rubyinstaller > 1.9.3-p545 and 2.0.0-p451
 #
 name "openssl-windows"
 default_version "1.0.0m"
