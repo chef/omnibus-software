@@ -1,5 +1,5 @@
 name "httplib2"
-default_version "0.8"
+default_version "0.9"
 
 dependency "python"
 dependency "pip"
