@@ -25,5 +25,5 @@ dependency "rubygems"
 dependency "nokogiri"
 
 build do
-  gem "install #{name} -n #{install_dir}/bin --no-rdoc --no-ri -v #{version}"
+  gem "install berkshelf -n #{install_dir}/bin --no-rdoc --no-ri -v #{version}"
 end
