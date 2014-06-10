@@ -15,24 +15,16 @@
 # limitations under the License.
 #
 
-name "rebar"
-# Current version (2.3.0) suffers from a pretty bad bug that breaks tests.
-# (see https://github.com/rebar/rebar/pull/279 and https://github.com/rebar/rebar/pull/251)
-default_version "93621d0d0c98035f79790ffd24beac94581b0758"
+log.deprecated('berkshelf2') { 'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.' }
 
-dependency "erlang"
+name "berkshelf2"
+default_version "2.0.16"
 
-source :git => "https://github.com/rebar/rebar.git"
-
-relative_path "rebar"
-
-env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
-  "LD_FLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-}
+dependency "ruby"
+dependency "rubygems"
+dependency "nokogiri"
 
 build do
-  command "./bootstrap", :env => env
-  command "cp ./rebar #{install_dir}/embedded/bin/"
+  gem 'install varia_model --no-rdoc --no-ri -v 0.3.2'
+  gem "install berkshelf -n #{install_dir}/bin --no-rdoc --no-ri -v #{version}"
 end

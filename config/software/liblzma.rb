@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2014 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,37 +15,26 @@
 # limitations under the License.
 #
 
-name "libxml2"
-default_version "2.9.1"
+name "liblzma"
+default_version "5.0.5"
 
-dependency "zlib"
-dependency "libiconv"
+source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
+       md5: "19d924e066b6fff0bc9d1981b4e53196"
 
-version "2.7.8" do
-  source md5: "8127a65e8c3b08856093099b52599c86"
-end
-
-version "2.9.1" do
-  source md5: "9c0cfef285d5c4a5c80d00904ddab380"
-end
-
-source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
-
-relative_path "libxml2-#{version}"
+relative_path "xz-#{version}"
 
 build do
-  cmd = ["./configure",
-         "--prefix=#{install_dir}/embedded",
-         "--with-zlib=#{install_dir}/embedded",
-         "--with-iconv=#{install_dir}/embedded",
-         "--without-python",
-         "--without-icu"].join(" ")
+  cmd = [ "./configure",
+          "--prefix=#{install_dir}/embedded",
+          "--disable-debug",
+          "--disable-dependency-tracking"].join(" ")
+
   env = {
     "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
   }
+
   command cmd, :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "make install", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make install", :env => env
 end

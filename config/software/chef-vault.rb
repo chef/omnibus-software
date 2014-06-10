@@ -33,9 +33,12 @@ else
 end
 
 
-build_env = {'PATH' => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
 
 build do
+  # On windows, the path var can be "Path"
+  path_key = ENV.keys.grep(/\Apath\Z/i).first
+
+  build_env = { path_key => path_with_embedded }
   bundle 'install --no-cache', :env => build_env
   gem 'build chef-vault.gemspec', :env => build_env
   gem ['install chef-vault-*.gem',
