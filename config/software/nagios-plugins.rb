@@ -50,4 +50,12 @@ build do
   # build it
   command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "sudo make install"
+
+  # NOTE: cargo culted from commit 0e6eb2d4a7978c5683a3e15c956c0c2b78f3d904
+  #
+  # This is nasty but we don't use the check_ldap plugin and it has the
+  # ugly habbit of linking against system `gnutls` instead of embedded
+  # `openssl`. There is also no easy way to tell the configure task to
+  # not build it!
+  command "sudo rm -rf #{install_dir}/embedded/nagios/libexec/check_ldap"
 end

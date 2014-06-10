@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2012 Opscode, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,23 @@
 # limitations under the License.
 #
 
-name "appbundler"
-default_version "0.2.0"
+name "ruby-windows"
+default_version "1.9.3-p484"
 
-dependency "bundler"
+relative_path "ruby-#{version}-i386-mingw32"
+
+version "1.9.3-p484" do
+  source md5: "a0665113aaeea83f1c4bea02fcf16694"
+end
+
+version "2.0.0-p451" do
+  source md5: "37feadb0230e7f475a8591d1807ecfec"
+end
+
+source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
 build do
-  gem "install appbundler --no-rdoc --no-ri -v '#{version}'"
+  # Robocopy's return code is 1 if it succesfully copies over the
+  # files and 0 if the files are already existing at the destination
+  command "robocopy . #{install_dir}\\embedded\\ /MIR", :returns => [0, 1]
 end

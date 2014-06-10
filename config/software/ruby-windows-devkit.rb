@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2012 Opscode, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,16 @@
 # limitations under the License.
 #
 
-name "preparation"
-description "the steps required to preprare the build"
-default_version '1.0.0'
+name "ruby-windows-devkit"
+default_version "4.5.2-20111229-1559"
+
+dependency "ruby-windows"
+
+source :url => "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe",
+       :md5 => "4bf8f2dd1d582c8733a67027583e19a6"
 
 build do
-  block do
-    %w{embedded/lib embedded/bin bin}.each do |dir|
-      dir_fullpath = File.expand_path(File.join(install_dir, dir))
-      FileUtils.mkdir_p(dir_fullpath)
-      FileUtils.touch(File.join(dir_fullpath, '.gitkeep'))
-    end
-  end
+  command "DevKit-tdm-32-#{version}-sfx.exe -y -o#{File.expand_path(File.join(install_dir, "embedded")).gsub(/\//, "\\")}"
+  command "echo - #{install_dir}/embedded > config.yml", :cwd => "#{install_dir}/embedded"
+  ruby "dk.rb install", :cwd => "#{install_dir}/embedded"
 end
