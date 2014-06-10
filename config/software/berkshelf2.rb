@@ -18,12 +18,13 @@
 log.deprecated('berkshelf2') { 'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.' }
 
 name "berkshelf2"
-default_version "2.0.15"
+default_version "2.0.16"
 
 dependency "ruby"
 dependency "rubygems"
 dependency "nokogiri"
 
 build do
+  gem 'install varia_model --no-rdoc --no-ri -v 0.3.2'
   gem "install berkshelf -n #{install_dir}/bin --no-rdoc --no-ri -v #{version}"
 end
