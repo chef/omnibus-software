@@ -33,6 +33,11 @@ source :url => "http://packages.openknapsack.org/openssl/openssl-#{version}-x86-
        :md5 => "1836409f45d3045243bb2653ad263f11"
 
 build do
+  # Make sure the OpenSSL version is suitable for our path:
+  # OpenSSL version is something like
+  # OpenSSL 1.0.0k 5 Feb 2013
+  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0l'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0m'\""
+
   temp_directory = File.join(cache_dir, "openssl-cache")
   FileUtils.mkdir_p(temp_directory)
   # First extract the tar file out of lzma archive.
