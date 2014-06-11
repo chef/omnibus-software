@@ -53,13 +53,13 @@ env =
   end
 
 build do
-  bundle "install --without development",  :env => env.merge({path_key => path_with_embedded})
+  bundle "install --without development",  :env => {path_key => path_with_embedded}
 
   # install chef first so that ohai gets installed into /opt/chef/bin/ohai
-  bundle "exec rake gem", :env => env.merge({path_key => path_with_embedded})
+  bundle "exec rake gem", :env => {path_key => path_with_embedded}
 
   gem ["install pkg/ohai*.gem",
       "-n #{install_dir}/bin",
-      "--no-rdoc --no-ri"].join(" "), :env => env.merge({path_key => path_with_embedded})
+      "--no-rdoc --no-ri"].join(" "), :env => {path_key => path_with_embedded}
 
 end
