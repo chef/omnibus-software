@@ -55,7 +55,7 @@ env =
 build do
   path_key = ENV.keys.grep(/\Apath\Z/i).first
 
-  bundle "install --without development",  :env => {path_key => path_with_embedded}
+  bundle "install",  :env => {path_key => path_with_embedded}
 
   # install chef first so that ohai gets installed into /opt/chef/bin/ohai
   bundle "exec rake gem", :env => {path_key => path_with_embedded}
