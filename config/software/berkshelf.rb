@@ -17,6 +17,7 @@
 
 name "berkshelf"
 default_version "master"
+always_build true
 
 source :git => "git://github.com/berkshelf/berkshelf"
 
@@ -31,17 +32,13 @@ else
   dependency "rubygems"
   dependency "libarchive"
 end
-
 dependency "nokogiri"
+
 dependency "bundler"
-dependency "dep-selector-libgecode"
 
 build do
-  # determine correct path variable for windows, can be PATH or Path
-  path_key = ENV.keys.grep(/\Apath\Z/i).first
-
-  bundle "install --without guard", :env => {path_key => path_with_embedded }
-  bundle "exec thor gem:build", :env => {path_key => path_with_embedded }
+  bundle "install --without guard", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+  bundle "exec thor gem:build", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
   gem ["install pkg/berkshelf-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => {path_key => path_with_embedded }
+       "--no-rdoc --no-ri"].join(" "), :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
 end

@@ -16,7 +16,7 @@
 #
 
 name "libxml2"
-default_version "2.9.1"
+default_version "2.7.8"
 
 dependency "zlib"
 dependency "libiconv"

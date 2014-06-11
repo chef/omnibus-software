@@ -26,22 +26,6 @@ source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
 relative_path "gdbm-1.9.1"
 
 build do
-  env = case platform
-  when "solaris2"
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -R#{install_dir}/embedded/lib",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-    }
-  else
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-    }
-  end
-
   configure_command = ["./configure",
                        "--enable-libgdbm-compat",
                        "--prefix=#{install_dir}/embedded"]
@@ -50,7 +34,7 @@ build do
     configure_command << "--with-pic"
   end
 
-  command configure_command.join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make install", :env => env
+  command configure_command.join(" ")
+  command "make -j #{max_build_jobs}"
+  command "make install"
 end

@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+# 
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,17 +18,10 @@
 name "gecode"
 default_version "3.7.3"
 
-version "3.7.3" do
-  source :md5 => "7a5cb9945e0bb48f222992f2106130ac"
-end
+source :url => "http://www.gecode.org/download/gecode-3.7.3.tar.gz",
+       :md5 => "7a5cb9945e0bb48f222992f2106130ac"
 
-version "3.7.1" do
-  source :md5 => "b4191d8cfafa18bd9b78594544be2a04"
-end
-
-source :url => "http://www.gecode.org/download/gecode-#{version}.tar.gz"
-
-relative_path "gecode-#{version}"
+relative_path "gecode-3.7.3"
 
 test = Mixlib::ShellOut.new("test -f /usr/bin/gcc44")
 test.run_command
