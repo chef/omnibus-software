@@ -20,6 +20,7 @@ default_version "2.9.1"
 
 dependency "zlib"
 dependency "libiconv"
+dependency "liblzma"
 
 version "2.7.8" do
   source md5: "8127a65e8c3b08856093099b52599c86"
