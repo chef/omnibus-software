@@ -16,7 +16,7 @@
 #
 
 name "python"
-default_version "2.7.6"
+default_version "2.7.7"
 
 dependency "gdbm"
 dependency "ncurses"
@@ -25,7 +25,7 @@ dependency "openssl"
 dependency "bzip2"
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-       :md5 => '1d8728eb0dfcac72a0fd99c17ec7f386'
+       :md5 => 'cf842800b67841d64e7fb3cd8acb5663'
 
 relative_path "Python-#{version}"
 
