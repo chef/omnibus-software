@@ -29,11 +29,9 @@ env = if File.exist?('/usr/bin/gcc44')
       else
         {}
       end
+env = with_embedded_path(env)
 
 build do
-  path_key = ENV.keys.grep(/\Apath\Z/i).first
-  env[path_key] = path_with_embedded
-
   gem "install dep-selector-libgecode --no-rdoc --no-ri -v '#{version}'",
       env: env
 end

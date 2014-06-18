@@ -31,12 +31,11 @@ end
 
 dependency "nokogiri"
 
-build do
-  # determine correct path variable, can be "Path" on windows
-  path_key = ENV.keys.grep(/\Apath\Z/i).first
+env = with_embedded_path()
 
-  bundle "install --without guard", :env => {path_key => path_with_embedded }
-  bundle "exec rake build", :env => {path_key => path_with_embedded }
+build do
+  bundle "install --without guard", :env => env
+  bundle "exec rake build", :env => env
   gem ["install pkg/test-kitchen-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => {path_key => path_with_embedded }
+       "--no-rdoc --no-ri"].join(" "), :env => env
 end

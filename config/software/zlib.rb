@@ -31,37 +31,13 @@ end
 source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
 
 relative_path "zlib-#{version}"
-configure_env =
-  case platform
-  when "aix"
-    {
-      "CC" => "xlc -q64",
-      "CXX" => "xlC -q64",
-      "LD" => "ld -b64",
-      "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru",
-      "LDFLAGS" => "-q64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-    }
-  when "mac_os_x"
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
-    }
-  when "solaris2"
-    {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -DNO_VIZ"
-    }
-  else
-    {
-      "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
-    }
-  end
+
+env = with_embedded_path()
+env = with_standard_compiler_flags(env)
+env['CFLAGS'] << " -DNO_VIZ" if platform == 'solaris2'
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{max_build_jobs}"
-  command "make -j #{max_build_jobs} install"
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make -j #{max_build_jobs}", :env => env
+  command "make -j #{max_build_jobs} install", :env => env
 end
