@@ -29,7 +29,7 @@ source :url => "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz",
 
 relative_path "libffi-3.0.13"
 configure_env =
-  case platform
+  case Ohai['platform']
   when "aix"
     {
       "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
@@ -64,7 +64,7 @@ build do
 
   # On centos libffi libraries are places under /embedded/lib64
   # move them over to lib
-  if platform == "centos"
+  if Ohai['platform_family'] == "rhel"
     command "mv #{install_dir}/embedded/lib64/* #{install_dir}/embedded/lib/"
     command "rm -rf #{install_dir}/embedded/lib64"
   end
