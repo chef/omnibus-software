@@ -21,51 +21,26 @@ default_version "3.0.13"
 dependency "libgcc"
 dependency "libtool"
 
-# TODO: this link is subject to change with each new release of zlib.
-#       we'll need to use a more robust link (sourceforge) that will
-#       not change over time.
 source :url => "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz",
        :md5 => '45f3b6dbc9ee7c7dfbbbc5feba571529'
 
 relative_path "libffi-3.0.13"
-configure_env =
-  case Ohai['platform']
-  when "aix"
-    {
-      "LDFLAGS" => "-maix64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-      "CFLAGS" => "-maix64 -I#{install_dir}/embedded/include",
-      "LD" => "ld -b64",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru "
-    }
-  when "mac_os_x"
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
-    }
-  when "solaris2"
-    {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib -DNO_VIZ"
-    }
-  else
-    {
-      "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
-    }
-  end
+
+env = with_default_path()
+env = with_standard_compiler_flags(env)
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{max_build_jobs}"
-  command "make -j #{max_build_jobs} install"
-  # libffi's default install location of header files is aweful...
+  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "make -j #{max_build_jobs}", :env => env
+  command "make -j #{max_build_jobs} install", :env => env
+  # libffi's default install location of header files is awful...
   command "cp -f #{install_dir}/embedded/lib/libffi-3.0.13/include/* #{install_dir}/embedded/include"
 
-  # On centos libffi libraries are places under /embedded/lib64
+  # On 64-bit centos, libffi libraries are places under /embedded/lib64
   # move them over to lib
-  if Ohai['platform_family'] == "rhel"
+  if Ohai['platform_family'] == "rhel" && Ohai['kernel']['machine'] == "x86_64"
     command "mv #{install_dir}/embedded/lib64/* #{install_dir}/embedded/lib/"
     command "rm -rf #{install_dir}/embedded/lib64"
   end
 end
+
