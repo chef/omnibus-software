@@ -26,7 +26,7 @@ source :url => "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz",
 
 relative_path "libffi-3.0.13"
 
-env = with_default_path()
+env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
 build do
