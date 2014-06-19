@@ -28,7 +28,7 @@ version "1.5.13" do
   source :md5 => "9c5a584d4eb5fe40d0f1bc2090112c65"
 end
 
-source :url => "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng15/libpng-#{version}.tar.gz"
+source :url => "http://downloads.sourceforge.net/libpng/libpng-#{version}.tar.gz"
 relative_path "libpng-#{version}"
 
 configure_env = {
