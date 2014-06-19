@@ -21,7 +21,7 @@ relative_path "test-kitchen"
 
 source :git => "git://github.com/test-kitchen/test-kitchen"
 
-if platform == 'windows'
+if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else

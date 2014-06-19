@@ -22,7 +22,7 @@ source :git => "git://github.com/berkshelf/berkshelf"
 
 relative_path "berkshelf"
 
-if platform == 'windows'
+if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else

@@ -22,7 +22,7 @@ source :git => 'git://github.com/Nordstrom/chef-vault.git'
 
 relative_path 'chef-vault'
 
-if platform == 'windows'
+if windows?
   dependency 'ruby-windows'
   dependency 'ruby-windows-devkit'
   dependency 'chef-windows'
@@ -31,7 +31,6 @@ else
   dependency 'rubygems'
   dependency 'chef'
 end
-
 
 env = with_embedded_path()
 

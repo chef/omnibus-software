@@ -21,7 +21,7 @@ relative_path "ffi-yajl"
 
 source :git => "git://github.com/lamont-granquist/ffi-yajl"
 
-if platform == 'windows'
+if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else

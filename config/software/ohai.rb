@@ -16,8 +16,9 @@
 #
 
 name "ohai"
-if platform == 'windows'
-  dependency "ruby-windows" #includes rubygems
+
+if windows?
+  dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else
   dependency "ruby"
