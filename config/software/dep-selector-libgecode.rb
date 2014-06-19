@@ -16,7 +16,7 @@
 #
 
 name "dep-selector-libgecode"
-default_version "1.0.1"
+default_version "1.0.2"
 
 dependency "bundler"
 
