@@ -20,6 +20,10 @@ default_version "1.8.24"
 
 dependency "ruby"
 
+version "1.8.29" do
+  source md5: "a57fec0af33e2e2e1dbb3a68f6cc7269"
+end
+
 version "1.8.24" do
   source md5: "3a555b9d579f6a1a1e110628f5110c6b"
 end

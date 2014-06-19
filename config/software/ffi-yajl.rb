@@ -15,19 +15,27 @@
 # limitations under the License.
 #
 
-name "libyaml"
-default_version '0.1.6'
+name "ffi-yajl"
+default_version "master"
+relative_path "ffi-yajl"
 
-source :url => "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz",
-       :md5 => '5fe00cda18ca5daeb43762b80c38e06e'
+source :git => "git://github.com/lamont-granquist/ffi-yajl"
 
-relative_path "yaml-#{version}"
+if windows?
+  dependency "ruby-windows"
+  dependency "ruby-windows-devkit"
+else
+  dependency "libffi"
+  dependency "ruby"
+  dependency "rubygems"
+end
 
 env = with_embedded_path()
-env = with_standard_compiler_flags(env)
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make -j #{max_build_jobs} install", :env => env
+  bundle "install --without development_extras", :env => env
+  bundle "exec rake gem", :env => env
+  command "rm -rf pkg/*java*", :env => env
+  gem ["install pkg/ffi-yajl-*.gem",
+       "--no-rdoc --no-ri"].join(" "), :env => env
 end

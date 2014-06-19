@@ -16,13 +16,14 @@
 #
 
 name "ohai"
-if platform == 'windows'
-  dependency "ruby-windows" #includes rubygems
+
+if windows?
+  dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else
   dependency "ruby"
+  dependency "libffi"
   dependency "rubygems"
-  dependency "yajl"
 end
 
 dependency "bundler"
@@ -33,35 +34,16 @@ source :git => "git://github.com/opscode/ohai"
 
 relative_path "ohai"
 
-env =
-  case platform
-  when "solaris2"
-    {
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-    }
-  when "aix"
-    {
-      "LDFLAGS" => "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib -L#{install_dir}/embedded/lib",
-      "CFLAGS" => "-I#{install_dir}/embedded/include"
-    }
-  else
-    {
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-    }
-  end
+env = with_embedded_path()
+env = with_standard_compiler_flags(env)
 
 build do
-  path_key = ENV.keys.grep(/\Apath\Z/i).first
-
-  bundle "install",  :env => {path_key => path_with_embedded}
+  bundle "install",  :env => env
 
   # install chef first so that ohai gets installed into /opt/chef/bin/ohai
-  bundle "exec rake gem", :env => {path_key => path_with_embedded}
+  bundle "exec rake gem", :env => env
 
   gem ["install pkg/ohai*.gem",
       "-n #{install_dir}/bin",
-      "--no-rdoc --no-ri"].join(" "), :env => {path_key => path_with_embedded}
-
+      "--no-rdoc --no-ri"].join(" "), :env => env
 end

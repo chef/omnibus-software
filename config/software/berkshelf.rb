@@ -22,7 +22,7 @@ source :git => "git://github.com/berkshelf/berkshelf"
 
 relative_path "berkshelf"
 
-if platform == 'windows'
+if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else
@@ -36,12 +36,11 @@ dependency "nokogiri"
 dependency "bundler"
 dependency "dep-selector-libgecode"
 
-build do
-  # determine correct path variable for windows, can be PATH or Path
-  path_key = ENV.keys.grep(/\Apath\Z/i).first
+env = with_embedded_path()
 
-  bundle "install --without guard", :env => {path_key => path_with_embedded }
-  bundle "exec thor gem:build", :env => {path_key => path_with_embedded }
+build do
+  bundle "install --without guard", :env => env
+  bundle "exec thor gem:build", :env => env
   gem ["install pkg/berkshelf-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => {path_key => path_with_embedded }
+       "--no-rdoc --no-ri"].join(" "), :env => env
 end

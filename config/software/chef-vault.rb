@@ -22,7 +22,7 @@ source :git => 'git://github.com/Nordstrom/chef-vault.git'
 
 relative_path 'chef-vault'
 
-if platform == 'windows'
+if windows?
   dependency 'ruby-windows'
   dependency 'ruby-windows-devkit'
   dependency 'chef-windows'
@@ -32,15 +32,11 @@ else
   dependency 'chef'
 end
 
-
+env = with_embedded_path()
 
 build do
-  # On windows, the path var can be "Path"
-  path_key = ENV.keys.grep(/\Apath\Z/i).first
-
-  build_env = { path_key => path_with_embedded }
-  bundle 'install --no-cache', :env => build_env
-  gem 'build chef-vault.gemspec', :env => build_env
+  bundle 'install --no-cache', :env => env
+  gem 'build chef-vault.gemspec', :env => env
   gem ['install chef-vault-*.gem',
-       '--no-rdoc --no-ri'].join(' '), :env => build_env
+       '--no-rdoc --no-ri'].join(' '), :env => env
 end
