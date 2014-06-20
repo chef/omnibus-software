@@ -32,8 +32,10 @@ source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zli
 
 relative_path "zlib-#{version}"
 
-env = with_embedded_path()
-env = with_standard_compiler_flags(env)
+# we omit the omnibus path here because it breaks mac_os_x builds by picking up the embedded libtool
+# instead of the system libtool which the zlib configure script cannot handle.
+#env = with_embedded_path()
+env = with_standard_compiler_flags()
 env['CFLAGS'] << " -DNO_VIZ" if platform == 'solaris2'
 
 build do
