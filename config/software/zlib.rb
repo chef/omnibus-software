@@ -36,6 +36,7 @@ relative_path "zlib-#{version}"
 # instead of the system libtool which the zlib configure script cannot handle.
 #env = with_embedded_path()
 env = with_standard_compiler_flags()
+# for some reason zlib needs this flag on solaris (cargocult warning?)
 env['CFLAGS'] << " -DNO_VIZ" if platform == 'solaris2'
 
 build do
