@@ -38,12 +38,16 @@ env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
 build do
-  bundle "install",  :env => env
+  bundle "install --without development",  :env => env
 
-  # install chef first so that ohai gets installed into /opt/chef/bin/ohai
-  bundle "exec rake gem", :env => env
+  rake "gem", :env => env
 
-  gem ["install pkg/ohai*.gem",
-      "-n #{install_dir}/bin",
-      "--no-rdoc --no-ri"].join(" "), :env => env
+  command "rm -f pkg/ohai-*-x86-mingw32.gem"
+
+  gem_command = "install pkg/ohai*.gem --no-rdoc --no-ri"
+
+  # appbuilder in chefdk needs to not have this installed into /opt/chef/bin
+  gem_command << " -n #{install_dir}/bin" unless project.name == "chefdk"
+
+  gem gem_command, :env => env
 end
