@@ -38,7 +38,7 @@ env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
 build do
-  bundle "install",  :env => env
+  bundle "install --without development",  :env => env
 
   # install chef first so that ohai gets installed into /opt/chef/bin/ohai
   bundle "exec rake gem", :env => env
