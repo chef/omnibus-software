@@ -18,6 +18,8 @@
 name "nodejs"
 default_version "0.10.10"
 
+dependency "python"
+
 version "0.10.10" do
   source :md5 => "a47a9141567dd591eec486db05b09e1c"
 end
@@ -30,15 +32,8 @@ source :url => "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
 relative_path "node-v#{version}"
 
-# Ensure we run with Python 2.6 on Redhats < 6
-if Ohai['platform_family'] == "rhel" && Ohai['platform_version'].to_f < 6
-  python = 'python26'
-else
-  python = 'python'
-end
-
 build do
-  command "#{python} ./configure --prefix=#{install_dir}/embedded"
+  command "#{install_dir}/embedded/bin/python ./configure --prefix=#{install_dir}/embedded"
   command "make -j #{max_build_jobs}"
   command "make install"
 end
