@@ -32,7 +32,7 @@ relative_path "libtool-#{version}"
 
 env = with_embedded_path()
 # AIX uses gcc/g++ instead of xlc/xlC
-env = with_standard_compiler_flags(env, :aix => :use_gcc)
+env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
 
 build do
   if platform == "aix"
