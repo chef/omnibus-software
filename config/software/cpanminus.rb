@@ -15,22 +15,20 @@
 # limitations under the License.
 #
 
-name "perl_pg_driver"
-default_version "3.3.0"
+name "cpanminus"
+default_version "1.7004"
 
 dependency "perl"
-dependency "cpanminus"
-dependency "postgresql"
 
-source :url => "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz",
-       :md5 => "547de1382a47d66872912fe64282ff55"
+source :url => "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz",
+       :md5 => "02fe90392f33a12979e188ea110dae67"
 
-relative_path "DBD-Pg-#{version}"
+relative_path "cpanminus-#{version}"
 
 env = {
   "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
 }
 
 build do
-  command "cpanm -v --notest .", :env => env
+  command "cat cpanm | perl - App::cpanminus", :env => env
 end
