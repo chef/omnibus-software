@@ -30,6 +30,8 @@ else
   dependency "rubygems"
 end
 
+dependency "bundler"
+
 env = with_embedded_path()
 
 build do
