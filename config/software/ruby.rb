@@ -104,7 +104,7 @@ env =
 build do
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded",
-                       "--with-out-ext=fiddle,dbm",
+                       "--with-out-ext=dbm",
                        "--enable-shared",
                        "--enable-libedit",
                        "--with-ext=psych",
