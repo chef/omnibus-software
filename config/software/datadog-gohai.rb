@@ -9,6 +9,6 @@ env = {
 
 build do
    command "$GOROOT/bin/go get -d -u github.com/DataDog/gohai", :env => env
-   command "cwd $GOPATH/src/github.com/DataDog/gohai/ && git checkout #{default_version} && git pull", :env => env
+   command "git checkout #{default_version} && git pull", :env => env, :cwd => "$GOPATH/src/github.com/DataDog/gohai/"
    command "$GOROOT/bin/go build -o #{install_dir}/bin/gohai $GOPATH/src/github.com/DataDog/gohai/gohai.go", :env => env
 end
