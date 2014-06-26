@@ -26,7 +26,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
-dependency "libgcc" if (platform == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
+dependency "libgcc" if platform == "solaris2"
 
 version "1.9.3-p484" do
   source md5: '8ac0dee72fe12d75c8b2d0ef5d0c2968'
