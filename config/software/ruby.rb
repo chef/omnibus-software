@@ -40,67 +40,33 @@ source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[
 
 relative_path "ruby-#{version}"
 
-env =
-  case platform
-  when "mac_os_x"
-    {
-      # -Qunused-arguments suppresses "argument unused during compilation"
-      # warnings. These can be produced if you compile a program that doesn't
-      # link to anything in a path given with -Lextra-libs. Normally these
-      # would be harmless, except that autoconf treats any output to stderr as
-      # a failure when it makes a test program to check your CFLAGS (regardless
-      # of the actual exit code from the compiler).
-      "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses -O3 -g -pipe -Qunused-arguments",
-      "LDFLAGS" => "-arch x86_64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
-    }
-  when "solaris2"
-    {
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -O3 -g -pipe",
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-    }
-  when "aix"
-    {
-      # see http://www.ibm.com/developerworks/aix/library/au-gnu.html
-      #
-      # specifically:
-      #
-      # "To use AIX run-time linking, you should create the shared object
-      # using gcc -shared -Wl,-G and create executables using the library
-      # by adding the -Wl,-brtl option to the link line. Technically, you
-      # can leave off the -shared option, but it does no harm and reduces
-      # confusion."
-      #
-      # AIX also uses -Wl,-blibpath instead of -R or LD_RUN_PATH, but the
-      # option is not additive, so requires /usr/lib and /lib as well (there
-      # is a -bsvr4 option to allow ld to take an -R flag in addition
-      # to turning on -brtl, but it had other side effects I couldn't fix).
-      #
-      # If libraries linked with gcc -shared have symbol resolution failures
-      # then it may be useful to add -bexpfull to export all symbols.
-      #
-      # -O2 optimized away some configure test which caused ext libs to fail
-      #
-      # We also need prezl's M4 instead of picking up /usr/bin/m4 which
-      # barfs on ruby.
-      #
-      "CC" => "xlc -q64",
-      "CXX" => "xlC -q64",
-      "LD" => "ld -b64",
-      "CFLAGS" => "-q64 -O -qhot -I#{install_dir}/embedded/include",
-      "CXXFLAGS" => "-q64 -O -qhot -I#{install_dir}/embedded/include",
-      "LDFLAGS" => "-q64  -L#{install_dir}/embedded/lib -Wl,-brtl -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru",
-      "M4" => "/opt/freeware/bin/m4",
-      "warnflags" => "-qinfo=por"
-    }
-  else
-    {
-      "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
-      "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
-    }
-  end
+env = with_embedded_path()
+env = with_standard_compiler_flags()
+
+case platform
+when "mac_os_x"
+  # -Qunused-arguments suppresses "argument unused during compilation"
+  # warnings. These can be produced if you compile a program that doesn't
+  # link to anything in a path given with -Lextra-libs. Normally these
+  # would be harmless, except that autoconf treats any output to stderr as
+  # a failure when it makes a test program to check your CFLAGS (regardless
+  # of the actual exit code from the compiler).
+  env['CFLAGS'] << " -I#{install_dir}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
+  env['LDFLAGS'] << " -arch x86_64"
+when "aix"
+  # -O2/O3 optimized away some configure test which caused ext libs to fail, so aix only gets -O
+  #
+  # We also need prezl's M4 instead of picking up /usr/bin/m4 which
+  # barfs on ruby.
+  #
+  # I believe -qhot was necessary to prevent segfaults in threaded libs
+  #
+  env['CFLAGS'] << " -q64 -qhot"
+  env['M4'] = "/opt/freeware/bin/m4"
+  env['warnflags'] = "-qinfo=por"
+else  # including solaris, linux
+  env['CFLAGS'] << " -O3 -g -pipe"
+end
 
 build do
   configure_command = ["./configure",
