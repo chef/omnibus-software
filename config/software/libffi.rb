@@ -30,17 +30,17 @@ env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "./configure --prefix=#{install_path}/embedded", :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make -j #{max_build_jobs} install", :env => env
   # libffi's default install location of header files is awful...
-  command "cp -f #{install_dir}/embedded/lib/libffi-3.0.13/include/* #{install_dir}/embedded/include"
+  command "cp -f #{install_path}/embedded/lib/libffi-3.0.13/include/* #{install_path}/embedded/include"
 
   # On 64-bit centos, libffi libraries are places under /embedded/lib64
   # move them over to lib
   if rhel? && _64_bit?
-    command "mv #{install_dir}/embedded/lib64/* #{install_dir}/embedded/lib/"
-    command "rm -rf #{install_dir}/embedded/lib64"
+    command "mv #{install_path}/embedded/lib64/* #{install_path}/embedded/lib/"
+    command "rm -rf #{install_path}/embedded/lib64"
   end
 end
 

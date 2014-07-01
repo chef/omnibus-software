@@ -38,7 +38,7 @@ env = with_standard_compiler_flags()
 env['CFLAGS'] << " -DNO_VIZ" if platform == 'solaris2'
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "./configure --prefix=#{install_path}/embedded", :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make -j #{max_build_jobs} install", :env => env
 end

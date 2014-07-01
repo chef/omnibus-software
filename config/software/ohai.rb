@@ -47,7 +47,7 @@ build do
   gem_command = "install pkg/ohai*.gem --no-rdoc --no-ri"
 
   # appbuilder in chefdk needs to not have this installed into /opt/chef/bin
-  gem_command << " -n #{install_dir}/bin" unless project.name == "chefdk"
+  gem_command << " -n #{install_path}/bin" unless project.name == "chefdk"
 
   gem gem_command, :env => env
 end

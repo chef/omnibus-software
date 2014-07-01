@@ -46,6 +46,6 @@ build do
   command "7z.exe x #{File.join(temp_directory, "openssl-#{version}-x86-windows.tar")} -o#{temp_directory} -r -y"
   # Copy over the required dlls into embedded/bin
   ["libeay32.dll", "ssleay32.dll"].each do |dll|
-    command "cp #{File.join(temp_directory, "bin", dll)} #{File.join(install_dir, "embedded", "bin", dll)}"
+    command "cp #{File.join(temp_directory, "bin", dll)} #{File.join(install_path, "embedded", "bin", dll)}"
   end
 end

@@ -39,7 +39,7 @@ libgcc_file =
 build do
   if libgcc_file
     if File.exists?(libgcc_file)
-      command "cp #{libgcc_file} #{install_dir}/embedded/lib/"
+      command "cp #{libgcc_file} #{install_path}/embedded/lib/"
     else
       raise "cannot find libgcc -- where is your gcc compiler?"
     end

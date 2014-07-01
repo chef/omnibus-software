@@ -30,9 +30,9 @@ source :url => "http://downloads.sourceforge.net/project/nagiosplug/nagiosplug/1
 relative_path "nagios-plugins-1.4.15"
 
 configure_env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+  "LDFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
+  "CFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
+  "LD_RUN_PATH" => "#{install_path}/embedded/lib"
 }
 
 gem_env = {"GEM_PATH" => nil, "GEM_HOME" => nil}
@@ -40,15 +40,15 @@ gem_env = {"GEM_PATH" => nil, "GEM_HOME" => nil}
 build do
   # configure it
   command(["./configure",
-           "--prefix=#{install_dir}/embedded/nagios",
-           "--with-trusted-path=#{install_dir}/bin:#{install_dir}/embedded/bin:/bin:/sbin:/usr/bin:/usr/sbin",
-           "--with-openssl=#{install_dir}/embedded",
-           "--with-pgsql=#{install_dir}/embedded",
-           "--with-libiconv-prefix=#{install_dir}/embedded"].join(" "),
+           "--prefix=#{install_path}/embedded/nagios",
+           "--with-trusted-path=#{install_path}/bin:#{install_path}/embedded/bin:/bin:/sbin:/usr/bin:/usr/sbin",
+           "--with-openssl=#{install_path}/embedded",
+           "--with-pgsql=#{install_path}/embedded",
+           "--with-libiconv-prefix=#{install_path}/embedded"].join(" "),
           :env => configure_env)
 
   # build it
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_path}/embedded/lib"}
   command "sudo make install"
 
   # NOTE: cargo culted from commit 0e6eb2d4a7978c5683a3e15c956c0c2b78f3d904
@@ -57,5 +57,5 @@ build do
   # ugly habbit of linking against system `gnutls` instead of embedded
   # `openssl`. There is also no easy way to tell the configure task to
   # not build it!
-  command "sudo rm -rf #{install_dir}/embedded/nagios/libexec/check_ldap"
+  command "sudo rm -rf #{install_path}/embedded/nagios/libexec/check_ldap"
 end

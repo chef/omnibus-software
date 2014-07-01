@@ -33,7 +33,7 @@ source :url => "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 relative_path "node-v#{version}"
 
 build do
-  command "#{install_dir}/embedded/bin/python ./configure --prefix=#{install_dir}/embedded"
+  command "#{install_path}/embedded/bin/python ./configure --prefix=#{install_path}/embedded"
   command "make -j #{max_build_jobs}"
   command "make install"
 end

@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,14 +26,14 @@ relative_path "icu"
 working_dir = "#{project_dir}/source"
 
 build do
-  command("./configure --prefix=#{install_dir}/embedded",
+  command("./configure --prefix=#{install_path}/embedded",
           :env => {
-            "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+            "CFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include"
           },
           :cwd => working_dir)
   command("make -j #{max_build_jobs}",
           :env => {
-            "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+            "LD_RUN_PATH" => "#{install_path}/embedded/lib"
           },
           :cwd => working_dir)
   command "make install", :cwd => working_dir

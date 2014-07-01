@@ -26,7 +26,7 @@ source :url => "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
 relative_path "cpanminus-#{version}"
 
 env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
+  "PATH" => "#{install_path}/embedded/bin:#{ENV["PATH"]}"
 }
 
 build do
