@@ -26,7 +26,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
-dependency "libgcc" if platform == "solaris2"
+dependency "libgcc" if Ohai['platform'] == "solaris2"
 
 version "1.9.3-p547" do
   source md5: '7531f9b1b35b16f3eb3d7bea786babfd'
@@ -43,7 +43,7 @@ relative_path "ruby-#{version}"
 env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
-case platform
+case Ohai['platform']
 when "mac_os_x"
   # -Qunused-arguments suppresses "argument unused during compilation"
   # warnings. These can be produced if you compile a program that doesn't
@@ -78,7 +78,7 @@ build do
                        "--disable-install-doc",
                        "--without-gmp"]
 
-  case platform
+  case Ohai['platform']
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
     patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1

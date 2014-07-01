@@ -29,7 +29,7 @@ lib_dir = File.join(install_path, 'embedded/lib')
 include_dir = File.join(install_path, 'embedded/include')
 
 configure_env =
-  case platform
+  case Ohai['platform']
   when "aix"
     {
       "CC" => "xlc -q64",

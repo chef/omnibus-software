@@ -35,7 +35,7 @@ relative_path "zlib-#{version}"
 #env = with_embedded_path()
 env = with_standard_compiler_flags()
 # for some reason zlib needs this flag on solaris (cargocult warning?)
-env['CFLAGS'] << " -DNO_VIZ" if platform == 'solaris2'
+env['CFLAGS'] << " -DNO_VIZ" if Ohai['platform'] == 'solaris2'
 
 build do
   command "./configure --prefix=#{install_path}/embedded", :env => env

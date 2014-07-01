@@ -33,7 +33,7 @@ source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
 
 relative_path "libedit-#{version}"
 
-env = case platform
+env = case Ohai['platform']
       when "aix"
         {
           "CC" => "xlc -q64",
@@ -58,7 +58,7 @@ env = case platform
 build do
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
-  if platform == "freebsd"
+  if Ohai['platform'] == "freebsd"
     patch :source => "freebsd-vi-fix.patch"
   end
   command ["./configure",

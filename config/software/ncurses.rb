@@ -19,14 +19,14 @@ name "ncurses"
 default_version "5.9"
 
 dependency "libgcc"
-dependency "libtool" if platform == "aix"
+dependency "libtool" if Ohai['platform'] == "aix"
 
 source :url => "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
        :md5 => "8cb9c412e5f2d96bc6f459aa8c6282a1"
 
 relative_path "ncurses-5.9"
 
-env = case platform
+env = case Ohai['platform']
       when "aix"
         {
           "PATH" => "#{install_path}/embedded/bin:" + ENV['PATH'],
@@ -47,14 +47,14 @@ env = case platform
         }
       end
 
-if platform == "solaris2"
+if Ohai['platform'] == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib -I#{install_path}/embedded/include -static-libgcc"})
   env.merge!({"LD_OPTIONS" => "-R#{install_path}/embedded/lib"})
   # gcc4 from opencsw fails to compile ncurses
   env.merge!({"PATH" => "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"})
   env.merge!({"CC" => "/opt/csw/gcc3/bin/gcc"})
   env.merge!({"CXX" => "/opt/csw/gcc3/bin/g++"})
-elsif platform == "smartos"
+elsif Ohai['platform'] == "smartos"
   env.merge!({"LD_OPTIONS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib "})
 end
 
@@ -74,7 +74,7 @@ end
 ########################################################################
 
 build do
-  if platform == "smartos"
+  if Ohai['platform'] == "smartos"
     # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
     # compatibility:
@@ -92,11 +92,11 @@ build do
     patch :source => 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', :plevel => 0
   end
 
-  if platform == "aix"
+  if Ohai['platform'] == "aix"
     patch :source => 'patch-aix-configure', :plevel => 0
   end
 
-  if platform == "mac_os_x"
+  if Ohai['platform'] == "mac_os_x"
     # References:
     # https://github.com/Homebrew/homebrew-dupes/issues/43
     # http://invisible-island.net/ncurses/NEWS.html#t20110409
@@ -117,7 +117,7 @@ build do
            "--enable-overwrite",
            "--enable-widec"]
 
-  cmd_array << "--with-libtool" if platform == 'aix'
+  cmd_array << "--with-libtool" if Ohai['platform'] == 'aix'
   command(cmd_array.join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
@@ -132,7 +132,7 @@ build do
            "--without-debug",
            "--without-normal",
            "--enable-overwrite"]
-  cmd_array << "--with-libtool" if platform == 'aix'
+  cmd_array << "--with-libtool" if Ohai['platform'] == 'aix'
   command(cmd_array.join(" "),
           :env => env)
   command "make -j #{max_build_jobs}", :env => env
@@ -143,7 +143,7 @@ build do
   command "make -j #{max_build_jobs} install", :env => env
 
   # Ensure embedded ncurses wins in the LD search path
-  if platform == "smartos"
+  if Ohai['platform'] == "smartos"
     command "ln -sf #{install_path}/embedded/lib/libcurses.so #{install_path}/embedded/lib/libcurses.so.1"
   end
 end

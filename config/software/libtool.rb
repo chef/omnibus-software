@@ -35,7 +35,7 @@ env = with_embedded_path()
 env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
 
 build do
-  if platform == "aix"
+  if Ohai['platform'] == "aix"
     command "./configure --prefix=#{install_path}/embedded --with-gcc", :env => env
   else
     command "./configure --prefix=#{install_path}/embedded", :env => env

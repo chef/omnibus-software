@@ -25,7 +25,7 @@ name "libgcc"
 description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
 
 libgcc_file =
-  case platform
+  case Ohai['platform']
   when "solaris2"
     "/opt/csw/lib/libgcc_s.so.1"
   when "aix"

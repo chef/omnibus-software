@@ -25,7 +25,7 @@ source :url => "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
 
 relative_path "libiconv-#{version}"
 
-env = case platform
+env = case Ohai['platform']
       when "aix"
         {
           "CC" => "xlc -q64",
@@ -44,7 +44,7 @@ env = case platform
         }
       end
 
-if platform == "solaris2"
+if Ohai['platform'] == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib -I#{install_path}/embedded/include -static-libgcc", "LD_OPTIONS" => "-R#{install_path}/embedded/lib"})
 end
 

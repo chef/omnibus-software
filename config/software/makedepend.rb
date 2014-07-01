@@ -28,7 +28,7 @@ dependency 'util-macros'
 dependency 'pkg-config'
 
 configure_env =
-  case platform
+  case Ohai['platform']
   when "aix"
     {
       "CC" => "xlc -q64",

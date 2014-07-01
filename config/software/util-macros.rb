@@ -8,7 +8,7 @@ source :url => 'http://xorg.freedesktop.org/releases/individual/util/util-macros
 relative_path 'util-macros-1.18.0'
 
 configure_env =
-  case platform
+  case Ohai['platform']
   when "aix"
     {
       "CC" => "xlc -q64",
