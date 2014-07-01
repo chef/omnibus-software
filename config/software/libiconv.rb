@@ -48,18 +48,8 @@ if Ohai['platform'] == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib -I#{install_path}/embedded/include -static-libgcc", "LD_OPTIONS" => "-R#{install_path}/embedded/lib"})
 end
 
-def glibc_dropped_gets?
-  return false unless Ohai["os"] == "linux"
-
-  output = `/usr/bin/env getconf GNU_LIBC_VERSION`
-
-  return false unless output =~ /^glibc/
-
-  output.sub(/glibc /, "").to_f >= 2.16
-end
-
 build do
-  patch :source => 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch' if glibc_dropped_gets?
+  # patch :source => 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
   command "./configure --prefix=#{install_path}/embedded", :env => env
   command "make -j #{max_build_jobs}", :env => env
   command "make -j #{max_build_jobs} install-lib libdir=#{install_path}/embedded/lib includedir=#{install_path}/embedded/include", :env => env
