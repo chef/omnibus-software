@@ -33,7 +33,7 @@ source :url => "http://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windo
        :md5 => "8bb5d8e43cf18ec48b4751bdd0111c84"
 
 build do
-  temp_directory = File.join(cache_dir, "libyaml-cache")
+  temp_directory = File.join(Config.cache_dir, "libyaml-cache")
   FileUtils.mkdir_p(temp_directory)
   # First extract the tar file out of lzma archive.
   command "7z.exe x #{project_file} -o#{temp_directory} -r -y"

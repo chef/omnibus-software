@@ -38,7 +38,7 @@ build do
   # OpenSSL 1.0.0k 5 Feb 2013
   ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0l'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0m'\""
 
-  temp_directory = File.join(cache_dir, "openssl-cache")
+  temp_directory = File.join(Config.cache_dir, "openssl-cache")
   FileUtils.mkdir_p(temp_directory)
   # First extract the tar file out of lzma archive.
   command "7z.exe x #{project_file} -o#{temp_directory} -r -y"
