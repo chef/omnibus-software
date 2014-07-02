@@ -16,7 +16,7 @@
 #
 
 name "ruby"
-default_version "1.9.3-p484"
+default_version "1.9.3-p545"
 
 dependency "zlib"
 dependency "ncurses"
@@ -28,8 +28,8 @@ dependency "libffi"
 dependency "gdbm"
 dependency "libgcc" if platform == "solaris2"
 
-version "1.9.3-p484" do
-  source md5: '8ac0dee72fe12d75c8b2d0ef5d0c2968'
+version "1.9.3-p545" do
+  source md5: '8e8f6e4d7d0bb54e0edf8d9c4120f40c'
 end
 
 version "2.1.1" do
