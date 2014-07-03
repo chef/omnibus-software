@@ -14,7 +14,7 @@ build do
    command "sudo make install", :cwd => "/tmp/ExtUtils-MakeMaker-6.31"
    command "sudo wget http://oss.oetiker.ch/rrdtool/pub/rrdtool-#{version}.tar.gz", :cwd => "/opt/"
    command "sudo tar -xzvf rrdtool-#{version}.tar.gz", :cwd => "/opt/"
-   command "sudo .configure", :cwd => "/opt/rrdtool-#{version}", :env => {"PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/"}
+   command "sudo ./configure", :cwd => "/opt/rrdtool-#{version}", :env => {"PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/"}
    command "sudo make", :cwd => "/opt/rrdtool-#{version}", :env => {"PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/"}
    command "sudo make install", :cwd => "/opt/rrdtool-#{version}", :env => {"PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/"}
    command "sudo #{install_dir}/embedded/bin/python setup.py install", :cwd => "/opt/rrdtool-#{version}/bindings/python/"
