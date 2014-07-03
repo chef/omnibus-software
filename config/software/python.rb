@@ -25,7 +25,7 @@ dependency "openssl"
 dependency "bzip2"
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-       :md5 => 'd235bdfa75b8396942e360a70487ee00'
+       :md5 => 'd4bca0159acb0b44a781292b5231936f'
 
 relative_path "Python-#{version}"
 
