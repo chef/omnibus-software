@@ -6,7 +6,7 @@ build do
   if ENV['PKG_TYPE'] == 'deb'
     command "wget http://dd-agent.s3.amazonaws.com/python-rrdtool/deb/#{ENV['ARCH']}/rrdtool.so", :cwd => "#{install_dir}/embedded/lib/python2.7/"
   elsif ENV['PKG_TYPE'] == 'rpm'
-   command "sudo yum install cairo-devel libxml2-devel pango-devel pango libpng-devel freetype freetype-devel libart_lgpl-devel gcc groff perl-ExtUtils-MakeMaker"
+   command "sudo yum -y install cairo-devel libxml2-devel pango-devel pango libpng-devel freetype freetype-devel libart_lgpl-devel gcc groff perl-ExtUtils-MakeMaker"
    command "sudo wget http://files.directadmin.com/services/9.0/ExtUtils-MakeMaker-6.31.tar.gz", :cwd => "/root/"
    command "sudo tar xvzf ExtUtils-MakeMaker-6.31.tar.gz", :cwd => "/root/"
    command "sudo perl Makefile.PL", :cwd => "/root/ExtUtils-MakeMaker-6.31"
