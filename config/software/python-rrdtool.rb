@@ -18,7 +18,7 @@ build do
    command "sudo make", :cwd => "/opt/rrdtool-#{version}", :env => {"PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/"}
    command "sudo make install", :cwd => "/opt/rrdtool-#{version}", :env => {"PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/"}
    command "sudo #{install_dir}/embedded/bin/python setup.py install", :cwd => "/opt/rrdtool-#{version}/bindings/python/"
-   command "sudo cp /opt/rrdtool-#{version}/lib/librrd.s* #{install_dir}/embedded/lib"
+
 
   end
   
