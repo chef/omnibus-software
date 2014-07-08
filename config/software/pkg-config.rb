@@ -20,45 +20,16 @@ default_version "0.28"
 
 dependency "libiconv"
 
-source :url => 'http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz',
-  :md5 => 'aa3c86e67551adc3ac865160e34a2a0d'
+version "0.28" do
+  source md5: "aa3c86e67551adc3ac865160e34a2a0d"
+end
+
+source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
 
 relative_path 'pkg-config-0.28'
 
-lib_dir = File.join(install_dir, 'embedded/lib')
-include_dir = File.join(install_dir, 'embedded/include')
-
-configure_env =
-  case Ohai['platform']
-  when "aix"
-    {
-      "CC" => "xlc -q64",
-      "CXX" => "xlC -q64",
-      "LD" => "ld -b64",
-      "CFLAGS" => "-q64 -I#{include_dir} -O",
-      "LDFLAGS" => "-q64 -Wl,-blibpath:/usr/lib:/lib",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru",
-      "LD" => "ld -b64",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru "
-    }
-  when "mac_os_x"
-    {
-      "LDFLAGS" => "-L#{lib_dir}",
-      "CFLAGS" => "-I#{include_dir}"
-    }
-  when "solaris2"
-    {
-      "LDFLAGS" => "-R#{lib_dir} -L#{lib_dir} -static-libgcc",
-      "CFLAGS" => "-I#{include_dir}"
-    }
-  else
-    {
-      "LDFLAGS" => "-L#{lib_dir}",
-      'CFLAGS' => "-I#{include_dir}"
-    }
-  end
+env = with_embedded_path()
+env = with_standard_compiler_flags(env)
 
 paths = [ "#{install_dir}/embedded/bin/pkgconfig" ]
 
@@ -74,9 +45,9 @@ build do
       "--prefix=#{install_dir}/embedded",
       '--with-libiconv=gnu'
     ].join(' '),
-    env: configure_env,
+    env: env,
     cwd: File.join(project_dir, 'glib')
   )
-  command "make -j #{max_build_jobs}", :env => configure_env
-  command "make -j #{max_build_jobs} install", :env => configure_env
+  command "make -j #{max_build_jobs}", env: env
+  command "make -j #{max_build_jobs} install", env: env
 end
