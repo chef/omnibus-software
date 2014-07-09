@@ -122,6 +122,7 @@ build do
   end
 
   command configure_command.join(" "), :env => env
+  command "rm -f ruby.tmp.pc"
   command "#{make_binary} -j #{max_build_jobs}", :env => env
   command "#{make_binary} -j #{max_build_jobs} install", :env => env
 end
