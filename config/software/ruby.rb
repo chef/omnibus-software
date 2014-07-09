@@ -124,7 +124,7 @@ build do
   command configure_command.join(" "), :env => env
   if Ohai['platform'] == "aix"
     command "sed -e 's/${TARGET}/$(TARGET)/' ruby.tmp.pc > ruby.tmp.pc.new"
-    FileUtils.mv "ruby.tmp.pc.new", "ruby.tmp.pc"
+    command "mv -f ruby.tmp.pc.new ruby.tmp.pc"
   end
   command "#{make_binary} -j #{max_build_jobs}", :env => env
   command "#{make_binary} -j #{max_build_jobs} install", :env => env
