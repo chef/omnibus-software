@@ -21,42 +21,25 @@ default_version "5.9"
 dependency "libgcc"
 dependency "libtool" if Ohai['platform'] == "aix"
 
-source :url => "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
-       :md5 => "8cb9c412e5f2d96bc6f459aa8c6282a1"
+source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
+       md5: "8cb9c412e5f2d96bc6f459aa8c6282a1"
 
 relative_path "ncurses-5.9"
 
-env = case Ohai['platform']
-      when "aix"
-        {
-          "PATH" => "#{install_path}/embedded/bin:" + ENV['PATH'],
-          "LDFLAGS" => "-Wl,-brtl -Wl,-blibpath:#{install_path}/embedded/lib:/usr/lib:/lib -L#{install_path}/embedded/lib",
-          "CXXFLAGS" => "-O -I#{install_path}/embedded/include",
-          "CFLAGS" => "-O -I#{install_path}/embedded/include",
-          "OBJECT_MODE" => "64",
-          "CC" => "gcc -maix64",
-          "CXX" => "g++ -maix64",
-          "CFLAGS" => "-maix64 -I#{install_path}/embedded/include",
-          "ARFLAGS" => "-X64 cru"
-        }
-      else
-        {
-          "LD_RUN_PATH" => "#{install_path}/embedded/lib",
-          "CFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
-          "LDFLAGS" => "-L#{install_path}/embedded/lib"
-        }
-      end
+env = with_embedded_path()
+env = with_standard_compiler_flags(env, aix: { use_gcc: true })
 
 if Ohai['platform'] == "solaris2"
-  env.merge!({"LDFLAGS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib -I#{install_path}/embedded/include -static-libgcc"})
-  env.merge!({"LD_OPTIONS" => "-R#{install_path}/embedded/lib"})
   # gcc4 from opencsw fails to compile ncurses
   env.merge!({"PATH" => "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"})
   env.merge!({"CC" => "/opt/csw/gcc3/bin/gcc"})
   env.merge!({"CXX" => "/opt/csw/gcc3/bin/g++"})
-elsif Ohai['platform'] == "smartos"
-  env.merge!({"LD_OPTIONS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib "})
 end
+
+# FIXME: validate omnibus-ruby sets this correctly on smartos now via with_standard_compiler_flagS()
+#elsif Ohai['platform'] == "smartos"
+#  env.merge!({"LD_OPTIONS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib "})
+#end
 
 ########################################################################
 #
@@ -79,21 +62,21 @@ build do
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
     # compatibility:
     # http://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/ncurses/patches/
-    patch :source => 'patch-aa', :plevel => 0
-    patch :source => 'patch-ab', :plevel => 0
-    patch :source => 'patch-ac', :plevel => 0
-    patch :source => 'patch-ad', :plevel => 0
-    patch :source => 'patch-cxx_cursesf.h', :plevel => 0
-    patch :source => 'patch-cxx_cursesm.h', :plevel => 0
+    patch source: 'patch-aa', plevel: 0
+    patch source: 'patch-ab', plevel: 0
+    patch source: 'patch-ac', plevel: 0
+    patch source: 'patch-ad', plevel: 0
+    patch source: 'patch-cxx_cursesf.h', plevel: 0
+    patch source: 'patch-cxx_cursesm.h', plevel: 0
 
     # Opscode patches - <someara@opscode.com>
     # The configure script from the pristine tarball detects xopen_source_extended incorrectly.
     # Manually working around a false positive.
-    patch :source => 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', :plevel => 0
+    patch source: 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', plevel: 0
   end
 
   if Ohai['platform'] == "aix"
-    patch :source => 'patch-aix-configure', :plevel => 0
+    patch source: 'patch-aix-configure', plevel: 0
   end
 
   if Ohai['platform'] == "mac_os_x"
@@ -104,7 +87,7 @@ build do
     # Patches ncurses for clang compiler. Changes have been accepted into
     # upstream, but occurred shortly after the 5.9 release. We should be able
     # to remove this after upgrading to any release created after June 2012
-    patch :source => 'ncurses-clang.patch'
+    patch source: 'ncurses-clang.patch'
   end
 
   # build wide-character libraries
@@ -119,9 +102,9 @@ build do
 
   cmd_array << "--with-libtool" if Ohai['platform'] == 'aix'
   command(cmd_array.join(" "),
-          :env => env)
-  command "make -j #{max_build_jobs}", :env => env
-  command "make -j #{max_build_jobs} install", :env => env
+          env: env)
+  command "make -j #{max_build_jobs}", env: env
+  command "make -j #{max_build_jobs} install", env: env
 
   # build non-wide-character libraries
   command "make distclean"
@@ -134,13 +117,13 @@ build do
            "--enable-overwrite"]
   cmd_array << "--with-libtool" if Ohai['platform'] == 'aix'
   command(cmd_array.join(" "),
-          :env => env)
-  command "make -j #{max_build_jobs}", :env => env
+          env: env)
+  command "make -j #{max_build_jobs}", env: env
 
   # installing the non-wide libraries will also install the non-wide
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
-  command "make -j #{max_build_jobs} install", :env => env
+  command "make -j #{max_build_jobs} install", env: env
 
   # Ensure embedded ncurses wins in the LD search path
   if Ohai['platform'] == "smartos"
