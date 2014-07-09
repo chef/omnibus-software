@@ -29,7 +29,7 @@ source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar
 relative_path 'pkg-config-0.28'
 
 env = with_embedded_path()
-env = with_standard_compiler_flags(env, :aix => { :use_gcc => true }))
+env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
 
 paths = [ "#{install_dir}/embedded/bin/pkgconfig" ]
 
