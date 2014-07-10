@@ -10,7 +10,7 @@ source :url => "http://www.cpan.org/authors/id/D/DW/DWHEELER/App-Sqitch-#{versio
 relative_path "App-Sqitch-#{version}"
 
 env = {
-  "PATH" => "#{install_path}/embedded/bin:#{ENV["PATH"]}"
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
 }
 
 # See https://github.com/theory/sqitch for more

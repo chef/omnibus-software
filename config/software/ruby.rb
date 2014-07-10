@@ -48,7 +48,7 @@ when "mac_os_x"
   # would be harmless, except that autoconf treats any output to stderr as
   # a failure when it makes a test program to check your CFLAGS (regardless
   # of the actual exit code from the compiler).
-  env['CFLAGS'] << " -I#{install_path}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
+  env['CFLAGS'] << " -I#{install_dir}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
   env['LDFLAGS'] << " -arch x86_64"
 when "aix"
   # -O2/O3 optimized away some configure test which caused ext libs to fail, so aix only gets -O
@@ -67,7 +67,7 @@ end
 
 build do
   configure_command = ["./configure",
-                       "--prefix=#{install_path}/embedded",
+                       "--prefix=#{install_dir}/embedded",
                        "--with-out-ext=dbm",
                        "--enable-shared",
                        "--enable-libedit",
@@ -82,7 +82,7 @@ build do
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"
-    configure_command << "--with-opt-dir=#{install_path}/embedded"
+    configure_command << "--with-opt-dir=#{install_dir}/embedded"
   when "smartos"
     # Opscode patch - someara@opscode.com
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
@@ -97,9 +97,9 @@ build do
     # From RVM forum
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
     configure_command << "ac_cv_func_dl_iterate_phdr=no"
-    configure_command << "--with-opt-dir=#{install_path}/embedded"
+    configure_command << "--with-opt-dir=#{install_dir}/embedded"
   else
-    configure_command << "--with-opt-dir=#{install_path}/embedded"
+    configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
   # @todo expose bundle_bust() in the DSL

@@ -28,7 +28,7 @@ source :url => "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{ve
 relative_path "DBD-Pg-#{version}"
 
 env = {
-  "PATH" => "#{install_path}/embedded/bin:#{ENV["PATH"]}"
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
 }
 
 build do

@@ -25,8 +25,8 @@ source :url => 'http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz
 
 relative_path 'pkg-config-0.28'
 
-lib_dir = File.join(install_path, 'embedded/lib')
-include_dir = File.join(install_path, 'embedded/include')
+lib_dir = File.join(install_dir, 'embedded/lib')
+include_dir = File.join(install_dir, 'embedded/include')
 
 configure_env =
   case Ohai['platform']
@@ -60,10 +60,10 @@ configure_env =
     }
   end
 
-paths = [ "#{install_path}/embedded/bin/pkgconfig" ]
+paths = [ "#{install_dir}/embedded/bin/pkgconfig" ]
 
 build do
-  command "./configure --prefix=#{install_path}/embedded --disable-debug --disable-host-tool --with-internal-glib --with-pc-path=#{paths*':'}", :env => configure_env
+  command "./configure --prefix=#{install_dir}/embedded --disable-debug --disable-host-tool --with-internal-glib --with-pc-path=#{paths*':'}", :env => configure_env
   # #203: pkg-configs internal glib does not provide a way to pass ldflags.
   # Only allows GLIB_CFLAGS and GLIB_LIBS.
   # These do not serve our purpose, so we must explicitly
@@ -71,7 +71,7 @@ build do
   command(
     [
       './configure',
-      "--prefix=#{install_path}/embedded",
+      "--prefix=#{install_dir}/embedded",
       '--with-libiconv=gnu'
     ].join(' '),
     env: configure_env,

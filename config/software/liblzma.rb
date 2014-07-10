@@ -25,14 +25,14 @@ relative_path "xz-#{version}"
 
 build do
   cmd = [ "./configure",
-          "--prefix=#{install_path}/embedded",
+          "--prefix=#{install_dir}/embedded",
           "--disable-debug",
           "--disable-dependency-tracking"].join(" ")
 
   env = {
-    "LDFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
-    "CFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
-    "LD_RUN_PATH" => "#{install_path}/embedded/lib"
+    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
   }
 
   command cmd, :env => env

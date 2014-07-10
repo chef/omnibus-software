@@ -29,7 +29,7 @@ source :url => "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz",
 
 relative_path "#{name}-#{version}"
 
-prefix="#{install_path}/embedded"
+prefix="#{install_dir}/embedded"
 libdir="#{prefix}/lib"
 
 env = {
@@ -40,7 +40,7 @@ env = {
 
 build do
   patch :source => 'makefile_take_env_vars.patch'
-  patch :source => 'soname_install_path.patch' if mac_os_x_mavericks?
+  patch :source => 'soname_install_dir.patch' if mac_os_x_mavericks?
   command "make PREFIX=#{prefix} VERSION=#{version}", :env => env
   command "make PREFIX=#{prefix} VERSION=#{version} -f Makefile-libbz2_so", :env => env
   command "make install VERSION=#{version} PREFIX=#{prefix}", :env => env

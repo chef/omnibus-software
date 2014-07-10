@@ -29,22 +29,22 @@ build do
   env = case Ohai['platform']
   when "solaris2"
     {
-      "LDFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include -R#{install_path}/embedded/lib",
-      "CFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
-      "LD_RUN_PATH" => "#{install_path}/embedded/lib",
-      "LD_OPTIONS" => "-R#{install_path}/embedded/lib"
+      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -R#{install_dir}/embedded/lib",
+      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
     }
   else
     {
-      "LDFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
-      "CFLAGS" => "-L#{install_path}/embedded/lib -I#{install_path}/embedded/include",
-      "LD_RUN_PATH" => "#{install_path}/embedded/lib"
+      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
     }
   end
 
   configure_command = ["./configure",
                        "--enable-libgdbm-compat",
-                       "--prefix=#{install_path}/embedded"]
+                       "--prefix=#{install_dir}/embedded"]
 
   if Ohai['platform'] == "freebsd"
     configure_command << "--with-pic"

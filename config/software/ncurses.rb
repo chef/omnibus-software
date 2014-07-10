@@ -38,7 +38,7 @@ end
 
 # FIXME: validate omnibus-ruby sets this correctly on smartos now via with_standard_compiler_flagS()
 #elsif Ohai['platform'] == "smartos"
-#  env.merge!({"LD_OPTIONS" => "-R#{install_path}/embedded/lib -L#{install_path}/embedded/lib "})
+#  env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib "})
 #end
 
 ########################################################################
@@ -92,7 +92,7 @@ build do
 
   # build wide-character libraries
   cmd_array = ["./configure",
-           "--prefix=#{install_path}/embedded",
+           "--prefix=#{install_dir}/embedded",
            "--with-shared",
            "--with-termlib",
            "--without-debug",
@@ -109,7 +109,7 @@ build do
   # build non-wide-character libraries
   command "make distclean"
   cmd_array = ["./configure",
-           "--prefix=#{install_path}/embedded",
+           "--prefix=#{install_dir}/embedded",
            "--with-shared",
            "--with-termlib",
            "--without-debug",
@@ -127,6 +127,6 @@ build do
 
   # Ensure embedded ncurses wins in the LD search path
   if Ohai['platform'] == "smartos"
-    command "ln -sf #{install_path}/embedded/lib/libcurses.so #{install_path}/embedded/lib/libcurses.so.1"
+    command "ln -sf #{install_dir}/embedded/lib/libcurses.so #{install_dir}/embedded/lib/libcurses.so.1"
   end
 end
