@@ -121,11 +121,14 @@ build do
     make_binary = 'make'
   end
 
+  # FFS: works around a bug that infects AIX when it picks up our pkg-config
+  # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
+  # The alternative would be to patch configure to remove all the pkg-config garbage entirely
+  env.merge!({
+    "PKG_CONFIG" => "/bin/false",
+  }) if Ohai['platform'] == "aix"
+
   command configure_command.join(" "), :env => env
-  if Ohai['platform'] == "aix"
-    command "sed -e 's/${TARGET}/$(TARGET)/' ruby.tmp.pc > ruby.tmp.pc.new"
-    command "mv -f ruby.tmp.pc.new ruby.tmp.pc"
-  end
   command "#{make_binary} -j #{max_build_jobs}", :env => env
   command "#{make_binary} -j #{max_build_jobs} install", :env => env
 end
