@@ -29,15 +29,25 @@ source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
 
 relative_path "Python-#{version}"
 
+extra_cflags = ''
+extra_configure_options = '--enable-shared'
+
+if mac_os_x_mavericks?
+  extra_cflags = '-std=gnu89 -fheinous-gnu-extensions'
+  extra_configure_options = '--without-gcc'
+end
+
 env = {
-  "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
+  "CC" => "gcc -fPIC",
+  "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe #{extra_cflags}",
   "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
 }
+env.merge!('MACOSX_DEPLOYMENT_TARGET' => '10.9') if mac_os_x_mavericks?
 
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--enable-shared",
+           extra_configure_options,
            "--with-dbmliborder=gdbm"].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
