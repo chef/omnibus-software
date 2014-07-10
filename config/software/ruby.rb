@@ -125,7 +125,7 @@ build do
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
   env.merge!({
-    "PKG_CONFIG" => "/bin/false",
+    "PKG_CONFIG" => "/bin/true",
   }) if Ohai['platform'] == "aix"
 
   command configure_command.join(" "), :env => env
