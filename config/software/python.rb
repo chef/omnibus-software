@@ -34,10 +34,12 @@ env = {
   "LDFLAGS" => "-Wl,-rpath,#{install_path}/embedded/lib -L#{install_path}/embedded/lib"
 }
 
+extra_options = mac_os_x_mavericks? ? '--without-gcc --enable-universalsdk=/ --with-universal-archs=intel' : ''
 build do
   command ["./configure",
            "--prefix=#{install_path}/embedded",
            "--enable-shared",
+           extra_options,
            "--with-dbmliborder=gdbm"].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
