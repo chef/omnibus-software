@@ -40,6 +40,7 @@ env = {
 
 build do
   patch :source => 'makefile_take_env_vars.patch'
+  patch :source => 'soname_install_path.patch' if mac_os_x_mavericks?
   command "make PREFIX=#{prefix} VERSION=#{version}", :env => env
   command "make PREFIX=#{prefix} VERSION=#{version} -f Makefile-libbz2_so", :env => env
   command "make install VERSION=#{version} PREFIX=#{prefix}", :env => env
