@@ -17,6 +17,7 @@
 
 name "version-manifest"
 description "generates a version manifest file"
+default_version "0.0.1"
 
 build do
   block do
