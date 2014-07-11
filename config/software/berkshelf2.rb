@@ -18,7 +18,7 @@
 Omnibus.logger.deprecated('berkshelf2') { 'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.' }
 
 name "berkshelf2"
-default_version "2.0.17"
+default_version "2.0.18"
 
 dependency "ruby"
 dependency "rubygems"
