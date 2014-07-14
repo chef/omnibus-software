@@ -57,10 +57,10 @@ build do
 
   # build it
   command "make -j #{max_build_jobs} all", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
-  command "sudo make install"
-  command "sudo make install-config"
-  command "sudo make install-exfoliation"
+  command "make install"
+  command "make install-config"
+  command "make install-exfoliation"
 
   # clean up the install
-  command "sudo rm -rf #{install_dir}/embedded/nagios/etc/*"
+  command "rm -rf #{install_dir}/embedded/nagios/etc/*"
 end
