@@ -79,6 +79,11 @@ build do
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
     patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
+    # our openssl-1.0.1h links against zlib and mkmf tests will fail due to zlib symbols not being
+    # found if we do not include -lz.  this later leads to openssl functions being detected as not
+    # being available and then internally vendored versions that have signature mismatches are pulled in
+    # and the compile explodes.  this problem may not be unique to AIX, but is severe on AIX.
+    patch :source => "ruby_aix_openssl.patch", :plevel => 1
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"
