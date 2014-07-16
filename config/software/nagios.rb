@@ -54,8 +54,8 @@ build do
   command "sed -i 's:for file in includes/rss/extlib/\\*;:for file in includes/rss/extlib/\\*.\\*;:g' ./html/Makefile"
   # At build time, the users opscode-nagios-cmd and opscode-nagios do not exist.
   # Modify the makefile to replace those users with the current user.
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o #{ENV['USER']}:g'\""
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o #{ENV['USER']}:g'\""
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o $(whoami):g'\""
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o $(whoami):g'\""
 
   # build it
   command "make -j #{max_build_jobs} all", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
