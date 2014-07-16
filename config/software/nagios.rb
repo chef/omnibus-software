@@ -52,15 +52,20 @@ build do
   # so dome hacky shit
   command "sed -i 's:for file in includes/rss/\\*;:for file in includes/rss/\\*.\\*;:g' ./html/Makefile"
   command "sed -i 's:for file in includes/rss/extlib/\\*;:for file in includes/rss/extlib/\\*.\\*;:g' ./html/Makefile"
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o root -g root:g'\""
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o root -g root:g'\""
+  # At build time, the users opscode-nagios-cmd and opscode-nagios do not exist.
+  # Modify the makefile to replace those users with the current user.
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o #{ENV['USER']}:g'\""
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o #{ENV['USER']}:g'\""
 
   # build it
   command "make -j #{max_build_jobs} all", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
-  command "sudo make install"
-  command "sudo make install-config"
-  command "sudo make install-exfoliation"
+  command "make install"
+  command "make install-config"
+  command "make install-exfoliation"
 
   # clean up the install
-  command "sudo rm -rf #{install_dir}/embedded/nagios/etc/*"
+  command "rm -rf #{install_dir}/embedded/nagios/etc/*"
+  
+  # ensure the etc directory is avaialable on rebuild from git cache
+  command "touch #{install_dir}/embedded/nagios/etc/.gitkeep"
 end
