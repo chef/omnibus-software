@@ -14,7 +14,7 @@
  	LIBRUBYARG_SHARED='-L${libdir} -l${RUBY_SO_NAME}'
 -	SOLIBS='-lm -lc'
 +	SOLIBS='-lm -lc -lz'
-+        LIBRUBY_SO='lib$(RUBY_SO_NAME).a.$(MAJOR).$(MINOR).$(TEENY)'
++        LIBRUBY_SO='lib$(RUBY_SO_NAME).a'
  	 ;; #(
    beos*) :
  
