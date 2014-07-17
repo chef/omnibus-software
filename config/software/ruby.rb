@@ -79,6 +79,11 @@ build do
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
     patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
+    # our openssl-1.0.1h links against zlib and mkmf tests will fail due to zlib symbols not being
+    # found if we do not include -lz.  this later leads to openssl functions being detected as not
+    # being available and then internally vendored versions that have signature mismatches are pulled in
+    # and the compile explodes.  this problem may not be unique to AIX, but is severe on AIX.
+    patch :source => "ruby_aix_openssl.patch", :plevel => 1
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"
@@ -120,6 +125,13 @@ build do
   else
     make_binary = 'make'
   end
+
+  # FFS: works around a bug that infects AIX when it picks up our pkg-config
+  # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
+  # The alternative would be to patch configure to remove all the pkg-config garbage entirely
+  env.merge!({
+    "PKG_CONFIG" => "/bin/true",
+  }) if Ohai['platform'] == "aix"
 
   command configure_command.join(" "), :env => env
   command "#{make_binary} -j #{max_build_jobs}", :env => env
