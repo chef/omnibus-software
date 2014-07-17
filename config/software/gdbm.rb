@@ -18,30 +18,18 @@
 name "gdbm"
 default_version "1.9.1"
 
-dependency "libgcc"
+version "1.9.1" do
+  source md5: "59f6e4c4193cb875964ffbe8aa384b58"
+end
 
-source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
-       :md5 => "59f6e4c4193cb875964ffbe8aa384b58"
+source url: "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
 
-relative_path "gdbm-1.9.1"
+relative_path "gdbm-#{version}"
+
+env = with_embedded_path()
+env = with_standard_compiler_flags(env)
 
 build do
-  env = case Ohai['platform']
-  when "solaris2"
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -R#{install_dir}/embedded/lib",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-    }
-  else
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-    }
-  end
-
   configure_command = ["./configure",
                        "--enable-libgdbm-compat",
                        "--prefix=#{install_dir}/embedded"]
@@ -50,7 +38,7 @@ build do
     configure_command << "--with-pic"
   end
 
-  command configure_command.join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make install", :env => env
+  command configure_command.join(" "), env: env
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end
