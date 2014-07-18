@@ -20,6 +20,7 @@ default_version "11.12.2"
 
 dependency "ruby"
 dependency "rubygems"
+dependency "libffi"
 
 build do
   gem "install chef -n #{install_dir}/embedded/bin --no-rdoc --no-ri -v #{version}"
