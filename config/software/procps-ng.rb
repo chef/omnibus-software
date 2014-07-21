@@ -4,7 +4,7 @@ default_version "3.3.9"
 source :url => "http://downloads.sourceforge.net/project/#{name}/Production/#{name}-#{version}.tar.xz",
        :md5 => '0980646fa25e0be58f7afb6b98f79d74'
 
-relative_path '#{name}-#{version}'
+relative_path "procps-ng-3.3.9"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
