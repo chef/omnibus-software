@@ -22,9 +22,6 @@ version "2014.07.15" do
   source :md5 => "fd48275847fa10a8007008379ee902f1"
 end
 
-source :url => "http://curl.haxx.se/ca/cacert.pem",
-       :md5 => "9f92a0d9f605e227ae068e605f4c86fa"
-	
 
 relative_path "cacerts-#{version}"
 
