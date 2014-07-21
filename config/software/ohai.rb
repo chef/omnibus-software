@@ -42,7 +42,7 @@ build do
 
   rake "gem", :env => env
 
-  command "rm -f pkg/ohai-*-x86-mingw32.gem"
+  delete("pkg/ohai-*-x86-mingw32.gem")
 
   gem_command = "install pkg/ohai*.gem --no-rdoc --no-ri"
 

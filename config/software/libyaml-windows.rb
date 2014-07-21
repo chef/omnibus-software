@@ -40,5 +40,5 @@ build do
   # Now extract the files out of tar archive.
   command "7z.exe x #{File.join(temp_directory, "libyaml-0.1.6-x86-windows.tar")} -o#{temp_directory} -r -y"
   # Now copy over libyaml-0-2.dll to the build dir
-  command "cp #{File.join(temp_directory, "bin", "libyaml-0-2.dll")} #{File.join(install_dir, "embedded", "bin", "libyaml-0-2.dll")}"
+  copy("#{temp_directory}/bin/libyaml-0-2.dll", "#{install_dir}/embedded/bin/libyaml-0-2.dll")
 end
