@@ -11,5 +11,5 @@ build do
   build_env = {
     "PATH" => "/#{install_dir}/embedded/bin:#{ENV['PATH']}"
   }
-  command "#{install_dir}/embedded/bin/pip install -I --build #{project_dir} #{name}==#{version}", :env => build_env
+  command "#{install_dir}/embedded/bin/pip install -I #{name}==#{version}", :env => build_env
 end
