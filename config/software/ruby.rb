@@ -116,7 +116,7 @@ build do
     "GEM_HOME"        => nil
   })
 
-  # @todo: move into omnibus-ruby
+  # @todo: move into omnibus
   has_gmake = system("gmake --version")
 
   if has_gmake

@@ -36,7 +36,7 @@ if Ohai['platform'] == "solaris2"
   env.merge!({"CXX" => "/opt/csw/gcc3/bin/g++"})
 end
 
-# FIXME: validate omnibus-ruby sets this correctly on smartos now via with_standard_compiler_flagS()
+# FIXME: validate omnibus sets this correctly on smartos now via with_standard_compiler_flagS()
 #elsif Ohai['platform'] == "smartos"
 #  env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib "})
 #end
