@@ -1,40 +1,24 @@
-# Omnibus Software
-
+Omnibus Software
+================
 This repository contains shared software descriptions, for use by any [Omnibus](https://github.com/opscode/omnibus) project that needs them.
 
 This project is managed by the CHEF Release Engineering team. For more information on the Release Engineering team's contribution, triage, and release process, please consult the [CHEF Release Engineering OSS Management Guide](https://docs.google.com/a/opscode.com/document/d/1oJB0vZb_3bl7_ZU2YMDBkMFdL-EWplW1BJv_FXTUOzg/edit).
 
 **The master branch of this project corresponds to the master branch of omnibus!** Please use the `omnibus/*` branches that correspond to your installed version!
 
-# Using Your Own Software Definitions
 
-These are Opscode's software definitions.  We like that others get utility out of them, but they
-are not meant to be comprehensive of all software on the planet.  We won't, for example, support building
-every version of ruby ever released.  You have at least three choices for writing your own
-software definitions.
+Using Your Own Software Definitions
+-----------------------------------
+This repository is the collection of Chef Software's software definitions. We like that others get utility out of them, but they
+are not meant to be comprehensive collection of all software on the planet. For more information, please read [Omnibus, a look forward](http://www.getchef.com/blog/2014/06/30/omnibus-a-look-forward/) on the Chef blog.
 
-## Software Definitions in your Project
+For more information on writing your own software definitions, please see [the Omnibus README](https://github.com/opscode/omnibus#sharing-software-definitions).
 
-If you only have one project you can fork or add software definitions directly into the `config/software`
-directory of your project.  The chef client build [uses this approach](https://github.com/opscode/omnibus-chef/tree/master/config/software).
 
-## Fork omnibus-software
-
-You can make a fork of omnibus-software (or use a repo named omnibus-software) and update the Gemfile in
-your project to point at your git repo instead of opscode's.
-
-## Use a gem other than omnibus-software
-
-You can use the `software_gem` config option in omnibus.rb in the root of your project to point at a differently
-named gem.  If you wanted to release 'your' omnibus-software gem to rubygems.org or something you could use this
-feature to avoid a name collision there.
-
-## Licensing
-
-See the LICENSE file for details.
-
-Copyright: Copyright (c) 2012-2014 Chef Software, Inc.
-License: Apache License, Version 2.0
+License
+-------
+```text
+Copyright 2012-2014 Chef Software, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -47,5 +31,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-
+```
