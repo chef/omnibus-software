@@ -25,17 +25,25 @@
 # Then run 'chef-server-ctl reconfigure'
 #
 
+versions_to_install = ["0.3.6", "0.3.7"]
+cache_path = "#{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
+
 name "mysql2"
-versions_to_install = [ "0.3.6", "0.3.7" ]
 default_version versions_to_install.join("-")
 
 dependency "ruby"
 dependency "bundler"
 
 build do
-  gem "install rake-compiler --version 0.8.3"
-  command "mkdir -p #{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
-  versions_to_install.each do |ver|
-    gem "fetch mysql2 --version #{ver}", :cwd => "#{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
+  gem "install rake-compiler" \
+      " --version '0.8.3'" \
+      " --no-ri --no-rdoc"
+
+  mkdir cache_path
+
+  versions_to_install.each do |version|
+    gem "fetch mysql2" \
+        " --version '#{version}'" \
+        " --no-ri --no-rdoc", cwd: cache_path
   end
 end
