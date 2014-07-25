@@ -20,30 +20,29 @@
 name "libarchive"
 default_version "3.1.2"
 
-source :url => "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
-  :md5 => 'efad5a503f66329bb9d2f4308b5de98a'
+source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
+       md5: 'efad5a503f66329bb9d2f4308b5de98a'
 
 relative_path "libarchive-#{version}"
 
-env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include "
-}
-
 build do
-  command "./configure --prefix=#{install_dir}/embedded \
-    --without-lzma \
-    --without-lzo2 \
-    --without-nettle \
-    --without-xml2 \
-    --without-expat \
-    --without-bz2lib \
-    --without-iconv \
-    --without-zlib \
-    --disable-bsdtar \
-    --disable-bsdcpio \
-    --without-lzmadec \
-    --without-openssl", :env => env
-  command "make", :env => env
-  command "make install", :env => env
+  env = with_standard_compiler_flags
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --without-lzma" \
+          " --without-lzo2" \
+          " --without-nettle" \
+          " --without-xml2" \
+          " --without-expat" \
+          " --without-bz2lib" \
+          " --without-iconv" \
+          " --without-zlib" \
+          " --disable-bsdtar" \
+          " --disable-bsdcpio" \
+          " --without-lzmadec" \
+          " --without-openssl", env: env
+
+  command "make", env: env
+  command "make install", env: env
 end
