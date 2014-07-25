@@ -20,5 +20,7 @@ default_version "0.2.0"
 dependency "bundler"
 
 build do
-  gem "install appbundler --no-rdoc --no-ri -v '#{version}'"
+  gem "install appbundler" \
+      " --version '#{version}'" \
+      " --no-ri --no-rdoc"
 end
