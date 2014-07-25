@@ -17,7 +17,7 @@
 name "berkshelf"
 default_version "master"
 
-source :git => "git://github.com/berkshelf/berkshelf"
+source git: "git://github.com/berkshelf/berkshelf"
 
 relative_path "berkshelf"
 
@@ -35,11 +35,15 @@ dependency "nokogiri"
 dependency "bundler"
 dependency "dep-selector-libgecode"
 
-env = with_embedded_path()
-
 build do
-  bundle "install --without guard", :env => env
-  bundle "exec thor gem:build", :env => env
-  gem ["install pkg/berkshelf-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+  env = with_embedded_path
+
+  bundle "install" \
+         " --jobs #{max_build_jobs}" \
+         " --without guard", env: env
+
+  bundle "exec thor gem:build", env: env
+
+  gem "install pkg/berkshelf-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end
