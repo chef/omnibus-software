@@ -18,37 +18,35 @@ name "gecode"
 default_version "3.7.3"
 
 version "3.7.3" do
-  source :md5 => "7a5cb9945e0bb48f222992f2106130ac"
+  source md5: "7a5cb9945e0bb48f222992f2106130ac"
 end
 
 version "3.7.1" do
-  source :md5 => "b4191d8cfafa18bd9b78594544be2a04"
+  source md5: "b4191d8cfafa18bd9b78594544be2a04"
 end
 
-source :url => "http://www.gecode.org/download/gecode-#{version}.tar.gz"
+source url: "http://www.gecode.org/download/gecode-#{version}.tar.gz"
 
 relative_path "gecode-#{version}"
 
-test = Mixlib::ShellOut.new("test -f /usr/bin/gcc44")
-test.run_command
-
-configure_env = if test.exitstatus == 0
-                  {"CC" => "gcc44", "CXX" => "g++44"}
-                else
-                  {}
-                end
-
 build do
-  command(["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--disable-doc-dot",
-           "--disable-doc-search",
-           "--disable-doc-tagfile",
-           "--disable-doc-chm",
-           "--disable-doc-docset",
-           "--disable-qt",
-           "--disable-examples"].join(" "),
-          :env => configure_env)
-  command "make -j #{max_build_jobs}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  env = if File.exist?('/usr/bin/gcc44')
+          { 'CC' => 'gcc44', 'CXX' => 'g++44' }
+        else
+          {}
+        end
+  env = with_standard_compiler_flags(env)
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-doc-dot" \
+          " --disable-doc-search" \
+          " --disable-doc-tagfile" \
+          " --disable-doc-chm" \
+          " --disable-doc-docset" \
+          " --disable-qt" \
+          " --disable-examples", env: env
+
+  command "make -j #{max_build_jobs}", env: env
   command "make install"
 end
