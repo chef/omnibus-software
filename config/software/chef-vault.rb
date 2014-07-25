@@ -14,28 +14,30 @@
 # limitations under the License.
 #
 
-name 'chef-vault'
-default_version 'v2.2.1'
+name "chef-vault"
+default_version "v2.2.1"
 
-source :git => 'git://github.com/Nordstrom/chef-vault.git'
+source git: "git://github.com/Nordstrom/chef-vault.git"
 
-relative_path 'chef-vault'
+relative_path "chef-vault"
 
 if windows?
-  dependency 'ruby-windows'
-  dependency 'ruby-windows-devkit'
-  dependency 'chef-windows'
+  dependency "ruby-windows"
+  dependency "ruby-windows-devkit"
+  dependency "chef-windows"
 else
-  dependency 'ruby'
-  dependency 'rubygems'
-  dependency 'chef'
+  dependency "ruby"
+  dependency "rubygems"
+  dependency "chef"
 end
 
-env = with_embedded_path()
-
 build do
-  bundle 'install --no-cache', :env => env
-  gem 'build chef-vault.gemspec', :env => env
-  gem ['install chef-vault-*.gem',
-       '--no-rdoc --no-ri'].join(' '), :env => env
+  env = with_embedded_path
+
+  bundle "install", env: env
+
+  gem "build chef-vault.gemspec", env: env
+
+  gem "install chef-vault-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end
