@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.omnibus
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -67,7 +66,7 @@ build do
 
   # clean up the install
   command "rm -rf #{install_dir}/embedded/nagios/etc/*"
-  
+
   # ensure the etc directory is avaialable on rebuild from git cache
   command "touch #{install_dir}/embedded/nagios/etc/.gitkeep"
 end
