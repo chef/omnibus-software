@@ -24,5 +24,7 @@ else
 end
 
 build do
-  gem "install bundler --no-rdoc --no-ri -v '#{version}'"
+  gem "install bundler" \
+      " --version '#{version}'" \
+      " --no-ri --no-rdoc"
 end
