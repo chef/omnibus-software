@@ -17,18 +17,16 @@
 name "autoconf"
 default_version "2.68"
 
-source :url => "http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz",
-       :md5 => "c3b5247592ce694f7097873aa07d66fe"
+source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
+       md5: "c3b5247592ce694f7097873aa07d66fe"
 
-relative_path "autoconf-2.68"
-
-env = {
-  "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-}
+relative_path "autoconf-#{version}"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  env = with_standard_compiler_flags
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
   command "make -j #{max_build_jobs}"
   command "make install"
 end
