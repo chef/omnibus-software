@@ -22,5 +22,8 @@ dependency "rubygems"
 dependency "libffi"
 
 build do
-  gem "install chef -n #{install_dir}/embedded/bin --no-rdoc --no-ri -v #{version}"
+  gem "install chef" \
+      " --version '#{version}'" \
+      " --bindir '#{install_dir}/embedded/bin'" \
+      " --no-ri --no-rdoc"
 end
