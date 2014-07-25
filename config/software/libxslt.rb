@@ -34,19 +34,16 @@ source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 relative_path "libxslt-#{version}"
 
 build do
-  env = {
-    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-  }
-  command(["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-libxml-prefix=#{install_dir}/embedded",
-           "--with-libxml-include-prefix=#{install_dir}/embedded/include",
-           "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
-           "--without-python",
-           "--without-crypto"].join(" "),
-          :env => env)
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/bin"}
-  command "make install", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/bin"}
+  env = with_standard_compiler_flags
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --with-libxml-prefix=#{install_dir}/embedded" \
+          " --with-libxml-include-prefix=#{install_dir}/embedded/include" \
+          " --with-libxml-libs-prefix=#{install_dir}/embedded/lib" \
+          " --without-python" \
+          " --without-crypto", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end
