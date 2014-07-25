@@ -28,18 +28,22 @@ default_version "0.1.6"
 
 dependency "ruby-windows"
 
-source :url => "http://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windows.tar.lzma",
-       :md5 => "8bb5d8e43cf18ec48b4751bdd0111c84"
+source url: "http://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windows.tar.lzma",
+       md5: "8bb5d8e43cf18ec48b4751bdd0111c84"
 
 build do
-  temp_directory = File.join(Config.cache_dir, "libyaml-cache")
+  tmpdir = File.join(Config.cache_dir, "libyaml-cache")
+  project_file = software.fetcher.downloaded_file
 
   # Ensure the directory exists
-  mkdir temp_directory
+  mkdir tmpdir
+
   # First extract the tar file out of lzma archive.
-  command "7z.exe x #{project_file} -o#{temp_directory} -r -y"
+  command "7z.exe x #{project_file} -o#{tmpdir} -r -y"
+
   # Now extract the files out of tar archive.
-  command "7z.exe x #{File.join(temp_directory, "libyaml-0.1.6-x86-windows.tar")} -o#{temp_directory} -r -y"
+  command "7z.exe x #{File.join(tmpdir, "libyaml-0.1.6-x86-windows.tar")} -o#{tmpdir} -r -y"
+
   # Now copy over libyaml-0-2.dll to the build dir
-  copy("#{temp_directory}/bin/libyaml-0-2.dll", "#{install_dir}/embedded/bin/libyaml-0-2.dll")
+  copy "#{tmpdir}/bin/libyaml-0-2.dll", "#{install_dir}/embedded/bin/libyaml-0-2.dll"
 end
