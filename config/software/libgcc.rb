@@ -20,6 +20,12 @@
 #       That will probably be the best solution going forwards rather than
 #       fuss around with the dynamic linking business here.
 #
+
+Omnibus.logger.deprecated('libgcc') do
+  "Please do not use the libgcc dependency, it will be removed in the " \
+  "future. Compile with `--static-libgcc' instead!"
+end
+
 name "libgcc"
 description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
 default_version "0.0.1"
@@ -38,10 +44,10 @@ libgcc_file =
 
 build do
   if libgcc_file
-    if File.exists?(libgcc_file)
-      command "cp #{libgcc_file} #{install_dir}/embedded/lib/"
+    if File.exist?(libgcc_file)
+      copy libgcc_file, "#{install_dir}/embedded/lib/"
     else
-      raise "cannot find libgcc -- where is your gcc compiler?"
+      raise "Cannot find libgcc -- where is your gcc compiler?"
     end
   end
 end
