@@ -29,15 +29,18 @@ source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zli
 
 relative_path "zlib-#{version}"
 
-# we omit the omnibus path here because it breaks mac_os_x builds by picking up the embedded libtool
-# instead of the system libtool which the zlib configure script cannot handle.
-#env = with_embedded_path()
-env = with_standard_compiler_flags()
-# for some reason zlib needs this flag on solaris (cargocult warning?)
-env['CFLAGS'] << " -DNO_VIZ" if Ohai['platform'] == 'solaris2'
-
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make -j #{max_build_jobs} install", :env => env
+  # We omit the omnibus path here because it breaks mac_os_x builds by picking
+  # up the embedded libtool instead of the system libtool which the zlib
+  # configure script cannot handle.
+  env = with_standard_compiler_flags
+
+  # For some reason zlib needs this flag on solaris (cargocult warning?)
+  env['CFLAGS'] << " -DNO_VIZ" if Ohai['platform'] == 'solaris2'
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make -j #{max_build_jobs} install", env: env
 end
