@@ -19,8 +19,8 @@ default_version "0.7.7"
 
 dependency "python"
 
-source :url => "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz",
-       :md5 => '0d7bc0e1a34b70a97e706ef74aa7f37f'
+source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz",
+       md5: '0d7bc0e1a34b70a97e706ef74aa7f37f'
 
 relative_path "setuptools-#{version}"
 
