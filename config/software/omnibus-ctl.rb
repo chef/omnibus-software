@@ -21,14 +21,14 @@ dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 
-source :git => "git://github.com/opscode/omnibus-ctl.git"
+source git: "git://github.com/opscode/omnibus-ctl.git"
 
 relative_path "omnibus-ctl"
 
 build do
   gem "build omnibus-ctl.gemspec"
   gem "install omnibus-ctl-#{version}.gem"
-  command "mkdir -p #{install_dir}/embedded/service/omnibus-ctl"
-  command "touch #{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
+
+  touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
 
