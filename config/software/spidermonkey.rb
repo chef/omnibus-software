@@ -17,13 +17,10 @@
 name "spidermonkey"
 default_version "1.8.0"
 
-source :url => "http://ftp.mozilla.org/pub/mozilla.org/js/js-1.8.0-rc1.tar.gz",
-       :md5 => "eaad8815dcc66a717ddb87e9724d964e"
+source url: "http://ftp.mozilla.org/pub/mozilla.org/js/js-#{version}-rc1.tar.gz",
+       md5: "eaad8815dcc66a717ddb87e9724d964e"
 
 relative_path "js"
-
-env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-working_dir = "#{project_dir}/src"
 
 # == Build Notes ==
 # The spidermonkey build instructions are copied from here:
@@ -35,25 +32,21 @@ working_dir = "#{project_dir}/src"
 #
 
 build do
-  command(["make",
-           "BUILD_OPT=1",
-           "XCFLAGS=-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-           "-f",
-           "Makefile.ref"].join(" "),
-          :env => env,
-          :cwd => working_dir)
-  command(["make",
-           "BUILD_OPT=1",
-           "JS_DIST=#{install_dir}/embedded",
-           "-f",
-           "Makefile.ref",
-           "export"].join(" "),
-          :env => env,
-          :cwd => working_dir)
+  env = with_standard_compiler_flags.merge(
+    "BUILD_OPT" => "1",
+    "XCFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "JS_DIST" => "#{install_dir}/embedded",
+  )
+
+  Dir.chdir("#{project_dir}/src") do
+    command "make -f Makefile.ref", env: env
+    command "make -f Makefile.ref export", env: env
+  end
 
   if Ohai['kernel']['machine'] =~ /x86_64/
-    command "mv #{install_dir}/embedded/lib64/libjs.a #{install_dir}/embedded/lib"
-    command "mv #{install_dir}/embedded/lib64/libjs.so #{install_dir}/embedded/lib"
+    move "#{install_dir}/embedded/lib64/libjs.a", "#{install_dir}/embedded/lib"
+    move "#{install_dir}/embedded/lib64/libjs.so", "#{install_dir}/embedded/lib"
   end
-  command "rm -rf #{install_dir}/embedded/lib64"
+
+  delete "#{install_dir}/embedded/lib64"
 end
