@@ -34,8 +34,8 @@ relative_path "js"
 build do
   env = with_standard_compiler_flags.merge(
     "BUILD_OPT" => "1",
-    "XCFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "JS_DIST" => "#{install_dir}/embedded",
+    "XCFLAGS"   => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "JS_DIST"   => "#{install_dir}/embedded",
   )
 
   Dir.chdir("#{project_dir}/src") do
