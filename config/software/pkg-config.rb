@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef, Inc.omnibus
+# Copyright 2013-2014 Chef Software, Inc.omnibus
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,28 +25,27 @@ end
 
 source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
 
-relative_path 'pkg-config-0.28'
-
-env = with_embedded_path()
-env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
-
-paths = [ "#{install_dir}/embedded/bin/pkgconfig" ]
+relative_path "pkg-config-#{version}"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded --disable-debug --disable-host-tool --with-internal-glib --with-pc-path=#{paths*':'}", :env => env
+  env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-debug" \
+          " --disable-host-tool" \
+          " --with-internal-glib" \
+          " --with-pc-path=#{install_dir}/embedded/bin/pkgconfig", env: env
+
+
   # #203: pkg-configs internal glib does not provide a way to pass ldflags.
   # Only allows GLIB_CFLAGS and GLIB_LIBS.
   # These do not serve our purpose, so we must explicitly
   # ./configure in the glib dir, with the Omnibus ldflags.
-  command(
-    [
-      './configure',
-      "--prefix=#{install_dir}/embedded",
-      '--with-libiconv=gnu'
-    ].join(' '),
-    env: env,
-    cwd: File.join(project_dir, 'glib')
-  )
+  command  "./configure" \
+           " --prefix=#{install_dir}/embedded" \
+           " --with-libiconv=gnu", env: env, cwd: "#{project_dir}/glib"
+
   command "make -j #{max_build_jobs}", env: env
   command "make -j #{max_build_jobs} install", env: env
 end
