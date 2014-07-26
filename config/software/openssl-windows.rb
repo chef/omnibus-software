@@ -28,8 +28,8 @@ default_version "1.0.0m"
 
 dependency "ruby-windows"
 
-source :url => "http://packages.openknapsack.org/openssl/openssl-#{version}-x86-windows.tar.lzma",
-       :md5 => "1836409f45d3045243bb2653ad263f11"
+source url: "http://packages.openknapsack.org/openssl/openssl-#{version}-x86-windows.tar.lzma",
+       md5: "1836409f45d3045243bb2653ad263f11"
 
 build do
   # Make sure the OpenSSL version is suitable for our path:
@@ -37,16 +37,19 @@ build do
   # OpenSSL 1.0.0k 5 Feb 2013
   ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0l'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0m'\""
 
-  temp_directory = File.join(Config.cache_dir, "openssl-cache")
+  tmpdir = File.join(Config.cache_dir, "openssl-cache")
 
   # Ensure the directory exists
-  mkdir temp_directory
+  mkdir tmpdir
+
   # First extract the tar file out of lzma archive.
-  command "7z.exe x #{project_file} -o#{temp_directory} -r -y"
+  command "7z.exe x #{project_file} -o#{tmpdir} -r -y"
+
   # Now extract the files out of tar archive.
-  command "7z.exe x #{File.join(temp_directory, "openssl-#{version}-x86-windows.tar")} -o#{temp_directory} -r -y"
+  command "7z.exe x #{File.join(tmpdir, "openssl-#{version}-x86-windows.tar")} -o#{tmpdir} -r -y"
+
   # Copy over the required dlls into embedded/bin
-  ["libeay32.dll", "ssleay32.dll"].each do |dll|
-    copy("#{temp_directory}/bin/#{dll}", "#{install_dir}/embedded/bin/#{dll}")
+  %w(libeay32.dll ssleay32.dll).each do |dll|
+    copy "#{tmpdir}/bin/#{dll}", "#{install_dir}/embedded/bin/#{dll}"
   end
 end
