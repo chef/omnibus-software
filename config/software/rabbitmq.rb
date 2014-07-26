@@ -20,16 +20,16 @@ default_version "2.7.1"
 dependency "erlang"
 dependency "rsync"
 
-source :url => "http://www.rabbitmq.com/releases/rabbitmq-server/v2.7.1/rabbitmq-server-generic-unix-2.7.1.tar.gz",
-       :md5 => "34a5f9fb6f22e6681092443fcc80324f"
+source url: "http://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz",
+       md5: "34a5f9fb6f22e6681092443fcc80324f"
 
-relative_path "rabbitmq_server-2.7.1"
+relative_path "rabbitmq_server-#{version}"
 
 build do
-  command "mkdir -p #{install_dir}/embedded/service/rabbitmq"
-  command "#{install_dir}/embedded/bin/rsync -a ./ #{install_dir}/embedded/service/rabbitmq/"
+  mkdir "#{install_dir}/embedded/service/rabbitmq"
+  sync  "#{project_dir}/", "#{install_dir}/embedded/service/rabbitmq/"
 
-  %w{rabbitmqctl rabbitmq-env rabbitmq-server}.each do |cmd|
-    command "ln -sf #{install_dir}/embedded/service/rabbitmq/sbin/#{cmd} #{install_dir}/embedded/bin/#{cmd}"
+  %w(rabbitmqctl rabbitmq-env rabbitmq-server).each do |bin|
+    link "#{install_dir}/embedded/service/rabbitmq/sbin/#{bin}", "#{install_dir}/embedded/bin/#{bin}"
   end
 end
