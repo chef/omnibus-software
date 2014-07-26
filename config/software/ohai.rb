@@ -29,24 +29,26 @@ dependency "bundler"
 
 default_version "master"
 
-source :git => "git://github.com/opscode/ohai"
+source git: "git://github.com/opscode/ohai"
 
 relative_path "ohai"
 
-env = with_embedded_path()
-env = with_standard_compiler_flags(env)
-
 build do
-  bundle "install --without development",  :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
 
-  rake "gem", :env => env
+  bundle "install --without development", env: env
 
-  delete("pkg/ohai-*-x86-mingw32.gem")
+  rake "gem", env: env
 
-  gem_command = "install pkg/ohai*.gem --no-rdoc --no-ri"
+  delete "pkg/ohai-*-x86-mingw32.gem"
 
-  # appbuilder in chefdk needs to not have this installed into /opt/chef/bin
-  gem_command << " -n #{install_dir}/bin" unless project.name == "chefdk"
-
-  gem gem_command, :env => env
+  # Appbuilder in ChefDK needs to not have Ohai installed in +/opt/chef/bin+
+  if project.name == "chefdk"
+    gem "install pkg/ohai*.gem" \
+        " --no-ri --no-rdoc", env: env
+  else
+    gem "install pkg/ohai*.gem" \
+        " --bindir '#{install_dir}/bin'"
+        " --no-ri --no-rdoc", env: env
+  end
 end
