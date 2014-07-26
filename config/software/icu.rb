@@ -20,14 +20,12 @@ default_version "4.8.1.1"
 source url: "http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.tgz",
        md5: "ea93970a0275be6b42f56953cd332c17"
 
-relative_path "icu"
+relative_path "icu/source"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  Dir.chdir("#{project_dir}/source") do
-    command "./configure --prefix=#{install_dir}/embedded", env: env
-    command "make -j #{max_build_jobs}", env: env
-    command "make install", env: env
-  end
+  command "./configure --prefix=#{install_dir}/embedded", env: env
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

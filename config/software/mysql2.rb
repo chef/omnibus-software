@@ -26,7 +26,6 @@
 #
 
 versions_to_install = ["0.3.6", "0.3.7"]
-cache_path = "#{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
 
 name "mysql2"
 default_version versions_to_install.join("-")
@@ -37,6 +36,8 @@ dependency "bundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  cache_path = "#{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
+
   gem "install rake-compiler" \
       " --version '0.8.3'" \
       " --no-ri --no-rdoc", env: env
@@ -44,10 +45,8 @@ build do
   mkdir cache_path
 
   versions_to_install.each do |version|
-    Dir.chdir(cache_path) do
-      gem "fetch mysql2" \
-          " --version '#{version}'" \
-          " --no-ri --no-rdoc", env: env
-    end
+    gem "fetch mysql2" \
+        " --version '#{version}'" \
+        " --no-ri --no-rdoc", env: env, cwd: cache_path
   end
 end

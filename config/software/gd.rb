@@ -26,7 +26,7 @@ dependency "libpng"
 source url: "https://bitbucket.org/libgd/gd-libgd/get/GD_2_0_33.tar.gz",
        md5: "a028f1642586e611fa39c39175478721"
 
-relative_path "libgd-gd-libgd-486e81dea984"
+relative_path "libgd-gd-libgd-486e81dea984/src"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
@@ -35,17 +35,15 @@ build do
 
   patch source: 'gd-2.0.33-configure-libpng.patch'
 
-  Dir.chdir("#{project_dir}/src") do
-    command "./configure" \
-            " --prefix=#{install_dir}/embedded" \
-            " --with-libiconv-prefix=#{install_dir}/embedded" \
-            " --with-jpeg=#{install_dir}/embedded" \
-            " --with-png=#{install_dir}/embedded" \
-            " --without-x", "--without-freetype" \
-            " --without-fontconfig" \
-            " --without-xpm", env: env
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --with-libiconv-prefix=#{install_dir}/embedded" \
+          " --with-jpeg=#{install_dir}/embedded" \
+          " --with-png=#{install_dir}/embedded" \
+          " --without-x", "--without-freetype" \
+          " --without-fontconfig" \
+          " --without-xpm", env: env
 
-    command "make -j #{max_build_jobs}", env: env
-    command "make install", env: env
-  end
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

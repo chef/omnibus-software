@@ -23,13 +23,10 @@ source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm
        md5: "4bf8f2dd1d582c8733a67027583e19a6"
 
 build do
-  embedded_dir = "#{install_dir}/embedded"
   env = with_standard_compiler_flags(with_embedded_path)
 
   command "DevKit-tdm-32-#{version}-sfx.exe -y -o#{windows_safe_path(embedded_dir)}", env: env
 
-  Dir.chdir(embedded_dir) do
-    command "echo - #{install_dir}/embedded > config.yml"
-    ruby "dk.rb install", env: env
-  end
+  command "echo - #{install_dir}/embedded > config.yml", cwd: embedded_dir
+  ruby "dk.rb install", env: env, cwd: embedded_dir
 end

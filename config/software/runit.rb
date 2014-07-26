@@ -23,34 +23,29 @@ source url: "http://smarden.org/runit/runit-#{version}.tar.gz",
 relative_path "admin/runit-#{version}/src"
 
 build do
-  working_dir = "#{project_dir}/runit-#{version}"
   env = with_standard_compiler_flags(with_embedded_path)
 
-  Dir.chdir(working_dir) do
-    # Put runit where we want it, not where they tell us to
-    command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"' + install_dir.gsub("/", "\\/") + '\/service\/\";/" src/sv.c', env: env
+  # Put runit where we want it, not where they tell us to
+  command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"' + install_dir.gsub("/", "\\/") + '\/service\/\";/" sv.c', env: env
 
-    # TODO: the following is not idempotent
-    command "sed -i -e s:-static:: src/Makefile", env: env
-  end
+  # TODO: the following is not idempotent
+  command "sed -i -e s:-static:: Makefile", env: env
 
   # Build it
-  Dir.chdir("#{working_dir}/src") do
-    command "make", env: env
-    command "make check", env: env
-  end
+  command "make", env: env
+  command "make check", env: env
 
   # Move it
   mkdir "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/chpst", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/runit", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/runit-init", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/runsv", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/runsvchdir", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/runsvdir", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/sv", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/svlogd", "#{install_dir}/embedded/bin"
-  copy "#{working_dir}/src/utmpset", "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/chpst",      "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/runit",      "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/runit-init", "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/runsv",      "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/runsvchdir", "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/runsvdir",   "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/sv",         "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/svlogd",     "#{install_dir}/embedded/bin"
+  copy "#{project_dir}/utmpset",    "#{install_dir}/embedded/bin"
 
   erb source: "runsvdir-start.erb",
       dest: "#{install_dir}/embedded/bin/runsvdir-start",
