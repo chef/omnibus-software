@@ -21,17 +21,13 @@ default_version "93621d0d0c98035f79790ffd24beac94581b0758"
 
 dependency "erlang"
 
-source :git => "https://github.com/rebar/rebar.git"
+source git: "https://github.com/rebar/rebar.git"
 
 relative_path "rebar"
 
-env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
-  "LD_FLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-}
-
 build do
-  command "./bootstrap", :env => env
-  command "cp ./rebar #{install_dir}/embedded/bin/"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./bootstrap", env: env
+  copy "#{project_dir}/rebar", "#{install_dir}/embedded/bin/"
 end
