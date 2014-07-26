@@ -18,7 +18,7 @@ name "test-kitchen"
 default_version "master"
 relative_path "test-kitchen"
 
-source :git => "git://github.com/test-kitchen/test-kitchen"
+source git: "git://github.com/test-kitchen/test-kitchen"
 
 if windows?
   dependency "ruby-windows"
@@ -30,11 +30,12 @@ end
 
 dependency "nokogiri"
 
-env = with_embedded_path()
-
 build do
-  bundle "install --without guard", :env => env
-  bundle "exec rake build", :env => env
-  gem ["install pkg/test-kitchen-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+  env = with_embedded_path
+
+  bundle "install --without guard", env: env
+  bundle "exec rake build", env: env
+
+  gem "install pkg/test-kitchen-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end
