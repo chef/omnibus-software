@@ -22,16 +22,16 @@ dependency "libgcc"
 dependency "makedepend"
 
 
-if Ohai['platform'] == "aix"
+if Ohai["platform"] == "aix"
   # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
   #      http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
   default_version "1.0.1c"
-  source :url => "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
-         :md5 => "ae412727c8c15b67880aef7bd2999b2e"
+  source url: "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
+         md5: "ae412727c8c15b67880aef7bd2999b2e"
 else
   default_version "1.0.1h"
-  source :url => "http://www.openssl.org/source/openssl-1.0.1h.tar.gz",
-         :md5 => "8d6d684a9430d5cc98a62a5d8fbda8cf"
+  source url: "http://www.openssl.org/source/openssl-1.0.1h.tar.gz",
+         md5: "8d6d684a9430d5cc98a62a5d8fbda8cf"
 end
 
 relative_path "openssl-#{version}"
@@ -39,7 +39,7 @@ relative_path "openssl-#{version}"
 build do
   patch :source => "openssl-1.0.1f-do-not-build-docs.patch"
 
-  env = case Ohai['platform']
+  env = case Ohai["platform"]
         when "mac_os_x"
           {
             "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
@@ -82,7 +82,7 @@ build do
     "shared",
   ].join(" ")
 
-  configure_command = case Ohai['platform']
+  configure_command = case Ohai["platform"]
                       when "aix"
                         ["perl", "./Configure",
                          "aix64-cc",
@@ -140,18 +140,20 @@ build do
   env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
   # @todo: move into omnibus
-  has_gmake = system("gmake --version")
-
-  if has_gmake
-    env.merge!({'MAKE' => 'gmake'})
-    make_binary = 'gmake'
-  else
-    make_binary = 'make'
+  has_gmake = env['PATH'].split(File::PATH_SEPARATOR).any? do |path|
+    File.executable?(File.join(path, 'gmake'))
   end
 
-  command configure_command, :env => env
-  command "#{make_binary} depend", :env => env
+  if has_gmake
+    env.merge!("MAKE" => "gmake")
+    make_binary = "gmake"
+  else
+    make_binary = "make"
+  end
+
+  command configure_command, env: env
+  command "#{make_binary} depend", env: env
   # make -j N on openssl is not reliable
-  command "#{make_binary}", :env => env
-  command "#{make_binary} install", :env => env
+  command "#{make_binary}", env: env
+  command "#{make_binary} install", env: env
 end
