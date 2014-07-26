@@ -27,7 +27,7 @@ source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{versi
 relative_path "DBD-Pg-#{version}"
 
 build do
-  env = with_embedded_path
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "cpanm -v --notest .", env: env
 end

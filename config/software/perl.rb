@@ -23,7 +23,7 @@ source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz",
 relative_path "perl-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "sh Configure" \
           " -de" \

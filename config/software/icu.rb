@@ -23,7 +23,7 @@ source url: "http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-s
 relative_path "icu"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   Dir.chdir("#{project_dir}/source") do
     command "./configure --prefix=#{install_dir}/embedded", env: env

@@ -25,7 +25,7 @@ source url: "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
 relative_path "gdbm-1.9.1"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   if freebsd?
     command "./configure" \

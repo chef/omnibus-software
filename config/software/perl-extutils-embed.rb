@@ -25,7 +25,12 @@ source url: "http://search.cpan.org/CPAN/authors/id/D/DO/DOUGM/ExtUtils-Embed-#{
 relative_path "ExtUtils-Embed-#{version}"
 
 build do
-    command "#{install_dir}/embedded/bin/perl Makefile.PL INSTALL_BASE=#{install_dir}/embedded"
-    command "make"
-    command "make install"
+  env = with_standard_compiler_flags(with_embedded_path).merge(
+    "INSTALL_BASE" => "#{install_dir}/embedded",
+  )
+
+  command "#{install_dir}/embedded/bin/perl Makefile.PL", env: env
+
+  command "make", env: env
+  command "make install", env: env
 end

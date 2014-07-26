@@ -27,15 +27,17 @@ dependency "nokogiri"
 dependency "libffi"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   gem "install hashie" \
       " --version '~> 2.0.0'" \
-      " --no-ri --no-rdoc"
+      " --no-ri --no-rdoc", env: env
 
   gem "install varia_model" \
       " --version '0.3.2'" \
-      " --no-ri --no-rdoc"
+      " --no-ri --no-rdoc", env: env
 
   gem "install berkshelf" \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc"
+      " --no-ri --no-rdoc", env: env
 end

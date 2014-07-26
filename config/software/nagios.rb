@@ -27,7 +27,7 @@ source url: "http://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-#
 relative_path "nagios"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded/nagios" \
@@ -43,21 +43,21 @@ build do
           " --with-mail=/usr/bin/mail". env: env
 
   # Do some hacky shit
-  command "sed -i 's:for file in includes/rss/\\*;:for file in includes/rss/\\*.\\*;:g' ./html/Makefile"
-  command "sed -i 's:for file in includes/rss/extlib/\\*;:for file in includes/rss/extlib/\\*.\\*;:g' ./html/Makefile"
+  command "sed -i 's:for file in includes/rss/\\*;:for file in includes/rss/\\*.\\*;:g' ./html/Makefile", env: env
+  command "sed -i 's:for file in includes/rss/extlib/\\*;:for file in includes/rss/extlib/\\*.\\*;:g' ./html/Makefile", env: env
 
   # At build time, the users opscode-nagios-cmd and opscode-nagios do not exist.
   # Modify the makefile to replace those users with the current user.
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o $(whoami):g'\""
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o $(whoami):g'\""
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o $(whoami):g'\"", env: env
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o $(whoami):g'\"", env: env
 
-  command "sudo chown -R $(whoami) /var/opt/opscode/nagios"
+  command "sudo chown -R $(whoami) /var/opt/opscode/nagios", env: env
 
   # Build it
   command "make -j #{max_build_jobs} all", env: env
-  command "make install"
-  command "make install-config"
-  command "make install-exfoliation"
+  command "make install", env: env
+  command "make install-config", env: env
+  command "make install-exfoliation", env: env
 
   # Cleanup the install
   delete "#{install_dir}/embedded/nagios/etc/*"

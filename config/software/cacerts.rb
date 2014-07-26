@@ -20,18 +20,19 @@ name "cacerts"
 default_version "2014.07.15"
 
 version "2014.07.15" do
-  source :md5 => "fd48275847fa10a8007008379ee902f1"
+  source md5: "fd48275847fa10a8007008379ee902f1"
 end
 
 version "2014.04.22" do
-  source :md5 => "9f92a0d9f605e227ae068e605f4c86fa"
+  source md5: "9f92a0d9f605e227ae068e605f4c86fa"
 end
 
 version "2014.01.28" do
-  source :md5 => "5d108f8ab86afacc6663aafca8604dd3"
+  source md5: "5d108f8ab86afacc6663aafca8604dd3"
 end
 
-source :url => "http://curl.haxx.se/ca/cacert.pem"
+source url: "http://curl.haxx.se/ca/cacert.pem"
+
 relative_path "cacerts-#{version}"
 
 build do

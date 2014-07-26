@@ -31,7 +31,7 @@ source url: "https://github.com/git/git/archive/v#{version}.tar.gz",
        md5: "906f984f5c8913176547dc456608be16"
 
 build do
-  env = {
+  env = with_standard_compiler_flags(with_embedded_path).merge(
     "NO_GETTEXT"         => "1",
     "NO_PYTHON"          => "1",
     "NO_TCLTK"           => "1",
@@ -45,8 +45,7 @@ build do
     "EXPATDIR"   => "#{install_dir}/embedded",
     "CURLDIR"    => "#{install_dir}/embedded",
     "LIBPCREDIR" => "#{install_dir}/embedded",
-  }
-  env = with_standard_compiler_flags(env)
+  )
 
   command "make -j #{max_build_jobs} prefix=#{install_dir}/embedded", env: env
   command "make install prefix=#{install_dir}/embedded", env: env

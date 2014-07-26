@@ -25,7 +25,7 @@ source url: "https://fedorahosted.org/releases/l/o/logrotate/logrotate-#{version
 relative_path "logrotate-#{version}"
 
 build do
-  env = {
+  env = with_standard_compiler_flags(with_embedded_path).merge(
     # Patch allows this to be set manually
     "BASEDIR" => "#{install_dir}/embedded",
   )
@@ -35,13 +35,12 @@ build do
   env["EXTRA_LDFLAGS"] = env["LDFLAGS"]
   env["EXTRA_CFLAGS"]  = env["CFLAGS"]
 
-  patch source: "logrotate_basedir_override.patch",
-        plevel: 0
+  patch source: "logrotate_basedir_override.patch", plevel: 0
 
   command "make -j #{max_build_jobs}", env: env
 
   # Yes, this is horrible. Due to how the makefile is structured, we need to
   # specify PREFIX, *but not BASEDIR* in order to get this installed into
-  # +install_dir}/embedded/sbin+
+  # +"#{install_dir}/embedded/sbin"+
   command "make install", env: { "PREFIX" => "#{install_dir}/embedded" }
 end

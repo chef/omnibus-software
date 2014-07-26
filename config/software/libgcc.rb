@@ -30,19 +30,18 @@ name "libgcc"
 description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
 default_version "0.0.1"
 
-libgcc_file =
-  case Ohai['platform']
-  when "solaris2"
-    "/opt/csw/lib/libgcc_s.so.1"
-  when "aix"
-    "/opt/freeware/lib/pthread/ppc64/libgcc_s.a"
-  when "freebsd"
-    "/lib/libgcc_s.so.1"
-  else
-    nil
-  end
-
 build do
+  libgcc_file = case Ohai['platform']
+                when "solaris2"
+                  "/opt/csw/lib/libgcc_s.so.1"
+                when "aix"
+                  "/opt/freeware/lib/pthread/ppc64/libgcc_s.a"
+                when "freebsd"
+                  "/lib/libgcc_s.so.1"
+                else
+                  nil
+                end
+
   if libgcc_file
     if File.exist?(libgcc_file)
       copy libgcc_file, "#{install_dir}/embedded/lib/"

@@ -26,8 +26,10 @@ source git: "git://github.com/opscode/omnibus-ctl.git"
 relative_path "omnibus-ctl"
 
 build do
-  gem "build omnibus-ctl.gemspec"
-  gem "install omnibus-ctl-#{version}.gem"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  gem "build omnibus-ctl.gemspec", env: env
+  gem "install omnibus-ctl-#{version}.gem", env: env
 
   touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end

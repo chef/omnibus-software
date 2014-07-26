@@ -31,10 +31,10 @@ else
 end
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   # Tell nokogiri to use the system libraries instead of compiling its own
-  env.merge("NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true")
+  env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 
   gem "install nokogiri" \
        " --version '#{version}'" \

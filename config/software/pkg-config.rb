@@ -42,9 +42,11 @@ build do
   # Only allows GLIB_CFLAGS and GLIB_LIBS.
   # These do not serve our purpose, so we must explicitly
   # ./configure in the glib dir, with the Omnibus ldflags.
-  command  "./configure" \
-           " --prefix=#{install_dir}/embedded" \
-           " --with-libiconv=gnu", env: env, cwd: "#{project_dir}/glib"
+  Dir.chdir("#{project_dir}/glib") do
+    command  "./configure" \
+             " --prefix=#{install_dir}/embedded" \
+             " --with-libiconv=gnu", env: env
+  end
 
   command "make -j #{max_build_jobs}", env: env
   command "make -j #{max_build_jobs} install", env: env

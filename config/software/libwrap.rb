@@ -40,11 +40,16 @@ relative_path "tcp_wrappers_7.6"
 #
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path).merge(
+    "DESTDIR" => "#{install_dir}/embedded",
+    "STYLE"   => "-DPROCESS_OPTIONS",
+  )
+
   patch source: "tcp_wrappers-7.6-shared_lib_plus_plus-1.patch"
   patch source: "tcp_wrappers-7.6-malloc-fix.patch"
   patch source: "tcp_wrappers-7.6-makefile-dest-fix.patch"
 
-  command "make STYLE=-DPROCESS_OPTIONS linux"
-  command "make DESTDIR=#{install_dir}/embedded install-lib"
-  command "make DESTDIR=#{install_dir}/embedded install-dev"
+  command "make linux", env: env
+  command "make install-lib", env: env
+  command "make install-dev", env: env
 end

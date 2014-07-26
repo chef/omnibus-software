@@ -23,10 +23,11 @@ source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
 relative_path "autoconf-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
-  command "make -j #{max_build_jobs}"
-  command "make install"
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

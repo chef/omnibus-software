@@ -33,7 +33,7 @@ source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
 relative_path "libedit-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
@@ -45,5 +45,5 @@ build do
           " --prefix=#{install_dir}/embedded", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make -j #{max_build_jobs} install"
+  command "make -j #{max_build_jobs} install", env: env
 end

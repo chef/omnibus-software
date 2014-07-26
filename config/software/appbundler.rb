@@ -20,7 +20,9 @@ default_version "0.2.0"
 dependency "bundler"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   gem "install appbundler" \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc"
+      " --no-ri --no-rdoc", env: env
 end

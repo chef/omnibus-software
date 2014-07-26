@@ -22,8 +22,10 @@ dependency "rubygems"
 relative_path "yajl-ruby"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   gem "install yajl-ruby" \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/bin'" \
-      " --no-ri --no-rdoc"
+      " --no-ri --no-rdoc", env: env
 end

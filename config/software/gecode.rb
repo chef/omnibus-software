@@ -30,12 +30,16 @@ source url: "http://www.gecode.org/download/gecode-#{version}.tar.gz"
 relative_path "gecode-#{version}"
 
 build do
-  env = if File.exist?('/usr/bin/gcc44')
-          { 'CC' => 'gcc44', 'CXX' => 'g++44' }
-        else
-          {}
-        end
-  env = with_standard_compiler_flags(env)
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  # On some RHEL-based systems, the default GCC that's installed is 4.1. We
+  # need to use 4.4, which is provided by the gcc44 and gcc44-c++ packages.
+  # These do not use the gcc binaries so we set the flags to point to the
+  # correct version here.
+  if File.exist?("/usr/bin/gcc44")
+    env["CC"]  = "gcc44"
+    env["CXX"] = "g++44"
+  end
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
@@ -48,5 +52,5 @@ build do
           " --disable-examples", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

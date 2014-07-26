@@ -32,7 +32,11 @@ source url: "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 relative_path "node-v#{version}"
 
 build do
-  command "#{install_dir}/embedded/bin/python ./configure --prefix=#{install_dir}/embedded"
-  command "make -j #{max_build_jobs}"
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "#{install_dir}/embedded/bin/python ./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

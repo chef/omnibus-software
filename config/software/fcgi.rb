@@ -34,7 +34,7 @@ build do
 24a25
 > #include <cstdio>
 D
-  command "echo '#{diff}' | patch libfcgi/fcgio.cpp"
+  command "echo '#{diff}' | patch libfcgi/fcgio.cpp", env: env
 
   touch "COPYING"
   touch "ChangeLog"
@@ -49,5 +49,5 @@ D
   command "./configure --prefix=#{install_dir}/embedded", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

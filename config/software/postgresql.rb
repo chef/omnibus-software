@@ -39,7 +39,7 @@ source url: "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{versi
 relative_path "postgresql-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
@@ -48,5 +48,5 @@ build do
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

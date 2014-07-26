@@ -48,5 +48,5 @@ build do
           " --with-fpm-group=opscode", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

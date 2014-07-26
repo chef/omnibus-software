@@ -23,7 +23,7 @@ source url: "http://rpm5.org/files/popt/popt-#{version}.tar.gz",
 relative_path "popt-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   # --disable-nls => Disable localization support.
   command "./configure" \
@@ -31,5 +31,5 @@ build do
           " --disable-nls", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

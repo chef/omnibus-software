@@ -43,11 +43,11 @@ relative_path "ncurses-5.9"
 build do
   env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
 
+  # gcc4 from opencsw fails to compile ncurses
   if Ohai["platform"] == "solaris2"
-    # gcc4 from opencsw fails to compile ncurses
-    env.merge!("PATH" => "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin")
-    env.merge!("CC"   => "/opt/csw/gcc3/bin/gcc")
-    env.merge!("CXX"  => "/opt/csw/gcc3/bin/g++")
+    env["PATH"] = "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"
+    env["CC"]   = "/opt/csw/gcc3/bin/gcc"
+    env["CXX"]  = "/opt/csw/gcc3/bin/g++"
   end
 
   if Ohai["platform"] == "smartos"
@@ -104,7 +104,7 @@ build do
   command "make -j #{max_build_jobs} install", env: env
 
   # Build non-wide-character libraries
-  command "make distclean"
+  command "make distclean", env: env
 
   cmd = [
     "./configure",

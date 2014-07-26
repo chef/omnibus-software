@@ -31,7 +31,7 @@ end
 dependency "nokogiri"
 
 build do
-  env = with_embedded_path
+  env = with_standard_compiler_flags(with_embedded_path)
 
   bundle "install --without guard", env: env
   bundle "exec rake build", env: env

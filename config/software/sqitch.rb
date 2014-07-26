@@ -27,7 +27,7 @@ relative_path "App-Sqitch-#{version}"
 
 # See https://github.com/theory/sqitch for more
 build do
-  env = with_embedded_path
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "perl Build.PL", env: env
   command "./Build installdeps --cpan_client 'cpanm -v --notest'", env: env

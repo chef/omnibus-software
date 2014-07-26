@@ -32,12 +32,12 @@ end
 relative_path "libpng-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --with-zlib-prefix=#{install_dir}/embedded", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

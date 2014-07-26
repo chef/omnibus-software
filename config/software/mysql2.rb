@@ -35,15 +35,19 @@ dependency "ruby"
 dependency "bundler"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   gem "install rake-compiler" \
       " --version '0.8.3'" \
-      " --no-ri --no-rdoc"
+      " --no-ri --no-rdoc", env: env
 
   mkdir cache_path
 
   versions_to_install.each do |version|
-    gem "fetch mysql2" \
-        " --version '#{version}'" \
-        " --no-ri --no-rdoc", cwd: cache_path
+    Dir.chdir(cache_path) do
+      gem "fetch mysql2" \
+          " --version '#{version}'" \
+          " --no-ri --no-rdoc", env: env
+    end
   end
 end

@@ -32,7 +32,7 @@ else
 end
 
 build do
-  env = with_embedded_path
+  env = with_standard_compiler_flags(with_embedded_path)
 
   bundle "install", env: env
 

@@ -22,8 +22,10 @@ dependency "rubygems"
 dependency "libffi"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   gem "install chef" \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
-      " --no-ri --no-rdoc"
+      " --no-ri --no-rdoc", env: env
 end

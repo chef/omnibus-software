@@ -39,5 +39,5 @@ end
 relative_path "jre1.7.0_03"
 
 build do
-  sync ".", "#{install_dir}/embedded/jre"
+  sync "#{project_dir}/", "#{install_dir}/embedded/jre"
 end

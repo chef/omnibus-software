@@ -32,6 +32,8 @@ source url: "http://packages.openknapsack.org/openssl/openssl-#{version}-x86-win
        md5: "1836409f45d3045243bb2653ad263f11"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   # Make sure the OpenSSL version is suitable for our path:
   # OpenSSL version is something like
   # OpenSSL 1.0.0k 5 Feb 2013
@@ -43,13 +45,12 @@ build do
   mkdir tmpdir
 
   # First extract the tar file out of lzma archive.
-  command "7z.exe x #{project_file} -o#{tmpdir} -r -y"
+  command "7z.exe x #{project_file} -o#{tmpdir} -r -y", env: env
 
   # Now extract the files out of tar archive.
-  command "7z.exe x #{File.join(tmpdir, "openssl-#{version}-x86-windows.tar")} -o#{tmpdir} -r -y"
+  command "7z.exe x #{File.join(tmpdir, "openssl-#{version}-x86-windows.tar")} -o#{tmpdir} -r -y", env: env
 
   # Copy over the required dlls into embedded/bin
-  %w(libeay32.dll ssleay32.dll).each do |dll|
-    copy "#{tmpdir}/bin/#{dll}", "#{install_dir}/embedded/bin/#{dll}"
-  end
+  copy "#{tmpdir}/bin/libeay32.dll", "#{install_dir}/embedded/bin/"
+  copy "#{tmpdir}/bin/ssleay32.dll", "#{install_dir}/embedded/bin/"
 end

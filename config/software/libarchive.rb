@@ -26,7 +26,7 @@ source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
 relative_path "libarchive-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \

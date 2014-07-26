@@ -34,7 +34,7 @@ source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
 relative_path "libxml2-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \

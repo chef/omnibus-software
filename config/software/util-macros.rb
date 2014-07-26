@@ -23,7 +23,7 @@ source url: "http://xorg.freedesktop.org/releases/individual/util/util-macros-#{
 relative_path "util-macros-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env

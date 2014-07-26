@@ -25,10 +25,12 @@ source url: "http://rsync.samba.org/ftp/rsync/src/rsync-#{version}.tar.gz",
 relative_path "rsync-#{version}"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --disable-iconv", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

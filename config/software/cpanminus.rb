@@ -25,7 +25,7 @@ source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz",
 relative_path "cpanminus-#{version}"
 
 build do
-  env = with_embedded_path
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "cat cpanm | perl - App::cpanminus", env: env
 end

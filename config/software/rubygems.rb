@@ -36,5 +36,7 @@ source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
 relative_path "rubygems-#{version}"
 
 build do
-  ruby "setup.rb"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  ruby "setup.rb", env: env
 end

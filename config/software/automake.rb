@@ -30,6 +30,7 @@ build do
   command "./bootstrap", env: env
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
-  command "make -j #{max_build_jobs}"
-  command "make install"
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

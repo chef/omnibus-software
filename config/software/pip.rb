@@ -25,5 +25,8 @@ source url: "https://pypi.python.org/packages/source/p/pip/pip-#{version}.tar.gz
 relative_path "pip-#{version}"
 
 build do
-  command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "#{install_dir}/embedded/bin/python setup.py install" \
+          " --prefix=#{install_dir}/embedded", env: env
 end

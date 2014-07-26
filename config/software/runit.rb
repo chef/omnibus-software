@@ -24,19 +24,20 @@ relative_path "admin/runit-#{version}/src"
 
 build do
   working_dir = "#{project_dir}/runit-#{version}"
+  env = with_standard_compiler_flags(with_embedded_path)
 
   Dir.chdir(working_dir) do
     # Put runit where we want it, not where they tell us to
-    command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"' + install_dir.gsub("/", "\\/") + '\/service\/\";/" src/sv.c'
+    command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"' + install_dir.gsub("/", "\\/") + '\/service\/\";/" src/sv.c', env: env
 
     # TODO: the following is not idempotent
-    command "sed -i -e s:-static:: src/Makefile"
+    command "sed -i -e s:-static:: src/Makefile", env: env
   end
 
   # Build it
   Dir.chdir("#{working_dir}/src") do
-    command "make"
-    command "make check"
+    command "make", env: env
+    command "make check", env: env
   end
 
   # Move it

@@ -23,11 +23,11 @@ source url: "http://downloads.sourceforge.net/project/expat/expat/2.1.0/expat-2.
        md5: "dd7dab7a5fea97d2a6a43f511449b7cd"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "make install"
+  command "make install", env: env
 end

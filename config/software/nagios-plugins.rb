@@ -29,7 +29,7 @@ source url: "http://downloads.sourceforge.net/project/nagiosplug/nagiosplug/1.4.
 relative_path "nagios-plugins-#{version}"
 
 build do
-  env = with_standard_compiler_flags
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded/nagios" \
@@ -39,7 +39,7 @@ build do
           " --with-libiconv-prefix=#{install_dir}/embedded", env: env
 
   command "make -j #{max_build_jobs}", env: env
-  command "sudo make install"
+  command "make install", env: env
 
   # NOTE: cargo culted from commit 0e6eb2d4a7978c5683a3e15c956c0c2b78f3d904
   #
