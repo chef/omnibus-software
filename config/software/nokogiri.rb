@@ -17,7 +17,7 @@
 name "nokogiri"
 default_version "1.6.2.1"
 
-if Ohai['platform'] == 'windows'
+if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else
@@ -30,26 +30,20 @@ else
   dependency "zlib"
 end
 
-# nokogiri uses pkg-config, and on a mac that will find the system pkg-config
-# which will find the system pkg-configs which will pull in libicucore from the
-# libxml2 pkg-config spec.  override pkg-configs path here to point into our
-# /opt/chef/embedded pkg-configs.  this should probably be done more generally,
-# in core ominbus-ruby.
-env = {
-  "PKG_CONFIG_PATH" => "#{install_dir}/embedded/lib/pkgconfig",
-  "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true",
-}
-
 build do
-  gem ["install",
-       "nokogiri",
-       "-v #{version}",
-       "--",
-       "--use-system-libraries",
-       "--with-xml2-lib=#{install_dir}/embedded/lib",
-       "--with-xml2-include=#{install_dir}/embedded/include/libxml2",
-       "--with-xslt-lib=#{install_dir}/embedded/lib",
-       "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
-       "--with-iconv-dir=#{install_dir}/embedded",
-       "--with-zlib-dir=#{install_dir}/embedded"].join(" "), :env => env
+  env = with_standard_compiler_flags
+
+  # Tell nokogiri to use the system libraries instead of compiling its own
+  env.merge("NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true")
+
+  gem "install nokogiri" \
+       " --version '#{version}'" \
+       " --" \
+       " --use-system-libraries" \
+       " --with-xml2-lib=#{install_dir}/embedded/lib" \
+       " --with-xml2-include=#{install_dir}/embedded/include/libxml2" \
+       " --with-xslt-lib=#{install_dir}/embedded/lib" \
+       " --with-xslt-include=#{install_dir}/embedded/include/libxslt" \
+       " --with-iconv-dir=#{install_dir}/embedded" \
+       " --with-zlib-dir=#{install_dir}/embedded", env: env
 end
