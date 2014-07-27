@@ -48,7 +48,7 @@ build do
         " --no-ri --no-rdoc", env: env
   else
     gem "install pkg/ohai*.gem" \
-        " --bindir '#{install_dir}/bin'"
+        " --bindir '#{install_dir}/bin'" \
         " --no-ri --no-rdoc", env: env
   end
 end

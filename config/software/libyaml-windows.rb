@@ -35,7 +35,6 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   tmpdir = File.join(Config.cache_dir, "libyaml-cache")
-  project_file = software.fetcher.downloaded_file
 
   # Ensure the directory exists
   mkdir tmpdir

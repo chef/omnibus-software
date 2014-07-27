@@ -14,6 +14,43 @@
 # limitations under the License.
 #
 
+require 'pathname'
+
 module OmnibusSoftware
   VERSION = '4.0.0'
+
+  class << self
+    #
+    # The root where Omnibus Software lives.
+    #
+    # @return [Pathname]
+    #
+    def root
+      @root ||= Pathname.new(File.expand_path('../../', __FILE__))
+    end
+
+    #
+    # Verify the given software definitions, iterating over each software and
+    # loading it. This is probably the most primitive test ever - just load the
+    # DSL files - but it is the best thing we have for CI in omnibus-software.
+    #
+    # @return [void]
+    #
+    def verify!
+      require 'omnibus'
+      Omnibus::Config.local_software_dirs(OmnibusSoftware.root)
+
+      project = Omnibus::Project.new.evaluate do
+        name 'project.sample'
+        install_dir 'tmp/project.sample'
+      end
+
+      root = OmnibusSoftware.root.join('config/software')
+      Dir.glob("#{root}/*.rb").each do |filepath|
+        name = File.basename(filepath, '.rb')
+        Omnibus::Software.load(project, name)
+        $stdout.print '.'
+      end
+    end
+  end
 end

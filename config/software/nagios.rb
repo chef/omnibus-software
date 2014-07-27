@@ -40,7 +40,7 @@ build do
           " --with-temp-dir=/var#{install_dir}/nagios/tmp" \
           " --with-lockfile=/var#{install_dir}/nagios/lock" \
           " --with-checkresult-dir=/var#{install_dir}/nagios/checkresult" \
-          " --with-mail=/usr/bin/mail". env: env
+          " --with-mail=/usr/bin/mail", env: env
 
   # Do some hacky shit
   command "sed -i 's:for file in includes/rss/\\*;:for file in includes/rss/\\*.\\*;:g' ./html/Makefile", env: env

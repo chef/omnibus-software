@@ -39,6 +39,6 @@ build do
 
   delete "pkg/*java*"
 
-  gem "install pkg/ffi-yajl-*.gem", \
+  gem "install pkg/ffi-yajl-*.gem" \
       " --no-ri --no-rdoc", env: env
 end

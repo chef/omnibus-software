@@ -25,6 +25,8 @@ source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  embedded_dir = "#{install_dir}/embedded"
+
   command "DevKit-tdm-32-#{version}-sfx.exe -y -o#{windows_safe_path(embedded_dir)}", env: env
 
   command "echo - #{install_dir}/embedded > config.yml", cwd: embedded_dir
