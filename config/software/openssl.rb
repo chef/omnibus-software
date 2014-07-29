@@ -105,7 +105,7 @@ build do
                         "-static-libgcc"].join(" ")
                       when "solaris2"
                         if Config.solaris_compiler == "gcc"
-                          if architecture == "sparc"
+                          if Ohai["kernel"]["machine"] =~ /sun/
                             ["/bin/sh ./Configure",
                              "solaris-sparcv9-gcc",
                              common_args,
