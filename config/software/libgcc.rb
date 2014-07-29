@@ -21,10 +21,12 @@
 #       fuss around with the dynamic linking business here.
 #
 
-Omnibus.logger.deprecated('libgcc') do
-  "Please do not use the libgcc dependency, it will be removed in the " \
-  "future. Compile with `--static-libgcc' instead!"
-end
+# # Uncomment the following code to throw a warning when someone depends on this
+# # software definition.
+# Omnibus.logger.deprecated('libgcc') do
+#   "Please do not use the libgcc dependency, it will be removed in the " \
+#   "future. Compile with `--static-libgcc' instead!"
+# end
 
 name "libgcc"
 description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
