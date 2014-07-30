@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "omnibus-software/version"
+require "omnibus-software"
 
 Gem::Specification.new do |s|
   s.name        = "omnibus-software"
