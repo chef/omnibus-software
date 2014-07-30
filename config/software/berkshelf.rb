@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +17,7 @@
 name "berkshelf"
 default_version "master"
 
-source :git => "git://github.com/berkshelf/berkshelf"
+source git: "git://github.com/berkshelf/berkshelf"
 
 relative_path "berkshelf"
 
@@ -36,11 +35,15 @@ dependency "nokogiri"
 dependency "bundler"
 dependency "dep-selector-libgecode"
 
-env = with_embedded_path()
-
 build do
-  bundle "install --without guard", :env => env
-  bundle "exec thor gem:build", :env => env
-  gem ["install pkg/berkshelf-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  bundle "install" \
+         " --jobs #{max_build_jobs}" \
+         " --without guard", env: env
+
+  bundle "exec thor gem:build", env: env
+
+  gem "install pkg/berkshelf-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end

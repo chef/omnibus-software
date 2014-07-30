@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,23 +17,15 @@
 name "icu"
 default_version "4.8.1.1"
 
-source :url => "http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.tgz",
-:md5 => "ea93970a0275be6b42f56953cd332c17"
+source url: "http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.tgz",
+       md5: "ea93970a0275be6b42f56953cd332c17"
 
-relative_path "icu"
-
-working_dir = "#{project_dir}/source"
+relative_path "icu/source"
 
 build do
-  command("./configure --prefix=#{install_dir}/embedded",
-          :env => {
-            "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-          },
-          :cwd => working_dir)
-  command("make -j #{max_build_jobs}",
-          :env => {
-            "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-          },
-          :cwd => working_dir)
-  command "make install", :cwd => working_dir
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure --prefix=#{install_dir}/embedded", env: env
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

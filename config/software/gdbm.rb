@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,37 +19,25 @@ default_version "1.9.1"
 
 dependency "libgcc"
 
-source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
-       :md5 => "59f6e4c4193cb875964ffbe8aa384b58"
+source url: "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
+       md5: "59f6e4c4193cb875964ffbe8aa384b58"
 
 relative_path "gdbm-1.9.1"
 
 build do
-  env = case Ohai['platform']
-  when "solaris2"
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -R#{install_dir}/embedded/lib",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
-    }
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  if freebsd?
+    command "./configure" \
+            " --enable-libgdbm-compat" \
+            " --with-pic" \
+            " --prefix=#{install_dir}/embedded", env: env
   else
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-    }
+    command "./configure" \
+            " --enable-libgdbm-compat" \
+            " --prefix=#{install_dir}/embedded", env: env
   end
 
-  configure_command = ["./configure",
-                       "--enable-libgdbm-compat",
-                       "--prefix=#{install_dir}/embedded"]
-
-  if Ohai['platform'] == "freebsd"
-    configure_command << "--with-pic"
-  end
-
-  command configure_command.join(" "), :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make install", :env => env
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

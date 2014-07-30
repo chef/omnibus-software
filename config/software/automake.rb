@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,20 +19,18 @@ default_version "1.11.2"
 
 dependency "autoconf"
 
-source :url => "http://ftp.gnu.org/gnu/automake/automake-1.11.2.tar.gz",
-       :md5 => "79ad64a9f6e83ea98d6964cef8d8a0bc"
+source url: "http://ftp.gnu.org/gnu/automake/automake-#{version}.tar.gz",
+       md5: "79ad64a9f6e83ea98d6964cef8d8a0bc"
 
-relative_path "automake-1.11.2"
-
-configure_env = {
-  "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
-}
+relative_path "automake-#{version}"
 
 build do
-  command "./bootstrap", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{max_build_jobs}"
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./bootstrap", env: env
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

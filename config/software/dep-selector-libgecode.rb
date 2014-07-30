@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,18 +19,19 @@ default_version "1.0.2"
 
 dependency "bundler"
 
-# On some RHEL-based systems, the default GCC that's installed is 4.1. We need
-# to use 4.4, which is provided by the gcc44 and gcc44-c++ packages. These do
-# not use the gcc binaries so we set the flags to point to the correct version
-# here.
-env = if File.exist?('/usr/bin/gcc44')
-        { 'CC' => 'gcc44', 'CXX' => 'g++44' }
-      else
-        {}
-      end
-env = with_embedded_path(env)
-
 build do
-  gem "install dep-selector-libgecode --no-rdoc --no-ri -v '#{version}'",
-      env: env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  # On some RHEL-based systems, the default GCC that's installed is 4.1. We
+  # need to use 4.4, which is provided by the gcc44 and gcc44-c++ packages.
+  # These do not use the gcc binaries so we set the flags to point to the
+  # correct version here.
+  if File.exist?("/usr/bin/gcc44")
+    env["CC"]  = "gcc44"
+    env["CXX"] = "g++44"
+  end
+
+  gem "install dep-selector-libgecode" \
+      " --version '#{version}'" \
+      " --no-ri --no-rdoc", env: env
 end

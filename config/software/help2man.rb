@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,13 +17,16 @@
 name "help2man"
 default_version "1.40.5"
 
-source :url => "http://ftp.gnu.org/gnu/help2man/help2man-1.40.5.tar.gz",
-       :md5 => "75a7d2f93765cd367aab98986a75f88c"
+source url: "http://ftp.gnu.org/gnu/help2man/help2man-1.40.5.tar.gz",
+       md5: "75a7d2f93765cd367aab98986a75f88c"
 
 relative_path "help2man-1.40.5"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded"
-  command "make"
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure --prefix=#{install_dir}/embedded", env: env
+
+  command "make", env: env
+  command "make install", env: env
 end

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2013-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2013-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,11 +19,14 @@ default_version "1.3"
 
 dependency "setuptools"
 
-source :url => "https://pypi.python.org/packages/source/p/pip/pip-#{version}.tar.gz",
-       :md5 => '918559b784e2aca9559d498050bb86e7'
+source url: "https://pypi.python.org/packages/source/p/pip/pip-#{version}.tar.gz",
+       md5: '918559b784e2aca9559d498050bb86e7'
 
 relative_path "pip-#{version}"
 
 build do
-  command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "#{install_dir}/embedded/bin/python setup.py install" \
+          " --prefix=#{install_dir}/embedded", env: env
 end

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,22 +14,23 @@
 # limitations under the License.
 #
 
-name 'libossp-uuid'
-default_version '1.6.2'
+name "libossp-uuid"
+default_version "1.6.2"
 
-version '1.6.2' do
-  source md5: '5db0d43a9022a6ebbbc25337ae28942f'
+version "1.6.2" do
+  source md5: "5db0d43a9022a6ebbbc25337ae28942f"
 end
 
 source url: "ftp://ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
 
 relative_path "uuid-#{version}"
 
-env = with_embedded_path()
-env = with_standard_compiler_flags(env)
-
 build do
-  command "./configure --prefix=#{install_dir}/embedded", env: env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
+
   command "make -j #{max_build_jobs}", env: env
   command "make install", env: env
 end

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +14,9 @@
 # limitations under the License.
 #
 
-Omnibus.logger.deprecated('berkshelf2') { 'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.' }
+Omnibus.logger.deprecated('berkshelf2') do
+  'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.'
+end
 
 name "berkshelf2"
 default_version "2.0.18"
@@ -26,7 +27,17 @@ dependency "nokogiri"
 dependency "libffi"
 
 build do
-  gem 'install hashie --no-rdoc --no-ri -v \'~> 2.0.0\''
-  gem 'install varia_model --no-rdoc --no-ri -v 0.3.2'
-  gem "install berkshelf --no-rdoc --no-ri -v #{version}"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  gem "install hashie" \
+      " --version '~> 2.0.0'" \
+      " --no-ri --no-rdoc", env: env
+
+  gem "install varia_model" \
+      " --version '0.3.2'" \
+      " --no-ri --no-rdoc", env: env
+
+  gem "install berkshelf" \
+      " --version '#{version}'" \
+      " --no-ri --no-rdoc", env: env
 end

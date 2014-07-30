@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +17,8 @@
 name "libwrap"
 default_version "7.6"
 
-source :url => "ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.tar.gz",
-       :md5 => "e6fa25f71226d090f34de3f6b122fb5a"
+source url: "ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.tar.gz",
+       md5: "e6fa25f71226d090f34de3f6b122fb5a"
 
 relative_path "tcp_wrappers_7.6"
 
@@ -41,10 +40,16 @@ relative_path "tcp_wrappers_7.6"
 #
 
 build do
-  patch :source => "tcp_wrappers-7.6-shared_lib_plus_plus-1.patch"
-  patch :source => "tcp_wrappers-7.6-malloc-fix.patch"
-  patch :source => "tcp_wrappers-7.6-makefile-dest-fix.patch"
-  command "make STYLE=-DPROCESS_OPTIONS linux"
-  command "make DESTDIR=#{install_dir}/embedded install-lib"
-  command "make DESTDIR=#{install_dir}/embedded install-dev"
+  env = with_standard_compiler_flags(with_embedded_path).merge(
+    "DESTDIR" => "#{install_dir}/embedded",
+    "STYLE"   => "-DPROCESS_OPTIONS",
+  )
+
+  patch source: "tcp_wrappers-7.6-shared_lib_plus_plus-1.patch"
+  patch source: "tcp_wrappers-7.6-malloc-fix.patch"
+  patch source: "tcp_wrappers-7.6-makefile-dest-fix.patch"
+
+  command "make linux", env: env
+  command "make install-lib", env: env
+  command "make install-dev", env: env
 end

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,21 +20,16 @@ default_version "1.0.3"
 dependency "autoconf"
 dependency "fcgi"
 
-# TODO: deploy from the 1.0.3 tag / SHA
-source :git => "git://github.com/gnosek/fcgiwrap"
+source git: "git://github.com/gnosek/fcgiwrap"
 
 relative_path "fcgiwrap"
 
-env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
-}
-
 build do
-  command "autoreconf -i", :env => env
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "autoreconf -i", env: env
+  command "./configure --prefix=#{install_dir}/embedded", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

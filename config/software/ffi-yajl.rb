@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +18,7 @@ name "ffi-yajl"
 default_version "master"
 relative_path "ffi-yajl"
 
-source :git => "git://github.com/lamont-granquist/ffi-yajl"
+source git: "git://github.com/lamont-granquist/ffi-yajl"
 
 if windows?
   dependency "ruby-windows"
@@ -32,12 +31,14 @@ end
 
 dependency "bundler"
 
-env = with_embedded_path()
-
 build do
-  bundle "install --without development_extras", :env => env
-  bundle "exec rake gem", :env => env
-  command "rm -rf pkg/*java*", :env => env
-  gem ["install pkg/ffi-yajl-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  bundle "install --without development_extras", env: env
+  bundle "exec rake gem", env: env
+
+  delete "pkg/*java*"
+
+  gem "install pkg/ffi-yajl-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end

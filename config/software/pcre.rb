@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,22 +20,18 @@ default_version "8.31"
 dependency "libedit"
 dependency "ncurses"
 
-source :url => "http://iweb.dl.sourceforge.net/project/pcre/pcre/8.31/pcre-8.31.tar.gz",
-       :md5 => "fab1bb3b91a4c35398263a5c1e0858c1"
+source url: "http://iweb.dl.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz",
+       md5: "fab1bb3b91a4c35398263a5c1e0858c1"
 
-relative_path "pcre-8.31"
-
-configure_env = {
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-}
+relative_path "pcre-#{version}"
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--enable-pcretest-libedit"].join(" "), :env => configure_env
-  command("make -j #{max_build_jobs}",
-          :env => {
-            "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
-          })
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --enable-pcretest-libedit", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

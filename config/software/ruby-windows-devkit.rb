@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,11 +19,16 @@ default_version "4.5.2-20111229-1559"
 
 dependency "ruby-windows"
 
-source :url => "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe",
-       :md5 => "4bf8f2dd1d582c8733a67027583e19a6"
+source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe",
+       md5: "4bf8f2dd1d582c8733a67027583e19a6"
 
 build do
-  command "DevKit-tdm-32-#{version}-sfx.exe -y -o#{windows_safe_path(install_dir, 'embedded')}"
-  command "echo - #{install_dir}/embedded > config.yml", :cwd => "#{install_dir}/embedded"
-  ruby "dk.rb install", :cwd => "#{install_dir}/embedded"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  embedded_dir = "#{install_dir}/embedded"
+
+  command "DevKit-tdm-32-#{version}-sfx.exe -y -o#{windows_safe_path(embedded_dir)}", env: env
+
+  command "echo - #{install_dir}/embedded > config.yml", cwd: embedded_dir
+  ruby "dk.rb install", env: env, cwd: embedded_dir
 end

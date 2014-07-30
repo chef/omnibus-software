@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,8 +19,10 @@ default_version "4.2.0"
 
 dependency "rubygems"
 
-env = { "GEM_HOME" => nil, "GEM_PATH" => nil }
-
 build do
-  gem "install unicorn --no-rdoc --no-ri -v #{version}", :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  gem "install unicorn" \
+      " --version '#{version}'" \
+      " --no-ri --no-rdoc", env: env
 end

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,8 +36,7 @@ source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[
 
 relative_path "ruby-#{version}"
 
-env = with_embedded_path()
-env = with_standard_compiler_flags(env)
+env = with_standard_compiler_flags(with_embedded_path)
 
 case Ohai['platform']
 when "mac_os_x"
@@ -77,13 +75,13 @@ build do
 
   case Ohai['platform']
   when "aix"
-    patch :source => "ruby-aix-configure.patch", :plevel => 1
-    patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
+    patch source: "ruby-aix-configure.patch", plevel: 1
+    patch source: "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", plevel: 1
     # our openssl-1.0.1h links against zlib and mkmf tests will fail due to zlib symbols not being
     # found if we do not include -lz.  this later leads to openssl functions being detected as not
     # being available and then internally vendored versions that have signature mismatches are pulled in
     # and the compile explodes.  this problem may not be unique to AIX, but is severe on AIX.
-    patch :source => "ruby_aix_openssl.patch", :plevel => 1
+    patch source: "ruby_aix_openssl.patch", plevel: 1
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"
@@ -91,13 +89,13 @@ build do
   when "smartos"
     # Opscode patch - someara@opscode.com
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
-    patch :source => "ruby-openssl-1.0.1c.patch", :plevel => 1
+    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1
 
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
     # https://www.illumos.org/issues/1587
     # https://github.com/wayneeseguin/rvm/issues/719
-    patch :source => "rvm-cflags.patch", :plevel => 1
+    patch source: "rvm-cflags.patch", plevel: 1
 
     # From RVM forum
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
@@ -107,20 +105,13 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
-  # @todo expose bundle_bust() in the DSL
-  env.merge!({
-    "RUBYOPT"         => nil,
-    "BUNDLE_BIN_PATH" => nil,
-    "BUNDLE_GEMFILE"  => nil,
-    "GEM_PATH"        => nil,
-    "GEM_HOME"        => nil
-  })
-
   # @todo: move into omnibus
-  has_gmake = system("gmake --version")
+  has_gmake = env['PATH'].split(File::PATH_SEPARATOR).any? do |path|
+    File.executable?(File.join(path, 'gmake'))
+  end
 
   if has_gmake
-    env.merge!({'MAKE' => 'gmake'})
+    env.merge!('MAKE' => 'gmake')
     make_binary = 'gmake'
   else
     make_binary = 'make'
@@ -129,11 +120,9 @@ build do
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
-  env.merge!({
-    "PKG_CONFIG" => "/bin/true",
-  }) if Ohai['platform'] == "aix"
+  env.merge!("PKG_CONFIG" => "/bin/true") if Ohai['platform'] == "aix"
 
-  command configure_command.join(" "), :env => env
-  command "#{make_binary} -j #{max_build_jobs}", :env => env
-  command "#{make_binary} -j #{max_build_jobs} install", :env => env
+  command configure_command.join(" "), env: env
+  command "#{make_binary} -j #{max_build_jobs}", env: env
+  command "#{make_binary} -j #{max_build_jobs} install", env: env
 end

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012 Opscode, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,6 +32,8 @@ source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-m
 build do
   # Robocopy's return code is 1 if it succesfully copies over the
   # files and 0 if the files are already existing at the destination
+  #
+  # TODO: Move this to the "copy" DSL method
   command "robocopy . #{windows_safe_path(install_dir)}\\embedded\\ /MIR", :returns => [0, 1]
 
   # Ruby 2.X dl.rb gives an annoying warning message on Windows:

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,17 +23,12 @@ source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
 relative_path "xz-#{version}"
 
 build do
-  cmd = [ "./configure",
-          "--prefix=#{install_dir}/embedded",
-          "--disable-debug",
-          "--disable-dependency-tracking"].join(" ")
+  env = with_standard_compiler_flags(with_embedded_path)
 
-  env = {
-    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-  }
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-debug" \
+          " --disable-dependency-tracking", env: env
 
-  command cmd, :env => env
-  command "make install", :env => env
+  command "make install", env: env
 end

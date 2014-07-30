@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +18,7 @@ name "test-kitchen"
 default_version "master"
 relative_path "test-kitchen"
 
-source :git => "git://github.com/test-kitchen/test-kitchen"
+source git: "git://github.com/test-kitchen/test-kitchen"
 
 if windows?
   dependency "ruby-windows"
@@ -31,11 +30,12 @@ end
 
 dependency "nokogiri"
 
-env = with_embedded_path()
-
 build do
-  bundle "install --without guard", :env => env
-  bundle "exec rake build", :env => env
-  gem ["install pkg/test-kitchen-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  bundle "install --without guard", env: env
+  bundle "exec rake build", env: env
+
+  gem "install pkg/test-kitchen-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end

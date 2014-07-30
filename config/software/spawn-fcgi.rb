@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,20 +20,17 @@ default_version "1.6.3"
 dependency "fcgi"
 dependency "fcgiwrap"
 
-source :url => "http://www.lighttpd.net/download/spawn-fcgi-1.6.3.tar.gz",
-       :md5 => "6d75f9e9435056fa1e574d836d823cd0"
+source url: "http://www.lighttpd.net/download/spawn-fcgi-#{version}.tar.gz",
+       md5: "6d75f9e9435056fa1e574d836d823cd0"
 
-relative_path "spawn-fcgi-1.6.3"
-
-configure_env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
-}
+relative_path "spawn-fcgi-#{version}"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

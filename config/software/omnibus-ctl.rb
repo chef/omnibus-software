@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,14 +21,16 @@ dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 
-source :git => "git://github.com/opscode/omnibus-ctl.git"
+source git: "git://github.com/opscode/omnibus-ctl.git"
 
 relative_path "omnibus-ctl"
 
 build do
-  gem "build omnibus-ctl.gemspec"
-  gem "install omnibus-ctl-#{version}.gem"
-  command "mkdir -p #{install_dir}/embedded/service/omnibus-ctl"
-  command "touch #{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  gem "build omnibus-ctl.gemspec", env: env
+  gem "install omnibus-ctl-#{version}.gem", env: env
+
+  touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
 

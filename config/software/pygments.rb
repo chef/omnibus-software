@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2013-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2013-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,5 +20,9 @@ default_version "1.6"
 dependency "pip"
 
 build do
-  command "#{install_dir}/embedded/bin/pip install -I --build #{project_dir} #{name}==#{version}"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "#{install_dir}/embedded/bin/pip install" \
+          " -I" \
+          " --build #{project_dir} #{name}==#{version}", env: env
 end

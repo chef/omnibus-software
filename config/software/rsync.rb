@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,29 +19,18 @@ default_version "3.0.9"
 
 dependency "popt"
 
-source :url => "http://rsync.samba.org/ftp/rsync/src/rsync-3.0.9.tar.gz",
-       :md5 => "5ee72266fe2c1822333c407e1761b92b"
+source url: "http://rsync.samba.org/ftp/rsync/src/rsync-#{version}.tar.gz",
+       md5: "5ee72266fe2c1822333c407e1761b92b"
 
-relative_path "rsync-3.0.9"
-
-env =
-  case Ohai['platform']
-  when "solaris2"
-      {
-        "LDFLAGS" => "-R #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-        "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-        "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-      }
-  else
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-    }
-  end
+relative_path "rsync-#{version}"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded --disable-iconv", :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-iconv", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,15 +21,13 @@ dependency "perl"
 dependency "cpanminus"
 dependency "postgresql"
 
-source :url => "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz",
-       :md5 => "547de1382a47d66872912fe64282ff55"
+source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz",
+       md5: "547de1382a47d66872912fe64282ff55"
 
 relative_path "DBD-Pg-#{version}"
 
-env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
-}
-
 build do
-  command "cpanm -v --notest .", :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "cpanm -v --notest .", env: env
 end

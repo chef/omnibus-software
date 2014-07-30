@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,52 +21,47 @@ dependency "gd"
 dependency "php"
 dependency "spawn-fcgi"
 
-source :url => "http://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-3.3.1/nagios-3.3.1.tar.gz",
-       :md5 => "c935354ce0d78a63bfabc3055fa77ad5"
+source url: "http://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-#{version}/nagios-#{version}.tar.gz",
+       md5: "c935354ce0d78a63bfabc3055fa77ad5"
 
 relative_path "nagios"
 
-env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-}
-
 build do
-  # configure it
-  command(["./configure",
-           "--prefix=#{install_dir}/embedded/nagios",
-           "--with-nagios-user=opscode-nagios",
-           "--with-nagios-group=opscode-nagios",
-           "--with-command-group=opscode-nagios-cmd",
-           "--with-command-user=opscode-nagios-cmd",
-           "--with-gd-lib=#{install_dir}/embedded/lib",
-           "--with-gd-inc=#{install_dir}/embedded/include",
-           "--with-temp-dir=/var#{install_dir}/nagios/tmp",
-           "--with-lockfile=/var#{install_dir}/nagios/lock",
-           "--with-checkresult-dir=/var#{install_dir}/nagios/checkresult",
-           "--with-mail=/usr/bin/mail"].join(" "),
-          :env => env)
+  env = with_standard_compiler_flags(with_embedded_path)
 
-  # so dome hacky shit
-  command "sed -i 's:for file in includes/rss/\\*;:for file in includes/rss/\\*.\\*;:g' ./html/Makefile"
-  command "sed -i 's:for file in includes/rss/extlib/\\*;:for file in includes/rss/extlib/\\*.\\*;:g' ./html/Makefile"
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded/nagios" \
+          " --with-nagios-user=opscode-nagios" \
+          " --with-nagios-group=opscode-nagios" \
+          " --with-command-group=opscode-nagios-cmd" \
+          " --with-command-user=opscode-nagios-cmd" \
+          " --with-gd-lib=#{install_dir}/embedded/lib" \
+          " --with-gd-inc=#{install_dir}/embedded/include" \
+          " --with-temp-dir=/var#{install_dir}/nagios/tmp" \
+          " --with-lockfile=/var#{install_dir}/nagios/lock" \
+          " --with-checkresult-dir=/var#{install_dir}/nagios/checkresult" \
+          " --with-mail=/usr/bin/mail", env: env
+
+  # Do some hacky shit
+  command "sed -i 's:for file in includes/rss/\\*;:for file in includes/rss/\\*.\\*;:g' ./html/Makefile", env: env
+  command "sed -i 's:for file in includes/rss/extlib/\\*;:for file in includes/rss/extlib/\\*.\\*;:g' ./html/Makefile", env: env
+
   # At build time, the users opscode-nagios-cmd and opscode-nagios do not exist.
   # Modify the makefile to replace those users with the current user.
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o $(whoami):g'\""
-  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o $(whoami):g'\""
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios-cmd -g opscode-nagios-cmd:-o $(whoami):g'\"", env: env
+  command "bash -c \"find . -name 'Makefile' | xargs sed -i 's:-o opscode-nagios -g opscode-nagios:-o $(whoami):g'\"", env: env
 
-  command "sudo chown -R $(whoami) /var/opt/opscode/nagios"
+  command "sudo chown -R $(whoami) /var/opt/opscode/nagios", env: env
 
-  # build it
-  command "make -j #{max_build_jobs} all", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
-  command "make install"
-  command "make install-config"
-  command "make install-exfoliation"
+  # Build it
+  command "make -j #{max_build_jobs} all", env: env
+  command "make install", env: env
+  command "make install-config", env: env
+  command "make install-exfoliation", env: env
 
-  # clean up the install
-  command "rm -rf #{install_dir}/embedded/nagios/etc/*"
-  
-  # ensure the etc directory is avaialable on rebuild from git cache
-  command "touch #{install_dir}/embedded/nagios/etc/.gitkeep"
+  # Cleanup the install
+  delete "#{install_dir}/embedded/nagios/etc/*"
+
+  # Ensure the etc directory is avaialable on rebuild from git cache
+  touch "#{install_dir}/embedded/nagios/etc/.gitkeep"
 end

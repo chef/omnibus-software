@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,18 +17,17 @@
 name "autoconf"
 default_version "2.68"
 
-source :url => "http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz",
-       :md5 => "c3b5247592ce694f7097873aa07d66fe"
+source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
+       md5: "c3b5247592ce694f7097873aa07d66fe"
 
-relative_path "autoconf-2.68"
-
-env = {
-  "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
-}
+relative_path "autoconf-#{version}"
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{max_build_jobs}"
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
+
+  command "make -j #{max_build_jobs}", env: env
+  command "make install", env: env
 end

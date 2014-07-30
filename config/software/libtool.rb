@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,16 +29,19 @@ source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 
 relative_path "libtool-#{version}"
 
-env = with_embedded_path()
-# AIX uses gcc/g++ instead of xlc/xlC
-env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
-
 build do
-  if Ohai['platform'] == "aix"
-    command "./configure --prefix=#{install_dir}/embedded --with-gcc", :env => env
+  # AIX uses gcc/g++ instead of xlc/xlC
+  env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
+
+  if Ohai["platform"] == "aix"
+    command "./configure" \
+            " --prefix=#{install_dir}/embedded" \
+            " --with-gcc", env: env
   else
-    command "./configure --prefix=#{install_dir}/embedded", :env => env
+    command "./configure" \
+            " --prefix=#{install_dir}/embedded", env: env
   end
-  command "make", :env => env
-  command "make install", :env => env
+
+  command "make", env: env
+  command "make install", env: env
 end

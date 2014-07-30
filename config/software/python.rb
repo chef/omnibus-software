@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2013-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2013-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,28 +23,28 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 
-source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-       :md5 => 'b4f01a1d0ba0b46b05c73b2ac909b1df'
+source url: "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
+       md5: 'b4f01a1d0ba0b46b05c73b2ac909b1df'
 
 relative_path "Python-#{version}"
 
-env = {
-  "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
-  "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
-}
-
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--enable-shared",
-           "--with-dbmliborder=gdbm"].join(" "), :env => env
-  command "make", :env => env
-  command "make install", :env => env
+  env = {
+    "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
+    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+  }
 
-  block do
-    # There exists no configure flag to tell Python to not compile readline support :(
-    FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"))
-    # Remove unused extension which is known to make health checks fail on CentOS 6.
-    FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"))
-  end
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --enable-shared" \
+          " --with-dbmliborder=gdbm", env: env
+
+  command "make", env: env
+  command "make install", env: env
+
+  # There exists no configure flag to tell Python to not compile readline
+  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"
+
+  # Remove unused extension which is known to make healthchecks fail on CentOS 6
+  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"
 end

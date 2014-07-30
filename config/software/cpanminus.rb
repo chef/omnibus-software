@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,15 +19,13 @@ default_version "1.7004"
 
 dependency "perl"
 
-source :url => "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz",
-       :md5 => "02fe90392f33a12979e188ea110dae67"
+source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz",
+       md5: "02fe90392f33a12979e188ea110dae67"
 
 relative_path "cpanminus-#{version}"
 
-env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
-}
-
 build do
-  command "cat cpanm | perl - App::cpanminus", :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "cat cpanm | perl - App::cpanminus", env: env
 end

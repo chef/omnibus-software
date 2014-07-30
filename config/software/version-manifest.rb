@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,11 +20,8 @@ default_version "0.0.1"
 
 build do
   block do
-    project_name = project.name
-    project_build_version = project.build_version
-
     File.open("#{install_dir}/version-manifest.txt", "w") do |f|
-      f.puts "#{project_name} #{project_build_version}"
+      f.puts "#{project.name} #{project.build_version}"
       f.puts ""
       f.puts Omnibus::Reports.pretty_version_map(project)
     end
