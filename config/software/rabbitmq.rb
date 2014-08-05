@@ -21,10 +21,17 @@ default_version "2.7.1"
 dependency "erlang"
 dependency "rsync"
 
-source :url => "http://www.rabbitmq.com/releases/rabbitmq-server/v2.7.1/rabbitmq-server-generic-unix-2.7.1.tar.gz",
-       :md5 => "34a5f9fb6f22e6681092443fcc80324f"
+version "2.7.1" do
+  source :md5 => "34a5f9fb6f22e6681092443fcc80324f"
+end
 
-relative_path "rabbitmq_server-2.7.1"
+version "3.3.4" do
+  source :md5 => "61a3822f3af0aaa30da7230dccb17067"
+end
+
+source :url => "http://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz"
+
+relative_path "rabbitmq_server-#{version}"
 
 build do
   command "mkdir -p #{install_dir}/embedded/service/rabbitmq"
