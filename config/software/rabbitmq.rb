@@ -20,8 +20,10 @@ default_version "2.7.1"
 dependency "erlang"
 dependency "rsync"
 
-source url: "http://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz",
-       md5: "34a5f9fb6f22e6681092443fcc80324f"
+version("2.7.1") { source md5: "34a5f9fb6f22e6681092443fcc80324f" }
+version("3.3.4") { source md5: "61a3822f3af0aaa30da7230dccb17067" }
+
+source url: "http://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz"
 
 relative_path "rabbitmq_server-#{version}"
 
