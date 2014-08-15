@@ -18,7 +18,7 @@ name "libxslt"
 default_version "1.1.28"
 
 dependency "libxml2"
-dependency "libtool" if Ohai['platform'] == "solaris2"
+dependency "libtool" if ohai['platform'] == "solaris2"
 dependency "liblzma"
 
 version "1.1.26" do

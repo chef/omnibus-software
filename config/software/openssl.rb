@@ -22,7 +22,7 @@ dependency "libgcc"
 dependency "makedepend"
 
 
-if Ohai["platform"] == "aix"
+if ohai["platform"] == "aix"
   # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
   #      http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
   default_version "1.0.1c"
@@ -39,7 +39,7 @@ relative_path "openssl-#{version}"
 build do
   patch :source => "openssl-1.0.1f-do-not-build-docs.patch"
 
-  env = case Ohai["platform"]
+  env = case ohai["platform"]
         when "mac_os_x"
           {
             "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
@@ -82,7 +82,7 @@ build do
     "shared",
   ].join(" ")
 
-  configure_command = case Ohai["platform"]
+  configure_command = case ohai["platform"]
                       when "aix"
                         ["perl", "./Configure",
                          "aix64-cc",
@@ -105,7 +105,7 @@ build do
                         "-static-libgcc"].join(" ")
                       when "solaris2"
                         if Config.solaris_compiler == "gcc"
-                          if Ohai["kernel"]["machine"] =~ /sun/
+                          if ohai["kernel"]["machine"] =~ /sun/
                             ["/bin/sh ./Configure",
                              "solaris-sparcv9-gcc",
                              common_args,

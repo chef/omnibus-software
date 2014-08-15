@@ -37,7 +37,7 @@ build do
 
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
-  if Ohai['platform'] == "freebsd"
+  if ohai['platform'] == "freebsd"
     patch source: "freebsd-vi-fix.patch"
   end
 

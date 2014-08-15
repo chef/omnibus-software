@@ -17,7 +17,7 @@
 name "bundler"
 default_version "1.5.3"
 
-if Ohai['platform'] == 'windows'
+if ohai['platform'] == 'windows'
   dependency "ruby-windows"
 else
   dependency "rubygems"

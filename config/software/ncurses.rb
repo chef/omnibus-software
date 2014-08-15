@@ -18,7 +18,7 @@ name "ncurses"
 default_version "5.9"
 
 dependency "libgcc"
-dependency "libtool" if Ohai['platform'] == "aix"
+dependency "libtool" if ohai['platform'] == "aix"
 
 source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
        md5: "8cb9c412e5f2d96bc6f459aa8c6282a1"
@@ -44,13 +44,13 @@ build do
   env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
 
   # gcc4 from opencsw fails to compile ncurses
-  if Ohai["platform"] == "solaris2"
+  if ohai["platform"] == "solaris2"
     env["PATH"] = "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"
     env["CC"]   = "/opt/csw/gcc3/bin/gcc"
     env["CXX"]  = "/opt/csw/gcc3/bin/g++"
   end
 
-  if Ohai["platform"] == "smartos"
+  if ohai["platform"] == "smartos"
     # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
     # compatibility:
@@ -68,11 +68,11 @@ build do
     patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0
   end
 
-  if Ohai["platform"] == "aix"
+  if ohai["platform"] == "aix"
     patch source: "patch-aix-configure", plevel: 0
   end
 
-  if Ohai["platform"] == "mac_os_x"
+  if ohai["platform"] == "mac_os_x"
     # References:
     # https://github.com/Homebrew/homebrew-dupes/issues/43
     # http://invisible-island.net/ncurses/NEWS.html#t20110409
@@ -95,7 +95,7 @@ build do
     "--enable-widec",
   ]
 
-  if Ohai["platform"] == "aix"
+  if ohai["platform"] == "aix"
     cmd << "--with-libtool"
   end
 
@@ -116,7 +116,7 @@ build do
     "--enable-overwrite",
   ]
 
-  if Ohai["platform"] == "aix"
+  if ohai["platform"] == "aix"
     cmd << "--with-libtool"
   end
 
@@ -129,7 +129,7 @@ build do
   command "make -j #{max_build_jobs} install", env: env
 
   # Ensure embedded ncurses wins in the LD search path
-  if Ohai["platform"] == "smartos"
+  if ohai["platform"] == "smartos"
     link "#{install_dir}/embedded/lib/libcurses.so", "#{install_dir}/embedded/lib/libcurses.so.1"
   end
 end

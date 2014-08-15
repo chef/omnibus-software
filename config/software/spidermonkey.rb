@@ -42,7 +42,7 @@ build do
   command "make -f Makefile.ref", env: env
   command "make -f Makefile.ref export", env: env
 
-  if Ohai['kernel']['machine'] =~ /x86_64/
+  if ohai['kernel']['machine'] =~ /x86_64/
     move "#{install_dir}/embedded/lib64/libjs.a", "#{install_dir}/embedded/lib"
     move "#{install_dir}/embedded/lib64/libjs.so", "#{install_dir}/embedded/lib"
   end

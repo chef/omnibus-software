@@ -42,7 +42,7 @@ build do
 
   delete "pkg/ohai-*-x86-mingw32.gem"
 
-  # Appbuilder in ChefDK needs to not have Ohai installed in +/opt/chef/bin+
+  # Appbuilder in ChefDK needs to not have ohai installed in +/opt/chef/bin+
   if project.name == "chefdk"
     gem "install pkg/ohai*.gem" \
         " --no-ri --no-rdoc", env: env

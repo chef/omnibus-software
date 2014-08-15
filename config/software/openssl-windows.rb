@@ -39,7 +39,7 @@ build do
   # OpenSSL 1.0.0k 5 Feb 2013
   ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0l'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0m'\""
 
-  tmpdir = File.join(Config.cache_dir, "openssl-cache")
+  tmpdir = File.join(Omnibus::Config.cache_dir, "openssl-cache")
 
   # Ensure the directory exists
   mkdir tmpdir

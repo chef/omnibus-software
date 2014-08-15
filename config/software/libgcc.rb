@@ -33,7 +33,7 @@ description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
 default_version "0.0.1"
 
 build do
-  libgcc_file = case Ohai['platform']
+  libgcc_file = case ohai['platform']
                 when "solaris2"
                   "/opt/csw/lib/libgcc_s.so.1"
                 when "aix"

@@ -34,7 +34,7 @@ source url: "http://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windows.
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  tmpdir = File.join(Config.cache_dir, "libyaml-cache")
+  tmpdir = File.join(Omnibus::Config.cache_dir, "libyaml-cache")
 
   # Ensure the directory exists
   mkdir tmpdir
