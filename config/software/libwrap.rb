@@ -49,7 +49,7 @@ build do
   patch source: "tcp_wrappers-7.6-malloc-fix.patch"
   patch source: "tcp_wrappers-7.6-makefile-dest-fix.patch"
 
-  command "make linux", env: env
-  command "make install-lib", env: env
-  command "make install-dev", env: env
+  make "linux", env: env
+  make "install-lib", env: env
+  make "install-dev", env: env
 end
