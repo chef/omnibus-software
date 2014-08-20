@@ -44,7 +44,7 @@ build do
           " --with-ssl-inc=#{install_dir}/embedded/include", env: env
 
   # Build it
-  command "make all", env: env
+  make "all", env: env
 
   # Move it
   mkdir "#{install_dir}/embedded/nagios/libexec"
