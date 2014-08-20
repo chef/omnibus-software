@@ -39,8 +39,8 @@ build do
           " --enable-shared" \
           " --with-dbmliborder=gdbm", env: env
 
-  command "make", env: env
-  command "make install", env: env
+  make env: env
+  make "install", env: env
 
   # There exists no configure flag to tell Python to not compile readline
   delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"
