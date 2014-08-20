@@ -27,6 +27,6 @@ build do
 
   command "./configure --prefix=#{install_dir}/embedded", env: env
 
-  command "make", env: env
-  command "make install", env: env
+  make env: env
+  make "install", env: env
 end
