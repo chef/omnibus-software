@@ -43,6 +43,6 @@ build do
           " --without-lzmadec" \
           " --without-openssl", env: env
 
-  command "make", env: env
-  command "make install", env: env
+  make env: env
+  make "install", env: env
 end
