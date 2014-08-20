@@ -44,6 +44,6 @@ build do
           " --without-python" \
           " --without-crypto", env: env
 
-  command "make -j #{max_build_jobs}", env: env
-  command "make install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "install", env: env
 end
