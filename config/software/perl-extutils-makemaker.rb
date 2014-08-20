@@ -31,6 +31,6 @@ build do
 
   command "#{install_dir}/embedded/bin/perl Makefile.PL", env: env
 
-  command "make", env: env
-  command "make install", env: env
+  make env: env
+  make "install", env: env
 end
