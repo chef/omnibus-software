@@ -22,7 +22,7 @@ dependency "libgcc"
 dependency "makedepend"
 
 
-if ohai["platform"] == "aix"
+if aix?
   # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
   #      http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
   default_version "1.0.1c"
