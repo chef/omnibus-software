@@ -40,7 +40,7 @@ build do
   patch source: 'makefile_take_env_vars.patch'
   patch source: 'soname_install_dir.patch' if mac_os_x_mavericks?
 
-  command "make #{args}", env: env
-  command "make #{args} -f Makefile-libbz2_so", env: env
-  command "make #{args} install", env: env
+  make "#{args}", env: env
+  make "#{args} -f Makefile-libbz2_so", env: env
+  make "#{args} install", env: env
 end
