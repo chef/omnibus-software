@@ -105,24 +105,12 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
-  # @todo: move into omnibus
-  has_gmake = env['PATH'].split(File::PATH_SEPARATOR).any? do |path|
-    File.executable?(File.join(path, 'gmake'))
-  end
-
-  if has_gmake
-    env.merge!('MAKE' => 'gmake')
-    make_binary = 'gmake'
-  else
-    make_binary = 'make'
-  end
-
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
   env.merge!("PKG_CONFIG" => "/bin/true") if ohai['platform'] == "aix"
 
   command configure_command.join(" "), env: env
-  command "#{make_binary} -j #{max_build_jobs}", env: env
-  command "#{make_binary} -j #{max_build_jobs} install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "-j #{max_build_jobs} install", env: env
 end
