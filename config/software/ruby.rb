@@ -25,7 +25,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
-dependency "libgcc" if ohai['platform'] == "solaris2"
+dependency "libgcc" if solaris2?
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
@@ -108,7 +108,7 @@ build do
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
-  env.merge!("PKG_CONFIG" => "/bin/true") if ohai['platform'] == "aix"
+  env.merge!("PKG_CONFIG" => "/bin/true") if aix?
 
   command configure_command.join(" "), env: env
   make "-j #{max_build_jobs}", env: env
