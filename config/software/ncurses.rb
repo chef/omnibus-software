@@ -100,11 +100,11 @@ build do
   end
 
   command cmd.join(" "), env: env
-  command "make -j #{max_build_jobs}", env: env
-  command "make -j #{max_build_jobs} install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "-j #{max_build_jobs} install", env: env
 
   # Build non-wide-character libraries
-  command "make distclean", env: env
+  make "distclean", env: env
 
   cmd = [
     "./configure",
@@ -121,12 +121,12 @@ build do
   end
 
   command cmd.join(" "), env: env
-  command "make -j #{max_build_jobs}", env: env
+  make "-j #{max_build_jobs}", env: env
 
   # Installing the non-wide libraries will also install the non-wide
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
-  command "make -j #{max_build_jobs} install", env: env
+  make "-j #{max_build_jobs} install", env: env
 
   # Ensure embedded ncurses wins in the LD search path
   if ohai["platform"] == "smartos"
