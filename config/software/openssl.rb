@@ -22,7 +22,7 @@ dependency "libgcc"
 dependency "makedepend"
 
 
-if ohai["platform"] == "aix"
+if aix?
   # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
   #      http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
   default_version "1.0.1c"
@@ -139,21 +139,9 @@ build do
   # openssl build process uses a `makedepend` tool that we build inside the bundle.
   env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
-  # @todo: move into omnibus
-  has_gmake = env['PATH'].split(File::PATH_SEPARATOR).any? do |path|
-    File.executable?(File.join(path, 'gmake'))
-  end
-
-  if has_gmake
-    env.merge!("MAKE" => "gmake")
-    make_binary = "gmake"
-  else
-    make_binary = "make"
-  end
-
   command configure_command, env: env
-  command "#{make_binary} depend", env: env
+  make "depend", env: env
   # make -j N on openssl is not reliable
-  command "#{make_binary}", env: env
-  command "#{make_binary} install", env: env
+  make env: env
+  make "install", env: env
 end

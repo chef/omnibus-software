@@ -18,7 +18,7 @@ name "libxslt"
 default_version "1.1.28"
 
 dependency "libxml2"
-dependency "libtool" if ohai['platform'] == "solaris2"
+dependency "libtool" if solaris2?
 dependency "liblzma"
 
 version "1.1.26" do
@@ -44,6 +44,6 @@ build do
           " --without-python" \
           " --without-crypto", env: env
 
-  command "make -j #{max_build_jobs}", env: env
-  command "make install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "install", env: env
 end

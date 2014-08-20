@@ -54,10 +54,10 @@ build do
   command "sudo chown -R $(whoami) /var/opt/opscode/nagios", env: env
 
   # Build it
-  command "make -j #{max_build_jobs} all", env: env
-  command "make install", env: env
-  command "make install-config", env: env
-  command "make install-exfoliation", env: env
+  make "-j #{max_build_jobs} all", env: env
+  make "install", env: env
+  make "install-config", env: env
+  make "install-exfoliation", env: env
 
   # Cleanup the install
   delete "#{install_dir}/embedded/nagios/etc/*"

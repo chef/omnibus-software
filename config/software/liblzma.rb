@@ -30,5 +30,5 @@ build do
           " --disable-debug" \
           " --disable-dependency-tracking", env: env
 
-  command "make install", env: env
+  make "install", env: env
 end

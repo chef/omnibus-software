@@ -33,6 +33,6 @@ relative_path "relx"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "make", env: env
+  make env: env
   copy "#{project_dir}/relx", "#{install_dir}/embedded/bin/"
 end

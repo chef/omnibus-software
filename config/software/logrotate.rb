@@ -37,10 +37,10 @@ build do
 
   patch source: "logrotate_basedir_override.patch", plevel: 0
 
-  command "make -j #{max_build_jobs}", env: env
+  make "-j #{max_build_jobs}", env: env
 
   # Yes, this is horrible. Due to how the makefile is structured, we need to
   # specify PREFIX, *but not BASEDIR* in order to get this installed into
   # +"#{install_dir}/embedded/sbin"+
-  command "make install", env: { "PREFIX" => "#{install_dir}/embedded" }
+  make "install", env: { "PREFIX" => "#{install_dir}/embedded" }
 end

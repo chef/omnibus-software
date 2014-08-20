@@ -33,7 +33,7 @@ build do
   # AIX uses gcc/g++ instead of xlc/xlC
   env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
 
-  if ohai["platform"] == "aix"
+  if aix?
     command "./configure" \
             " --prefix=#{install_dir}/embedded" \
             " --with-gcc", env: env
@@ -42,6 +42,6 @@ build do
             " --prefix=#{install_dir}/embedded", env: env
   end
 
-  command "make", env: env
-  command "make install", env: env
+  make env: env
+  make "install", env: env
 end

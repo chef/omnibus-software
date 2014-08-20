@@ -37,8 +37,8 @@ build do
           " --with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"" \
           " --with-ld-opt=-L#{install_dir}/embedded/lib", env: env
 
-  command "make -j #{max_build_jobs}", env: env
-  command "make install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "install", env: env
 
   # Ensure the logs directory is available on rebuild from git cache
   touch "#{install_dir}/embedded/logs/.gitkeep"

@@ -18,7 +18,7 @@ name "ncurses"
 default_version "5.9"
 
 dependency "libgcc"
-dependency "libtool" if ohai['platform'] == "aix"
+dependency "libtool" if aix?
 
 source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
        md5: "8cb9c412e5f2d96bc6f459aa8c6282a1"
@@ -44,13 +44,13 @@ build do
   env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
 
   # gcc4 from opencsw fails to compile ncurses
-  if ohai["platform"] == "solaris2"
+  if aix?
     env["PATH"] = "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"
     env["CC"]   = "/opt/csw/gcc3/bin/gcc"
     env["CXX"]  = "/opt/csw/gcc3/bin/g++"
   end
 
-  if ohai["platform"] == "smartos"
+  if smartos?
     # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
     # compatibility:
@@ -68,11 +68,11 @@ build do
     patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0
   end
 
-  if ohai["platform"] == "aix"
+  if aix?
     patch source: "patch-aix-configure", plevel: 0
   end
 
-  if ohai["platform"] == "mac_os_x"
+  if mac_os_x?
     # References:
     # https://github.com/Homebrew/homebrew-dupes/issues/43
     # http://invisible-island.net/ncurses/NEWS.html#t20110409
@@ -95,16 +95,16 @@ build do
     "--enable-widec",
   ]
 
-  if ohai["platform"] == "aix"
+  if aix?
     cmd << "--with-libtool"
   end
 
   command cmd.join(" "), env: env
-  command "make -j #{max_build_jobs}", env: env
-  command "make -j #{max_build_jobs} install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "-j #{max_build_jobs} install", env: env
 
   # Build non-wide-character libraries
-  command "make distclean", env: env
+  make "distclean", env: env
 
   cmd = [
     "./configure",
@@ -116,20 +116,20 @@ build do
     "--enable-overwrite",
   ]
 
-  if ohai["platform"] == "aix"
+  if aix?
     cmd << "--with-libtool"
   end
 
   command cmd.join(" "), env: env
-  command "make -j #{max_build_jobs}", env: env
+  make "-j #{max_build_jobs}", env: env
 
   # Installing the non-wide libraries will also install the non-wide
   # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
-  command "make -j #{max_build_jobs} install", env: env
+  make "-j #{max_build_jobs} install", env: env
 
   # Ensure embedded ncurses wins in the LD search path
-  if ohai["platform"] == "smartos"
+  if smartos?
     link "#{install_dir}/embedded/lib/libcurses.so", "#{install_dir}/embedded/lib/libcurses.so.1"
   end
 end

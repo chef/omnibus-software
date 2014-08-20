@@ -36,11 +36,11 @@ build do
   env = with_standard_compiler_flags
 
   # For some reason zlib needs this flag on solaris (cargocult warning?)
-  env['CFLAGS'] << " -DNO_VIZ" if ohai['platform'] == 'solaris2'
+  env['CFLAGS'] << " -DNO_VIZ" if solaris2?
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
 
-  command "make -j #{max_build_jobs}", env: env
-  command "make -j #{max_build_jobs} install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "-j #{max_build_jobs} install", env: env
 end

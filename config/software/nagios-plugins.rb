@@ -38,8 +38,8 @@ build do
           " --with-pgsql=#{install_dir}/embedded" \
           " --with-libiconv-prefix=#{install_dir}/embedded", env: env
 
-  command "make -j #{max_build_jobs}", env: env
-  command "make install", env: env
+  make "-j #{max_build_jobs}", env: env
+  make "install", env: env
 
   # NOTE: cargo culted from commit 0e6eb2d4a7978c5683a3e15c956c0c2b78f3d904
   #

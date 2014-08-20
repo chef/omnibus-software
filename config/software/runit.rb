@@ -32,8 +32,8 @@ build do
   command "sed -i -e s:-static:: Makefile", env: env
 
   # Build it
-  command "make", env: env
-  command "make check", env: env
+  make env: env
+  make "check", env: env
 
   # Move it
   mkdir "#{install_dir}/embedded/bin"
