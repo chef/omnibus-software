@@ -47,6 +47,6 @@ build do
     "LIBPCREDIR" => "#{install_dir}/embedded",
   )
 
-  command "make -j #{max_build_jobs} prefix=#{install_dir}/embedded", env: env
-  command "make install prefix=#{install_dir}/embedded", env: env
+  make "-j #{max_build_jobs} prefix=#{install_dir}/embedded", env: env
+  make "install prefix=#{install_dir}/embedded", env: env
 end
