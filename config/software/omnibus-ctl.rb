@@ -27,8 +27,16 @@ source :git => "git://github.com/opscode/omnibus-ctl.git"
 relative_path "omnibus-ctl"
 
 build do
+  # Remove existing built gems if they exist in the current dir.
+  # Add -f in case the file doesn't exist yet.
+  command "rm -f omnibus-ctl-*.gem"
   gem "build omnibus-ctl.gemspec"
-  gem "install omnibus-ctl-#{version}.gem"
+
+  # Install the gem, regardless of the version number.
+  # This allows us to override the version of the omnibus-ctl
+  # gem to a branch and test out new installs of that branch
+  # without merging and tagging and bumping versions.
+  gem "install omnibus-ctl-*.gem"
   command "mkdir -p #{install_dir}/embedded/service/omnibus-ctl"
   command "touch #{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
