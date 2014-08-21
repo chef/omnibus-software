@@ -28,8 +28,11 @@ relative_path "omnibus-ctl"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Remove existing built gems in case they exist in the current dir
+  delete "omnibus-ctl-*.gem"
+
   gem "build omnibus-ctl.gemspec", env: env
-  gem "install omnibus-ctl-#{version}.gem", env: env
+  gem "install omnibus-ctl-*.gem", env: env
 
   touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
