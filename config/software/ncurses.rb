@@ -19,6 +19,7 @@ name "ncurses"
 default_version "5.9"
 
 dependency "libgcc"
+dependency "libtool" if Ohai['platform'] == "aix"
 
 source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
        md5: "8cb9c412e5f2d96bc6f459aa8c6282a1"
@@ -26,7 +27,7 @@ source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
 relative_path "ncurses-5.9"
 
 env = with_embedded_path()
-env = with_standard_compiler_flags(env)
+env = with_standard_compiler_flags(env, aix: { use_gcc: true })
 
 if Ohai['platform'] == "solaris2"
   # gcc4 from opencsw fails to compile ncurses
@@ -76,8 +77,6 @@ build do
 
   if Ohai['platform'] == "aix"
     patch source: 'patch-aix-configure', plevel: 0
-    # hack stolen from bullfreeware's src rpm spec file
-    command "find . -name Makefile.in -exec /opt/freeware/bin/sed -i 's/@OBJEXT@/lo/' {} \\;"
   end
 
   if Ohai['platform'] == "mac_os_x"
@@ -98,10 +97,10 @@ build do
            "--with-termlib",
            "--without-debug",
            "--without-normal", # AIX doesn't like building static libs
-           "--without-ada",
            "--enable-overwrite",
            "--enable-widec"]
-  cmd_array << "--without-cxx-binding" if Ohai['platform'] == 'aix'
+
+  cmd_array << "--with-libtool" if Ohai['platform'] == 'aix'
   command(cmd_array.join(" "),
           env: env)
   command "make -j #{max_build_jobs}", env: env
@@ -115,9 +114,8 @@ build do
            "--with-termlib",
            "--without-debug",
            "--without-normal",
-           "--without-ada",
            "--enable-overwrite"]
-  cmd_array << "--without-cxx-binding" if Ohai['platform'] == 'aix'
+  cmd_array << "--with-libtool" if Ohai['platform'] == 'aix'
   command(cmd_array.join(" "),
           env: env)
   command "make -j #{max_build_jobs}", env: env
