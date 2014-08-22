@@ -37,7 +37,7 @@ build do
 
   patch source: "logrotate_basedir_override.patch", plevel: 0
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
 
   # Yes, this is horrible. Due to how the makefile is structured, we need to
   # specify PREFIX, *but not BASEDIR* in order to get this installed into

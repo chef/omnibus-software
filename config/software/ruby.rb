@@ -111,6 +111,6 @@ build do
   env.merge!("PKG_CONFIG" => "/bin/true") if aix?
 
   command configure_command.join(" "), env: env
-  make "-j #{max_build_jobs}", env: env
-  make "-j #{max_build_jobs} install", env: env
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end

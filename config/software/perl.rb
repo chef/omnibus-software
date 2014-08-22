@@ -32,6 +32,6 @@ build do
           " -Dusethreads" \
           " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'", env: env
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
   make "install", env: env
 end

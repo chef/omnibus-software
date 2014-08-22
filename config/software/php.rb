@@ -47,6 +47,6 @@ build do
           " --with-fpm-user=opscode" \
           " --with-fpm-group=opscode", env: env
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
   make "install", env: env
 end

@@ -44,6 +44,6 @@ build do
           " --with-js-include=#{install_dir}/embedded/include" \
            "--with-js-lib=#{install_dir}/embedded/lib", env: env
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
   make "install", env: env
 end

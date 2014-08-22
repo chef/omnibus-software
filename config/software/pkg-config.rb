@@ -46,6 +46,6 @@ build do
            " --prefix=#{install_dir}/embedded" \
            " --with-libiconv=gnu", env: env, cwd: "#{project_dir}/glib"
 
-  make "-j #{max_build_jobs}", env: env
-  make "-j #{max_build_jobs} install", env: env
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end

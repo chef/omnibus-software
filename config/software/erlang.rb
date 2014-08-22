@@ -70,6 +70,6 @@ build do
           " --with-ssl=#{install_dir}/embedded" \
           " --disable-debug", env: env
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
   make "install", env: env
 end

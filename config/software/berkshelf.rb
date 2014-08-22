@@ -39,7 +39,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   bundle "install" \
-         " --jobs #{max_build_jobs}" \
+         " --jobs #{workers}" \
          " --without guard", env: env
 
   bundle "exec thor gem:build", env: env

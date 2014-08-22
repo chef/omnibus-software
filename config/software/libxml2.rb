@@ -43,6 +43,6 @@ build do
           " --without-python" \
           " --without-icu", env: env
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
   make "install", env: env
 end

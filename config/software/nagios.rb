@@ -54,7 +54,7 @@ build do
   command "sudo chown -R $(whoami) /var/opt/opscode/nagios", env: env
 
   # Build it
-  make "-j #{max_build_jobs} all", env: env
+  make "-j #{workers} all", env: env
   make "install", env: env
   make "install-config", env: env
   make "install-exfoliation", env: env

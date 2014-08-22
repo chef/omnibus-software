@@ -32,7 +32,7 @@ build do
 
   mkdir "#{install_dir}/embedded/man/man1"
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
   make "install", env: env
 
   delete "#{install_dir}/embedded/man"

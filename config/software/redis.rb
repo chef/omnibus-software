@@ -34,6 +34,6 @@ build do
     "PREFIX" => "#{install_dir}/embedded",
   )
 
-  make "-j #{max_build_jobs}", env: env
+  make "-j #{workers}", env: env
   make "install", env: env
 end
