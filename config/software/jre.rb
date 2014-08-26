@@ -17,8 +17,6 @@
 name "jre"
 default_version "7u3-b04"
 
-dependency "rsync"
-
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
 whitelist_file "jre/lib"
