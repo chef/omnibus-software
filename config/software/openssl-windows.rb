@@ -23,13 +23,16 @@
 # This component should be removed when we upgrade to the next version of
 # rubyinstaller > 1.9.3-p545 and 2.0.0-p451
 #
+# openssl 1.0.0n fixes more security vulnerabilities...
+#   https://www.openssl.org/news/secadv_20140806.txt
+
 name "openssl-windows"
-default_version "1.0.0m"
+default_version "1.0.0n"
 
 dependency "ruby-windows"
 
 source url: "http://packages.openknapsack.org/openssl/openssl-#{version}-x86-windows.tar.lzma",
-       md5: "1836409f45d3045243bb2653ad263f11"
+       md5: "9506530353f3b984680ec27b7270874a"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -37,7 +40,7 @@ build do
   # Make sure the OpenSSL version is suitable for our path:
   # OpenSSL version is something like
   # OpenSSL 1.0.0k 5 Feb 2013
-  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0l'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0m'\""
+  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0m'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0n'\""
 
   tmpdir = File.join(Omnibus::Config.cache_dir, "openssl-cache")
 
