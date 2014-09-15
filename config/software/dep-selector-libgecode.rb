@@ -31,6 +31,9 @@ build do
     env["CXX"] = "g++44"
   end
 
+  # Ruby DevKit ships with BSD Tar
+  env["PROG_TAR"] = "bsdtar" if windows?
+
   gem "install dep-selector-libgecode" \
       " --version '#{version}'" \
       " --no-ri --no-rdoc", env: env
