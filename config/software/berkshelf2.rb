@@ -37,6 +37,10 @@ build do
       " --version '0.3.2'" \
       " --no-ri --no-rdoc", env: env
 
+  gem "install i18n" \
+      " --version '0.6.11'" \
+      " --no-ri --no-rdoc", env: env
+
   gem "install berkshelf" \
       " --version '#{version}'" \
       " --no-ri --no-rdoc", env: env
