@@ -16,7 +16,7 @@
 #
 
 name "python"
-default_version "2.7.5"
+default_version "2.7.8"
 
 dependency "gdbm"
 dependency "ncurses"
@@ -25,7 +25,7 @@ dependency "openssl"
 dependency "bzip2"
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-       :md5 => 'b4f01a1d0ba0b46b05c73b2ac909b1df'
+       :md5 => 'd4bca0159acb0b44a781292b5231936f'
 
 relative_path "Python-#{version}"
 
@@ -34,6 +34,7 @@ env = {
   "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
 }
 
+<<<<<<< HEAD
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
@@ -48,4 +49,14 @@ build do
     # Remove unused extension which is known to make health checks fail on CentOS 6.
     FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"))
   end
+=======
+  # There exists no configure flag to tell Python to not compile readline
+  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"
+
+  # Remove unused extension which is known to make healthchecks fail on CentOS 6
+  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"
+
+  # Save space
+  delete "#{install_dir}/embedded/lib/python2.7/test"
+>>>>>>> acf7988... Add the software definitions needed by the agent
 end
