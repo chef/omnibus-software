@@ -1,5 +1,5 @@
 name "sysstat"
-default_version "10.2.1"
+default_version "11.0.1"
 
 source :url => "http://perso.orange.fr/sebastien.godard/sysstat-11.0.1.tar.xz",
        :md5 => "7d19d02294dc1befd48846caf2f3cafe"
