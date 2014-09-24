@@ -1,10 +1,10 @@
 name "sysstat"
 default_version "10.2.1"
 
-source :url => "http://pagesperso-orange.fr/sebastien.godard/sysstat-10.2.1.tar.gz",
-       :md5 => "039dcd235dfcfb3d4acc0a05730f9512"
+source :url => "http://perso.orange.fr/sebastien.godard/sysstat-11.0.1.tar.xz",
+       :md5 => "7d19d02294dc1befd48846caf2f3cafe"
 
-relative_path 'sysstat-10.2.1'
+relative_path 'sysstat-11.0.1'
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
