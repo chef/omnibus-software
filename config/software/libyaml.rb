@@ -28,6 +28,6 @@ env = with_standard_compiler_flags(env)
 
 build do
   command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make -j #{max_build_jobs} install", :env => env
+  command "make -j #{workers}", :env => env
+  command "make -j #{workers} install", :env => env
 end

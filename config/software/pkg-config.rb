@@ -48,6 +48,6 @@ build do
     env: env,
     cwd: File.join(project_dir, 'glib')
   )
-  command "make -j #{max_build_jobs}", env: env
-  command "make -j #{max_build_jobs} install", env: env
+  command "make -j #{workers}", env: env
+  command "make -j #{workers} install", env: env
 end

@@ -51,6 +51,6 @@ end
 build do
   patch :source => 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
   command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{max_build_jobs}", :env => env
-  command "make -j #{max_build_jobs} install-lib libdir=#{install_dir}/embedded/lib includedir=#{install_dir}/embedded/include", :env => env
+  command "make -j #{workers}", :env => env
+  command "make -j #{workers} install-lib libdir=#{install_dir}/embedded/lib includedir=#{install_dir}/embedded/include", :env => env
 end

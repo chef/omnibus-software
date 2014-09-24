@@ -60,7 +60,7 @@ build do
   command "sudo chown -R $(whoami) /var/opt/opscode/nagios"
 
   # build it
-  command "make -j #{max_build_jobs} all", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "make -j #{workers} all", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
   command "make install-config"
   command "make install-exfoliation"

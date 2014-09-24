@@ -40,7 +40,7 @@ env = {
 
 build do
   patch :source => "logrotate_basedir_override.patch", :plevel => 0
-  command "make -j #{max_build_jobs}", :env => env
+  command "make -j #{workers}", :env => env
 
   # Yes, this is horrible.  Due to how the makefile is structured, we
   # need to specify PREFIX, *but not BASEDIR* in order to get this

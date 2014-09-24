@@ -34,6 +34,6 @@ relative_path "node-v#{version}"
 
 build do
   command "#{install_dir}/embedded/bin/python ./configure --prefix=#{install_dir}/embedded"
-  command "make -j #{max_build_jobs}"
+  command "make -j #{workers}"
   command "make install"
 end

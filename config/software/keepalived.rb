@@ -46,7 +46,7 @@ build do
     patch :source => "keepalived-1.2.9_opscode_centos_5.patch"
   end
   command "./configure --prefix=#{install_dir}/embedded --disable-iconv", :env => env
-  command "make -j #{max_build_jobs}", :env => env
+  command "make -j #{workers}", :env => env
   command "make install"
 end
 
