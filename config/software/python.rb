@@ -34,7 +34,6 @@ env = {
   "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
 }
 
-<<<<<<< HEAD
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
@@ -42,21 +41,10 @@ build do
            "--with-dbmliborder=gdbm"].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
+  command "rm -rf #{install_dir}/embedded/lib/python2.7/test"
 
+  # There exists no configure flag to tell Python to not compile readline support :(
   block do
-    # There exists no configure flag to tell Python to not compile readline support :(
     FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"))
-    # Remove unused extension which is known to make health checks fail on CentOS 6.
-    FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"))
   end
-=======
-  # There exists no configure flag to tell Python to not compile readline
-  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"
-
-  # Remove unused extension which is known to make healthchecks fail on CentOS 6
-  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"
-
-  # Save space
-  delete "#{install_dir}/embedded/lib/python2.7/test"
->>>>>>> acf7988... Add the software definitions needed by the agent
 end
