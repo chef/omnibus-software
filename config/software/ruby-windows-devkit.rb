@@ -44,4 +44,7 @@ build do
 
   command "echo - #{install_dir}/embedded > config.yml", cwd: embedded_dir
   ruby "dk.rb install", env: env, cwd: embedded_dir
+
+  # may gems that ship with native extensions assume tar will be available in the PATH
+  copy "#{install_dir}/embedded/mingw/bin/bsdtar.exe", "#{install_dir}/embedded/mingw/bin/tar.exe"
 end
