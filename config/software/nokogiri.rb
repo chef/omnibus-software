@@ -15,14 +15,13 @@
 #
 
 name "nokogiri"
-default_version "1.6.2.1"
+default_version "1.6.3.1"
 
 if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else
   dependency "ruby"
-  dependency "rubygems"
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
@@ -30,20 +29,28 @@ else
   dependency "zlib"
 end
 
+dependency "rubygems"
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Tell nokogiri to use the system libraries instead of compiling its own
-  env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
+  if windows?
+    # use the 'fat' precompiled binary bundled with nokogiri
+    gem "install nokogiri" \
+      " --version '#{version}'", env: env
+  else
+    # Tell nokogiri to use the system libraries instead of compiling its own
+    env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 
-  gem "install nokogiri" \
-       " --version '#{version}'" \
-       " --" \
-       " --use-system-libraries" \
-       " --with-xml2-lib=#{install_dir}/embedded/lib" \
-       " --with-xml2-include=#{install_dir}/embedded/include/libxml2" \
-       " --with-xslt-lib=#{install_dir}/embedded/lib" \
-       " --with-xslt-include=#{install_dir}/embedded/include/libxslt" \
-       " --with-iconv-dir=#{install_dir}/embedded" \
-       " --with-zlib-dir=#{install_dir}/embedded", env: env
+    gem "install nokogiri" \
+      " --version '#{version}'" \
+      " --" \
+      " --use-system-libraries" \
+      " --with-xml2-lib=#{install_dir}/embedded/lib" \
+      " --with-xml2-include=#{install_dir}/embedded/include/libxml2" \
+      " --with-xslt-lib=#{install_dir}/embedded/lib" \
+      " --with-xslt-include=#{install_dir}/embedded/include/libxslt" \
+      " --with-iconv-dir=#{install_dir}/embedded" \
+      " --with-zlib-dir=#{install_dir}/embedded", env: env
+  end
 end

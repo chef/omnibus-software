@@ -27,6 +27,10 @@ version "2.0.0-p451" do
   source md5: "37feadb0230e7f475a8591d1807ecfec"
 end
 
+version "2.1.3" do
+  source md5: "60e39aaab140c3a22abdc04ec2017968"
+end
+
 source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
 build do
@@ -43,7 +47,9 @@ build do
     block do
       require 'digest/md5'
 
-      dl_path = File.join(install_dir, "embedded/lib/ruby/2.0.0/dl.rb")
+      ABI_ver = version[/(^\d+\.\d+)/] + '.0'
+      dl_path = File.join(install_dir, "embedded/lib/ruby", ABI_ver, "dl.rb")
+
       if Digest::MD5.hexdigest(File.read(dl_path)) == "78c185a3fcc7b5e2c3db697c85110d8f"
         File.open(dl_path, "w") do |f|
           f.print <<-E
