@@ -33,22 +33,25 @@ description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
 default_version "0.0.1"
 
 build do
-  libgcc_file = case ohai['platform']
-                when "solaris2"
-                  "/opt/csw/lib/libgcc_s.so.1"
-                when "aix"
-                  "/opt/freeware/lib/pthread/ppc64/libgcc_s.a"
-                when "freebsd"
-                  "/lib/libgcc_s.so.1"
-                else
-                  nil
-                end
-
-  if libgcc_file
-    if File.exist?(libgcc_file)
-      copy libgcc_file, "#{install_dir}/embedded/lib/"
+  libgcc_files =
+    case ohai['platform']
+    when "solaris2"
+      [ "/opt/csw/lib/libgcc_s.so.1" , "/opt/csw/lib/libssp.so.0" ]
+    when "aix"
+      [ "/opt/freeware/lib/pthread/ppc64/libgcc_s.a" ]
+    when "freebsd"
+      [ "/lib/libgcc_s.so.1" ]
     else
-      raise "Cannot find libgcc -- where is your gcc compiler?"
+      nil
+    end
+
+  if libgcc_files
+    libgcc_files.each do |libgcc_file|
+      if File.exist?(libgcc_file)
+        copy libgcc_file, "#{install_dir}/embedded/lib/"
+      else
+        raise "Cannot find #{libgcc_file} -- where is your gcc compiler?"
+      end
     end
   end
 end
