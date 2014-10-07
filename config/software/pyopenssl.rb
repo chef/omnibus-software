@@ -1,5 +1,5 @@
 name "pyopenssl"
-default_version "0.13.1"
+default_version "0.14"
 
 dependency "openssl"
 dependency "python"
