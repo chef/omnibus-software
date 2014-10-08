@@ -1,5 +1,5 @@
 name "pymongo"
-default_version "2.6.3"
+default_version "2.7.2"
 
 dependency "python"
 dependency "pip"

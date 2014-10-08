@@ -1,5 +1,5 @@
 name "simplejson"
-default_version "3.3.3"
+default_version "3.6.4"
 
 dependency "python"
 dependency "pip"

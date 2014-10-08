@@ -16,7 +16,7 @@
 #
 
 name "libtool"
-default_version "2.4"
+default_version "2.4.2"
 
 version "2.4" do
   source md5: "b32b04148ecdd7344abc6fe8bd1bb021"

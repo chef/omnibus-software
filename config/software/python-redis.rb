@@ -1,5 +1,5 @@
 name "python-redis"
-default_version "2.10.1"
+default_version "2.10.3"
 
 dependency "python"
 dependency "pip"

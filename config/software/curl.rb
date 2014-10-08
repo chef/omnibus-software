@@ -16,13 +16,13 @@
 #
 
 name "curl"
-default_version "7.36.0"
+default_version "7.38.0"
 
 dependency "zlib"
 dependency "openssl"
 
 source :url => "http://curl.haxx.se/download/curl-#{version}.tar.gz",
-       :md5 => "643a7030b27449e76413d501d4b8eb57"
+       :md5 => "b6e3ea55bb718f2270489581efa50a8a"
 
 relative_path "curl-#{version}"
 

@@ -1,5 +1,5 @@
 name "pycurl"
-default_version "7.19.3.1"
+default_version "7.19.5"
 
 dependency "python"
 dependency "pip"

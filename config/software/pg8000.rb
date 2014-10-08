@@ -1,5 +1,5 @@
 name "pg8000"
-default_version "1.9.6"
+default_version "1.10.1"
 
 dependency "python"
 dependency "pip"
