@@ -4,6 +4,7 @@ default_version "0.14"
 dependency "openssl"
 dependency "python"
 dependency "pip"
+dependency "libffi"
 
 build do
   build_env = {
