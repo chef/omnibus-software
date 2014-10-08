@@ -23,7 +23,7 @@ dependency "libgcc"
 source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
        :md5 => "72c832680cf0999caedbe5b265c8c1bd"
 
-relative_path "gdbm-1.9.1"
+relative_path "gdbm-#{version}"
 
 build do
   env = case Ohai['platform']
