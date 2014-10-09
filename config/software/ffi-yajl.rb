@@ -29,6 +29,7 @@ else
   dependency "rubygems"
 end
 
+dependency "libyajl2-gem"
 dependency "bundler"
 
 build do
