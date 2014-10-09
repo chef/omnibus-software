@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-name "ffi-yajl"
+name "libyajl2-gem"
 default_version "master"
-relative_path "ffi-yajl"
+relative_path "libyajl2-gem"
 
-source git: "git://github.com/opscode/ffi-yajl"
+source git: "git://github.com/opscode/libyajl2-gem"
 
 if windows?
   dependency "ruby-windows"
@@ -39,6 +39,6 @@ build do
 
   delete "pkg/*java*"
 
-  gem "install pkg/ffi-yajl-*.gem" \
+  gem "install pkg/libyajl2-*.gem" \
       " --no-ri --no-rdoc", env: env
 end
