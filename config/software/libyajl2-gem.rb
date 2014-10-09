@@ -32,12 +32,14 @@ end
 dependency "bundler"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_embedded_path()
 
   bundle "install --without development_extras", env: env
+  bundle "exec rake prep", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"
+
 
   gem "install pkg/libyajl2-*.gem" \
       " --no-ri --no-rdoc", env: env
