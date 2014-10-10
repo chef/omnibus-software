@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-name "ffi-yajl"
+name "libyajl2-gem"
 default_version "master"
-relative_path "ffi-yajl"
+relative_path "libyajl2-gem"
 
-source git: "git://github.com/opscode/ffi-yajl"
+source git: "git://github.com/opscode/libyajl2-gem"
 
 if windows?
   dependency "ruby-windows"
@@ -29,17 +29,20 @@ else
   dependency "rubygems"
 end
 
-dependency "libyajl2-gem"
 dependency "bundler"
 
 build do
   env = with_embedded_path()
 
+  command "git submodule init", env: env
+  command "git submodule update", env: env
+
   bundle "install --without development_extras", env: env
+  bundle "exec rake prep", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"
 
-  gem "install pkg/ffi-yajl-*.gem" \
+  gem "install pkg/libyajl2-*.gem" \
       " --no-ri --no-rdoc", env: env
 end
