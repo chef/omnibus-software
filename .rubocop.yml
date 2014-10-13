@@ -1,0 +1,5 @@
+HashSyntax:
+  Enabled: true
+StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
