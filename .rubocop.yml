@@ -1,10 +1,20 @@
 AlignArray:
   Enabled: false
+ClassLength:
+  Enabled: false
+CommentAnnotation:
+  Enabled: false
 Documentation:
+  Enabled: false
+DoubleNegation:
+  Enabled: false
+Encoding:
   Enabled: false
 EmptyLines:
   Enabled: false
 FileName:
+  Enabled: false
+FormatString:
   Enabled: false
 HashSyntax:
   Enabled: true
@@ -30,6 +40,10 @@ SingleSpaceBeforeFirstArg:
   Enabled: false
 SpaceBeforeBlockBraces:
   Enabled: false
+SpaceInsideBrackets:
+  Enabled: false
+SpaceInsideParens:
+  Enabled: false
 SpecialGlobalVars:
   Enabled: false
 StringLiterals:
@@ -37,7 +51,7 @@ StringLiterals:
 TrailingBlankLines:
   Enabled: false
 TrailingComma:
-  Enabled: false
+  EnforcedStyleForMultiline: comma
 UnneededPercentQ:
   Enabled: false
 WordArray:
