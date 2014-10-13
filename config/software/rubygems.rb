@@ -50,8 +50,8 @@ build do
   env = with_embedded_path
 
   if windows?
-    command "gem update --system #{version}", env: env
+    command "gem update --system #{version} --no-ri --no-rdoc", env: env
   else
-    ruby "setup.rb", env: env
+    ruby "setup.rb --no-ri --no-rdoc", env: env
   end
 end
