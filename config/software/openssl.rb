@@ -37,13 +37,13 @@ end
 relative_path "openssl-#{version}"
 
 build do
-  patch :source => "openssl-1.0.1f-do-not-build-docs.patch"
+  patch source: "openssl-1.0.1f-do-not-build-docs.patch"
 
   env = case ohai["platform"]
         when "mac_os_x"
           {
             "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
-            "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
+            "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
           }
         when "aix"
         {
@@ -62,12 +62,12 @@ build do
           {
             "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
             "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
+            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
           }
         else
           {
             "CFLAGS" => "-I#{install_dir}/embedded/include",
-            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
           }
         end
 
