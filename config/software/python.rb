@@ -36,6 +36,7 @@ env = {
 }
 
 build do
+  patch :source => "disable_sslv3.patch"
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--enable-shared",
