@@ -75,6 +75,7 @@ build do
     "no-rc5",
     "zlib",
     "shared",
+    "no-ssl3"
   ].join(" ")
 
   configure_command = case Ohai['platform']
