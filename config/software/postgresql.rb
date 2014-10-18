@@ -48,5 +48,5 @@ build do
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
   make "world -j #{workers}", env: env
-  make "install", env: env
+  make "install-world", env: env
 end
