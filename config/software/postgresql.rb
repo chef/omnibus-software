@@ -47,6 +47,6 @@ build do
           " --with-openssl --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
-  make "-j #{workers}", env: env
+  make "world -j #{workers}", env: env
   make "install", env: env
 end
