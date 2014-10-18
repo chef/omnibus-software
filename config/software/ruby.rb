@@ -59,9 +59,22 @@ when "aix"
   #
   # I believe -qhot was necessary to prevent segfaults in threaded libs
   #
-  env['CFLAGS'] << " -q64 -qhot"
+
+  env['CC'] = "xlc_r"
+  env['CXX'] = "xlC_r"
+  env['LDSHARED'] = "xlc -G"
+  env['CFLAGS'] = "-g -D_LARGE_FILES -I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  env['XCFLAGS'] = "-DRUBY_EXPORT"
+  env['LDFLAGS'] = "-L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib"
+  env['CXXFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  env['CPPFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  env['SOLIBS'] = "-lm -lc"
+  env['LD'] = "ld -b64"
   env['M4'] = "/opt/freeware/bin/m4"
-  env['warnflags'] = "-qinfo=por"
+
+#  env['CFLAGS'] << " -q64 -qhot"
+#  env['M4'] = "/opt/freeware/bin/m4"
+#  env['warnflags'] = "-qinfo=por"
 else  # including solaris, linux
   env['CFLAGS'] << " -O3 -g -pipe"
 end
@@ -82,14 +95,23 @@ build do
 
   case ohai['platform']
   when "aix"
-    patch source: "ruby-aix-configure.patch", plevel: 1
-    patch source: "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", plevel: 1
+    patch_env = Marshal.load(Marshal.dump(env)) 
+    patch_env['PATH'].prepend('/opt/freeware/bin:')
+
+    patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env 
+#    patch source: "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", plevel: 1, patch_command: "/opt/freeware/bin/patch"
     # our openssl-1.0.1h links against zlib and mkmf tests will fail due to zlib symbols not being
     # found if we do not include -lz.  this later leads to openssl functions being detected as not
     # being available and then internally vendored versions that have signature mismatches are pulled in
     # and the compile explodes.  this problem may not be unique to AIX, but is severe on AIX.
-    patch source: "ruby_aix_openssl.patch", plevel: 1
+    patch source: "ruby_aix_openssl.patch", plevel: 1, env: patch_env 
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
+    patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
+    patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env 
+#    patch source: "ruby-aix-libpath.patch", plevel: 1, env: patch_env
+#    patch source: "ruby-aix-libpath-2.patch", plevel: 1, env: patch_env
+    configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread --disable-install-doc"
+
   when "freebsd"
     configure_command << "--without-execinfo"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"

@@ -17,7 +17,7 @@
 name "ncurses"
 default_version "5.9"
 
-dependency "libgcc"
+dependency "libgcc" unless aix?
 dependency "libtool" if aix?
 
 source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
@@ -41,7 +41,7 @@ relative_path "ncurses-5.9"
 ########################################################################
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
+  env = with_standard_compiler_flags(with_embedded_path)
 
   # gcc4 from opencsw fails to compile ncurses
   if solaris2?
@@ -69,7 +69,10 @@ build do
   end
 
   if aix?
-    patch source: "patch-aix-configure", plevel: 0
+    patch_env = Marshal.load(Marshal.dump(env))
+    patch_env['PATH'].prepend('/opt/freeware/bin:')
+
+    patch source: "patch-aix-configure", plevel: 0, env: patch_env 
   end
 
   if mac_os_x?
@@ -96,7 +99,7 @@ build do
   ]
 
   if aix?
-    cmd << "--with-libtool"
+    cmd << "--without-cxx-binding"
   end
 
   command cmd.join(" "), env: env
@@ -117,7 +120,7 @@ build do
   ]
 
   if aix?
-    cmd << "--with-libtool"
+    cmd << "--without-cxx-binding"
   end
 
   command cmd.join(" "), env: env

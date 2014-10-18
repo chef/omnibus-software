@@ -28,7 +28,17 @@ source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar
 relative_path "pkg-config-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  if aix? 
+    # let's do some horrible rejiggering of our compiler, because AIX
+#    env['CC'] = "gxlc"
+#    env['CXX'] = "gxlC"
+#    env['CFLAGS'] = "-maix64 -I/opt/chef/embedded/include -O -Q!"
+#    env['CXXFLAGS'] = "-maix64 -I/opt/chef/embedded/include -O -Q!" 
+    env['CFLAGS'] << " -Q!"
+    env['CXXFLAGS'] << " -Q!"
+  end
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \

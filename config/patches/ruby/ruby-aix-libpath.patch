@@ -1,0 +1,11 @@
+--- ruby-2.1.2/configure.in.orig	2014-10-15 15:55:03.000000000 -0500
++++ ruby-2.1.2/configure.in	2014-10-15 15:55:18.000000000 -0500
+@@ -2769,7 +2769,7 @@
+ 			: ${ARCHFILE="ruby.imp"}
+                         TRY_LINK='$(CC) $(LDFLAGS) -oconftest $(INCFLAGS) -I$(hdrdir) $(CPPFLAGS)'
+                         TRY_LINK="$TRY_LINK"' $(CFLAGS) $(src) $(LIBPATH) $(LOCAL_LIBS) $(LIBS)'
+-			: ${LIBPATHENV=LIBPATH}
++			: ${LIBPATHENV=SHLIB_PATH}
+ 			RPATHFLAG=" ${linker_flag}-blibpath:%1\$-s:${prefix}/lib:${LIBPATH:-/usr/lib:/lib}"
+ 			rb_cv_dlopen=yes],
+ 	[beos*], [	AS_CASE(["$target_cpu"],

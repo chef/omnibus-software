@@ -17,7 +17,7 @@
 name "libiconv"
 default_version "1.14"
 
-dependency "libgcc"
+dependency "libgcc" unless aix?
 
 source url: "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
        md5: 'e34509b1623cec449dfeb73d7ce9c6c6'
@@ -27,10 +27,19 @@ relative_path "libiconv-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
+  configure_command = "./configure" \
+                      " --prefix=#{install_dir}/embedded"
+  if aix?
+    #env['LDSHARED'] = "xlc -G -qmkshrobj"
+    patch_env = Marshal.load(Marshal.dump(env))
+    patch_env['PATH'].prepend('/opt/freeware/bin:')
+    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: patch_env 
+  else
+    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
+  end
+#  configure_command << " --enable-static" if aix?
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+  command configure_command, env: env
 
   make "-j #{workers}", env: env
   make "-j #{workers} install-lib" \
