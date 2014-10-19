@@ -32,7 +32,7 @@ build do
   delete "omnibus-ctl-*.gem"
 
   gem "build omnibus-ctl.gemspec", env: env
-  gem "install omnibus-ctl-*.gem", env: env
+  gem "install omnibus-ctl-*.gem --no-rdoc --no-ri", env: env
 
   touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
