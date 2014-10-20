@@ -19,7 +19,7 @@ name "ruby-windows-devkit-bash"
 default_version "3.1.23-4-msys-1.0.18"
 
 dependency "ruby-windows-devkit"
-source url: "https://github.com/jdmundrawala/msys-bash/releases/download/bash-#{version}/bash-#{version}-bin.tar.lzma",
+source url: "https://github.com/opscode/msys-bash/releases/download/bash-#{version}/bash-#{version}-bin.tar.lzma",
        md5: "22d5dbbd9bd0b3e0380d7a0e79c3108e"
 
 build do
