@@ -30,14 +30,12 @@ build do
   configure_command = "./configure" \
                       " --prefix=#{install_dir}/embedded"
   if aix?
-    #env['LDSHARED'] = "xlc -G -qmkshrobj"
     patch_env = Marshal.load(Marshal.dump(env))
     patch_env['PATH'].prepend('/opt/freeware/bin:')
-    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: patch_env 
+    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: patch_env
   else
     patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
   end
-#  configure_command << " --enable-static" if aix?
 
   command configure_command, env: env
 
