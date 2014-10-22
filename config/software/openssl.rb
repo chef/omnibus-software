@@ -141,7 +141,6 @@ build do
                         "-L#{install_dir}/embedded/lib",
                         "-I#{install_dir}/embedded/include",
                         "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
-
                       end
 
   # openssl build process uses a `makedepend` tool that we build inside the bundle.
