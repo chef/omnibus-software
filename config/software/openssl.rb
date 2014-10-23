@@ -128,7 +128,14 @@ build do
                           raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
                         end
                       else
-                        ["./config",
+                        config = if ohai["os"] == "linux" and ohai["kernel"]["machine"] == "ppc64"
+                                   "./Configure linux-ppc64"
+                                 elsif ohai["os"] == "linux" and ohai["kernel"]["machine"] == "s390x"
+                                   "./Configure linux64-s390x"
+                                 else
+                                   "./config"
+                                 end
+                        [config,
                         common_args,
                         "disable-gost",  # fixes build on linux, but breaks solaris
                         "-L#{install_dir}/embedded/lib",
