@@ -30,11 +30,6 @@ relative_path "pkg-config-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if aix?
-    env['CFLAGS'] << " -Q!"
-    env['CXXFLAGS'] << " -Q!"
-  end
-
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --disable-debug" \
