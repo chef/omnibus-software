@@ -57,8 +57,8 @@ when "aix"
   # We also need prezl's M4 instead of picking up /usr/bin/m4 which
   # barfs on ruby.
   #
-  env['CC'] = "xlc_r"
-  env['CXX'] = "xlC_r"
+#  env['CC'] = "xlc_r"
+#  env['CXX'] = "xlC_r"
   env['LDSHARED'] = "xlc -G"
   env['CFLAGS'] = "-g -D_LARGE_FILES -I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
   env['XCFLAGS'] = "-DRUBY_EXPORT"
@@ -66,7 +66,7 @@ when "aix"
   env['CXXFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
   env['CPPFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
   env['SOLIBS'] = "-lm -lc"
-  env['LD'] = "ld -b64"
+#  env['LD'] = "ld -b64"
   env['M4'] = "/opt/freeware/bin/m4"
 else  # including solaris, linux
   env['CFLAGS'] << " -O3 -g -pipe"
@@ -99,9 +99,10 @@ build do
     # and the compile explodes.  this problem may not be unique to AIX, but is severe on AIX.
     patch source: "ruby_aix_openssl.patch", plevel: 1, env: patch_env
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
+    patch source: "ruby_aix_2_1_3_ssl_EAGAIN.patch", plevel: 1, env: patch_env
     patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
     patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
-    configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread --disable-install-doc"
+    configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
 
   when "freebsd"
     configure_command << "--without-execinfo"
