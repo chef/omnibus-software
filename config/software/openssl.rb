@@ -18,9 +18,7 @@ name "openssl"
 
 dependency "zlib"
 dependency "cacerts"
-dependency "libgcc" unless aix?
 dependency "makedepend" unless aix?
-
 
 if aix?
   # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
@@ -139,11 +137,11 @@ build do
   env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
   if aix?
-    patch_env = Marshal.load(Marshal.dump(env))
-    patch_env['PATH'].prepend('/opt/freeware/bin:')
-    patch :source => "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
+    patch_env = env.dup
+    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
   else
-    patch :source => "openssl-1.0.1f-do-not-build-docs.patch"
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch"
   end
 
   command configure_command, env: env

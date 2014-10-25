@@ -17,7 +17,6 @@
 name "ncurses"
 default_version "5.9"
 
-dependency "libgcc" unless aix?
 dependency "libtool" if aix?
 
 source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
@@ -69,10 +68,10 @@ build do
   end
 
   if aix?
-    patch_env = Marshal.load(Marshal.dump(env))
-    patch_env['PATH'].prepend('/opt/freeware/bin:')
+    patch_env = env.dup
+    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
 
-    patch source: "patch-aix-configure", plevel: 0, env: patch_env 
+    patch source: "patch-aix-configure", plevel: 0, env: patch_env
   end
 
   if mac_os_x?
@@ -96,6 +95,7 @@ build do
     "--without-normal", # AIX doesn't like building static libs
     "--enable-overwrite",
     "--enable-widec",
+    "--without-cxx-binding",
   ]
 
   if aix?
@@ -117,11 +117,8 @@ build do
     "--without-debug",
     "--without-normal",
     "--enable-overwrite",
+    "--without-cxx-binding",
   ]
-
-  if aix?
-    cmd << "--without-cxx-binding"
-  end
 
   command cmd.join(" "), env: env
   make "-j #{workers}", env: env

@@ -17,8 +17,6 @@
 name "libiconv"
 default_version "1.14"
 
-dependency "libgcc" unless aix?
-
 source url: "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
        md5: 'e34509b1623cec449dfeb73d7ce9c6c6'
 
@@ -30,8 +28,8 @@ build do
   configure_command = "./configure" \
                       " --prefix=#{install_dir}/embedded"
   if aix?
-    patch_env = Marshal.load(Marshal.dump(env))
-    patch_env['PATH'].prepend('/opt/freeware/bin:')
+    patch_env = env.dup
+    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
     patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: patch_env
   else
     patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'

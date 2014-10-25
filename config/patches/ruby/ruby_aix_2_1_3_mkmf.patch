@@ -1,0 +1,14 @@
+--- ./lib/mkmf.rb_orig	2014-10-17 12:40:18.000000000 -0500
++++ ./lib/mkmf.rb	2014-10-17 12:39:17.000000000 -0500
+@@ -392,6 +392,11 @@
+         end
+         result
+       else
++	if command.include? "xlc" 
++	  puts "XLC FOUND!: "
++	  puts "Overriding LIBPATH"
++          libpath_env = {"LIBPATH"=>".:/usr/lib:/opt/chef/embedded/lib"} 
++	end
+         system(libpath_env, command)
+       end
+     end

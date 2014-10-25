@@ -17,7 +17,6 @@
 name "libffi"
 default_version "3.0.13"
 
-dependency "libgcc" unless aix?
 dependency "libtool"
 
 source url: "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz",
