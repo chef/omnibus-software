@@ -98,10 +98,6 @@ build do
     "--without-cxx-binding",
   ]
 
-  if aix?
-    cmd << "--without-cxx-binding"
-  end
-
   command cmd.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env

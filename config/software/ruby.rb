@@ -55,8 +55,6 @@ when "aix"
   env['CFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
   # this magic per IBM
   env['XCFLAGS'] = "-DRUBY_EXPORT"
-  #env['LDFLAGS'] = "-L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib"
-  #env['CXXFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
   # need CPPFLAGS set so ruby doesn't try to be too clever
   env['CPPFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
   env['SOLIBS'] = "-lm -lc"
@@ -128,6 +126,7 @@ build do
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 
+  # @todo - remove LIBPATH from ruby build path entirely on AIX.
   # Before we can actually install gems on AIX, we need to monkeypatch
   # ruby's mkmf so that XLC gets the system libiconv instead of the
   # embedded one in the LIBPATH. This can only be done after ruby
