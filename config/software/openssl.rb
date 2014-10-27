@@ -18,9 +18,7 @@ name "openssl"
 
 dependency "zlib"
 dependency "cacerts"
-dependency "libgcc"
-dependency "makedepend"
-
+dependency "makedepend" unless aix?
 
 if aix?
   # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
@@ -37,7 +35,6 @@ end
 relative_path "openssl-#{version}"
 
 build do
-  patch source: "openssl-1.0.1f-do-not-build-docs.patch"
 
   env = case ohai["platform"]
         when "mac_os_x"
@@ -138,6 +135,14 @@ build do
 
   # openssl build process uses a `makedepend` tool that we build inside the bundle.
   env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
+
+  if aix?
+    patch_env = env.dup
+    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
+  else
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch"
+  end
 
   command configure_command, env: env
   make "depend", env: env

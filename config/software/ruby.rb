@@ -26,8 +26,6 @@ dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
 
-dependency "libgcc" if solaris2?
-
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
 version("2.0.0-p576") { source md5: "2e1f4355981b754d92f7e2cc456f843d" }
@@ -52,16 +50,16 @@ when "mac_os_x"
   env['CFLAGS'] << " -I#{install_dir}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
   env['LDFLAGS'] << " -arch x86_64"
 when "aix"
-  # -O2/O3 optimized away some configure test which caused ext libs to fail, so aix only gets -O
-  #
-  # We also need prezl's M4 instead of picking up /usr/bin/m4 which
-  # barfs on ruby.
-  #
-  # I believe -qhot was necessary to prevent segfaults in threaded libs
-  #
-  env['CFLAGS'] << " -q64 -qhot"
+  # this magic per IBM
+  env['LDSHARED'] = "xlc -G"
+  env['CFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  # this magic per IBM
+  env['XCFLAGS'] = "-DRUBY_EXPORT"
+  # need CPPFLAGS set so ruby doesn't try to be too clever
+  env['CPPFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  env['SOLIBS'] = "-lm -lc"
+  # need to use GNU m4, default m4 doesn't work
   env['M4'] = "/opt/freeware/bin/m4"
-  env['warnflags'] = "-qinfo=por"
 else  # including solaris, linux
   env['CFLAGS'] << " -O3 -g -pipe"
 end
@@ -82,14 +80,21 @@ build do
 
   case ohai['platform']
   when "aix"
-    patch source: "ruby-aix-configure.patch", plevel: 1
-    patch source: "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", plevel: 1
-    # our openssl-1.0.1h links against zlib and mkmf tests will fail due to zlib symbols not being
-    # found if we do not include -lz.  this later leads to openssl functions being detected as not
-    # being available and then internally vendored versions that have signature mismatches are pulled in
-    # and the compile explodes.  this problem may not be unique to AIX, but is severe on AIX.
-    patch source: "ruby_aix_openssl.patch", plevel: 1
-    # --with-opt-dir causes ruby to send bogus commands to the AIX linker
+    patch_env = env.dup
+    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+
+    # need to patch ruby's configure file so it knows how to find shared libraries
+    patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env
+    # have ruby use zlib on AIX correctly
+    patch source: "ruby_aix_openssl.patch", plevel: 1, env: patch_env
+    # AIX has issues with ssl retries, need to patch to have it retry
+    patch source: "ruby_aix_2_1_3_ssl_EAGAIN.patch", plevel: 1, env: patch_env
+    # the next two patches are because xlc doesn't deal with long vs int types well
+    patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
+    patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
+    # per IBM, just help ruby along on what it's running on
+    configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
+
   when "freebsd"
     configure_command << "--without-execinfo"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
@@ -120,4 +125,22 @@ build do
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+  # @todo - remove LIBPATH from ruby build path entirely on AIX.
+  # Before we can actually install gems on AIX, we need to monkeypatch
+  # ruby's mkmf so that XLC gets the system libiconv instead of the
+  # embedded one in the LIBPATH. This can only be done after ruby
+  # is installed fully.
+  #
+  # NOTE THAT THIS ONLY WORKS ON RUBY 2.1.3 currently
+  #
+  # Also, we can't use the patch dsl method here, since that operates
+  # only on the src dir. We need to patch ruby post installation
+  if aix?
+    env = with_standard_compiler_flags(with_embedded_path)
+    patch_env = env.dup
+    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+    patch source: "ruby_aix_2_1_3_mkmf.patch", target: "#{install_dir}/embedded/lib/ruby/2.1.0/mkmf.rb", plevel: 1, env: patch_env
+    # This will totally break if you're not using the right version of ruby
+  end
 end

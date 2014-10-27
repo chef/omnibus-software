@@ -28,7 +28,7 @@ source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar
 relative_path "pkg-config-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path, aix: { use_gcc: true })
+  env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \

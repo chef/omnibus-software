@@ -36,8 +36,6 @@ build do
   libgcc_file = case ohai['platform']
                 when "solaris2"
                   "/opt/csw/lib/libgcc_s.so.1"
-                when "aix"
-                  "/opt/freeware/lib/pthread/ppc64/libgcc_s.a"
                 when "freebsd"
                   "/lib/libgcc_s.so.1"
                 else

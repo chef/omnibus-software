@@ -3,7 +3,7 @@
 @@ -34,6 +34,7 @@
  end
  
- message "=== Checking for system dependent stuff... ===\n"
+ Logging::message "=== Checking for system dependent stuff... ===\n"
 +have_library("z", "inflate")
  have_library("nsl", "t_open")
  have_library("socket", "socket")
