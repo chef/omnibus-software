@@ -77,7 +77,8 @@ build do
                        "--enable-libedit",
                        "--with-ext=psych",
                        "--disable-install-doc",
-                       "--without-gmp"]
+                       "--without-gmp",
+                       "--disable-dtrace"]
 
   case ohai['platform']
   when "aix"
