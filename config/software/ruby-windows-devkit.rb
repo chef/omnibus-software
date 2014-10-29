@@ -25,7 +25,7 @@ version "4.5.2-20111229-1559" do
 end
 
 version "4.7.2-20130224-1151" do
-  source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-mingw64-32-#{version}-sfx.exe",
+  source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-32-#{version}-sfx.exe",
          md5: "9383f12958aafc425923e322460a84de"
 end
 
