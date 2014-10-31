@@ -20,17 +20,9 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix?
 
-if aix?
-  # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
-  #      http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
-  default_version "1.0.1c"
-  source url: "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
-         md5: "ae412727c8c15b67880aef7bd2999b2e"
-else
-  default_version "1.0.1j"
-  source url: "http://www.openssl.org/source/openssl-1.0.1j.tar.gz",
-         md5: "f7175c9cd3c39bb1907ac8bba9df8ed3"
-end
+default_version "1.0.1j"
+source url: "http://www.openssl.org/source/openssl-1.0.1j.tar.gz",
+       md5: "f7175c9cd3c39bb1907ac8bba9df8ed3"
 
 relative_path "openssl-#{version}"
 
@@ -148,5 +140,15 @@ build do
   make "depend", env: env
   # make -j N on openssl is not reliable
   make env: env
+  if aix?
+    # We have to sudo this because you can't actually run slibclean without being root.
+    # Something in openssl changed in the build process so now it loads the libcrypto
+    # and libssl libraries into AIX's shared library space during the first part of the
+    # compile. This means we need to clear the space since it's not being used and we
+    # can't install the library that is already in use. Ideally we would patch openssl
+    # to make this not be an issue.
+    # Bug Ref: http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
+    command "sudo /usr/sbin/slibclean", env: env
+  end
   make "install", env: env
 end
