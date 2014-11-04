@@ -15,7 +15,7 @@
 #
 
 name "appbundler"
-default_version "0.2.0"
+default_version "0.3.0"
 
 dependency "bundler"
 
