@@ -100,7 +100,9 @@ build do
     configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
 
   when "freebsd"
-    configure_command << "--without-execinfo"
+    # Disable optional support C level backtrace support. This requires the
+    # optional devel/libexecinfo port to be installed.
+    configure_command << "ac_cv_header_execinfo_h=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   when "smartos"
     # Opscode patch - someara@opscode.com
