@@ -35,8 +35,14 @@ build do
   # configure script cannot handle.
   env = with_standard_compiler_flags
 
-  # For some reason zlib needs this flag on solaris (cargocult warning?)
-  env['CFLAGS'] << " -DNO_VIZ" if solaris2?
+  if solaris?
+    # For some reason zlib needs this flag on solaris (cargocult warning?)
+    env['CFLAGS'] << " -DNO_VIZ" if solaris2?
+  elsif freebsd?
+    # FreeBSD 10+ gets cranky if zlib is not compiled in a
+    # position-independent way.
+    env['CFLAGS'] << " -fPIC"
+  end
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
