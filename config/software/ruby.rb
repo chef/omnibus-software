@@ -52,6 +52,14 @@ when "mac_os_x"
   # of the actual exit code from the compiler).
   env['CFLAGS'] << " -I#{install_dir}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
   env['LDFLAGS'] << " -arch x86_64"
+when "freebsd"
+  # Stops "libtinfo.so.5.9: could not read symbols: Bad value" error when
+  # compiling ext/readline. See the following for more info:
+  #
+  #   https://lists.freebsd.org/pipermail/freebsd-current/2013-October/045425.html
+  #   http://mailing.freebsd.ports-bugs.narkive.com/kCgK8sNQ/ports-183106-patch-sysutils-libcdio-does-not-build-on-10-0-and-head
+  #
+  env['LDFLAGS'] << " -ltinfow"
 when "aix"
   # this magic per IBM
   env['LDSHARED'] = "xlc -G"
@@ -100,7 +108,9 @@ build do
     configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
 
   when "freebsd"
-    configure_command << "--without-execinfo"
+    # Disable optional support C level backtrace support. This requires the
+    # optional devel/libexecinfo port to be installed.
+    configure_command << "ac_cv_header_execinfo_h=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   when "smartos"
     # Opscode patch - someara@opscode.com

@@ -32,6 +32,8 @@ MethodCallParentheses:
   Enabled: false
 MethodLength:
   Enabled: false
+NumericLiterals:
+  Enabled: false
 PercentLiteralDelimiters:
   Enabled: false
 SignalException:

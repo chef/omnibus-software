@@ -29,6 +29,19 @@ relative_path "openssl-#{version}"
 build do
 
   env = case ohai["platform"]
+        when "freebsd"
+          freebsd_flags = {
+            "CFLAGS" => "-I#{install_dir}/embedded/include",
+            "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
+          }
+          # Clang became the default compiler in FreeBSD 10+
+          if ohai['os_version'].to_i >= 1000024
+            freebsd_flags.merge!(
+              "CC" => "clang",
+              "CXX" => "clang++",
+            )
+          end
+          freebsd_flags
         when "mac_os_x"
           {
             "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
