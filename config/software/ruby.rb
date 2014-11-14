@@ -104,6 +104,10 @@ build do
     # the next two patches are because xlc doesn't deal with long vs int types well
     patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
     patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
+
+    # This will totally break if you're not using the right version of ruby
+    patch source: "ruby_aix_2_1_3_mkmf.patch", plevel: 1, env: patch_env
+
     # per IBM, just help ruby along on what it's running on
     configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
 
@@ -140,21 +144,4 @@ build do
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 
-  # @todo - remove LIBPATH from ruby build path entirely on AIX.
-  # Before we can actually install gems on AIX, we need to monkeypatch
-  # ruby's mkmf so that XLC gets the system libiconv instead of the
-  # embedded one in the LIBPATH. This can only be done after ruby
-  # is installed fully.
-  #
-  # NOTE THAT THIS ONLY WORKS ON RUBY 2.1.3 currently
-  #
-  # Also, we can't use the patch dsl method here, since that operates
-  # only on the src dir. We need to patch ruby post installation
-  if aix?
-    env = with_standard_compiler_flags(with_embedded_path)
-    patch_env = env.dup
-    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
-    patch source: "ruby_aix_2_1_3_mkmf.patch", target: "#{install_dir}/embedded/lib/ruby/2.1.0/mkmf.rb", plevel: 1, env: patch_env
-    # This will totally break if you're not using the right version of ruby
-  end
 end
