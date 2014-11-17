@@ -20,8 +20,8 @@ default_version '1.0.0'
 
 build do
   block do
-    touch "#{install_dir}/embedded/lib/.gitkeep"
-    touch "#{install_dir}/embedded/bin/.gitkeep"
-    touch "#{install_dir}/bin/.gitkeep"
+    touch "#{dest_dir}/#{install_dir}/embedded/lib/.gitkeep"
+    touch "#{dest_dir}/#{install_dir}/embedded/bin/.gitkeep"
+    touch "#{dest_dir}/#{install_dir}/bin/.gitkeep"
   end
 end

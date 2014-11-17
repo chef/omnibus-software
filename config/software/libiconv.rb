@@ -39,6 +39,6 @@ build do
 
   make "-j #{workers}", env: env
   make "-j #{workers} install-lib" \
-          " libdir=#{install_dir}/embedded/lib" \
-          " includedir=#{install_dir}/embedded/include", env: env
+          " libdir=#{dest_dir}/#{install_dir}/embedded/lib" \
+          " includedir=#{dest_dir}/#{install_dir}/embedded/include", env: env
 end

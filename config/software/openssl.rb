@@ -68,15 +68,16 @@ build do
           }
         else
           {
-            "CFLAGS" => "-I#{install_dir}/embedded/include",
-            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
+            "CFLAGS" => "-I#{dest_dir}/#{install_dir}/embedded/include",
+            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -Wl,-rpath-link,#{dest_dir}/#{install_dir}/embedded/lib -L#{dest_dir}/#{install_dir}/embedded/lib",
+            "INSTALL_PREFIX" => "#{dest_dir}",
           }
         end
 
   common_args = [
     "--prefix=#{install_dir}/embedded",
-    "--with-zlib-lib=#{install_dir}/embedded/lib",
-    "--with-zlib-include=#{install_dir}/embedded/include",
+    "--with-zlib-lib=#{dest_dir}/#{install_dir}/embedded/lib",
+    "--with-zlib-include=#{dest_dir}/#{install_dir}/embedded/include",
     "no-idea",
     "no-mdc2",
     "no-rc5",
@@ -133,13 +134,14 @@ build do
                         ["./config",
                         common_args,
                         "disable-gost",  # fixes build on linux, but breaks solaris
-                        "-L#{install_dir}/embedded/lib",
-                        "-I#{install_dir}/embedded/include",
-                        "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
+                        "-L#{dest_dir}/#{install_dir}/embedded/lib",
+                        "-I#{dest_dir}/#{install_dir}/embedded/include",
+                        "-Wl,-rpath,#{install_dir}/embedded/lib",
+                        "-Wl,-rpath-link,#{dest_dir}/#{install_dir}/embedded/lib"].join(" ")
                       end
 
   # openssl build process uses a `makedepend` tool that we build inside the bundle.
-  env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
+  env["PATH"] = "#{dest_dir}/#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
   if aix?
     patch_env = env.dup

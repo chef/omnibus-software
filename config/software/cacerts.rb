@@ -44,13 +44,17 @@ source url: "http://curl.haxx.se/ca/cacert.pem"
 relative_path "cacerts-#{version}"
 
 build do
-  mkdir "#{install_dir}/embedded/ssl/certs"
-  copy "#{project_dir}/cacert.pem", "#{install_dir}/embedded/ssl/certs/cacert.pem"
-
-  # Windows does not support symlinks
-  unless windows?
-    link "#{install_dir}/embedded/ssl/certs/cacert.pem", "#{install_dir}/embedded/ssl/cert.pem"
-
-    block { File.chmod(0644, "#{install_dir}/embedded/ssl/certs/cacert.pem") }
+  block do
+    FileUtils.mkdir_p("#{dest_dir}/#{install_dir}/embedded/ssl/certs")
+    FileUtils.copy("#{project_dir}/cacert.pem", "#{dest_dir}/#{install_dir}/embedded/ssl/certs/cacert.pem")
+    # Windows does not support symlinks
+    unless windows?
+      Dir.chdir("#{dest_dir}/#{install_dir}/embedded/ssl/") do
+        unless File.symlink?("cert.pem")
+          File.symlink("certs/cacert.pem", "cert.pem")
+        end
+        File.chmod(0644, "certs/cacert.pem")
+      end
+    end
   end
 end
