@@ -41,6 +41,10 @@ unless windows?
     source md5: "7e39c31806bbf9268296d03bd97ce718"
   end
 
+  version "2.4.4" do
+    source md5: "440a89ad6a3b1b7a69b034233cc4658e"
+  end
+
   source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
 end
 
