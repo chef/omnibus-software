@@ -35,7 +35,7 @@ build do
 
   # On 64-bit distro libffi libraries may be placed under /embedded/lib64
   # move them over to lib
-  block {
+  block do
     if File.directory?("#{dest_dir}/#{install_dir}/embedded/lib64")
       # Can't use 'move' here since that uses FileUtils.mv, which on < Ruby 2.2.0-dev
       # returns ENOENT on moving symlinks with broken (in this case, already moved) targets.
@@ -46,7 +46,7 @@ build do
 
     # libffi's default install location of header files is awful...
     copy "#{dest_dir}/#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{dest_dir}/#{install_dir}/embedded/include"
-  }
+  end
 
 end
 
