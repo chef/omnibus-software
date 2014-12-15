@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "9.2.8"
+default_version "9.2.9"
 
 dependency "zlib"
 dependency "openssl"
@@ -28,6 +28,10 @@ end
 
 version "9.2.8" do
   source md5: "c5c65a9b45ee53ead0b659be21ca1b97"
+end
+
+version "9.2.9" do
+  source md5: "38b0937c86d537d5044c599273066cfc"
 end
 
 version "9.3.4" do
