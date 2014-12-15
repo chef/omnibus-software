@@ -21,6 +21,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
+dependency "libossp-uuid"
 
 version "9.1.9" do
   source md5: "6b5ea53dde48fcd79acfc8c196b83535"
@@ -48,9 +49,11 @@ build do
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --with-libedit-preferred" \
-          " --with-openssl --with-includes=#{install_dir}/embedded/include" \
+          " --with-openssl" \
+          " --with-ossp-uuid" \
+          " --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
-  make "-j #{workers}", env: env
-  make "install", env: env
+  make "world -j #{workers}", env: env
+  make "install-world", env: env
 end
