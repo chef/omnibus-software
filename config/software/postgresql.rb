@@ -15,12 +15,13 @@
 #
 
 name "postgresql"
-default_version "9.2.8"
+default_version "9.2.9"
 
 dependency "zlib"
 dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
+dependency "libossp-uuid"
 
 version "9.1.9" do
   source md5: "6b5ea53dde48fcd79acfc8c196b83535"
@@ -28,6 +29,10 @@ end
 
 version "9.2.8" do
   source md5: "c5c65a9b45ee53ead0b659be21ca1b97"
+end
+
+version "9.2.9" do
+  source md5: "38b0937c86d537d5044c599273066cfc"
 end
 
 version "9.3.4" do
@@ -44,9 +49,11 @@ build do
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --with-libedit-preferred" \
-          " --with-openssl --with-includes=#{install_dir}/embedded/include" \
+          " --with-openssl" \
+          " --with-ossp-uuid" \
+          " --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
-  make "-j #{workers}", env: env
-  make "install", env: env
+  make "world -j #{workers}", env: env
+  make "install-world", env: env
 end
