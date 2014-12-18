@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "1.9.1"
+default_version "1.9.5"
 
 dependency "curl"
 dependency "zlib"
@@ -28,7 +28,7 @@ dependency "perl"
 relative_path "git-#{version}"
 
 source url: "https://github.com/git/git/archive/v#{version}.tar.gz",
-       md5: "906f984f5c8913176547dc456608be16"
+       md5: "a50979e98068f7dae8ad34492d0ef5a8"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
