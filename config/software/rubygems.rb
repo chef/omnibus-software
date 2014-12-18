@@ -33,6 +33,15 @@ unless windows?
     source md5: "3a555b9d579f6a1a1e110628f5110c6b"
   end
 
+  # NOTE: this is the last version of rubygems before the 2.2.x change to native gem install location
+  #
+  #  https://github.com/rubygems/rubygems/issues/874
+  #
+  # This is a breaking change for omnibus clients.  Chef-11 needs to be pinned to 2.1.11 for eternity.
+  version "2.1.11" do
+    source md5: "b561b7aaa70d387e230688066e46e448"
+  end
+
   version "2.2.1" do
     source md5: "1f0017af0ad3d3ed52665132f80e7443"
   end
