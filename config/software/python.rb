@@ -16,7 +16,7 @@
 #
 
 name "python"
-default_version "2.7.8"
+default_version "2.7.9"
 
 dependency "gdbm"
 dependency "ncurses"
@@ -26,7 +26,7 @@ dependency "bzip2"
 dependency "libsqlite3"
 
 source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-       :md5 => 'd4bca0159acb0b44a781292b5231936f'
+       :md5 => '5eebcaa0030dc4061156d3429657fb83'
 
 relative_path "Python-#{version}"
 
@@ -36,7 +36,6 @@ env = {
 }
 
 build do
-  patch :source => "disable_sslv3.patch"
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--enable-shared",
