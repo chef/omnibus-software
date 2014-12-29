@@ -10,7 +10,6 @@ source :url => "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{ve
        :md5 => "349552802c809c4e8b09d8045a437787"
 
 relative_path "postgresql-#{version}"
-# libpq_source_dir = "#{project_dir}/src/interfaces/libpq"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -26,7 +25,6 @@ build do
             "--with-includes=#{install_dir}/embedded/include",
             "--with-libraries=#{install_dir}/embedded/lib" ].join(" "), :env => env
   command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  # command "make install"
   command "mkdir -p #{install_dir}/embedded/include/postgresql"
   command "make -C src/include install"
   command "make -C src/interfaces install"
