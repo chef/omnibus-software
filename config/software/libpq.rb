@@ -1,0 +1,32 @@
+name "libpq"
+default_version "9.4.0"
+
+dependency "zlib"
+dependency "openssl"
+dependency "libedit"
+dependency "ncurses"
+
+source :url => "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.gz",
+       :md5 => "349552802c809c4e8b09d8045a437787"
+
+relative_path "postgresql-#{version}"
+
+env = {
+  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+}
+
+build do
+  command [ "./configure",
+            "--prefix=#{install_dir}/embedded",
+            "--with-libedit-preferred",
+            "--with-openssl",
+            "--with-includes=#{install_dir}/embedded/include",
+            "--with-libraries=#{install_dir}/embedded/lib" ].join(" "), :env => env
+  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "mkdir -p #{install_dir}/embedded/include/postgresql"
+  command "make -C src/include install"
+  command "make -C src/interfaces install"
+  command "make -C src/bin/pg_config install"
+end
