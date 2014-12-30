@@ -26,7 +26,6 @@ source url: "http://www.mpfr.org/mpfr-current/mpfr-#{version}.tar.gz"
 relative_path "mpfr-#{version}"
 
 build do
-
   env = with_standard_compiler_flags(with_embedded_path)
 
   configure_command = ["./configure",
