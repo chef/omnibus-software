@@ -30,8 +30,14 @@ build do
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
 
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  if solaris2?
+    # run old make :(
+    command "/usr/ccs/bin/make", env: env
+    command "/usr/ccs/bin/make install", env: env
+  else
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
 
   # libffi's default install location of header files is awful...
   copy "#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{install_dir}/embedded/include"
