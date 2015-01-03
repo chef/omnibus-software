@@ -38,6 +38,7 @@ build do
                      "--with-as=/usr/ccs/bin/as",
                      "--with-ld=/usr/ccs/bin/ld"]
 
+
   command configure_command.join(" "), env: env
   # gcc takes quite a long time to build (over 2 hours) so we're setting the mixlib shellout
   # timeout to 4 hours. It's not great but it's required (on solaris at least, need to verify

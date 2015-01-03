@@ -54,4 +54,3 @@ build do
     delete "#{install_dir}/embedded/lib64"
   end
 end
-
