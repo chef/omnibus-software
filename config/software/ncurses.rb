@@ -44,11 +44,11 @@ build do
   env.delete('CPPFLAGS')
 
   # gcc4 from opencsw fails to compile ncurses
-  if solaris2?
-    env["PATH"] = "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"
-    env["CC"]   = "/opt/csw/gcc3/bin/gcc"
-    env["CXX"]  = "/opt/csw/gcc3/bin/g++"
-  end
+#  if solaris2?
+#    env["PATH"] = "/opt/csw/gcc3/bin:/opt/csw/bin:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin:/usr/sbin:/usr/bin"
+#    env["CC"]   = "/opt/csw/gcc3/bin/gcc"
+#    env["CXX"]  = "/opt/csw/gcc3/bin/g++"
+#  end
 
   if smartos?
     # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.

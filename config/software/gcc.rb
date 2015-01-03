@@ -28,13 +28,14 @@ version("4.9.2")      { source md5: "76f464e0511c26c93425a9dcdc9134cf" }
 
 source url: "ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-#{version}/gcc-#{version}.tar.gz"
 
-relative_path "gcc-4.9.2"
+relative_path "gcc-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   
   configure_command = ["./configure",
                      "--prefix=#{install_dir}/embedded",
+                     "--disable-nls",
                      "--enable-languages=c,c++"]
 
 
@@ -42,7 +43,7 @@ build do
   # gcc takes quite a long time to build (over 2 hours) so we're setting the mixlib shellout
   # timeout to 4 hours. It's not great but it's required (on solaris at least, need to verify
   # on any other platforms we may use this with)
-  make env: env, timeout: 14400
-  make "install", env: env
+  make "-j #{workers}", env: env #, timeout: 14400
+  make "-j #{workers} install", env: env
 end
 
