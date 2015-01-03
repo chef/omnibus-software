@@ -17,6 +17,7 @@
 name "git"
 default_version "1.9.5"
 
+#dependency "binutils"
 dependency "curl"
 dependency "zlib"
 dependency "openssl"
@@ -44,6 +45,7 @@ build do
     "NO_TCLTK"           => "1",
     "NO_R_TO_GCC_LINKER" => "1",
     "NEEDS_LIBICONV"     => "1",
+    "V"                 => "1",
 
     "PERL_PATH"  => "#{install_dir}/embedded/bin/perl",
     "ZLIB_PATH"  => "#{install_dir}/embedded",

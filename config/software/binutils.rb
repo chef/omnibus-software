@@ -14,25 +14,24 @@
 # limitations under the License.
 #
 
-name "perl"
-default_version "5.18.1"
+name "binutils"
+default_version "2.24"
 
-source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz",
-       md5: "304cb5bd18e48c44edd6053337d3386d"
+version("2.24") { source md5: "a5dd5dd2d212a282cc1d4a84633e0d88" }
 
-relative_path "perl-#{version}"
+source url: "http://ftp.gnu.org/gnu/binutils/binutils-#{version}.tar.gz"
+
+relative_path "binutils-#{version}"
+
+env = with_standard_compiler_flags(with_embedded_path)
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  configure_command = ["./configure",
+                       "--enable-64-bit-bfd",
+                       "--disable-werror",
+                       "--prefix=#{install_dir}/embedded"]
 
-  command "sh Configure" \
-          " -de" \
-          " -Dprefix=#{install_dir}/embedded" \
-          " -Duseshrplib" \
-          " -Dusethreads" \
-          " -Dcc='gcc -static-libgcc'" \
-          " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'", env: env
-
+  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
-  make "install", env: env
+  make "-j #{workers} install", env: env
 end
