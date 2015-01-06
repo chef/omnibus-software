@@ -34,8 +34,8 @@ build do
 
   if solaris2?
     # run old make :(
-    command "/usr/ccs/bin/make", env: env
-    command "/usr/ccs/bin/make install", env: env
+    make env: env, bin: "/usr/ccs/bin/make"
+    make "install", env: env, bin: "/usr/ccs/bin/make"
   else
     make "-j #{workers}", env: env
     make "-j #{workers} install", env: env
