@@ -74,9 +74,14 @@ when "aix"
   env['M4'] = "/opt/freeware/bin/m4"
 when "solaris2"
   env['CC'] = "/usr/sfw/bin/gcc -static-libgcc"
-  #  env['LD'] = "/usr/sfw/i386-sun-solaris2.10/bin/ld"
-  env['CFLAGS'] << " -O3 -g -pipe"
-else  # including solaris, linux
+  if ohai['kernel']['machine'].include?('sun4')
+    # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
+    env['CFLAGS'] << " -O0 -g -pipe -mcpu=v9"
+    env['LDFLAGS'] << " -mcpu=v9"
+  else
+    env['CFLAGS'] << " -O3 -g -pipe"
+  end
+else  # including linux
   env['CFLAGS'] << " -O3 -g -pipe"
 end
 
