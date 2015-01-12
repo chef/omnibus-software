@@ -27,8 +27,15 @@ dependency "perl"
 
 relative_path "git-#{version}"
 
-source url: "https://github.com/git/git/archive/v#{version}.tar.gz",
-       md5: "a50979e98068f7dae8ad34492d0ef5a8"
+version "1.9.5" do
+  source md5: "a50979e98068f7dae8ad34492d0ef5a8"
+end
+
+version "2.2.1" do
+  source md5: "d1110e35369bc37aa204915f64c5d1c8"
+end
+
+source url: "https://github.com/git/git/archive/v#{version}.tar.gz"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
