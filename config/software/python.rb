@@ -17,7 +17,7 @@
 
 name "python"
 default_version "2.7.9"
-
+license "PSFL"
 dependency "gdbm"
 dependency "ncurses"
 dependency "zlib"
