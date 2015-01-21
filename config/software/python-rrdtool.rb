@@ -3,6 +3,8 @@ default_version "1.3.8"
 dependency "python"
 
 build do
+  license "https://raw.githubusercontent.com/oetiker/rrdtool-1.x/master/COPYRIGHT"
+  
   if ENV['PKG_TYPE'] == 'deb'
     command "wget http://dd-agent.s3.amazonaws.com/python-rrdtool/deb/#{ENV['ARCH']}/rrdtool.so", :cwd => "#{install_dir}/embedded/lib/python2.7/"
   elsif ENV['PKG_TYPE'] == 'rpm'

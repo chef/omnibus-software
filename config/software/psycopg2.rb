@@ -10,5 +10,6 @@ env = {
 }
 
 build do
+  license "https://raw.githubusercontent.com/psycopg/psycopg2/master/LICENSE"
   command "#{install_dir}/embedded/bin/pip install -I #{name}==#{version}", :env => env
 end
