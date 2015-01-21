@@ -26,5 +26,6 @@ source :url => "https://pypi.python.org/packages/source/s/setuptools/setuptools-
 relative_path "setuptools-#{version}"
 
 build do
+  license "PSFL"
   command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
 end
