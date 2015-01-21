@@ -1,6 +1,5 @@
 name "boto"
 default_version "2.25.0"
-license "https://raw.githubusercontent.com/boto/boto/develop/LICENSE"
 dependency "python"
 dependency "pip"
 
