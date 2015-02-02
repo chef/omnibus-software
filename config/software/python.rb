@@ -17,7 +17,6 @@
 
 name "python"
 default_version "2.7.9"
-dependency "gdbm"
 dependency "ncurses"
 dependency "zlib"
 dependency "openssl"
@@ -39,7 +38,7 @@ build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--enable-shared",
-           "--with-dbmliborder=gdbm"].join(" "), :env => env
+           "--with-dbmliborder="].join(" "), :env => env
   command "make", :env => env
   command "make install", :env => env
   command "rm -rf #{install_dir}/embedded/lib/python2.7/test"
