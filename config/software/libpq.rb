@@ -18,6 +18,7 @@ env = {
 }
 
 build do
+  license "https://raw.githubusercontent.com/lpsmith/postgresql-libpq/master/LICENSE"
   command [ "./configure",
             "--prefix=#{install_dir}/embedded",
             "--with-libedit-preferred",
