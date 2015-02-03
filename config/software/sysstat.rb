@@ -13,6 +13,7 @@ env = {
 }
 
 build do
+  add_source "http://perso.orange.fr/sebastien.godard/sysstat-11.0.1.tar.xz"
   license "https://raw.githubusercontent.com/sysstat/sysstat/master/COPYING"
   command(["./configure",
        "--prefix=#{install_dir}/embedded",
