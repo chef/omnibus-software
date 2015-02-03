@@ -67,6 +67,7 @@ configure_env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig" +
 configure_env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
 build do
+  license "https://raw.githubusercontent.com/ioerror/makedepend/master/LICENSE"
   command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
   command "make -j #{workers}", :env => configure_env
   command "make -j #{workers} install", :env => configure_env

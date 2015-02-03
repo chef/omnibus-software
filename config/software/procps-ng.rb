@@ -15,6 +15,7 @@ env = {
 }
 
 build do
+  license "https://gitorious.org/procps/procps/raw/fe559b5b3b089c9aa2b0816c1ca541b6679d1b6d:COPYING"
   command(["./configure",
      "--prefix=#{install_dir}/embedded",
      "--disable-nls"].join(" "),

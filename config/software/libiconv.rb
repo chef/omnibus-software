@@ -49,6 +49,7 @@ if Ohai['platform'] == "solaris2"
 end
 
 build do
+  license "https://raw.githubusercontent.com/lpsmith/postgresql-libpq/master/LICENSE"
   patch :source => 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
   command "./configure --prefix=#{install_dir}/embedded", :env => env
   command "make -j #{workers}", :env => env

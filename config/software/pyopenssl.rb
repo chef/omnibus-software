@@ -7,6 +7,7 @@ dependency "pip"
 dependency "libffi"
 
 build do
+  license "https://raw.githubusercontent.com/pyca/pyopenssl/master/LICENSE"
   build_env = {
     "PATH" => "/#{install_dir}/embedded/bin:#{ENV['PATH']}",
     "LDFLAGS" => "-L/#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",

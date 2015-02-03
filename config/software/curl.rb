@@ -27,6 +27,7 @@ source :url => "http://curl.haxx.se/download/curl-#{version}.tar.gz",
 relative_path "curl-#{version}"
 
 build do
+  license "https://raw.githubusercontent.com/bagder/curl/master/COPYING"
   block do
     FileUtils.rm_rf(File.join(project_dir, 'src/tool_hugehelp.c'))
   end

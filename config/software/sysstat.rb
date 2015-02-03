@@ -13,6 +13,7 @@ env = {
 }
 
 build do
+  license "https://raw.githubusercontent.com/sysstat/sysstat/master/COPYING"
   command(["./configure",
        "--prefix=#{install_dir}/embedded",
        "--disable-nls"].join(" "),
