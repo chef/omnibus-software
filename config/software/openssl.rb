@@ -144,6 +144,7 @@ build do
   else
     make_binary = 'make'
   end
+  license "https://raw.githubusercontent.com/openssl/openssl/master/LICENSE"
 
   command configure_command, :env => env
   command "#{make_binary} depend", :env => env

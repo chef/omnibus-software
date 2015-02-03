@@ -34,6 +34,7 @@ env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
 paths = [ "#{install_dir}/embedded/bin/pkgconfig" ]
 
 build do
+  add_source "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
   command "./configure --prefix=#{install_dir}/embedded --disable-debug --disable-host-tool --with-internal-glib --with-pc-path=#{paths*':'}", :env => env
   # #203: pkg-configs internal glib does not provide a way to pass ldflags.
   # Only allows GLIB_CFLAGS and GLIB_LIBS.

@@ -39,6 +39,7 @@ env = {
 }
 
 build do
+  license "https://gist.githubusercontent.com/remh/227fefddabefc998235f/raw/cc614178cf79580e04671c4d6acfbe95028b1842/bzip2.LICENSE"
   patch :source => 'makefile_take_env_vars.patch'
   patch :source => 'soname_install_dir.patch' if mac_os_x_mavericks?
   command "make PREFIX=#{prefix} VERSION=#{version}", :env => env
