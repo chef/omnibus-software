@@ -64,6 +64,7 @@ build do
     "CFLAGS"  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
     "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
   )
+  env.delete('CPPFLAGS')
 
   # Setup the erlang include dir
   mkdir "#{install_dir}/embedded/erlang/include"
