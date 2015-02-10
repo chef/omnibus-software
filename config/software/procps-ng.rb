@@ -3,7 +3,7 @@ default_version "3.3.9"
 
 dependency "tar"
 
-source :url => "http://downloads.sourceforge.net/project/#{name}/Production/#{name}-#{version}.tar.xz",
+source :url => "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz",
        :md5 => '0980646fa25e0be58f7afb6b98f79d74'
 
 relative_path "procps-ng-3.3.9"
