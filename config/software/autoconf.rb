@@ -23,6 +23,10 @@ source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
 relative_path "autoconf-#{version}"
 
 build do
+  if solaris2?
+    env['M4'] = "#{install_dir}/embedded/bin/m4"
+  end
+
   env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \

@@ -21,22 +21,22 @@ dependency "gmp"
 dependency "mpfr"
 dependency "mpc"
 dependency "libiconv"
-dependency "gmake"
-
 
 version("4.9.2")      { source md5: "76f464e0511c26c93425a9dcdc9134cf" }
 
-source url: "ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-#{version}/gcc-#{version}.tar.gz"
+source url: "http://mirrors.kernel.org/gnu/gcc/gcc-#{version}/gcc-#{version}.tar.gz"
 
 relative_path "gcc-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  
+
   configure_command = ["./configure",
                      "--prefix=#{install_dir}/embedded",
                      "--disable-nls",
-                     "--enable-languages=c,c++"]
+                     "--enable-languages=c,c++",
+                     "--with-as=/usr/ccs/bin/as",
+                     "--with-ld=/usr/ccs/bin/ld"]
 
 
   command configure_command.join(" "), env: env
