@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014 Chef, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,26 +14,19 @@
 # limitations under the License.
 #
 
-name "gmp"
-default_version "6.0.0a"
+name "m4"
+default_version "1.4.17"
 
-version("6.0.0a") { source md5: "b7ff2d88cae7f8085bd5006096eed470" }
+source url: "http://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz",
+       md5: "efb2d7c7e22840947863efaedc175747"
 
-source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.bz2"
-
-relative_path "gmp-6.0.0"
+relative_path "m4-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if solaris2?
-    env['ABI'] = "32"
-  end
+  command "./configure --prefix=#{install_dir}/embedded", env: env
 
-  configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
-
-  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end

@@ -26,9 +26,9 @@ source url: "ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.2.tar.gz"
 
 relative_path "mpc-#{version}"
 
-env = with_standard_compiler_flags(with_embedded_path)
-
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
 
