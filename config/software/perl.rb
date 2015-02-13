@@ -25,14 +25,21 @@ relative_path "perl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "sh Configure" \
-          " -de" \
-          " -Dprefix=#{install_dir}/embedded" \
-          " -Duseshrplib" \
-          " -Dusethreads" \
-          " -Dcc='gcc -static-libgcc'" \
-          " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'", env: env
+  if solaris2?
+    cc_command = "-Dcc='gcc -static-libgcc -Wl, -M /export/home/shain/dev/solaris_mapfile"
+  else
+    cc_command = "-Dcc='gcc -static-libgcc'"
+  end
 
+  configure_command = ["sh Configure",
+                       " -de",
+                       " -Dprefix=#{install_dir}/embedded",
+                       " -Duseshrplib",
+                       " -Dusethreads",
+                       " #{cc_command}",
+                       " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'"]
+
+  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "install", env: env
 end
