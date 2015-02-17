@@ -20,9 +20,9 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix?
 
-default_version "1.0.1j"
-source url: "http://www.openssl.org/source/openssl-1.0.1j.tar.gz",
-       md5: "f7175c9cd3c39bb1907ac8bba9df8ed3"
+default_version "1.0.1k"
+source url: "http://www.openssl.org/source/openssl-1.0.1k.tar.gz",
+       md5: "d4f002bd22a56881340105028842ae1f"
 
 relative_path "openssl-#{version}"
 
@@ -131,7 +131,14 @@ build do
                           raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
                         end
                       else
-                        ["./config",
+                        config = if ohai["os"] == "linux" && ohai["kernel"]["machine"] == "ppc64"
+                                   "./Configure linux-ppc64"
+                                 elsif ohai["os"] == "linux" && ohai["kernel"]["machine"] == "s390x"
+                                   "./Configure linux64-s390x"
+                                 else
+                                   "./config"
+                                 end
+                        [config,
                         common_args,
                         "disable-gost",  # fixes build on linux, but breaks solaris
                         "-L#{dest_dir}/#{install_dir}/embedded/lib",

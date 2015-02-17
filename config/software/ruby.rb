@@ -36,6 +36,7 @@ version("2.1.1")      { source md5: "e57fdbb8ed56e70c43f39c79da1654b2" }
 version("2.1.2")      { source md5: "a5b5c83565f8bd954ee522bd287d2ca1" }
 version("2.1.3")      { source md5: "74a37b9ad90e4ea63c0eed32b9d5b18f" }
 version("2.1.4")      { source md5: "89b2f4a197621346f6724a3c35535b19" }
+version("2.1.5")      { source md5: "df4c1b23f624a50513c7a78cb51a13dc" }
 
 source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
@@ -81,6 +82,23 @@ build do
     patch source: "ruby-solaris-no-stack-protector.patch", plevel: 1
   end
 
+  # AIX needs /opt/freeware/bin only for patch
+  patch_env = env.dup
+  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+
+  # disable libpath in mkmf across all platforms, it trolls omnibus and
+  # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
+  # this was a good idea, but it breaks our use case hard.  AIX cannot even
+  # compile without removing it, and it breaks some native gem installs on
+  # other platforms.  generally you need to have a condition where the
+  # embedded and non-embedded libs get into a fight (libiconv, openssl, etc)
+  # and ruby trying to set LD_LIBRARY_PATH itself gets it wrong.
+  if version.to_f >= 2.1
+    patch source: "ruby_aix_2_1_3_mkmf.patch", plevel: 1, env: patch_env
+    # should intentionally break and fail to apply on 2.2, patch will need to
+    # be fixed.
+  end
+
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded",
                        "--with-out-ext=dbm",
@@ -92,9 +110,6 @@ build do
 
   case ohai['platform']
   when "aix"
-    patch_env = env.dup
-    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
-
     # need to patch ruby's configure file so it knows how to find shared libraries
     patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env
     # have ruby use zlib on AIX correctly
@@ -104,9 +119,6 @@ build do
     # the next two patches are because xlc doesn't deal with long vs int types well
     patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
     patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
-
-    # This will totally break if you're not using the right version of ruby
-    patch source: "ruby_aix_2_1_3_mkmf.patch", plevel: 1, env: patch_env
 
     # per IBM, just help ruby along on what it's running on
     configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"

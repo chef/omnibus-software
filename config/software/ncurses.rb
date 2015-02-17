@@ -41,6 +41,7 @@ relative_path "ncurses-5.9"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  env.delete('CPPFLAGS')
 
   # gcc4 from opencsw fails to compile ncurses
   if solaris2?
