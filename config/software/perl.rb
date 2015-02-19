@@ -26,7 +26,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if solaris2?
-    cc_command = "-Dcc='gcc -static-libgcc -Wl, -M /export/home/shain/dev/solaris_mapfile"
+    cc_command = "-Dcc='gcc -static-libgcc -Wl,-M /export/home/shain/dev/solaris_mapfile"
   else
     cc_command = "-Dcc='gcc -static-libgcc'"
   end

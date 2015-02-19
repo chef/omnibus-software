@@ -106,7 +106,7 @@ build do
                          "-R#{install_dir}/embedded/lib",
                         "-static-libgcc"].join(" ")
                       when "solaris2"
-                        if Omnibus::Config.solaris_compiler == "gcc"
+#                        if Omnibus::Config.solaris_compiler == "gcc"
                           if ohai["kernel"]["machine"] =~ /sun/
                             ["/bin/sh ./Configure",
                              "solaris-sparcv9-gcc",
@@ -126,9 +126,9 @@ build do
                             "-R#{install_dir}/embedded/lib",
                             "-static-libgcc"].join(" ")
                           end
-                        else
-                          raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
-                        end
+#                        else
+#                          raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
+#                        end
                       else
                         config = if ohai["os"] == "linux" && ohai["kernel"]["machine"] == "ppc64"
                                    "./Configure linux-ppc64"
