@@ -17,7 +17,6 @@
 name "git"
 default_version "1.9.5"
 
-#dependency "binutils"
 dependency "curl"
 dependency "zlib"
 dependency "openssl"
