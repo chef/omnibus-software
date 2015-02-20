@@ -26,7 +26,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if solaris2?
-    cc_command = "-Dcc='gcc -static-libgcc -Wl,-M #{project.files_path}/#{Omnibus::Config.solaris_linker_mapfile}" 
+    cc_command = "-Dcc='gcc -static-libgcc -Wl,-M #{project.files_path}/#{Omnibus::Config.solaris_linker_mapfile}"
   else
     cc_command = "-Dcc='gcc -static-libgcc'"
   end
