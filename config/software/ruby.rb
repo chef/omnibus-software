@@ -74,7 +74,6 @@ when "aix"
   env['M4'] = "/opt/freeware/bin/m4"
 when "solaris2"
   env['CC'] = "/usr/sfw/bin/gcc -static-libgcc"
-<<<<<<< HEAD
   if ohai['kernel']['machine'].include?('sun4')
     # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
     env['CFLAGS'] << " -O0 -g -pipe -mcpu=v9"
