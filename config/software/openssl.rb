@@ -106,29 +106,25 @@ build do
                          "-R#{install_dir}/embedded/lib",
                         "-static-libgcc"].join(" ")
                       when "solaris2"
-#                        if Omnibus::Config.solaris_compiler == "gcc"
-                          if ohai["kernel"]["machine"] =~ /sun/
-                            ["/bin/sh ./Configure",
-                             "solaris-sparcv9-gcc",
-                             common_args,
-                            "-L#{install_dir}/embedded/lib",
-                            "-I#{install_dir}/embedded/include",
-                            "-R#{install_dir}/embedded/lib",
-                            "-static-libgcc"].join(" ")
-                          else
-                            # This should not require a /bin/sh, but without it we get
-                            # Errno::ENOEXEC: Exec format error
-                            ["/bin/sh ./Configure",
-                             "solaris-x86-gcc",
-                             common_args,
-                            "-L#{install_dir}/embedded/lib",
-                            "-I#{install_dir}/embedded/include",
-                            "-R#{install_dir}/embedded/lib",
-                            "-static-libgcc"].join(" ")
-                          end
-#                        else
-#                          raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
-#                        end
+                        if ohai["kernel"]["machine"] =~ /sun/
+                          ["/bin/sh ./Configure",
+                           "solaris-sparcv9-gcc",
+                           common_args,
+                          "-L#{install_dir}/embedded/lib",
+                          "-I#{install_dir}/embedded/include",
+                          "-R#{install_dir}/embedded/lib",
+                          "-static-libgcc"].join(" ")
+                        else
+                          # This should not require a /bin/sh, but without it we get
+                          # Errno::ENOEXEC: Exec format error
+                          ["/bin/sh ./Configure",
+                           "solaris-x86-gcc",
+                           common_args,
+                          "-L#{install_dir}/embedded/lib",
+                          "-I#{install_dir}/embedded/include",
+                          "-R#{install_dir}/embedded/lib",
+                          "-static-libgcc"].join(" ")
+                        end
                       else
                         config = if ohai["os"] == "linux" && ohai["kernel"]["machine"] == "ppc64"
                                    "./Configure linux-ppc64"
