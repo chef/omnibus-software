@@ -74,7 +74,6 @@ when "aix"
   env['M4'] = "/opt/freeware/bin/m4"
 when "solaris2"
   env['CC'] = "/usr/sfw/bin/gcc -static-libgcc"
-  #  env['LD'] = "/usr/sfw/i386-sun-solaris2.10/bin/ld"
   env['CFLAGS'] << " -O3 -g -pipe"
 else  # including solaris, linux
   env['CFLAGS'] << " -O3 -g -pipe"
