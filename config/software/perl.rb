@@ -27,10 +27,10 @@ build do
 
   solaris_mapfile_path = File.expand_path(Omnibus::Config.solaris_linker_mapfile, Omnibus::Config.project_root)
   if solaris2? && File.exist?(solaris_mapfile_path)
-      cc_command = "-Dcc='gcc -static-libgcc -Wl,-M #{solaris_mapfile_path}"
-    else
-      cc_command = "-Dcc='gcc -static-libgcc'"
-    end
+    cc_command = "-Dcc='gcc -static-libgcc -Wl,-M #{solaris_mapfile_path}"
+  else
+    cc_command = "-Dcc='gcc -static-libgcc'"
+  end
 
   configure_command = ["sh Configure",
                        " -de",
