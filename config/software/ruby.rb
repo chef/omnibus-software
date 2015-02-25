@@ -80,7 +80,7 @@ when "solaris2"
     env['LDFLAGS'] << " -mcpu=v9"
   else
     env['CFLAGS'] << " -O3 -g -pipe"
-  end 
+  end
 else  # including linux
   env['CFLAGS'] << " -O3 -g -pipe"
 end
