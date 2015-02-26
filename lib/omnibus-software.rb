@@ -48,7 +48,7 @@ module OmnibusSoftware
       root = OmnibusSoftware.root.join('config/software')
       Dir.glob("#{root}/*.rb").each do |filepath|
         name = File.basename(filepath, '.rb')
-        Omnibus::Software.load(project, name)
+        Omnibus::Software.load(project, name, nil)
         $stdout.print '.'
       end
     end
