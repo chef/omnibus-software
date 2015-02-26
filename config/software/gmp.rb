@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,26 +14,26 @@
 # limitations under the License.
 #
 
-name "autoconf"
-default_version "2.68"
+name "gmp"
+default_version "6.0.0a"
 
-dependency "m4"
+version("6.0.0a") { source md5: "b7ff2d88cae7f8085bd5006096eed470" }
 
-source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
-       md5: "c3b5247592ce694f7097873aa07d66fe"
+source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.bz2"
 
-relative_path "autoconf-#{version}"
+relative_path "gmp-6.0.0"
 
 build do
-  if solaris2?
-    env['M4'] = "#{install_dir}/embedded/bin/m4"
-  end
-
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+  if solaris2?
+    env['ABI'] = "32"
+  end
 
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded"]
+
+  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
-  make "install", env: env
+  make "-j #{workers} install", env: env
 end

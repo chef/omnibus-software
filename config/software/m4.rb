@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2014 Chef, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,26 +14,19 @@
 # limitations under the License.
 #
 
-name "autoconf"
-default_version "2.68"
+name "m4"
+default_version "1.4.17"
 
-dependency "m4"
+source url: "http://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz",
+       md5: "efb2d7c7e22840947863efaedc175747"
 
-source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
-       md5: "c3b5247592ce694f7097873aa07d66fe"
-
-relative_path "autoconf-#{version}"
+relative_path "m4-#{version}"
 
 build do
-  if solaris2?
-    env['M4'] = "#{install_dir}/embedded/bin/m4"
-  end
-
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+  command "./configure --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make "-j #{workers} install", env: env
 end
