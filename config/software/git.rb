@@ -35,7 +35,11 @@ version "2.2.1" do
   source md5: "d1110e35369bc37aa204915f64c5d1c8"
 end
 
-source url: "https://github.com/git/git/archive/v#{version}.tar.gz"
+version "2.2.1" do
+  source md5: "ff41fdb094eed1ec430aed8ee9b9849c"
+end
+
+source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
@@ -54,6 +58,10 @@ build do
     "LIBPCREDIR" => "#{install_dir}/embedded",
   )
 
-  make "-j #{workers} prefix=#{install_dir}/embedded", env: env
-  make "install prefix=#{install_dir}/embedded", env: env
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded"]
+
+  command configure_command.join(" "), env: env
+  make "-j #{workers}", env: env
+  make "install", env: env
 end

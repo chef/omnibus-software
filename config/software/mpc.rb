@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,26 +14,25 @@
 # limitations under the License.
 #
 
-name "autoconf"
-default_version "2.68"
+name "mpc"
+default_version "1.0.2"
 
-dependency "m4"
+dependency "gmp"
+dependency "mpfr"
 
-source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
-       md5: "c3b5247592ce694f7097873aa07d66fe"
+version("1.0.2") { source md5: "68fadff3358fb3e7976c7a398a0af4c3" }
 
-relative_path "autoconf-#{version}"
+source url: "ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.2.tar.gz"
+
+relative_path "mpc-#{version}"
 
 build do
-  if solaris2?
-    env['M4'] = "#{install_dir}/embedded/bin/m4"
-  end
-
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded"]
 
+  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
-  make "install", env: env
+  make "-j #{workers} install", env: env
 end
