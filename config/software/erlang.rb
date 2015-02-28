@@ -84,17 +84,22 @@ build do
     link "#{install_dir}/embedded/include/#{name}", "#{install_dir}/embedded/erlang/include/#{name}"
   end
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --enable-threads" \
-          " --enable-smp-support" \
-          " --enable-kernel-poll" \
-          " --enable-dynamic-ssl-lib" \
-          " --enable-shared-zlib" \
-          " --enable-hipe" \
-          " --without-javac" \
-          " --with-ssl=#{install_dir}/embedded" \
-          " --disable-debug", env: env
+  configure_flags = " --prefix=#{install_dir}/embedded" \
+                             " --enable-threads" \
+                             " --enable-smp-support" \
+                             " --enable-kernel-poll" \
+                             " --enable-dynamic-ssl-lib" \
+                             " --enable-shared-zlib" \
+                             " --enable-hipe" \
+                             " --without-javac" \
+                             " --with-ssl=#{install_dir}/embedded" \
+                             " --disable-debug"
+  case version
+  when "17.4-trace-dirty"
+    configure_flags += " --with-dynamic-trace=systemtap --enable-vm-probes --enable-dirty-schedulers"
+  end
+  
+  command "./configure #{configure_flags}" , env: env
 
   make "-j #{workers}", env: env
   make "install", env: env
