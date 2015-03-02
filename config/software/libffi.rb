@@ -44,9 +44,9 @@ build do
   # libffi's default install location of header files is awful...
   copy "#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{install_dir}/embedded/include"
 
-  # On 64-bit centos, libffi libraries are places under /embedded/lib64
+  # On 64-bit centos and slackware, libffi libraries are places under /embedded/lib64
   # move them over to lib
-  if rhel? && _64_bit?
+  if rhel? && _64_bit? || slackware? && _64_bit?
     # Can't use 'move' here since that uses FileUtils.mv, which on < Ruby 2.2.0-dev
     # returns ENOENT on moving symlinks with broken (in this case, already moved) targets.
     # http://comments.gmane.org/gmane.comp.lang.ruby.cvs/49907
