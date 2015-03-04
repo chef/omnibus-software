@@ -21,7 +21,7 @@ name "cacerts"
 default_version "2015.02.25"
 
 version "2015.02.25" do
-  source md5: => "19e7f27540ee694308729fd677163649"
+  source :md5 => "19e7f27540ee694308729fd677163649"
   source :url => "https://raw.githubusercontent.com/bagder/ca-bundle/d82fc46afaf6478aaa22989bcc2202ba7b72ad71/ca-bundle.crt"
 end
 
