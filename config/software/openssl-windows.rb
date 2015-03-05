@@ -27,12 +27,14 @@
 #   https://www.openssl.org/news/secadv_20140806.txt
 
 name "openssl-windows"
-default_version "1.0.0n"
+default_version "1.0.0q"
 
 dependency "ruby-windows"
 
-source url: "http://packages.openknapsack.org/openssl/openssl-#{version}-x86-windows.tar.lzma",
-       md5: "9506530353f3b984680ec27b7270874a"
+source url: "http://dl.bintray.com/oneclick/OpenKnapsack/x86/openssl-#{version}-x86-windows.tar.lzma"
+
+version('1.0.0n') { source md5: "9506530353f3b984680ec27b7270874a" }
+version('1.0.0q') { source md5: "577dbe528415c6f178a9431fd0554df4" }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -40,7 +42,7 @@ build do
   # Make sure the OpenSSL version is suitable for our path:
   # OpenSSL version is something like
   # OpenSSL 1.0.0k 5 Feb 2013
-  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0m'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0n'\""
+  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= 1.0.0q'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '1.0.0q'\""
 
   tmpdir = File.join(Omnibus::Config.cache_dir, "openssl-cache")
 
