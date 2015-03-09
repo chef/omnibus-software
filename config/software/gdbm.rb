@@ -25,6 +25,8 @@ relative_path "gdbm-1.9.1"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+    patch source: "patch-ppc64le-configure", plevel: 1
+
   if freebsd?
     command "./configure" \
             " --enable-libgdbm-compat" \

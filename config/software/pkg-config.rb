@@ -30,6 +30,8 @@ relative_path "pkg-config-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  patch source: "patch-ppc64le-configure", plevel: 1
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --disable-debug" \

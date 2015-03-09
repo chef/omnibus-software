@@ -37,6 +37,8 @@ build do
     patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
   end
 
+  patch source: "patch-ppc64le-configure", plevel: 1
+
   command configure_command, env: env
 
   make "-j #{workers}", env: env
