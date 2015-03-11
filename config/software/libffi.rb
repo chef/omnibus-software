@@ -15,14 +15,23 @@
 #
 
 name "libffi"
-default_version "3.0.13"
+
+if rhel? && _64_bit?
+  lib_version = '3.2.1'
+  lib_md5 = '83b89587607e3eb65c70d361f13bab43'
+else
+  lib_version = '3.0.13'
+  lib_md5 = '45f3b6dbc9ee7c7dfbbbc5feba571529'
+end
+
+default_version lib_version
 
 dependency "libtool"
 
-source url: "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz",
-       md5: '45f3b6dbc9ee7c7dfbbbc5feba571529'
+source url: "ftp://sourceware.org/pub/libffi/libffi-#{lib_version}.tar.gz",
+       md5: lib_md5
 
-relative_path "libffi-3.0.13"
+relative_path "libffi-#{lib_version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
