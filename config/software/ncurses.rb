@@ -82,7 +82,9 @@ build do
     patch source: "ncurses-clang.patch"
   end
 
-  patch source: "patch-ppc64le-configure", plevel: 1
+  if ohai["kernel"]["machine"] == "ppc64le"
+    patch source: "patch-ppc64le-configure", plevel: 1
+  end
 
   # build wide-character libraries
   cmd = [

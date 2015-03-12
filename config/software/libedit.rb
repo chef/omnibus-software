@@ -40,7 +40,9 @@ build do
     patch source: "freebsd-vi-fix.patch"
   end
 
-  patch source: "patch-ppc64le-configure", plevel: 1
+  if ohai["kernel"]["machine"] == "ppc64le"
+    patch source: "patch-ppc64le-configure", plevel: 1
+  end
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env

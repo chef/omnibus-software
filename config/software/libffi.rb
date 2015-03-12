@@ -16,7 +16,7 @@
 
 name "libffi"
 
-if rhel? && _64_bit?
+if ohai["kernel"]["machine"] == "ppc64le"
   lib_version = '3.2.1'
   lib_md5 = '83b89587607e3eb65c70d361f13bab43'
 else

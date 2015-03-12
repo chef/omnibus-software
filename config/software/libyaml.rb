@@ -25,7 +25,9 @@ relative_path "yaml-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  patch source: "patch-ppc64le-configure", plevel: 1
+  if ohai["kernel"]["machine"] == "ppc64le"
+    patch source: "patch-ppc64le-configure", plevel: 1
+  end
 
   command "./configure --prefix=#{install_dir}/embedded --enable-shared", env: env
 

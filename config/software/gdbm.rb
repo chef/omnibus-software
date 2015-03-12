@@ -25,7 +25,9 @@ relative_path "gdbm-1.9.1"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  if ohai["kernel"]["machine"] == "ppc64le"
     patch source: "patch-ppc64le-configure", plevel: 1
+  end
 
   if freebsd?
     command "./configure" \

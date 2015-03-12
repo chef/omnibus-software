@@ -37,8 +37,10 @@ build do
     patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
   end
 
-  patch source: "patch-ppc64le-configure", plevel: 1
-  patch source: "patch-ppc64le-ldemulation", plevel: 1
+  if ohai["kernel"]["machine"] == "ppc64le"
+    patch source: "patch-ppc64le-configure", plevel: 1
+    patch source: "patch-ppc64le-ldemulation", plevel: 1
+  end
 
   command configure_command, env: env
 
