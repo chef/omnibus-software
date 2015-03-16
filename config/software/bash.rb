@@ -15,11 +15,11 @@
 #
 
 name "bash"
-default_version "4.3"
+default_version "4.3.30"
 
 dependency "libiconv"
 
-version("4.3") { source md5: "81348932d5da294953e15d4814c74dd1" }
+version("4.3.30") { source md5: "a27b3ee9be83bd3ba448c0ff52b28447" }
 
 source url: "http://ftp.gnu.org/gnu/bash/bash-#{version}.tar.gz"
 
