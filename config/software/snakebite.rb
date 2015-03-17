@@ -1,5 +1,5 @@
 name "snakebite"
-default_version "1.3.9"
+default_version "1.3.11"
 
 dependency "python"
 dependency "pip"

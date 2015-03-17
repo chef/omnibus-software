@@ -1,11 +1,11 @@
 
 name "util-macros"
-default_version "1.18.0"
+default_version "1.19.0"
 
-source :url => 'http://xorg.freedesktop.org/releases/individual/util/util-macros-1.18.0.tar.gz',
-  :md5 => 'fd0ba21b3179703c071bbb4c3e5fb0f4'
+source :url => 'http://xorg.freedesktop.org/releases/individual/util/util-macros-#{version}tar.gz',
+  :md5 => '40e1caa49a71a26e0aa68ddd00203717'
 
-relative_path 'util-macros-1.18.0'
+relative_path 'util-macros-#{version}'
 
 configure_env =
   case Ohai['platform']

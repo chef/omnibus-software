@@ -1,5 +1,5 @@
 name "pymysql"
-default_version "0.6.2"
+default_version "0.6.6"
 
 dependency "python"
 dependency "pip"

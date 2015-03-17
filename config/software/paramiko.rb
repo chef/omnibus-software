@@ -1,5 +1,5 @@
 name "paramiko"
-default_version "1.15.1"
+default_version "1.15.2"
 
 dependency "python"
 dependency "pip"

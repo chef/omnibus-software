@@ -1,5 +1,5 @@
 name "psycopg2"
-default_version "2.5.4"
+default_version "2.6"
 
 dependency "python"
 dependency "pip"
