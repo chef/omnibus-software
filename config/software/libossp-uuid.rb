@@ -21,7 +21,9 @@ version "1.6.2" do
   source md5: "5db0d43a9022a6ebbbc25337ae28942f"
 end
 
-source url: "ftp://ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
+# ftp on ftp.ossp.org is unavaiable so we must use another mirror site.
+# From homebrew discussion, following url is better for now: https://github.com/Homebrew/homebrew/pull/14288
+source url: "http://gnome-build-stage-1.googlecode.com/files/uuid-#{version}.tar.gz"
 
 relative_path "uuid-#{version}"
 
