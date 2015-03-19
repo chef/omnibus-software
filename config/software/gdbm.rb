@@ -27,6 +27,10 @@ relative_path "gdbm-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  if version == "1.9.1" and ohai["kernel"]["machine"] == "ppc64le"
+    patch source: "v1.9.1.ppc64le-configure.patch", plevel: 1
+  end
+
   if freebsd?
     command "./configure" \
             " --enable-libgdbm-compat" \
