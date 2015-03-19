@@ -23,17 +23,9 @@ dependency "libgcc"
 dependency "makedepend"
 
 
-if Ohai['platform'] == "aix"
-  # XXX: OpenSSL has an open bug on 1.0.1e where it fails to install on AIX
-  #      http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
-  default_version "1.0.1c"
-  source url: "http://www.openssl.org/source/openssl-1.0.1c.tar.gz",
-         md5: "ae412727c8c15b67880aef7bd2999b2e"
-else
-  default_version "1.0.1m"
-  source url: "http://www.openssl.org/source/openssl-1.0.1m.tar.gz",
-         md5: "d143d1555d842a069cb7cc34ba745a06"
-end
+default_version "1.0.1m"
+source url: "http://www.openssl.org/source/openssl-1.0.1m.tar.gz",
+       md5: "d143d1555d842a069cb7cc34ba745a06"
 
 relative_path "openssl-#{version}"
 
