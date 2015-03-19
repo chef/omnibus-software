@@ -32,7 +32,7 @@ relative_path "openssl-#{version}"
 always_build true # For now to make sure it will build 1.0.1j
 
 build do
-  patch :source => "openssl-1.0.2a-do-not-build-docs.patch"
+  patch :source => "openssl-1.0.1f-do-not-build-docs.patch"
 
   env = case Ohai['platform']
         when "mac_os_x"
