@@ -6,7 +6,7 @@ build do
   license "https://raw.githubusercontent.com/oetiker/rrdtool-1.x/master/COPYRIGHT"
   
   if Ohai['platform'] == 'debian'
-    command "wget http://dd-agent.s3.amazonaws.com/python-rrdtool/deb/#{ENV['ARCH']}/rrdtool.so", :cwd => "#{install_dir}/embedded/lib/python2.7/"
+    command "wget http://dd-agent.s3.amazonaws.com/python-rrdtool/deb/#{Ohai['kernel']['machine']}/rrdtool.so", :cwd => "#{install_dir}/embedded/lib/python2.7/"
   elsif Ohai['platform'] == 'rhel'
    command "sudo yum -y install intltool gettext cairo-devel libxml2-devel pango-devel pango libpng-devel freetype freetype-devel libart_lgpl-devel gcc groff perl-ExtUtils-MakeMaker"
    command "sudo wget http://files.directadmin.com/services/9.0/ExtUtils-MakeMaker-6.31.tar.gz", :cwd => "/tmp/"
