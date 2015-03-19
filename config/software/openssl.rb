@@ -20,9 +20,9 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix?
 
-default_version "1.0.1k"
-source url: "http://www.openssl.org/source/openssl-1.0.1k.tar.gz",
-       md5: "d4f002bd22a56881340105028842ae1f"
+default_version "1.0.1m"
+source url: "https://www.openssl.org/source/openssl-1.0.1m.tar.gz",
+       md5: "d143d1555d842a069cb7cc34ba745a06"
 
 relative_path "openssl-#{version}"
 
