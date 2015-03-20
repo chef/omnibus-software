@@ -36,7 +36,7 @@ build do
     patch source: "freebsd-vi-fix.patch"
   end
 
-  if version == "20120601-3.0" and ohai["kernel"]["machine"] == "ppc64le"
+  if version == "20120601-3.0" && ohai["kernel"]["machine"] == "ppc64le"
     patch source: "v20120601-3.0.ppc64le-configure.patch"
   end
 

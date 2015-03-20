@@ -82,7 +82,7 @@ build do
     patch source: "ncurses-clang.patch"
   end
 
-  if version == "5.9" and ohai["kernel"]["machine"] == "ppc64le"
+  if version == "5.9" && ohai["kernel"]["machine"] == "ppc64le"
     patch source: "v5.9.ppc64le-configure.patch", plevel: 1
   end
 
