@@ -32,7 +32,7 @@ default_version "1.0.0r"
 
 dependency "ruby-windows"
 
-source url: "http://packages.openknapsack.org/openssl/openssl-#{version}-x86-windows.tar.lzma"
+source url: "http://dl.bintray.com/oneclick/OpenKnapsack/x86/openssl-#{version}-x86-windows.tar.lzma"
 
 version('1.0.0n') { source md5: "9506530353f3b984680ec27b7270874a" }
 version('1.0.0r') { source md5: "25402ddce541aa54eb5e114721926e72" }
