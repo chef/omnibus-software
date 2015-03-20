@@ -88,6 +88,7 @@ end
 build do
   if solaris2? && version.to_f >= 2.1
     patch source: "ruby-solaris-no-stack-protector.patch", plevel: 1
+    patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1
   end
 
   # AIX needs /opt/freeware/bin only for patch
