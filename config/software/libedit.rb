@@ -25,7 +25,12 @@ version("20141030-3.1") { source md5: "5f18e63346d31b877cdf36b5c59b810b" }
 
 source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
 
-relative_path "libedit-#{version}"
+if version == "20141030-3.1"
+  # released tar file has name discrepency in folder name for this version
+  relative_path "libedit-20141029-3.1"
+else
+  relative_path "libedit-#{version}"
+end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
