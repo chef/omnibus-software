@@ -9,7 +9,7 @@ source :url => "http://ftp.gnu.org/gnu/tar/tar-#{version}.tar.gz",
 
 relative_path "#{name}-#{version}"
 build do
-    if Ohai['platform'] == 'rhel'
+    if Ohai['platform_family'] == 'rhel'
         command "./configure --prefix=/"
         command "make -j #{workers}"
         command "sudo make install"
