@@ -15,7 +15,7 @@
 #
 
 name "omnibus-ctl"
-default_version "0.3.3"
+default_version "0.3.4"
 
 dependency "ruby"
 dependency "rubygems"
@@ -36,4 +36,3 @@ build do
 
   touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
-
