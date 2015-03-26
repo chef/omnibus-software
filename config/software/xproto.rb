@@ -2,10 +2,10 @@
 name "xproto"
 default_version "7.0.27"
 
-source :url => 'http://xorg.freedesktop.org/releases/individual/proto/xproto-#{version}.tar.gz',
+source :url => "http://xorg.freedesktop.org/releases/individual/proto/xproto-#{version}.tar.gz",
   :md5 => 'f04f535b090f3fd05073370740e99193'
 
-relative_path 'xproto-#{version}'
+relative_path "xproto-#{version}"
 
 configure_env =
   case Ohai['platform']
