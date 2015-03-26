@@ -2,7 +2,7 @@
 name "util-macros"
 default_version "1.19.0"
 
-source :url => "http://xorg.freedesktop.org/releases/individual/util/util-macros-#{version}tar.gz",
+source :url => "http://xorg.freedesktop.org/releases/individual/util/util-macros-#{version}.tar.gz",
   :md5 => '40e1caa49a71a26e0aa68ddd00203717'
 
 relative_path "util-macros-#{version}"
