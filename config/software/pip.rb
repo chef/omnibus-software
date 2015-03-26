@@ -21,7 +21,7 @@ default_version "6.0.8"
 dependency "setuptools"
 
 source :url => "https://pypi.python.org/packages/source/p/pip/pip-#{version}.tar.gz",
-       :md5 => '01026f87978932060cc86c1dc527903e'
+       :md5 => '2332e6f97e75ded3bddde0ced01dbda3'
 
 relative_path "pip-#{version}"
 
