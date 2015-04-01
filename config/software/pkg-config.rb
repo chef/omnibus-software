@@ -30,7 +30,7 @@ relative_path "pkg-config-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "0.28" && ohai["kernel"]["machine"] == "ppc64le"
+  if version == "0.28" && ppc64le?
     patch source: "v0.28.ppc64le-configure.patch", plevel: 1
   end
 

@@ -28,7 +28,7 @@ relative_path "libtool-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "2.4" && ohai["kernel"]["machine"] == "ppc64le"
+  if version == "2.4" && ppc64le?
     patch source: "v2.4.ppc64le-configure.patch", plevel: 1
   end
 
