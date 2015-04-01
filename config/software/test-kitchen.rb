@@ -33,7 +33,7 @@ dependency "nokogiri"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without guard", env: env
+  bundle "install --without guard development test", env: env
   bundle "exec rake build", env: env
 
   gem "install pkg/test-kitchen-*.gem" \
