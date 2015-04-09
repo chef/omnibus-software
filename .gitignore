@@ -2,3 +2,12 @@
 .bundle
 Gemfile.lock
 pkg/*
+
+# avoid generic ctags files
+tags
+gems.tags
+gemtags
+.tags
+.gem.tags
+.gemtags
+.tags_sorted_by_file
