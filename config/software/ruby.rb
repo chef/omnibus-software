@@ -25,6 +25,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
+dependency "patch" if solaris2?
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
@@ -73,13 +74,12 @@ when "aix"
   # need to use GNU m4, default m4 doesn't work
   env['M4'] = "/opt/freeware/bin/m4"
 when "solaris2"
-  env['CC'] = "/usr/sfw/bin/gcc -static-libgcc"
   if ohai['kernel']['machine'].include?('sun4')
     # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
-    env['CFLAGS'] << " -O0 -g -pipe -mcpu=v9"
+    env['CFLAGS'] << " -std=c99 -O0 -g -pipe -mcpu=v9"
     env['LDFLAGS'] << " -mcpu=v9"
   else
-    env['CFLAGS'] << " -O3 -g -pipe"
+    env['CFLAGS'] << " -std=c99 -O3 -g -pipe"
   end
 else  # including linux
   env['CFLAGS'] << " -O3 -g -pipe"
