@@ -69,9 +69,8 @@ build do
     patch source: "patch-aix-configure", plevel: 0, env: patch_env
   end
 
-  if mac_os_x? ||
-    # Clang became the default compiler in FreeBSD 10+
-    (freebsd? && ohai['os_version'].to_i >= 1000024)
+  # Clang became the default compiler in FreeBSD 10+
+  if mac_os_x? || (freebsd? && ohai['os_version'].to_i >= 1000024)
     # References:
     # https://github.com/Homebrew/homebrew-dupes/issues/43
     # http://invisible-island.net/ncurses/NEWS.html#t20110409

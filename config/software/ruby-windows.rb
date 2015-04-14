@@ -42,7 +42,6 @@ end
 source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
 build do
-
   sync "#{project_dir}/", "#{install_dir}/embedded"
 
   # Ruby 2.X dl.rb gives an annoying warning message on Windows:

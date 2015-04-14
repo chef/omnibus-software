@@ -3,6 +3,6 @@ gemspec
 
 group :development, :test do
   gem 'omnibus', github: 'opscode/omnibus'
-  gem 'rubocop', '= 0.26.1'
+  gem 'rubocop'
   gem 'rake'
 end

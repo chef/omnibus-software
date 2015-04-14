@@ -38,8 +38,6 @@ build do
                   "/opt/csw/lib/libgcc_s.so.1"
                 when "freebsd"
                   "/lib/libgcc_s.so.1"
-                else
-                  nil
                 end
 
   if libgcc_file

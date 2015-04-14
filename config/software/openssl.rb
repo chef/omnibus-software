@@ -28,7 +28,6 @@ source url: "https://www.openssl.org/source/openssl-1.0.1m.tar.gz",
 relative_path "openssl-#{version}"
 
 build do
-
   env = case ohai["platform"]
         when "freebsd"
           freebsd_flags = {

@@ -167,5 +167,4 @@ build do
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
-
 end
