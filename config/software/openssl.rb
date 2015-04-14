@@ -19,6 +19,7 @@ name "openssl"
 dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix?
+dependency "patch" if solaris2?
 
 default_version "1.0.1m"
 source url: "https://www.openssl.org/source/openssl-1.0.1m.tar.gz",
