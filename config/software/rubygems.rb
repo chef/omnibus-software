@@ -64,11 +64,13 @@ end
 relative_path "rubygems-#{version}"
 
 build do
-  env = with_embedded_path
+  block do
+    env = with_embedded_path
 
-  if windows?
-    command "gem update --system #{version} --no-ri --no-rdoc", env: env
-  else
-    ruby "setup.rb --no-ri --no-rdoc", env: env
+    if windows?
+      command "gem update --system #{version} --no-ri --no-rdoc", env: env
+    else
+      ruby "setup.rb --destdir=#{dest_dir} --no-ri --no-rdoc", env: env
+    end
   end
 end

@@ -34,9 +34,15 @@ dependency "bundler"
 
 build do
   env = with_embedded_path()
+  block do
+    env['GEM_HOME'] = dest_dir + `#{dest_dir}/#{install_dir}/embedded/bin/ruby  -r rubygems -e 'p Gem.path.last' | tr -d '"' | tr -d '\n'`
+    env['GEM_PATH'] = env['GEM_HOME']
+    env['BUNDLE_PATH'] = env['GEM_HOME']
 
-  bundle "install --without development_extras", env: env
-  bundle "exec rake gem", env: env
+    bundle "config build.ffi-yajl --global --with-cflags='#{env['CFLAGS']}' --with-ldflags='#{env['LDFLAGS']}'", env: env
+    bundle "install --without development_extras", env: env
+    bundle "exec rake gem", env: env
+  end
 
   delete "pkg/*java*"
 

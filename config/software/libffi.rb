@@ -41,16 +41,19 @@ build do
     make "-j #{workers} install", env: env
   end
 
-  # libffi's default install location of header files is awful...
-  copy "#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{install_dir}/embedded/include"
-
-  # On 64-bit centos, libffi libraries are places under /embedded/lib64
+  # On 64-bit distro libffi libraries may be placed under /embedded/lib64
   # move them over to lib
-  if rhel? && _64_bit?
-    # Can't use 'move' here since that uses FileUtils.mv, which on < Ruby 2.2.0-dev
-    # returns ENOENT on moving symlinks with broken (in this case, already moved) targets.
-    # http://comments.gmane.org/gmane.comp.lang.ruby.cvs/49907
-    copy "#{install_dir}/embedded/lib64/*", "#{install_dir}/embedded/lib/"
-    delete "#{install_dir}/embedded/lib64"
+  block do
+    if File.directory?("#{dest_dir}/#{install_dir}/embedded/lib64")
+      # Can't use 'move' here since that uses FileUtils.mv, which on < Ruby 2.2.0-dev
+      # returns ENOENT on moving symlinks with broken (in this case, already moved) targets.
+      # http://comments.gmane.org/gmane.comp.lang.ruby.cvs/49907
+      copy "#{dest_dir}/#{install_dir}/embedded/lib64/*", "#{dest_dir}/#{install_dir}/embedded/lib/"
+      delete "#{dest_dir}/#{install_dir}/embedded/lib64"
+    end
+
+    # libffi's default install location of header files is awful...
+    copy "#{dest_dir}/#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{dest_dir}/#{install_dir}/embedded/include"
   end
+
 end

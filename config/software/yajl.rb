@@ -26,6 +26,6 @@ build do
 
   gem "install yajl-ruby" \
       " --version '#{version}'" \
-      " --bindir '#{install_dir}/bin'" \
+      " --bindir '#{dest_dir}/#{install_dir}/bin'" \
       " --no-ri --no-rdoc", env: env
 end

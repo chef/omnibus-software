@@ -35,10 +35,17 @@ relative_path "ohai"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  block do
+    env['GEM_HOME'] = dest_dir + `#{dest_dir}/#{install_dir}/embedded/bin/ruby  -r rubygems -e 'p Gem.path.last' | tr -d '"' | tr -d '\n'`
+    env['GEM_PATH'] = env['GEM_HOME']
+    env['BUNDLE_PATH'] = env['GEM_HOME']
+  end
 
-  bundle "install --without development", env: env
-
-  rake "gem", env: env
+  block do
+    bundle "config build.ffi '--with-cflags=\"#{env['CFLAGS']}\" --with-ldflags=\"#{env['LDFLAGS']}'\"'", env: env
+    bundle "install --without development", env: env
+    rake "gem", env: env
+  end
 
   delete "pkg/ohai-*-x86-mingw32.gem"
 
@@ -48,7 +55,7 @@ build do
         " --no-ri --no-rdoc", env: env
   else
     gem "install pkg/ohai*.gem" \
-        " --bindir '#{install_dir}/bin'" \
+        " --bindir '#{dest_dir}/#{install_dir}/bin'" \
         " --no-ri --no-rdoc", env: env
   end
 end

@@ -14,14 +14,25 @@
 # limitations under the License.
 #
 
-name "preparation"
-description "the steps required to preprare the build"
-default_version '1.0.0'
+name "libgmp"
+default_version "5.1.3"
+
+dependency "ncurses"
+
+version "5.1.3" do
+  source md5: "4df82299c8dee6697d22f3bb0d0909b0"
+end
+
+source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.gz"
+
+relative_path "gmp-#{version}"
 
 build do
-  block do
-    touch "#{dest_dir}/#{install_dir}/embedded/lib/.gitkeep"
-    touch "#{dest_dir}/#{install_dir}/embedded/bin/.gitkeep"
-    touch "#{dest_dir}/#{install_dir}/bin/.gitkeep"
-  end
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded", env: env
+
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end

@@ -22,7 +22,14 @@ dependency "bundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  block do
+    env['GEM_HOME'] = dest_dir + `#{dest_dir}/#{install_dir}/embedded/bin/ruby  -r rubygems -e 'p Gem.path.last' | tr -d '"' | tr -d '\n'`
+    env['GEM_PATH'] = env['GEM_HOME']
+    env['BUNDLE_PATH'] = env['GEM_HOME']
+  end
+
   gem "install appbundler" \
       " --version '#{version}'" \
+      " --bindir '#{dest_dir}/#{install_dir}/embedded/bin'" \
       " --no-ri --no-rdoc", env: env
 end

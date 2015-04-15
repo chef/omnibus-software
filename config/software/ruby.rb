@@ -21,6 +21,7 @@ dependency "zlib"
 dependency "ncurses"
 dependency "libedit"
 dependency "openssl"
+dependency "libgmp"
 dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
@@ -117,7 +118,6 @@ build do
                        "--enable-libedit",
                        "--with-ext=psych",
                        "--disable-install-doc",
-                       "--without-gmp",
                        "--disable-dtrace"]
 
   case ohai['platform']
