@@ -21,7 +21,6 @@ if windows?
   dependency "ruby-windows-devkit"
 else
   dependency "ruby"
-  dependency "libffi"
   dependency "rubygems"
 end
 

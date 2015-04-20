@@ -19,7 +19,6 @@ default_version "11.12.2"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "libffi"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

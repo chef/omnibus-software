@@ -23,7 +23,6 @@ dependency "libedit"
 dependency "openssl"
 dependency "libyaml"
 dependency "libiconv"
-dependency "libffi"
 dependency "gdbm"
 dependency "patch" if solaris2?
 
