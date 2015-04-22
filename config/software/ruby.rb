@@ -93,6 +93,8 @@ build do
     if ohai['platform_version'].to_f >= 5.11
       patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1
     end
+  elsif solaris2? && version =~ /^1.9/
+    patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1
   end
 
   # AIX needs /opt/freeware/bin only for patch
