@@ -1,5 +1,6 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,40 +16,28 @@
 #
 
 name "ohai"
-
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-  dependency "libffi"
-  dependency "rubygems"
-end
-
-dependency "bundler"
-
 default_version "master"
 
 source git: "git://github.com/opscode/ohai"
 
 relative_path "ohai"
 
+if windows?
+  dependency "ruby-windows"
+  dependency "ruby-windows-devkit"
+else
+  dependency "ruby"
+  dependency "rubygems"
+end
+
+dependency "bundler"
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   bundle "install --without development", env: env
 
-  rake "gem", env: env
-
-  delete "pkg/ohai-*-x86-mingw32.gem"
-
-  # Appbuilder in ChefDK needs to not have ohai installed in +/opt/chef/bin+
-  if project.name == "chefdk"
-    gem "install pkg/ohai*.gem" \
-        " --no-ri --no-rdoc", env: env
-  else
-    gem "install pkg/ohai*.gem" \
-        " --bindir '#{install_dir}/bin'" \
-        " --no-ri --no-rdoc", env: env
-  end
+  gem "build ohai.gemspec", env: env
+  gem "install ohai*.gem" \
+      " --no-ri --no-rdoc", env: env
 end
