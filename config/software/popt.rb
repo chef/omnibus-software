@@ -25,6 +25,10 @@ relative_path "popt-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  if version == "1.16" and ppc64le?
+    patch source: "v1.16.ppc64le-configure.patch", plevel: 1
+  end
+
   # --disable-nls => Disable localization support.
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \

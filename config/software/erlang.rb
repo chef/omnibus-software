@@ -79,6 +79,10 @@ build do
     link "#{install_dir}/embedded/include/#{name}", "#{install_dir}/embedded/erlang/include/#{name}"
   end
 
+  if version == "R16B03-1" && ppc64le?
+    patch source: "vR16B03-1.ppc64le-configure.patch", plevel: 1
+  end
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --enable-threads" \

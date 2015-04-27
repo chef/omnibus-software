@@ -15,23 +15,31 @@
 #
 
 name "openresty"
-default_version "1.7.10.1"
+default_version "1.4.3.6"
 
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 
-version("1.7.10.1") { source md5: "1093b89459922634a818e05f80c1e18a" }
-version("1.4.3.6") { source md5: "5e5359ae3f1b8db4046b358d84fabbc8" }
-
-source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz"
+source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
+       md5: "5e5359ae3f1b8db4046b358d84fabbc8"
 
 relative_path "ngx_openresty-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  configure = [
+  if version == "1.4.3.6" && (ppc64? || ppc64le?)
+    # Add necessary paths so that lua build can pick up libedit
+    env['CHEF_CFLAGS'] = '-I/opt/opscode/embedded/include'
+    env['CHEF_LDFLAGS'] = '-L/opt/opscode/embedded/lib'
+    patch source: "v1.4.3.6.ppc64le-configure.patch", plevel: 1
+  end
+
+  # For ppc64 we use lua interpreter as luajit is not yet supported.
+  lua_opts = (ppc64? || ppc64le?) ? [] : ['--with-luajit']
+
+  command [
     "./configure",
     "--prefix=#{install_dir}/embedded",
     "--sbin-path=#{install_dir}/embedded/sbin/nginx",
@@ -47,7 +55,6 @@ build do
     '--with-md5-asm',
     '--with-sha1-asm',
     '--with-pcre-jit',
-    '--with-luajit',
     '--without-http_ssi_module',
     '--without-mail_smtp_module',
     '--without-mail_imap_module',
@@ -58,18 +65,7 @@ build do
     # However, they require libatomic-ops-dev and libaio
     #'--with-file-aio',
     #'--with-libatomic'
-  ]
-
-  # OpenResty 1.7 + RHEL5 Fixes:
-  # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
-  # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
-  if (version.to_f >= 1.7) &&                          # '1.7.7.2'.to_f evaluates to 1.7
-     (ohai['platform_family'] == 'rhel') &&
-     (ohai['platform_version'].to_f < 6.0)
-    configure << "--with-luajit-xcflags='-std=gnu99'"
-  end
-
-  command configure.join(" "), env: env
+  ].concat(lua_opts).join(" "), env: env
 
   make "-j #{workers}", env: env
   make "install", env: env

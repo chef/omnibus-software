@@ -34,6 +34,10 @@ build do
     "PREFIX" => "#{install_dir}/embedded",
   )
 
+  if version == "2.8.2" && ppc64le?
+    patch source: "v2.8.2.ppc64le-configure.patch", plevel: 1
+  end
+
   make "-j #{workers}", env: env
   make "install", env: env
 end

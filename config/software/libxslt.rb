@@ -36,6 +36,10 @@ relative_path "libxslt-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  if version == "1.1.28" && ppc64le?
+    patch source: "v1.1.28.ppc64le-configure.patch", plevel: 1
+  end
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --with-libxml-prefix=#{install_dir}/embedded" \

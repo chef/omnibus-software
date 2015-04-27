@@ -19,19 +19,23 @@ default_version "0.10.10"
 
 dependency "python"
 
+version "v0.10.38-release-ppc" do
+  source git: "git@github.com:andrewlow/node"
+end
+
+http_src_url = "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
+
 version "0.10.10" do
-  source md5: "a47a9141567dd591eec486db05b09e1c"
+  source url: http_src_url, md5: "a47a9141567dd591eec486db05b09e1c"
 end
 
 version "0.10.26" do
-  source md5: "15e9018dadc63a2046f61eb13dfd7bd6"
+  source url: http_src_url, md5: "15e9018dadc63a2046f61eb13dfd7bd6"
 end
 
 version "0.10.35" do
-  source md5: "2c00d8cf243753996eecdc4f6e2a2d11"
+  source url: http_src_url, md5: "2c00d8cf243753996eecdc4f6e2a2d11"
 end
-
-source url: "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
 relative_path "node-v#{version}"
 
