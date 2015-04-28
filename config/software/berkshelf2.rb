@@ -29,6 +29,14 @@ dependency "libffi"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  gem "install celluloid" \
+      " --version '~> 0.16.0'" \
+      " --no-ri --no-rdoc", env: env
+
+  gem "install celluloid-io" \
+      " --version '~> 0.16.1'" \
+      " --no-ri --no-rdoc", env: env
+
   gem "install hashie" \
       " --version '~> 2.0.0'" \
       " --no-ri --no-rdoc", env: env
