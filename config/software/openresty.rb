@@ -31,11 +31,8 @@ relative_path "ngx_openresty-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "1.4.3.6" && (ppc64? || ppc64le?)
-    # Add necessary paths so that lua build can pick up libedit
-    #env['CHEF_CFLAGS'] = '-I/opt/opscode/embedded/include'
-    #env['CHEF_LDFLAGS'] = '-L/opt/opscode/embedded/lib'
-    #patch source: "v1.4.3.6.ppc64le-configure.patch", plevel: 1
+  if version == "1.7.10.1" && (ppc64? || ppc64le?)
+    patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
   end
 
   configure = [
@@ -76,7 +73,7 @@ build do
   end
 
   # For ppc64 we use lua interpreter as luajit is not yet supported.
-  configure << '--with-luajit' unless (ppc64? || ppc64le?)
+  configure << '--with-lua51' if (ppc64? || ppc64le?)
 
   command configure.join(" "), env: env
 
