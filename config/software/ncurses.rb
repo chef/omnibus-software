@@ -82,6 +82,10 @@ build do
     patch source: "ncurses-clang.patch"
   end
 
+  if version == "5.9" && ppc64le?
+    patch source: "v5.9.ppc64le-configure.patch", plevel: 1
+  end
+
   # build wide-character libraries
   cmd = [
     "./configure",

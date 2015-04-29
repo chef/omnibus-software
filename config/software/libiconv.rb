@@ -37,6 +37,11 @@ build do
     patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
   end
 
+  if version == "1.14" && ppc64le?
+    patch source: "v1.14.ppc64le-configure.patch", plevel: 1
+    patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1
+  end
+
   command configure_command, env: env
 
   make "-j #{workers}", env: env
