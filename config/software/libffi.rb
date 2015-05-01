@@ -16,7 +16,7 @@
 
 name "libffi"
 
-default_version "3.0.13"
+default_version "3.2.1"
 
 dependency "libtool"
 
