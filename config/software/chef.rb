@@ -59,8 +59,8 @@ build do
       copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
     end
 
-    gem "build chef-windows.gemspec", env: env if File.exist? "#{software.project_dir}/chef-windows.gemspec"
-    gem "build chef-x86-mingw32.gemspec", env: env if File.exist? "#{software.project_dir}/chef-x86-mingw32.gemspec"
+    gem("build chef-windows.gemspec", env: env) if File.exist? "#{project_dir}/chef-windows.gemspec"
+    gem("build chef-x86-mingw32.gemspec", env: env) if File.exist? "#{project_dir}/chef-x86-mingw32.gemspec"
 
     gem "install chef*mingw32.gem" \
         " --no-ri --no-rdoc" \
