@@ -21,11 +21,10 @@ default_version "2.1.11"
 dependency "autoconf"
 dependency "automake"
 dependency "libtool"
-dependency "libuuid"
-
 
 version "2.1.11" do
   source md5: "f0f9fd62acb1f0869d7aa80379b1f6b7"
+  dependency "libuuid"
 end
 version "4.0.4" do
   source md5: "f3c3defbb5ef6cc000ca65e529fdab3b"
