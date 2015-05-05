@@ -70,10 +70,10 @@ build do
   mkdir "#{install_dir}/embedded/jre"
 
   if ppc64? || ppc64le?
-    command "chmod +x #{jre_installer}", env: env
+    command "chmod +x #{jre_installer}"
     # Installer needs sudo, mostly since it creates /var/.com.zerog.registry.xml
-    command "sudo ./#{jre_installer} -i silent -DUSER_INSTALL_DIR=#{install_dir}/embedded/jre", env: env
-    command "sudo chown -R $(whoami) #{install_dir}/embedded/jre", env: env
+    command "sudo ./#{jre_installer} -i silent -DUSER_INSTALL_DIR=#{install_dir}/embedded/jre"
+    command "sudo chown -R $(whoami) #{install_dir}/embedded/jre"
   else
     sync  "#{project_dir}/", "#{install_dir}/embedded/jre"
   end
