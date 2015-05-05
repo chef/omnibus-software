@@ -73,6 +73,7 @@ build do
     command "chmod +x #{jre_installer}", env: env
     # Installer needs sudo, mostly since it creates /var/.com.zerog.registry.xml
     command "sudo ./#{jre_installer} -i silent -DUSER_INSTALL_DIR=#{install_dir}/embedded/jre", env: env
+    command "sudo chown -R $(whoami) #{install_dir}/embedded/jre", env: env
   else
     sync  "#{project_dir}/", "#{install_dir}/embedded/jre"
   end
