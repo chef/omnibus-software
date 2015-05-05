@@ -38,7 +38,7 @@ build do
                        " -Duseshrplib",
                        " -Dusethreads",
                        " #{cc_command}",
-                       " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'"]
+                       " -Dnoextensions='GDBM_File NDBM_File ODBM_File'"]
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
