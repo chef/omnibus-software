@@ -15,7 +15,8 @@
 #
 
 name "server-jre"
-default_version = if ppc64?
+
+app_version = if ppc64?
   jre_installer = 'ibm-java-ppc64-jre-8.0-0.0.bin'
   "ppc64-8.0-0.0"
 elsif ppc64le?
@@ -24,6 +25,8 @@ elsif ppc64le?
 else
   "8u31"
 end
+
+default_version app_version
 
 raise "Server-jre can only be installed on x86_64 or ppc64 systems." unless _64_bit?
 
@@ -53,14 +56,14 @@ end
 
 version "ppc64-8.0-0.0" do
   # TODO - replace temp url
-  source url: "https://www.dropbox.com/s/trdbu99ywx730be/ibm-java-ppc64-jre-8.0-0.0.bin?dl=0",
+  source url: "https://www.dropbox.com/s/trdbu99ywx730be/ibm-java-ppc64-jre-8.0-0.0.bin?dl=1",
          md5: "5d51a9f70123dfcebc606d6e3e334946"
   relative_path "ibmjre-8.0-0.0"
 end
 
 version "ppc64le-8.0-0.0" do
   # TODO - replace temp url
-  source url: "https://www.dropbox.com/s/of8mcol4vyb3w08/ibm-java-ppc64le-jre-8.0-0.0.bin?dl=0",
+  source url: "https://www.dropbox.com/s/of8mcol4vyb3w08/ibm-java-ppc64le-jre-8.0-0.0.bin?dl=1",
          md5: "a8a6c6708a361d4edc8e475ee63fdda7"
   relative_path "ibmjre-8.0-0.0"
 end
