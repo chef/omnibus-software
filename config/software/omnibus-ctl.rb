@@ -15,7 +15,7 @@
 #
 
 name "omnibus-ctl"
-default_version "0.3.4"
+default_version "0.3.6"
 
 dependency "ruby"
 dependency "rubygems"
