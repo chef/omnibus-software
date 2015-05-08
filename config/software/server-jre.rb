@@ -79,6 +79,7 @@ build do
     command "sudo rm -f /var/.com.zerog.registry.xml"
 
     # Installer needs sudo, mostly since it creates /var/.com.zerog.registry.xml
+    command "chmod +x #{jre_installer}"
     command "sudo ./#{jre_installer} -i silent -DUSER_INSTALL_DIR=#{install_dir}/embedded/jre"
     command "sudo chown -R $(whoami) #{install_dir}/embedded/jre"
   else
