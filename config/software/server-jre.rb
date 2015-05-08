@@ -73,7 +73,11 @@ build do
   mkdir "#{install_dir}/embedded/jre"
 
   if ppc64? || ppc64le?
-    command "chmod +x #{jre_installer}"
+    # ensure previously installed IBM jre is cleaned up if any.
+    rpm_name = jre_installer.gsub(/bin$/, ppc64? ? "ppc64" : "ppc64le")
+    command "sudo rpm -e #{rpm_name} 2>/dev/null || true"
+    command "sudo rm -f /var/.com.zerog.registry.xml"
+
     # Installer needs sudo, mostly since it creates /var/.com.zerog.registry.xml
     command "sudo ./#{jre_installer} -i silent -DUSER_INSTALL_DIR=#{install_dir}/embedded/jre"
     command "sudo chown -R $(whoami) #{install_dir}/embedded/jre"
