@@ -95,7 +95,10 @@ build do
                              " --with-ssl=#{install_dir}/embedded" \
                              " --disable-debug"
   case version
-  when "17.4-trace-dirty"
+  when "17.4"
+    configure_flags += " --with-dynamic-trace=systemtap --enable-vm-probes --enable-dirty-schedulers"
+  else
+    puts "Got #{version} for erlang"
     configure_flags += " --with-dynamic-trace=systemtap --enable-vm-probes --enable-dirty-schedulers"
   end
   
