@@ -16,14 +16,14 @@
 
 name "server-jre"
 
-app_version = if ppc64?
+if ppc64?
   jre_installer = 'ibm-java-ppc64-jre-8.0-0.0.bin'
-  "ppc64-8.0-0.0"
+  app_version = "ppc64-8.0-0.0"
 elsif ppc64le?
   jre_installer = 'ibm-java-ppc64le-jre-8.0-0.0.bin'
-  "ppc64le-8.0-0.0"
+  app_version = "ppc64le-8.0-0.0"
 else
-  "8u31"
+  app_version = "8u31"
 end
 
 default_version app_version

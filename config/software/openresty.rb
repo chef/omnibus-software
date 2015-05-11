@@ -73,7 +73,7 @@ build do
   end
 
   # For ppc64 we use lua interpreter as luajit is not yet supported.
-  configure << '--with-lua51' if (ppc64? || ppc64le?)
+  configure << '--with-lua51' if ppc64? || ppc64le?
 
   command configure.join(" "), env: env
 
