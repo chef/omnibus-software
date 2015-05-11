@@ -21,18 +21,18 @@ default_version "2.1.11"
 dependency "autoconf"
 dependency "automake"
 dependency "libtool"
-dependency "libuuid"
-
-
 
 version "2.1.11" do
   source md5: "f0f9fd62acb1f0869d7aa80379b1f6b7"
+  dependency "libuuid"
 end
 version "4.0.4" do
   source md5: "f3c3defbb5ef6cc000ca65e529fdab3b"
+  dependency "libsodium"
 end
 version "4.0.5" do
   source md5: "73c39f5eb01b9d7eaf74a5d899f1d03d"
+  dependency "libsodium"
 end
 
 relative_path "zeromq-#{version}"
@@ -41,6 +41,10 @@ source url: "http://download.zeromq.org/zeromq-#{version}.tar.gz"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   env['CXXFLAGS'] = "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+
+  # centos 5 has an old version of gcc (4.2.1) that has trouble with
+  # long long and c++ in pedantic mode
+  patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch" if el?
 
   command "./autogen.sh", env: env
   command "./configure --prefix=#{install_dir}/embedded", env: env
