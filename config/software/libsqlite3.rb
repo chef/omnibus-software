@@ -18,5 +18,5 @@ build do
     :env => env)
   command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "make install"
-  command "rm  #{install_dir}/embedded/bin/sqlite3"
+  delete "#{install_dir}/embedded/bin/sqlite3"
 end

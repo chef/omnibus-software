@@ -8,7 +8,7 @@ source :url => "http://xorg.freedesktop.org/releases/individual/proto/xproto-#{v
 relative_path "xproto-#{version}"
 
 configure_env =
-  case Ohai['platform']
+  case ohai['platform']
   when "aix"
     {
       "CC" => "xlc -q64",

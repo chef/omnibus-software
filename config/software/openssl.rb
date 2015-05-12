@@ -32,7 +32,7 @@ relative_path "openssl-#{version}"
 build do
   patch :source => "openssl-1.0.1f-do-not-build-docs.patch"
 
-  env = case Ohai['platform']
+  env = case ohai['platform']
         when "mac_os_x"
           {
             "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
@@ -76,7 +76,7 @@ build do
     "no-ssl3"
   ].join(" ")
 
-  configure_command = case Ohai['platform']
+  configure_command = case ohai['platform']
                       when "aix"
                         ["perl", "./Configure",
                          "aix64-cc",

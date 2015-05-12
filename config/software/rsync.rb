@@ -26,7 +26,7 @@ source :url => "http://rsync.samba.org/ftp/rsync/src/rsync-3.0.9.tar.gz",
 relative_path "rsync-3.0.9"
 
 env =
-  case Ohai['platform']
+  case ohai['platform']
   when "solaris2"
       {
         "LDFLAGS" => "-R #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
