@@ -57,7 +57,7 @@ end
 ########################################################################
 
 build do
-  license "https://gist.githubusercontent.com/remh/41a4f7433c77841c302c/raw/d15db09a192ca0e51022005bfb4c3a414a996896/ncurse.LICENSE"
+  ship_license "https://gist.githubusercontent.com/remh/41a4f7433c77841c302c/raw/d15db09a192ca0e51022005bfb4c3a414a996896/ncurse.LICENSE"
   if Ohai['platform'] == "smartos"
     # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0

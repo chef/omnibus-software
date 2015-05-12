@@ -26,6 +26,6 @@ source :url => "https://pypi.python.org/packages/source/p/pip/pip-#{version}.tar
 relative_path "pip-#{version}"
 
 build do
-  license "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
+  ship_license "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
   command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
 end

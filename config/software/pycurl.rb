@@ -8,7 +8,7 @@ dependency "gdbm" if (Ohai['platform'] == "mac_os_x" or Ohai['platform'] == "fre
 dependency "libgcc" if (Ohai['platform'] == "solaris2" and Omnibus.config.solaris_compiler == "gcc")
 
 build do
-  license "https://raw.githubusercontent.com/pycurl/pycurl/master/COPYING-MIT"
+  ship_license "https://raw.githubusercontent.com/pycurl/pycurl/master/COPYING-MIT"
   build_env = {
     "PATH" => "/#{install_dir}/embedded/bin:#{ENV['PATH']}"
   }

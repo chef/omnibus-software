@@ -30,7 +30,7 @@ env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
 build do
-  license "https://raw.githubusercontent.com/atgreen/libffi/master/LICENSE"
+  ship_license "https://raw.githubusercontent.com/atgreen/libffi/master/LICENSE"
   command "./configure --prefix=#{install_dir}/embedded", :env => env
   command "make -j #{workers}", :env => env
   command "make -j #{workers} install", :env => env

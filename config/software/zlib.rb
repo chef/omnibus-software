@@ -38,7 +38,7 @@ env = with_standard_compiler_flags()
 env['CFLAGS'] << " -DNO_VIZ" if Ohai['platform'] == 'solaris2'
 
 build do
-  license "https://gist.githubusercontent.com/remh/77877aa00b45c1ebc152/raw/372a65de9f4c4ed376771b8d2d0943da83064726/zlib.license"
+  ship_license "https://gist.githubusercontent.com/remh/77877aa00b45c1ebc152/raw/372a65de9f4c4ed376771b8d2d0943da83064726/zlib.license"
   command "./configure --prefix=#{install_dir}/embedded", :env => env
   command "make -j #{workers}", :env => env
   command "make -j #{workers} install", :env => env

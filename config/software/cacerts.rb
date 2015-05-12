@@ -52,7 +52,7 @@ source :url => "http://curl.haxx.se/ca/cacert.pem"
 relative_path "cacerts-#{version}"
 
 build do
-  license "http://www.r-project.org/Licenses/LGPL-2.1"
+  ship_license "http://www.r-project.org/Licenses/LGPL-2.1"
   block do
     FileUtils.mkdir_p(File.expand_path("embedded/ssl/certs", install_dir))
 

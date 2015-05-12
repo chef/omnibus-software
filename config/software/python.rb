@@ -34,7 +34,7 @@ env = {
 }
 
 build do
-  license "PSFL"
+  ship_license "PSFL"
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--enable-shared",

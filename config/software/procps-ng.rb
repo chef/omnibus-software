@@ -16,7 +16,7 @@ env = {
 
 build do
   add_source "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz"
-  license "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
+  ship_license "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
   command(["./configure",
      "--prefix=#{install_dir}/embedded",
      "--disable-nls"].join(" "),
