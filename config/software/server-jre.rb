@@ -15,20 +15,8 @@
 #
 
 name "server-jre"
-
-if ppc64?
-  jre_installer = 'ibm-java-ppc64-jre-8.0-0.0.bin'
-  app_version = "ppc64-8.0-0.0"
-elsif ppc64le?
-  jre_installer = 'ibm-java-ppc64le-jre-8.0-0.0.bin'
-  app_version = "ppc64le-8.0-0.0"
-else
-  app_version = "8u31"
-end
-
-default_version app_version
-
-raise "Server-jre can only be installed on x86_64 or ppc64 systems." unless _64_bit?
+default_version "8u31"
+raise "Server-jre can only be installed on x86_64 systems." unless _64_bit?
 
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
@@ -54,35 +42,7 @@ version "7u25" do
   relative_path "jdk1.7.0_25"
 end
 
-version "ppc64-8.0-0.0" do
-  # TODO - replace temp url
-  source url: "https://www.dropbox.com/s/trdbu99ywx730be/ibm-java-ppc64-jre-8.0-0.0.bin?dl=1",
-         md5: "5d51a9f70123dfcebc606d6e3e334946"
-  relative_path "ibmjre-8.0-0.0"
-end
-
-version "ppc64le-8.0-0.0" do
-  # TODO - replace temp url
-  source url: "https://www.dropbox.com/s/of8mcol4vyb3w08/ibm-java-ppc64le-jre-8.0-0.0.bin?dl=1",
-         md5: "a8a6c6708a361d4edc8e475ee63fdda7"
-  relative_path "ibmjre-8.0-0.0"
-end
-
-
 build do
   mkdir "#{install_dir}/embedded/jre"
-
-  if ppc64? || ppc64le?
-    # ensure previously installed IBM jre is cleaned up if any.
-    rpm_name = jre_installer.gsub(/bin$/, ppc64? ? "ppc64" : "ppc64le")
-    command "sudo rpm -e #{rpm_name} 2>/dev/null || true"
-    command "sudo rm -f /var/.com.zerog.registry.xml"
-
-    # Installer needs sudo, mostly since it creates /var/.com.zerog.registry.xml
-    command "chmod +x #{jre_installer}"
-    command "sudo ./#{jre_installer} -i silent -DUSER_INSTALL_DIR=#{install_dir}/embedded/jre"
-    command "sudo chown -R $(whoami) #{install_dir}/embedded/jre"
-  else
-    sync  "#{project_dir}/", "#{install_dir}/embedded/jre"
-  end
+  sync  "#{project_dir}/", "#{install_dir}/embedded/jre"
 end
