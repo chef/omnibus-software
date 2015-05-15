@@ -53,7 +53,7 @@ build do
   mkdir "#{install_dir}/embedded/jre"
 
   # ensure previously installed IBM jre is cleaned up if any.
-  rpm_name = jre_installer.gsub(/bin$/, ppc64? ? "ppc64" : "ppc64le")
+  rpm_name = jre_installer.gsub(/bin$/, ppc64? ? "ppc64" : "ppc64le") unless jre_installer.nil?
   command "sudo rpm -e #{rpm_name} 2>/dev/null || true"
   command "sudo rm -f /var/.com.zerog.registry.xml"
 
