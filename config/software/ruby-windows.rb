@@ -35,6 +35,10 @@ version "2.1.5" do
   source md5: "fe6b596fc47f503b0c0c01ebed16cf65"
 end
 
+version "2.1.6" do
+  source md5: "e3c345a73e5523677a1f301caa4142eb"
+end
+
 version "2.2.1" do
   source md5: "9f1beca535b2e60098d826eb7cb1b972"
 end
