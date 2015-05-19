@@ -29,7 +29,7 @@ relative_path "omnibus-ctl"
 build do
   # Remove existing built gems if they exist in the current dir.
   # Add -f in case the file doesn't exist yet.
-  command "rm -f omnibus-ctl-*.gem"
+  delete "omnibus-ctl-*.gem"
   gem "build omnibus-ctl.gemspec"
 
   # Install the gem, regardless of the version number.
@@ -37,7 +37,7 @@ build do
   # gem to a branch and test out new installs of that branch
   # without merging and tagging and bumping versions.
   gem "install omnibus-ctl-*.gem"
-  command "mkdir -p #{install_dir}/embedded/service/omnibus-ctl"
-  command "touch #{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
+  mkdir "#{install_dir}/embedded/service/omnibus-ctl"
+  touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
 

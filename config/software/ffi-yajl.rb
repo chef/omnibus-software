@@ -37,7 +37,7 @@ env = with_embedded_path()
 build do
   bundle "install --without development_extras", :env => env
   bundle "exec rake gem", :env => env
-  command "rm -rf pkg/*java*", :env => env
+  delete "pkg/*java*", :env => env
   gem ["install pkg/ffi-yajl-*.gem",
        "--no-rdoc --no-ri"].join(" "), :env => env
 end

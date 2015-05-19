@@ -1,6 +1,8 @@
 name "procps-ng"
 default_version "3.3.9"
 
+dependency 'ncurses'
+
 source :url => "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz",
        :md5 => '0980646fa25e0be58f7afb6b98f79d74'
 

@@ -15,6 +15,6 @@ build do
         command "make -j #{workers}"
         command "make install"
         # Omnibus 4 uses gtar instead of tar so let's make a proper symlink
-        command "ln -sf /bin/tar /bin/gtar"
+        link "/bin/tar", "/bin/gtar"
     end
 end

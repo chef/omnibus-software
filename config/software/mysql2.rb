@@ -35,7 +35,7 @@ dependency "bundler"
 
 build do
   gem "install rake-compiler --version 0.8.3"
-  command "mkdir -p #{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
+  mkdir "#{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
   versions_to_install.each do |ver|
     gem "fetch mysql2 --version #{ver}", :cwd => "#{install_dir}/embedded/service/gem/ruby/1.9.1/cache"
   end

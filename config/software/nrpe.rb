@@ -54,8 +54,8 @@ build do
   command "make all", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
 
   # move it
-  command "mkdir -p #{install_dir}/embedded/nagios/libexec"
-  command "mkdir -p #{install_dir}/embedded/nagios/bin"
-  command "cp ./src/check_nrpe #{install_dir}/embedded/nagios/libexec"
-  command "sudo cp ./src/nrpe #{install_dir}/embedded/nagios/bin"
+  mkdir "#{install_dir}/embedded/nagios/libexec"
+  mkdir "#{install_dir}/embedded/nagios/bin"
+  copy "./src/check_nrpe", "#{install_dir}/embedded/nagios/libexec"
+  copy "./src/nrpe", "#{install_dir}/embedded/nagios/bin"
 end

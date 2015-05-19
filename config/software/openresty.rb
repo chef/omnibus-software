@@ -64,5 +64,5 @@ build do
 
   command "make -j #{workers}", :env => env
   command "make install"
-  command "touch /opt/opscode/embedded/nginx/logs/.gitkeep"
+  touch "/opt/opscode/embedded/nginx/logs/.gitkeep"
 end

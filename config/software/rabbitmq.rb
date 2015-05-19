@@ -34,10 +34,10 @@ source :url => "http://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rab
 relative_path "rabbitmq_server-#{version}"
 
 build do
-  command "mkdir -p #{install_dir}/embedded/service/rabbitmq"
+  mkdir "#{install_dir}/embedded/service/rabbitmq"
   command "#{install_dir}/embedded/bin/rsync -a ./ #{install_dir}/embedded/service/rabbitmq/"
 
   %w{rabbitmqctl rabbitmq-env rabbitmq-server}.each do |cmd|
-    command "ln -sf #{install_dir}/embedded/service/rabbitmq/sbin/#{cmd} #{install_dir}/embedded/bin/#{cmd}"
+    link "#{install_dir}/embedded/service/rabbitmq/sbin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
   end
 end

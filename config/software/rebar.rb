@@ -34,5 +34,5 @@ env = {
 
 build do
   command "./bootstrap", :env => env
-  command "cp ./rebar #{install_dir}/embedded/bin/"
+  copy "./rebar", "#{install_dir}/embedded/bin/"
 end

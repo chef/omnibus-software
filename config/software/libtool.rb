@@ -34,12 +34,12 @@ env = with_embedded_path()
 env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
 
 build do
-   command "mkdir -p /tmp/build/embedded"
+  mkdir "/tmp/build/embedded"
   if ohai['platform'] == "aix"
     command "./configure --prefix=/tmp/build/embedded --with-gcc", :env => env
   else
     command "./configure --prefix=/tmp/build/embedded", :env => env
   end
-  command "make", :env => env
+  command "make -j #{workers}", :env => env
   command "make install", :env => env
 end

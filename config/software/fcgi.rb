@@ -43,7 +43,7 @@ build do
 > #include <cstdio>
 D
   command "echo '#{diff}' | patch libfcgi/fcgio.cpp"
-  command "touch COPYING ChangeLog AUTHORS NEWS"
+  touch "COPYING ChangeLog AUTHORS NEWS"
 
   # autoreconf
   command "autoreconf -i -f", :env => reconf_env

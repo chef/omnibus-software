@@ -41,6 +41,6 @@ relative_path "jdk1.7.0_25"
 jre_dir = "#{install_dir}/embedded/jre"
 
 build do
-  command "mkdir -p #{jre_dir}"
+  mkdir "#{jre_dir}"
   command "#{install_dir}/embedded/bin/rsync -a . #{jre_dir}/"
 end

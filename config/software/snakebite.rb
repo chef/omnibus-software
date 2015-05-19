@@ -3,6 +3,7 @@ default_version "1.3.11"
 
 dependency "python"
 dependency "pip"
+dependency "google-apputils"
 
 build do
   ship_license "https://raw.githubusercontent.com/spotify/snakebite/master/LICENSE"
