@@ -44,7 +44,10 @@ build do
 
   # centos 5 has an old version of gcc (4.2.1) that has trouble with
   # long long and c++ in pedantic mode
-  patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch" if el?
+  # This patch is specific to zeromq4
+  if version.to_f >= 4
+    patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch" if el?
+  end
 
   command "./autogen.sh", env: env
   command "./configure --prefix=#{install_dir}/embedded", env: env
