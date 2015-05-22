@@ -51,6 +51,6 @@ build do
       # be built, it may trigger a bug when using git cache : git tries to tag
       # the /opt/datadog-agent repo after this build but can't find a valid
       # HEAD since no commit could have been done.
-      # command "touch #{install_dir}/deleteme"
+      command "touch #{install_dir}/uselessfile"
   end
 end
