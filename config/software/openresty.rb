@@ -30,6 +30,7 @@ relative_path "ngx_openresty-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  env['PATH'] += "#{env['PATH']}:/usr/sbin:/sbin"
 
   configure = [
     "./configure",
