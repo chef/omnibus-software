@@ -30,6 +30,8 @@ build do
     cc_command = "-Dcc='gcc -static-libgcc -Wl,-M #{solaris_mapfile_path}"
   elsif aix?
     cc_command = "-Dcc='/opt/IBM/xlc/13.1.0/bin/cc_r -q64'"
+  elsif freebsd? && ohai['os_version'].to_i >= 1000024
+    cc_command = "-Dcc='clang'"
   else
     cc_command = "-Dcc='gcc -static-libgcc'"
   end

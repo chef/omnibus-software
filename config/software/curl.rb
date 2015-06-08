@@ -28,6 +28,11 @@ relative_path "curl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  if freebsd?
+    # from freebsd ports - IPv6 Hostcheck patch
+    patch source: "curl-freebsd-hostcheck.patch", plevel: 1
+  end
+
   delete "#{project_dir}/src/tool_hugehelp.c"
 
   configure_command = [
