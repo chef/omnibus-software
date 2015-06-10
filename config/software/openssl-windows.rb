@@ -63,4 +63,7 @@ build do
   # Copy over the required dlls into embedded/bin
   copy "#{tmpdir}/bin/libeay32.dll", "#{install_dir}/embedded/bin/"
   copy "#{tmpdir}/bin/ssleay32.dll", "#{install_dir}/embedded/bin/"
+
+  # Also copy over the openssl executable for debugging
+  copy "#{tmpdir}/bin/openssl.exe", "#{install_dir}/embedded/bin/"
 end
