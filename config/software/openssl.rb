@@ -23,9 +23,9 @@ dependency "libgcc"
 dependency "makedepend"
 
 
-default_version "1.0.1m"
+default_version "1.0.1n"
 source url: "http://www.openssl.org/source/#{name}-#{version}.tar.gz",
-       md5: "d143d1555d842a069cb7cc34ba745a06"
+       md5: "139568bd5a56fa49b72a290d37113f30"
 
 relative_path "openssl-#{version}"
 
