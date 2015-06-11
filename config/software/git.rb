@@ -42,21 +42,29 @@ end
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
 build do
+
   env = with_standard_compiler_flags(with_embedded_path).merge(
+    "NEEDS_LIBICONV"     => "1",
     "NO_GETTEXT"         => "1",
     "NO_PYTHON"          => "1",
-    "NO_TCLTK"           => "1",
     "NO_R_TO_GCC_LINKER" => "1",
-    "NEEDS_LIBICONV"     => "1",
+    "NO_TCLTK"           => "1",
 
+    "CURLDIR"    => "#{install_dir}/embedded",
+    "EXPATDIR"   => "#{install_dir}/embedded",
+    "ICONVDIR"   => "#{install_dir}/embedded",
+    "LIBPCREDIR" => "#{install_dir}/embedded",
+    "OPENSSLDIR" => "#{install_dir}/embedded",
     "PERL_PATH"  => "#{install_dir}/embedded/bin/perl",
     "ZLIB_PATH"  => "#{install_dir}/embedded",
-    "ICONVDIR"   => "#{install_dir}/embedded",
-    "OPENSSLDIR" => "#{install_dir}/embedded",
-    "EXPATDIR"   => "#{install_dir}/embedded",
-    "CURLDIR"    => "#{install_dir}/embedded",
-    "LIBPCREDIR" => "#{install_dir}/embedded",
   )
+
+  # AIX needs /opt/freeware/bin only for patch
+  patch_env = env.dup
+  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+
+  patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env if aix?
+  patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env if aix?
 
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
