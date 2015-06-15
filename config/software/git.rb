@@ -69,6 +69,10 @@ build do
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
 
+  # without this, git produces some nroff files with "::" in the filename
+  # causing the install process to fail with "sysck: 3001-019"
+  configure_command << "--docdir='/dev/null'" if aix?
+
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "install", env: env
