@@ -67,7 +67,10 @@ when "freebsd"
 when "aix"
   # this magic per IBM
   env['LDSHARED'] = "xlc -G"
-  env['CFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  # -qsuppress=0711-415 improves troubleshooting by suppressing:
+  # ld: 0711-415 WARNING: Symbol strlcat is already exported.
+  # previously accounting for 2/3rds of the ruby build output
+  env['CFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include -qsuppress=0711-415"
   # this magic per IBM
   env['XCFLAGS'] = "-DRUBY_EXPORT"
   # need CPPFLAGS set so ruby doesn't try to be too clever
