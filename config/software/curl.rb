@@ -30,22 +30,26 @@ build do
 
   delete "#{project_dir}/src/tool_hugehelp.c"
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --disable-manual" \
-          " --disable-debug" \
-          " --enable-optimize" \
-          " --disable-ldap" \
-          " --disable-ldaps" \
-          " --disable-rtsp" \
-          " --enable-proxy" \
-          " --disable-dependency-tracking" \
-          " --enable-ipv6" \
-          " --without-libidn" \
-          " --without-gnutls" \
-          " --without-librtmp" \
-          " --with-ssl=#{install_dir}/embedded" \
-           "--with-zlib=#{install_dir}/embedded", env: env
+  configure_command = [
+    "./configure",
+    "--prefix=#{install_dir}/embedded",
+    "--disable-manual",
+    "--disable-debug",
+    "--enable-optimize",
+    "--disable-ldap",
+    "--disable-ldaps",
+    "--disable-rtsp",
+    "--enable-proxy",
+    "--disable-dependency-tracking",
+    "--enable-ipv6",
+    "--without-libidn",
+    "--without-gnutls",
+    "--without-librtmp",
+    "--with-ssl=#{install_dir}/embedded",
+    "--with-zlib=#{install_dir}/embedded",
+  ]
+
+  command configure_command.join(" "), env: env
 
   make "-j #{workers}", env: env
   make "install", env: env
