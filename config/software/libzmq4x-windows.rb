@@ -28,9 +28,7 @@ end
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  tmpdir = File.join(Omnibus::Config.cache_dir, "libzmq4x-windows")
-
-  command "7z.exe x #{project_file} -o#{Omnibus::Config.cache_dir}", env: env
+  tmpdir = File.join(Omnibus::Config.source_dir, "libzmq4x-windows")
 
   copy "#{tmpdir}/bin/*", "#{install_dir}/embedded/bin"
   copy "#{tmpdir}/include/*", "#{install_dir}/embedded/include"
