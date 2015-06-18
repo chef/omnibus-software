@@ -26,8 +26,6 @@ version("1.0.21") do
 end
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
   tmpdir = File.join(Omnibus::Config.source_dir, "libzmq4x-windows")
 
   copy "#{tmpdir}/bin/*", "#{install_dir}/embedded/bin"
