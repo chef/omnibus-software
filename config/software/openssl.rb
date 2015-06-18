@@ -20,6 +20,7 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix?
 dependency "patch" if solaris2?
+dependency "openssl-fips"
 
 default_version "1.0.1p"
 
@@ -81,6 +82,8 @@ build do
     "--prefix=#{install_dir}/embedded",
     "--with-zlib-lib=#{install_dir}/embedded/lib",
     "--with-zlib-include=#{install_dir}/embedded/include",
+    "--with-fipsdir=#{install_dir}/embedded",
+    "fips",
     "no-idea",
     "no-mdc2",
     "no-rc5",
@@ -155,6 +158,9 @@ build do
   else
     patch source: "openssl-1.0.1f-do-not-build-docs.patch"
   end
+
+  puts "CONFIGURE: " + configure_command.to_s
+  puts "ENV: " + env.to_s
 
   command configure_command, env: env
   make "depend", env: env
