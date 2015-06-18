@@ -16,10 +16,13 @@
 
 name "openssl"
 
+fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
+
 dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix?
 dependency "patch" if solaris2?
+dependency "openssl-fips" if fips_enabled
 
 default_version "1.0.1q"
 
@@ -88,6 +91,14 @@ build do
     "zlib",
     "shared",
   ].join(" ")
+
+  if fips_enabled
+    common_args = [
+      common_args,
+      "--with-fipsdir=#{install_dir}/embedded",
+      "fips",
+    ].join(" ")
+  end
 
   configure_command = case ohai["platform"]
                       when "aix"
@@ -161,6 +172,9 @@ build do
   else
     patch source: "openssl-1.0.1f-do-not-build-docs.patch"
   end
+
+  puts "CONFIGURE: " + configure_command.to_s
+  puts "ENV: " + env.to_s
 
   command configure_command, env: env
   make "depend", env: env
