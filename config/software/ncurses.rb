@@ -15,15 +15,15 @@
 #
 
 name "ncurses"
-default_version "5.9"
+default_version "5.9-20150530"
 
-dependency "libtool" if aix?
 dependency "patch" if solaris2?
 
-source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
-       md5: "8cb9c412e5f2d96bc6f459aa8c6282a1"
+version("5.9") { source md5: "8cb9c412e5f2d96bc6f459aa8c6282a1", url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz" }
+version("5.9-20150530") { source md5: "bb2cbe1d788d3ab0138fc2734e446b43", url: "ftp://invisible-island.net/ncurses/current/ncurses-5.9-20150530.tgz" }
+version("6.0-20150613") { source md5: "0c6a0389d004c78f4a995bc61884a563", url: "ftp://invisible-island.net/ncurses/current/ncurses-6.0-20150613.tgz" }
 
-relative_path "ncurses-5.9"
+relative_path "ncurses-#{version}"
 
 ########################################################################
 #
@@ -62,13 +62,6 @@ build do
     patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0
   end
 
-  if aix?
-    patch_env = env.dup
-    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
-
-    patch source: "patch-aix-configure", plevel: 0, env: patch_env
-  end
-
   if mac_os_x? ||
     # Clang became the default compiler in FreeBSD 10+
     (freebsd? && ohai['os_version'].to_i >= 1000024)
@@ -86,38 +79,53 @@ build do
     patch source: "v5.9.ppc64le-configure.patch", plevel: 1
   end
 
-  # build wide-character libraries
-  cmd = [
+  configure_command = [
     "./configure",
     "--prefix=#{install_dir}/embedded",
+    "--enable-overwrite",
+    "--with-normal",
     "--with-shared",
     "--with-termlib",
-    "--without-debug",
-    "--without-normal", # AIX doesn't like building static libs
-    "--enable-overwrite",
-    "--enable-widec",
     "--without-cxx-binding",
+    "--without-debug",
+    "--without-test",
   ]
 
-  command cmd.join(" "), env: env
+  if aix?
+    # AIX kinda needs 5.9-20140621 or later
+    # because of a naming snafu in shared library naming.
+    # see http://invisible-island.net/ncurses/NEWS.html#t20140621
+    freeware_env = env.dup
+    freeware_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+    patch_script = 'ncurses-5.9-20141206-patch.sh'
+    omnisrc_dir = "/var/cache/omnibus/src"
+    script_path = "#{omnisrc_dir}/#{relative_path}/#{patch_script}"
+
+    # pull down and apply the 20141206 rollup patch
+    command "wget \"ftp://invisible-island.net/ncurses/5.9/#{patch_script}.bz2\" -O \"#{script_path}.bz2\""
+    command "bunzip2 \"#{script_path}.bz2\""
+    command "sh \"#{script_path}\"", env: freeware_env
+
+    patch source: "patch-aix-configure", plevel: 0, env: freeware_env
+
+    # ncurses's ./configure incorrectly
+    # "figures out" ARFLAGS if you try
+    # to set them yourself
+    env.delete('ARFLAGS')
+
+    # use gnu install from the coreutils IBM rpm package
+    env['INSTALL'] = "/opt/freeware/bin/install"
+  end
+
+  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 
   # Build non-wide-character libraries
   make "distclean", env: env
+  configure_command << "--enable-widec"
 
-  cmd = [
-    "./configure",
-    "--prefix=#{install_dir}/embedded",
-    "--with-shared",
-    "--with-termlib",
-    "--without-debug",
-    "--without-normal",
-    "--enable-overwrite",
-    "--without-cxx-binding",
-  ]
-
-  command cmd.join(" "), env: env
+  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
 
   # Installing the non-wide libraries will also install the non-wide
