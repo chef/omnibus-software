@@ -95,18 +95,6 @@ build do
     # AIX kinda needs 5.9-20140621 or later
     # because of a naming snafu in shared library naming.
     # see http://invisible-island.net/ncurses/NEWS.html#t20140621
-    freeware_env = env.dup
-    freeware_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
-    patch_script = 'ncurses-5.9-20141206-patch.sh'
-    omnisrc_dir = "/var/cache/omnibus/src"
-    script_path = "#{omnisrc_dir}/#{relative_path}/#{patch_script}"
-
-    # pull down and apply the 20141206 rollup patch
-    command "wget \"ftp://invisible-island.net/ncurses/5.9/#{patch_script}.bz2\" -O \"#{script_path}.bz2\""
-    command "bunzip2 \"#{script_path}.bz2\""
-    command "sh \"#{script_path}\"", env: freeware_env
-
-    patch source: "patch-aix-configure", plevel: 0, env: freeware_env
 
     # ncurses's ./configure incorrectly
     # "figures out" ARFLAGS if you try
@@ -116,6 +104,10 @@ build do
     # use gnu install from the coreutils IBM rpm package
     env['INSTALL'] = "/opt/freeware/bin/install"
   end
+
+  # only Solaris 10 sh has a problem with
+  # parens enclosed case statement conditions the configure script
+  configure_command.unshift "bash" if solaris2?
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
