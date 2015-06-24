@@ -47,5 +47,7 @@ build do
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
-  make "install", env: env
+  # using the install.perl target lets
+  # us skip install the manpages
+  make "install.perl", env: env
 end
