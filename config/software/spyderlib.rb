@@ -14,5 +14,6 @@ env = {
 }
 
 build do
-  command "#{install_dir}/embedded/bin/python setup.py install", :env => env
+  command "#{install_dir}/embedded/bin/python setup.py install "\
+          "--record #{install_dir}/embedded/spyderlib-files.txt", :env => env
 end
