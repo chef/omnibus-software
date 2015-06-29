@@ -8,7 +8,7 @@ source :url => "http://www.cmake.org/files/v#{version[0..2]}/cmake-#{version}.ta
 relative_path "cmake-#{version}"
 
 build do
-  command './configure'
+  command "./configure --prefix=#{install_dir}/embedded"
   patch :source => "build_on_mac_10.10.patch" if ohai['platform_family'] == 'mac_os_x'
   command "make -j #{workers}"
   command "make install"
