@@ -24,6 +24,8 @@ else
   dependency "ruby"
 end
 
+source git: 'https://github.com/rubygems/rubygems.git'
+
 version "1.8.29" do
   source md5: "a57fec0af33e2e2e1dbb3a68f6cc7269"
 end
@@ -56,10 +58,6 @@ end
 version "2.4.5" do
   source md5: "5918319a439c33ac75fbbad7fd60749d"
 end
-
-# NOTE: overwriting source at the top level seems to be required for this to work.
-source git: 'git@github.com:danielsdeleo/rubygems.git'
-#source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
 
 version "v2.4.4_plus_debug" do
   source git: 'git@github.com:danielsdeleo/rubygems.git'
