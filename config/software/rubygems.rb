@@ -82,8 +82,13 @@ version "2.4.4.debug.1" do
   source git: 'git@github.com:danielsdeleo/rubygems.git'
 end
 
-# NOTE: this is only gonna work when pulling from github
-relative_path "rubygems"
+# tarballs get expanded as rubygems-xyz, git repo is always rubygems:
+if source.key?(:url)
+  relative_path "rubygems-#{version}"
+else
+  relative_path "rubygems"
+end
+
 
 build do
   env = with_embedded_path
