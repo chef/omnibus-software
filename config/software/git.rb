@@ -69,9 +69,17 @@ build do
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
 
-  # without this, git produces some nroff files with "::" in the filename
-  # causing the install process to fail with "sysck: 3001-019"
-  configure_command << "--docdir='/dev/null'" if aix?
+  if freebsd?
+    configure_command << "--enable-pthreads=-pthread"
+    configure_command << "ac_cv_header_libcharset_h=no"
+    configure_command << "--with-curl=#{install_dir}/embedded"
+    configure_command << "--with-expat=#{install_dir}/embedded"
+    configure_command << "--with-perl=#{install_dir}/embedded/bin/perl"
+  elsif aix?
+    # without this, git produces some nroff files with "::" in the filename
+    # causing the install process to fail with "sysck: 3001-019"
+    configure_command << "--docdir='/dev/null'"
+  end
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
