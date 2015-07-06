@@ -41,11 +41,13 @@ build do
                        " -Dprefix=#{install_dir}/embedded",
                        " -Duseshrplib",
                        " -Dusethreads",
-                       " -Duse64bitall",
                        " #{cc_command}",
                        " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'"]
 
-  configure_command << "-Dmake=gmake" if aix?
+  if aix?
+    configure_command << "-Dmake=gmake"
+    configure_command << "-Duse64bitall"
+  end
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
