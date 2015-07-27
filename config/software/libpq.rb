@@ -18,7 +18,7 @@ env = {
 }
 
 build do
-  license "https://raw.githubusercontent.com/lpsmith/postgresql-libpq/master/LICENSE"
+  ship_license "https://raw.githubusercontent.com/lpsmith/postgresql-libpq/master/LICENSE"
   command [ "./configure",
             "--prefix=#{install_dir}/embedded",
             "--with-libedit-preferred",
@@ -26,7 +26,7 @@ build do
             "--with-includes=#{install_dir}/embedded/include",
             "--with-libraries=#{install_dir}/embedded/lib" ].join(" "), :env => env
   command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "mkdir -p #{install_dir}/embedded/include/postgresql"
+  mkdir "#{install_dir}/embedded/include/postgresql"
   command "make -C src/include install"
   command "make -C src/interfaces install"
   command "make -C src/bin/pg_config install"

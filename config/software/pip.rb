@@ -16,16 +16,16 @@
 #
 
 name "pip"
-default_version "6.0.8"
+default_version "6.1.1"
 
 dependency "setuptools"
 
 source :url => "https://pypi.python.org/packages/source/p/pip/pip-#{version}.tar.gz",
-       :md5 => '2332e6f97e75ded3bddde0ced01dbda3'
+       :md5 => '6b19e0a934d982a5a4b798e957cb6d45'
 
 relative_path "pip-#{version}"
 
 build do
-  license "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
+  ship_license "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
   command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
 end

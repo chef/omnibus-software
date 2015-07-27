@@ -39,6 +39,6 @@ build do
   command "make install"
 
   # ensure the logs directory is available on rebuild from git cache
-  command "mkdir -p #{install_dir}/embedded/logs"
-  command "touch #{install_dir}/embedded/logs/.gitkeep"
+  mkdir "#{install_dir}/embedded/logs"
+  touch "#{install_dir}/embedded/logs/.gitkeep"
 end

@@ -9,9 +9,12 @@ source :url => "http://ftp.gnu.org/gnu/tar/tar-#{version}.tar.gz",
 
 relative_path "#{name}-#{version}"
 build do
-    if Ohai['platform_family'] == 'rhel'
+    if ohai['platform_family'] == 'rhel'
+        delete "/bin/gtar /bin/tar"
         command "FORCE_UNSAFE_CONFIGURE=1 ./configure --prefix=/"
         command "make -j #{workers}"
         command "make install"
+        # Omnibus 4 uses gtar instead of tar so let's make a proper symlink
+        link "/bin/tar", "/bin/gtar"
     end
 end

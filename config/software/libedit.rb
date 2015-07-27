@@ -33,7 +33,7 @@ source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
 
 relative_path "libedit-#{version}"
 
-env = case Ohai['platform']
+env = case ohai['platform']
       when "aix"
         {
           "CC" => "xlc -q64",
@@ -56,10 +56,10 @@ env = case Ohai['platform']
       end
 
 build do
-  license "https://gist.githubusercontent.com/remh/d001e1be55cd07a88550/raw/742f005f8f9c744a4c7c8b2a0e6c3018546d6d0c/libedit.LICENSE"
+  ship_license "https://gist.githubusercontent.com/remh/d001e1be55cd07a88550/raw/742f005f8f9c744a4c7c8b2a0e6c3018546d6d0c/libedit.LICENSE"
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
-  if Ohai['platform'] == "freebsd"
+  if ohai['platform'] == "freebsd"
     patch :source => "freebsd-vi-fix.patch"
   end
   command ["./configure",

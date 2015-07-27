@@ -26,7 +26,7 @@ source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
 relative_path "gdbm-#{version}"
 
 build do
-  env = case Ohai['platform']
+  env = case ohai['platform']
   when "solaris2"
     {
       "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -R#{install_dir}/embedded/lib",
@@ -46,7 +46,7 @@ build do
                        "--enable-libgdbm-compat",
                        "--prefix=#{install_dir}/embedded"]
 
-  if Ohai['platform'] == "freebsd"
+  if ohai['platform'] == "freebsd"
     configure_command << "--with-pic"
   end
 

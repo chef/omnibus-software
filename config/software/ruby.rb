@@ -26,7 +26,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
-dependency "libgcc" if Ohai['platform'] == "solaris2"
+dependency "libgcc" if ohai['platform'] == "solaris2"
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
@@ -43,7 +43,7 @@ relative_path "ruby-#{version}"
 env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
-case Ohai['platform']
+case ohai['platform']
 when "mac_os_x"
   # -Qunused-arguments suppresses "argument unused during compilation"
   # warnings. These can be produced if you compile a program that doesn't
@@ -78,7 +78,7 @@ build do
                        "--disable-install-doc",
                        "--without-gmp"]
 
-  case Ohai['platform']
+  case ohai['platform']
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
     patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
@@ -134,7 +134,7 @@ build do
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
   env.merge!({
     "PKG_CONFIG" => "/bin/true",
-  }) if Ohai['platform'] == "aix"
+  }) if ohai['platform'] == "aix"
 
   command configure_command.join(" "), :env => env
   command "#{make_binary} -j #{workers}", :env => env

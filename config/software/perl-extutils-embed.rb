@@ -10,6 +10,6 @@ relative_path "ExtUtils-Embed-#{version}"
 
 build do
     command "#{install_dir}/embedded/bin/perl Makefile.PL INSTALL_BASE=#{install_dir}/embedded"
-    command "make"
+    command "make -j #{workers}"
     command "make install"
 end

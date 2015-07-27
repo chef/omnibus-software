@@ -66,8 +66,8 @@ build do
   command "make install-exfoliation"
 
   # clean up the install
-  command "rm -rf #{install_dir}/embedded/nagios/etc/*"
-  
+  rm "#{install_dir}/embedded/nagios/etc/*"
+
   # ensure the etc directory is avaialable on rebuild from git cache
-  command "touch #{install_dir}/embedded/nagios/etc/.gitkeep"
+  touch "#{install_dir}/embedded/nagios/etc/.gitkeep"
 end

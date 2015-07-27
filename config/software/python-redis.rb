@@ -5,6 +5,6 @@ dependency "python"
 dependency "pip"
 
 build do
-  license "https://raw.githubusercontent.com/andymccurdy/redis-py/master/LICENSE"
+  ship_license "https://raw.githubusercontent.com/andymccurdy/redis-py/master/LICENSE"
   command "#{install_dir}/embedded/bin/pip install -I --install-option=\"--install-scripts=#{install_dir}/bin\" redis==#{version}"
 end

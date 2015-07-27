@@ -32,11 +32,11 @@ build do
   command "sed -i -e s:-static:: src/Makefile", :cwd => working_dir
 
   # build it
-  command "make", :cwd => "#{working_dir}/src"
+  command "make -j #{workers}", :cwd => "#{working_dir}/src"
   command "make check", :cwd => "#{working_dir}/src"
 
   # move it
-  command "mkdir -p #{install_dir}/embedded/bin"
+  mkdir "#{install_dir}/embedded/bin"
   ["src/chpst",
    "src/runit",
    "src/runit-init",
@@ -46,7 +46,7 @@ build do
    "src/sv",
    "src/svlogd",
    "src/utmpset"].each do |bin|
-    command "cp #{bin} #{install_dir}/embedded/bin", :cwd => working_dir
+    copy "#{bin}", "#{install_dir}/embedded/bin", :cwd => working_dir
   end
 
   block do

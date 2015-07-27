@@ -8,7 +8,7 @@ source :url => "http://xorg.freedesktop.org/releases/individual/proto/xproto-#{v
 relative_path "xproto-#{version}"
 
 configure_env =
-  case Ohai['platform']
+  case ohai['platform']
   when "aix"
     {
       "CC" => "xlc -q64",
@@ -40,7 +40,7 @@ configure_env =
   end
 
 build do
-  license "http://cgit.freedesktop.org/xorg/proto/xproto/plain/COPYING"
+  ship_license "http://cgit.freedesktop.org/xorg/proto/xproto/plain/COPYING"
   command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
   command "make -j #{workers}", :env => configure_env
   command "make -j #{workers} install", :env => configure_env

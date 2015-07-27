@@ -25,6 +25,6 @@ relative_path "help2man-1.40.5"
 
 build do
   command "./configure --prefix=#{install_dir}/embedded"
-  command "make"
+  command "make -j #{workers}"
   command "make install"
 end

@@ -26,7 +26,7 @@ whitelist_file "jre/lib"
 whitelist_file "jre/plugin"
 whitelist_file "jre/bin/appletviewer"
 
-if Ohai['kernel']['machine'] =~ /x86_64/
+if ohai['kernel']['machine'] =~ /x86_64/
   # TODO: download x86 version on x86 machines
   source :url => "http://download.oracle.com/otn-pub/java/jdk/7u25-b15/server-jre-7u25-linux-x64.tar.gz",
          :md5 => "7164bd8619d731a2e8c01d0c60110f80",
@@ -41,6 +41,6 @@ relative_path "jdk1.7.0_25"
 jre_dir = "#{install_dir}/embedded/jre"
 
 build do
-  command "mkdir -p #{jre_dir}"
+  mkdir "#{jre_dir}"
   command "#{install_dir}/embedded/bin/rsync -a . #{jre_dir}/"
 end

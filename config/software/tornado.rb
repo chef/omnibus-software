@@ -7,6 +7,6 @@ dependency "pycurl"
 dependency "futures"
 
 build do
-  license "https://raw.githubusercontent.com/tornadoweb/tornado/master/LICENSE"
+  ship_license "https://raw.githubusercontent.com/tornadoweb/tornado/master/LICENSE"
   command "#{install_dir}/embedded/bin/pip install -I --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
 end

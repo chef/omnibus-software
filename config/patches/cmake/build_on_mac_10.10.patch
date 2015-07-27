@@ -1,0 +1,16 @@
+--- cmake-3.1.3/Modules/Platform/Darwin.cmake	2015-02-11 11:17:39.000000000 -0500
++++ cmake-3.1.3/Modules/Platform/Darwin.cmake.new	2015-02-23 18:15:04.000000000 -0500
+@@ -73,12 +73,7 @@
+   elseif("${_CMAKE_OSX_SYSROOT_ORIG}" STREQUAL "/")
+     set(_sdk_ver "${_CURRENT_OSX_VERSION}")
+   else()
+-    message(FATAL_ERROR
+-      "CMAKE_OSX_DEPLOYMENT_TARGET is '${CMAKE_OSX_DEPLOYMENT_TARGET}' "
+-      "but CMAKE_OSX_SYSROOT:\n \"${_CMAKE_OSX_SYSROOT_ORIG}\"\n"
+-      "is not set to a MacOSX SDK with a recognized version.  "
+-      "Either set CMAKE_OSX_SYSROOT to a valid SDK or set "
+-      "CMAKE_OSX_DEPLOYMENT_TARGET to empty.")
++    set(_sdk_ver "${_CURRENT_OSX_VERSION}")
+   endif()
+   if(CMAKE_OSX_DEPLOYMENT_TARGET VERSION_GREATER "${_sdk_ver}")
+     message(FATAL_ERROR

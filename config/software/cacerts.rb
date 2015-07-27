@@ -52,7 +52,7 @@ source :url => "http://curl.haxx.se/ca/cacert.pem"
 relative_path "cacerts-#{version}"
 
 build do
-  license "http://www.r-project.org/Licenses/LGPL-2.1"
+  ship_license "http://www.r-project.org/Licenses/LGPL-2.1"
   block do
     FileUtils.mkdir_p(File.expand_path("embedded/ssl/certs", install_dir))
 
@@ -63,11 +63,11 @@ build do
     # fix worked. Rather than trying to fix this now, we're filing a bug and copying the cacert.pem
     # directly from the cache instead.
 
-    FileUtils.cp(File.expand_path("cacert.pem", Config.cache_dir),
-                 File.expand_path("embedded/ssl/certs/cacert.pem", install_dir))
+    # FileUtils.cp(File.expand_path("cacert.pem", Config.cache_dir),
+    #              File.expand_path("embedded/ssl/certs/cacert.pem", install_dir))
   end
 
-  unless Ohai['platform'] == 'windows'
-    command "ln -sf #{install_dir}/embedded/ssl/certs/cacert.pem #{install_dir}/embedded/ssl/cert.pem"
+  unless ohai['platform'] == 'windows'
+    link "#{install_dir}/embedded/ssl/certs/cacert.pem", "#{install_dir}/embedded/ssl/cert.pem"
   end
 end
