@@ -71,7 +71,7 @@ build do
   # Make sure the OpenSSL version is suitable for our path:
   # OpenSSL version is something like
   # OpenSSL 1.0.0k 5 Feb 2013
-  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= #{version}'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '#{version}'\""
+  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= #{version}'; puts 'Current version : ' + OpenSSL::OPENSSL_VERSION; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '#{version}'\""
 
   tmpdir = File.join(Omnibus::Config.cache_dir, "openssl-cache")
   tar_filename = i386? ? "openssl-#{version}-x86-windows.tar" : "openssl-#{version}-x64-windows.tar"
