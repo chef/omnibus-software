@@ -15,12 +15,12 @@
 #
 
 name "rsync"
-default_version "3.0.9"
+default_version "3.1.1"
 
 dependency "popt"
 
 source url: "http://rsync.samba.org/ftp/rsync/src/rsync-#{version}.tar.gz",
-       md5: "5ee72266fe2c1822333c407e1761b92b"
+       md5: "43bd6676f0b404326eee2d63be3cdcfe"
 
 relative_path "rsync-#{version}"
 
