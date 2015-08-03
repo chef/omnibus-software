@@ -6,5 +6,11 @@ dependency "pip"
 dependency "virtualenv"
 
 build do
-  command "#{install_dir}/embedded/bin/pip install -I --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
+  if ohai['platform'] == 'windows'
+    pip_call "install -I --install-option=\"--install-scripts='"\
+             "#{windows_safe_path(install_dir)}\\bin'\" #{name}==#{version}"
+  else
+    pip_call "install -I --install-option=\"--install-scripts=#{install_dir}/bin\" "\
+             "#{name}==#{version}"
+  end
 end

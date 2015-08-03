@@ -1,18 +1,29 @@
 name "pyopenssl"
 default_version "0.14"
 
-dependency "openssl"
-dependency "python"
-dependency "pip"
-dependency "libffi"
+if ohai['platform'] == 'windows'
+  dependency "openssl-windows"
+  dependency "python"
+  dependency "pip"
 
-build do
-  ship_license "https://raw.githubusercontent.com/pyca/pyopenssl/master/LICENSE"
-  build_env = {
-    "PATH" => "/#{install_dir}/embedded/bin:#{ENV['PATH']}",
-    "LDFLAGS" => "-L/#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include/"
-  }
-  command "#{install_dir}/embedded/bin/pip install pyOpenSSL==#{version}", :env => build_env
+  build do
+    ship_license "https://raw.githubusercontent.com/pyca/pyopenssl/master/LICENSE"
+    pip_call "install pyopenssl==#{version}"
+  end
+else
+  dependency "openssl"
+  dependency "libffi"
+  dependency "python"
+  dependency "pip"
+
+  build do
+    ship_license "https://raw.githubusercontent.com/pyca/pyopenssl/master/LICENSE"
+    build_env = {
+      "PATH" => "/#{install_dir}/embedded/bin:#{ENV['PATH']}",
+      "LDFLAGS" => "-L/#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include/"
+    }
+    pip_call "install pyOpenSSL==#{version}", :env => build_env
+  end
 end

@@ -27,8 +27,6 @@
 name "libyaml-windows"
 default_version "0.1.6"
 
-dependency "ruby-windows"
-
 source :url => "http://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windows.tar.lzma",
        :md5 => "8bb5d8e43cf18ec48b4751bdd0111c84"
 

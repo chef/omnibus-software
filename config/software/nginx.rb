@@ -18,27 +18,33 @@
 name "nginx"
 default_version "1.4.4"
 
-dependency "pcre"
-dependency "openssl"
+if ohai['platform'] != 'windows'
 
-source :url => "http://nginx.org/download/nginx-#{version}.tar.gz",
-       :md5 => "5dfaba1cbeae9087f3949860a02caa9f"
+  dependency "pcre"
+  dependency "openssl"
 
-relative_path "nginx-#{version}"
+  source :url => "http://nginx.org/download/nginx-#{version}.tar.gz",
+         :md5 => "5dfaba1cbeae9087f3949860a02caa9f"
 
-build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-http_ssl_module",
-           "--with-http_stub_status_module",
-           "--with-ipv6",
-           "--with-debug",
-           "--with-ld-opt=-L#{install_dir}/embedded/lib",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" ")
-  command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
-  command "make install"
+  relative_path "nginx-#{version}"
 
-  # ensure the logs directory is available on rebuild from git cache
-  mkdir "#{install_dir}/embedded/logs"
-  touch "#{install_dir}/embedded/logs/.gitkeep"
+  build do
+    command ["./configure",
+             "--prefix=#{install_dir}/embedded",
+             "--with-http_ssl_module",
+             "--with-http_stub_status_module",
+             "--with-ipv6",
+             "--with-debug",
+             "--with-ld-opt=-L#{install_dir}/embedded/lib",
+             "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" ")
+    command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+    command "make install"
+
+    # ensure the logs directory is available on rebuild from git cache
+    mkdir "#{install_dir}/embedded/logs"
+    touch "#{install_dir}/embedded/logs/.gitkeep"
+  end
+
+else
+  dependency "openssl-windows"
 end

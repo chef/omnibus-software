@@ -9,3 +9,4 @@ build do
   command "brew install qt"
   command "brew linkapps qt"
 end
+

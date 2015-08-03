@@ -16,6 +16,7 @@
 #
 
 name "pip"
+
 default_version "6.1.1"
 
 dependency "setuptools"
@@ -27,5 +28,10 @@ relative_path "pip-#{version}"
 
 build do
   ship_license "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
-  command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
+  if ohai['platform'] == 'windows'
+    command "\"#{windows_safe_path(install_dir)}\\embedded\\python.exe\" setup.py install "\
+            "--prefix=\"#{windows_safe_path(install_dir)}\\embedded\""
+  else
+    command "#{install_dir}/embedded/bin/python setup.py install --prefix=#{install_dir}/embedded"
+  end
 end

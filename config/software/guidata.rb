@@ -10,13 +10,22 @@ source :url => "https://guidata.googlecode.com/files/guidata-#{version}.zip",
 
 relative_path "guidata-#{version}"
 
-env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
-}
-
 build do
   patch :source => 'fix_blocking_import.patch'
   patch :source => 'remove_default_image_path.patch' if ohai['platform_family'] == 'mac_os_x'
-  command "#{install_dir}/embedded/bin/python setup.py install "\
-          "--record #{install_dir}/embedded/guidata-files.txt", :env => env
+  if ohai['platform'] == 'windows'
+    env = {
+      "PATH" => "#{windows_safe_path(install_dir)}\\embedded\\bin:#{ENV["PATH"]}"
+    }
+    command "SET LC_ALL=\"C\""
+    command "SET PATH=\"#{env['PATH']}\""
+    command "\"#{windows_safe_path(install_dir)}\\embedded\\python\" setup.py install "\
+            "--record \"#{windows_safe_path(install_dir)}\\embedded\\guidata-files.txt\""
+  else
+    env = {
+      "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
+    }
+    command "#{install_dir}/embedded/bin/python setup.py install "\
+            "--record #{install_dir}/embedded/guidata-files.txt", :env => env
+  end
 end

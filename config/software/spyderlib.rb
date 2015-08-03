@@ -14,6 +14,12 @@ env = {
 }
 
 build do
-  command "#{install_dir}/embedded/bin/python setup.py install "\
-          "--record #{install_dir}/embedded/spyderlib-files.txt", :env => env
+  if ohai['platform'] == 'windows'
+    command "\"#{install_dir}/embedded/python.exe\" setup.py install "\
+            "--record \"#{windows_safe_path(install_dir)}\\embedded\\spyderlib-files.txt\"",
+            :env => env
+  else
+    command "#{install_dir}/embedded/bin/python setup.py install "\
+            "--record #{install_dir}/embedded/spyderlib-files.txt", :env => env
+  end
 end

@@ -7,5 +7,9 @@ dependency "pyro4"
 
 build do
   ship_license "LGPLv2"
-  command "#{install_dir}/embedded/bin/pip install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
+  if ohai['platform'] == 'windows'
+    pip_call "install --install-option=\"--install-scripts='#{windows_safe_path(install_dir)}/bin'\" #{name}==#{version}"
+  else
+    pip_call "install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
+  end
 end

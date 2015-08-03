@@ -17,46 +17,81 @@
 
 name "python"
 default_version "2.7.12"
-dependency "ncurses"
-dependency "zlib"
-dependency "openssl"
-dependency "bzip2"
-dependency "libsqlite3"
 
-source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-       :sha256 => '3cb522d17463dfa69a155ab18cffa399b358c966c0363d6c8b5b3bf1384da4b6'
+if ohai['platform'] != 'windows'
 
-relative_path "Python-#{version}"
+  dependency "ncurses"
+  dependency "zlib"
+  dependency "openssl"
+  dependency "bzip2"
+  dependency "libsqlite3"
 
-env = {
-  "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
-  "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
-}
+  source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
+         :sha256 => '3cb522d17463dfa69a155ab18cffa399b358c966c0363d6c8b5b3bf1384da4b6'
 
-python_configure = ["./configure",
-                    "--enable-universalsdk=/",
-                    "--prefix=#{install_dir}/embedded"]
+  relative_path "Python-#{version}"
 
-if ohai['platform_family'] == 'mac_os_x'
-  python_configure.push('--enable-ipv6',
-                        '--with-universal-archs=intel',
-                        '--enable-shared')
-end
+  env = {
+    "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
+    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+  }
 
-python_configure.push("--with-dbmliborder=")
+  python_configure = ["./configure",
+                      "--enable-universalsdk=/",
+                      "--prefix=#{install_dir}/embedded"]
 
-build do
-  ship_license "PSFL"
-  patch :source => 'python-2.7.11-avoid-allocating-thunks-in-ctypes.patch' if linux?
-  patch :source => 'python-2.7.11-fix-platform-ubuntu.diff' if linux?
+  if ohai['platform_family'] == 'mac_os_x'
+    python_configure.push('--enable-ipv6',
+                          '--with-universal-archs=intel',
+                          '--enable-shared')
+  end
 
-  command python_configure.join(" "), :env => env
-  command "make -j #{workers}", :env => env
-  command "make install", :env => env
-  delete "#{install_dir}/embedded/lib/python2.7/test"
+  python_configure.push("--with-dbmliborder=")
 
-  # There exists no configure flag to tell Python to not compile readline support :(
-  block do
-    FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"))
+  build do
+    ship_license "PSFL"
+    patch :source => 'python-2.7.11-avoid-allocating-thunks-in-ctypes.patch' if linux?
+    patch :source => 'python-2.7.11-fix-platform-ubuntu.diff' if linux?
+
+    command python_configure.join(" "), :env => env
+    command "make -j #{workers}", :env => env
+    command "make install", :env => env
+    delete "#{install_dir}/embedded/lib/python2.7/test"
+
+    # There exists no configure flag to tell Python to not compile readline support :(
+    block do
+      FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"))
+    end
+  end
+
+else
+
+  dependency "vc_redist"
+  dependency "vc_python"
+
+  if ohai['kernel']['machine'] == 'x86_64'
+    msi_name = "python-#{version}.amd64.msi"
+    source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.amd64.msi",
+           :md5 => '35f5c301beab341f6f6c9785939882ee'
+  else
+    msi_name = "python-#{version}.msi"
+    source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.msi",
+           :md5 => '4ba2c79b103f6003bc4611c837a08208'
+  end
+
+  build do
+    # In case Python is already installed on the build machine well... let's uninstall it
+    # (fortunately we're building in a VM :) )
+    command "start /wait msiexec /x #{msi_name} /L uninstallation_logs.txt ADDLOCAL=DefaultFeature /qn"
+
+
+    mkdir "#{windows_safe_path(install_dir)}\\embedded"
+
+    # Installs Python with all the components we need (pip..) under C:\python-omnibus
+    command "start /wait msiexec /i #{msi_name} TARGETDIR="\
+            "\"#{windows_safe_path(install_dir)}\\embedded\" /L uninstallation_logs.txt "\
+            "ADDLOCAL=DefaultFeature  /qn"
+
+    command "SETX PYTHONPATH \"#{windows_safe_path(install_dir)}\\embedded\""
   end
 end
