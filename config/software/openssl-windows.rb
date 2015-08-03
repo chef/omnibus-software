@@ -34,7 +34,7 @@ default_version "1.0.1p"
 
 dependency "ruby-windows"
 
-if i386?
+if windows_arch_i386?
   source url: "http://dl.bintray.com/oneclick/OpenKnapsack/x86/openssl-#{version}-x86-windows.tar.lzma"
 
   version('1.0.0n') { source md5: "9506530353f3b984680ec27b7270874a" }
@@ -48,7 +48,7 @@ else
   version('1.0.0r') { source md5: "034440ea3eb3456db660e03f2d12591e" }
 end
 
-if i386?
+if windows_arch_i386?
   version('1.0.1m') do
     source url: "https://github.com/jdmundrawala/knapsack-recipes/releases/download/openssl-1.0.1m/openssl-1.0.1m-x86-windows.tar.lzma",
            md5: "789c307a560386a55e14f3e04cd69865"
@@ -74,7 +74,7 @@ build do
   ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= #{version}'; puts 'Current version : ' + OpenSSL::OPENSSL_VERSION; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '#{version}'\""
 
   tmpdir = File.join(Omnibus::Config.cache_dir, "openssl-cache")
-  tar_filename = i386? ? "openssl-#{version}-x86-windows.tar" : "openssl-#{version}-x64-windows.tar"
+  tar_filename = windows_arch_i386? ? "openssl-#{version}-x86-windows.tar" : "openssl-#{version}-x64-windows.tar"
 
   # Ensure the directory exists
   mkdir tmpdir
