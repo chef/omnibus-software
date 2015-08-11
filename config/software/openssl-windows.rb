@@ -27,7 +27,7 @@
 #   https://www.openssl.org/news/secadv_20140806.txt
 
 name "openssl-windows"
-default_version "1.0.0r"
+default_version "1.0.1p"
 
 dependency "ruby-windows"
 
@@ -36,6 +36,15 @@ source url: "http://dl.bintray.com/oneclick/OpenKnapsack/x86/openssl-#{version}-
 version('1.0.0n') { source md5: "9506530353f3b984680ec27b7270874a" }
 version('1.0.0q') { source md5: "577dbe528415c6f178a9431fd0554df4" }
 version('1.0.0r') { source md5: "25402ddce541aa54eb5e114721926e72" }
+version('1.0.1m') do
+  source url: "https://github.com/jdmundrawala/knapsack-recipes/releases/download/openssl-1.0.1m/openssl-1.0.1m-x86-windows.tar.lzma",
+         md5: "789c307a560386a55e14f3e04cd69865"
+end
+
+version('1.0.1p') do
+  source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1p/openssl-1.0.1p-x86-windows.tar.lzma",
+         md5: "013c0f27c4839c89e33037acc72f17c5"
+end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -59,4 +68,7 @@ build do
   # Copy over the required dlls into embedded/bin
   copy "#{tmpdir}/bin/libeay32.dll", "#{install_dir}/embedded/bin/"
   copy "#{tmpdir}/bin/ssleay32.dll", "#{install_dir}/embedded/bin/"
+
+  # Also copy over the openssl executable for debugging
+  copy "#{tmpdir}/bin/openssl.exe", "#{install_dir}/embedded/bin/"
 end

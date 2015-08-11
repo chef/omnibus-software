@@ -15,14 +15,17 @@
 #
 
 name "libffi"
-default_version "3.0.13"
+
+default_version "3.2.1"
 
 dependency "libtool"
 
-source url: "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz",
-       md5: '45f3b6dbc9ee7c7dfbbbc5feba571529'
+version("3.0.13") { source md5: "45f3b6dbc9ee7c7dfbbbc5feba571529" }
+version("3.2.1")  { source md5: "83b89587607e3eb65c70d361f13bab43" }
 
-relative_path "libffi-3.0.13"
+source url: "ftp://sourceware.org/pub/libffi/libffi-#{version}.tar.gz"
+
+relative_path "libffi-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -46,7 +49,7 @@ build do
 
   # On 64-bit centos, libffi libraries are places under /embedded/lib64
   # move them over to lib
-  if rhel? && _64_bit?
+  if (rhel? || suse?) && _64_bit?
     # Can't use 'move' here since that uses FileUtils.mv, which on < Ruby 2.2.0-dev
     # returns ENOENT on moving symlinks with broken (in this case, already moved) targets.
     # http://comments.gmane.org/gmane.comp.lang.ruby.cvs/49907

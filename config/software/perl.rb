@@ -28,6 +28,10 @@ build do
   solaris_mapfile_path = File.expand_path(Omnibus::Config.solaris_linker_mapfile, Omnibus::Config.project_root)
   if solaris2? && File.exist?(solaris_mapfile_path)
     cc_command = "-Dcc='gcc -static-libgcc -Wl,-M #{solaris_mapfile_path}"
+  elsif aix?
+    cc_command = "-Dcc='/opt/IBM/xlc/13.1.0/bin/cc_r -q64'"
+  elsif freebsd? && ohai['os_version'].to_i >= 1000024
+    cc_command = "-Dcc='clang'"
   else
     cc_command = "-Dcc='gcc -static-libgcc'"
   end
@@ -40,7 +44,14 @@ build do
                        " #{cc_command}",
                        " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'"]
 
+  if aix?
+    configure_command << "-Dmake=gmake"
+    configure_command << "-Duse64bitall"
+  end
+
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
-  make "install", env: env
+  # using the install.perl target lets
+  # us skip install the manpages
+  make "install.perl", env: env
 end

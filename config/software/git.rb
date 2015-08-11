@@ -32,11 +32,7 @@ version "1.9.0" do
 end
 
 version "1.9.5" do
-  source md5: "a50979e98068f7dae8ad34492d0ef5a8"
-end
-
-version "2.2.1" do
-  source md5: "d1110e35369bc37aa204915f64c5d1c8"
+  source md5: "e9c82e71bec550e856cccd9548902885"
 end
 
 version "2.2.1" do
@@ -46,24 +42,44 @@ end
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
 build do
+
   env = with_standard_compiler_flags(with_embedded_path).merge(
+    "NEEDS_LIBICONV"     => "1",
     "NO_GETTEXT"         => "1",
     "NO_PYTHON"          => "1",
-    "NO_TCLTK"           => "1",
     "NO_R_TO_GCC_LINKER" => "1",
-    "NEEDS_LIBICONV"     => "1",
+    "NO_TCLTK"           => "1",
 
+    "CURLDIR"    => "#{install_dir}/embedded",
+    "EXPATDIR"   => "#{install_dir}/embedded",
+    "ICONVDIR"   => "#{install_dir}/embedded",
+    "LIBPCREDIR" => "#{install_dir}/embedded",
+    "OPENSSLDIR" => "#{install_dir}/embedded",
     "PERL_PATH"  => "#{install_dir}/embedded/bin/perl",
     "ZLIB_PATH"  => "#{install_dir}/embedded",
-    "ICONVDIR"   => "#{install_dir}/embedded",
-    "OPENSSLDIR" => "#{install_dir}/embedded",
-    "EXPATDIR"   => "#{install_dir}/embedded",
-    "CURLDIR"    => "#{install_dir}/embedded",
-    "LIBPCREDIR" => "#{install_dir}/embedded",
   )
+
+  # AIX needs /opt/freeware/bin only for patch
+  patch_env = env.dup
+  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+
+  patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env if aix?
+  patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env if aix?
 
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
+
+  if freebsd?
+    configure_command << "--enable-pthreads=-pthread"
+    configure_command << "ac_cv_header_libcharset_h=no"
+    configure_command << "--with-curl=#{install_dir}/embedded"
+    configure_command << "--with-expat=#{install_dir}/embedded"
+    configure_command << "--with-perl=#{install_dir}/embedded/bin/perl"
+  elsif aix?
+    # without this, git produces some nroff files with "::" in the filename
+    # causing the install process to fail with "sysck: 3001-019"
+    configure_command << "--docdir='/dev/null'"
+  end
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
