@@ -43,6 +43,10 @@ version "2.2.1" do
   source md5: "9f1beca535b2e60098d826eb7cb1b972"
 end
 
+version "2.2.2" do
+  source md5: "ee0d7604eb267dd086a0401c4314d5f7"
+end
+
 source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
 build do
