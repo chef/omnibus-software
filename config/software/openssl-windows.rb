@@ -50,7 +50,7 @@ end
 
 if windows_arch_i386?
   version('1.0.1m') do
-    source url: "https://github.com/jdmundrawala/knapsack-recipes/releases/download/openssl-1.0.1m/openssl-1.0.1m-x86-windows.tar.lzma",
+    source url: "https://github.com/jaym/knapsack-recipes/releases/download/openssl-1.0.1m/openssl-1.0.1m-x86-windows.tar.lzma",
            md5: "789c307a560386a55e14f3e04cd69865"
   end
 
