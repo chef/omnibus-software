@@ -74,7 +74,12 @@ build do
   ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= #{version}'; puts 'Current version : ' + OpenSSL::OPENSSL_VERSION; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '#{version}'\""
 
   tmpdir = File.join(Omnibus::Config.cache_dir, "openssl-cache")
-  tar_filename = windows_arch_i386? ? "openssl-#{version}-x86-windows.tar" : "openssl-#{version}-x64-windows.tar"
+
+  if windows_arch_i386?
+    tar_filename = "openssl-#{version}-x86-windows.tar"
+  else
+    tar_filename = "openssl-#{version}-x64-windows.tar"
+  end
 
   # Ensure the directory exists
   mkdir tmpdir

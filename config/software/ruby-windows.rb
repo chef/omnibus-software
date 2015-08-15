@@ -50,12 +50,10 @@ build do
   # We are only removing dl.rb:8
   # => warn "DL is deprecated, please use Fiddle"
   block do
-    require 'digest/md5'
-
     ABI_ver = version[/(^\d+\.\d+)/] + '.0'
     dl_path = File.join(install_dir, "embedded/lib/ruby", ABI_ver, "dl.rb")
 
-    if Digest::MD5.hexdigest(File.read(dl_path)) == "78c185a3fcc7b5e2c3db697c85110d8f"
+    if digest(dl_path) == "78c185a3fcc7b5e2c3db697c85110d8f"
       File.open(dl_path, "w") do |f|
         f.print <<-E
   require 'dl.so'
