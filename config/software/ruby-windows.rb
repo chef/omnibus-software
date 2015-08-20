@@ -21,6 +21,7 @@ if windows_arch_i386?
   relative_path "ruby-#{version}-i386-mingw32"
   source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
+  version("1.9.3-p484") { source md5: "a0665113aaeea83f1c4bea02fcf16694" }
   version("2.0.0-p451") { source md5: "37feadb0230e7f475a8591d1807ecfec" }
   version("2.0.0-p645") { source md5: "1a59c016a3ea0714b06d7a5f6aa4157a" }
   version("2.1.3") { source md5: "60e39aaab140c3a22abdc04ec2017968" }
