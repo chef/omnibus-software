@@ -20,8 +20,18 @@ default_version "4.7.2-20130224"
 dependency "ruby-windows"
 
 if windows_arch_i386?
+  version "4.5.2-20111229-1559" do
+    source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe",
+           md5: "4bf8f2dd1d582c8733a67027583e19a6"
+  end
+
   version "4.7.2-20130224" do
     source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-32-#{version}-1151-sfx.exe",
+           md5: "9383f12958aafc425923e322460a84de"
+  end
+
+  version "4.7.2-20130224-1151" do
+    source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-32-#{version}-sfx.exe",
            md5: "9383f12958aafc425923e322460a84de"
   end
 else
@@ -35,10 +45,7 @@ build do
 
   embedded_dir = "#{install_dir}/embedded"
 
-  version "4.7.2-20130224" do
-    command "#{project_file} -y -o#{windows_safe_path(embedded_dir)}", env: env
-  end
-
+  command "#{project_file} -y -o#{windows_safe_path(embedded_dir)}", env: env
 
   command "echo - #{install_dir}/embedded > config.yml", cwd: embedded_dir
   ruby "dk.rb install", env: env, cwd: embedded_dir
