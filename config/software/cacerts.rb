@@ -21,7 +21,7 @@ name "cacerts"
 default_version "2015.04.22"
 
 version "2015.04.22" do
-  source md5: "380df856e8f789c1af97d0da9a243769"
+  source md5: "933f2518029f18feb939ff36e22b7a90"
 end
 
 version "2015.02.25" do
@@ -48,7 +48,7 @@ version "2014.01.28" do
   source :md5 => "5d108f8ab86afacc6663aafca8604dd3"
 end
 
-source :url => "http://curl.haxx.se/ca/cacert.pem"
+source :url => "https://s3.amazonaws.com/dd-agent-omnibus/cacert.pem"
 relative_path "cacerts-#{version}"
 
 build do
