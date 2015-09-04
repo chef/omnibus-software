@@ -74,12 +74,25 @@ version "2.4.5" do
   source.delete(:git)
 end
 
+version "2.4.8" do
+  source md5: "dc77b51449dffe5b31776bff826bf559", url: tarball_url
+  source.delete(:git)
+end
+
 version "v2.4.4_plus_debug" do
   source git: 'git@github.com:danielsdeleo/rubygems.git'
 end
 
 version "2.4.4.debug.1" do
   source git: 'git@github.com:danielsdeleo/rubygems.git'
+end
+
+# This is the 2.4.8 release with a fix for
+# windows so things like `gem install 'pry'` still
+# work
+#
+version "jdm/2.4.8-patched" do
+  source git: 'git@github.com:jaym/rubygems.git'
 end
 
 # tarballs get expanded as rubygems-xyz, git repo is always rubygems:
