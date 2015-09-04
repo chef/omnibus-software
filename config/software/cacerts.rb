@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +17,14 @@
 name "cacerts"
 
 # Date of the file is in a comment at the start, or in the changelog
-default_version "2015.04.22"
+default_version "2015.09.02"
+
+version "2015.09.02" do
+  source md5: "3e0e6f302bd4f5b94040b8bcee0ffe15"
+end
 
 version "2015.04.22" do
-  source md5: "933f2518029f18feb939ff36e22b7a90"
+  source md5: "380df856e8f789c1af97d0da9a243769"
 end
 
 version "2015.02.25" do
@@ -33,22 +36,22 @@ version "2014.09.03" do
 end
 
 version "2014.08.20" do
-  source :md5 => "c9f4f7f4d6a5ef6633e893577a09865e"
+  source md5: "c9f4f7f4d6a5ef6633e893577a09865e"
 end
 
 version "2014.07.15" do
-  source :md5 => "fd48275847fa10a8007008379ee902f1"
+  source md5: "fd48275847fa10a8007008379ee902f1"
 end
 
 version "2014.04.22" do
-  source :md5 => "9f92a0d9f605e227ae068e605f4c86fa"
+  source md5: "9f92a0d9f605e227ae068e605f4c86fa"
 end
 
 version "2014.01.28" do
-  source :md5 => "5d108f8ab86afacc6663aafca8604dd3"
+  source md5: "5d108f8ab86afacc6663aafca8604dd3"
 end
 
-source :url => "https://s3.amazonaws.com/dd-agent-omnibus/cacert.pem"
+source url: "http://curl.haxx.se/ca/cacert.pem"
 relative_path "cacerts-#{version}"
 
 build do
