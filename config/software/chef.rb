@@ -26,13 +26,12 @@ if windows?
   dependency "ruby-windows-devkit"
   dependency "ruby-windows-devkit-bash"
   dependency "cacerts"
-  dependency "rubygems"
 else
   dependency "ruby"
-  dependency "rubygems"
   dependency "libffi"
 end
 
+dependency "rubygems"
 dependency "bundler"
 dependency "ohai"
 dependency "appbundler"

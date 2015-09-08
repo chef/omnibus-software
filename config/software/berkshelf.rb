@@ -24,6 +24,7 @@ relative_path "berkshelf"
 if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
+  dependency "rubygems"
 else
   dependency "libffi"
   dependency "ruby"

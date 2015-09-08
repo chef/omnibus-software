@@ -25,9 +25,9 @@ if windows?
   dependency "ruby-windows-devkit"
 else
   dependency "ruby"
-  dependency "rubygems"
 end
 
+dependency "rubygems"
 dependency "nokogiri"
 
 build do
