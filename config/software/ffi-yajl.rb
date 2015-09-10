@@ -26,9 +26,9 @@ if windows?
 else
   dependency "libffi"
   dependency "ruby"
-  dependency "rubygems"
 end
 
+dependency "rubygems"
 dependency "libyajl2-gem"
 dependency "bundler"
 

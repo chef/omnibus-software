@@ -17,11 +17,7 @@
 name "bundler"
 default_version "1.5.3"
 
-if windows?
-  dependency "ruby-windows"
-else
-  dependency "rubygems"
-end
+dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
