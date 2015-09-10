@@ -49,6 +49,8 @@ build do
 
   # On 64-bit centos, libffi libraries are places under /embedded/lib64
   # move them over to lib
+  # wrlinux support is merged to chef-sugar master, waiting on 3.1.2 release
+  # https://github.com/sethvargo/chef-sugar/pull/116
   if (rhel? || suse? || ohai['platform_family'] == 'wrlinux') && _64_bit?
     # Can't use 'move' here since that uses FileUtils.mv, which on < Ruby 2.2.0-dev
     # returns ENOENT on moving symlinks with broken (in this case, already moved) targets.
