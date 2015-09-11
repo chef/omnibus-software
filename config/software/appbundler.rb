@@ -15,7 +15,7 @@
 #
 
 name "appbundler"
-default_version "0.4.0"
+default_version "0.5.0"
 
 dependency "rubygems"
 dependency "bundler"
