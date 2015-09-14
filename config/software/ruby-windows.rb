@@ -29,7 +29,7 @@ if windows_arch_i386?
   version("2.1.6") { source md5: "e3c345a73e5523677a1f301caa4142eb" }
   version("2.2.1") { source md5: "9f1beca535b2e60098d826eb7cb1b972" }
 
-  version("2.0.0-p647-fips") { source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-p647-i386-mingw32.7z",
+  version("2.0.0-p647-fips") { source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-2.0.0-p647-i386-mingw32.7z",
                                       md5: "c8ea391db483ad47d409dfbaa2a097b2" }
 else
   relative_path "ruby-#{version}-x64-mingw32"
