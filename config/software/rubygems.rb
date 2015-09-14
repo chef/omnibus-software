@@ -80,11 +80,11 @@ version "2.4.8" do
 end
 
 version "v2.4.4_plus_debug" do
-  source git: 'git@github.com:danielsdeleo/rubygems.git'
+  source git: 'https://github.com/danielsdeleo/rubygems'
 end
 
 version "2.4.4.debug.1" do
-  source git: 'git@github.com:danielsdeleo/rubygems.git'
+  source git: 'https://github.com/danielsdeleo/rubygems'
 end
 
 # This is the 2.4.8 release with a fix for
@@ -92,7 +92,7 @@ end
 # work
 #
 version "jdm/2.4.8-patched" do
-  source git: 'git@github.com:jaym/rubygems.git'
+  source git: 'https://github.com/jaym/rubygems'
 end
 
 # tarballs get expanded as rubygems-xyz, git repo is always rubygems:
