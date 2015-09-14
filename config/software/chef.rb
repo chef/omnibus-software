@@ -20,9 +20,13 @@ source git: "git://github.com/chef/chef"
 
 relative_path "chef"
 
+fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
+
 if windows?
   dependency "ruby-windows"
-  dependency "openssl-windows"
+  # Our custome ruby build comes with openssl/openss-fips
+  # So don't clobber it.
+  dependency "openssl-windows" unless fips_enabled
   dependency "ruby-windows-devkit"
   dependency "ruby-windows-devkit-bash"
   dependency "cacerts"
