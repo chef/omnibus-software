@@ -18,7 +18,7 @@ name "ruby-windows"
 default_version "2.0.0-p451"
 
 if windows_arch_i386?
-  relative_path "ruby-#{version}-i386-mingw32"
+  relative_path "ruby-#{version.gsub(/-fips$/, '')}-i386-mingw32"
   source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
   version("1.9.3-p484") { source md5: "a0665113aaeea83f1c4bea02fcf16694" }
