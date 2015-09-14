@@ -17,7 +17,17 @@
 name "ruby-windows"
 default_version "2.0.0-p451"
 
-if windows_arch_i386?
+fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
+
+if fips_enabled
+  # We only currently support 32-bit FIPS builds
+  if windows_arch_i386?
+    relative_path "ruby-#{version}-i386-mingw32"
+    source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-#{version}-i386-mingw32.7z"
+
+    version("2.0.0-p647-fips") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
+  end
+elsif windows_arch_i386?
   relative_path "ruby-#{version}-i386-mingw32"
   source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
