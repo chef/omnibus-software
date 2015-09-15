@@ -92,7 +92,7 @@ end
 
 build do
   if solaris2? && version.to_f >= 2.1
-    patch source: "ruby-solaris-no-stack-protector.patch", plevel: 1
+    patch source: "ruby-no-stack-protector.patch", plevel: 1
     if ohai['platform_version'].to_f >= 5.11
       patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1
     end
@@ -107,7 +107,7 @@ build do
   # This will be changed to use a chef-sugar helper method once
   # sethvargo/chef-sugar#116 is available in a release.
   if ohai['platform'] == 'ios_xr' && version.to_f >= 2.1
-    patch source: "ruby-solaris-no-stack-protector.patch", plevel: 1
+    patch source: "ruby-no-stack-protector.patch", plevel: 1
   end
 
   # AIX needs /opt/freeware/bin only for patch
@@ -122,7 +122,7 @@ build do
   # embedded and non-embedded libs get into a fight (libiconv, openssl, etc)
   # and ruby trying to set LD_LIBRARY_PATH itself gets it wrong.
   if version.to_f >= 2.1
-    patch source: "ruby_aix_2_1_3_mkmf.patch", plevel: 1, env: patch_env
+    patch source: "ruby-2_1_3-no-mkmf.patch", plevel: 1, env: patch_env
     # should intentionally break and fail to apply on 2.2, patch will need to
     # be fixed.
   end
