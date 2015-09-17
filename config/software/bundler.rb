@@ -19,6 +19,10 @@ default_version "1.5.3"
 
 dependency "rubygems"
 
+version "1.10.7.depsolverfix.0" do
+  source git: "https://github.com/chef/bundler.git"
+end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
