@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
 name "pycurl"
 default_version "7.43.0"
 
