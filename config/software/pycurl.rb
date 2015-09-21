@@ -22,7 +22,7 @@ else
     wheel_name = "pycurl-7.19.5.1-cp27-none-win_amd64.whl"
     wheel_md5 = 'ed9b98964a07ce5a5de309d3a8d983bb'
   else
-    wheel_name = "pycurl-7.19.5.1-cp27‑none‑win32.whl"
+    wheel_name = "pycurl-7.19.5.1-cp27‑none-win32.whl"
     wheel_md5 = 'ed9b98964a07ce5a5de309d3a8d983bb'
   end
 
