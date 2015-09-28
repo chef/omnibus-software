@@ -9,7 +9,7 @@ else
   wheel_md5 = '79047dc39b6b0c7b45641730ef4212fe'
 end
 
-source :url => "http://www.lfd.uci.edu/~gohlke/pythonlibs/3i673h27/#{wheel_name}",
+source :url => "https://s3.amazonaws.com/dd-agent-omnibus/#{wheel_name}",
        :md5 => wheel_md5
 
 dependency "python"

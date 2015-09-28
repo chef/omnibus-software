@@ -29,7 +29,7 @@ else
     wheel_md5 = 'ed9b98964a07ce5a5de309d3a8d983bb'
   end
 
-  source :url => "http://www.lfd.uci.edu/~gohlke/pythonlibs/3i673h27/#{wheel_name}",
+  source :url => "https://s3.amazonaws.com/dd-agent-omnibus/#{wheel_name}",
          :md5 => wheel_md5
 
   relative_path "pycurl-#{version}"
