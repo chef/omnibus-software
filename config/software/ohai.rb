@@ -16,7 +16,7 @@
 #
 
 name "ohai"
-default_version "master"
+default_version "tc/tale-of-two-chefs"
 
 source git: "git://github.com/opscode/ohai"
 
