@@ -15,7 +15,7 @@
 #
 
 name "bundler"
-default_version "1.5.3"
+default_version "1.10.6"
 
 dependency "rubygems"
 
