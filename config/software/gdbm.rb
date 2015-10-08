@@ -28,7 +28,15 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if version == "1.8.3"
-    patch source: "v1.8.3-Makefile.in.patch", plevel: 0
+    if aix?
+      # AIX needs /opt/freeware/bin only for patch
+      patch_env = env.dup
+      patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+
+      patch source: "v1.8.3-Makefile.in.patch", plevel: 0, env: patch_env
+    else
+      patch source: "v1.8.3-Makefile.in.patch", plevel: 0
+    end
   end
 
   if freebsd?
