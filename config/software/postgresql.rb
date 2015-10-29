@@ -63,6 +63,14 @@ version "9.4.1" do
   source md5: "2cf30f50099ff1109d0aa517408f8eff"
 end
 
+version "9.4.5" do
+  source md5: "8b2e3472a8dc786649b4d02d02e039a0"
+end
+
+version "9.5beta1" do
+  source md5: "4bd67bfa4dc148e3f9d09f6699b5931f"
+end
+
 source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
 
 relative_path "postgresql-#{version}"
