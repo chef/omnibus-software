@@ -31,6 +31,11 @@ build do
     patch source: "v1.8.3-Makefile.in.patch", plevel: 0
   end
 
+  # Update config.guess to support newer platforms (like aarch64)
+  if version == "1.8.3"
+    patch source: "config.guess_2015-09-14.patch", plevel: 0
+  end
+
   if freebsd?
     command "./configure" \
             " --enable-libgdbm-compat" \
