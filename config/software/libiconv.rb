@@ -17,6 +17,7 @@
 name "libiconv"
 default_version "1.14"
 
+dependency "config-guess"
 dependency "patch" if solaris2?
 
 source url: "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
@@ -38,9 +39,13 @@ build do
   end
 
   if version == "1.14" && ppc64le?
-    patch source: "v1.14.ppc64le-configure.patch", plevel: 1
     patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1
   end
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "build-aux/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "build-aux/config.sub"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "libcharset/build-aux/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "libcharset/build-aux/config.sub"
 
   command configure_command, env: env
 
