@@ -22,9 +22,7 @@ dependency "ncurses"
 dependency "libedit"
 dependency "openssl"
 dependency "libyaml"
-dependency "libiconv"
 dependency "libffi"
-dependency "gdbm"
 dependency "patch" if solaris2?
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
@@ -137,6 +135,7 @@ build do
                        "--with-ext=psych",
                        "--disable-install-doc",
                        "--without-gmp",
+                       "--without-gdbm",
                        "--disable-dtrace"]
 
   case ohai['platform']
