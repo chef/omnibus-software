@@ -42,7 +42,6 @@ build do
   if version == "3.2.1"
     patch source: "libffi-3.2.1-disable-multi-os-directory.patch", plevel: 1
     configure_command << "--disable-multi-os-directory"
-    command "autoconf", env: env
   end
 
   command configure_command.join(" "), env: env
