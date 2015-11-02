@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef, Inc.
+# Copyright 2013-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,26 +14,28 @@
 # limitations under the License.
 #
 
-name "makedepend"
-default_version "1.0.5"
+name "pkg-config-lite"
+default_version "0.28-1"
 
-source url: "http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.gz",
-       md5: "efb2d7c7e22840947863efaedc175747"
+version "0.28-1" do
+  source md5: "61f05feb6bab0a6bbfab4b6e3b2f44b6"
+end
 
-relative_path "makedepend-1.0.5"
+source url: "http://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
 
-dependency "xproto"
-dependency "util-macros"
-dependency "pkg-config-lite"
+relative_path "pkg-config-lite-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if solaris2?
-    env['PKG_CONFIG'] = "#{install_dir}/embedded/bin/pkg-config"
+  if version == "0.28-1"
+    patch source: "pkg-config-lite-0.28-1.config.guess.patch", plevel: 0
   end
 
-  command "./configure --prefix=#{install_dir}/embedded", env: env
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-host-tool" \
+          " --with-pc-path=#{install_dir}/embedded/bin/pkgconfig", env: env
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
