@@ -29,6 +29,9 @@ build do
 
   if version == "1.8.3"
     patch source: "v1.8.3-Makefile.in.patch", plevel: 0
+    if ppc64le?
+      patch source: "v1.8.3.ppc64le-configure.patch", plevel: 1
+    end
   end
 
   if freebsd?
