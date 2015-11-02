@@ -29,10 +29,6 @@ relative_path "libtool-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "2.4" && ppc64le?
-    patch source: "v2.4.ppc64le-configure.patch", plevel: 1
-  end
-
   # Update config.guess to support newer platforms (like aarch64)
   if version == "2.4"
     patch source: "config.guess_2015-09-14.patch", plevel: 0

@@ -38,7 +38,6 @@ build do
   end
 
   if version == "1.14" && ppc64le?
-    patch source: "v1.14.ppc64le-configure.patch", plevel: 1
     patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1
   end
 
