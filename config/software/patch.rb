@@ -27,7 +27,8 @@ env = with_standard_compiler_flags(with_embedded_path)
 
 build do
   configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
+                       "--prefix=#{install_dir}/embedded",
+                       "--disable-xattr"]
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
