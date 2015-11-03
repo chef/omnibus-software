@@ -31,7 +31,6 @@ version("1.0.1p") { source md5: "7563e92327199e0067ccd0f79f436976" }
 relative_path "openssl-#{version}"
 
 build do
-
   env = case ohai["platform"]
         when "freebsd"
           freebsd_flags = {
