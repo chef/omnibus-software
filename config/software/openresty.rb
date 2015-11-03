@@ -32,6 +32,10 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   env['PATH'] += "#{env['PATH']}:/usr/sbin:/sbin"
 
+  if version == "1.7.10.1" && (ppc64? || ppc64le?)
+    patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
+  end
+
   configure = [
     "./configure",
     "--prefix=#{install_dir}/embedded",
@@ -48,7 +52,6 @@ build do
     '--with-md5-asm',
     '--with-sha1-asm',
     '--with-pcre-jit',
-    '--with-luajit',
     '--without-http_ssi_module',
     '--without-mail_smtp_module',
     '--without-mail_imap_module',
@@ -69,6 +72,9 @@ build do
      (ohai['platform_version'].to_f < 6.0)
     configure << "--with-luajit-xcflags='-std=gnu99'"
   end
+
+  # For ppc64 we use lua interpreter as luajit is not yet supported.
+  configure << '--with-lua51' if ppc64? || ppc64le?
 
   command configure.join(" "), env: env
 

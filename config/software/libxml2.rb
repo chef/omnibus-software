@@ -33,6 +33,10 @@ version "2.9.1" do
   source md5: "9c0cfef285d5c4a5c80d00904ddab380"
 end
 
+version "2.9.2" do
+  source md5: "9e6a9aca9d155737868b3dc5fd82f788"
+end
+
 source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
 
 relative_path "libxml2-#{version}"
@@ -40,6 +44,9 @@ relative_path "libxml2-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  if version == "2.9.1" && ppc64le?
+    patch source: "v2.9.1.ppc64le-configure.patch", plevel: 1
+  end
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --with-zlib=#{install_dir}/embedded" \
