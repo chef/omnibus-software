@@ -55,6 +55,10 @@ version "9.3.6" do
   source md5: "0212b03f2835fdd33126a2e70996be8e"
 end
 
+version "9.3.10" do
+  source md5: "ec2365548d08f69c8023eddd4f2d1a28"
+end
+
 version "9.4.0" do
   source md5: "8cd6e33e1f8d4d2362c8c08bd0e8802b"
 end
