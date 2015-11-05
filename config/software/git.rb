@@ -39,6 +39,10 @@ version "2.2.1" do
   source md5: "ff41fdb094eed1ec430aed8ee9b9849c"
 end
 
+version "2.6.2" do
+  source md5: "da293290da69f45a86a311ad3cd43dc8"
+end
+
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
 build do
