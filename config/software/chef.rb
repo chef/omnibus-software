@@ -82,14 +82,8 @@ build do
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  auxiliary_gems = {}
-  auxiliary_gems['ruby-shadow'] = '>= 0.0.0' unless aix? || windows?
-
-  auxiliary_gems.each do |name, version|
-    gem "install #{name}" \
-        " --version '#{version}'" \
-        " --no-ri --no-rdoc" \
-        " --verbose", env: env
+  unless aix? || windows?
+    gem "install ruby-shadow --no-ri --no-rdoc --verbose", env: env
   end
 
   appbundle 'chef'
