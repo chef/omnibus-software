@@ -15,7 +15,8 @@
 #
 
 name "appbundler"
-default_version "0.6.0"
+default_version "v0.6.0"
+source git: "git://github.com/chef/appbundler"
 
 dependency "rubygems"
 dependency "bundler"
@@ -23,7 +24,6 @@ dependency "bundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install appbundler" \
-      " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+  gem "build appbundler.gemspec", env: env
+  gem "install *.gem --no-ri --no-rdoc", env: env
 end
