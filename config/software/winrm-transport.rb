@@ -15,9 +15,9 @@
 #
 
 name "winrm-transport"
-default_version "v1.0.2"
+default_version "master"
 
-source git: "git://github.com/test-kitchen/winrm-transport.git"
+source git: "https://github.com/test-kitchen/winrm-transport"
 
 if windows?
   dependency "ruby-windows"

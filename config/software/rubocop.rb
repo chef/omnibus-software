@@ -15,9 +15,9 @@
 #
 
 name "rubocop"
-default_version "v0.35.0"
+default_version "master"
 
-source git: "git://github.com/bbatsov/rubocop.git"
+source git: "https://github.com/bbatsov/rubocop"
 
 if windows?
   dependency "ruby-windows"
