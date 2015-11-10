@@ -1,5 +1,5 @@
 #
-# Copyright 2013-2014 Chef Software, Inc.
+# Copyright 2013-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 name "python"
 default_version "2.7.9"
 
-dependency "gdbm"
 dependency "ncurses"
 dependency "zlib"
 dependency "openssl"
@@ -39,7 +38,7 @@ build do
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --enable-shared" \
-          " --with-dbmliborder=gdbm", env: env
+          " --with-dbmliborder=", env: env
 
   make env: env
   make "install", env: env
