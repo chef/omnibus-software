@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-name "rubocop"
-default_version "v0.35.0"
+name "winrm-transport"
+default_version "v1.0.2"
 
-source git: "git://github.com/bbatsov/rubocop.git"
+source git: "git://github.com/test-kitchen/winrm-transport.git"
 
 if windows?
   dependency "ruby-windows"
@@ -32,9 +32,9 @@ dependency "bundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development test", env: env
+  bundle "install --without development test guard", env: env
 
-  gem "build rubocop.gemspec", env: env
-  gem "install rubocop-*.gem" \
+  gem "build winrm-transport.gemspec", env: env
+  gem "install winrm-transport-*.gem" \
       " --no-ri --no-rdoc", env: env
 end
