@@ -136,6 +136,7 @@ build do
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
+                       "--with-bundled-md5",
                        "--disable-dtrace"]
 
   case ohai['platform']
