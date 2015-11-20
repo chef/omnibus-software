@@ -28,6 +28,12 @@ relative_path "fakeroot-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Patches for debain based platforms
+  if ohai['platform_family'] == "debian"
+    patch source: "eglibc-fts-without-LFS", plevel: 1
+    patch source: "glibc-xattr-types", plevel: 1
+  end
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
 
