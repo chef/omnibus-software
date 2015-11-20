@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2012-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,20 +14,14 @@
 # limitations under the License.
 #
 
-name "expat"
-default_version "2.1.0"
+name "binutils"
+default_version "2.25-tdm64-1"
 
-relative_path "expat-2.1.0"
+dependency "msys-base"
 
-source url: "http://iweb.dl.sourceforge.net/project/expat/expat/2.1.0/expat-2.1.0.tar.gz",
-       md5: "dd7dab7a5fea97d2a6a43f511449b7cd"
+source url: "http://iweb.dl.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-#{version}.tar.lzma"
+version("2.25-tdm64-1") { source sha256: "4722bb7b4d46cef714234109e25e5d1cfd29f4e53365b6d615c8a00735f60e40" }
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
-
-  make "-j #{workers}", env: env
-  make "install", env: env
+  copy "*", "#{install_dir}/embedded"
 end

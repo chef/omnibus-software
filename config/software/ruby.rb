@@ -18,13 +18,18 @@ name "ruby"
 default_version "1.9.3-p550"
 
 dependency "zlib"
-dependency "ncurses"
-dependency "libedit"
+dependency "ncurses" unless windows?
+dependency "libedit" unless windows?
 dependency "openssl"
 dependency "libyaml"
-dependency "libiconv" # Removal will break chef_gem installs of (e.g.) nokogiri on upgrades
+# Needed for chef_gem installs of (e.g.) nokogiri on upgrades -
+# they expect to see our libiconv instead of a system version.
+# Ignore on windows - TDM GCC comes with libiconv in the runtime
+# and that's the only one we will ever use.
+dependency "libiconv" unless windows?
 dependency "libffi"
-dependency "patch" if solaris2?
+dependency "patch" if solaris2? || windows?
+dependency "mingw" if windows?
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
@@ -90,6 +95,8 @@ elsif solaris2?
   else
     env['CFLAGS'] << " -std=c99 -O3 -g -pipe"
   end
+when "windows"
+  env['CPPFLAGS'] << " -DFD_SETSIZE=2048"
 else  # including linux
   env['CFLAGS'] << " -O3 -g -pipe"
 end
@@ -139,16 +146,14 @@ build do
      patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
   end
 
-  configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded",
-                       "--with-out-ext=dbm",
+  configure_command = ["--with-out-ext=dbm",
                        "--enable-shared",
-                       "--enable-libedit",
                        "--with-ext=psych",
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
                        "--disable-dtrace"]
+  configure_command << "--enable-libedit" unless windows?
 
   configure_command << "--with-bundled-md5" if fips_enabled
 
@@ -186,6 +191,8 @@ build do
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
     configure_command << "ac_cv_func_dl_iterate_phdr=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
+  when "windows"
+    configure_command << " debugflags=-g"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
@@ -195,7 +202,7 @@ build do
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
   env.merge!("PKG_CONFIG" => "/bin/true") if aix?
 
-  command configure_command.join(" "), env: env
+  configure(*configure_command, env: env)
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 

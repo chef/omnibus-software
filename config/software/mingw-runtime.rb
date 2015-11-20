@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2012-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,20 +14,15 @@
 # limitations under the License.
 #
 
-name "expat"
-default_version "2.1.0"
+name "mingw-runtime"
+default_version "v4-git20150618-gcc5-tdm64-1"
 
-relative_path "expat-2.1.0"
+dependency "msys-base"
 
-source url: "http://iweb.dl.sourceforge.net/project/expat/expat/2.1.0/expat-2.1.0.tar.gz",
-       md5: "dd7dab7a5fea97d2a6a43f511449b7cd"
+source url: "http://iweb.dl.sourceforge.net/project/tdm-gcc/MinGW-w64%20runtime/GCC%205%20series/mingw64runtime-#{version}.tar.lzma"
+
+version("v4-git20150618-gcc5-tdm64-1") { source sha256: "29186e0bb36824b10026d78bdcf238d631d8fc1d90718d2ebbd9ec239b6f94dd" }
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
-
-  make "-j #{workers}", env: env
-  make "install", env: env
+  copy "*", "#{install_dir}/embedded"
 end

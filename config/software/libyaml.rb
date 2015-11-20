@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +17,11 @@
 name "libyaml"
 default_version '0.1.6'
 
+if windows?
+  dependency "mingw"
+  dependency "patch"
+end
+
 source url: "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz",
        md5: '5fe00cda18ca5daeb43762b80c38e06e'
 
@@ -29,7 +34,13 @@ build do
     patch source: "v0.1.6.ppc64le-configure.patch", plevel: 1
   end
 
-  command "./configure --prefix=#{install_dir}/embedded --enable-shared", env: env
+  configure "--enable-shared", env: env
+
+  # Windows had worse automake/libtool version issues.
+  # Just patch the output instead.
+  if version == "0.1.6" && windows?
+    patch source: "v0.1.6.windows-configure.patch", plevel: 1
+  end
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
