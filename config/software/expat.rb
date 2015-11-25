@@ -17,6 +17,8 @@
 name "expat"
 default_version "2.1.0"
 
+dependency "config-guess"
+
 relative_path "expat-2.1.0"
 
 source url: "http://downloads.sourceforge.net/project/expat/expat/2.1.0/expat-2.1.0.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fexpat%2F&ts=1374730265&use_mirror=iweb",
@@ -24,6 +26,9 @@ source url: "http://downloads.sourceforge.net/project/expat/expat/2.1.0/expat-2.
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "conftools/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "conftools/config.sub"
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
