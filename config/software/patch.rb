@@ -27,10 +27,11 @@ relative_path "patch-#{version}"
 
 env = with_standard_compiler_flags(with_embedded_path)
 
-copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "build-aux/config.guess"
-copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "build-aux/config.sub"
-
 build do
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "build-aux/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "build-aux/config.sub"
+
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
 
