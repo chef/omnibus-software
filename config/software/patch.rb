@@ -17,6 +17,8 @@
 name "patch"
 default_version "2.7"
 
+dependency "config-guess"
+
 version("2.7") { source md5: "1cbaa223ff4991be9fae8ec1d11fb5ab" }
 
 source url: "http://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
@@ -24,6 +26,9 @@ source url: "http://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
 relative_path "patch-#{version}"
 
 env = with_standard_compiler_flags(with_embedded_path)
+
+copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "build-aux/config.guess"
+copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "build-aux/config.sub"
 
 build do
   configure_command = ["./configure",
