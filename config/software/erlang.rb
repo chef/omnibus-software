@@ -20,6 +20,7 @@ default_version "R15B03-1"
 dependency "zlib"
 dependency "openssl"
 dependency "ncurses"
+dependency "config-guess"
 
 source url: "http://www.erlang.org/download/otp_src_#{version}.tar.gz"
 
@@ -70,6 +71,11 @@ build do
     "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
   )
   env.delete('CPPFLAGS')
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "erts/autoconf/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "erts/autoconf/config.sub"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "lib/common_test/priv/auxdir/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "lib/common_test/priv/auxdir/config.sub"
 
   # Setup the erlang include dir
   mkdir "#{install_dir}/embedded/erlang/include"
