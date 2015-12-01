@@ -20,6 +20,7 @@ default_version "1.1.28"
 dependency "libxml2"
 dependency "libtool" if solaris2?
 dependency "liblzma"
+dependency "config-guess"
 
 version "1.1.26" do
   source md5: "e61d0364a30146aaa3001296f853b2b9"
@@ -35,6 +36,9 @@ relative_path "libxslt-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "config.sub"
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
