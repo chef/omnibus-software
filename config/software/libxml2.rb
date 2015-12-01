@@ -20,6 +20,7 @@ default_version "2.9.2"
 dependency "zlib"
 dependency "libiconv"
 dependency "liblzma"
+dependency "config-guess"
 
 version "2.7.8" do
   source md5: "8127a65e8c3b08856093099b52599c86"
@@ -39,6 +40,9 @@ relative_path "libxml2-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "config.sub"
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
