@@ -32,6 +32,10 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   env['PATH'] += "#{env['PATH']}:/usr/sbin:/sbin"
 
+  if version == "1.7.10.1" && (ppc64? || ppc64le?)
+    patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
+  end
+
   configure = [
     "./configure",
     "--prefix=#{install_dir}/embedded",
@@ -48,7 +52,6 @@ build do
     '--with-md5-asm',
     '--with-sha1-asm',
     '--with-pcre-jit',
-    '--with-luajit',
     '--without-http_ssi_module',
     '--without-mail_smtp_module',
     '--without-mail_imap_module',
@@ -60,6 +63,13 @@ build do
     #'--with-file-aio',
     #'--with-libatomic'
   ]
+
+  # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
+  if (ppc64? || ppc64le?)
+    configure << '--with-lua51'
+  else
+    configure << '--with-luajit'
+  end
 
   # OpenResty 1.7 + RHEL5 Fixes:
   # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
