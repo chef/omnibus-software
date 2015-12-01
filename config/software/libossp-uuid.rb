@@ -17,6 +17,8 @@
 name "libossp-uuid"
 default_version "1.6.2"
 
+dependency "config-guess"
+
 version "1.6.2" do
   source md5: "5db0d43a9022a6ebbbc25337ae28942f"
 end
@@ -28,6 +30,9 @@ relative_path "uuid-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "config.sub"
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
