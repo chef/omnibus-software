@@ -133,7 +133,7 @@ build do
   # https://redmine.ruby-lang.org/issues/11602
   if ohai['platform_family'] == 'rhel'  &&
      ohai['platform_version'].to_f < 6  &&
-     (version = '2.1.7' || version = '2.2.3')
+     (version == '2.1.7' || version == '2.2.3')
 
      patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
   end
