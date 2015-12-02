@@ -17,6 +17,8 @@
 name "redis"
 default_version "2.8.21"
 
+dependency "config-guess"
+
 version "2.8.21" do
   source md5: "d059e2bf5315e2488ab679e09e55a9e7"
 end
@@ -37,6 +39,9 @@ build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
     "PREFIX" => "#{install_dir}/embedded",
   )
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "deps/jemalloc/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "deps/jemalloc/config.sub"
 
   make "-j #{workers}", env: env
   make "install", env: env
