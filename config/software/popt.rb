@@ -17,6 +17,8 @@
 name "popt"
 default_version "1.16"
 
+dependency "config-guess"
+
 source url: "http://rpm5.org/files/popt/popt-#{version}.tar.gz",
        md5: "3743beefa3dd6247a73f8f7a32c14c33"
 
@@ -24,6 +26,13 @@ relative_path "popt-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  if version == "1.16" && (ppc64? || ppc64le?)
+    patch source: "v1.16.ppc64le-configure.patch", plevel: 1
+  end
+
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "config.sub"
 
   # --disable-nls => Disable localization support.
   command "./configure" \
