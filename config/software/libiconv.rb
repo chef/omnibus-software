@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# CAUTION - although its not used, external libraries such as nokogiri may pick up an optional dep on
+# libiconv such that removal of libiconv will break those libraries on upgrade.  With an better story around
+# external gem handling when chef-client is upgraded libconv could be dropped.
 name "libiconv"
 default_version "1.14"
 
