@@ -149,6 +149,11 @@ build do
   env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
   if aix?
+
+    # This enables omnibus to use 'makedepend'
+    # from fileset 'X11.adt.imake' (AIX install media)
+    env['PATH'] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
+
     patch_env = env.dup
     patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
