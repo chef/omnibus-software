@@ -35,6 +35,10 @@ end
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  if aix?
+    env['AWK'] = '/usr/bin/awk'
+  end
+
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
   if freebsd? || openbsd?
