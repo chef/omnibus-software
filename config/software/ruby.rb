@@ -22,6 +22,7 @@ dependency "ncurses"
 dependency "libedit"
 dependency "openssl"
 dependency "libyaml"
+dependency "libiconv" # Removal will break chef_gem installs of (e.g.) nokogiri on upgrades
 dependency "libffi"
 dependency "patch" if solaris2?
 
