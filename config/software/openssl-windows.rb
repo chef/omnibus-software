@@ -30,7 +30,7 @@
 # series for those rubies.
 
 name "openssl-windows"
-default_version "1.0.1p"
+default_version "1.0.1q"
 
 dependency "ruby-windows"
 
@@ -58,10 +58,20 @@ if windows_arch_i386?
     source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1p/openssl-1.0.1p-x86-windows.tar.lzma",
            md5: "013c0f27c4839c89e33037acc72f17c5"
   end
+
+  version('1.0.1q') do
+    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1q/openssl-1.0.1q-x86-windows.tar.lzma",
+           md5: "3970fb1323b89c068525d60211670528"
+  end
 else
   version('1.0.1p') do
     source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1p/openssl-1.0.1p-x64-windows.tar.lzma",
            md5: "ffdcef3e4fd1eca457a2e9a08cdd5aa1"
+  end
+
+  version('1.0.1q') do
+    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1q/openssl-1.0.1q-x64-windows.tar.lzma",
+           md5: "c9a05a9dfed1b91674ccfbb0b9e731c9"
   end
 end
 
