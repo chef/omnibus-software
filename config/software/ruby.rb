@@ -128,6 +128,17 @@ build do
     # be fixed.
   end
 
+  # Fix reserve stack segmentation fault when building on RHEL5 or below
+  # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
+  # in Ruby trunk and expected to be included in future point releases.
+  # https://redmine.ruby-lang.org/issues/11602
+  if ohai['platform_family'] == 'rhel'  &&
+     ohai['platform_version'].to_f < 6  &&
+     (version == '2.1.7' || version == '2.2.3')
+
+     patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
+  end
+
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded",
                        "--with-out-ext=dbm",
