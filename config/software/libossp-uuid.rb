@@ -28,6 +28,8 @@ source url: "http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-#
 
 relative_path "uuid-#{version}"
 
+require 'pry'; binding.pry
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
