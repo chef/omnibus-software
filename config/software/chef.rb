@@ -58,8 +58,11 @@ build do
     end
   end
 
+  excluded_groups = %w{server docgen}
+  excluded_groups << 'ruby_prof' if aix?
+
   # install the whole bundle first
-  bundle "install --without server docgen", env: env
+  bundle "install --without #{excluded_groups.join(' ')}", env: env
 
   # Install components that live inside Chef's git repo. For now this is just
   # 'chef-config'
