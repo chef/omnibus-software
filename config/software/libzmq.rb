@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+require 'chef/sugar/constraints'
+
 # We use the version in util-linux, and only build the libuuid subdirectory
 name "libzmq"
 default_version "2.1.11"
@@ -45,7 +47,7 @@ build do
   # centos 5 has an old version of gcc (4.2.1) that has trouble with
   # long long and c++ in pedantic mode
   # This patch is specific to zeromq4
-  if version.to_f >= 4
+  if Chef::Sugar::Constraints.version(version).satisfies?('>= 4')
     patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch" if el?
   end
 
