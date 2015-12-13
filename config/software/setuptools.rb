@@ -26,7 +26,7 @@ relative_path "setuptools-#{version}"
 if ohai['platform'] == 'windows'
   # FIXME: this file changes, which breaks the build. Let's put it on S3
   source :url => 'https://bootstrap.pypa.io/ez_setup.py',
-         :md5 => '72cfe5c8fa5ffd4155938e40cfca3e6d'
+         :md5 => 'aa20494c72280f16698de6cb02631e8f'
 
   build do
     command "\"#{windows_safe_path(install_dir)}\\embedded\\python.exe\" ez_setup.py "
