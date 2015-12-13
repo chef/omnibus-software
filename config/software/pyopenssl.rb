@@ -8,7 +8,7 @@ if ohai['platform'] == 'windows'
 
   build do
     ship_license "https://raw.githubusercontent.com/pyca/pyopenssl/master/LICENSE"
-    pip_call "install pyopenssl==#{version}"
+    pip "install pyopenssl==#{version}"
   end
 else
   dependency "openssl"
@@ -24,6 +24,6 @@ else
       "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
       "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include/"
     }
-    pip_call "install pyOpenSSL==#{version}", :env => build_env
+    pip "install pyOpenSSL==#{version}", :env => build_env
   end
 end

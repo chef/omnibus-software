@@ -19,5 +19,5 @@ dependency "vc_redist"
 build do
     relative_path "py2exe-#{version}"
     # FIXME: It shouldn't really be here but... we're just running pip you know
-    pip_call "install py2exe-#{version}0a1-cp27-none-win_amd64.whl"
+    pip "install py2exe-#{version}0a1-cp27-none-win_amd64.whl"
 end

@@ -18,6 +18,6 @@ dependency "pip"
 build do
     relative_path "pywin32-#{version}"
     # Switch on the architecture
-    pip_call "install pywin32-#{version}-cp27-none-win_amd64.whl "\
+    pip "install pywin32-#{version}-cp27-none-win_amd64.whl "\
              "--install-option=\"--prefix=#{windows_safe_path(install_dir)}\\embedded\""
 end

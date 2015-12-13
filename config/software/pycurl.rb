@@ -37,6 +37,6 @@ else
   build do
     # God bless the maintainers of that website, god bless their families and children over
     # a thousand generation and, of course, Gog bless the United States of America
-    pip_call "install #{wheel_name}"
+    pip "install #{wheel_name}"
   end
 end

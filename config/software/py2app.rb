@@ -8,5 +8,5 @@ env = {
 }
 
 build do
-  pip_call "install -U py2app", :env => env
+  pip "install -U py2app", :env => env
 end

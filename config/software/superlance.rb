@@ -5,6 +5,6 @@ dependency "python"
 dependency "pip"
 
 build do
-  pip_call "install --install-option=\"--install-scripts=#{install_dir}/bin\" "\
-           "#{name}==#{version}"
+  pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" "\
+      "#{name}==#{version}"
 end

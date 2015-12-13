@@ -22,5 +22,5 @@ dependency "pip"
 dependency "pygments"
 
 build do
-  pip_call "install --build #{project_dir} #{name}==#{version}"
+  pip "install --build #{project_dir} #{name}==#{version}"
 end

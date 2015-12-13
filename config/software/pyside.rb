@@ -26,6 +26,6 @@ if ohai['platform'] == 'mac_os_x'
 elsif ohai['platform'] == 'windows'
   dependency 'pip'
   build do
-    pip_call "install -U PySide"
+    pip "install -U PySide"
   end
 end
