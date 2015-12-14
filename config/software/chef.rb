@@ -18,8 +18,6 @@ default_version "master"
 
 source git: "git://github.com/chef/chef"
 
-relative_path "chef"
-
 if windows?
   dependency "ruby-windows"
   dependency "openssl-windows"

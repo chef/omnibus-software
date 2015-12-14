@@ -19,8 +19,6 @@ default_version "master"
 
 source git: "git://github.com/berkshelf/berkshelf"
 
-relative_path "berkshelf"
-
 if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"

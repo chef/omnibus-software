@@ -20,8 +20,6 @@ default_version "master"
 
 source git: "git://github.com/opscode/ohai"
 
-relative_path "ohai"
-
 if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"

@@ -26,8 +26,6 @@ dependency "erlang"
 
 source git: "https://github.com/rebar/rebar.git"
 
-relative_path "rebar"
-
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

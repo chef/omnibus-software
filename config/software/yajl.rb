@@ -19,8 +19,6 @@ default_version "1.1.0"
 
 dependency "rubygems"
 
-relative_path "yajl-ruby"
-
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

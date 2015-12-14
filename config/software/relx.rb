@@ -28,8 +28,6 @@ dependency "rebar"
 
 source git: "https://github.com/erlware/relx.git"
 
-relative_path "relx"
-
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

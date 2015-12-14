@@ -16,7 +16,6 @@
 
 name "ffi-yajl"
 default_version "master"
-relative_path "ffi-yajl"
 
 source git: "git://github.com/opscode/ffi-yajl"
 

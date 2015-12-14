@@ -22,8 +22,6 @@ dependency "fcgi"
 
 source git: "git://github.com/gnosek/fcgiwrap"
 
-relative_path "fcgiwrap"
-
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

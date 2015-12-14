@@ -19,8 +19,6 @@ default_version "v2.6.1"
 
 source git: "git://github.com/Nordstrom/chef-vault.git"
 
-relative_path "chef-vault"
-
 if windows?
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
