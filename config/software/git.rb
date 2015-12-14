@@ -64,11 +64,16 @@ build do
   )
 
   # AIX needs /opt/freeware/bin only for patch
-  patch_env = env.dup
-  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+  if aix?
+    patch_env = env.dup
+    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
 
-  patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env if aix?
-  patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env if aix?
+    # But only needs the below for 1.9.5
+    if version == '1.9.5'
+      patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env
+      patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
+    end
+  end
 
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
