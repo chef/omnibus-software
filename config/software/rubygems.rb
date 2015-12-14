@@ -98,8 +98,6 @@ end
 # tarballs get expanded as rubygems-xyz, git repo is always rubygems:
 if source.key?(:url)
   relative_path "rubygems-#{version}"
-else
-  relative_path "rubygems"
 end
 
 

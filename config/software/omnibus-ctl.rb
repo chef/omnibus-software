@@ -23,8 +23,6 @@ dependency "bundler"
 
 source git: "git://github.com/chef/omnibus-ctl.git"
 
-relative_path "omnibus-ctl"
-
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

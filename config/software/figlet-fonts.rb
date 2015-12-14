@@ -21,8 +21,6 @@ dependency "figlet"
 
 source git: "git://github.com/cmatsuoka/figlet-fonts"
 
-relative_path "figlet-fonts-#{version}"
-
 build do
   mkdir "#{install_dir}/share/figlet/fonts"
   copy "#{project_dir}/*/*.flc", "#{install_dir}/share/figlet/fonts/"

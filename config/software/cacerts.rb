@@ -57,8 +57,6 @@ end
 
 source url: "http://curl.haxx.se/ca/cacert.pem"
 
-relative_path "cacerts-#{version}"
-
 build do
   mkdir "#{install_dir}/embedded/ssl/certs"
 

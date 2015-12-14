@@ -16,7 +16,6 @@
 
 name "test-kitchen"
 default_version "master"
-relative_path "test-kitchen"
 
 source git: "git://github.com/test-kitchen/test-kitchen"
 
