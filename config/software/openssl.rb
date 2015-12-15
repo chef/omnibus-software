@@ -23,11 +23,14 @@ dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "patch" if solaris2? || windows?
 dependency "mingw" if windows?
+dependency "perl" if windows?
 dependency "openssl-fips" if fips_enabled
 
 default_version "1.0.1q"
 
-source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz"
+# OpenSSL source ships with broken symlinks which windows doesn't allow.
+# Skip error checking.
+source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
 version("1.0.1m") { source md5: "d143d1555d842a069cb7cc34ba745a06" }
 version("1.0.1p") { source md5: "7563e92327199e0067ccd0f79f436976" }
@@ -37,8 +40,8 @@ relative_path "openssl-#{version}"
 
 build do
 
-  env = with_standard_compiler_flags(with_embedded_path)
-  if ohai["platform"] == "aix"
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  if aix?
     env["M4"] = "/opt/freeware/bin/m4"
   end
 
@@ -49,7 +52,6 @@ build do
     "no-idea",
     "no-mdc2",
     "no-rc5",
-    "zlib",
     "shared",
     env['LDFLAGS'],
     env['CFLAGS'],
@@ -59,32 +61,32 @@ build do
     configure_args << "--with-fipsdir=#{install_dir}/embedded" << "fips"
   end
 
+  if windows?
+    configure_args << "zlib-dynamic"
+  else
+    configure_args << "zlib"
+  end
+
   configure_cmd =
-    case ohai["platform"]
-    when "aix"
+    if aix?
       "perl ./Configure aix64-cc"
-    when "mac_os_x"
+    elsif mac_os_x?
       "./Configure darwin64-x86_64-cc"
-    when "smartos"
+    elsif smartos?
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
-    when "solaris2"
+    elsif solaris2?
       # This should not require a /bin/sh, but without it we get
       # Errno::ENOEXEC: Exec format error
-      platform =
-        if ohai["kernel"]["machine"] =~ /sun/
-          "solaris-sparcv9-gcc"
-        else
-          "solaris-x86-gcc"
-        end
+      platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
       "/bin/sh ./Configure #{platform}"
-    when "windows"
+    elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
     else
       prefix =
-        if ohai["os"] == "linux" && ohai["kernel"]["machine"] == "ppc64"
+        if linux? && ppc64?
           "./Configure linux-ppc64"
-        elsif ohai["os"] == "linux" && ohai["kernel"]["machine"] == "s390x"
+        elsif linux? && ohai["kernel"]["machine"] == "s390x"
           "./Configure linux64-s390x"
         else
           "./config"
@@ -105,9 +107,18 @@ build do
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: env
   end
 
+  if windows?
+    # Patch Makefile.shared to let us set the bit-ness of the resource compiler.
+    patch source: "openssl-1.0.1q-take-windres-rcflags.patch", env: env
+    # Patch Makefile.org to update the compiler flags/options table for mingw.
+    patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
+    # Patch Configure to call ar.exe without anooying it.
+    patch source: "openssl-1.0.1q-ar-needs-operation-before-target.patch", env: env
+  end
+
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
-  command configure_command, env: env
+  command configure_command, env: env, in_msys_bash: true
   make "depend", env: env
   # make -j N on openssl is not reliable
   make env: env

@@ -23,7 +23,7 @@ if windows?
   dependency "mingw"
 else
   # Is libtool actually necessary? Doesn't configure generate one?
-  dependency "libtool" unless windows?
+  dependency "libtool"
 end
 
 version("3.0.13") { source md5: "45f3b6dbc9ee7c7dfbbbc5feba571529" }
@@ -34,7 +34,7 @@ source url: "ftp://sourceware.org/pub/libffi/libffi-#{version}.tar.gz"
 relative_path "libffi-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
 
   env['INSTALL'] = "/opt/freeware/bin/install" if aix?
 

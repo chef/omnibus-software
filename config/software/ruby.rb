@@ -57,7 +57,7 @@ source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[
 
 relative_path "ruby-#{version}"
 
-env = with_standard_compiler_flags(with_embedded_path)
+env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
 if mac_os_x?
   # -Qunused-arguments suppresses "argument unused during compilation"
@@ -95,7 +95,7 @@ elsif solaris2?
   else
     env['CFLAGS'] << " -std=c99 -O3 -g -pipe"
   end
-when "windows"
+elsif windows?
   env['CPPFLAGS'] << " -DFD_SETSIZE=2048"
 else  # including linux
   env['CFLAGS'] << " -O3 -g -pipe"
@@ -134,6 +134,10 @@ build do
     # should intentionally break and fail to apply on 2.2, patch will need to
     # be fixed.
   end
+
+  # Patch Makefile.in to allow RCFLAGS environment variable to be accepted
+  # when invoking WINDRES.
+  patch source: 'ruby-take-windres-rcflags.patch', plevel: 1, env: patch_env
 
   # Fix reserve stack segmentation fault when building on RHEL5 or below
   # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
@@ -191,7 +195,7 @@ build do
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
     configure_command << "ac_cv_func_dl_iterate_phdr=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
-  when "windows"
+  elsif windows?
     configure_command << " debugflags=-g"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"

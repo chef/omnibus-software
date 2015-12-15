@@ -28,7 +28,7 @@ source url: "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz",
 relative_path "yaml-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
 
   if version == "0.1.6" && ppc64le?
     patch source: "v0.1.6.ppc64le-configure.patch", plevel: 1

@@ -33,7 +33,7 @@ relative_path "zlib-#{version}"
 
 build do
   if windows?
-    env = with_standard_compiler_flags(with_embedded_path)
+    env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
     # We can't use the top-level Makefile. Instead, the developers have made
     # an organic, artisanal, hand-crafted Makefile.gcc for us which takes a few
     # variables.
