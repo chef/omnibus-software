@@ -33,8 +33,15 @@ build do
     patch source: "v1.8.3-Makefile.in.patch", plevel: 0
   end
 
+<<<<<<< HEAD
   copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "config.guess"
   copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "config.sub"
+=======
+  # Update config.guess to support newer platforms (like aarch64)
+  if version == "1.8.3"
+    patch source: "config.guess_2015-09-14.patch", plevel: 0
+  end
+>>>>>>> master
 
   if freebsd?
     command "./configure" \

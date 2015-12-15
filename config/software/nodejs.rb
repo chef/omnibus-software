@@ -31,6 +31,10 @@ version "0.10.35" do
   source md5: "2c00d8cf243753996eecdc4f6e2a2d11"
 end
 
+version "4.1.2" do
+  source md5: "31a3ee2f51bb2018501048f543ea31c7"
+end
+
 source url: "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
 relative_path "node-v#{version}"

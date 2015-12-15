@@ -14,29 +14,30 @@
 # limitations under the License.
 #
 
-name "libtool"
-default_version "2.4"
+name "chef-vault"
+default_version "v2.6.1"
 
-version("2.4")   { source md5: "b32b04148ecdd7344abc6fe8bd1bb021" }
-version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }
-version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
+source git: "git://github.com/Nordstrom/chef-vault.git"
 
+relative_path "chef-vault"
 
-source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
+if windows?
+  dependency "ruby-windows"
+  dependency "ruby-windows-devkit"
+else
+  dependency "ruby"
+end
 
-relative_path "libtool-#{version}"
+dependency "rubygems"
+dependency "bundler"
+dependency "chef"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Update config.guess to support newer platforms (like aarch64)
-  if version == "2.4"
-    patch source: "config.guess_2015-09-14.patch", plevel: 0
-  end
+  bundle "install --without development", env: env
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
-
-  make env: env
-  make "install", env: env
+  gem "build chef-vault.gemspec", env: env
+  gem "install chef-vault-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end

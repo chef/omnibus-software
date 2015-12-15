@@ -15,7 +15,11 @@
 #
 
 name "redis"
-default_version "2.8.21"
+default_version "3.0.4"
+
+version "3.0.4" do
+  source md5: "9e535dea3dc5301de012047bf3cca952"
+end
 
 dependency "config-guess"
 

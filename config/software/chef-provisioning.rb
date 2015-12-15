@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef, Inc.
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,27 +14,28 @@
 # limitations under the License.
 #
 
-name "makedepend"
-default_version "1.0.5"
+name "chef-provisioning"
+default_version "master"
 
-source url: "http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.gz",
-       md5: "efb2d7c7e22840947863efaedc175747"
+source git: "git://github.com/chef/chef-provisioning.git"
 
-relative_path "makedepend-1.0.5"
+if windows?
+  dependency "ruby-windows"
+  dependency "ruby-windows-devkit"
+else
+  dependency "ruby"
+end
 
-dependency "xproto"
-dependency "util-macros"
-dependency "pkg-config-lite"
+dependency "rubygems"
+dependency "bundler"
+dependency "chef"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if solaris2?
-    env['PKG_CONFIG'] = "#{install_dir}/embedded/bin/pkg-config"
-  end
+  bundle "install --without development", env: env
 
-  command "./configure --prefix=#{install_dir}/embedded", env: env
-
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  gem "build chef-provisioning.gemspec", env: env
+  gem "install chef-provisioning-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end
