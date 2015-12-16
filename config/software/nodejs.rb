@@ -39,6 +39,8 @@ version "0.10.35" do
 end
 
 version "0.10.38-release-ppc" do
+  # This release is sourced from https://github.com/andrewlow/node but is packaged as
+  #  a tarball here for consistency between builds and to enable omnibus caching.
   source url: "https://s3.amazonaws.com/chef-releng/node-v0.10.38-release-ppc.tar.gz",
          md5: "1ca1a2179b4b255e8fac839a92985cf5"
 end
