@@ -29,9 +29,12 @@ relative_path "libtool-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Update config.guess to support newer platforms (like aarch64)
-  if version == "2.4"
-    patch source: "config.guess_2015-09-14.patch", plevel: 0
+  # AIX's old version of patch doesn't like the config.guess patch here
+  unless aix?
+    # Update config.guess to support newer platforms (like aarch64)
+    if version == "2.4"
+      patch source: "config.guess_2015-09-14.patch", plevel: 0
+    end
   end
 
   command "./configure" \

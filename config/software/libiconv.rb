@@ -44,9 +44,12 @@ build do
     patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1
   end
 
-  # Update config.guess to support newer platforms (like aarch64)
-  if version == "1.14"
-    patch source: "config.guess_2015-09-14.patch", plevel: 0
+  # AIX's old version of patch doesn't like the config.guess patch here
+  unless aix?
+    # Update config.guess to support newer platforms (like aarch64)
+    if version == "1.14"
+      patch source: "config.guess_2015-09-14.patch", plevel: 0
+    end
   end
 
   command configure_command, env: env

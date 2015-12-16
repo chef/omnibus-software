@@ -64,12 +64,15 @@ build do
     patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0
   end
 
-  if version == "5.9"
-    # Update config.guess to support platforms made after 2010 (like aarch64)
-    patch source: "config_guess_2015-09-24.patch", plevel: 0
+  # AIX's old version of patch doesn't like the patches here
+  unless aix?
+    if version == "5.9"
+      # Update config.guess to support platforms made after 2010 (like aarch64)
+      patch source: "config_guess_2015-09-24.patch", plevel: 0
 
-    # Patch to add support for GCC 5, doesn't break previous versions
-    patch source: "ncurses-5.9-gcc-5.patch", plevel: 1
+      # Patch to add support for GCC 5, doesn't break previous versions
+      patch source: "ncurses-5.9-gcc-5.patch", plevel: 1
+    end
   end
 
   if mac_os_x? ||
