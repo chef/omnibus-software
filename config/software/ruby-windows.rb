@@ -25,7 +25,7 @@ if fips_enabled
     relative_path "ruby-#{version}-i386-mingw32"
     source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-#{version}-i386-mingw32.7z"
 
-    version("2.0.0-p647-fips") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
+    version("2.0.0-p647") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
   end
 elsif windows_arch_i386?
   relative_path "ruby-#{version}-i386-mingw32"
