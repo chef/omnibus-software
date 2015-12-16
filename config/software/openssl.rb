@@ -173,9 +173,6 @@ build do
     patch source: "openssl-1.0.1f-do-not-build-docs.patch"
   end
 
-  puts "CONFIGURE: " + configure_command.to_s
-  puts "ENV: " + env.to_s
-
   command configure_command, env: env
   make "depend", env: env
   # make -j N on openssl is not reliable
