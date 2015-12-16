@@ -15,27 +15,38 @@
 #
 
 name "nodejs"
-default_version "0.10.10"
+
+if ppc64? || ppc64le?
+  default_version "0.10.38-release-ppc"
+else
+  default_version "0.10.10"
+end
 
 dependency "python"
 
+default_src_url = "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
+
 version "0.10.10" do
-  source md5: "a47a9141567dd591eec486db05b09e1c"
+  source url: default_src_url, md5: "a47a9141567dd591eec486db05b09e1c"
 end
 
 version "0.10.26" do
-  source md5: "15e9018dadc63a2046f61eb13dfd7bd6"
+  source url: default_src_url, md5: "15e9018dadc63a2046f61eb13dfd7bd6"
 end
 
 version "0.10.35" do
-  source md5: "2c00d8cf243753996eecdc4f6e2a2d11"
+  source url: default_src_url, md5: "2c00d8cf243753996eecdc4f6e2a2d11"
+end
+
+version "0.10.38-release-ppc" do
+  source url: "https://s3.amazonaws.com/chef-releng/node-v0.10.38-release-ppc.tar.gz",
+         md5: "1ca1a2179b4b255e8fac839a92985cf5"
 end
 
 version "4.1.2" do
-  source md5: "31a3ee2f51bb2018501048f543ea31c7"
+  source url: default_src_url, md5: "31a3ee2f51bb2018501048f543ea31c7"
 end
 
-source url: "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
 relative_path "node-v#{version}"
 
