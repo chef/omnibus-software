@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-require 'chef/sugar/constraints'
-
 name "openresty"
 default_version "1.9.3.1"
 
@@ -69,8 +67,8 @@ build do
   # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
   # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
   if rhel? &&
-     Chef::Sugar::Constraints.version(ohai['platform_version']).satisfies?('< 6.0') &&
-     Chef::Sugar::Constraints.version(version).satisfies?('>= 1.7')
+     platform_version.satisfies?('< 6.0') &&
+     version.satisfies?('>= 1.7')
     configure << "--with-luajit-xcflags='-std=gnu99'"
   end
 

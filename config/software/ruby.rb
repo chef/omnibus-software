@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-require 'chef/sugar/constraints'
-
 name "ruby"
 default_version "1.9.3-p550"
 
@@ -97,9 +95,9 @@ else  # including linux
 end
 
 build do
-  if solaris2? && Chef::Sugar::Constraints.version(version).satisfies?('>= 2.1')
+  if solaris2? && version.satisfies?('>= 2.1')
     patch source: "ruby-no-stack-protector.patch", plevel: 1
-    if Chef::Sugar::Constraints.version(ohai['platform_version']).satisfies?('>= 5.11')
+    if platform_version.satisfies?('>= 5.11')
       patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1
     end
   elsif solaris2? && version =~ /^1.9/
@@ -109,7 +107,7 @@ build do
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
   # library.  Disabling it as we do for Solaris.
-  if ios_xr? && Chef::Sugar::Constraints.version(version).satisfies?('>= 2.1')
+  if ios_xr? && version.satisfies?('>= 2.1')
     patch source: "ruby-no-stack-protector.patch", plevel: 1
   end
 
@@ -124,7 +122,7 @@ build do
   # other platforms.  generally you need to have a condition where the
   # embedded and non-embedded libs get into a fight (libiconv, openssl, etc)
   # and ruby trying to set LD_LIBRARY_PATH itself gets it wrong.
-  if Chef::Sugar::Constraints.version(version).satisfies?('>= 2.1')
+  if version.satisfies?('>= 2.1')
     patch source: "ruby-2_1_3-no-mkmf.patch", plevel: 1, env: patch_env
     # should intentionally break and fail to apply on 2.2, patch will need to
     # be fixed.
@@ -135,7 +133,7 @@ build do
   # in Ruby trunk and expected to be included in future point releases.
   # https://redmine.ruby-lang.org/issues/11602
   if rhel? &&
-     Chef::Sugar::Constraints.version(ohai['platform_version']).satisfies?('< 6') &&
+     platform_version.satisfies?('< 6') &&
      (version == '2.1.7' || version == '2.2.3')
 
      patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
