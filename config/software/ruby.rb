@@ -39,10 +39,12 @@ version("2.1.4")      { source md5: "89b2f4a197621346f6724a3c35535b19" }
 version("2.1.5")      { source md5: "df4c1b23f624a50513c7a78cb51a13dc" }
 version("2.1.6")      { source md5: "6e5564364be085c45576787b48eeb75f" }
 version("2.1.7")      { source md5: "2e143b8e19b056df46479ae4412550c9" }
+version("2.1.8")      { source md5: "091b62f0a9796a3c55de2a228a0e6ef3" }
 version("2.2.0")      { source md5: "cd03b28fd0b555970f5c4fd481700852" }
 version("2.2.1")      { source md5: "b49fc67a834e4f77249eb73eecffb1c9" }
 version("2.2.2")      { source md5: "326e99ddc75381c7b50c85f7089f3260" }
 version("2.2.3")      { source md5: "150a5efc5f5d8a8011f30aa2594a7654" }
+version("2.2.4")      { source md5: "9a5e15f9d5255ba37ace18771b0a8dd2" }
 
 source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
