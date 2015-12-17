@@ -26,6 +26,8 @@ dependency "libiconv" # Removal will break chef_gem installs of (e.g.) nokogiri 
 dependency "libffi"
 dependency "patch" if solaris2?
 
+fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
+
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
 version("1.9.3-p550") { source md5: "e05135be8f109b2845229c4f47f980fd" }
@@ -149,6 +151,8 @@ build do
                        "--without-gmp",
                        "--without-gdbm",
                        "--disable-dtrace"]
+
+  configure_command << "--with-bundled-md5" if fips_enabled
 
   case ohai['platform']
   when "aix"
