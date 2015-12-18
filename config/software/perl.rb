@@ -50,7 +50,7 @@ build do
   end
 
   # On Cisco IOS-XR, we don't want libssp as a dependency
-  if ohai['platform'] == 'ios_xr'
+  if ios_xr?
     configure_command << "-Accflags=-fno-stack-protector"
   end
 

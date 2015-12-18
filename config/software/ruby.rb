@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+require 'chef/sugar/constraints'
+
 name "ruby"
 default_version "1.9.3-p550"
 
@@ -54,8 +56,7 @@ relative_path "ruby-#{version}"
 
 env = with_standard_compiler_flags(with_embedded_path)
 
-case ohai['platform']
-when "mac_os_x"
+if mac_os_x?
   # -Qunused-arguments suppresses "argument unused during compilation"
   # warnings. These can be produced if you compile a program that doesn't
   # link to anything in a path given with -Lextra-libs. Normally these
@@ -64,7 +65,7 @@ when "mac_os_x"
   # of the actual exit code from the compiler).
   env['CFLAGS'] << " -I#{install_dir}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
   env['LDFLAGS'] << " -arch x86_64"
-when "freebsd"
+elsif freebsd?
   # Stops "libtinfo.so.5.9: could not read symbols: Bad value" error when
   # compiling ext/readline. See the following for more info:
   #
@@ -72,7 +73,7 @@ when "freebsd"
   #   http://mailing.freebsd.ports-bugs.narkive.com/kCgK8sNQ/ports-183106-patch-sysutils-libcdio-does-not-build-on-10-0-and-head
   #
   env['LDFLAGS'] << " -ltinfow"
-when "aix"
+elsif aix?
   # this magic per IBM
   env['LDSHARED'] = "xlc -G"
   env['CFLAGS'] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
@@ -83,8 +84,8 @@ when "aix"
   env['SOLIBS'] = "-lm -lc"
   # need to use GNU m4, default m4 doesn't work
   env['M4'] = "/opt/freeware/bin/m4"
-when "solaris2"
-  if ohai['kernel']['machine'].include?('sun4')
+elsif solaris2?
+  if sparc?
     # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
     env['CFLAGS'] << " -std=c99 -O0 -g -pipe -mcpu=v9"
     env['LDFLAGS'] << " -mcpu=v9"
@@ -96,9 +97,9 @@ else  # including linux
 end
 
 build do
-  if solaris2? && version.to_f >= 2.1
+  if solaris2? && Chef::Sugar::Constraints.version(version).satisfies?('>= 2.1')
     patch source: "ruby-no-stack-protector.patch", plevel: 1
-    if ohai['platform_version'].to_f >= 5.11
+    if Chef::Sugar::Constraints.version(ohai['platform_version']).satisfies?('>= 5.11')
       patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1
     end
   elsif solaris2? && version =~ /^1.9/
@@ -108,10 +109,7 @@ build do
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
   # library.  Disabling it as we do for Solaris.
-  #
-  # This will be changed to use a chef-sugar helper method once
-  # sethvargo/chef-sugar#116 is available in a release.
-  if ohai['platform'] == 'ios_xr' && version.to_f >= 2.1
+  if ios_xr? && Chef::Sugar::Constraints.version(version).satisfies?('>= 2.1')
     patch source: "ruby-no-stack-protector.patch", plevel: 1
   end
 
@@ -126,7 +124,7 @@ build do
   # other platforms.  generally you need to have a condition where the
   # embedded and non-embedded libs get into a fight (libiconv, openssl, etc)
   # and ruby trying to set LD_LIBRARY_PATH itself gets it wrong.
-  if version.to_f >= 2.1
+  if Chef::Sugar::Constraints.version(version).satisfies?('>= 2.1')
     patch source: "ruby-2_1_3-no-mkmf.patch", plevel: 1, env: patch_env
     # should intentionally break and fail to apply on 2.2, patch will need to
     # be fixed.
@@ -136,8 +134,8 @@ build do
   # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
   # in Ruby trunk and expected to be included in future point releases.
   # https://redmine.ruby-lang.org/issues/11602
-  if ohai['platform_family'] == 'rhel'  &&
-     ohai['platform_version'].to_f < 6  &&
+  if rhel? &&
+     Chef::Sugar::Constraints.version(ohai['platform_version']).satisfies?('< 6') &&
      (version == '2.1.7' || version == '2.2.3')
 
      patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
@@ -156,8 +154,7 @@ build do
 
   configure_command << "--with-bundled-md5" if fips_enabled
 
-  case ohai['platform']
-  when "aix"
+  if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
     patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env
     # have ruby use zlib on AIX correctly
@@ -171,12 +168,12 @@ build do
     # per IBM, just help ruby along on what it's running on
     configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
 
-  when "freebsd"
+  elsif freebsd?
     # Disable optional support C level backtrace support. This requires the
     # optional devel/libexecinfo port to be installed.
     configure_command << "ac_cv_header_execinfo_h=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
-  when "smartos"
+  elsif smartos?
     # Opscode patch - someara@opscode.com
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
     patch source: "ruby-openssl-1.0.1c.patch", plevel: 1
