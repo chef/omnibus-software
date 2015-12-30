@@ -83,6 +83,10 @@ build do
   copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "lib/common_test/priv/auxdir/config.sub"
   copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "lib/erl_interface/src/auxdir/config.guess"
   copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "lib/erl_interface/src/auxdir/config.sub"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "lib/wx/autoconf/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "lib/wx/autoconf/config.sub"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "lib/test_server/src/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "lib/test_server/src/config.sub"
 
   # Setup the erlang include dir
   mkdir "#{install_dir}/embedded/erlang/include"
