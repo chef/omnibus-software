@@ -15,14 +15,14 @@
 #
 
 name "libxml2"
-default_version "2.9.2"
+default_version "2.9.3"
 
 dependency "zlib"
 dependency "libiconv"
 dependency "liblzma"
 
-version "2.7.8" do
-  source md5: "8127a65e8c3b08856093099b52599c86"
+version "2.9.3" do
+  source md5: "daece17e045f1c107610e137ab50c179"
 end
 
 version "2.9.2" do
@@ -31,6 +31,10 @@ end
 
 version "2.9.1" do
   source md5: "9c0cfef285d5c4a5c80d00904ddab380"
+end
+
+version "2.7.8" do
+  source md5: "8127a65e8c3b08856093099b52599c86"
 end
 
 source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
