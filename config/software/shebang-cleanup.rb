@@ -35,7 +35,7 @@ build do
                      end
       Dir["#{install_dir.gsub(/\\/, '/')}/embedded/lib/ruby/gems/**/cache/*.gem"].each do |gem_file|
         load_gemspec.call(gem_file).spec.executables.each do |bin|
-          if File.exists?("#{install_dir}/bin/#{bin}")
+          if File.exist?("#{install_dir}/bin/#{bin}")
             File.open("#{install_dir}/bin/#{bin}.bat", "w") do |f|
               f.puts <<-EOF
 @ECHO OFF
@@ -43,7 +43,7 @@ build do
               EOF
             end
           end
-          if File.exists?("#{install_dir}/embedded/bin/#{bin}")
+          if File.exist?("#{install_dir}/embedded/bin/#{bin}")
             File.open("#{install_dir}/embedded/bin/#{bin}.bat", "w") do |f|
               f.puts <<-EOF
 @ECHO OFF
@@ -51,6 +51,9 @@ build do
               EOF
             end
           end
+          # Rubocop is silly and yells at you for structuring the
+          # last if statement the way it is.
+          next
         end
       end
 

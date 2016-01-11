@@ -38,7 +38,7 @@ build do
       ruby = windows_safe_path("#{install_dir}/embedded/bin/ruby")
 
       config_dir = Bundler.with_clean_env do
-        command_output = %x|#{ruby} -rrbconfig -e "puts RbConfig::CONFIG['#{config}']"|.strip
+        command_output = `#{ruby} -rrbconfig -e "puts RbConfig::CONFIG['#{config}']"`.strip
         windows_safe_path(command_output)
       end
 
