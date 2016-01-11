@@ -16,7 +16,19 @@
 name "chef"
 default_version "master"
 
-source git: "git://github.com/chef/chef"
+# For the specific super-special version "local_source", build the source from
+# the local git checkout. This is what you'd want to occur by default if you
+# just ran omnibus build locally.
+version("local_source") { source path: "#{project.files_path}/../.." }
+#TODO: Check if I need to exclude any current omnibus generated files.
+# options: {:exclude => [some paths]}
+
+# For any version other than "local_source", fetch from github.
+# This is the behavior the transitive omnibus software deps such as chef-dk
+# expect.
+if version != "local_source"
+  source git: "git://github.com/chef/chef"
+end
 
 relative_path "chef"
 
@@ -79,9 +91,7 @@ build do
   gem "build #{gemspec_name}", env: env
 
   # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
-  gem "install chef*.gem " \
-      " --no-ri --no-rdoc" \
-      " --verbose", env: env
+  gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
 
   # Always deploy the powershell modules in the correct place.
   if windows?
@@ -93,10 +103,8 @@ build do
   auxiliary_gems['ruby-shadow'] = '>= 0.0.0' unless aix? || windows?
 
   auxiliary_gems.each do |name, version|
-    gem "install #{name}" \
-        " --version '#{version}'" \
-        " --no-ri --no-rdoc" \
-        " --verbose", env: env
+    gem "install #{name} --version '#{version}' --no-ri --no-rdoc --verbose",
+        env: env
   end
 
   appbundle 'chef'
