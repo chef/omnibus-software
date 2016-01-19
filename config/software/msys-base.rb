@@ -23,5 +23,5 @@ env = with_standard_compiler_flags(with_embedded_path)
 
 build do
   command "mingw-get.exe -v install msys-base=#{version}-msys-bin.meta",
-    env: env, cwd: "#{install_dir}/embedded"
+          env: env, cwd: "#{install_dir}/embedded"
 end

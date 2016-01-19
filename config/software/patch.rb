@@ -31,7 +31,7 @@ env = with_standard_compiler_flags(with_embedded_path)
 build do
   if windows?
     command "mingw-get.exe -v install msys-patch-bin=#{version}-*",
-      env: env, cwd: "#{install_dir}/embedded"
+            env: env, cwd: "#{install_dir}/embedded"
   else
     configure "--disable-xattr", env: env
     make "-j #{workers}", env: env

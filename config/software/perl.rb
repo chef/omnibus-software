@@ -23,7 +23,7 @@ else
   default_version "5.18.1"
 
   source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz",
-        md5: "304cb5bd18e48c44edd6053337d3386d"
+         md5: "304cb5bd18e48c44edd6053337d3386d"
   relative_path "perl-#{version}"
 end
 
@@ -32,7 +32,7 @@ build do
 
   if windows?
     command "mingw-get.exe -v install msys-perl-bin=#{version}-*",
-      env: env, cwd: "#{install_dir}/embedded"
+            env: env, cwd: "#{install_dir}/embedded"
   else
     solaris_mapfile_path = File.expand_path(Omnibus::Config.solaris_linker_mapfile, Omnibus::Config.project_root)
     if solaris2? && File.exist?(solaris_mapfile_path)
