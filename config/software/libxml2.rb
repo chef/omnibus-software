@@ -32,12 +32,19 @@ relative_path "libxml2-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --with-zlib=#{install_dir}/embedded" \
-          " --with-iconv=#{install_dir}/embedded" \
-          " --without-python" \
-          " --without-icu", env: env
+  configure_command = [
+    "./configure",
+    "--prefix=#{install_dir}/embedded",
+    "--with-zlib=#{install_dir}/embedded",
+    "--with-iconv=#{install_dir}/embedded",
+    "--without-python",
+    "--without-icu",
+  ]
+
+  # solaris 10 ipv6 support is broken due to no inet_ntop() in -lnsl
+  configure_command << "--enable-ipv6=no" if solaris2?
+
+  command configure_command.join(" "), env: env
 
   make "-j #{workers}", env: env
   make "install", env: env

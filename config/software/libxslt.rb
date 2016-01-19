@@ -20,6 +20,7 @@ default_version "1.1.28"
 dependency "libxml2"
 dependency "libtool" if solaris2?
 dependency "liblzma"
+dependency "patch" if solaris2?
 
 version "1.1.26" do
   source md5: "e61d0364a30146aaa3001296f853b2b9"
@@ -35,6 +36,8 @@ relative_path "libxslt-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  patch source: "libxslt-solaris-configure.patch" if solaris?
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
