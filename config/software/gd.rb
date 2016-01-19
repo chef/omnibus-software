@@ -33,7 +33,7 @@ build do
     "LIBS" => "-liconv",
   )
 
-  patch source: 'gd-2.0.33-configure-libpng.patch'
+  patch source: 'gd-2.0.33-configure-libpng.patch', env: env
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \

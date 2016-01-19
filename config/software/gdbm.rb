@@ -28,12 +28,12 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if version == "1.8.3"
-    patch source: "v1.8.3-Makefile.in.patch", plevel: 0
+    patch source: "v1.8.3-Makefile.in.patch", plevel: 0, env: env
   end
 
   # Update config.guess to support newer platforms (like aarch64)
   if version == "1.8.3"
-    patch source: "config.guess_2015-09-14.patch", plevel: 0
+    patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
   end
 
   if freebsd?

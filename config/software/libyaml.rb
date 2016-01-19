@@ -31,7 +31,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
 
   if version == "0.1.6" && ppc64le?
-    patch source: "v0.1.6.ppc64le-configure.patch", plevel: 1
+    patch source: "v0.1.6.ppc64le-configure.patch", plevel: 1, env: env
   end
 
   configure "--enable-shared", env: env
@@ -39,7 +39,7 @@ build do
   # Windows had worse automake/libtool version issues.
   # Just patch the output instead.
   if version == "0.1.6" && windows?
-    patch source: "v0.1.6.windows-configure.patch", plevel: 1
+    patch source: "v0.1.6.windows-configure.patch", plevel: 1, env: env
   end
 
   make "-j #{workers}", env: env

@@ -30,7 +30,7 @@ build do
 
   if freebsd?
     # from freebsd ports - IPv6 Hostcheck patch
-    patch source: "curl-freebsd-hostcheck.patch", plevel: 1
+    patch source: "curl-freebsd-hostcheck.patch", plevel: 1, env: env
   end
 
   delete "#{project_dir}/src/tool_hugehelp.c"

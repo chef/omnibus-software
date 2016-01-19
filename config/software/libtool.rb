@@ -33,7 +33,7 @@ build do
   unless aix?
     # Update config.guess to support newer platforms (like aarch64)
     if version == "2.4"
-      patch source: "config.guess_2015-09-14.patch", plevel: 0
+      patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
     end
   end
 

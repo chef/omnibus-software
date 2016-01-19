@@ -40,18 +40,18 @@ build do
     patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
     patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: patch_env
   else
-    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
+    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: env
   end
 
   if version == "1.14" && ppc64le?
-    patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1
+    patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1, env: env
   end
 
   # AIX's old version of patch doesn't like the config.guess patch here
   unless aix?
     # Update config.guess to support newer platforms (like aarch64)
     if version == "1.14"
-      patch source: "config.guess_2015-09-14.patch", plevel: 0
+      patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
     end
   end
 

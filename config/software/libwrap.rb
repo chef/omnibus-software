@@ -45,9 +45,9 @@ build do
     "STYLE"   => "-DPROCESS_OPTIONS",
   )
 
-  patch source: "tcp_wrappers-7.6-shared_lib_plus_plus-1.patch"
-  patch source: "tcp_wrappers-7.6-malloc-fix.patch"
-  patch source: "tcp_wrappers-7.6-makefile-dest-fix.patch"
+  patch source: "tcp_wrappers-7.6-shared_lib_plus_plus-1.patch", env: env
+  patch source: "tcp_wrappers-7.6-malloc-fix.patch", env: env
+  patch source: "tcp_wrappers-7.6-makefile-dest-fix.patch", env: env
 
   make "linux", env: env
   make "install-lib", env: env

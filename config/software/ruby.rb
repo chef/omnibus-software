@@ -102,25 +102,25 @@ else  # including linux
 end
 
 build do
+  # AIX needs /opt/freeware/bin only for patch
+  patch_env = env.dup
+  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+
   if solaris2? && version.satisfies?('>= 2.1')
-    patch source: "ruby-no-stack-protector.patch", plevel: 1
+    patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
     if platform_version.satisfies?('>= 5.11')
-      patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1
+      patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
     end
   elsif solaris2? && version =~ /^1.9/
-    patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1
+    patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1, env: patch_env
   end
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
   # library.  Disabling it as we do for Solaris.
   if ios_xr? && version.satisfies?('>= 2.1')
-    patch source: "ruby-no-stack-protector.patch", plevel: 1
+    patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   end
-
-  # AIX needs /opt/freeware/bin only for patch
-  patch_env = env.dup
-  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
 
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
@@ -183,13 +183,13 @@ build do
   elsif smartos?
     # Opscode patch - someara@opscode.com
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
-    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1
+    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1, env: patch_env
 
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
     # https://www.illumos.org/issues/1587
     # https://github.com/wayneeseguin/rvm/issues/719
-    patch source: "rvm-cflags.patch", plevel: 1
+    patch source: "rvm-cflags.patch", plevel: 1, env: patch_env
 
     # From RVM forum
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96

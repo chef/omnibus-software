@@ -45,7 +45,7 @@ build do
     # Patch to disable multi-os-directory via configure flag (don't use /lib64)
     # Works on all platforms, and is compatible on 32bit platforms as well
     if version == "3.2.1"
-      patch source: "libffi-3.2.1-disable-multi-os-directory.patch", plevel: 1
+      patch source: "libffi-3.2.1-disable-multi-os-directory.patch", plevel: 1, env: env
       configure_command << "--disable-multi-os-directory"
     end
   end
