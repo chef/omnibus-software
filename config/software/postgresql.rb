@@ -82,6 +82,10 @@ relative_path "postgresql-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # freebsd 10 64-bit with clang needs -fPIC
+  env['CFLAGS'] << " -fPIC" if freebsd?
+  env['CPPFLAGS'] << " -D_XOPEN_SOURCE" if mac_os_x?
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --with-libedit-preferred" \
