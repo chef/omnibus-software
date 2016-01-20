@@ -85,6 +85,7 @@ build do
   # freebsd 10 64-bit with clang needs -fPIC
   env['CFLAGS'] << " -fPIC" if freebsd?
   env['CPPFLAGS'] << " -D_XOPEN_SOURCE" if mac_os_x?
+  env['LIBS'] = "-lz" if aix?
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
