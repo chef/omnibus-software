@@ -30,6 +30,9 @@ relative_path "libiconv-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # freebsd 10 needs to be build PIC
+  env['CFLAGS'] << " -fPIC" if freebsd?
+
   configure_command = "./configure" \
                       " --prefix=#{install_dir}/embedded"
   if aix?
