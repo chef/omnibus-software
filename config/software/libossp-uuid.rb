@@ -29,6 +29,9 @@ relative_path "uuid-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # freebsd 10 64-bit with clang needs -fPIC
+  env['CFLAGS'] << " -fPIC" if freebsd?
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
 
