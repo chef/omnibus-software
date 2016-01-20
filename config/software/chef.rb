@@ -40,21 +40,7 @@ end
 
 relative_path "chef"
 
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
-if windows?
-  dependency "ruby-windows"
-  # Our custome ruby build comes with openssl/openss-fips
-  # So don't clobber it.
-  dependency "openssl-windows" unless fips_enabled
-  dependency "ruby-windows-devkit"
-  dependency "ruby-windows-devkit-bash"
-  dependency "cacerts"
-else
-  dependency "ruby"
-  dependency "libffi"
-end
-
+dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "ohai"
@@ -63,26 +49,7 @@ dependency "appbundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if windows?
-    # Normally we would symlink the required unix tools.
-    # However with the introduction of git-cache to speed up omnibus builds,
-    # we can't do that anymore since git on windows doesn't support symlinks.
-    # https://groups.google.com/forum/#!topic/msysgit/arTTH5GmHRk
-    # Therefore we copy the tools to the necessary places.
-    # We need tar for 'knife cookbook site install' to function correctly
-    {
-      'tar.exe'          => 'bsdtar.exe',
-      'libarchive-2.dll' => 'libarchive-2.dll',
-      'libexpat-1.dll'   => 'libexpat-1.dll',
-      'liblzma-1.dll'    => 'liblzma-1.dll',
-      'libbz2-2.dll'     => 'libbz2-2.dll',
-      'libz-1.dll'       => 'libz-1.dll',
-    }.each do |target, to|
-      copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
-    end
-  end
-
-  excluded_groups = %w{server docgen travis}
+  excluded_groups = %w{server docgen maintenance travis}
   excluded_groups << 'ruby_prof' if aix?
 
   # install the whole bundle first
@@ -119,6 +86,7 @@ build do
   appbundle 'ohai'
 
   # Clean up
+  # Move this to a more appropriate place that's common to all software we ship.
   delete "#{install_dir}/embedded/docs"
   delete "#{install_dir}/embedded/share/man"
   delete "#{install_dir}/embedded/share/doc"

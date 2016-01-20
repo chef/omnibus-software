@@ -15,23 +15,49 @@
 #
 
 name "ruby"
-default_version "1.9.3-p550"
 
-dependency "zlib"
-dependency "ncurses" unless windows?
-dependency "libedit" unless windows?
-dependency "openssl"
-dependency "libyaml"
-# Needed for chef_gem installs of (e.g.) nokogiri on upgrades -
-# they expect to see our libiconv instead of a system version.
-# Ignore on windows - TDM GCC comes with libiconv in the runtime
-# and that's the only one we will ever use.
-dependency "libiconv" unless windows?
-dependency "libffi"
-dependency "patch" if solaris2? || windows?
-dependency "mingw" if windows?
+# This is now the main software project for anything ruby related.
+# Even if you want a pre-built version of ruby from ruby-installer, include
+# this project as a dependency. If the version is set to ruby-windows,
+# it redirects to depend on the ruby-windows project.
+
+if windows?
+  default_version "ruby-windows"
+else
+  default_version "1.9.3-p550"
+end
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
+
+if windows? && version == "ruby-windows"
+    dependency "ruby-windows"
+    dependency "ruby-windows-devkit"
+    dependency "ruby-windows-devkit-bash"
+    # The custom yakyakyak ruby build comes with openssl and the FIPS module.
+    # Don't clobber it.
+    dependency "openssl-windows" unless fips_enabled
+    dependency "cacerts"
+else
+
+if windows?
+  dependency "mingw" if windows?
+  dependency "patch"
+else
+  dependency "patch" if solaris2?
+  dependency "ncurses"
+  dependency "libedit"
+  # Needed for chef_gem installs of (e.g.) nokogiri on upgrades -
+  # they expect to see our libiconv instead of a system version.
+  # Ignore on windows - TDM GCC comes with libiconv in the runtime
+  # and that's the only one we will ever use.
+  dependency "libiconv"
+end
+
+dependency "zlib"
+dependency "openssl"
+dependency "libffi"
+dependency "libyaml"
+
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
@@ -211,3 +237,5 @@ build do
   make "-j #{workers} install", env: env
 
 end
+
+end # if windows? && version == 'ruby-windows'

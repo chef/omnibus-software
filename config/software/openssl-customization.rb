@@ -22,12 +22,7 @@ name "openssl-customization"
 
 source path: "#{project.files_path}/#{name}"
 
-if windows?
-  dependency "ruby-windows"
-else
-  dependency "ruby"
-  dependency "rubygems"
-end
+dependency "ruby"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 

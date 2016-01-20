@@ -17,12 +17,7 @@
 name "rubygems"
 default_version "1.8.24"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-end
+dependency "ruby"
 
 source git: 'https://github.com/rubygems/rubygems.git'
 

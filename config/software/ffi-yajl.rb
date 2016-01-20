@@ -20,13 +20,7 @@ relative_path "ffi-yajl"
 
 source git: "git://github.com/opscode/ffi-yajl"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "libffi"
-  dependency "ruby"
-end
+dependency "ruby"
 
 dependency "rubygems"
 dependency "libyajl2-gem"

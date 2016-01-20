@@ -16,11 +16,9 @@
 
 name "nokogiri"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
+dependency "ruby"
+
+unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
