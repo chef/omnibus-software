@@ -86,7 +86,9 @@ build do
   appbundle 'ohai'
 
   # Clean up
-  # Move this to a more appropriate place that's common to all software we ship.
+  # TODO: Move this cleanup to a more appropriate place that's common to all
+  # software we ship. Lot's of other dependencies and libraries we build for
+  # ChefDK create docs and man pages and those may occur after this build step.
   delete "#{install_dir}/embedded/docs"
   delete "#{install_dir}/embedded/share/man"
   delete "#{install_dir}/embedded/share/doc"

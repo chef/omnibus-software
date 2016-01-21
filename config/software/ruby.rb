@@ -40,7 +40,7 @@ if windows? && version == "ruby-windows"
 else
 
 if windows?
-  dependency "mingw" if windows?
+  dependency "mingw"
   dependency "patch"
 else
   dependency "patch" if solaris2?
