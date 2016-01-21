@@ -82,7 +82,7 @@ build do
     end
   end
 
-  excluded_groups = %w{server docgen}
+  excluded_groups = %w{server docgen travis}
   excluded_groups << 'ruby_prof' if aix?
 
   # install the whole bundle first
