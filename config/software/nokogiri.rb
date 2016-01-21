@@ -76,4 +76,6 @@ build do
   end
 
   gem gem_command.join(" "), env: env
+
+  delete "#{install_dir}/embedded/lib/ruby/gems/2.1.0/gems/mini_portile2-2.0.0/test"
 end
