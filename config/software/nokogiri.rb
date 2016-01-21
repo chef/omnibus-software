@@ -64,7 +64,8 @@ build do
     # Tell nokogiri to use the system libraries instead of compiling its own
     env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 
-    gem_command += [  "--",
+    gem_command += [
+      "--",
       "--use-system-libraries",
       "--with-xml2-lib=#{install_dir}/embedded/lib",
       "--with-xml2-include=#{install_dir}/embedded/include/libxml2",
