@@ -15,7 +15,6 @@
 #
 
 name "nokogiri"
-default_version "1.6.7.2"
 
 if windows?
   dependency "ruby-windows"
@@ -57,23 +56,27 @@ dependency "rubygems"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if windows?
-    # use the 'fat' precompiled binary bundled with nokogiri
-    gem "install nokogiri" \
-      " --version '#{version}'", env: env
-  else
+  gem_command = [ "install nokogiri" ]
+  gem_command << "--version '#{version}'" unless version.nil?
+
+  # windows uses the 'fat' precompiled binaries'
+  unless windows?
     # Tell nokogiri to use the system libraries instead of compiling its own
     env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 
-    gem "install nokogiri" \
-      " --version '#{version}'" \
-      " --" \
-      " --use-system-libraries" \
-      " --with-xml2-lib=#{install_dir}/embedded/lib" \
-      " --with-xml2-include=#{install_dir}/embedded/include/libxml2" \
-      " --with-xslt-lib=#{install_dir}/embedded/lib" \
-      " --with-xslt-include=#{install_dir}/embedded/include/libxslt" \
-      " --with-iconv-dir=#{install_dir}/embedded" \
-      " --with-zlib-dir=#{install_dir}/embedded", env: env
+    gem_command += [
+      "--",
+      "--use-system-libraries",
+      "--with-xml2-lib=#{install_dir}/embedded/lib",
+      "--with-xml2-include=#{install_dir}/embedded/include/libxml2",
+      "--with-xslt-lib=#{install_dir}/embedded/lib",
+      "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
+      "--with-iconv-dir=#{install_dir}/embedded",
+      "--with-zlib-dir=#{install_dir}/embedded",
+    ]
   end
+
+  gem gem_command.join(" "), env: env
+
+  delete "#{install_dir}/embedded/lib/ruby/gems/2.1.0/gems/mini_portile2-2.0.0/test"
 end
