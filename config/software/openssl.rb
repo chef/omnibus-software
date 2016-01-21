@@ -43,6 +43,9 @@ build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
+  elsif freebsd?
+    # Should this just be in standard_compiler_flags?
+    env['LDFLAGS'] += " -Wl,-rpath,#{install_dir}/embedded/lib"
   end
 
   configure_args = [
@@ -53,8 +56,6 @@ build do
     "no-mdc2",
     "no-rc5",
     "shared",
-    env['LDFLAGS'],
-    env['CFLAGS'],
   ]
 
   if fips_enabled
@@ -115,6 +116,10 @@ build do
     # Patch Configure to call ar.exe without anooying it.
     patch source: "openssl-1.0.1q-ar-needs-operation-before-target.patch", env: env
   end
+
+  # Out of abundance of caution, we put the feature flags first and then
+  # the crazy platform specific compiler flags at the end.
+  configure_args << env['CFLAGS'] << env['LDFLAGS']
 
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
