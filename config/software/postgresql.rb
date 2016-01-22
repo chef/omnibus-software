@@ -97,6 +97,6 @@ build do
           " --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
-  make "world -j #{workers}", env: env
+  make "world -j 1", env: env
   make "install-world", env: env
 end
