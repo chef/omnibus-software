@@ -1,0 +1,13 @@
+diff --git a/src/include/storage/s_lock.h b/src/include/storage/s_lock.h
+index 85fd0d5..f9e285a 100644
+--- a/src/include/storage/s_lock.h
++++ b/src/include/storage/s_lock.h
+@@ -434,7 +434,7 @@ tas(volatile slock_t *lock)
+  * requires a barrier.
+  */
+ #define S_UNLOCK(lock)		(*((volatile slock_t *) (lock)) = 0)
+-#elif  __sparcv8
++#elif  defined(__sparcv8)
+ /* stbar is available (and required for both PSO, RMO), membar isn't */
+ #define S_UNLOCK(lock)	\
+ do \

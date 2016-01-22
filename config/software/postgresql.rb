@@ -87,6 +87,8 @@ build do
   env['CPPFLAGS'] << " -D_XOPEN_SOURCE" if mac_os_x?
   env['LDFLAGS'] << " -lz" if aix?
 
+  patch source: "postgresql-9.2.10-solaris-sparc.patch" if solaris2?
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --with-libedit-preferred" \
