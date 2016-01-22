@@ -18,13 +18,18 @@ name "ruby"
 default_version "1.9.3-p550"
 
 dependency "zlib"
-dependency "ncurses"
-dependency "libedit"
+dependency "ncurses" unless windows?
+dependency "libedit" unless windows?
 dependency "openssl"
 dependency "libyaml"
-dependency "libiconv" # Removal will break chef_gem installs of (e.g.) nokogiri on upgrades
+# Needed for chef_gem installs of (e.g.) nokogiri on upgrades -
+# they expect to see our libiconv instead of a system version.
+# Ignore on windows - TDM GCC comes with libiconv in the runtime
+# and that's the only one we will ever use.
+dependency "libiconv" unless windows?
 dependency "libffi"
-dependency "patch" if solaris2?
+dependency "patch" if solaris2? || windows?
+dependency "mingw" if windows?
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
@@ -52,7 +57,7 @@ source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[
 
 relative_path "ruby-#{version}"
 
-env = with_standard_compiler_flags(with_embedded_path)
+env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
 if mac_os_x?
   # -Qunused-arguments suppresses "argument unused during compilation"
@@ -90,30 +95,32 @@ elsif solaris2?
   else
     env['CFLAGS'] << " -std=c99 -O3 -g -pipe"
   end
+elsif windows?
+  env['CPPFLAGS'] << " -DFD_SETSIZE=2048"
 else  # including linux
   env['CFLAGS'] << " -O3 -g -pipe"
 end
 
 build do
+  # AIX needs /opt/freeware/bin only for patch
+  patch_env = env.dup
+  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+
   if solaris2? && version.satisfies?('>= 2.1')
-    patch source: "ruby-no-stack-protector.patch", plevel: 1
+    patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
     if platform_version.satisfies?('>= 5.11')
-      patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1
+      patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
     end
   elsif solaris2? && version =~ /^1.9/
-    patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1
+    patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1, env: patch_env
   end
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
   # library.  Disabling it as we do for Solaris.
   if ios_xr? && version.satisfies?('>= 2.1')
-    patch source: "ruby-no-stack-protector.patch", plevel: 1
+    patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   end
-
-  # AIX needs /opt/freeware/bin only for patch
-  patch_env = env.dup
-  patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
 
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
@@ -128,6 +135,10 @@ build do
     # be fixed.
   end
 
+  # Patch Makefile.in to allow RCFLAGS environment variable to be accepted
+  # when invoking WINDRES.
+  patch source: 'ruby-take-windres-rcflags.patch', plevel: 1, env: patch_env
+
   # Fix reserve stack segmentation fault when building on RHEL5 or below
   # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
   # in Ruby trunk and expected to be included in future point releases.
@@ -139,16 +150,14 @@ build do
      patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
   end
 
-  configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded",
-                       "--with-out-ext=dbm",
+  configure_command = ["--with-out-ext=dbm",
                        "--enable-shared",
-                       "--enable-libedit",
                        "--with-ext=psych",
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
                        "--disable-dtrace"]
+  configure_command << "--enable-libedit" unless windows?
 
   configure_command << "--with-bundled-md5" if fips_enabled
 
@@ -174,18 +183,20 @@ build do
   elsif smartos?
     # Opscode patch - someara@opscode.com
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
-    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1
+    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1, env: patch_env
 
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
     # https://www.illumos.org/issues/1587
     # https://github.com/wayneeseguin/rvm/issues/719
-    patch source: "rvm-cflags.patch", plevel: 1
+    patch source: "rvm-cflags.patch", plevel: 1, env: patch_env
 
     # From RVM forum
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
     configure_command << "ac_cv_func_dl_iterate_phdr=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
+  elsif windows?
+    configure_command << " debugflags=-g"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
@@ -195,7 +206,7 @@ build do
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
   env.merge!("PKG_CONFIG" => "/bin/true") if aix?
 
-  command configure_command.join(" "), env: env
+  configure(*configure_command, env: env)
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 

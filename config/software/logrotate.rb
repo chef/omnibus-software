@@ -35,7 +35,7 @@ build do
   env["EXTRA_LDFLAGS"] = env["LDFLAGS"]
   env["EXTRA_CFLAGS"]  = env["CFLAGS"]
 
-  patch source: "logrotate_basedir_override.patch", plevel: 0
+  patch source: "logrotate_basedir_override.patch", plevel: 0, env: env
 
   make "-j #{workers}", env: env
 

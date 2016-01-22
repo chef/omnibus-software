@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2012-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,20 +14,14 @@
 # limitations under the License.
 #
 
-name "expat"
-default_version "2.1.0"
+name "mingw-get"
+default_version "0.6.2-beta-20131004-1"
 
-relative_path "expat-2.1.0"
-
-source url: "http://iweb.dl.sourceforge.net/project/expat/expat/2.1.0/expat-2.1.0.tar.gz",
-       md5: "dd7dab7a5fea97d2a6a43f511449b7cd"
+version("0.6.2-beta-20131004-1") do
+  source url: "http://iweb.dl.sourceforge.net/project/mingw/Installer/mingw-get/mingw-get-0.6.2-beta-20131004-1/mingw-get-0.6.2-mingw32-beta-20131004-1-bin.zip",
+         sha256: "2e0e9688d42adc68c5611759947e064156e169ff871816cae52d33ee0655826d"
+end
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
-
-  make "-j #{workers}", env: env
-  make "install", env: env
+  copy "*", "#{install_dir}/embedded"
 end

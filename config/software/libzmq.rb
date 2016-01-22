@@ -46,7 +46,7 @@ build do
   # long long and c++ in pedantic mode
   # This patch is specific to zeromq4
   if version.satisfies?('>= 4')
-    patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch" if el?
+    patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch", env: env if el?
   end
 
   command "./autogen.sh", env: env
