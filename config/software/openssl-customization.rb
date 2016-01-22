@@ -29,8 +29,6 @@ else
   dependency "rubygems"
 end
 
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
 build do
   block "Add OpenSSL customization file" do
     # gets directories for RbConfig::CONFIG and sanitizes them.
@@ -48,18 +46,6 @@ build do
 
       config_dir
     end
-
-    fips_additions = [
-      "OpenSSL.fips_mode = true",
-      "require 'digest'",
-      "require 'digest/sha1'",
-      "Digest::SHA1 = OpenSSL::Digest::SHA1",
-
-      "require 'digest/md5'",
-      "# We're going to use the ruby md5 implementation for now",
-      "# This will be removed once all our MD5 uses are removed",
-      "OpenSSL::Digest::MD5 = Digest::MD5",
-    ].join("\n")
 
     if windows?
       embedded_ruby_site_dir = get_sanitized_rbconfig('sitelibdir')
@@ -79,7 +65,6 @@ build do
         f.rewind
         f.write("\nrequire 'ssl_env_hack'\n")
         f.write(unpatched_openssl_rb)
-        f.write(fips_additions) if fips_enabled
       end
     else
       embedded_ruby_lib_dir  = get_sanitized_rbconfig('rubylibdir')
@@ -88,7 +73,6 @@ build do
         unpatched_openssl_rb = f.read
         f.rewind
         f.write(unpatched_openssl_rb)
-        f.write(fips_additions) if fips_enabled
       end
     end
   end
