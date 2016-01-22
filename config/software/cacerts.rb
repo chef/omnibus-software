@@ -64,7 +64,7 @@ build do
 
   # Append the 1024bit Verisign certs so that S3 continues to work
   block do
-    unless File.foreach("#{project_dir}/cacert.pem").grep(/^Verisign Class 3 Public Primary Certification Authority$/).any?
+    unless File.foreach("#{project_dir}/cacert.pem", encoding: 'utf-8').grep(/^Verisign Class 3 Public Primary Certification Authority$/).any?
       File.open("#{project_dir}/cacert.pem", "a") { |fd| fd.write(VERISIGN_CERTS) }
     end
   end
