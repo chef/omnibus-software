@@ -45,12 +45,13 @@ build do
     make_args = [
       "-fwin32/Makefile.gcc",
       "SHARED_MODE=1",
-      "ARFLAGS='rcs #{env['ARFLAGS']}'",
-      "RCFLAGS='--define GCC_WINDRES #{env['RCFLAGS']}'",
+      "ARFLAGS=\"rcs #{env['ARFLAGS']}\"",
+      "RCFLAGS=\"--define GCC_WINDRES #{env['RCFLAGS']}\"",
     ]
     arch = windows_arch_i386? ? "-m32" : "-m64"
     make_args << "LOC=\"#{arch}\""
 
+    # On windows, msys make 3.81 doesn't support -j.
     make(*make_args, env: env)
     make("install", *make_args, env: env)
   else
