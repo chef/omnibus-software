@@ -68,6 +68,7 @@ build do
 
   command configure_command.join(" "), env: env, in_msys_bash: true
 
+  # Cannot use -j with openssl :(.
   make env: env
   make "install", env: env
 end

@@ -42,6 +42,12 @@ build do
     patch source: "v0.1.6.windows-configure.patch", plevel: 1, env: env
   end
 
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  # On windows, msys make 3.81 breaks with parallel builds.
+  if windows?
+    make env: env
+    make "install", env: env
+  else
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
 end

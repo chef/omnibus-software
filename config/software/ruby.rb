@@ -233,8 +233,14 @@ build do
   env.merge!("PKG_CONFIG" => "/bin/true") if aix?
 
   configure(*configure_command, env: env)
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  if windows?
+    # On windows, msys make 3.81 breaks with parallel builds.
+    make env: env
+    make "install", env: env
+  else
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
 
 end
 
