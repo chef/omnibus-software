@@ -14,21 +14,6 @@
 # limitations under the License.
 #
 
-#
-# openssl 1.0.0m fixes a security vulnerability:
-#   https://www.openssl.org/news/secadv_20140605.txt
-# Since the rubyinstaller.org doesn't release ruby when a dependency gets
-# patched, we are manually patching the dependency until we get a new
-# ruby release on windows.
-# This component should be removed when we upgrade to the next version of
-# rubyinstaller > 1.9.3-p545 and 2.0.0-p451
-#
-# openssl 1.0.0n fixes more security vulnerabilities...
-#   https://www.openssl.org/news/secadv_20140806.txt
-
-# Ruby 2.0.0 doesn't support openssl 1.0.1 - so we still need to maintain 1.0.0
-# series for those rubies.
-
 name "openssl-windows"
 default_version "1.0.1q"
 
