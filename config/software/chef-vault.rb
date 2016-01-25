@@ -15,9 +15,9 @@
 #
 
 name "chef-vault"
-default_version "v2.7.1"
+default_version "master"
 
-source git: "git://github.com/Nordstrom/chef-vault.git"
+source git: "git://github.com/chef/chef-vault.git"
 
 relative_path "chef-vault"
 
