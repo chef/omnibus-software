@@ -46,17 +46,17 @@ else
   dependency "patch" if solaris2?
   dependency "ncurses"
   dependency "libedit"
-  # Needed for chef_gem installs of (e.g.) nokogiri on upgrades -
-  # they expect to see our libiconv instead of a system version.
-  # Ignore on windows - TDM GCC comes with libiconv in the runtime
-  # and that's the only one we will ever use.
-  dependency "libiconv"
 end
 
 dependency "zlib"
 dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
+# Needed for chef_gem installs of (e.g.) nokogiri on upgrades -
+# they expect to see our libiconv instead of a system version.
+# Ignore on windows - TDM GCC comes with libiconv in the runtime
+# and that's the only one we will ever use.
+dependency "libiconv"
 
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }

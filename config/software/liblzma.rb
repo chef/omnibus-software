@@ -17,18 +17,22 @@
 name "liblzma"
 default_version "5.2.2"
 
+dependency "mingw" if windows?
+
 source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
        md5: "7cf6a8544a7dae8e8106fdf7addfa28c"
 
 relative_path "xz-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --disable-debug" \
-          " --disable-dependency-tracking", env: env
+  config_command = [
+    "--disable-debug",
+    "--disable-dependency-tracking",
+  ]
+
+  configure(*config_command, env: env)
 
   make "install", env: env
 end
