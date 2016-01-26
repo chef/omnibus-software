@@ -40,7 +40,7 @@ version "2014.09.03" do
 end
 
 version "2014.08.20" do
-  source md5: "c9f4f7f4d6a5ef6633e893577a09865e"
+  source md5: "06629db7f712ff3a75630eccaecc1fe4"
 end
 
 version "2014.07.15" do
