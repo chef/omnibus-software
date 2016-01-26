@@ -22,13 +22,7 @@ source git: "git://github.com/opscode/ohai"
 
 relative_path "ohai"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-end
-
+dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 

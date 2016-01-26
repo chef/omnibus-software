@@ -21,13 +21,7 @@ source git: "git://github.com/chef/chef-vault.git"
 
 relative_path "chef-vault"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-end
-
+dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "chef"

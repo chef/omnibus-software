@@ -20,13 +20,7 @@ relative_path "test-kitchen"
 
 source git: "git://github.com/test-kitchen/test-kitchen"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-end
-
+dependency "ruby"
 dependency "rubygems"
 dependency "nokogiri"
 

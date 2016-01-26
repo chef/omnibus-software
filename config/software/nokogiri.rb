@@ -16,11 +16,10 @@
 
 name "nokogiri"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
+dependency "ruby"
+
+using_prebuilt_ruby = windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
+unless using_prebuilt_ruby
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
@@ -60,7 +59,7 @@ build do
   gem_command << "--version '#{version}'" unless version.nil?
 
   # windows uses the 'fat' precompiled binaries'
-  unless windows?
+  unless using_prebuilt_ruby
     # Tell nokogiri to use the system libraries instead of compiling its own
     env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 

@@ -22,12 +22,7 @@ name "openssl-customization"
 
 source path: "#{project.files_path}/#{name}"
 
-if windows?
-  dependency "ruby-windows"
-else
-  dependency "ruby"
-  dependency "rubygems"
-end
+dependency "ruby"
 
 build do
   block "Add OpenSSL customization file" do

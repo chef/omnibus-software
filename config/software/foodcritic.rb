@@ -19,13 +19,7 @@ default_version "v5.0.0"
 
 source git: "git://github.com/acrmp/foodcritic.git"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-end
-
+dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "nokogiri"
