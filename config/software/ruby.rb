@@ -24,7 +24,7 @@ name "ruby"
 if windows?
   default_version "ruby-windows"
 else
-  default_version "2.3.0"
+  default_version "2.2.4"
 end
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
