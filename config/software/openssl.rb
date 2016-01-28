@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,13 +26,13 @@ dependency "mingw" if windows?
 dependency "perl" if windows?
 dependency "openssl-fips" if fips_enabled
 
-default_version "1.0.1q"
+default_version "1.0.1r"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
-version("1.0.1q") { source md5: "54538d0cdcb912f9bc2b36268388205e" }
+version("1.0.1r") { source md5: "1abd905e079542ccae948af37e393d28" }
 
 relative_path "openssl-#{version}"
 
