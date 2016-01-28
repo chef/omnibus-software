@@ -25,12 +25,19 @@ source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
 relative_path "xz-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  # liblzma properly uses CFLAGS for C compilation and CPPFLAGS for common
+  # flags used across tools such as windres.  Don't put anything in it
+  # that can be misinterpreted by windres.
+  env['CPPFLAGS'] = "-I#{install_dir}/embedded/include" if windows?
 
   config_command = [
     "--disable-debug",
     "--disable-dependency-tracking",
+    "--disable-doc",
+    "--disable-scripts",
   ]
+  config_command << "--disable-nls" if windows?
 
   configure(*config_command, env: env)
 

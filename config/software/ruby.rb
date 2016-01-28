@@ -185,7 +185,6 @@ build do
                        "--without-gdbm",
                        "--disable-dtrace"]
   configure_command << "--enable-libedit" unless windows?
-
   configure_command << "--with-bundled-md5" if fips_enabled
 
   if aix?

@@ -46,17 +46,23 @@ build do
   if windows?
     # The cross-toolchain we have won't work out of the box on windows for 32-bit.
     # This sucks.  Maybe eventually we'll use Visual Studio?
-    env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+    env = with_embedded_path({}, msys: true)
+    default_env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+
 
     if windows_arch_i386?
       # Patch Makefile.shared to let us set the bit-ness of the resource compiler.
-      patch source: "openssl-fips-take-windres-rcflags.patch", env: env
+      patch source: "openssl-fips-take-windres-rcflags.patch", env: default_env
       # Patch Makefile.org to update the compiler flags/options table for mingw.
-      patch source: "openssl-fips-fix-compiler-flags-table-for-msys.patch", env: env
+      patch source: "openssl-fips-fix-compiler-flags-table-for-msys.patch", env: default_env
       # Patch Configure to call ar.exe without anooying it.
-      patch source: "openssl-fips-ar-needs-operation-before-target.patch", env: env
+      patch source: "openssl-fips-ar-needs-operation-before-target.patch", env: default_env
 
       platform = "mingw"
+      # Sparingly bring in the only flags absolutely needed to build this.
+      # Do not bring in optimization flags and other library paths.
+      env['ARFLAGS'] = default_env['ARFLAGS']
+      env['RCFLAGS'] = default_env['RCFLAGS']
     else
       platform = "mingw64"
     end

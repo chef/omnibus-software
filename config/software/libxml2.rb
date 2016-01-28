@@ -31,7 +31,7 @@ source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
 relative_path "libxml2-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
   configure_command = [
     "--with-zlib=#{install_dir}/embedded",

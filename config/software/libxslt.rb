@@ -20,7 +20,7 @@ default_version "1.1.28"
 dependency "libxml2"
 dependency "liblzma"
 dependency "libtool" if solaris2?
-dependency "patch" if solaris2?
+dependency "patch" if solaris2? || windows?
 dependency "mingw" if windows?
 
 version "1.1.26" do
@@ -36,9 +36,11 @@ source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 relative_path "libxslt-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
-  patch source: "libxslt-solaris-configure.patch" if solaris?
+  patch source: "libxslt-cve-2015-7995.patch", env: env
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris?
+  patch source: "libxslt-mingw32.patch", env: env if windows?
 
   configure_commands = [
     "--with-libxml-prefix=#{install_dir}/embedded",

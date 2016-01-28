@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,18 +14,19 @@
 # limitations under the License.
 #
 
-name "mingw"
-default_version "5.1.0-tdm64-1"
+name "msys-coreutils-ext"
+default_version "5.97-3"
 
+dependency "mingw-get"
 dependency "msys-base"
-dependency "msys-coreutils-ext"
-dependency "binutils"
-dependency "mingw-runtime"
 
-source url: "http://iweb.dl.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/#{version}/gcc-#{version}-core.tar.lzma"
-
-version("5.1.0-tdm64-1") { source sha256: "29393aac890847089ad1e93f81a28f6744b1609c00b25afca818f3903e42e4bd" }
+# This package brings in occasionally used utilities such as dd, chown, chgrp,
+# hostname, mkfifo, stat etc. Some of these don't make sense on windows but
+# Makefiles like them.
 
 build do
-  copy "*", "#{install_dir}/embedded"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  command "mingw-get.exe -v install msys-coreutils-ext=#{version}-*",
+          env: env, cwd: "#{install_dir}/embedded"
 end
