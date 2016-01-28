@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ name "ruby"
 if windows?
   default_version "ruby-windows"
 else
-  default_version "1.9.3-p550"
+  default_version "2.3.0"
 end
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
@@ -78,6 +78,7 @@ version("2.2.1")      { source md5: "b49fc67a834e4f77249eb73eecffb1c9" }
 version("2.2.2")      { source md5: "326e99ddc75381c7b50c85f7089f3260" }
 version("2.2.3")      { source md5: "150a5efc5f5d8a8011f30aa2594a7654" }
 version("2.2.4")      { source md5: "9a5e15f9d5255ba37ace18771b0a8dd2" }
+version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 
 source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
