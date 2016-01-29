@@ -128,7 +128,7 @@ elsif solaris2?
 elsif windows?
   env['CPPFLAGS'] << " -DFD_SETSIZE=2048"
 else  # including linux
-  env['CFLAGS'] << " -O3 -g -pipe"
+  # env['CFLAGS'] << " -O3 -g -pipe"
 end
 
 build do
