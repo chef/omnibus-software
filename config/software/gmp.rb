@@ -18,10 +18,16 @@ name "gmp"
 default_version "6.0.0a"
 
 version("6.0.0a") { source md5: "b7ff2d88cae7f8085bd5006096eed470" }
+version("6.1.0")  { source md5: "86ee6e54ebfc4a90b643a65e402c4048" }
 
 source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.bz2"
 
-relative_path "gmp-6.0.0"
+if version == "6.0.0a"
+  # version 6.0.0a expands to 6.0.0
+  relative_path "gmp-6.0.0"
+else
+  relative_path "gmp-#{version}"
+end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
