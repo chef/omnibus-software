@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "ncurses"
-default_version "5.9"
+default_version "6.0-20150810"
 
 dependency "libtool" if aix?
 dependency "patch" if solaris2?
