@@ -15,19 +15,19 @@
 #
 
 name "openssl-windows"
-default_version "1.0.1q"
+default_version "1.0.1r"
 
 dependency "ruby-windows"
 
 if windows_arch_i386?
-  version('1.0.1q') do
-    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1q/openssl-1.0.1q-x86-windows.tar.lzma",
-           md5: "3970fb1323b89c068525d60211670528"
+  version('1.0.1r') do
+    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1r/openssl-1.0.1r-x86-windows.tar.lzma",
+           md5: "72e2cab647192ddc5314760feca6b424"
   end
 else
-  version('1.0.1q') do
-    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1q/openssl-1.0.1q-x64-windows.tar.lzma",
-           md5: "c9a05a9dfed1b91674ccfbb0b9e731c9"
+  version('1.0.1r') do
+    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1r/openssl-1.0.1r-x64-windows.tar.lzma",
+           md5: "d1aa3c43f21eaf42abf321cbfd9de331"
   end
 end
 
