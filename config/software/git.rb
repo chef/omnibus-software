@@ -71,8 +71,13 @@ build do
 
     # But only needs the below for 1.9.5
     if version == '1.9.5'
-      patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env
       patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
+    end
+
+    # this may be needed for 2.6.2 as well, but 2.6.2 won't compile
+    # on AIX for other reasons.
+    if version <= '2.2.1'
+      patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env
     end
   end
 
