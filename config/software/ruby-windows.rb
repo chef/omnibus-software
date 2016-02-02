@@ -17,7 +17,17 @@
 name "ruby-windows"
 default_version "2.0.0-p451"
 
-if windows_arch_i386?
+fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
+
+if fips_enabled
+  # We only currently support 32-bit FIPS builds
+  if windows_arch_i386?
+    relative_path "ruby-#{version}-i386-mingw32"
+    source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-#{version}-i386-mingw32.7z"
+
+    version("2.0.0-p647") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
+  end
+elsif windows_arch_i386?
   relative_path "ruby-#{version}-i386-mingw32"
   source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
@@ -54,7 +64,7 @@ build do
     ABI_ver = version[/(^\d+\.\d+)/] + '.0'
     dl_path = File.join(install_dir, "embedded/lib/ruby", ABI_ver, "dl.rb")
 
-    if digest(dl_path) == "78c185a3fcc7b5e2c3db697c85110d8f"
+    if File.exist?(dl_path) && digest(dl_path) == "78c185a3fcc7b5e2c3db697c85110d8f"
       File.open(dl_path, "w") do |f|
         f.print <<-E
   require 'dl.so'

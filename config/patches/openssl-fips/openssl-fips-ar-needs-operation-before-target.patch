@@ -1,0 +1,11 @@
+--- a/Makefile.fips
++++ b/Makefile.fips
+@@ -64,7 +64,7 @@ PEX_LIBS=
+ EX_LIBS= 
+ EXE_EXT= 
+ ARFLAGS=
+-AR=ar $(ARFLAGS) r
++AR=ar r $(ARFLAGS)
+ RANLIB= ranlib
+ NM= nm
+ PERL= perl

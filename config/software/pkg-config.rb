@@ -31,13 +31,13 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if version == "0.28" && ppc64le?
-    patch source: "v0.28.ppc64le-configure.patch", plevel: 1
+    patch source: "v0.28.ppc64le-configure.patch", plevel: 1, env: env
   end
 
   # pkg-config (at least up to 0.28) includes an older version of
   # libcharset/lib/config.charset that doesn't know about openbsd
   if openbsd?
-    patch source: "openbsd-charset.patch", plevel: 1
+    patch source: "openbsd-charset.patch", plevel: 1, env: env
   end
 
   command "./configure" \

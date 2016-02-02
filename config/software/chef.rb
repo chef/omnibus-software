@@ -16,21 +16,31 @@
 name "chef"
 default_version "master"
 
-source git: "git://github.com/chef/chef"
+# For the specific super-special version "local_source", build the source from
+# the local git checkout. This is what you'd want to occur by default if you
+# just ran omnibus build locally.
+version("local_source") do
+  source path: "#{project.files_path}/../..",
+         # Since we are using the local repo, we try to not copy any files
+         # that are generated in the process of bundle installing omnibus.
+         # If the install steps are well-behaved, this should not matter
+         # since we only perform bundle and gem installs from the
+         # omnibus cache source directory, but we do this regardless
+         # to maintain consistency between what a local build sees and
+         # what a github based build will see.
+         options: { exclude: [ "omnibus/vendor" ] }
+end
+
+# For any version other than "local_source", fetch from github.
+# This is the behavior the transitive omnibus software deps such as chef-dk
+# expect.
+if version != "local_source"
+  source git: "git://github.com/chef/chef"
+end
 
 relative_path "chef"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "openssl-windows"
-  dependency "ruby-windows-devkit"
-  dependency "ruby-windows-devkit-bash"
-  dependency "cacerts"
-else
-  dependency "ruby"
-  dependency "libffi"
-end
-
+dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "ohai"
@@ -39,27 +49,11 @@ dependency "appbundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if windows?
-    # Normally we would symlink the required unix tools.
-    # However with the introduction of git-cache to speed up omnibus builds,
-    # we can't do that anymore since git on windows doesn't support symlinks.
-    # https://groups.google.com/forum/#!topic/msysgit/arTTH5GmHRk
-    # Therefore we copy the tools to the necessary places.
-    # We need tar for 'knife cookbook site install' to function correctly
-    {
-      'tar.exe'          => 'bsdtar.exe',
-      'libarchive-2.dll' => 'libarchive-2.dll',
-      'libexpat-1.dll'   => 'libexpat-1.dll',
-      'liblzma-1.dll'    => 'liblzma-1.dll',
-      'libbz2-2.dll'     => 'libbz2-2.dll',
-      'libz-1.dll'       => 'libz-1.dll',
-    }.each do |target, to|
-      copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
-    end
-  end
+  excluded_groups = %w{server docgen maintenance travis}
+  excluded_groups << 'ruby_prof' if aix?
 
   # install the whole bundle first
-  bundle "install --without server docgen", env: env
+  bundle "install --without #{excluded_groups.join(' ')}", env: env
 
   # Install components that live inside Chef's git repo. For now this is just
   # 'chef-config'
@@ -72,9 +66,7 @@ build do
   gem "build #{gemspec_name}", env: env
 
   # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
-  gem "install chef*.gem " \
-      " --no-ri --no-rdoc" \
-      " --verbose", env: env
+  gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
 
   # Always deploy the powershell modules in the correct place.
   if windows?
@@ -86,16 +78,17 @@ build do
   auxiliary_gems['ruby-shadow'] = '>= 0.0.0' unless aix? || windows?
 
   auxiliary_gems.each do |name, version|
-    gem "install #{name}" \
-        " --version '#{version}'" \
-        " --no-ri --no-rdoc" \
-        " --verbose", env: env
+    gem "install #{name} --version '#{version}' --no-ri --no-rdoc --verbose",
+        env: env
   end
 
   appbundle 'chef'
   appbundle 'ohai'
 
   # Clean up
+  # TODO: Move this cleanup to a more appropriate place that's common to all
+  # software we ship. Lot's of other dependencies and libraries we build for
+  # ChefDK create docs and man pages and those may occur after this build step.
   delete "#{install_dir}/embedded/docs"
   delete "#{install_dir}/embedded/share/man"
   delete "#{install_dir}/embedded/share/doc"

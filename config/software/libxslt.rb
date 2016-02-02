@@ -18,9 +18,11 @@ name "libxslt"
 default_version "1.1.28"
 
 dependency "libxml2"
-dependency "libtool" if solaris2?
 dependency "liblzma"
 dependency "config-guess"
+dependency "libtool" if solaris2?
+dependency "patch" if solaris2? || windows?
+dependency "mingw" if windows?
 
 version "1.1.26" do
   source md5: "e61d0364a30146aaa3001296f853b2b9"
@@ -35,19 +37,29 @@ source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 relative_path "libxslt-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
   copy "#{Omnibus::Config.source_dir}/config-guess/config.guess", "config.guess"
   copy "#{Omnibus::Config.source_dir}/config-guess/config.sub", "config.sub"
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --with-libxml-prefix=#{install_dir}/embedded" \
-          " --with-libxml-include-prefix=#{install_dir}/embedded/include" \
-          " --with-libxml-libs-prefix=#{install_dir}/embedded/lib" \
-          " --without-python" \
-          " --without-crypto", env: env
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
-  make "-j #{workers}", env: env
+  patch source: "libxslt-cve-2015-7995.patch", env: env
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris?
+  patch source: "libxslt-mingw32.patch", env: env if windows?
+
+  configure_commands = [
+    "--with-libxml-prefix=#{install_dir}/embedded",
+    "--with-libxml-include-prefix=#{install_dir}/embedded/include",
+    "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
+    "--without-python",
+    "--without-crypto",
+  ]
+
+  configure(*configure_commands, env: env)
+
+  if windows?
+    make env: env
+  else
+    make "-j #{workers}", env: env
+  end
   make "install", env: env
 end

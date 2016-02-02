@@ -51,25 +51,28 @@ build do
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
     # compatibility:
     # http://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/ncurses/patches/
-    patch source: "patch-aa", plevel: 0
-    patch source: "patch-ab", plevel: 0
-    patch source: "patch-ac", plevel: 0
-    patch source: "patch-ad", plevel: 0
-    patch source: "patch-cxx_cursesf.h", plevel: 0
-    patch source: "patch-cxx_cursesm.h", plevel: 0
+    patch source: "patch-aa", plevel: 0, env: env
+    patch source: "patch-ab", plevel: 0, env: env
+    patch source: "patch-ac", plevel: 0, env: env
+    patch source: "patch-ad", plevel: 0, env: env
+    patch source: "patch-cxx_cursesf.h", plevel: 0, env: env
+    patch source: "patch-cxx_cursesm.h", plevel: 0, env: env
 
     # Opscode patches - <someara@opscode.com>
     # The configure script from the pristine tarball detects xopen_source_extended incorrectly.
     # Manually working around a false positive.
-    patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0
+    patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0, env: env
   end
 
-  if version == "5.9"
-    # Update config.guess to support platforms made after 2010 (like aarch64)
-    patch source: "config_guess_2015-09-24.patch", plevel: 0
+  # AIX's old version of patch doesn't like the patches here
+  unless aix?
+    if version == "5.9"
+      # Update config.guess to support platforms made after 2010 (like aarch64)
+      patch source: "config_guess_2015-09-24.patch", plevel: 0, env: env
 
-    # Patch to add support for GCC 5, doesn't break previous versions
-    patch source: "ncurses-5.9-gcc-5.patch", plevel: 1
+      # Patch to add support for GCC 5, doesn't break previous versions
+      patch source: "ncurses-5.9-gcc-5.patch", plevel: 1, env: env
+    end
   end
 
   if mac_os_x? ||
@@ -82,11 +85,11 @@ build do
     # Patches ncurses for clang compiler. Changes have been accepted into
     # upstream, but occurred shortly after the 5.9 release. We should be able
     # to remove this after upgrading to any release created after June 2012
-    patch source: "ncurses-clang.patch"
+    patch source: "ncurses-clang.patch", env: env
   end
 
   if openbsd?
-    patch source: "patch-ncurses_tinfo_lib__baudrate.c", plevel: 0
+    patch source: "patch-ncurses_tinfo_lib__baudrate.c", plevel: 0, env: env
   end
 
   configure_command = [

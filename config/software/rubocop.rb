@@ -19,13 +19,7 @@ default_version "master"
 
 source git: "https://github.com/bbatsov/rubocop"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-end
-
+dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 

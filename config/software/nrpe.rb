@@ -34,7 +34,8 @@ build do
   command "sed -i 's:\\r::g' ./src/nrpe.c"
 
   patch source: "fix_for_runit.patch",
-        target: "./src/nrpe.c"
+        target: "./src/nrpe.c",
+        env: env
 
   # Configure it
   command "./configure" \
