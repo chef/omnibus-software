@@ -17,10 +17,16 @@
 name "cacerts"
 
 # Date of the file is in a comment at the start, or in the changelog
-default_version "2015.10.28"
+default_version "2016.01.20"
+
+version "2016.01.20" do
+  source md5: "36eee0e80373937dd90a9a334ae42817"
+  source url: "https://raw.githubusercontent.com/bagder/ca-bundle/dfcc02c918b7bf40ed3a7f27a634c74ef4e80829/ca-bundle.crt"
+end
 
 version "2015.10.28" do
-  source md5: "6f41fb0f0c4b4695c2a6296892278141"
+  source md5: "3c58c3f2435598a942dc37cdb02a3ec3"
+  source url: "https://raw.githubusercontent.com/bagder/ca-bundle/86347ecbdc2277f365d02f0d208b822a214e012d/ca-bundle.crt"
 end
 
 version "2015.09.02" do
