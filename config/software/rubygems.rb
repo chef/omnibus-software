@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,10 @@
 #
 
 name "rubygems"
-default_version "1.8.24"
 
 dependency "ruby"
 
-source git: 'https://github.com/rubygems/rubygems.git'
+source git: 'https://github.com/rubygems/rubygems.git' if version
 
 # NOTE: Originally we always installed rubygems from tarballs, but now we want
 # to default to pulling from git. Rubygems uses the leading "v" in their
@@ -91,7 +90,7 @@ version "jdm/2.4.8-patched" do
 end
 
 # tarballs get expanded as rubygems-xyz, git repo is always rubygems:
-if source.key?(:url)
+if source && source.key?(:url)
   relative_path "rubygems-#{version}"
 else
   relative_path "rubygems"
@@ -99,22 +98,26 @@ end
 
 
 build do
-  env = with_embedded_path
+  env = with_standard_compiler_flags(with_embedded_path)
 
-  ruby "setup.rb --no-ri --no-rdoc", env: env
+  if (version)
+    ruby "setup.rb --no-ri --no-rdoc", env: env
 
-  # TODO: Add a custom overrides flag here on whether we wish to register
-  # devkit/other system tools or not.
-  if windows?
-    if project.overrides[:ruby] && project.overrides[:ruby][:version] != "ruby-windows"
-      # Render our registration script and run it in the context of the embedded ruby.
-      erb source: 'register_devtools.rb.erb', dest: "#{project_dir}/register_devtools.rb",
+    # TODO: Add a custom overrides flag here on whether we wish to register
+    # devkit/other system tools or not.
+    if windows?
+      if project.overrides[:ruby] && project.overrides[:ruby][:version] != "ruby-windows"
+        # Render our registration script and run it in the context of the embedded ruby.
+        erb source: 'register_devtools.rb.erb', dest: "#{project_dir}/register_devtools.rb",
           vars: { paths: [ "#{install_dir}/embedded/bin", "#{install_dir}/embedded/msys/1.0/bin" ] }
-      ruby "register_devtools.rb", env: env
-    else
-      # After installing ruby, we need to rerun the command that patches devkit
-      # functionality into rubygems.
-      ruby "dk.rb install", env: env, cwd: "#{install_dir}/embedded"
+        ruby "register_devtools.rb", env: env
+      else
+        # After installing ruby, we need to rerun the command that patches devkit
+        # functionality into rubygems.
+        ruby "dk.rb install", env: env, cwd: "#{install_dir}/embedded"
+      end
     end
+  else
+    gem "update --system", env: env
   end
 end
