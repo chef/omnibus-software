@@ -182,11 +182,11 @@ build do
 
   configure_command = ["--with-out-ext=dbm",
                        "--enable-shared",
-                       "--with-ext=psych",
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
                        "--disable-dtrace"]
+  configure_command << "--with-ext=psych" if version.satisfies?('< 2.3')
   configure_command << "--enable-libedit" unless windows?
   configure_command << "--with-bundled-md5" if fips_enabled
 
