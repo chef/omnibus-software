@@ -23,7 +23,6 @@ dependency "openssl"
 dependency "pcre"
 dependency "libiconv"
 dependency "expat"
-dependency "perl"
 
 relative_path "git-#{version}"
 
@@ -51,6 +50,11 @@ build do
     "NEEDS_LIBICONV"       => "1",
     "NO_GETTEXT"           => "1",
     "NO_PYTHON"            => "1",
+    # Disabling perl - we don't currently need any of the provided
+    # functionality: https://github.com/git/git/blob/563e38491eaee6e02643a22c9503d4f774d6c5be/INSTALL#L102-L109
+    # Perl on certain platforms (like OSX) brings along libgcc as a dependency,
+    # which we'd like to avoid.
+    "NO_PERL"              => "1",
     "NO_R_TO_GCC_LINKER"   => "1",
     "NO_TCLTK"             => "1",
     "NO_INSTALL_HARDLINKS" => "1",
@@ -60,7 +64,6 @@ build do
     "ICONVDIR"   => "#{install_dir}/embedded",
     "LIBPCREDIR" => "#{install_dir}/embedded",
     "OPENSSLDIR" => "#{install_dir}/embedded",
-    "PERL_PATH"  => "#{install_dir}/embedded/bin/perl",
     "ZLIB_PATH"  => "#{install_dir}/embedded",
   )
 
@@ -89,7 +92,6 @@ build do
     configure_command << "ac_cv_header_libcharset_h=no"
     configure_command << "--with-curl=#{install_dir}/embedded"
     configure_command << "--with-expat=#{install_dir}/embedded"
-    configure_command << "--with-perl=#{install_dir}/embedded/bin/perl"
   end
 
   command configure_command.join(" "), env: env
