@@ -82,6 +82,11 @@ version "2.4.4.debug.1" do
   source git: 'https://github.com/danielsdeleo/rubygems'
 end
 
+version "2.5.2" do
+  source md5: "59d25b2148cc950fb2fd2b441d23954d", url: tarball_url
+  source.delete(:git)
+end
+
 # This is the 2.4.8 release with a fix for
 # windows so things like `gem install 'pry'` still
 # work
