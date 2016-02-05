@@ -22,10 +22,10 @@ dependency "rubygems"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem_command = [ "install pry" ]
+  gem_command = [ "install pry --no-ri --no-rdoc" ]
   gem_command << "--version '#{version}'" unless version.nil?
 
   gem gem_command.join(" "), env: env
 
-  gem "install pry-remote pry-byebug pry-stack_explorer"
+  gem "install pry-remote pry-byebug pry-stack_explorer --no-ri --no-rdoc"
 end
