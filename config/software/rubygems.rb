@@ -100,7 +100,7 @@ end
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if (version)
+  if version
     ruby "setup.rb --no-ri --no-rdoc", env: env
 
     # TODO: Add a custom overrides flag here on whether we wish to register
