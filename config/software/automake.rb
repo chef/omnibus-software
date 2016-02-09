@@ -19,7 +19,7 @@ default_version "1.11.2"
 
 dependency "autoconf"
 
-source url: "http://ftp.gnu.org/gnu/automake/automake-#{version}.tar.gz",
+source url: "https://ftp.gnu.org/gnu/automake/automake-#{version}.tar.gz",
        md5: "79ad64a9f6e83ea98d6964cef8d8a0bc"
 
 relative_path "automake-#{version}"

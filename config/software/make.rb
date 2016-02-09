@@ -17,7 +17,7 @@
 name "make"
 default_version "4.1"
 
-source url: "http://ftp.gnu.org/gnu/make/make-#{version}.tar.gz",
+source url: "https://ftp.gnu.org/gnu/make/make-#{version}.tar.gz",
        md5: "654f9117957e6fa6a1c49a8f08270ec9"
 
 relative_path "make-#{version}"
