@@ -75,11 +75,11 @@ version "2.4.8" do
 end
 
 version "v2.4.4_plus_debug" do
-  source git: 'https://github.com/danielsdeleo/rubygems'
+  source git: 'https://github.com/danielsdeleo/rubygems.git'
 end
 
 version "2.4.4.debug.1" do
-  source git: 'https://github.com/danielsdeleo/rubygems'
+  source git: 'https://github.com/danielsdeleo/rubygems.git'
 end
 
 version "2.5.2" do
@@ -92,7 +92,7 @@ end
 # work
 #
 version "jdm/2.4.8-patched" do
-  source git: 'https://github.com/jaym/rubygems'
+  source git: 'https://github.com/jaym/rubygems.git'
 end
 
 # tarballs get expanded as rubygems-xyz, git repo is always rubygems:

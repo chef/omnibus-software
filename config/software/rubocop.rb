@@ -17,7 +17,7 @@
 name "rubocop"
 default_version "master"
 
-source git: "https://github.com/bbatsov/rubocop"
+source git: "https://github.com/bbatsov/rubocop.git"
 
 dependency "ruby"
 dependency "rubygems"

@@ -17,7 +17,7 @@
 name "berkshelf"
 default_version "master"
 
-source git: "git://github.com/berkshelf/berkshelf"
+source git: "https://github.com/berkshelf/berkshelf.git"
 
 relative_path "berkshelf"
 

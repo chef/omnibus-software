@@ -17,7 +17,7 @@
 name "chef-vault"
 default_version "master"
 
-source git: "git://github.com/chef/chef-vault.git"
+source git: "https://github.com/chef/chef-vault.git"
 
 relative_path "chef-vault"
 

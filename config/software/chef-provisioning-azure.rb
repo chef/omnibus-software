@@ -17,7 +17,7 @@
 name "chef-provisioning-azure"
 default_version "master"
 
-source git: "git://github.com/chef/chef-provisioning-azure.git"
+source git: "https://github.com/chef/chef-provisioning-azure.git"
 
 dependency "ruby"
 dependency "rubygems"

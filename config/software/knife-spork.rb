@@ -17,7 +17,7 @@
 name "knife-spork"
 default_version "master"
 
-source git: "https://github.com/jonlives/knife-spork"
+source git: "https://github.com/jonlives/knife-spork.git"
 
 dependency "ruby"
 dependency "rubygems"

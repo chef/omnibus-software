@@ -17,7 +17,7 @@
 name "inspec"
 default_version "master"
 
-source git: "git://github.com/chef/inspec.git"
+source git: "https://github.com/chef/inspec.git"
 
 dependency "ruby"
 dependency "rubygems"
