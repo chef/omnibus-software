@@ -17,17 +17,16 @@
 name "nokogiri"
 
 dependency "ruby"
+dependency "rubygems-native"
 
-using_prebuilt_ruby = windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
-unless using_prebuilt_ruby
+compiled_ruby = project.overrides[:ruby] && project.overrides[:ruby][:version] == "compiled"
+if compiled_ruby
   dependency "libxml2"
   dependency "libxslt"
   dependency "libiconv"
   dependency "liblzma"
   dependency "zlib"
 end
-
-dependency "rubygems"
 
 #
 # NOTE: As of nokogiri 1.6.4 it will superficially 'work' to remove most
@@ -59,7 +58,7 @@ build do
   gem_command << "--version '#{version}'" unless version.nil?
 
   # windows uses the 'fat' precompiled binaries'
-  unless using_prebuilt_ruby
+  if compiled_ruby
     # Tell nokogiri to use the system libraries instead of compiling its own
     env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 

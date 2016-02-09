@@ -17,7 +17,7 @@
 require 'pathname'
 
 module OmnibusSoftware
-  VERSION = '4.0.0'
+  VERSION = '5.0.0'
 
   class << self
     #

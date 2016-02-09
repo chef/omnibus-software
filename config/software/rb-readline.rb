@@ -17,8 +17,9 @@
 name "rb-readline"
 default_version "master"
 
-dependency "ruby"
-dependency "rubygems"
+# This is only used when we compile our own ruby.
+# Pre-built rubies come with their own readline/libedit.
+dependency "ruby-compiled"
 
 source git: "https://github.com/ConnorAtherton/rb-readline.git"
 
