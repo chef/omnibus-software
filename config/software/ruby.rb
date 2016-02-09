@@ -42,10 +42,7 @@ if windows? && version == "ruby-windows"
     dependency "cacerts"
 else
 
-if windows?
-  dependency "mingw"
-  dependency "patch"
-else
+unless windows?
   dependency "patch" if solaris2?
   dependency "ncurses"
   dependency "libedit"

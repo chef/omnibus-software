@@ -17,12 +17,6 @@
 name "openssl-fips"
 default_version "2.0.10"
 
-if windows?
-  dependency "patch"
-  dependency "mingw"
-  dependency "perl"
-end
-
 version("2.0.9") { source md5: "c8256051d7a76471c6ad4fb771404e60" }
 version("2.0.10") { source sha256: "a42ccf5f08a8b510c0c78da1ba889532a0ce24e772b576604faf09b4d6a0f771" }
 version("2.0.11") { source sha256: "a6532875956d357a05838ca2c9865b8eecac211543e4246512684b17acbbdfac" }
