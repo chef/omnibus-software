@@ -17,7 +17,7 @@
 name "util-macros"
 default_version "1.18.0"
 
-source url: "https://xorg.freedesktop.org/releases/individual/util/util-macros-#{version}.tar.gz",
+source url: "http://xorg.freedesktop.org/releases/individual/util/util-macros-#{version}.tar.gz",
        md5: "fd0ba21b3179703c071bbb4c3e5fb0f4"
 
 relative_path "util-macros-#{version}"
