@@ -58,6 +58,8 @@ end
 
 build do
   ship_license "https://gist.githubusercontent.com/remh/41a4f7433c77841c302c/raw/d15db09a192ca0e51022005bfb4c3a414a996896/ncurse.LICENSE"
+  env.delete('CPPFLAGS')
+
   if ohai['platform'] == "smartos"
     # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
@@ -98,6 +100,7 @@ build do
            "--with-termlib",
            "--without-debug",
            "--without-normal", # AIX doesn't like building static libs
+           "--without-cxx-binding",
            "--enable-overwrite",
            "--enable-widec"]
 
@@ -115,6 +118,7 @@ build do
            "--with-termlib",
            "--without-debug",
            "--without-normal",
+           "--without-cxx-binding",
            "--enable-overwrite"]
   cmd_array << "--with-libtool" if ohai['platform'] == 'aix'
   command(cmd_array.join(" "),

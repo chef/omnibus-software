@@ -48,7 +48,6 @@ python_configure.push("--with-dbmliborder=")
 build do
   ship_license "PSFL"
   command python_configure.join(" "), :env => env
-  patch :source => "disable_sslv3.patch" if ohai['platform_family'] == 'mac_os_x'
   command "make -j #{workers}", :env => env
   command "make install", :env => env
   delete "#{install_dir}/embedded/lib/python2.7/test"
