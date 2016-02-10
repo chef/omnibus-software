@@ -32,7 +32,7 @@ version "1.0.2" do
   source md5: "dc40eb23e293448c6fc908757738003f"
 end
 
-source url: "http://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"
+source url: "https://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"
 
 relative_path "libsodium-#{version}"
 

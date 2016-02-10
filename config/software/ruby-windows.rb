@@ -29,7 +29,7 @@ if fips_enabled
   end
 elsif windows_arch_i386?
   relative_path "ruby-#{version}-i386-mingw32"
-  source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
+  source url: "https://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
   version("1.9.3-p484") { source md5: "a0665113aaeea83f1c4bea02fcf16694" }
   version("2.0.0-p451") { source md5: "37feadb0230e7f475a8591d1807ecfec" }
@@ -40,7 +40,7 @@ elsif windows_arch_i386?
   version("2.2.1") { source md5: "9f1beca535b2e60098d826eb7cb1b972" }
 else
   relative_path "ruby-#{version}-x64-mingw32"
-  source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-x64-mingw32.7z?direct"
+  source url: "https://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-x64-mingw32.7z?direct"
 
   version("2.0.0-p451") { source md5: "d4f6741138a26a4be12e684a16a19b75" }
   version("2.0.0-p645") { source md5: "d57d539b90f5bbf26550a9d1a3c33c33" }

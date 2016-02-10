@@ -22,7 +22,7 @@ if windows?
 else
   default_version "2.7"
   version("2.7") { source md5: "1cbaa223ff4991be9fae8ec1d11fb5ab" }
-  source url: "http://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
+  source url: "https://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
   relative_path "patch-#{version}"
 end
 

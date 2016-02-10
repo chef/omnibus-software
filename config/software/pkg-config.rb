@@ -23,7 +23,7 @@ version "0.28" do
   source md5: "aa3c86e67551adc3ac865160e34a2a0d"
 end
 
-source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
+source url: "https://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
 
 relative_path "pkg-config-#{version}"
 

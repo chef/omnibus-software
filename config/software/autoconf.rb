@@ -19,7 +19,7 @@ default_version "2.68"
 
 dependency "m4"
 
-source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
+source url: "https://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
        md5: "c3b5247592ce694f7097873aa07d66fe"
 
 relative_path "autoconf-#{version}"
