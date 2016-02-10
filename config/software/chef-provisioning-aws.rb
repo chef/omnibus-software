@@ -17,7 +17,7 @@
 name "chef-provisioning-aws"
 default_version "master"
 
-source git: "git://github.com/chef/chef-provisioning-aws.git"
+source git: "https://github.com/chef/chef-provisioning-aws.git"
 
 dependency "ruby"
 dependency "rubygems"

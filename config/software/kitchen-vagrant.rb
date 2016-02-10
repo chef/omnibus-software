@@ -17,7 +17,7 @@
 name "kitchen-vagrant"
 default_version "master"
 
-source git: "git://github.com/test-kitchen/kitchen-vagrant.git"
+source git: "https://github.com/test-kitchen/kitchen-vagrant.git"
 
 dependency "ruby"
 dependency "rubygems"
