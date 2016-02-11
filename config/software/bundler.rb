@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,21 +15,16 @@
 #
 
 name "bundler"
-default_version "1.10.6"
 
 dependency "rubygems"
-
-version "1.10.7.depsolverfix.0" do
-  source git: "https://github.com/chef/bundler.git"
-end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "1.10.7.depsolverfix.0"
-    gem "build bundler.gemspec"
-    gem "install bundler-#{version}.gem --no-ri --no-rdoc", env: env
-  else
-    gem "install bundler --version '#{version}' --no-ri --no-rdoc", env: env
-  end
+  v_opts = "--version '#{version}'" unless version.nil?
+  gem [
+    "install bundler",
+    v_opts,
+    "--no-ri --no-rdoc",
+  ].compact.join(" "), env: env
 end
