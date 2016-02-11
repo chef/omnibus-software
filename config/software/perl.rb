@@ -22,8 +22,13 @@ if windows?
 else
   default_version "5.18.1"
 
-  source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz",
-         md5: "304cb5bd18e48c44edd6053337d3386d"
+  version "5.22.1" do
+    source md5: "19295bbb775a3c36123161b9bf4892f1"
+  end
+  version "5.18.1" do
+    source md5: "304cb5bd18e48c44edd6053337d3386d"
+  end
+  source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
   relative_path "perl-#{version}"
 end
 

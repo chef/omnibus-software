@@ -19,6 +19,10 @@ default_version "0.28"
 
 dependency "libiconv"
 
+version "0.29" do
+  source md5: "77f27dce7ef88d0634d0d6f90e03a77f"
+end
+
 version "0.28" do
   source md5: "aa3c86e67551adc3ac865160e34a2a0d"
 end

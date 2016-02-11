@@ -21,8 +21,14 @@ dependency "perl"
 dependency "cpanminus"
 dependency "postgresql"
 
-source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz",
-       md5: "547de1382a47d66872912fe64282ff55"
+version "3.5.3" do
+  source md5: "21cdf31a8d1f77466920375aa766c164"
+end
+version "3.3.0" do
+  source md5: "547de1382a47d66872912fe64282ff55"
+end
+
+source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz"
 
 relative_path "DBD-Pg-#{version}"
 

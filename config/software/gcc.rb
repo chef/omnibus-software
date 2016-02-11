@@ -22,7 +22,9 @@ dependency "mpfr"
 dependency "mpc"
 dependency "libiconv"
 
+version("4.9.3")      { source md5: "648bfba342bb41a4b5350fb685f85bc5" }
 version("4.9.2")      { source md5: "76f464e0511c26c93425a9dcdc9134cf" }
+
 version("5.3.0")      { source md5: "39b5b6a0e769716a8e0a339adc79d8ad" }
 
 source url: "https://mirrors.kernel.org/gnu/gcc/gcc-#{version}/gcc-#{version}.tar.gz"

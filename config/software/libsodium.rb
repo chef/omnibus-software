@@ -25,11 +25,14 @@ dependency "libtool"
 
 
 # perhaps use git https://github.com/jedisct1/libsodium/
-version "0.7.1" do
-  source md5: "c224fe3923d1dcfe418c65c8a7246316"
+version "1.0.8" do
+  source md5: "0a66b86fd3aab3fe4c858edcd2772760"
 end
 version "1.0.2" do
   source md5: "dc40eb23e293448c6fc908757738003f"
+end
+version "0.7.1" do
+  source md5: "c224fe3923d1dcfe418c65c8a7246316"
 end
 
 source url: "https://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"

@@ -22,10 +22,11 @@ dependency "openssl"
 
 source url: "http://nginx.org/download/nginx-#{version}.tar.gz"
 
-version("1.4.4") { source md5: "5dfaba1cbeae9087f3949860a02caa9f" }
-version("1.4.7") { source md5: "aee151d298dcbfeb88b3f7dd3e7a4d17" }
-version("1.6.3") { source md5: "ea813aee2c344c2f5b66cdb24a472738" }
+version("1.9.1") { source md5: "fc054d51effa7c80a2e143bc4e2ae6a7" }
 version("1.8.0") { source md5: "3ca4a37931e9fa301964b8ce889da8cb" }
+version("1.6.3") { source md5: "ea813aee2c344c2f5b66cdb24a472738" }
+version("1.4.7") { source md5: "aee151d298dcbfeb88b3f7dd3e7a4d17" }
+version("1.4.4") { source md5: "5dfaba1cbeae9087f3949860a02caa9f" }
 
 relative_path "nginx-#{version}"
 

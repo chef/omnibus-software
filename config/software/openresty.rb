@@ -21,6 +21,7 @@ dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 
+version("1.9.7.3") { source md5: "33579b96a8c22bedee97eadfc99d9564" }
 version("1.9.7.2") { source md5: "78a263de11ff43c95e847f208cce0899" }
 version("1.9.3.1") { source md5: "cde1f7127f6ba413ee257003e49d6d0a" }
 version("1.7.10.2") { source md5: "bca1744196acfb9e986f1fdbee92641e" }
