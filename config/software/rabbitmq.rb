@@ -20,20 +20,11 @@ default_version "2.7.1"
 dependency "erlang"
 
 version("3.6.0") { source md5: "61a3822f3af0aaa30da7230dccb17067" }
-version("3.3.4") do
-  source md5: "61a3822f3af0aaa30da7230dccb17067",
-         url: "https://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz"
-end
-version("2.8.7") do
-  source md5: "35e8d78f8d7ae4372db23fe50db82c64",
-         url: "https://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz"
-end
-version("2.7.1") do
-  source md5: "34a5f9fb6f22e6681092443fcc80324f",
-         url: "https://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz"
-end
+version("3.3.4") { source md5: "61a3822f3af0aaa30da7230dccb17067" }
+version("2.8.7") { source md5: "35e8d78f8d7ae4372db23fe50db82c64" }
+version("2.7.1") { source md5: "34a5f9fb6f22e6681092443fcc80324f" }
 
-source url: "https://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.xz"
+source url: "https://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz"
 
 relative_path "rabbitmq_server-#{version}"
 

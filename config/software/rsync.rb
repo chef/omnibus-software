@@ -20,7 +20,7 @@ default_version "3.1.1"
 dependency "popt"
 
 version "3.1.2" do
-  source md5: "1be3ec9421f23e8eb7a06957992f6604"
+  source md5: "0f758d7e000c0f7f7d3792610fad70cb"
 end
 
 version "3.1.1" do

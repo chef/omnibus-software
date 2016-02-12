@@ -28,7 +28,7 @@ whitelist_file "jre/bin/appletviewer"
 version "8u74" do
   # https://www.oracle.com/webfolder/s/digest/8u74checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/server-jre-8u74-linux-x64.tar.gz",
-         md5: "4928d67633c5e5b397315b5cf5f8fa2e",
+         md5: "2c244c8071b7997219fe664ef1968adf",
          cookie:  "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie",
          warning: "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html",
          unsafe:  true
