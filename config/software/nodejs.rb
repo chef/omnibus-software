@@ -35,6 +35,8 @@ version "4.1.2" do
   source md5: "31a3ee2f51bb2018501048f543ea31c7"
 end
 
+# Warning: NodeJS 5.6.0 requires GCC >= 4.8
+
 source url: "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
 relative_path "node-v#{version}"
