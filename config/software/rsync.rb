@@ -19,7 +19,7 @@ default_version "3.1.1"
 
 dependency "popt"
 
-source url: "http://rsync.samba.org/ftp/rsync/src/rsync-#{version}.tar.gz",
+source url: "https://rsync.samba.org/ftp/rsync/src/rsync-#{version}.tar.gz",
        md5: "43bd6676f0b404326eee2d63be3cdcfe"
 
 relative_path "rsync-#{version}"

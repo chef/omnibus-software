@@ -22,7 +22,7 @@ version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }
 version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
 
 
-source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
+source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 
 relative_path "libtool-#{version}"
 

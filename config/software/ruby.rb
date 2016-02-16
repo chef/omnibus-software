@@ -83,7 +83,7 @@ version("2.2.3")      { source md5: "150a5efc5f5d8a8011f30aa2594a7654" }
 version("2.2.4")      { source md5: "9a5e15f9d5255ba37ace18771b0a8dd2" }
 version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 
-source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
+source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 relative_path "ruby-#{version}"
 
@@ -128,7 +128,12 @@ elsif solaris2?
 elsif windows?
   env['CPPFLAGS'] << " -DFD_SETSIZE=2048"
 else  # including linux
-  env['CFLAGS'] << " -O3 -g -pipe"
+  if version.satisfies?(">= 2.3.0") &&
+    rhel? && platform_version.satisfies?("< 6.0")
+    env['CFLAGS'] << " -O2 -g -pipe"
+  else
+    env['CFLAGS'] << " -O3 -g -pipe"
+  end
 end
 
 build do
@@ -182,11 +187,11 @@ build do
 
   configure_command = ["--with-out-ext=dbm",
                        "--enable-shared",
-                       "--with-ext=psych",
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
                        "--disable-dtrace"]
+  configure_command << "--with-ext=psych" if version.satisfies?('< 2.3')
   configure_command << "--enable-libedit" unless windows?
   configure_command << "--with-bundled-md5" if fips_enabled
 

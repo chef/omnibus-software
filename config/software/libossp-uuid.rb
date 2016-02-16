@@ -24,7 +24,7 @@ version "1.6.2" do
 end
 
 # ftp on ftp.ossp.org is unavaiable so we must use another mirror site.
-source url: "http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
+source url: "https://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
 
 relative_path "uuid-#{version}"
 

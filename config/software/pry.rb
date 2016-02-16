@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
 # limitations under the License.
 #
 
-name "icu"
-default_version "4.8.1.1"
+name "pry"
 
-source url: "http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.tgz",
-       md5: "ea93970a0275be6b42f56953cd332c17"
-
-relative_path "icu/source"
+dependency "ruby"
+dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure --prefix=#{install_dir}/embedded", env: env
-  make "-j #{workers}", env: env
-  make "install", env: env
+  gem_command = [ "install pry --no-ri --no-rdoc" ]
+  gem_command << "--version '#{version}'" unless version.nil?
+
+  gem gem_command.join(" "), env: env
+
+  gem "install pry-remote pry-byebug pry-stack_explorer --no-ri --no-rdoc"
 end

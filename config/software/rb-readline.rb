@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,23 +14,16 @@
 # limitations under the License.
 #
 
-name "spawn-fcgi"
-default_version "1.6.3"
+name "rb-readline"
+default_version "master"
 
-dependency "fcgi"
-dependency "fcgiwrap"
+dependency "ruby"
+dependency "rubygems"
 
-source url: "http://www.lighttpd.net/download/spawn-fcgi-#{version}.tar.gz",
-       md5: "6d75f9e9435056fa1e574d836d823cd0"
-
-relative_path "spawn-fcgi-#{version}"
+source git: "https://github.com/ConnorAtherton/rb-readline.git"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_embedded_path
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
-
-  make "-j #{workers}", env: env
-  make "install", env: env
+  ruby "setup.rb", env: env
 end

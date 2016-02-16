@@ -18,7 +18,7 @@ name "libyajl2-gem"
 default_version "master"
 relative_path "libyajl2-gem"
 
-source git: "git://github.com/opscode/libyajl2-gem"
+source git: "https://github.com/opscode/libyajl2-gem.git"
 
 dependency "ruby"
 dependency "rubygems"

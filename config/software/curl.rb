@@ -20,7 +20,7 @@ default_version "7.36.0"
 dependency "zlib"
 dependency "openssl"
 
-source url: "http://curl.haxx.se/download/curl-#{version}.tar.gz",
+source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz",
        md5: "643a7030b27449e76413d501d4b8eb57"
 
 relative_path "curl-#{version}"

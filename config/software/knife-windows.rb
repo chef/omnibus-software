@@ -17,7 +17,7 @@
 name "knife-windows"
 default_version "master"
 
-source git: "https://github.com/chef/knife-windows"
+source git: "https://github.com/chef/knife-windows.git"
 
 dependency "ruby"
 dependency "rubygems"

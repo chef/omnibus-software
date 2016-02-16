@@ -17,7 +17,7 @@
 name "chef-provisioning-fog"
 default_version "master"
 
-source git: "git://github.com/chef/chef-provisioning-fog.git"
+source git: "https://github.com/chef/chef-provisioning-fog.git"
 
 dependency "ruby"
 dependency "rubygems"

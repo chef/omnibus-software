@@ -25,7 +25,7 @@ dependency "libiconv"
 version("4.9.2")      { source md5: "76f464e0511c26c93425a9dcdc9134cf" }
 version("5.3.0")      { source md5: "39b5b6a0e769716a8e0a339adc79d8ad" }
 
-source url: "http://mirrors.kernel.org/gnu/gcc/gcc-#{version}/gcc-#{version}.tar.gz"
+source url: "https://mirrors.kernel.org/gnu/gcc/gcc-#{version}/gcc-#{version}.tar.gz"
 
 relative_path "gcc-#{version}"
 

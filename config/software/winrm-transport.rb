@@ -17,7 +17,7 @@
 name "winrm-transport"
 default_version "master"
 
-source git: "https://github.com/test-kitchen/winrm-transport"
+source git: "https://github.com/test-kitchen/winrm-transport.git"
 
 dependency "ruby"
 dependency "rubygems"
