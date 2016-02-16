@@ -24,6 +24,6 @@ source git: "http://git.savannah.gnu.org/r/config.git"
 relative_path "config-guess"
 
 build do
-  copy "config-guess/config.guess", "#{Omnibus::Config.source_dir}/config-guess/config.guess"
-  copy "config-guess/config.sub", "#{Omnibus::Config.source_dir}/config-guess/config.sub"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config-guess/config.guess", "#{Omnibus::Config.source_dir}/config-guess/config.guess"
+  copy "#{Omnibus::Config.source_dir}/config-guess/config-guess/config.sub", "#{Omnibus::Config.source_dir}/config-guess/config.sub"
 end
