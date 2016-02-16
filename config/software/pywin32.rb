@@ -20,4 +20,7 @@ build do
     # Switch on the architecture
     pip "install pywin32-#{version}-cp27-none-win_amd64.whl "\
              "--install-option=\"--prefix=#{windows_safe_path(install_dir)}\\embedded\""
+    # Otherwise pywintypes doesn't work (found with Python 2.7.11)
+    win32_lib_path = "#{windows_safe_path(install_dir)}\\embedded\\Lib\\site-packages\\win32"
+    command "cp \"#{win32_lib_path}\\*27.dll\" \"#{win32_lib_path}\\lib\""
 end
