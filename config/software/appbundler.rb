@@ -15,7 +15,6 @@
 #
 
 name "appbundler"
-default_version "0.6.0"
 
 dependency "rubygems"
 dependency "bundler"
@@ -23,7 +22,12 @@ dependency "bundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install appbundler" \
-      " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+  gem_command = [
+    "install appbundler",
+    " --no-ri --no-rdoc",
+  ]
+
+  gem_command << " --version '#{version}'" unless version.nil?
+
+  gem gem_command, env: env
 end
