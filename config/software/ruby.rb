@@ -32,16 +32,6 @@ end
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
-if windows? && version == "ruby-windows"
-    dependency "ruby-windows"
-    dependency "ruby-windows-devkit"
-    dependency "ruby-windows-devkit-bash"
-    # The custom yakyakyak ruby build comes with openssl and the FIPS module.
-    # Don't clobber it.
-    dependency "openssl-windows" unless fips_enabled
-    dependency "cacerts"
-else
-
 if windows?
   dependency "mingw"
   dependency "patch"
@@ -251,5 +241,3 @@ build do
   end
 
 end
-
-end # if windows? && version == 'ruby-windows'
