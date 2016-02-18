@@ -44,6 +44,16 @@ build do
   elsif freebsd?
     # Should this just be in standard_compiler_flags?
     env['LDFLAGS'] += " -Wl,-rpath,#{install_dir}/embedded/lib"
+  elsif windows?
+    # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
+    # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
+    # and the 32-bit calling convention involving XMM registers is...  vague.
+    # Do not enable SSE2 generally because the hand optimized assembly will
+    # overwrite registers that mingw expects to get preserved.
+    arch_flag = windows_arch_i386? ? "-m32" : "-m64"
+    env['CFLAGS'] = "-I#{install_dir}/embedded/include #{arch_flag}"
+    env['CPPFLAGS'] = env['CFLAGS']
+    env['CXXFLAGS'] = env['CFLAGS']
   end
 
   configure_args = [
