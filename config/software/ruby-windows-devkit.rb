@@ -17,7 +17,7 @@
 name "ruby-windows-devkit"
 default_version "4.7.2-20130224"
 
-dependency "ruby-windows"
+dependency "ruby"
 
 if windows_arch_i386?
   version "4.5.2-20111229-1559" do

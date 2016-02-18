@@ -17,11 +17,6 @@
 name "libyaml"
 default_version '0.1.6'
 
-if windows?
-  dependency "mingw"
-  dependency "patch"
-end
-
 source url: "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz",
        md5: '5fe00cda18ca5daeb43762b80c38e06e'
 
