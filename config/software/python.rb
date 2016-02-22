@@ -72,7 +72,7 @@ else
   if ohai['kernel']['machine'] == 'x86_64'
     msi_name = "python-#{version}.amd64.msi"
     source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.amd64.msi",
-           :md5 => '25acca42662d4b02682eee0df3f3446d'
+           :md5 => '35f5c301beab341f6f6c9785939882ee'
   else
     msi_name = "python-#{version}.msi"
     source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.msi",
