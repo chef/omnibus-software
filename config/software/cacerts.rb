@@ -28,6 +28,11 @@ version "2015.10.28" do
   source url: "https://raw.githubusercontent.com/bagder/ca-bundle/86347ecbdc2277f365d02f0d208b822a214e012d/ca-bundle.crt"
 end
 
+version "2014.08.20" do
+  source md5: "c9f4f7f4d6a5ef6633e893577a09865e"
+  source url: "http://curl.haxx.se/ca/cacert.pem"
+end
+
 relative_path "cacerts-#{version}"
 
 build do
@@ -35,12 +40,12 @@ build do
 
   # Append the 1024bit Verisign certs so that S3 continues to work
   block do
-    unless File.foreach("#{project_dir}/ca-bundle.crt").grep(/^Verisign Class 3 Public Primary Certification Authority$/).any?
-      File.open("#{project_dir}/ca-bundle.crt", "a") { |fd| fd.write(VERISIGN_CERTS) }
+    unless File.foreach("#{project_dir}/cacert.pem").grep(/^Verisign Class 3 Public Primary Certification Authority$/).any?
+      File.open("#{project_dir}/cacert.pem", "a") { |fd| fd.write(VERISIGN_CERTS) }
     end
   end
 
-  copy "#{project_dir}/ca-bundle.crt", "#{install_dir}/embedded/ssl/certs/cacert.pem"
+  copy "#{project_dir}/cacert.pem", "#{install_dir}/embedded/ssl/certs/cacert.pem"
 
   # Windows does not support symlinks
   unless windows?
