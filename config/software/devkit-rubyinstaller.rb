@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,16 @@
 # limitations under the License.
 #
 
-name "ruby-windows-devkit"
-default_version "4.7.2-20130224"
+# Brings you a compiler toolchain from Ruby's devkit.
+# It is not recommended that you depend on this software definition directly.
+# It only works on windows and is not very general. If you simply need some
+# platform appropriate toolchain, you should use the build-essentials cookbook
+# to fetch such a toolchain for your builder and put it in the path. If you
+# actively wish to vendor a toolchain (say for rubygems), you should look at
+# rubygems-native.rb instead.
 
-dependency "ruby-windows"
+name "devkit-rubyinstaller"
+default_version "4.7.2-20130224"
 
 if windows_arch_i386?
   version "4.5.2-20111229-1559" do
@@ -40,32 +46,9 @@ else
            md5: "ce99d873c1acc8bffc639bd4e764b849"
   end
 end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-
   embedded_dir = "#{install_dir}/embedded"
-
   command "#{project_file} -y -o#{windows_safe_path(embedded_dir)}", env: env
-
-  command "echo - #{install_dir}/embedded > config.yml", cwd: embedded_dir
-  ruby "dk.rb install", env: env, cwd: embedded_dir
-
-  # Normally we would symlink the required unix tools.
-  # However with the introduction of git-cache to speed up omnibus builds,
-  # we can't do that anymore since git on windows doesn't support symlinks.
-  # https://groups.google.com/forum/#!topic/msysgit/arTTH5GmHRk
-  # Therefore we copy the tools to the necessary places.
-  # We need tar for 'knife cookbook site install' to function correctly and
-  # many gems that ship with native extensions assume tar will be available
-  # in the PATH.
-  {
-    'tar.exe'          => 'bsdtar.exe',
-    'libarchive-2.dll' => 'libarchive-2.dll',
-    'libexpat-1.dll'   => 'libexpat-1.dll',
-    'liblzma-1.dll'    => 'liblzma-1.dll',
-    'libbz2-2.dll'     => 'libbz2-2.dll',
-    'libz-1.dll'       => 'libz-1.dll',
-  }.each do |target, to|
-    copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
-  end
 end

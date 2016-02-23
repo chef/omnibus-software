@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,20 +14,10 @@
 # limitations under the License.
 #
 
-name "ruby-windows"
+name "ruby-rubyinstaller"
 default_version "2.0.0-p451"
 
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
-if fips_enabled
-  # We only currently support 32-bit FIPS builds
-  if windows_arch_i386?
-    relative_path "ruby-#{version}-i386-mingw32"
-    source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-#{version}-i386-mingw32.7z"
-
-    version("2.0.0-p647") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
-  end
-elsif windows_arch_i386?
+if windows_arch_i386?
   relative_path "ruby-#{version}-i386-mingw32"
   source url: "https://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
@@ -52,7 +42,7 @@ end
 
 build do
 
-  sync "#{project_dir}/", "#{install_dir}/embedded"
+  copy "*", "#{install_dir}/embedded"
 
   # Ruby 2.X dl.rb gives an annoying warning message on Windows:
   # DL is deprecated, please use Fiddle

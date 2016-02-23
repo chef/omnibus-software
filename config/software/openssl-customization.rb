@@ -22,8 +22,6 @@ name "openssl-customization"
 
 source path: "#{project.files_path}/#{name}"
 
-dependency "ruby"
-
 build do
   block "Add OpenSSL customization file" do
     # gets directories for RbConfig::CONFIG and sanitizes them.
@@ -59,14 +57,6 @@ build do
         unpatched_openssl_rb = f.read
         f.rewind
         f.write("\nrequire 'ssl_env_hack'\n")
-        f.write(unpatched_openssl_rb)
-      end
-    else
-      embedded_ruby_lib_dir  = get_sanitized_rbconfig('rubylibdir')
-      source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
-      File.open(source_openssl_rb, "r+") do |f|
-        unpatched_openssl_rb = f.read
-        f.rewind
         f.write(unpatched_openssl_rb)
       end
     end

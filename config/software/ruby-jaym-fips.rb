@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014 Opscode, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,18 +14,17 @@
 # limitations under the License.
 #
 
-name "ruby-windows-devkit-bash"
-default_version "3.1.23-4-msys-1.0.18"
+name "ruby-jaym-fips"
+default_version "2.0.0-p647"
 
-dependency "ruby-windows-devkit"
-source url: "https://github.com/opscode/msys-bash/releases/download/bash-#{version}/bash-#{version}-bin.tar.lzma",
-       md5: "22d5dbbd9bd0b3e0380d7a0e79c3108e"
+# We only currently support 32-bit FIPS builds
+if windows_arch_i386?
+  relative_path "ruby-#{version}-i386-mingw32"
+  source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-#{version}-i386-mingw32.7z"
 
-relative_path 'bin'
+  version("2.0.0-p647") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
+end
 
 build do
-  # Copy over the required bins into embedded/bin
-  ["bash.exe", "sh.exe"].each do |exe|
-    copy "#{exe}", "#{install_dir}/embedded/bin/#{exe}"
-  end
+  copy "*", "#{install_dir}/embedded"
 end

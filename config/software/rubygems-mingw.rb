@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,34 +14,25 @@
 # limitations under the License.
 #
 
-name "berkshelf"
-default_version "master"
+# Vendors our custom mingw/msys compiler environment along with the latest
+# rubygems.
+# Do no depend on this software definition directly. You probably want to
+# include rubygems-native instead.
+#
+# TODO: We don't currently vendor any implementation of tar. Do that either
+# here or as part of the mingw software definition.
 
-source git: "https://github.com/berkshelf/berkshelf.git"
-
-relative_path "berkshelf"
+name "rubygems-mingw"
+default_version "0.0.1"
 
 dependency "ruby"
 dependency "rubygems"
-
-compiled_ruby = project.overrides[:ruby] && project.overrides[:ruby][:version] == "compiled"
-if compiled_ruby
-  dependency "libarchive"
-end
-
-dependency "nokogiri"
-dependency "bundler"
-dependency "dep-selector-libgecode"
+dependency "mingw"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install" \
-         " --jobs #{workers}" \
-         " --without guard", env: env
-
-  bundle "exec thor gem:build", env: env
-
-  gem "install pkg/berkshelf-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  erb source: 'register_devtools.rb.erb', dest: "#{project_dir}/register_devtools.rb",
+    vars: { paths: [ "#{install_dir}/embedded/bin", "#{install_dir}/embedded/msys/1.0/bin" ] }
+  ruby "register_devtools.rb", env: env
 end

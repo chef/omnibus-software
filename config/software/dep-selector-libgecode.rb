@@ -17,7 +17,7 @@
 name "dep-selector-libgecode"
 default_version "1.0.2"
 
-dependency "rubygems"
+dependency "rubygems-native"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

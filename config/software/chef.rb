@@ -41,7 +41,7 @@ end
 relative_path "chef"
 
 dependency "ruby"
-dependency "rubygems"
+dependency "rubygems-native"
 dependency "bundler"
 dependency "ohai"
 dependency "appbundler"

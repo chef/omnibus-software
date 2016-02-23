@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
 # limitations under the License.
 #
 
-name "chef-gem"
-default_version "11.12.2"
+name "devkit-rubyinstaller-bash"
+default_version "3.1.23-4-msys-1.0.18"
 
-dependency "ruby"
-dependency "rubygems-native"
-dependency "libffi"
+dependency "devkit-rubyinstaller"
+source url: "https://github.com/opscode/msys-bash/releases/download/bash-#{version}/bash-#{version}-bin.tar.lzma",
+       md5: "22d5dbbd9bd0b3e0380d7a0e79c3108e"
+
+relative_path 'bin'
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
-  gem "install chef" \
-      " --version '#{version}'" \
-      " --bindir '#{install_dir}/embedded/bin'" \
-      " --no-ri --no-rdoc", env: env
+  # Copy over the required bins into embedded/bin
+  ["bash.exe", "sh.exe"].each do |exe|
+    copy "#{exe}", "#{install_dir}/embedded/bin/#{exe}"
+  end
 end

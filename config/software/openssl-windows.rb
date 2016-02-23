@@ -17,8 +17,6 @@
 name "openssl-windows"
 default_version "1.0.1r"
 
-dependency "ruby-windows"
-
 if windows_arch_i386?
   version('1.0.1r') do
     source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1r/openssl-1.0.1r-x86-windows.tar.lzma",
