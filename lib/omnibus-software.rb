@@ -15,10 +15,10 @@
 #
 
 require 'pathname'
+require 'omnibus'
+require 'highline'
 
 module OmnibusSoftware
-  VERSION = '4.0.0'
-
   class << self
     #
     # The root where Omnibus Software lives.
@@ -37,19 +37,77 @@ module OmnibusSoftware
     # @return [void]
     #
     def verify!
-      require 'omnibus'
-      Omnibus::Config.local_software_dirs(OmnibusSoftware.root)
+      for_each_software do |_software|
+        $stdout.print '.'
+      end
+    end
 
-      project = Omnibus::Project.new.evaluate do
+    def fetch(name, path)
+      fetch_software(load_software(name), path)
+    end
+
+    def fetch_all(path)
+      for_each_software do |software|
+        # only fetch net_fetcher sources for now
+        next if software.source.nil? || software.source[:url].nil?
+        fetch_software(software, path)
+      end
+    end
+
+    def fetch_software(software, path)
+      Omnibus::Config.cache_dir File.expand_path(path)
+      Omnibus::Config.use_s3_caching false
+      Omnibus.logger.level = :debug
+      puts "Fetching #{software.name}"
+      software.fetcher.fetch
+    end
+
+    def list
+      Omnibus.logger.level = :fatal
+      h = HighLine.new
+      for_output = ["Name", "Default Version", "Source"]
+      for_each_software do |software|
+        for_output += [software.name, software.default_version, maybe_source(software.source)]
+      end
+      puts h.list(for_output, :uneven_columns_across, 3)
+    end
+
+    private
+
+    def maybe_source(source)
+      if source
+        if source[:git]
+          "GIT #{source[:git]}"
+        elsif source[:url]
+          "NET #{source[:url]}"
+        else
+          "OTHER"
+        end
+      else
+        "NONE"
+      end
+    end
+
+    def fake_project
+      @fake_project ||= Omnibus::Project.new.evaluate do
         name 'project.sample'
         install_dir 'tmp/project.sample'
       end
+    end
 
-      root = OmnibusSoftware.root.join('config/software')
-      Dir.glob("#{root}/*.rb").each do |filepath|
+    def software_dir
+      OmnibusSoftware.root.join('config/software')
+    end
+
+    def load_software(software_name)
+      Omnibus::Config.local_software_dirs(OmnibusSoftware.root)
+      Omnibus::Software.load(fake_project, software_name, nil)
+    end
+
+    def for_each_software
+      Dir.glob("#{software_dir}/*.rb").each do |filepath|
         name = File.basename(filepath, '.rb')
-        Omnibus::Software.load(project, name, nil)
-        $stdout.print '.'
+        yield load_software(name)
       end
     end
   end
