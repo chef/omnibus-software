@@ -15,7 +15,7 @@
 #
 
 name "server-jre"
-default_version "8u31"
+default_version "8u74"
 raise "Server-jre can only be installed on x86_64 systems." unless _64_bit?
 
 whitelist_file "jre/bin/javaws"
@@ -23,6 +23,15 @@ whitelist_file "jre/bin/policytool"
 whitelist_file "jre/lib"
 whitelist_file "jre/plugin"
 whitelist_file "jre/bin/appletviewer"
+
+version "8u74" do
+  source url:     "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/server-jre-8u74-linux-x64.tar.gz",
+         md5:     "2c244c8071b7997219fe664ef1968adf",
+         cookie:  "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie",
+         warning: "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html",
+         unsafe:  true
+  relative_path "jdk1.8.0_74"
+end
 
 version "8u31" do
   source url:     "http://download.oracle.com/otn-pub/java/jdk/8u31-b13/server-jre-8u31-linux-x64.tar.gz",
