@@ -25,7 +25,7 @@ dependency "makedepend"
 
 default_version "1.0.1q"
 source url: "http://www.openssl.org/source/#{name}-#{version}.tar.gz",
-       md5: "54538d0cdcb912f9bc2b36268388205e"
+       sha256: "b3658b84e9ea606a5ded3c972a5517cd785282e7ea86b20c78aa4b773a047fb7"
 
 relative_path "openssl-#{version}"
 
