@@ -17,6 +17,9 @@
 name "libxml2"
 default_version "2.9.3"
 
+license "MIT"
+license_file "COPYING"
+
 dependency "zlib"
 dependency "libiconv"
 dependency "liblzma"

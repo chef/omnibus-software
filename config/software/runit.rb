@@ -17,6 +17,9 @@
 name "runit"
 default_version "2.1.1"
 
+license "New BSD"
+license_file "../package/COPYING"
+
 version "2.1.2" do
   source md5: "6c985fbfe3a34608eb3c53dc719172c4"
 end

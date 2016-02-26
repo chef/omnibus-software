@@ -18,6 +18,11 @@ name "ruby-windows"
 
 default_version "2.0.0-p451"
 
+license "2-Clause BSD"
+license_file "BSDL"
+license_file "COPYING"
+license_file "LEGAL"
+
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
 if fips_enabled

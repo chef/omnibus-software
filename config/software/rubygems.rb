@@ -16,6 +16,9 @@
 
 name "rubygems"
 
+license "MIT"
+license_file "LICENSE.txt"
+
 dependency "ruby"
 
 source git: 'https://github.com/rubygems/rubygems.git' if version

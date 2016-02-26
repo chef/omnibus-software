@@ -17,6 +17,9 @@
 name "popt"
 default_version "1.16"
 
+license "MIT"
+license_file "COPYING"
+
 source url: "http://rpm5.org/files/popt/popt-#{version}.tar.gz",
        md5: "3743beefa3dd6247a73f8f7a32c14c33"
 

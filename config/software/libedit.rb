@@ -17,6 +17,9 @@
 name "libedit"
 default_version "20120601-3.0"
 
+license "BSD 3-Clause"
+license_file "COPYING"
+
 dependency "ncurses"
 
 version("20150325-3.1") { source md5: "43cdb5df3061d78b5e9d59109871b4f6" }

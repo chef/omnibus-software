@@ -19,6 +19,10 @@ default_version "8u74"
 
 raise "Server-jre can only be installed on x86_64 systems." unless _64_bit?
 
+license "Oracle Binary Code License"
+license_file "LICENSE"
+license_file "http://java.com/license"
+
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
 whitelist_file "jre/lib"

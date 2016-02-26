@@ -16,6 +16,9 @@
 name "chef"
 default_version "master"
 
+license "Apache 2.0"
+license_file "LICENSE"
+
 # For the specific super-special version "local_source", build the source from
 # the local git checkout. This is what you'd want to occur by default if you
 # just ran omnibus build locally.

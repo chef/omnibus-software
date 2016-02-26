@@ -17,6 +17,9 @@
 name "erlang"
 default_version "R15B03-1"
 
+license "Erlang Public License"
+license_file "EPLICENCE"
+
 dependency "zlib"
 dependency "openssl"
 dependency "ncurses"

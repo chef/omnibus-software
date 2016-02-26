@@ -17,6 +17,9 @@
 name "nodejs"
 default_version "0.10.10"
 
+license "MIT"
+license_file "LICENSE"
+
 dependency "python"
 
 version "0.10.10" do

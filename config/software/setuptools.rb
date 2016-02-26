@@ -17,6 +17,8 @@
 name "setuptools"
 default_version "0.7.7"
 
+license "Python Software Foundation"
+
 dependency "python"
 
 version "0.9.8" do

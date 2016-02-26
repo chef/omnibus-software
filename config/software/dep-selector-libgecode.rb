@@ -17,6 +17,9 @@
 name "dep-selector-libgecode"
 default_version "1.0.2"
 
+license "Apache 2.0"
+license_file "https://github.com/chef/dep-selector-libgecode/blob/master/LICENSE.txt"
+
 dependency "rubygems"
 
 build do

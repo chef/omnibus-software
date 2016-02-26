@@ -17,6 +17,9 @@
 name "pkg-config-lite"
 default_version "0.28-1"
 
+license "GPL v2"
+license_file "COPYING"
+
 version "0.28-1" do
   source md5: "61f05feb6bab0a6bbfab4b6e3b2f44b6"
 end

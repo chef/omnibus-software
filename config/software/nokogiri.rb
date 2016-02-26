@@ -16,6 +16,9 @@
 
 name "nokogiri"
 
+license "MIT"
+license_file "https://github.com/sparklemotion/nokogiri/blob/master/LICENSE.txt"
+
 dependency "ruby"
 
 using_prebuilt_ruby = windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")

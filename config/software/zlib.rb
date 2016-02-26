@@ -26,6 +26,9 @@ end
 
 source url: "http://iweb.dl.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
 
+license "Zlib"
+license_file "README"
+
 relative_path "zlib-#{version}"
 
 build do

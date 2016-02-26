@@ -17,6 +17,9 @@
 name "rabbitmq"
 default_version "2.7.1"
 
+license "MPL"
+license_file "LICENSE"
+
 dependency "erlang"
 
 version("3.6.0") { source md5: "61a3822f3af0aaa30da7230dccb17067" }

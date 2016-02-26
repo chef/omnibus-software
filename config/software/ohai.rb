@@ -18,6 +18,9 @@
 name "ohai"
 default_version "master"
 
+license "Apache 2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/opscode/ohai.git"
 
 relative_path "ohai"
