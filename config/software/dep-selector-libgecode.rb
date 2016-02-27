@@ -37,4 +37,18 @@ build do
   gem "install dep-selector-libgecode" \
       " --version '#{version}'" \
       " --no-ri --no-rdoc", env: env
+
+  if windows?
+    block "Clean up large object files" do
+      # find the embedded rubygems dir and clean it up for globbing
+      gem_dir = "#{install_dir}/embedded/lib/ruby/gems/*/gems".gsub(/\\/, '/')
+
+      # find all the static *.a files in the dep-selector-libgecode gem(s)
+      # we don't use and delete them
+      Dir.glob("#{gem_dir}/dep-selector-libgecode*/**/*.a").each do |f|
+        puts "Deleting #{f}"
+        File.delete(f)
+      end
+    end
+  end
 end
