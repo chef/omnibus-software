@@ -1,5 +1,9 @@
 rvm: 2.1.2
 sudo: false
+branches:
+  only:
+    - master
+    - omnibus/3.2-stable
 
 bundler_args: --jobs 7
 
