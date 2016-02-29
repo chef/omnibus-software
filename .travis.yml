@@ -1,4 +1,5 @@
 rvm: 2.1.2
+sudo: false
 
 bundler_args: --jobs 7
 
