@@ -37,8 +37,8 @@ build do
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
-          ' --enable-utf' \
-          ' --enable-unicode-properties' \
+          " --enable-utf" \
+          " --enable-unicode-properties" \
           " --enable-pcretest-libedit", env: env
 
   make "-j #{workers}", env: env
