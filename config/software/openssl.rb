@@ -24,13 +24,13 @@ dependency "makedepend" unless aix? || windows?
 dependency "patch" if solaris2?
 dependency "openssl-fips" if fips_enabled
 
-default_version "1.0.1r"
+default_version "1.0.1s"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
-version("1.0.1r") { source md5: "1abd905e079542ccae948af37e393d28" }
+version("1.0.1s") { source md5: "1abd905e079542ccae948af37e393d28" }
 
 relative_path "openssl-#{version}"
 
