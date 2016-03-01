@@ -30,7 +30,7 @@ default_version "1.0.1s"
 # Skip error checking.
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
-version("1.0.1s") { source md5: "1abd905e079542ccae948af37e393d28" }
+version("1.0.1s") { source md5: "562986f6937aabc7c11a6d376d8a0d26" }
 
 relative_path "openssl-#{version}"
 
