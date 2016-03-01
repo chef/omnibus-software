@@ -23,8 +23,8 @@ build do
    command "#{gobin} get -u github.com/shirou/gopsutil", :env => env
    command "git checkout v2.0.0", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/src/datadog-gohai/src/github.com/shirou/gopsutil"
    command "#{gobin} get -u github.com/cihub/seelog", :env => env
-   command "git checkout v2.6", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/datadog-gohai/src/github.com/cihub/seelog"
+   command "git checkout v2.6", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/src/datadog-gohai/src/github.com/cihub/seelog"
    # Checkout and build gohai
-   command "git checkout #{version} && git pull", :env => env, :cwd => "/var/cache/omnibus/src/datadog-gohai/src/github.com/DataDog/gohai"
-   command "cd $GOPATH/src/github.com/DataDog/gohai && #{gobin} run make.go '#{gobin}' && mv gohai #{install_dir}/bin/gohai", :env => env
+   command "git checkout #{version} && git pull", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/src/datadog-gohai/src/github.com/DataDog/gohai"
+   command "cd $GOPATH/src/github.com/DataDog/gohai && #{gobin} run make.go #{gobin} && mv gohai #{install_dir}/bin/gohai", :env => env
 end
