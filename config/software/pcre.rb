@@ -15,7 +15,7 @@
 #
 
 name "pcre"
-default_version "8.31"
+default_version "8.38"
 
 dependency "libedit"
 dependency "ncurses"
@@ -30,7 +30,6 @@ end
 
 source url: "http://iweb.dl.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
 
-
 relative_path "pcre-#{version}"
 
 build do
@@ -38,6 +37,8 @@ build do
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
+          " --enable-utf" \
+          " --enable-unicode-properties" \
           " --enable-pcretest-libedit", env: env
 
   make "-j #{workers}", env: env
