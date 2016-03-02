@@ -22,6 +22,10 @@ dependency "openssl"
 
 source url: "http://www.keepalived.org/software/keepalived-#{version}.tar.gz"
 
+version "1.2.19" do
+  source md5: "5c98b06639dd50a6bff76901b53febb6"
+end
+
 version "1.2.9" do
   source md5: "adfad98a2cc34230867d794ebc633492"
 end
@@ -49,5 +53,3 @@ build do
   make "-j #{workers}", env: env
   make "install", env: env
 end
-
-

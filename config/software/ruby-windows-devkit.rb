@@ -27,11 +27,6 @@ if windows_arch_i386?
     source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-32-#{version}-1151-sfx.exe",
            md5: "9383f12958aafc425923e322460a84de"
   end
-
-  version "4.7.2-20130224-1151" do
-    source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-32-#{version}-sfx.exe",
-           md5: "9383f12958aafc425923e322460a84de"
-  end
 else
   version "4.7.2-20130224" do
     source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-64-#{version}-1432-sfx.exe",

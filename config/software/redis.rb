@@ -17,6 +17,10 @@
 name "redis"
 default_version "3.0.4"
 
+version "3.0.7" do
+  source md5: "84ed3f486e7a6f0ebada6917370f3532"
+end
+
 version "3.0.4" do
   source md5: "9e535dea3dc5301de012047bf3cca952"
 end

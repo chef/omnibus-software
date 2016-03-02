@@ -25,6 +25,11 @@ version "3.7.1" do
   source md5: "b4191d8cfafa18bd9b78594544be2a04"
 end
 
+# Major version, have not tried yet
+version "4.4.0" do
+  source md5: "a892852927b12ed291b435c72c085834"
+end
+
 source url: "http://www.gecode.org/download/gecode-#{version}.tar.gz"
 
 relative_path "gecode-#{version}"
