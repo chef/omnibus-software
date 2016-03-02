@@ -15,7 +15,9 @@
 #
 
 name "openssl-windows"
-default_version "1.0.1s"
+# 1.0.1s is binary imcompatible with ruby from rubyinstaller due to an API
+# change removing SSLv2 functions.
+default_version "1.0.1r"
 
 dependency "ruby-windows"
 
@@ -42,15 +44,7 @@ end
 relative_path 'bin'
 
 build do
-  # Make sure the OpenSSL version is suitable for our path:
-  # OpenSSL version is something like
-  # OpenSSL 1.0.0k 5 Feb 2013
-  ruby "-e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= #{version}'; puts 'Current version : ' + OpenSSL::OPENSSL_VERSION; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '#{version}'\""
-
   # Copy over the required dlls into embedded/bin
   copy "libeay32.dll", "#{install_dir}/embedded/bin/"
   copy "ssleay32.dll", "#{install_dir}/embedded/bin/"
-
-  # Also copy over the openssl executable for debugging
-  copy "bin/openssl.exe", "#{install_dir}/embedded/bin/"
 end
