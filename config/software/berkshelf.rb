@@ -24,7 +24,7 @@ relative_path "berkshelf"
 dependency "ruby"
 dependency "rubygems"
 
-unless windows?
+unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
   dependency "libarchive"
 end
 
