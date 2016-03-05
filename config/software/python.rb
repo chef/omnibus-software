@@ -35,6 +35,10 @@ build do
     "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
     "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
   }
+  if mac_os_x?
+    os_x_release = %x['sw_vers -productVersion | sed -E "s/([0-9]+\.[0-9]+).*/\1/"']
+    env['MACOSX_DEPLOYMENT_TARGET'] = os_x_release
+  end
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
