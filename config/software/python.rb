@@ -33,7 +33,7 @@ relative_path "Python-#{version}"
 build do
   env = {
     'CFLAGS'  => "-I#{install_dir}/embedded/include -O3 -g -pipe",
-    'LDFLAGS' => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+    'LDFLAGS' => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
   }
 
   command './configure' \

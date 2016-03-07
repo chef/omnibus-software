@@ -11,7 +11,6 @@ Dir.glob('config/software/**').each do |filepath|
   dep_name = ''
   File.readlines(filepath).each do |line|
     if line =~ /name [\"\'](?<name>.*?)[\"\']/
-      # require 'pry'; binding.pry
       dep_name = $~[:name]
       next
     end

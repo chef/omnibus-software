@@ -107,7 +107,7 @@ build do
     '--without-ada',
     '--without-cxx-binding',
     '--without-debug',
-    '--without-manpages'
+    '--without-manpages',
   ]
 
   if aix?

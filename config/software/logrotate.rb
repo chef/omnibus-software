@@ -33,7 +33,7 @@ relative_path "logrotate-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
     # Patch allows this to be set manually
-    'BASEDIR' => "#{install_dir}/embedded"
+    'BASEDIR' => "#{install_dir}/embedded",
   )
 
   # These EXTRA_* vars allow us to append to the Makefile's hardcoded LDFLAGS

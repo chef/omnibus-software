@@ -64,7 +64,7 @@ build do
     'no-idea',
     'no-mdc2',
     'no-rc5',
-    'shared'
+    'shared',
   ]
 
   if fips_enabled

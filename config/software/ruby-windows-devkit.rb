@@ -58,7 +58,7 @@ build do
     'libexpat-1.dll'   => 'libexpat-1.dll',
     'liblzma-1.dll'    => 'liblzma-1.dll',
     'libbz2-2.dll'     => 'libbz2-2.dll',
-    'libz-1.dll'       => 'libz-1.dll'
+    'libz-1.dll'       => 'libz-1.dll',
   }.each do |target, to|
     copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
   end

@@ -35,7 +35,7 @@ build do
     'hashie'       => '2.0.0',
     'varia_model'  => '0.3.2',
     'i18n'         => '0.6.11',
-    'berkshelf'    => "#{version}"
+    'berkshelf'    => "#{version}",
   }
 
   gems.map do |name, version|

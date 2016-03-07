@@ -59,7 +59,7 @@ build do
     '--without-gnutls',
     '--without-librtmp',
     "--with-ssl=#{install_dir}/embedded",
-    "--with-zlib=#{install_dir}/embedded"
+    "--with-zlib=#{install_dir}/embedded",
   ]
 
   command configure_command.join(' '), env: env

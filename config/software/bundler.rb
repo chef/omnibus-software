@@ -25,6 +25,6 @@ build do
   gem [
     'install bundler',
     v_opts,
-    '--no-ri --no-rdoc'
+    '--no-ri --no-rdoc',
   ].compact.join(' '), env: env
 end

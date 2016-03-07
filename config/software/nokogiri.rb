@@ -71,7 +71,7 @@ build do
       "--with-xslt-lib=#{install_dir}/embedded/lib",
       "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
       "--with-iconv-dir=#{install_dir}/embedded",
-      "--with-zlib-dir=#{install_dir}/embedded"
+      "--with-zlib-dir=#{install_dir}/embedded",
     ]
   end
 

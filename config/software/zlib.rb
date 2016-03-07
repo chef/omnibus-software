@@ -49,7 +49,7 @@ build do
       "ASFLAGS='#{env['CFLAGS']} -Wall'",
       "LDFLAGS='#{env['LDFLAGS']}'",
       "ARFLAGS='rcs #{env['ARFLAGS']}'",
-      "RCFLAGS='--define GCC_WINDRES #{env['RCFLAGS']}'"
+      "RCFLAGS='--define GCC_WINDRES #{env['RCFLAGS']}'",
     ]
 
     # On windows, msys make 3.81 doesn't support -j.

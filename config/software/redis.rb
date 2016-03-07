@@ -29,7 +29,7 @@ relative_path "redis-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
-    'PREFIX' => "#{install_dir}/embedded"
+    'PREFIX' => "#{install_dir}/embedded",
   )
 
   make "-j #{workers}", env: env

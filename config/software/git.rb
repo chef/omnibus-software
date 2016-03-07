@@ -53,7 +53,7 @@ build do
     'ICONVDIR'   => "#{install_dir}/embedded",
     'LIBPCREDIR' => "#{install_dir}/embedded",
     'OPENSSLDIR' => "#{install_dir}/embedded",
-    'ZLIB_PATH'  => "#{install_dir}/embedded"
+    'ZLIB_PATH'  => "#{install_dir}/embedded",
   )
 
   # AIX needs /opt/freeware/bin only for patch

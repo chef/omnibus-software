@@ -34,7 +34,7 @@ build do
     '--disable-debug',
     '--disable-dependency-tracking',
     '--disable-doc',
-    '--disable-scripts'
+    '--disable-scripts',
   ]
   config_command << '--disable-nls' if windows?
 

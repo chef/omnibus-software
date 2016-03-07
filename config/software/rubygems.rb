@@ -117,8 +117,8 @@ build do
             vars: {
               paths: [
                 "#{install_dir}/embedded/bin",
-                "#{install_dir}/embedded/msys/1.0/bin"
-              ]
+                "#{install_dir}/embedded/msys/1.0/bin",
+              ],
             }
         ruby 'register_devtools.rb', env: env
       elsif File.exist?("#{install_dir}/embedded/dk.rb")

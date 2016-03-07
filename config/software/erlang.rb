@@ -41,7 +41,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
     # WARNING!
     'CFLAGS'  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
-    'LDFLAGS' => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include"
+    'LDFLAGS' => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
   )
   env.delete('CPPFLAGS')
 

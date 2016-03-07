@@ -41,7 +41,7 @@ build do
     "--with-libxml-include-prefix=#{install_dir}/embedded/include",
     "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
     '--without-python',
-    '--without-crypto'
+    '--without-crypto',
   ]
 
   configure(*configure_commands, env: env)

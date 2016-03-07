@@ -34,7 +34,7 @@ build do
     "--with-zlib=#{install_dir}/embedded",
     "--with-iconv=#{install_dir}/embedded",
     '--without-python',
-    '--without-icu'
+    '--without-icu',
   ]
 
   # solaris 10 ipv6 support is broken due to no inet_ntop() in -lnsl
