@@ -14,17 +14,17 @@
 # limitations under the License.
 #
 
-name "clean-static-libs"
-description "cleanup un-needed static libraries from the build"
+name 'clean-static-libs'
+description 'cleanup un-needed static libraries from the build'
 default_version '1.0.0'
 
 build do
   # Remove static object files for all platforms
   # except AIX which uses them at runtime.
   unless aix?
-    block "Remove static libraries" do
+    block 'Remove static libraries' do
       # find the embedded ruby gems dir and clean it up for globbing
-      target_dir = "#{install_dir}/embedded/lib/ruby/gems".gsub(/\\/, '/')
+      target_dir = "#{install_dir}/embedded/lib/ruby/gems".tr('\\', '/')
 
       # find all the static *.a files and delete them
       Dir.glob("#{target_dir}/**/*.a").each do |f|

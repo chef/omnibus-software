@@ -14,27 +14,25 @@
 # limitations under the License.
 #
 
-name "pkg-config-lite"
-default_version "0.28-1"
-
-version "0.28-1" do
-  source md5: "61f05feb6bab0a6bbfab4b6e3b2f44b6"
-end
+name 'pkg-config-lite'
+default_version '0.28-1'
 
 source url: "http://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
+
+version('0.28-1') { source md5: '61f05feb6bab0a6bbfab4b6e3b2f44b6' }
 
 relative_path "pkg-config-lite-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "0.28-1"
-    patch source: "pkg-config-lite-0.28-1.config.guess.patch", plevel: 0
+  if version == '0.28-1'
+    patch source: 'pkg-config-lite-0.28-1.config.guess.patch', plevel: 0
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-host-tool" \
+          ' --disable-host-tool' \
           " --with-pc-path=#{install_dir}/embedded/bin/pkgconfig", env: env
 
   make "-j #{workers}", env: env

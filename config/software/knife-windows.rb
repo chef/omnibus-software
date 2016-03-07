@@ -14,22 +14,22 @@
 # limitations under the License.
 #
 
-name "knife-windows"
-default_version "master"
+name 'knife-windows'
+default_version 'master'
 
-source git: "https://github.com/chef/knife-windows.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
+source git: 'https://github.com/chef/knife-windows.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without test development", env: env
+  bundle 'install --without test development', env: env
 
-  gem "build knife-windows.gemspec", env: env
-  gem "install knife-windows-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build knife-windows.gemspec', env: env
+  gem 'install knife-windows-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

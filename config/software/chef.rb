@@ -13,13 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "chef"
-default_version "master"
+name 'chef'
+default_version 'master'
 
-# For the specific super-special version "local_source", build the source from
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'ohai'
+dependency 'appbundler'
+
+# For the specific super-special version 'local_source', build the source from
 # the local git checkout. This is what you'd want to occur by default if you
 # just ran omnibus build locally.
-version("local_source") do
+version('local_source') do
   source path: "#{project.files_path}/../..",
          # Since we are using the local repo, we try to not copy any files
          # that are generated in the process of bundle installing omnibus.
@@ -28,23 +34,17 @@ version("local_source") do
          # omnibus cache source directory, but we do this regardless
          # to maintain consistency between what a local build sees and
          # what a github based build will see.
-         options: { exclude: [ "omnibus/vendor" ] }
+         options: { exclude: [ 'omnibus/vendor' ] }
 end
 
-# For any version other than "local_source", fetch from github.
+# For any version other than 'local_source', fetch from github.
 # This is the behavior the transitive omnibus software deps such as chef-dk
 # expect.
-if version != "local_source"
-  source git: "https://github.com/chef/chef.git"
+if version != 'local_source'
+  source git: 'https://github.com/chef/chef.git'
 end
 
-relative_path "chef"
-
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "ohai"
-dependency "appbundler"
+relative_path 'chef'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -57,7 +57,7 @@ build do
 
   # Install components that live inside Chef's git repo. For now this is just
   # 'chef-config'
-  bundle "exec rake install_components", env: env
+  bundle 'exec rake install_components', env: env
 
   gemspec_name = windows? ? 'chef-windows.gemspec' : 'chef.gemspec'
 
@@ -66,12 +66,12 @@ build do
   gem "build #{gemspec_name}", env: env
 
   # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
-  gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
+  gem 'install chef*.gem --no-ri --no-rdoc --verbose', env: env
 
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
-    copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
+    copy 'distro/powershell/chef/*', "#{install_dir}/modules/chef"
   end
 
   auxiliary_gems = {}

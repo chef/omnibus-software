@@ -14,24 +14,16 @@
 # limitations under the License.
 #
 
-name "setuptools"
-default_version "0.7.7"
+name 'setuptools'
+default_version '0.7.7'
 
-dependency "python"
-
-version "0.9.8" do
-  source md5: "243076241781935f7fcad370195a4291"
-end
-
-version "0.7.7" do
-  source md5: "0d7bc0e1a34b70a97e706ef74aa7f37f"
-end
-
-version "20.0" do
-  source md5: "fb22b2474ca037e0b08f3c3b293e02e6"
-end
+dependency 'python'
 
 source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz"
+
+version('0.9.8') { source md5: '243076241781935f7fcad370195a4291' }
+version('0.7.7') { source md5: '0d7bc0e1a34b70a97e706ef74aa7f37f' }
+version('20.0')  { source md5: 'fb22b2474ca037e0b08f3c3b293e02e6' }
 
 relative_path "setuptools-#{version}"
 

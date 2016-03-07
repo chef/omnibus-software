@@ -14,18 +14,16 @@
 # limitations under the License.
 #
 
-name "libxml2"
-default_version "2.9.3"
+name 'libxml2'
+default_version '2.9.3'
 
-dependency "zlib"
-dependency "libiconv"
-dependency "liblzma"
-
-version "2.9.3" do
-  source md5: "daece17e045f1c107610e137ab50c179"
-end
+dependency 'zlib'
+dependency 'libiconv'
+dependency 'liblzma'
 
 source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
+
+version('2.9.3') { source md5: 'daece17e045f1c107610e137ab50c179' }
 
 relative_path "libxml2-#{version}"
 
@@ -35,12 +33,12 @@ build do
   configure_command = [
     "--with-zlib=#{install_dir}/embedded",
     "--with-iconv=#{install_dir}/embedded",
-    "--without-python",
-    "--without-icu",
+    '--without-python',
+    '--without-icu',
   ]
 
   # solaris 10 ipv6 support is broken due to no inet_ntop() in -lnsl
-  configure_command << "--enable-ipv6=no" if solaris2?
+  configure_command << '--enable-ipv6=no' if solaris2?
 
   configure(*configure_command, env: env)
 
@@ -49,5 +47,5 @@ build do
   else
     make "-j #{workers}", env: env
   end
-  make "install", env: env
+  make 'install', env: env
 end

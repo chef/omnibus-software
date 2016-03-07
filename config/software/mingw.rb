@@ -14,18 +14,18 @@
 # limitations under the License.
 #
 
-name "mingw"
-default_version "5.1.0-tdm64-1"
+name 'mingw'
+default_version '5.1.0-tdm64-1'
 
-dependency "msys-base"
-dependency "msys-coreutils-ext"
-dependency "binutils"
-dependency "mingw-runtime"
+dependency 'msys-base'
+dependency 'msys-coreutils-ext'
+dependency 'binutils'
+dependency 'mingw-runtime'
 
 source url: "http://iweb.dl.sourceforge.net/project/tdm-gcc/TDM-GCC%205%20series/#{version}/gcc-#{version}-core.tar.lzma"
 
-version("5.1.0-tdm64-1") { source sha256: "29393aac890847089ad1e93f81a28f6744b1609c00b25afca818f3903e42e4bd" }
+version('5.1.0-tdm64-1') { source sha256: '29393aac890847089ad1e93f81a28f6744b1609c00b25afca818f3903e42e4bd' }
 
 build do
-  copy "*", "#{install_dir}/embedded"
+  copy '*', "#{install_dir}/embedded"
 end

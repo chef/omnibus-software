@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-name "dep-selector-libgecode"
-default_version "1.0.2"
+name 'dep-selector-libgecode'
+default_version '1.0.2'
 
-dependency "rubygems"
+dependency 'rubygems'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -26,15 +26,15 @@ build do
   # need to use 4.4, which is provided by the gcc44 and gcc44-c++ packages.
   # These do not use the gcc binaries so we set the flags to point to the
   # correct version here.
-  if File.exist?("/usr/bin/gcc44")
-    env["CC"]  = "gcc44"
-    env["CXX"] = "g++44"
+  if File.exist?('/usr/bin/gcc44')
+    env['CC']  = 'gcc44'
+    env['CXX'] = 'g++44'
   end
 
   # Ruby DevKit ships with BSD Tar
-  env["PROG_TAR"] = "bsdtar" if windows?
+  env['PROG_TAR'] = 'bsdtar' if windows?
 
-  gem "install dep-selector-libgecode" \
+  gem 'install dep-selector-libgecode' \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+      ' --no-ri --no-rdoc', env: env
 end

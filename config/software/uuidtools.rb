@@ -14,16 +14,16 @@
 # limitations under the License.
 #
 
-name "uuidtools"
-default_version "2.1.5"
+name 'uuidtools'
+default_version '2.1.5'
 
-dependency "ruby"
-dependency "rubygems"
+dependency 'ruby'
+dependency 'rubygems'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install uuidtools" \
+  gem 'install uuidtools' \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+      ' --no-ri --no-rdoc', env: env
 end

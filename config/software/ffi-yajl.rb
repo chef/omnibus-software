@@ -14,26 +14,25 @@
 # limitations under the License.
 #
 
-name "ffi-yajl"
-default_version "master"
-relative_path "ffi-yajl"
+name 'ffi-yajl'
+default_version 'master'
+relative_path 'ffi-yajl'
 
-source git: "https://github.com/opscode/ffi-yajl.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'libyajl2-gem'
+dependency 'bundler'
 
-dependency "ruby"
-
-dependency "rubygems"
-dependency "libyajl2-gem"
-dependency "bundler"
+source git: 'https://github.com/opscode/ffi-yajl.git'
 
 build do
   env = with_embedded_path()
 
-  bundle "install --without development_extras", env: env
-  bundle "exec rake gem", env: env
+  bundle 'install --without development_extras', env: env
+  bundle 'exec rake gem', env: env
 
-  delete "pkg/*java*"
+  delete 'pkg/*java*'
 
-  gem "install pkg/ffi-yajl-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'install pkg/ffi-yajl-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

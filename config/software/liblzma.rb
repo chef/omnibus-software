@@ -14,11 +14,12 @@
 # limitations under the License.
 #
 
-name "liblzma"
-default_version "5.2.2"
+name 'liblzma'
+default_version '5.2.2'
 
-source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
-       md5: "7cf6a8544a7dae8e8106fdf7addfa28c"
+source url: "http://tukaani.org/xz/xz-#{version}.tar.gz"
+
+version('5.2.2') { source md5: '7cf6a8544a7dae8e8106fdf7addfa28c' }
 
 relative_path "xz-#{version}"
 
@@ -30,14 +31,14 @@ build do
   env['CPPFLAGS'] = "-I#{install_dir}/embedded/include" if windows?
 
   config_command = [
-    "--disable-debug",
-    "--disable-dependency-tracking",
-    "--disable-doc",
-    "--disable-scripts",
+    '--disable-debug',
+    '--disable-dependency-tracking',
+    '--disable-doc',
+    '--disable-scripts',
   ]
-  config_command << "--disable-nls" if windows?
+  config_command << '--disable-nls' if windows?
 
   configure(*config_command, env: env)
 
-  make "install", env: env
+  make 'install', env: env
 end

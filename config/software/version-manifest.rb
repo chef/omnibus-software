@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-name "version-manifest"
-description "generates a version manifest file"
-default_version "0.0.1"
+name 'version-manifest'
+description 'generates a version manifest file'
+default_version '0.0.1'
 
 build do
   block do

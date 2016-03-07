@@ -14,30 +14,25 @@
 # limitations under the License.
 #
 
-name "rsync"
-default_version "3.1.1"
+name 'rsync'
+default_version '3.1.1'
 
-dependency "popt"
-
-version "3.1.2" do
-  source md5: "0f758d7e000c0f7f7d3792610fad70cb"
-end
-
-version "3.1.1" do
-  source md5: "43bd6676f0b404326eee2d63be3cdcfe"
-end
+dependency 'popt'
 
 source url: "https://rsync.samba.org/ftp/rsync/src/rsync-#{version}.tar.gz"
+
+version('3.1.2') { source md5: '0f758d7e000c0f7f7d3792610fad70cb' }
+version('3.1.1') { source md5: '43bd6676f0b404326eee2d63be3cdcfe' }
 
 relative_path "rsync-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-iconv", env: env
+          ' --disable-iconv', env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

@@ -14,20 +14,21 @@
 # limitations under the License.
 #
 
-name "expat"
-default_version "2.1.0"
+name 'expat'
+default_version '2.1.0'
+
+source url: "http://iweb.dl.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz"
+
+version('2.1.0') { source md5: 'dd7dab7a5fea97d2a6a43f511449b7cd' }
 
 relative_path "expat-#{version}"
-
-source url: "http://iweb.dl.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz",
-       md5: "dd7dab7a5fea97d2a6a43f511449b7cd"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

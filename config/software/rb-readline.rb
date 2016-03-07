@@ -14,16 +14,16 @@
 # limitations under the License.
 #
 
-name "rb-readline"
-default_version "master"
+name 'rb-readline'
+default_version 'master'
 
-dependency "ruby"
-dependency "rubygems"
+dependency 'ruby'
+dependency 'rubygems'
 
-source git: "https://github.com/ConnorAtherton/rb-readline.git"
+source git: 'https://github.com/ConnorAtherton/rb-readline.git'
 
 build do
   env = with_embedded_path
 
-  ruby "setup.rb", env: env
+  ruby 'setup.rb', env: env
 end

@@ -14,18 +14,18 @@
 # limitations under the License.
 #
 
-name "chef-gem"
-default_version "11.12.2"
+name 'chef-gem'
+default_version '11.12.2'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "libffi"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'libffi'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install chef" \
+  gem 'install chef' \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
-      " --no-ri --no-rdoc", env: env
+      ' --no-ri --no-rdoc', env: env
 end

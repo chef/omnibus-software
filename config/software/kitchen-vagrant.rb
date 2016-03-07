@@ -14,22 +14,22 @@
 # limitations under the License.
 #
 
-name "kitchen-vagrant"
-default_version "master"
+name 'kitchen-vagrant'
+default_version 'master'
 
-source git: "https://github.com/test-kitchen/kitchen-vagrant.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'test-kitchen'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "test-kitchen"
+source git: 'https://github.com/test-kitchen/kitchen-vagrant.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development guard test", env: env
+  bundle 'install --without development guard test', env: env
 
-  gem "build kitchen-vagrant.gemspec", env: env
-  gem "install kitchen-vagrant-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build kitchen-vagrant.gemspec', env: env
+  gem 'install kitchen-vagrant-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

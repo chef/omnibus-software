@@ -14,24 +14,24 @@
 # limitations under the License.
 #
 
-name "chef-vault"
-default_version "master"
+name 'chef-vault'
+default_version 'master'
 
-source git: "https://github.com/chef/chef-vault.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
 
-relative_path "chef-vault"
+source git: 'https://github.com/chef/chef-vault.git'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
+relative_path 'chef-vault'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build chef-vault.gemspec", env: env
-  gem "install chef-vault-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build chef-vault.gemspec', env: env
+  gem 'install chef-vault-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

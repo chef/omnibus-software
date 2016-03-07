@@ -16,33 +16,26 @@
 #
 
 # We use the version in util-linux, and only build the libuuid subdirectory
-name "libsodium"
-default_version "1.0.2"
+name 'libsodium'
+default_version '1.0.2'
 
-dependency "autoconf"
-dependency "automake"
-dependency "libtool"
-
-
-# perhaps use git https://github.com/jedisct1/libsodium/
-version "1.0.8" do
-  source md5: "0a66b86fd3aab3fe4c858edcd2772760"
-end
-version "1.0.2" do
-  source md5: "dc40eb23e293448c6fc908757738003f"
-end
-version "0.7.1" do
-  source md5: "c224fe3923d1dcfe418c65c8a7246316"
-end
+dependency 'autoconf'
+dependency 'automake'
+dependency 'libtool'
 
 source url: "https://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"
+
+# perhaps use git https://github.com/jedisct1/libsodium/
+version('1.0.8') { source md5: '0a66b86fd3aab3fe4c858edcd2772760' }
+version('1.0.2') { source md5: 'dc40eb23e293448c6fc908757738003f' }
+version('0.7.1') { source md5: 'c224fe3923d1dcfe418c65c8a7246316' }
 
 relative_path "libsodium-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

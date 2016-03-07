@@ -18,14 +18,14 @@
 # This software makes sure that SSL_CERT_FILE environment variable is pointed
 # to the bundled CA certificates that ship with omnibus. With this, Chef
 # tools can be used with https URLs out of the box.
-name "openssl-customization"
+name 'openssl-customization'
 
 source path: "#{project.files_path}/#{name}"
 
-dependency "ruby"
+dependency 'ruby'
 
 build do
-  block "Add OpenSSL customization file" do
+  block 'Add OpenSSL customization file' do
     # gets directories for RbConfig::CONFIG and sanitizes them.
     def get_sanitized_rbconfig(config)
       ruby = windows_safe_path("#{install_dir}/embedded/bin/ruby")
@@ -46,25 +46,25 @@ build do
       embedded_ruby_site_dir = get_sanitized_rbconfig('sitelibdir')
       embedded_ruby_lib_dir  = get_sanitized_rbconfig('rubylibdir')
 
-      source_ssl_env_hack      = File.join(project_dir, "windows", "ssl_env_hack.rb")
-      destination_ssl_env_hack = File.join(embedded_ruby_site_dir, "ssl_env_hack.rb")
+      source_ssl_env_hack      = File.join(project_dir, 'windows', 'ssl_env_hack.rb')
+      destination_ssl_env_hack = File.join(embedded_ruby_site_dir, 'ssl_env_hack.rb')
 
       copy(source_ssl_env_hack, destination_ssl_env_hack)
 
       # Unfortunately there is no patch on windows, but luckily we only need to append a line to the openssl.rb
       # to pick up our script which find the CA bundle in omnibus installations and points SSL_CERT_FILE to it
       # if it's not already set
-      source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
-      File.open(source_openssl_rb, "r+") do |f|
+      source_openssl_rb = File.join(embedded_ruby_lib_dir, 'openssl.rb')
+      File.open(source_openssl_rb, 'r+') do |f|
         unpatched_openssl_rb = f.read
         f.rewind
         f.write("\nrequire 'ssl_env_hack'\n")
         f.write(unpatched_openssl_rb)
       end
     else
-      embedded_ruby_lib_dir  = get_sanitized_rbconfig('rubylibdir')
-      source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
-      File.open(source_openssl_rb, "r+") do |f|
+      embedded_ruby_lib_dir = get_sanitized_rbconfig('rubylibdir')
+      source_openssl_rb = File.join(embedded_ruby_lib_dir, 'openssl.rb')
+      File.open(source_openssl_rb, 'r+') do |f|
         unpatched_openssl_rb = f.read
         f.rewind
         f.write(unpatched_openssl_rb)

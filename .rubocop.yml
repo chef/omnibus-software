@@ -58,3 +58,5 @@ UnneededPercentQ:
   Enabled: false
 WordArray:
   Enabled: false
+UnneededInterpolation:
+  Enabled: false

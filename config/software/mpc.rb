@@ -14,26 +14,26 @@
 # limitations under the License.
 #
 
-name "mpc"
-default_version "1.0.2"
+name 'mpc'
+default_version '1.0.2'
 
-dependency "gmp"
-dependency "mpfr"
-
-version("1.0.2") { source md5: "68fadff3358fb3e7976c7a398a0af4c3" }
-version("1.0.3") { source md5: "d6a1d5f8ddea3abd2cc3e98f58352d26" }
+dependency 'gmp'
+dependency 'mpfr'
 
 source url: "https://ftp.gnu.org/gnu/mpc/mpc-#{version}.tar.gz"
+
+version('1.0.2') { source md5: '68fadff3358fb3e7976c7a398a0af4c3' }
+version('1.0.3') { source md5: 'd6a1d5f8ddea3abd2cc3e98f58352d26' }
 
 relative_path "mpc-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  configure_command = ["./configure",
+  configure_command = ['./configure',
                        "--prefix=#{install_dir}/embedded"]
 
-  command configure_command.join(" "), env: env
+  command configure_command.join(' '), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end

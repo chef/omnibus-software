@@ -14,19 +14,15 @@
 # limitations under the License.
 #
 
-name "autoconf"
-default_version "2.68"
+name 'autoconf'
+default_version '2.68'
 
-dependency "m4"
-
-version "2.69" do
-  source md5: "82d05e03b93e45f5a39b828dc9c6c29b"
-end
-version "2.68" do
-  source md5: "c3b5247592ce694f7097873aa07d66fe"
-end
+dependency 'm4'
 
 source url: "https://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz"
+
+version('2.69') { source md5: '82d05e03b93e45f5a39b828dc9c6c29b' }
+version('2.68') { source md5: 'c3b5247592ce694f7097873aa07d66fe' }
 
 relative_path "autoconf-#{version}"
 
@@ -37,9 +33,9 @@ build do
     env['M4'] = "#{install_dir}/embedded/bin/m4"
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

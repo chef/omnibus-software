@@ -15,23 +15,23 @@
 # limitations under the License.
 #
 
-name "ohai"
-default_version "master"
+name 'ohai'
+default_version 'master'
 
-source git: "https://github.com/opscode/ohai.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
 
-relative_path "ohai"
+source git: 'https://github.com/opscode/ohai.git'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
+relative_path 'ohai'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build ohai.gemspec", env: env
-  gem "install ohai*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build ohai.gemspec', env: env
+  gem 'install ohai*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

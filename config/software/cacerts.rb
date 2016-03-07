@@ -14,18 +14,17 @@
 # limitations under the License.
 #
 
-name "cacerts"
+name 'cacerts'
 
-default_version "2016.01.20"
+default_version '2016.01.20'
 
-version "2016.01.20" do
-  source md5: "36eee0e80373937dd90a9a334ae42817"
-  source url: "https://raw.githubusercontent.com/bagder/ca-bundle/dfcc02c918b7bf40ed3a7f27a634c74ef4e80829/ca-bundle.crt"
+version '2016.01.20' do
+  source md5: '36eee0e80373937dd90a9a334ae42817',
+         url: 'https://raw.githubusercontent.com/bagder/ca-bundle/dfcc02c918b7bf40ed3a7f27a634c74ef4e80829/ca-bundle.crt'
 end
-
-version "2015.10.28" do
-  source md5: "3c58c3f2435598a942dc37cdb02a3ec3"
-  source url: "https://raw.githubusercontent.com/bagder/ca-bundle/86347ecbdc2277f365d02f0d208b822a214e012d/ca-bundle.crt"
+version '2015.10.28' do
+  source md5: '3c58c3f2435598a942dc37cdb02a3ec3',
+         url: 'https://raw.githubusercontent.com/bagder/ca-bundle/86347ecbdc2277f365d02f0d208b822a214e012d/ca-bundle.crt'
 end
 
 relative_path "cacerts-#{version}"
@@ -36,7 +35,7 @@ build do
   # Append the 1024bit Verisign certs so that S3 continues to work
   block do
     unless File.foreach("#{project_dir}/ca-bundle.crt").grep(/^Verisign Class 3 Public Primary Certification Authority$/).any?
-      File.open("#{project_dir}/ca-bundle.crt", "a") { |fd| fd.write(VERISIGN_CERTS) }
+      File.open("#{project_dir}/ca-bundle.crt', 'a") { |fd| fd.write(VERISIGN_CERTS) }
     end
   end
 

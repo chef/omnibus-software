@@ -14,17 +14,18 @@
 # limitations under the License.
 #
 
-name "makedepend"
-default_version "1.0.5"
+name 'makedepend'
+default_version '1.0.5'
 
-source url: "http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.gz",
-       md5: "efb2d7c7e22840947863efaedc175747"
+dependency 'xproto'
+dependency 'util-macros'
+dependency 'pkg-config-lite'
 
-relative_path "makedepend-1.0.5"
+source url: "http://xorg.freedesktop.org/releases/individual/util/makedepend-#{version}.tar.gz"
 
-dependency "xproto"
-dependency "util-macros"
-dependency "pkg-config-lite"
+version('1.0.5') { source md5: 'efb2d7c7e22840947863efaedc175747' }
+
+relative_path 'makedepend-1.0.5'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

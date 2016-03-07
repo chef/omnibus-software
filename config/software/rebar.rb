@@ -14,25 +14,25 @@
 # limitations under the License.
 #
 
-name "rebar"
+name 'rebar'
 
 # Current version (2.3.0) suffers from a pretty bad bug that breaks tests.
 # (see https://github.com/rebar/rebar/pull/279 and https://github.com/rebar/rebar/pull/251)
 # Version 2.3.1 Fixes this; we should switch to that if later versions aren't workable.
 # Version 2.6.1 includes this fix.
-default_version "93621d0d0c98035f79790ffd24beac94581b0758"
+default_version '93621d0d0c98035f79790ffd24beac94581b0758'
 
-version "2.6.0"
+version '2.6.0'
 
-dependency "erlang"
+dependency 'erlang'
 
-source git: "https://github.com/rebar/rebar.git"
+source git: 'https://github.com/rebar/rebar.git'
 
-relative_path "rebar"
+relative_path 'rebar'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./bootstrap", env: env
+  command './bootstrap', env: env
   copy "#{project_dir}/rebar", "#{install_dir}/embedded/bin/"
 end

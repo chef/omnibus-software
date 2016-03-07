@@ -14,23 +14,23 @@
 # limitations under the License.
 #
 
-name "kitchen-inspec"
-default_version "master"
+name 'kitchen-inspec'
+default_version 'master'
 
-source git: "https://github.com/chef/kitchen-inspec.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'test-kitchen'
+dependency 'inspec'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "test-kitchen"
-dependency "inspec"
+source git: 'https://github.com/chef/kitchen-inspec.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development guard test", env: env
+  bundle 'install --without development guard test', env: env
 
-  gem "build kitchen-inspec.gemspec", env: env
-  gem "install kitchen-inspec-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build kitchen-inspec.gemspec', env: env
+  gem 'install kitchen-inspec-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

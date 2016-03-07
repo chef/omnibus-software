@@ -14,21 +14,21 @@
 # limitations under the License.
 #
 
-name "winrm-transport"
-default_version "master"
+name 'winrm-transport'
+default_version 'master'
 
-source git: "https://github.com/test-kitchen/winrm-transport.git"
+source git: 'https://github.com/test-kitchen/winrm-transport.git'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development test guard", env: env
+  bundle 'install --without development test guard', env: env
 
-  gem "build winrm-transport.gemspec", env: env
-  gem "install winrm-transport-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build winrm-transport.gemspec', env: env
+  gem 'install winrm-transport-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

@@ -14,39 +14,39 @@
 # limitations under the License.
 #
 
-name "gdbm"
-default_version "1.8.3"
-
-# Version 1.9 and above are GPLv3, do NOT add later versions in
-version("1.8.3") { source md5: "1d1b1d5c0245b1c00aff92da751e9aa1" }
+name 'gdbm'
+default_version '1.8.3'
 
 source url: "https://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz"
+
+# Version 1.9 and above are GPLv3, do NOT add later versions in
+version('1.8.3') { source md5: '1d1b1d5c0245b1c00aff92da751e9aa1' }
 
 relative_path "gdbm-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "1.8.3"
-    patch source: "v1.8.3-Makefile.in.patch", plevel: 0, env: env
+  if version == '1.8.3'
+    patch source: 'v1.8.3-Makefile.in.patch', plevel: 0, env: env
   end
 
   # Update config.guess to support newer platforms (like aarch64)
-  if version == "1.8.3"
-    patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
+  if version == '1.8.3'
+    patch source: 'config.guess_2015-09-14.patch', plevel: 0, env: env
   end
 
   if freebsd?
-    command "./configure" \
-            " --enable-libgdbm-compat" \
-            " --with-pic" \
+    command './configure' \
+            ' --enable-libgdbm-compat' \
+            ' --with-pic' \
             " --prefix=#{install_dir}/embedded", env: env
   else
-    command "./configure" \
-            " --enable-libgdbm-compat" \
+    command './configure' \
+            ' --enable-libgdbm-compat' \
             " --prefix=#{install_dir}/embedded", env: env
   end
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

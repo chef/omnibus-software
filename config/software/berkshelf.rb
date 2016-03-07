@@ -14,33 +14,33 @@
 # limitations under the License.
 #
 
-name "berkshelf"
-default_version "master"
+name 'berkshelf'
+default_version 'master'
 
-source git: "https://github.com/berkshelf/berkshelf.git"
+source git: 'https://github.com/berkshelf/berkshelf.git'
 
-relative_path "berkshelf"
+relative_path 'berkshelf'
 
-dependency "ruby"
-dependency "rubygems"
+dependency 'ruby'
+dependency 'rubygems'
 
-unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
-  dependency "libarchive"
+unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == 'ruby-windows')
+  dependency 'libarchive'
 end
 
-dependency "nokogiri"
-dependency "bundler"
-dependency "dep-selector-libgecode"
+dependency 'nokogiri'
+dependency 'bundler'
+dependency 'dep-selector-libgecode'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install" \
+  bundle 'install' \
          " --jobs #{workers}" \
-         " --without guard", env: env
+         ' --without guard', env: env
 
-  bundle "exec thor gem:build", env: env
+  bundle 'exec thor gem:build', env: env
 
-  gem "install pkg/berkshelf-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'install pkg/berkshelf-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

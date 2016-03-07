@@ -14,25 +14,25 @@
 # limitations under the License.
 #
 
-name "mpfr"
-default_version "3.1.2"
+name 'mpfr'
+default_version '3.1.2'
 
-dependency "gmp"
-
-version("3.1.2") { source md5: "181aa7bb0e452c409f2788a4a7f38476" }
-version("3.1.3") { source md5: "7b650781f0a7c4a62e9bc8bdaaa0018b" }
+dependency 'gmp'
 
 source url: "http://www.mpfr.org/mpfr-#{version}/mpfr-#{version}.tar.gz"
+
+version('3.1.2') { source md5: '181aa7bb0e452c409f2788a4a7f38476' }
+version('3.1.3') { source md5: '7b650781f0a7c4a62e9bc8bdaaa0018b' }
 
 relative_path "mpfr-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  configure_command = ["./configure",
+  configure_command = ['./configure',
                        "--prefix=#{install_dir}/embedded"]
 
-  command configure_command.join(" "), env: env
+  command configure_command.join(' '), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end

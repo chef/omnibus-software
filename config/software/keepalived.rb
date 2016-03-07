@@ -14,25 +14,17 @@
 # limitations under the License.
 #
 
-name "keepalived"
-default_version "1.2.9"
+name 'keepalived'
+default_version '1.2.9'
 
-dependency "popt"
-dependency "openssl"
+dependency 'popt'
+dependency 'openssl'
 
 source url: "http://www.keepalived.org/software/keepalived-#{version}.tar.gz"
 
-version "1.2.19" do
-  source md5: "5c98b06639dd50a6bff76901b53febb6"
-end
-
-version "1.2.9" do
-  source md5: "adfad98a2cc34230867d794ebc633492"
-end
-
-version "1.1.20" do
-  source md5: "6c3065c94bb9e2187c4b5a80f6d8be31"
-end
+version('1.2.19') { source md5: '5c98b06639dd50a6bff76901b53febb6' }
+version('1.2.9')  { source md5: 'adfad98a2cc34230867d794ebc633492' }
+version('1.1.20') { source md5: '6c3065c94bb9e2187c4b5a80f6d8be31' }
 
 relative_path "keepalived-#{version}"
 
@@ -42,14 +34,14 @@ build do
   # This is cherry-picked from change
   # d384ce8b3492b9d76af23e621a20bed8da9c6016 of keepalived, (master
   # branch), and should be no longer necessary after 1.2.9.
-  if version == "1.2.9"
-    patch source: "keepalived-1.2.9_opscode_centos_5.patch", env: env
+  if version == '1.2.9'
+    patch source: 'keepalived-1.2.9_opscode_centos_5.patch', env: env
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-iconv", env: env
+          ' --disable-iconv', env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

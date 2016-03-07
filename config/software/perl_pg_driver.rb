@@ -14,26 +14,22 @@
 # limitations under the License.
 #
 
-name "perl_pg_driver"
-default_version "3.3.0"
+name 'perl_pg_driver'
+default_version '3.3.0'
 
-dependency "perl"
-dependency "cpanminus"
-dependency "postgresql"
-
-version "3.5.3" do
-  source md5: "21cdf31a8d1f77466920375aa766c164"
-end
-version "3.3.0" do
-  source md5: "547de1382a47d66872912fe64282ff55"
-end
+dependency 'perl'
+dependency 'cpanminus'
+dependency 'postgresql'
 
 source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz"
+
+version('3.5.3') { source md5: '21cdf31a8d1f77466920375aa766c164' }
+version('3.3.0') { source md5: '547de1382a47d66872912fe64282ff55' }
 
 relative_path "DBD-Pg-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "cpanm -v --notest .", env: env
+  command 'cpanm -v --notest .', env: env
 end

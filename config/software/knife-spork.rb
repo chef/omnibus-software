@@ -14,22 +14,22 @@
 # limitations under the License.
 #
 
-name "knife-spork"
-default_version "master"
+name 'knife-spork'
+default_version 'master'
 
-source git: "https://github.com/jonlives/knife-spork.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
+source git: 'https://github.com/jonlives/knife-spork.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build knife-spork.gemspec", env: env
-  gem "install knife-spork-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build knife-spork.gemspec', env: env
+  gem 'install knife-spork-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

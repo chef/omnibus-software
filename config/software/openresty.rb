@@ -14,39 +14,27 @@
 # limitations under the License.
 #
 
-name "openresty"
-default_version "1.9.7.2"
+name 'openresty'
+default_version '1.9.7.2'
 
-dependency "pcre"
-dependency "openssl"
-dependency "zlib"
+dependency 'pcre'
+dependency 'openssl'
+dependency 'zlib'
 
-source_package_name = "openresty"
-
-version("1.9.7.3") { source md5: "33579b96a8c22bedee97eadfc99d9564" }
-
-version("1.9.7.2") do
-  source md5: "78a263de11ff43c95e847f208cce0899"
-  source_package_name = "ngx_openresty"
-end
-version("1.9.3.1") do
-  source md5: "cde1f7127f6ba413ee257003e49d6d0a"
-  source_package_name = "ngx_openresty"
-end
-version("1.7.10.2") do
-  source md5: "bca1744196acfb9e986f1fdbee92641e"
-  source_package_name = "ngx_openresty"
-end
-version("1.7.10.1") do
-  source md5: "1093b89459922634a818e05f80c1e18a"
-  source_package_name = "ngx_openresty"
-end
-version("1.4.3.6") do
-  source md5: "5e5359ae3f1b8db4046b358d84fabbc8"
-  source_package_name = "ngx_openresty"
+if version < '1.9.7.2'
+  source_package_name = 'ngx_openresty'
+else
+  source_package_name = 'openresty'
 end
 
 source url: "https://openresty.org/download/#{source_package_name}-#{version}.tar.gz"
+
+version('1.9.7.3')  { source md5: '33579b96a8c22bedee97eadfc99d9564' }
+version('1.9.7.2')  { source md5: '78a263de11ff43c95e847f208cce0899' }
+version('1.9.3.1')  { source md5: 'cde1f7127f6ba413ee257003e49d6d0a' }
+version('1.7.10.2') { source md5: 'bca1744196acfb9e986f1fdbee92641e' }
+version('1.7.10.1') { source md5: '1093b89459922634a818e05f80c1e18a' }
+version('1.4.3.6')  { source md5: '5e5359ae3f1b8db4046b358d84fabbc8' }
 
 relative_path "#{source_package_name}-#{version}"
 
@@ -55,17 +43,17 @@ build do
   env['PATH'] += "#{env['PATH']}:/usr/sbin:/sbin"
 
   configure = [
-    "./configure",
+    './configure',
     "--prefix=#{install_dir}/embedded",
     "--sbin-path=#{install_dir}/embedded/sbin/nginx",
     "--conf-path=#{install_dir}/embedded/conf/nginx.conf",
-    "--with-http_ssl_module",
-    "--with-debug",
-    "--with-http_stub_status_module",
+    '--with-http_ssl_module',
+    '--with-debug',
+    '--with-http_stub_status_module',
     # Building Nginx with non-system OpenSSL
     # http://www.ruby-forum.com/topic/207287#902308
-    "--with-ld-opt=\"-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz\"",
-    "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"",
+    "--with-ld-opt='-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz'",
+    "--with-cc-opt='-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include'",
     # Options inspired by the OpenResty Cookbook
     '--with-md5-asm',
     '--with-sha1-asm',
@@ -75,7 +63,7 @@ build do
     '--without-mail_smtp_module',
     '--without-mail_imap_module',
     '--without-mail_pop3_module',
-    '--with-ipv6',
+    '--with-ipv6'
     # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
     # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
     # However, they require libatomic-ops-dev and libaio
@@ -85,17 +73,17 @@ build do
 
   # OpenResty 1.7 + RHEL5 Fixes:
   # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
-  # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
+  # fails to compile on RHEL5 without the '--with-luajit-xcflags="-std=gnu99"' flags
   if rhel? &&
      platform_version.satisfies?('< 6.0') &&
      version.satisfies?('>= 1.7')
-    configure << "--with-luajit-xcflags='-std=gnu99'"
+    configure << '--with-luajit-xcflags="-std=gnu99"'
   end
 
-  command configure.join(" "), env: env
+  command configure.join(' '), env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 
   touch "#{install_dir}/embedded/nginx/logs/.gitkeep"
 end

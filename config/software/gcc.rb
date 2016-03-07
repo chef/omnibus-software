@@ -14,35 +14,34 @@
 # limitations under the License.
 #
 
-name "gcc"
-default_version "4.9.2"
+name 'gcc'
+default_version '4.9.2'
 
-dependency "gmp"
-dependency "mpfr"
-dependency "mpc"
-dependency "libiconv"
-
-version("4.9.3")      { source md5: "648bfba342bb41a4b5350fb685f85bc5" }
-version("4.9.2")      { source md5: "76f464e0511c26c93425a9dcdc9134cf" }
-
-version("5.3.0")      { source md5: "39b5b6a0e769716a8e0a339adc79d8ad" }
+dependency 'gmp'
+dependency 'mpfr'
+dependency 'mpc'
+dependency 'libiconv'
 
 source url: "https://mirrors.kernel.org/gnu/gcc/gcc-#{version}/gcc-#{version}.tar.gz"
+
+version('4.9.3') { source md5: '648bfba342bb41a4b5350fb685f85bc5' }
+version('4.9.2') { source md5: '76f464e0511c26c93425a9dcdc9134cf' }
+version('5.3.0') { source md5: '39b5b6a0e769716a8e0a339adc79d8ad' }
 
 relative_path "gcc-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  configure_command = ["./configure",
+  configure_command = ['./configure',
                      "--prefix=#{install_dir}/embedded",
-                     "--disable-nls",
-                     "--enable-languages=c,c++",
-                     "--with-as=/usr/ccs/bin/as",
-                     "--with-ld=/usr/ccs/bin/ld"]
+                     '--disable-nls',
+                     '--enable-languages=c,c++',
+                     '--with-as=/usr/ccs/bin/as',
+                     '--with-ld=/usr/ccs/bin/ld']
 
 
-  command configure_command.join(" "), env: env
+  command configure_command.join(' '), env: env
   # gcc takes quite a long time to build (over 2 hours) so we're setting the mixlib shellout
   # timeout to 4 hours. It's not great but it's required (on solaris at least, need to verify
   # on any other platforms we may use this with)

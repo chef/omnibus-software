@@ -17,16 +17,15 @@
 # This library object is required for building Python with the bz2 module,
 # and should be picked up automatically when building Python.
 
-name "bzip2"
-default_version "1.0.6"
+name 'bzip2'
+default_version '1.0.6'
 
-dependency "zlib"
-dependency "openssl"
+dependency 'zlib'
+dependency 'openssl'
 
-version "1.0.6" do
-  source md5: "00b516f4704d4a7cb50a1d97e6e8e15b"
-end
 source url: "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz"
+
+version('1.0.6') { source md5: '00b516f4704d4a7cb50a1d97e6e8e15b' }
 
 relative_path "#{name}-#{version}"
 
@@ -34,7 +33,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # Avoid warning where .rodata cannot be used when making a shared object
-  env["CFLAGS"] << " -fPIC"
+  env['CFLAGS'] << ' -fPIC'
 
   # The list of arguments to pass to make
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"

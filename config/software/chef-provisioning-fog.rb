@@ -14,24 +14,23 @@
 # limitations under the License.
 #
 
-name "chef-provisioning-fog"
-default_version "master"
+name 'chef-provisioning-fog'
+default_version 'master'
 
-source git: "https://github.com/chef/chef-provisioning-fog.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'nokogiri'
+dependency 'bundler'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "nokogiri"
-dependency "bundler"
-dependency "chef"
-
+source git: 'https://github.com/chef/chef-provisioning-fog.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build chef-provisioning-fog.gemspec", env: env
-  gem "install chef-provisioning-fog-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build chef-provisioning-fog.gemspec', env: env
+  gem 'install chef-provisioning-fog-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end
