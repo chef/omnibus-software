@@ -17,13 +17,11 @@
 name "libzmq4x-windows"
 default_version "1.0.21"
 
+source url: "https://github.com/jaym/zeromq4-x/releases/download/libzmq4x-#{version}/libzmq4x-windows.zip",
+
 # Longer term we need to move this to a chef internal build pipeline
 # https://github.com/jdmundrawala/zeromq4-x/releases/download/libzmq4x-1.0.21/libzmq4x-windows.zip
-#
-version("1.0.21") do
-  source url: "https://github.com/jaym/zeromq4-x/releases/download/libzmq4x-#{version}/libzmq4x-windows.zip",
-         md5: "f75bb49580c7563f890d1fcfdd415553"
-end
+version("1.0.21") { source md5: "f75bb49580c7563f890d1fcfdd415553" }
 
 relative_path "libzmq4x-windows"
 

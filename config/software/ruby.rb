@@ -58,6 +58,7 @@ dependency "libyaml"
 # and that's the only one we will ever use.
 dependency "libiconv"
 
+source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 
@@ -83,8 +84,6 @@ version("2.0.0-p576") { source md5: "2e1f4355981b754d92f7e2cc456f843d" }
 version("1.9.3-p550") { source md5: "e05135be8f109b2845229c4f47f980fd" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
-
-source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 relative_path "ruby-#{version}"
 

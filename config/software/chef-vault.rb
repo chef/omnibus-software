@@ -17,14 +17,14 @@
 name "chef-vault"
 default_version "master"
 
-source git: "https://github.com/chef/chef-vault.git"
-
-relative_path "chef-vault"
-
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "chef"
+
+source git: "https://github.com/chef/chef-vault.git"
+
+relative_path "chef-vault"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

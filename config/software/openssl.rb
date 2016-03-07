@@ -15,6 +15,7 @@
 #
 
 name "openssl"
+default_version "1.0.1s"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
@@ -23,8 +24,6 @@ dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "patch" if solaris2?
 dependency "openssl-fips" if fips_enabled
-
-default_version "1.0.1s"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.

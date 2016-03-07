@@ -17,27 +17,13 @@
 name "redis"
 default_version "3.0.4"
 
-version "3.0.7" do
-  source md5: "84ed3f486e7a6f0ebada6917370f3532"
-end
-
-version "3.0.4" do
-  source md5: "9e535dea3dc5301de012047bf3cca952"
-end
-
-version "2.8.21" do
-  source md5: "d059e2bf5315e2488ab679e09e55a9e7"
-end
-
-version "2.8.2" do
-  source md5: "ee527b0c37e1e2cbceb497f5f6b8112b"
-end
-
-version "2.4.7" do
-  source md5: "6afffb6120724183e40f1cac324ac71c"
-end
-
 source url: "http://download.redis.io/releases/redis-#{version}.tar.gz"
+
+version("3.0.7")  { source  md5: "84ed3f486e7a6f0ebada6917370f3532" }
+version("3.0.4")  { source  md5: "9e535dea3dc5301de012047bf3cca952" }
+version("2.8.21") { source  md5: "d059e2bf5315e2488ab679e09e55a9e7" }
+version("2.8.2")  { source  md5: "ee527b0c37e1e2cbceb497f5f6b8112b" }
+version("2.4.7")  { source  md5: "6afffb6120724183e40f1cac324ac71c" }
 
 relative_path "redis-#{version}"
 

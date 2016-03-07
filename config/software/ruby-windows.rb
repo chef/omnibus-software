@@ -23,14 +23,15 @@ fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) 
 if fips_enabled
   # We only currently support 32-bit FIPS builds
   if windows_arch_i386?
-    relative_path "ruby-#{version}-i386-mingw32"
+    default_version "2.0.0-p647"
+
     source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-#{version}-i386-mingw32.7z"
 
-    default_version "2.0.0-p647"
     version("2.0.0-p647") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
+
+    relative_path "ruby-#{version}-i386-mingw32"
   end
 elsif windows_arch_i386?
-  relative_path "ruby-#{version}-i386-mingw32"
   source url: "https://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
   version("2.2.4") { source md5: "392a3d4ebc8d0733508c8e70ec86d0fa" }
@@ -46,8 +47,9 @@ elsif windows_arch_i386?
   version("2.0.0-p451") { source md5: "37feadb0230e7f475a8591d1807ecfec" }
 
   version("1.9.3-p484") { source md5: "a0665113aaeea83f1c4bea02fcf16694" }
+
+  relative_path "ruby-#{version}-i386-mingw32"
 else
-  relative_path "ruby-#{version}-x64-mingw32"
   source url: "https://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-x64-mingw32.7z?direct"
 
   version("2.2.4") { source md5: "0cff85bfccdd6a1e772cdf362066199e" }
@@ -61,6 +63,8 @@ else
   version("2.0.0-p648") { source md5: "022f14d020eb2b7a19c6494f7e16d137" }
   version("2.0.0-p645") { source md5: "d57d539b90f5bbf26550a9d1a3c33c33" }
   version("2.0.0-p451") { source md5: "d4f6741138a26a4be12e684a16a19b75" }
+
+  relative_path "ruby-#{version}-x64-mingw32"
 end
 
 build do

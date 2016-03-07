@@ -18,34 +18,25 @@
 name "libzmq"
 default_version "2.1.11"
 
-dependency "autoconf"
-dependency "automake"
-dependency "libtool"
+dependency 'autoconf'
+dependency 'automake'
+dependency 'libtool'
 
-version "2.2.0" do
-  source md5: "1b11aae09b19d18276d0717b2ea288f6"
-  dependency "libuuid"
-end
-version "2.1.11" do
-  source md5: "f0f9fd62acb1f0869d7aa80379b1f6b7"
-  dependency "libuuid"
-end
+source url: "http://download.zeromq.org/zeromq-#{version}.tar.gz"
 
-version "4.1.4" do
-  source md5: "a611ecc93fffeb6d058c0e6edf4ad4fb"
-  dependency "libsodium"
-end
-version "4.0.5" do
-  source md5: "73c39f5eb01b9d7eaf74a5d899f1d03d"
-  dependency "libsodium"
-end
-version "4.0.4" do
-  source md5: "f3c3defbb5ef6cc000ca65e529fdab3b"
-  dependency "libsodium"
+version('2.2.0')  { source md5: '1b11aae09b19d18276d0717b2ea288f6' }
+version('2.1.11') { source md5: 'f0f9fd62acb1f0869d7aa80379b1f6b7' }
+version('4.1.4')  { source md5: 'a611ecc93fffeb6d058c0e6edf4ad4fb' }
+version('4.0.5')  { source md5: '73c39f5eb01b9d7eaf74a5d899f1d03d' }
+version('4.0.4')  { source md5: 'f3c3defbb5ef6cc000ca65e529fdab3b' }
+
+if version <= '2.2.0'
+  dependency 'libuuid'
+elsif version >= '4.0.4'
+  dependency 'libsodium'
 end
 
 relative_path "zeromq-#{version}"
-source url: "http://download.zeromq.org/zeromq-#{version}.tar.gz"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

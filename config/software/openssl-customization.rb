@@ -20,9 +20,9 @@
 # tools can be used with https URLs out of the box.
 name "openssl-customization"
 
-source path: "#{project.files_path}/#{name}"
-
 dependency "ruby"
+
+source path: "#{project.files_path}/#{name}"
 
 build do
   block "Add OpenSSL customization file" do

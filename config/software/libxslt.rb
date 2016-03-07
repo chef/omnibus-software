@@ -22,15 +22,10 @@ dependency "liblzma"
 dependency "libtool" if solaris2?
 dependency "patch" if solaris2?
 
-version "1.1.28" do
-  source md5: "9667bf6f9310b957254fdcf6596600b7"
-end
-
-version "1.1.26" do
-  source md5: "e61d0364a30146aaa3001296f853b2b9"
-end
-
 source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
+
+version("1.1.28") { source  md5: "9667bf6f9310b957254fdcf6596600b7" }
+version("1.1.26") { source  md5: "e61d0364a30146aaa3001296f853b2b9" }
 
 relative_path "libxslt-#{version}"
 

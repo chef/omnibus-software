@@ -33,6 +33,7 @@ else
            md5: "ce99d873c1acc8bffc639bd4e764b849"
   end
 end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

@@ -20,10 +20,10 @@ default_version "1.0.2"
 dependency "gmp"
 dependency "mpfr"
 
+source url: "https://ftp.gnu.org/gnu/mpc/mpc-#{version}.tar.gz"
+
 version("1.0.2") { source md5: "68fadff3358fb3e7976c7a398a0af4c3" }
 version("1.0.3") { source md5: "d6a1d5f8ddea3abd2cc3e98f58352d26" }
-
-source url: "https://ftp.gnu.org/gnu/mpc/mpc-#{version}.tar.gz"
 
 relative_path "mpc-#{version}"
 

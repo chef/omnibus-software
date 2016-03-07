@@ -19,18 +19,11 @@ default_version "6.78"
 
 dependency "perl"
 
-version "6.98" do
-  source md5: "3eb83b59e33159ecc700bf60ac3c357a"
-end
-version "6.78" do
-  source md5: "843886bc1060b5e5c619e34029343eba"
-end
-version "7.10" do
-  source md5: "2639a21adee5e0a903730c12dcba08ec"
-end
-
 source url: "http://search.cpan.org/CPAN/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-#{version}.tar.gz"
 
+version("6.98") { source  md5: "3eb83b59e33159ecc700bf60ac3c357a" }
+version("6.78") { source  md5: "843886bc1060b5e5c619e34029343eba" }
+version("7.10") { source  md5: "2639a21adee5e0a903730c12dcba08ec" }
 
 relative_path "ExtUtils-MakeMaker-#{version}"
 
