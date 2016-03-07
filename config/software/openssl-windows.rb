@@ -21,25 +21,18 @@ default_version "1.0.1r"
 
 dependency "ruby-windows"
 
-if windows_arch_i386?
-  version('1.0.1r') do
-    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1r/openssl-1.0.1r-x86-windows.tar.lzma",
-           md5: "72e2cab647192ddc5314760feca6b424"
-  end
-  version('1.0.1s') do
-    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1s/openssl-1.0.1s-x86-windows.tar.lzma",
-           md5: "971abfe54d89d79b34c7444dcab8e17b"
-  end
+if i386?
+  arch = 'x86'
 else
-  version('1.0.1r') do
-    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1r/openssl-1.0.1r-x64-windows.tar.lzma",
-           md5: "d1aa3c43f21eaf42abf321cbfd9de331"
-  end
-  version('1.0.1s') do
-    source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1s/openssl-1.0.1s-x64-windows.tar.lzma",
-           md5: "0a8d444d22ab43ecf8ae29ec8d31fa1b"
-  end
+  arch = 'x64'
 end
+
+source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-#{version}/openssl-#{version}-#{arch}-windows.tar.lzma"
+
+version('1.0.1r') { source md5: '72e2cab647192ddc5314760feca6b424' }
+version('1.0.1s') { source md5: '971abfe54d89d79b34c7444dcab8e17b' }
+version('1.0.1r') { source md5: 'd1aa3c43f21eaf42abf321cbfd9de331' }
+version('1.0.1s') { source md5: '0a8d444d22ab43ecf8ae29ec8d31fa1b' }
 
 relative_path 'bin'
 

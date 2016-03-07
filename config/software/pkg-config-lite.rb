@@ -17,11 +17,10 @@
 name "pkg-config-lite"
 default_version "0.28-1"
 
-version "0.28-1" do
-  source md5: "61f05feb6bab0a6bbfab4b6e3b2f44b6"
-end
 
 source url: "http://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
+
+version('0.28-1') { source md5: '61f05feb6bab0a6bbfab4b6e3b2f44b6' }
 
 relative_path "pkg-config-lite-#{version}"
 

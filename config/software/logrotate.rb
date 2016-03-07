@@ -21,11 +21,10 @@ dependency "popt"
 
 source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"
 
-version "3.9.2" do
-  source md5: "584bca013dcceeb23b06b27d6d0342fb"
-end
-version "3.8.5" do
-  source md5: "d3c13e2a963a55c584cfaa83e96b173d",
+version('3.9.2') { source md5: '584bca013dcceeb23b06b27d6d0342fb' }
+
+version '3.8.5' do
+  source md5: 'd3c13e2a963a55c584cfaa83e96b173d',
          url: "https://fedorahosted.org/releases/l/o/logrotate/logrotate-#{version}.tar.gz"
 end
 

@@ -18,13 +18,13 @@ name "ffi-yajl"
 default_version "master"
 relative_path "ffi-yajl"
 
-source git: "https://github.com/opscode/ffi-yajl.git"
 
 dependency "ruby"
 
 dependency "rubygems"
 dependency "libyajl2-gem"
 dependency "bundler"
+source git: 'https://github.com/opscode/ffi-yajl.git'
 
 build do
   env = with_embedded_path()

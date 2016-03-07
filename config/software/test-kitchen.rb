@@ -18,11 +18,11 @@ name "test-kitchen"
 default_version "master"
 relative_path "test-kitchen"
 
-source git: "https://github.com/test-kitchen/test-kitchen.git"
 
 dependency "ruby"
 dependency "rubygems"
 dependency "nokogiri"
+source git: 'https://github.com/test-kitchen/test-kitchen.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

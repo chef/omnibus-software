@@ -14,21 +14,16 @@
 # limitations under the License.
 #
 
-name "pcre"
-default_version "8.38"
+name 'pcre'
+default_version '8.38'
 
-dependency "libedit"
-dependency "ncurses"
-
-version "8.38" do
-  source md5: "8a353fe1450216b6655dfcf3561716d9"
-end
-
-version "8.31" do
-  source md5: "fab1bb3b91a4c35398263a5c1e0858c1"
-end
+dependency 'libedit'
+dependency 'ncurses'
 
 source url: "http://iweb.dl.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
+
+version('8.38') { source md5: '8a353fe1450216b6655dfcf3561716d9' }
+version('8.31') { source md5: 'fab1bb3b91a4c35398263a5c1e0858c1' }
 
 relative_path "pcre-#{version}"
 

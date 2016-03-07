@@ -17,12 +17,12 @@
 name "chef-provisioning-aws"
 default_version "master"
 
-source git: "https://github.com/chef/chef-provisioning-aws.git"
 
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "chef"
+source git: 'https://github.com/chef/chef-provisioning-aws.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

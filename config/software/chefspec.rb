@@ -14,16 +14,16 @@
 # limitations under the License.
 #
 
-name "chefspec"
-default_version "master"
+name 'chefspec'
+default_version 'master'
 
-source git: "https://github.com/sethvargo/chefspec.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
+dependency 'fauxhai'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
-dependency "fauxhai"
+source git: 'https://github.com/sethvargo/chefspec.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

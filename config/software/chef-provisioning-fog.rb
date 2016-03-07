@@ -17,7 +17,6 @@
 name "chef-provisioning-fog"
 default_version "master"
 
-source git: "https://github.com/chef/chef-provisioning-fog.git"
 
 dependency "ruby"
 dependency "rubygems"
@@ -25,6 +24,7 @@ dependency "nokogiri"
 dependency "bundler"
 dependency "chef"
 
+source git: 'https://github.com/chef/chef-provisioning-fog.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

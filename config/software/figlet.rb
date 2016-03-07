@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-name "figlet"
-default_version "2.2.5"
-
-version("2.2.5") { source md5: "eaaeb356007755c9770a842aefd8ed5f" }
+name 'figlet'
+default_version '2.2.5'
 
 source url: "https://github.com/cmatsuoka/figlet/archive/#{version}.tar.gz"
+
+version('2.2.5') { source md5: 'eaaeb356007755c9770a842aefd8ed5f' }
 
 relative_path "figlet-#{version}"
 

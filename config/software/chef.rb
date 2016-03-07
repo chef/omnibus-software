@@ -16,10 +16,16 @@
 name "chef"
 default_version "master"
 
-# For the specific super-special version "local_source", build the source from
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'ohai'
+dependency 'appbundler'
+
+# For the specific super-special version 'local_source', build the source from
 # the local git checkout. This is what you'd want to occur by default if you
 # just ran omnibus build locally.
-version("local_source") do
+version('local_source') do
   source path: "#{project.files_path}/../..",
          # Since we are using the local repo, we try to not copy any files
          # that are generated in the process of bundle installing omnibus.
@@ -28,23 +34,17 @@ version("local_source") do
          # omnibus cache source directory, but we do this regardless
          # to maintain consistency between what a local build sees and
          # what a github based build will see.
-         options: { exclude: [ "omnibus/vendor" ] }
+         options: { exclude: [ 'omnibus/vendor' ] }
 end
 
-# For any version other than "local_source", fetch from github.
+# For any version other than 'local_source', fetch from github.
 # This is the behavior the transitive omnibus software deps such as chef-dk
 # expect.
-if version != "local_source"
-  source git: "https://github.com/chef/chef.git"
+if version != 'local_source'
+  source git: 'https://github.com/chef/chef.git'
 end
 
-relative_path "chef"
-
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "ohai"
-dependency "appbundler"
+relative_path 'chef'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

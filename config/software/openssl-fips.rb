@@ -17,18 +17,17 @@
 name "openssl-fips"
 default_version "2.0.10"
 
-version("2.0.11") { source sha256: "a6532875956d357a05838ca2c9865b8eecac211543e4246512684b17acbbdfac" }
-version("2.0.10") { source sha256: "a42ccf5f08a8b510c0c78da1ba889532a0ce24e772b576604faf09b4d6a0f771" }
-version("2.0.9") { source md5: "c8256051d7a76471c6ad4fb771404e60" }
-
-# HAHAHA According to the FIPS manual, you need to "securely" fetch the source
+# HAHAHA According to the FIPS manual, you need to 'securely' fetch the source
 # such as asking some humans to mail you a CD-ROM or something.
 # You are then supposed to manually verify the PGP signatures.
 # When making an "official" build - make sure you go do that...
 source url: "https://www.openssl.org/source/openssl-fips-#{version}.tar.gz", extract: :lax_tar
 
-relative_path "openssl-fips-#{version}"
+version('2.0.11') { source sha256: 'a6532875956d357a05838ca2c9865b8eecac211543e4246512684b17acbbdfac' }
+version('2.0.10') { source sha256: 'a42ccf5f08a8b510c0c78da1ba889532a0ce24e772b576604faf09b4d6a0f771' }
+version('2.0.9')  { source md5: 'c8256051d7a76471c6ad4fb771404e60' }
 
+relative_path "openssl-fips-#{version}"
 
 build do
   # According to the FIPS manual, this is the only environment you are allowed

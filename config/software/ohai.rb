@@ -18,13 +18,13 @@
 name "ohai"
 default_version "master"
 
-source git: "https://github.com/opscode/ohai.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
 
-relative_path "ohai"
+source git: 'https://github.com/opscode/ohai.git'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
+relative_path 'ohai'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

@@ -14,13 +14,14 @@
 # limitations under the License.
 #
 
-name "perl-extutils-embed"
-default_version "1.14"
+name 'perl-extutils-embed'
+default_version '1.14'
 
-dependency "perl"
+dependency 'perl'
 
-source url: "http://search.cpan.org/CPAN/authors/id/D/DO/DOUGM/ExtUtils-Embed-#{version}.tar.gz",
-       md5: "b2a2c26a18bca3ce69f8a0b1b54a0105"
+source url: "http://search.cpan.org/CPAN/authors/id/D/DO/DOUGM/ExtUtils-Embed-#{version}.tar.gz"
+
+version('1.14') { source md5: 'b2a2c26a18bca3ce69f8a0b1b54a0105' }
 
 relative_path "ExtUtils-Embed-#{version}"
 

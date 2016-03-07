@@ -24,29 +24,15 @@ dependency "pcre"
 dependency "libiconv"
 dependency "expat"
 
+source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
+
 relative_path "git-#{version}"
 
-version "2.7.1" do
-  source md5: "846ac45a1638e9a6ff3a9b790f6c8d99"
-end
-
-version "2.6.2" do
-  source md5: "da293290da69f45a86a311ad3cd43dc8"
-end
-
-version "2.2.1" do
-  source md5: "ff41fdb094eed1ec430aed8ee9b9849c"
-end
-
-version "1.9.5" do
-  source md5: "e9c82e71bec550e856cccd9548902885"
-end
-
-version "1.9.0" do
-  source md5: "0e00839539fc43cd2c350589744f254a"
-end
-
-source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
+version('2.7.1') { source md5: '846ac45a1638e9a6ff3a9b790f6c8d99' }
+version('2.6.2') { source md5: 'da293290da69f45a86a311ad3cd43dc8' }
+version('2.2.1') { source md5: 'ff41fdb094eed1ec430aed8ee9b9849c' }
+version('1.9.5') { source md5: 'e9c82e71bec550e856cccd9548902885' }
+version('1.9.0') { source md5: '0e00839539fc43cd2c350589744f254a' }
 
 build do
 

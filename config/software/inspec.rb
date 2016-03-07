@@ -17,11 +17,11 @@
 name "inspec"
 default_version "master"
 
-source git: "https://github.com/chef/inspec.git"
 
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
+source git: 'https://github.com/chef/inspec.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

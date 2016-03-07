@@ -17,17 +17,12 @@
 name "cpanminus"
 default_version "1.7004"
 
-dependency "perl"
-
-version "1.7040" do
-  source md5: "4fabebffe22eaaf584b345b082a8a9c1"
-end
-
-version "1.7004" do
-  source md5: "02fe90392f33a12979e188ea110dae67"
-end
+dependency 'perl'
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
+
+version('1.7040') { source md5: '4fabebffe22eaaf584b345b082a8a9c1' }
+version('1.7004') { source md5: '02fe90392f33a12979e188ea110dae67' }
 
 relative_path "cpanminus-#{version}"
 

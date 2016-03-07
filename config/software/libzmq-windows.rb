@@ -19,8 +19,9 @@ default_version "2.2.0"
 
 zmq_installer = "ZeroMQ-#{version}~miru1.0-win32.exe"
 
-source url: "https://miru.hk/archive/#{zmq_installer}",
-       md5: "207a322228f90f61bfb67e3f335db06e"
+source url: "https://miru.hk/archive/#{zmq_installer}"
+
+version('2.2.0') { source md5: '207a322228f90f61bfb67e3f335db06e' }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

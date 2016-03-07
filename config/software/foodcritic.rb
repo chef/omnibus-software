@@ -17,13 +17,13 @@
 name "foodcritic"
 default_version "v6.0.0"
 
-source git: "https://github.com/acrmp/foodcritic.git"
 
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "nokogiri"
 dependency "chef"
+source git: 'https://github.com/acrmp/foodcritic.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

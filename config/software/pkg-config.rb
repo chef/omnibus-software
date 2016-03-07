@@ -17,17 +17,12 @@
 name "pkg-config"
 default_version "0.28"
 
-dependency "libiconv"
-
-version "0.29" do
-  source md5: "77f27dce7ef88d0634d0d6f90e03a77f"
-end
-
-version "0.28" do
-  source md5: "aa3c86e67551adc3ac865160e34a2a0d"
-end
+dependency 'libiconv'
 
 source url: "https://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
+
+version('0.29') { source md5: '77f27dce7ef88d0634d0d6f90e03a77f' }
+version('0.28') { source md5: 'aa3c86e67551adc3ac865160e34a2a0d' }
 
 relative_path "pkg-config-#{version}"
 

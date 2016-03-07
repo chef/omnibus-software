@@ -14,15 +14,15 @@
 # limitations under the License.
 #
 
-name "knife-windows"
-default_version "master"
+name 'knife-windows'
+default_version 'master'
 
-source git: "https://github.com/chef/knife-windows.git"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
+source git: 'https://github.com/chef/knife-windows.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
