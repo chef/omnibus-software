@@ -77,7 +77,7 @@ build do
   if rhel? &&
      platform_version.satisfies?("< 6.0") &&
      version.satisfies?(">= 1.7")
-    configure << "--with-luajit-xcflags="-std=gnu99""
+    configure << "--with-luajit-xcflags=\"-std=gnu99\""
   end
 
   command configure.join(" "), env: env
