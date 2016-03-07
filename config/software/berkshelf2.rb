@@ -29,27 +29,18 @@ dependency "libffi"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install celluloid" \
-      " --version '~> 0.16.0'" \
-      " --no-ri --no-rdoc", env: env
+  gems = {
+    'celluloid'    => '0.16.0',
+    'celluloid-io' => '0.16.1',
+    'hashie'       => '2.0.0',
+    'varia_model'  => '0.3.2',
+    'i18n'         => '0.6.11',
+    'berkshelf'    => "#{version}"
+  }
 
-  gem "install celluloid-io" \
-      " --version '~> 0.16.1'" \
-      " --no-ri --no-rdoc", env: env
-
-  gem "install hashie" \
-      " --version '~> 2.0.0'" \
-      " --no-ri --no-rdoc", env: env
-
-  gem "install varia_model" \
-      " --version '0.3.2'" \
-      " --no-ri --no-rdoc", env: env
-
-  gem "install i18n" \
-      " --version '0.6.11'" \
-      " --no-ri --no-rdoc", env: env
-
-  gem "install berkshelf" \
-      " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+  gems.map do |name, version|
+    gem "install #{name}" \
+        " --version #{version}" \
+        ' --no-ri --no-rdoc', env: env
+  end
 end
