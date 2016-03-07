@@ -116,7 +116,7 @@ build do
     # see http://invisible-island.net/ncurses/NEWS.html#t20140621
 
     # let libtool deal with library silliness
-    configure_command << "--with-libtool="#{install_dir}/embedded/bin/libtool""
+    configure_command << "--with-libtool=\"#{install_dir}/embedded/bin/libtool\""
 
     # stick with just the shared libs on AIX
     configure_command << "--without-normal"
