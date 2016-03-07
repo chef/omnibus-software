@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "rabbitmq"
-default_version "2.7.1"
+name 'rabbitmq'
+default_version '2.7.1'
 
 dependency 'erlang'
 

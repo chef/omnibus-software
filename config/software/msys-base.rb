@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-name "msys-base"
-default_version "2013072300"
+name 'msys-base'
+default_version '2013072300'
 
-dependency "mingw-get"
+dependency 'mingw-get'
 
 env = with_standard_compiler_flags(with_embedded_path)
 

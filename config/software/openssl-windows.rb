@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-name "openssl-windows"
+name 'openssl-windows'
 # 1.0.1s is binary imcompatible with ruby from rubyinstaller due to an API
 # change removing SSLv2 functions.
-default_version "1.0.1r"
+default_version '1.0.1r'
 
-dependency "ruby-windows"
+dependency 'ruby-windows'
 
 if i386?
   arch = 'x86'
@@ -38,6 +38,6 @@ relative_path 'bin'
 
 build do
   # Copy over the required dlls into embedded/bin
-  copy "libeay32.dll", "#{install_dir}/embedded/bin/"
-  copy "ssleay32.dll", "#{install_dir}/embedded/bin/"
+  copy 'libeay32.dll', "#{install_dir}/embedded/bin/"
+  copy 'ssleay32.dll', "#{install_dir}/embedded/bin/"
 end

@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "mpc"
-default_version "1.0.2"
+name 'mpc'
+default_version '1.0.2'
 
 dependency 'gmp'
 dependency 'mpfr'
@@ -30,10 +30,10 @@ relative_path "mpc-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  configure_command = ["./configure",
+  configure_command = ['./configure',
                        "--prefix=#{install_dir}/embedded"]
 
-  command configure_command.join(" "), env: env
+  command configure_command.join(' '), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end

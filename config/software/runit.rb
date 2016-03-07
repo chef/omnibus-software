@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-name "runit"
-default_version "2.1.1"
-
 name 'runit'
 default_version '2.1.1'
 
@@ -34,11 +31,11 @@ build do
   command 'sed -i -e "s/^char\ \*varservice\ \=\"\/service\/\";$/char\ \*varservice\ \=\"' + install_dir.gsub("/", "\\/") + '\/service\/\";/" sv.c', env: env
 
   # TODO: the following is not idempotent
-  command "sed -i -e s:-static:: Makefile", env: env
+  command 'sed -i -e s:-static:: Makefile', env: env
 
   # Build it
   make env: env
-  make "check", env: env
+  make 'check', env: env
 
   # Move it
   mkdir "#{install_dir}/embedded/bin"
@@ -52,7 +49,7 @@ build do
   copy "#{project_dir}/svlogd",     "#{install_dir}/embedded/bin"
   copy "#{project_dir}/utmpset",    "#{install_dir}/embedded/bin"
 
-  erb source: "runsvdir-start.erb",
+  erb source: 'runsvdir-start.erb',
       dest: "#{install_dir}/embedded/bin/runsvdir-start",
       mode: 0755,
       vars: { install_dir: install_dir }

@@ -14,20 +14,20 @@
 # limitations under the License.
 #
 
-name "appbundler"
-default_version "master"
+name 'appbundler'
+default_version 'master'
 
-source git: "https://github.com/chef/appbundler.git"
+source git: 'https://github.com/chef/appbundler.git'
 
-dependency "rubygems"
-dependency "bundler"
+dependency 'rubygems'
+dependency 'bundler'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build appbundler.gemspec", env: env
-  gem "install appbundler-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build appbundler.gemspec', env: env
+  gem 'install appbundler-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

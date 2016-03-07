@@ -14,14 +14,13 @@
 # limitations under the License.
 #
 
-name "python"
-default_version "2.7.9"
+name 'python'
+default_version '2.7.9'
 
-dependency "ncurses"
-dependency "zlib"
-dependency "openssl"
-dependency "bzip2"
-
+dependency 'ncurses'
+dependency 'zlib'
+dependency 'openssl'
+dependency 'bzip2'
 
 source url: "https://python.org/ftp/python/#{version}/Python-#{version}.tgz"
 
@@ -33,17 +32,17 @@ relative_path "Python-#{version}"
 
 build do
   env = {
-    "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
-    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
+    'CFLAGS'  => "-I#{install_dir}/embedded/include -O3 -g -pipe",
+    'LDFLAGS' => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
   }
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --enable-shared" \
-          " --with-dbmliborder=", env: env
+          ' --enable-shared' \
+          ' --with-dbmliborder=', env: env
 
   make env: env
-  make "install", env: env
+  make 'install', env: env
 
   # There exists no configure flag to tell Python to not compile readline
   delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"

@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-name "keepalived"
-default_version "1.2.9"
+name 'keepalived'
+default_version '1.2.9'
 
-dependency "popt"
-dependency "openssl"
+dependency 'popt'
+dependency 'openssl'
 
 source url: "http://www.keepalived.org/software/keepalived-#{version}.tar.gz"
 
@@ -34,14 +34,14 @@ build do
   # This is cherry-picked from change
   # d384ce8b3492b9d76af23e621a20bed8da9c6016 of keepalived, (master
   # branch), and should be no longer necessary after 1.2.9.
-  if version == "1.2.9"
-    patch source: "keepalived-1.2.9_opscode_centos_5.patch", env: env
+  if version == '1.2.9'
+    patch source: 'keepalived-1.2.9_opscode_centos_5.patch', env: env
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-iconv", env: env
+          ' --disable-iconv', env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

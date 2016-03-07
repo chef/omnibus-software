@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "m4"
-default_version "1.4.17"
+name 'm4'
+default_version '1.4.17'
 
 source url: "https://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz"
 

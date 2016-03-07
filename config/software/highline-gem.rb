@@ -14,17 +14,17 @@
 # limitations under the License.
 #
 
-name "highline-gem"
-default_version "1.6.21"
+name 'highline-gem'
+default_version '1.6.21'
 
-dependency "ruby"
-dependency "rubygems"
+dependency 'ruby'
+dependency 'rubygems'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install highline" \
+  gem 'install highline' \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
-      " --no-ri --no-rdoc", env: env
+      ' --no-ri --no-rdoc', env: env
 end

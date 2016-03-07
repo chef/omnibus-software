@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "mpfr"
-default_version "3.1.2"
+name 'mpfr'
+default_version '3.1.2'
 
 dependency 'gmp'
 
@@ -29,10 +29,10 @@ relative_path "mpfr-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  configure_command = ["./configure",
+  configure_command = ['./configure',
                        "--prefix=#{install_dir}/embedded"]
 
-  command configure_command.join(" "), env: env
+  command configure_command.join(' '), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end

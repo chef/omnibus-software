@@ -15,8 +15,8 @@
 # limitations under the License.
 #
 
-name "ruby-windows-devkit-bash"
-default_version "3.1.23-4-msys-1.0.18"
+name 'ruby-windows-devkit-bash'
+default_version '3.1.23-4-msys-1.0.18'
 
 dependency 'ruby-windows-devkit'
 
@@ -28,7 +28,7 @@ relative_path 'bin'
 
 build do
   # Copy over the required bins into embedded/bin
-  ["bash.exe", "sh.exe"].each do |exe|
+  ['bash.exe', 'sh.exe'].each do |exe|
     copy "#{exe}", "#{install_dir}/embedded/bin/#{exe}"
   end
 end

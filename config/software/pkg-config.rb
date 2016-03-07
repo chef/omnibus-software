@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "pkg-config"
-default_version "0.28"
+name 'pkg-config'
+default_version '0.28'
 
 dependency 'libiconv'
 
@@ -29,21 +29,21 @@ relative_path "pkg-config-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "0.28" && ppc64le?
-    patch source: "v0.28.ppc64le-configure.patch", plevel: 1, env: env
+  if version == '0.28' && ppc64le?
+    patch source: 'v0.28.ppc64le-configure.patch', plevel: 1, env: env
   end
 
   # pkg-config (at least up to 0.28) includes an older version of
   # libcharset/lib/config.charset that doesn't know about openbsd
   if openbsd?
-    patch source: "openbsd-charset.patch", plevel: 1, env: env
+    patch source: 'openbsd-charset.patch', plevel: 1, env: env
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-debug" \
-          " --disable-host-tool" \
-          " --with-internal-glib" \
+          ' --disable-debug' \
+          ' --disable-host-tool' \
+          ' --with-internal-glib' \
           " --with-pc-path=#{install_dir}/embedded/bin/pkgconfig", env: env
 
 
@@ -51,9 +51,9 @@ build do
   # Only allows GLIB_CFLAGS and GLIB_LIBS.
   # These do not serve our purpose, so we must explicitly
   # ./configure in the glib dir, with the Omnibus ldflags.
-  command  "./configure" \
+  command  './configure' \
            " --prefix=#{install_dir}/embedded" \
-           " --with-libiconv=gnu", env: env, cwd: "#{project_dir}/glib"
+           ' --with-libiconv=gnu', env: env, cwd: "#{project_dir}/glib"
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env

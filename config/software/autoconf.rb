@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "autoconf"
-default_version "2.68"
+name 'autoconf'
+default_version '2.68'
 
 dependency 'm4'
 
@@ -33,9 +33,9 @@ build do
     env['M4'] = "#{install_dir}/embedded/bin/m4"
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

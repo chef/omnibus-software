@@ -30,12 +30,12 @@ relative_path "pcre-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --enable-utf" \
-          " --enable-unicode-properties" \
-          " --enable-pcretest-libedit", env: env
+          ' --enable-utf' \
+          ' --enable-unicode-properties' \
+          ' --enable-pcretest-libedit', env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

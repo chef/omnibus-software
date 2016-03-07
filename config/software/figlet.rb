@@ -33,7 +33,7 @@ build do
     env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
     env['CC'] = 'cc_r -q64'
     env['LD'] = 'cc_r -q64'
-    patch source: "aix-figlet-cdefs.patch", plevel: 0, env: env
+    patch source: 'aix-figlet-cdefs.patch', plevel: 0, env: env
   end
 
   mkdir "#{install_dir}/share/figlet/fonts"

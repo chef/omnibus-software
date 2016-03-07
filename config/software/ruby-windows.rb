@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-name "ruby-windows"
+name 'ruby-windows'
 
-default_version "2.0.0-p451"
+default_version '2.0.0-p451'
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
@@ -26,11 +26,12 @@ if fips_enabled
     relative_path "ruby-#{version}-i386-mingw32"
     source url: "https://s3-us-west-2.amazonaws.com/yakyakyak/ruby-#{version}-i386-mingw32.7z"
 
-    default_version "2.0.0-p647"
-    version("2.0.0-p647") { source md5: "0b1e8f16580f26fd0992fad3834cb83d" }
+    default_version '2.0.0-p647'
+    version('2.0.0-p647') { source md5: '0b1e8f16580f26fd0992fad3834cb83d' }
   end
 elsif windows_arch_i386?
   relative_path "ruby-#{version}-i386-mingw32"
+
   source url: "https://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
   # 2.2.x
@@ -79,13 +80,13 @@ build do
   # Since we don't have patch on windows we are manually patching the file
   # to turn off the warning message
   # We are only removing dl.rb:8
-  # => warn "DL is deprecated, please use Fiddle"
+  # => warn 'DL is deprecated, please use Fiddle'
   block do
     ABI_ver = version[/(^\d+\.\d+)/] + '.0'
-    dl_path = File.join(install_dir, "embedded/lib/ruby", ABI_ver, "dl.rb")
+    dl_path = File.join(install_dir, 'embedded/lib/ruby', ABI_ver, 'dl.rb')
 
-    if File.exist?(dl_path) && digest(dl_path) == "78c185a3fcc7b5e2c3db697c85110d8f"
-      File.open(dl_path, "w") do |f|
+    if File.exist?(dl_path) && digest(dl_path) == '78c185a3fcc7b5e2c3db697c85110d8f'
+      File.open(dl_path, 'w') do |f|
         f.print <<-E
   require 'dl.so'
 

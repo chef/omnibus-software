@@ -14,21 +14,21 @@
 # limitations under the License.
 #
 
-name "relx"
+name 'relx'
 
 # Release tags are available, which you can use via override in
 # project config.
-default_version "master"
+default_version 'master'
 
-dependency "erlang"
+dependency 'erlang'
 
 # NOTE: requires rebar > 2.2.0 Not sure what the minimum is, but
 # 837df640872d6a5d5d75a7308126e2769d7babad of rebar works.
-dependency "rebar"
+dependency 'rebar'
 
-source git: "https://github.com/erlware/relx.git"
+source git: 'https://github.com/erlware/relx.git'
 
-relative_path "relx"
+relative_path 'relx'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

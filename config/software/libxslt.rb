@@ -14,14 +14,13 @@
 # limitations under the License.
 #
 
-name "libxslt"
-default_version "1.1.28"
+name 'libxslt'
+default_version '1.1.28'
 
-dependency "libxml2"
-dependency "liblzma"
-dependency "libtool" if solaris2?
-dependency "patch" if solaris2?
-
+dependency 'libxml2'
+dependency 'liblzma'
+dependency 'libtool' if solaris2?
+dependency 'patch' if solaris2?
 
 source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 
@@ -33,26 +32,26 @@ relative_path "libxslt-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
-  patch source: "libxslt-cve-2015-7995.patch", env: env
-  patch source: "libxslt-solaris-configure.patch", env: env if solaris?
-  patch source: "libxslt-mingw32.patch", env: env if windows?
+  patch source: 'libxslt-cve-2015-7995.patch', env: env
+  patch source: 'libxslt-solaris-configure.patch', env: env if solaris?
+  patch source: 'libxslt-mingw32.patch', env: env if windows?
 
   configure_commands = [
     "--with-libxml-prefix=#{install_dir}/embedded",
     "--with-libxml-include-prefix=#{install_dir}/embedded/include",
     "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
-    "--without-python",
-    "--without-crypto",
+    '--without-python',
+    '--without-crypto'
   ]
 
   configure(*configure_commands, env: env)
 
   if windows?
     # Apply a post configure patch to prevent dll base address clash
-    patch source: "libxslt-windows-relocate.patch", env: env if windows?
+    patch source: 'libxslt-windows-relocate.patch', env: env if windows?
     make env: env
   else
     make "-j #{workers}", env: env
   end
-  make "install", env: env
+  make 'install', env: env
 end

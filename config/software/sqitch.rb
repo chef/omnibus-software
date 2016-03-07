@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "sqitch"
-default_version "0.973"
+name 'sqitch'
+default_version '0.973'
 
 dependency 'perl'
 dependency 'cpanminus'
@@ -31,8 +31,8 @@ relative_path "App-Sqitch-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "perl Build.PL", env: env
-  command "./Build installdeps --cpan_client 'cpanm -v --notest'", env: env
-  command "./Build", env: env
-  command "./Build install", env: env
+  command 'perl Build.PL', env: env
+  command './Build installdeps --cpan_client "cpanm -v --notest"', env: env
+  command './Build', env: env
+  command './Build install', env: env
 end

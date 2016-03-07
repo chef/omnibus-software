@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-name "msys-coreutils-ext"
-default_version "5.97-3"
+name 'msys-coreutils-ext'
+default_version '5.97-3'
 
-dependency "mingw-get"
-dependency "msys-base"
+dependency 'mingw-get'
+dependency 'msys-base'
 
 # This package brings in occasionally used utilities such as dd, chown, chgrp,
 # hostname, mkfifo, stat etc. Some of these don't make sense on windows but

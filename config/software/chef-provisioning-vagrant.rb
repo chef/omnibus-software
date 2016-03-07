@@ -14,22 +14,22 @@
 # limitations under the License.
 #
 
-name "chef-provisioning-vagrant"
-default_version "master"
+name 'chef-provisioning-vagrant'
+default_version 'master'
 
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
 source git: 'https://github.com/chef/chef-provisioning-vagrant.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build chef-provisioning-vagrant.gemspec", env: env
-  gem "install chef-provisioning-vagrant-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build chef-provisioning-vagrant.gemspec', env: env
+  gem 'install chef-provisioning-vagrant-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

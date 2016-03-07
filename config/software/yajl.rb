@@ -14,18 +14,18 @@
 # limitations under the License.
 #
 
-name "yajl"
-default_version "1.1.0"
+name 'yajl'
+default_version '1.1.0'
 
-dependency "rubygems"
+dependency 'rubygems'
 
-relative_path "yajl-ruby"
+relative_path 'yajl-ruby'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install yajl-ruby" \
+  gem 'install yajl-ruby' \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/bin'" \
-      " --no-ri --no-rdoc", env: env
+      ' --no-ri --no-rdoc', env: env
 end

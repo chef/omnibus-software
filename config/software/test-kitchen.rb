@@ -14,22 +14,22 @@
 # limitations under the License.
 #
 
-name "test-kitchen"
-default_version "master"
-relative_path "test-kitchen"
+name 'test-kitchen'
+default_version 'master'
+relative_path 'test-kitchen'
 
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'nokogiri'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "nokogiri"
 source git: 'https://github.com/test-kitchen/test-kitchen.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without guard", env: env
-  bundle "exec rake build", env: env
+  bundle 'install --without guard', env: env
+  bundle 'exec rake build', env: env
 
-  gem "install pkg/test-kitchen-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'install pkg/test-kitchen-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

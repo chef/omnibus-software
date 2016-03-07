@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-name "erlang"
-default_version "R15B03-1"
+name 'erlang'
+default_version 'R15B03-1'
 
-dependency "zlib"
-dependency "openssl"
-dependency "ncurses"
+dependency 'zlib'
+dependency 'openssl'
+dependency 'ncurses'
 
 source url: "http://www.erlang.org/download/otp_src_#{version}.tar.gz"
 
@@ -40,8 +40,8 @@ relative_path "otp_src_#{version.split('-')[0]}"
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
     # WARNING!
-    "CFLAGS"  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
-    "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
+    'CFLAGS'  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
+    'LDFLAGS' => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include"
   )
   env.delete('CPPFLAGS')
 
@@ -58,18 +58,18 @@ build do
     link "#{install_dir}/embedded/include/#{name}", "#{install_dir}/embedded/erlang/include/#{name}"
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --enable-threads" \
-          " --enable-smp-support" \
-          " --enable-kernel-poll" \
-          " --enable-dynamic-ssl-lib" \
-          " --enable-shared-zlib" \
-          " --enable-hipe" \
-          " --without-javac" \
+          ' --enable-threads' \
+          ' --enable-smp-support' \
+          ' --enable-kernel-poll' \
+          ' --enable-dynamic-ssl-lib' \
+          ' --enable-shared-zlib' \
+          ' --enable-hipe' \
+          ' --without-javac' \
           " --with-ssl=#{install_dir}/embedded" \
-          " --disable-debug", env: env
+          ' --disable-debug', env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

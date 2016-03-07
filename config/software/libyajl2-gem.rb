@@ -14,9 +14,8 @@
 # limitations under the License.
 #
 
-name "libyajl2-gem"
-default_version "master"
-relative_path "libyajl2-gem"
+name 'libyajl2-gem'
+default_version 'master'
 
 dependency 'ruby'
 dependency 'rubygems'
@@ -29,15 +28,15 @@ relative_path 'libyajl2-gem'
 build do
   env = with_embedded_path()
 
-  command "git submodule init", env: env
-  command "git submodule update", env: env
+  command 'git submodule init', env: env
+  command 'git submodule update', env: env
 
-  bundle "install --without development_extras", env: env
-  bundle "exec rake prep", env: env
-  bundle "exec rake gem", env: env
+  bundle 'install --without development_extras', env: env
+  bundle 'exec rake prep', env: env
+  bundle 'exec rake gem', env: env
 
-  delete "pkg/*java*"
+  delete 'pkg/*java*'
 
-  gem "install pkg/libyajl2-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'install pkg/libyajl2-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

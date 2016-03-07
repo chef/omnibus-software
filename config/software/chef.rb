@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name "chef"
-default_version "master"
+name 'chef'
+default_version 'master'
 
 dependency 'ruby'
 dependency 'rubygems'
@@ -57,7 +57,7 @@ build do
 
   # Install components that live inside Chef's git repo. For now this is just
   # 'chef-config'
-  bundle "exec rake install_components", env: env
+  bundle 'exec rake install_components', env: env
 
   gemspec_name = windows? ? 'chef-windows.gemspec' : 'chef.gemspec'
 
@@ -66,12 +66,12 @@ build do
   gem "build #{gemspec_name}", env: env
 
   # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
-  gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
+  gem 'install chef*.gem --no-ri --no-rdoc --verbose', env: env
 
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
-    copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
+    copy 'distro/powershell/chef/*', "#{install_dir}/modules/chef"
   end
 
   auxiliary_gems = {}

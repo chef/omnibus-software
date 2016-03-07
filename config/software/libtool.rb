@@ -32,18 +32,18 @@ build do
   # AIX's old version of patch doesn't like the config.guess patch here
   unless aix?
     # Update config.guess to support newer platforms (like aarch64)
-    if version == "2.4"
-      patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
+    if version == '2.4'
+      patch source: 'config.guess_2015-09-14.patch', plevel: 0, env: env
     end
   end
 
   if aix?
-    env["M4"] = "/opt/freeware/bin/m4"
+    env['M4'] = '/opt/freeware/bin/m4'
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
 
   make env: env
-  make "install", env: env
+  make 'install', env: env
 end

@@ -14,17 +14,17 @@
 # limitations under the License.
 #
 
-name "bundler"
+name 'bundler'
 
-dependency "rubygems"
+dependency 'rubygems'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   v_opts = "--version '#{version}'" unless version.nil?
   gem [
-    "install bundler",
+    'install bundler',
     v_opts,
-    "--no-ri --no-rdoc",
-  ].compact.join(" "), env: env
+    '--no-ri --no-rdoc'
+  ].compact.join(' '), env: env
 end

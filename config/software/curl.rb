@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "curl"
-default_version "7.47.1"
+name 'curl'
+default_version '7.47.1'
 
 dependency 'zlib'
 dependency 'openssl'
@@ -32,38 +32,38 @@ build do
 
   if freebsd?
     # from freebsd ports - IPv6 Hostcheck patch
-    patch source: "curl-freebsd-hostcheck.patch", plevel: 1, env: env
+    patch source: 'curl-freebsd-hostcheck.patch', plevel: 1, env: env
   end
 
   delete "#{project_dir}/src/tool_hugehelp.c"
 
   if aix?
     # otherwise gawk will die during ./configure with variations on the theme of:
-    # "/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded"
-    env["LIBPATH"] = "/usr/lib:/lib"
+    # '/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded'
+    env['LIBPATH'] = '/usr/lib:/lib'
   end
 
   configure_command = [
-    "./configure",
+    './configure',
     "--prefix=#{install_dir}/embedded",
-    "--disable-manual",
-    "--disable-debug",
-    "--enable-optimize",
-    "--disable-ldap",
-    "--disable-ldaps",
-    "--disable-rtsp",
-    "--enable-proxy",
-    "--disable-dependency-tracking",
-    "--enable-ipv6",
-    "--without-libidn",
-    "--without-gnutls",
-    "--without-librtmp",
+    '--disable-manual',
+    '--disable-debug',
+    '--enable-optimize',
+    '--disable-ldap',
+    '--disable-ldaps',
+    '--disable-rtsp',
+    '--enable-proxy',
+    '--disable-dependency-tracking',
+    '--enable-ipv6',
+    '--without-libidn',
+    '--without-gnutls',
+    '--without-librtmp',
     "--with-ssl=#{install_dir}/embedded",
-    "--with-zlib=#{install_dir}/embedded",
+    "--with-zlib=#{install_dir}/embedded"
   ]
 
-  command configure_command.join(" "), env: env
+  command configure_command.join(' '), env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

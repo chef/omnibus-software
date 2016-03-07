@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-name "ncurses"
-default_version "5.9"
+name 'ncurses'
+default_version '5.9'
 
-dependency "libtool" if aix?
-dependency "patch" if solaris2?
+dependency 'libtool' if aix?
+dependency 'patch' if solaris2?
 
 source url: "ftp://invisible-island.net/ncurses/current/ncurses-#{version}.tgz"
 
@@ -39,7 +39,7 @@ relative_path "ncurses-#{version}"
 # Ruby 1.9 optimistically builds against libncursesw for UTF-8
 # support. In order to prevent Ruby from linking against a
 # package-installed version of ncursesw, we build wide-character
-# support into ncurses with the "--enable-widec" configure parameter.
+# support into ncurses with the '--enable-widec' configure parameter.
 # To support other applications and libraries that still try to link
 # against libncurses, we also have to create non-wide libraries.
 #
@@ -57,27 +57,27 @@ build do
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
     # compatibility:
     # http://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/ncurses/patches/
-    patch source: "patch-aa", plevel: 0, env: env
-    patch source: "patch-ab", plevel: 0, env: env
-    patch source: "patch-ac", plevel: 0, env: env
-    patch source: "patch-ad", plevel: 0, env: env
-    patch source: "patch-cxx_cursesf.h", plevel: 0, env: env
-    patch source: "patch-cxx_cursesm.h", plevel: 0, env: env
+    patch source: 'patch-aa', plevel: 0, env: env
+    patch source: 'patch-ab', plevel: 0, env: env
+    patch source: 'patch-ac', plevel: 0, env: env
+    patch source: 'patch-ad', plevel: 0, env: env
+    patch source: 'patch-cxx_cursesf.h', plevel: 0, env: env
+    patch source: 'patch-cxx_cursesm.h', plevel: 0, env: env
 
     # Opscode patches - <someara@opscode.com>
     # The configure script from the pristine tarball detects xopen_source_extended incorrectly.
     # Manually working around a false positive.
-    patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0, env: env
+    patch source: 'ncurses-5.9-solaris-xopen_source_extended-detection.patch', plevel: 0, env: env
   end
 
   # AIX's old version of patch doesn't like the patches here
   unless aix?
-    if version == "5.9"
+    if version == '5.9'
       # Update config.guess to support platforms made after 2010 (like aarch64)
-      patch source: "config_guess_2015-09-24.patch", plevel: 0, env: env
+      patch source: 'config_guess_2015-09-24.patch', plevel: 0, env: env
 
       # Patch to add support for GCC 5, doesn't break previous versions
-      patch source: "ncurses-5.9-gcc-5.patch", plevel: 1, env: env
+      patch source: 'ncurses-5.9-gcc-5.patch', plevel: 1, env: env
     end
   end
 
@@ -91,23 +91,23 @@ build do
     # Patches ncurses for clang compiler. Changes have been accepted into
     # upstream, but occurred shortly after the 5.9 release. We should be able
     # to remove this after upgrading to any release created after June 2012
-    patch source: "ncurses-clang.patch", env: env
+    patch source: 'ncurses-clang.patch', env: env
   end
 
   if openbsd?
-    patch source: "patch-ncurses_tinfo_lib__baudrate.c", plevel: 0, env: env
+    patch source: 'patch-ncurses_tinfo_lib__baudrate.c', plevel: 0, env: env
   end
 
   configure_command = [
-    "./configure",
+    './configure',
     "--prefix=#{install_dir}/embedded",
-    "--enable-overwrite",
-    "--with-shared",
-    "--with-termlib",
-    "--without-ada",
-    "--without-cxx-binding",
-    "--without-debug",
-    "--without-manpages",
+    '--enable-overwrite',
+    '--with-shared',
+    '--with-termlib',
+    '--without-ada',
+    '--without-cxx-binding',
+    '--without-debug',
+    '--without-manpages'
   ]
 
   if aix?
@@ -116,39 +116,39 @@ build do
     # see http://invisible-island.net/ncurses/NEWS.html#t20140621
 
     # let libtool deal with library silliness
-    configure_command << "--with-libtool=\"#{install_dir}/embedded/bin/libtool\""
+    configure_command << "--with-libtool='#{install_dir}/embedded/bin/libtool'"
 
     # stick with just the shared libs on AIX
-    configure_command << "--without-normal"
+    configure_command << '--without-normal'
 
     # ncurses's ./configure incorrectly
-    # "figures out" ARFLAGS if you try
+    # 'figures out' ARFLAGS if you try
     # to set them yourself
     env.delete('ARFLAGS')
 
     # use gnu install from the coreutils IBM rpm package
-    env['INSTALL'] = "/opt/freeware/bin/install"
+    env['INSTALL'] = '/opt/freeware/bin/install'
   end
 
   # only Solaris 10 sh has a problem with
   # parens enclosed case statement conditions the configure script
-  configure_command.unshift "bash" if solaris2?
+  configure_command.unshift 'bash' if solaris2?
 
-  command configure_command.join(" "), env: env
+  command configure_command.join(' '), env: env
 
   # unfortunately, libtool may try to link to libtinfo
   # before it has been assembled; so we have to build in serial
-  make "libs", env: env if aix?
+  make 'libs', env: env if aix?
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 
   # Build non-wide-character libraries
-  make "distclean", env: env
-  configure_command << "--enable-widec"
+  make 'distclean', env: env
+  configure_command << '--enable-widec'
 
-  command configure_command.join(" "), env: env
-  make "libs", env: env if aix?
+  command configure_command.join(' '), env: env
+  make 'libs', env: env if aix?
   make "-j #{workers}", env: env
 
   # Installing the non-wide libraries will also install the non-wide

@@ -18,13 +18,13 @@ Omnibus.logger.deprecated('berkshelf2') do
   'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.'
 end
 
-name "berkshelf2"
-default_version "2.0.18"
+name 'berkshelf2'
+default_version '2.0.18'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "nokogiri"
-dependency "libffi"
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'nokogiri'
+dependency 'libffi'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

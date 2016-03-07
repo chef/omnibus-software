@@ -29,9 +29,9 @@ relative_path 'chef-vault'
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build chef-vault.gemspec", env: env
-  gem "install chef-vault-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build chef-vault.gemspec', env: env
+  gem 'install chef-vault-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

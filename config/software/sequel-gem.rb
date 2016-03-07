@@ -14,17 +14,17 @@
 # limitations under the License.
 #
 
-name "sequel-gem"
-default_version "4.13.0"
+name 'sequel-gem'
+default_version '4.13.0'
 
-dependency "ruby"
-dependency "rubygems"
+dependency 'ruby'
+dependency 'rubygems'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install sequel" \
+  gem 'install sequel' \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
-      " --no-ri --no-rdoc", env: env
+      ' --no-ri --no-rdoc', env: env
 end

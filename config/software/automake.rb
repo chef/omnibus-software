@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "automake"
-default_version "1.11.2"
+name 'automake'
+default_version '1.11.2'
 
 dependency 'autoconf'
 
@@ -29,14 +29,14 @@ relative_path "automake-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version.satisfies?(">= 1.15")
-    command "./bootstrap.sh", env: env
+  if version.satisfies?('>= 1.15')
+    command './bootstrap.sh', env: env
   else
-    command "./bootstrap", env: env
+    command './bootstrap', env: env
   end
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

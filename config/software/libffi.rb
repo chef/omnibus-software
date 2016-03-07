@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-name "libffi"
+name 'libffi'
 
-default_version "3.2.1"
+default_version '3.2.1'
 
 # Is libtool actually necessary? Doesn't configure generate one?
 dependency 'libtool' unless windows?
@@ -31,7 +31,7 @@ relative_path "libffi-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
 
-  env['INSTALL'] = "/opt/freeware/bin/install" if aix?
+  env['INSTALL'] = '/opt/freeware/bin/install' if aix?
 
   configure_command = []
 
@@ -39,9 +39,9 @@ build do
   unless aix?
     # Patch to disable multi-os-directory via configure flag (don't use /lib64)
     # Works on all platforms, and is compatible on 32bit platforms as well
-    if version == "3.2.1"
-      patch source: "libffi-3.2.1-disable-multi-os-directory.patch", plevel: 1, env: env
-      configure_command << "--disable-multi-os-directory"
+    if version == '3.2.1'
+      patch source: 'libffi-3.2.1-disable-multi-os-directory.patch', plevel: 1, env: env
+      configure_command << '--disable-multi-os-directory'
     end
   end
 
@@ -49,12 +49,12 @@ build do
 
   if solaris2?
     # run old make :(
-    make env: env, bin: "/usr/ccs/bin/make"
-    make "install", env: env, bin: "/usr/ccs/bin/make"
+    make env: env, bin: '/usr/ccs/bin/make'
+    make 'install', env: env, bin: '/usr/ccs/bin/make'
   elsif windows?
     # On windows, msys make 3.81 breaks with parallel builds.
     make env: env
-    make "install", env: env
+    make 'install', env: env
   else
     make "-j #{workers}", env: env
     make "-j #{workers} install", env: env
@@ -62,5 +62,4 @@ build do
 
   # libffi's default install location of header files is awful...
   copy "#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{install_dir}/embedded/include"
-
 end

@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-name "openresty"
-default_version "1.9.7.2"
+name 'openresty'
+default_version '1.9.7.2'
 
-dependency "pcre"
-dependency "openssl"
-dependency "zlib"
+dependency 'pcre'
+dependency 'openssl'
+dependency 'zlib'
 
 if version < '1.9.7.2'
   source_package_name = 'ngx_openresty'
@@ -43,17 +43,17 @@ build do
   env['PATH'] += "#{env['PATH']}:/usr/sbin:/sbin"
 
   configure = [
-    "./configure",
+    './configure',
     "--prefix=#{install_dir}/embedded",
     "--sbin-path=#{install_dir}/embedded/sbin/nginx",
     "--conf-path=#{install_dir}/embedded/conf/nginx.conf",
-    "--with-http_ssl_module",
-    "--with-debug",
-    "--with-http_stub_status_module",
+    '--with-http_ssl_module',
+    '--with-debug',
+    '--with-http_stub_status_module',
     # Building Nginx with non-system OpenSSL
     # http://www.ruby-forum.com/topic/207287#902308
-    "--with-ld-opt=\"-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz\"",
-    "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"",
+    "--with-ld-opt='-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz'",
+    "--with-cc-opt='-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include'",
     # Options inspired by the OpenResty Cookbook
     '--with-md5-asm',
     '--with-sha1-asm',
@@ -63,7 +63,7 @@ build do
     '--without-mail_smtp_module',
     '--without-mail_imap_module',
     '--without-mail_pop3_module',
-    '--with-ipv6',
+    '--with-ipv6'
     # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
     # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
     # However, they require libatomic-ops-dev and libaio
@@ -73,17 +73,17 @@ build do
 
   # OpenResty 1.7 + RHEL5 Fixes:
   # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
-  # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
+  # fails to compile on RHEL5 without the '--with-luajit-xcflags="-std=gnu99"' flags
   if rhel? &&
      platform_version.satisfies?('< 6.0') &&
      version.satisfies?('>= 1.7')
-    configure << "--with-luajit-xcflags='-std=gnu99'"
+    configure << '--with-luajit-xcflags="-std=gnu99"'
   end
 
-  command configure.join(" "), env: env
+  command configure.join(' '), env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 
   touch "#{install_dir}/embedded/nginx/logs/.gitkeep"
 end

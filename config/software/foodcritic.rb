@@ -14,23 +14,23 @@
 # limitations under the License.
 #
 
-name "foodcritic"
-default_version "v6.0.0"
+name 'foodcritic'
+default_version 'v6.0.0'
 
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'nokogiri'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "nokogiri"
-dependency "chef"
 source git: 'https://github.com/acrmp/foodcritic.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build foodcritic.gemspec", env: env
-  gem "install foodcritic-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build foodcritic.gemspec', env: env
+  gem 'install foodcritic-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

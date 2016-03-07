@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "libuuid"
-default_version "2.21"
+name 'libuuid'
+default_version '2.21'
 
 source url: "https://www.kernel.org/pub/linux/utils/util-linux/v#{version}/util-linux-#{version}.tar.gz"
 
@@ -35,6 +35,6 @@ build do
 
   command "./configure --prefix=#{install_dir}/embedded", env: env
 
-  make "-j #{workers}", env: env, cwd: "#{project_dir}/libuuid"
-  make "-j #{workers} install", env: env, cwd: "#{project_dir}/libuuid"
+  make "-j #{workers}', env: env, cwd: '#{project_dir}/libuuid"
+  make "-j #{workers} install', env: env, cwd: '#{project_dir}/libuuid"
 end

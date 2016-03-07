@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "rsync"
-default_version "3.1.1"
+name 'rsync'
+default_version '3.1.1'
 
 dependency 'popt'
 
@@ -29,10 +29,10 @@ relative_path "rsync-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-iconv", env: env
+          ' --disable-iconv', env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "setuptools"
-default_version "0.7.7"
+name 'setuptools'
+default_version '0.7.7'
 
 dependency 'python'
 

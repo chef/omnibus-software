@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "perl_pg_driver"
-default_version "3.3.0"
+name 'perl_pg_driver'
+default_version '3.3.0'
 
 dependency 'perl'
 dependency 'cpanminus'
@@ -31,5 +31,5 @@ relative_path "DBD-Pg-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "cpanm -v --notest .", env: env
+  command 'cpanm -v --notest .', env: env
 end

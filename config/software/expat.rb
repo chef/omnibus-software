@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "expat"
-default_version "2.1.0"
+name 'expat'
+default_version '2.1.0'
 
 source url: "http://iweb.dl.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz"
 
@@ -26,9 +26,9 @@ relative_path "expat-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

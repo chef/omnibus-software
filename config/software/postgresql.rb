@@ -14,15 +14,14 @@
 # limitations under the License.
 #
 
-name "postgresql"
-default_version "9.2.10"
+name 'postgresql'
+default_version '9.2.10'
 
-dependency "zlib"
-dependency "openssl"
-dependency "libedit"
-dependency "ncurses"
-dependency "libossp-uuid"
-
+dependency 'zlib'
+dependency 'openssl'
+dependency 'libedit'
+dependency 'ncurses'
+dependency 'libossp-uuid'
 
 source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
 
@@ -49,14 +48,14 @@ relative_path "postgresql-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --with-libedit-preferred" \
-          " --with-openssl" \
-          " --with-ossp-uuid" \
+          ' --with-libedit-preferred' \
+          ' --with-openssl' \
+          ' --with-ossp-uuid' \
           " --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
   make "world -j #{workers}", env: env
-  make "install-world", env: env
+  make 'install-world', env: env
 end

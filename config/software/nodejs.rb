@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-name "nodejs"
-default_version "0.10.10"
+name 'nodejs'
+default_version '0.10.10'
 
-dependency "python"
+dependency 'python'
 
 source url: "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
@@ -36,5 +36,5 @@ build do
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

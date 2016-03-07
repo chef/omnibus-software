@@ -14,22 +14,22 @@
 # limitations under the License.
 #
 
-name "chef-provisioning-aws"
-default_version "master"
+name 'chef-provisioning-aws'
+default_version 'master'
 
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
 source git: 'https://github.com/chef/chef-provisioning-aws.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build chef-provisioning-aws.gemspec", env: env
-  gem "install chef-provisioning-aws-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build chef-provisioning-aws.gemspec', env: env
+  gem 'install chef-provisioning-aws-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

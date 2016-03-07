@@ -39,18 +39,18 @@ build do
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
   if version.to_i < 20150325 && (freebsd? || openbsd?)
-    patch source: "freebsd-vi-fix.patch", env: env
+    patch source: 'freebsd-vi-fix.patch', env: env
   end
 
   if openbsd?
-    patch source: "openbsd-weak-alias-fix.patch", plevel: 1, env: env
+    patch source: 'openbsd-weak-alias-fix.patch', plevel: 1, env: env
   end
 
-  if version == "20120601-3.0" && ppc64le?
-    patch source: "v20120601-3.0.ppc64le-configure.patch", env: env
+  if version == '20120601-3.0' && ppc64le?
+    patch source: 'v20120601-3.0.ppc64le-configure.patch', env: env
   end
 
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env

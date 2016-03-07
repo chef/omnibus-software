@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "rubocop"
-default_version "master"
+name 'rubocop'
+default_version 'master'
 
 dependency 'ruby'
 dependency 'rubygems'
@@ -26,9 +26,9 @@ source git: 'https://github.com/bbatsov/rubocop.git'
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development test", env: env
+  bundle 'install --without development test', env: env
 
-  gem "build rubocop.gemspec", env: env
-  gem "install rubocop-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build rubocop.gemspec', env: env
+  gem 'install rubocop-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

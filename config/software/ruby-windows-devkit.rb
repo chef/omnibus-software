@@ -14,25 +14,26 @@
 # limitations under the License.
 #
 
-name "ruby-windows-devkit"
-default_version "4.7.2-20130224"
+name 'ruby-windows-devkit'
+default_version '4.7.2-20130224'
 
 if windows_arch_i386?
-  version "4.5.2-20111229-1559" do
+  version '4.5.2-20111229-1559' do
     source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe",
-           md5: "4bf8f2dd1d582c8733a67027583e19a6"
+           md5: '4bf8f2dd1d582c8733a67027583e19a6'
   end
 
-  version "4.7.2-20130224" do
+  version '4.7.2-20130224' do
     source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-32-#{version}-1151-sfx.exe",
-           md5: "9383f12958aafc425923e322460a84de"
+           md5: '9383f12958aafc425923e322460a84de'
   end
 else
-  version "4.7.2-20130224" do
+  version '4.7.2-20130224' do
     source url: "http://cdn.rubyinstaller.org/archives/devkits/DevKit-mingw64-64-#{version}-1432-sfx.exe",
-           md5: "ce99d873c1acc8bffc639bd4e764b849"
+           md5: 'ce99d873c1acc8bffc639bd4e764b849'
   end
 end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
@@ -41,7 +42,7 @@ build do
   command "#{project_file} -y -o#{windows_safe_path(embedded_dir)}", env: env
 
   command "echo - #{install_dir}/embedded > config.yml", cwd: embedded_dir
-  ruby "dk.rb install", env: env, cwd: embedded_dir
+  ruby 'dk.rb install', env: env, cwd: embedded_dir
 
   # Normally we would symlink the required unix tools.
   # However with the introduction of git-cache to speed up omnibus builds,
@@ -57,7 +58,7 @@ build do
     'libexpat-1.dll'   => 'libexpat-1.dll',
     'liblzma-1.dll'    => 'liblzma-1.dll',
     'libbz2-2.dll'     => 'libbz2-2.dll',
-    'libz-1.dll'       => 'libz-1.dll',
+    'libz-1.dll'       => 'libz-1.dll'
   }.each do |target, to|
     copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
   end

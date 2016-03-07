@@ -15,12 +15,12 @@
 #
 
 # We use the version in util-linux, and only build the libuuid subdirectory
-name "libzmq"
-default_version "2.1.11"
+name 'libzmq'
+default_version '2.1.11'
 
-dependency "autoconf"
-dependency "automake"
-dependency "libtool"
+dependency 'autoconf'
+dependency 'automake'
+dependency 'libtool'
 
 source url: "http://download.zeromq.org/zeromq-#{version}.tar.gz"
 
@@ -37,7 +37,6 @@ elsif version >= '4.0.4'
 end
 
 relative_path "zeromq-#{version}"
-source url: "http://download.zeromq.org/zeromq-#{version}.tar.gz"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -47,10 +46,10 @@ build do
   # long long and c++ in pedantic mode
   # This patch is specific to zeromq4
   if version.satisfies?('>= 4')
-    patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch", env: env if el?
+    patch source: 'zeromq-4.0.5_configure-pedantic_centos_5.patch', env: env if el?
   end
 
-  command "./autogen.sh", env: env
+  command './autogen.sh', env: env
   command "./configure --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env

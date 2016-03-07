@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "cpanminus"
-default_version "1.7004"
+name 'cpanminus'
+default_version '1.7004'
 
 dependency 'perl'
 
@@ -29,5 +29,5 @@ relative_path "cpanminus-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "cat cpanm | perl - App::cpanminus", env: env
+  command 'cat cpanm | perl - App::cpanminus', env: env
 end

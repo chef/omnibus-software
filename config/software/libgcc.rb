@@ -16,7 +16,7 @@
 
 #
 # NOTE: Instead of depending on this software definition, there is no
-#       reason not to include "-static-libgcc" in your LDFLAGS instead.
+#       reason not to include '-static-libgcc' in your LDFLAGS instead.
 #       That will probably be the best solution going forwards rather than
 #       fuss around with the dynamic linking business here.
 #
@@ -24,28 +24,27 @@
 # # Uncomment the following code to throw a warning when someone depends on this
 # # software definition.
 # Omnibus.logger.deprecated('libgcc') do
-#   "Please do not use the libgcc dependency, it will be removed in the " \
-#   "future. Compile with `--static-libgcc' instead!"
+#   'Please do not use the libgcc dependency, it will be removed in the ' \
+#   'future. Compile with `--static-libgcc' instead!'
 # end
 
-name "libgcc"
-description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
-default_version "0.0.1"
+name 'libgcc'
+description 'On UNIX systems where we bootstrap a compiler, copy the libgcc'
+
+default_version '0.0.1'
 
 build do
   libgcc_file = if solaris2?
-                  "/opt/csw/lib/libgcc_s.so.1"
+                  '/opt/csw/lib/libgcc_s.so.1'
                 elsif freebsd?
-                  "/lib/libgcc_s.so.1"
-                else
-                  nil
+                  '/lib/libgcc_s.so.1'
                 end
 
   if libgcc_file
     if File.exist?(libgcc_file)
       copy libgcc_file, "#{install_dir}/embedded/lib/"
     else
-      raise "Cannot find libgcc -- where is your gcc compiler?"
+      raise 'Cannot find libgcc -- where is your gcc compiler?'
     end
   end
 end

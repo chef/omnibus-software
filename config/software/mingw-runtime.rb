@@ -14,15 +14,15 @@
 # limitations under the License.
 #
 
-name "mingw-runtime"
-default_version "v4-git20150618-gcc5-tdm64-1"
+name 'mingw-runtime'
+default_version 'v4-git20150618-gcc5-tdm64-1'
 
-dependency "msys-base"
+dependency 'msys-base'
 
 source url: "http://iweb.dl.sourceforge.net/project/tdm-gcc/MinGW-w64%20runtime/GCC%205%20series/mingw64runtime-#{version}.tar.lzma"
 
-version("v4-git20150618-gcc5-tdm64-1") { source sha256: "29186e0bb36824b10026d78bdcf238d631d8fc1d90718d2ebbd9ec239b6f94dd" }
+version('v4-git20150618-gcc5-tdm64-1') { source sha256: '29186e0bb36824b10026d78bdcf238d631d8fc1d90718d2ebbd9ec239b6f94dd' }
 
 build do
-  copy "*", "#{install_dir}/embedded"
+  copy '*', "#{install_dir}/embedded"
 end

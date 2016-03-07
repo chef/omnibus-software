@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "makedepend"
-default_version "1.0.5"
+name 'makedepend'
+default_version '1.0.5'
 
 dependency 'xproto'
 dependency 'util-macros'

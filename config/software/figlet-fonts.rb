@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-name "figlet-fonts"
-default_version "master"
+name 'figlet-fonts'
+default_version 'master'
 
-dependency "figlet"
+dependency 'figlet'
 
-source git: "https://github.com/cmatsuoka/figlet-fonts.git"
+source git: 'https://github.com/cmatsuoka/figlet-fonts.git'
 
 relative_path "figlet-fonts-#{version}"
 

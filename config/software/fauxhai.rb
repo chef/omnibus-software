@@ -14,22 +14,22 @@
 # limitations under the License.
 #
 
-name "fauxhai"
-default_version "master"
+name 'fauxhai'
+default_version 'master'
 
+dependency 'ruby'
+dependency 'rubygems'
+dependency 'bundler'
+dependency 'chef'
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
-dependency "chef"
 source git: 'https://github.com/customink/fauxhai.git'
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle 'install --without development', env: env
 
-  gem "build fauxhai.gemspec", env: env
-  gem "install fauxhai-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem 'build fauxhai.gemspec', env: env
+  gem 'install fauxhai-*.gem' \
+      ' --no-ri --no-rdoc', env: env
 end

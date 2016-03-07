@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-name "popt"
-default_version "1.16"
+name 'popt'
+default_version '1.16'
 
 source url: "http://rpm5.org/files/popt/popt-#{version}.tar.gz"
 
@@ -27,10 +27,10 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # --disable-nls => Disable localization support.
-  command "./configure" \
+  command './configure' \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-nls", env: env
+          ' --disable-nls', env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  make 'install', env: env
 end

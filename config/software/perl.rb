@@ -14,13 +14,13 @@
 # limitations under the License.
 #
 
-name "perl"
+name 'perl'
 
 if windows?
-  default_version "5.8.8"
-  dependency "mingw-get"
+  default_version '5.8.8'
+  dependency 'mingw-get'
 else
-  default_version "5.18.1"
+  default_version '5.18.1'
 
   source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
 
@@ -41,35 +41,35 @@ build do
     if solaris2? && File.exist?(solaris_mapfile_path)
       cc_command = "-Dcc='gcc -static-libgcc -Wl,-M #{solaris_mapfile_path}"
     elsif aix?
-      cc_command = "-Dcc='/opt/IBM/xlc/13.1.0/bin/cc_r -q64'"
+      cc_command = '-Dcc="/opt/IBM/xlc/13.1.0/bin/cc_r -q64"'
     elsif freebsd? && ohai['os_version'].to_i >= 1000024
-      cc_command = "-Dcc='clang'"
+      cc_command = '-Dcc="clang"'
     else
-      cc_command = "-Dcc='gcc -static-libgcc'"
+      cc_command = '-Dcc="gcc -static-libgcc"'
     end
 
-    configure_command = ["sh Configure",
-                        " -de",
+    configure_command = ['sh Configure',
+                        ' -de',
                         " -Dprefix=#{install_dir}/embedded",
-                        " -Duseshrplib",
-                        " -Dusethreads",
+                        ' -Duseshrplib',
+                        ' -Dusethreads',
                         " #{cc_command}",
-                        " -Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'"]
+                        ' -Dnoextensions="DB_File GDBM_File NDBM_File ODBM_File"']
 
     if aix?
-      configure_command << "-Dmake=gmake"
-      configure_command << "-Duse64bitall"
+      configure_command << '-Dmake=gmake'
+      configure_command << '-Duse64bitall'
     end
 
     # On Cisco IOS-XR, we don't want libssp as a dependency
     if ios_xr?
-      configure_command << "-Accflags=-fno-stack-protector"
+      configure_command << '-Accflags=-fno-stack-protector'
     end
 
-    command configure_command.join(" "), env: env
+    command configure_command.join(' '), env: env
     make "-j #{workers}", env: env
     # using the install.perl target lets
     # us skip install the manpages
-    make "install.perl", env: env
+    make 'install.perl', env: env
   end
 end
