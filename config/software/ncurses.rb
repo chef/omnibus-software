@@ -70,7 +70,7 @@ build do
     patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0, env: env
   end
 
-  # AIX"s old version of patch doesn"t like the patches here
+  # AIX"s old version of patch doesn't like the patches here
   unless aix?
     if version == "5.9"
       # Update config.guess to support platforms made after 2010 (like aarch64)
@@ -90,7 +90,7 @@ build do
       #
       # Patches ncurses for clang compiler. Changes have been accepted into
       # upstream, but occurred shortly after the 5.9 release. We should be able
-      # to remove this after upgrading to any release created after June 2012
+    # to remove this after upgrading to any release created after June 2012
     patch source: "ncurses-clang.patch", env: env
   end
 
@@ -152,7 +152,7 @@ build do
   make "-j #{workers}", env: env
 
   # Installing the non-wide libraries will also install the non-wide
-  # binaries, which doesn"t happen to be a problem since we don"t
+  # binaries, which doesn't happen to be a problem since we don't
   # utilize the ncurses binaries in private-chef (or oss chef)
   make "-j #{workers} install", env: env
 
