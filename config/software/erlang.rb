@@ -23,8 +23,15 @@ dependency "ncurses"
 
 source url: "http://www.erlang.org/download/otp_src_#{version}.tar.gz"
 
-version("R15B03-1") { source md5: "eccd1e6dda6132993555e088005019f2" }
 version("R16B03-1") { source md5: "e5ece977375197338c1b93b3d88514f8" }
+
+# R15B03-1, and R15B03-1 alone appears to extract to a directory
+# called 'R15B03'. Versus R16B03-1 which extracts to 'R16B03'
+version "R15B03-1" do
+  source md5: "eccd1e6dda6132993555e088005019f2"
+  relative_path "otp_src_R15B03"
+end
+
 version("R15B02")   { source md5: "ccbe5e032a2afe2390de8913bfe737a1" }
 version("17.0")     { source md5: "a5f78c1cf0eb7724de3a59babc1a28e5" }
 version("17.1")     { source md5: "9c90706ce70e01651adde34a2b79bf4c" }
