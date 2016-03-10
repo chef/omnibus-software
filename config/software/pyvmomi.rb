@@ -1,5 +1,5 @@
 name "pyvmomi"
-default_version "5.5.0.2014.1.1"
+default_version "6.0.0"
 
 dependency "python"
 dependency "pip"
