@@ -26,6 +26,8 @@ source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 
 relative_path "libtool-#{version}"
 
+dependency "config_guess"
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
@@ -33,7 +35,7 @@ build do
   unless aix?
     # Update config.guess to support newer platforms (like aarch64)
     if version == "2.4"
-      patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
+      update_config_guess
     end
   end
 
