@@ -49,7 +49,9 @@ dependency "appbundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  excluded_groups = %w{server docgen maintenance travis}
+  # compiled ruby on windows 2k8R2 x86 is having issude compiling
+  # native extensions for pry-byebug so excluding for now
+  excluded_groups = %w{server docgen maintenance pry travis}
   excluded_groups << 'ruby_prof' if aix?
 
   # install the whole bundle first
