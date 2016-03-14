@@ -29,6 +29,9 @@ relative_path "git-#{version}"
 version "2.7.4" do
   source md5: "c64012d491e24c7d65cd389f75383d91"
 end
+version "2.7.3" do
+  source md5: "cf6ed3510f0d7784da5e9f4e64c6a43e"
+end
 
 version "2.7.1" do
   source md5: "846ac45a1638e9a6ff3a9b790f6c8d99"
@@ -53,27 +56,11 @@ end
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
 
-  env = with_standard_compiler_flags(with_embedded_path).merge(
-    "NEEDS_LIBICONV"       => "1",
-    "NO_GETTEXT"           => "1",
-    "NO_PYTHON"            => "1",
-    # Disabling perl - we don't currently need any of the provided
-    # functionality: https://github.com/git/git/blob/563e38491eaee6e02643a22c9503d4f774d6c5be/INSTALL#L102-L109
-    # Perl on certain platforms (like OSX) brings along libgcc as a dependency,
-    # which we'd like to avoid.
-    "NO_PERL"              => "1",
-    "NO_R_TO_GCC_LINKER"   => "1",
-    "NO_TCLTK"             => "1",
-    "NO_INSTALL_HARDLINKS" => "1",
-
-    "CURLDIR"    => "#{install_dir}/embedded",
-    "EXPATDIR"   => "#{install_dir}/embedded",
-    "ICONVDIR"   => "#{install_dir}/embedded",
-    "LIBPCREDIR" => "#{install_dir}/embedded",
-    "OPENSSLDIR" => "#{install_dir}/embedded",
-    "ZLIB_PATH"  => "#{install_dir}/embedded",
-  )
+  # We do a distclean so we ensure that the autoconf files are not trying to be
+  # clever.
+  make "distclean"
 
   # AIX needs /opt/freeware/bin only for patch
   if aix?
@@ -84,26 +71,66 @@ build do
     if version == '1.9.5'
       patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
     end
-
-    # this may be needed for 2.6.2 as well, but 2.6.2 won't compile
-    # on AIX for other reasons.
-    if version <= '2.2.1'
-      patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env
-    end
   end
 
-  configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
+  config_hash = {
+    # Universal options
+    NO_GETTEXT: "YesPlease",
+    NEEDS_LIBICONV: "YesPlease",
+    NO_INSTALL_HARDLINKS: "YesPlease",
+    NO_PERL: "YesPlease",
+    NO_PYTHON: "YesPlease",
+  }
 
   if freebsd?
-    configure_command << "--enable-pthreads=-pthread"
-    configure_command << "ac_cv_header_libcharset_h=no"
-    configure_command << "--with-curl=#{install_dir}/embedded"
-    configure_command << "--with-expat=#{install_dir}/embedded"
+    config_hash['CHARSET_LIB'] = "-lcharset"
+    config_hash['FREAD_READS_DIRECTORIES'] = "UnfortunatelyYes"
+    config_hash['HAVE_CLOCK_GETTIME'] = "YesPlease"
+    config_hash['HAVE_CLOCK_MONOTONIC'] = "YesPlease"
+    config_hash['HAVE_GETDELIM'] = "YesPlease"
+    config_hash['HAVE_PATHS_H'] = "YesPlease"
+    config_hash['HAVE_STRINGS_H'] = "YesPlease"
+    config_hash['PTHREAD_LIBS'] = "-pthread"
+    config_hash['USE_ST_TIMESPEC'] = "YesPlease"
+    config_hash['HAVE_BSD_SYSCTL'] = "YesPlease"
+    config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
+  elsif solaris?
+    env['CC'] = 'gcc'
+    env['SHELL_PATH'] = "#{install_dir}/embedded/bin/bash"
+    config_hash['NEEDS_SOCKET'] = "YesPlease"
+    config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
+  elsif aix?
+    env['CC'] = 'xlc_r'
+    env['INSTALL'] = '/opt/freeware/bin/install'
+    # xlc doesn't understand the '-Wl,-rpath' syntax at all so... we don't enable
+    # the NO_R_TO_GCC_LINKER flag. This means that it will try to use the
+    # old style -R for libraries and as a result, xlc will ignore it. In this case, we
+    # we want that to happen because we explicitly set the libpath with the correct
+    # command line argument in omnibus itself.
+  else
+    # Linux things!
+    config_hash['HAVE_PATHS_H'] = "YesPlease"
+    config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
   end
 
-  command configure_command.join(" "), env: env
+  erb source: "config.mak.erb",
+      dest: "#{project_dir}/config.mak",
+      mode: 0755,
+      vars: {
+               cc: env['CC'],
+               ld: env['LD'],
+               cflags: env['CFLAGS'],
+               cppflags: env['CPPFLAGS'],
+               install: env['INSTALL'],
+               install_dir: install_dir,
+               ldflags: env['LDFLAGS'],
+               shell_path: env['SHELL_PATH'],
+               config_hash: config_hash,
+             }
 
-  make "-j #{workers}", env: env
-  make "install", env: env
+  # NOTE - If you run ./configure the environment variables set above will not be
+  # used and only the command line args will be used. The issue with this is you
+  # cannot specify everything on the command line that you can with the env vars.
+  make "prefix=#{install_dir}/embedded -j #{workers}", env: env
+  make "prefix=#{install_dir}/embedded install", env: env
 end
