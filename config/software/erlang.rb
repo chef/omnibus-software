@@ -69,11 +69,15 @@ end
 version '18.1' do
   source md5: 'fa64015fdd133e155b5b19bf90ac8678'
   relative_path 'otp_src_18.1'
+  license "Apache 2.0"
+  license_file "LICENSE.txt"
 end
 
 version '18.2' do
   source md5: 'b336d2a8ccfbe60266f71d102e99f7ed'
   relative_path 'otp_src_18.2'
+  license "Apache 2.0"
+  license_file "LICENSE.txt"
 end
 
 build do
