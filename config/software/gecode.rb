@@ -17,6 +17,9 @@
 name "gecode"
 default_version "3.7.3"
 
+license "MIT"
+license_file "LICENSE"
+
 version "3.7.3" do
   source md5: "7a5cb9945e0bb48f222992f2106130ac"
 end

@@ -17,6 +17,9 @@
 name "autoconf"
 default_version "2.68"
 
+license "GPL v3"
+license_file "COPYING.EXCEPTION"
+
 dependency "m4"
 
 version "2.69" do

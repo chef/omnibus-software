@@ -26,6 +26,9 @@
 name "libyaml-windows"
 default_version "0.1.6"
 
+license "MIT"
+license_file "COPYING"
+
 dependency "ruby-windows"
 
 source url: "https://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windows.tar.lzma",

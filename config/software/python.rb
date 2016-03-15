@@ -17,6 +17,9 @@
 name "python"
 default_version "2.7.9"
 
+license "Python"
+license_file "LICENSE"
+
 dependency "ncurses"
 dependency "zlib"
 dependency "openssl"

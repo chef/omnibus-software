@@ -17,6 +17,9 @@
 name "libxslt"
 default_version "1.1.28"
 
+license "MIT"
+license_file "COPYING"
+
 dependency "libxml2"
 dependency "liblzma"
 dependency "libtool" if solaris2?

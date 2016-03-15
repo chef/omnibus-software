@@ -27,6 +27,9 @@ end
 
 source url: "http://xorg.freedesktop.org/releases/individual/proto/xproto-#{version}.tar.gz"
 
+license "MIT"
+license_file "COPYING"
+
 relative_path "xproto-#{version}"
 
 build do

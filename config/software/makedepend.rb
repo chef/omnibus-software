@@ -17,6 +17,9 @@
 name "makedepend"
 default_version "1.0.5"
 
+license "MIT"
+license_file "COPYING"
+
 source url: "http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.gz",
        md5: "efb2d7c7e22840947863efaedc175747"
 

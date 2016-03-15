@@ -17,6 +17,9 @@
 name "keepalived"
 default_version "1.2.9"
 
+license "GPL v2"
+license_file "COPYING"
+
 dependency "popt"
 dependency "openssl"
 

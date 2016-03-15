@@ -20,6 +20,9 @@
 name "bzip2"
 default_version "1.0.6"
 
+license "BSD"
+license_file "LICENSE"
+
 dependency "zlib"
 dependency "openssl"
 

@@ -16,6 +16,11 @@
 
 name "ruby"
 
+license "2-Clause BSD"
+license_file "BSDL"
+license_file "COPYING"
+license_file "LEGAL"
+
 # This is now the main software project for anything ruby related.
 # Even if you want a pre-built version of ruby from ruby-installer, include
 # this project as a dependency. If the version is set to ruby-windows,

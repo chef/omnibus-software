@@ -17,6 +17,9 @@
 name "appbundler"
 default_version "master"
 
+license "Apache 2.0"
+license_file "LICENSE.txt"
+
 source git: "https://github.com/chef/appbundler.git"
 
 dependency "rubygems"

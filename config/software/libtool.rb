@@ -17,6 +17,9 @@
 name "libtool"
 default_version "2.4"
 
+license "GPL v2"
+license_file "COPYING"
+
 # NOTE: 2.4.6 2.4.2 do not compile on solaris2 yet
 version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
 version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }

@@ -17,6 +17,9 @@
 name "postgresql"
 default_version "9.2.10"
 
+license "Postgresql"
+license_file "COPYRIGHT"
+
 dependency "zlib"
 dependency "openssl"
 dependency "libedit"

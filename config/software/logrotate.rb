@@ -17,6 +17,9 @@
 name "logrotate"
 default_version "3.8.5"
 
+license "GPL v2"
+license_file "COPYING"
+
 dependency "popt"
 
 source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"

@@ -20,6 +20,9 @@
 name "libiconv"
 default_version "1.14"
 
+license "LGPL"
+license_file "COPYING.LIB"
+
 dependency "patch" if solaris2?
 
 source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",

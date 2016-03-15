@@ -16,6 +16,9 @@
 
 name "perl"
 
+license "Artistic"
+license_file "Artistic"
+
 if windows?
   default_version "5.8.8"
   dependency "mingw-get"
