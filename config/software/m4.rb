@@ -17,8 +17,9 @@
 name "m4"
 default_version "1.4.17"
 
-source url: "https://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz",
-       md5: "a5e9954b1dae036762f7b13673a2cf76"
+source url: "https://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz"
+
+version("1.4.17") { source md5: "a5e9954b1dae036762f7b13673a2cf76" }
 
 relative_path "m4-#{version}"
 

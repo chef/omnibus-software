@@ -17,13 +17,13 @@
 name "kitchen-inspec"
 default_version "master"
 
-source git: "https://github.com/chef/kitchen-inspec.git"
-
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "test-kitchen"
 dependency "inspec"
+
+source git: "https://github.com/chef/kitchen-inspec.git"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

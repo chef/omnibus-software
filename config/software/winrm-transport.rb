@@ -17,11 +17,11 @@
 name "winrm-transport"
 default_version "master"
 
-source git: "https://github.com/test-kitchen/winrm-transport.git"
-
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
+
+source git: "https://github.com/test-kitchen/winrm-transport.git"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

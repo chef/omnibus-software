@@ -19,13 +19,16 @@ name "patch"
 if windows?
   # TODO more recent version now?
   default_version "2.6.1"
+
   dependency "mingw-get"
 else
   default_version "2.7"
 
   version("2.7.5") { source md5: "ed4d5674ef4543b4eb463db168886dc7" }
-  version("2.7") { source md5: "1cbaa223ff4991be9fae8ec1d11fb5ab" }
+  version("2.7")   { source md5: "1cbaa223ff4991be9fae8ec1d11fb5ab" }
+
   source url: "https://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
+
   relative_path "patch-#{version}"
 end
 

@@ -17,10 +17,10 @@
 name "appbundler"
 default_version "master"
 
-source git: "https://github.com/chef/appbundler.git"
-
 dependency "rubygems"
 dependency "bundler"
+
+source git: "https://github.com/chef/appbundler.git"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

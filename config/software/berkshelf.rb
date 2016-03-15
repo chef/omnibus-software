@@ -17,10 +17,6 @@
 name "berkshelf"
 default_version "master"
 
-source git: "https://github.com/berkshelf/berkshelf.git"
-
-relative_path "berkshelf"
-
 dependency "ruby"
 dependency "rubygems"
 
@@ -31,6 +27,10 @@ end
 dependency "nokogiri"
 dependency "bundler"
 dependency "dep-selector-libgecode"
+
+source git: "https://github.com/berkshelf/berkshelf.git"
+
+relative_path "berkshelf"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

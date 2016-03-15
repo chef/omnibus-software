@@ -22,17 +22,9 @@ dependency "openssl"
 
 source url: "http://www.keepalived.org/software/keepalived-#{version}.tar.gz"
 
-version "1.2.19" do
-  source md5: "5c98b06639dd50a6bff76901b53febb6"
-end
-
-version "1.2.9" do
-  source md5: "adfad98a2cc34230867d794ebc633492"
-end
-
-version "1.1.20" do
-  source md5: "6c3065c94bb9e2187c4b5a80f6d8be31"
-end
+version("1.2.19") { source  md5: "5c98b06639dd50a6bff76901b53febb6" }
+version("1.2.9")  { source  md5: "adfad98a2cc34230867d794ebc633492" }
+version("1.1.20") { source  md5: "6c3065c94bb9e2187c4b5a80f6d8be31" }
 
 relative_path "keepalived-#{version}"
 

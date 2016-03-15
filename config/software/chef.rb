@@ -38,13 +38,13 @@ if version != "local_source"
   source git: "https://github.com/chef/chef.git"
 end
 
-relative_path "chef"
-
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "ohai"
 dependency "appbundler"
+
+relative_path "chef"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

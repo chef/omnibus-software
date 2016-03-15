@@ -21,11 +21,9 @@ dependency "zlib"
 dependency "libiconv"
 dependency "liblzma"
 
-version "2.9.3" do
-  source md5: "daece17e045f1c107610e137ab50c179"
-end
-
 source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
+
+version("2.9.3") { source  md5: "daece17e045f1c107610e137ab50c179" }
 
 relative_path "libxml2-#{version}"
 

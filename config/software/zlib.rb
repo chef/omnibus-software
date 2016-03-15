@@ -17,14 +17,10 @@
 name "zlib"
 default_version "1.2.8"
 
-version "1.2.8" do
-  source md5: "44d667c142d7cda120332623eab69f40"
-end
-version "1.2.6" do
-  source md5: "618e944d7c7cd6521551e30b32322f4a"
-end
-
 source url: "http://iweb.dl.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
+
+version("1.2.8") { source  md5: "44d667c142d7cda120332623eab69f40" }
+version("1.2.6") { source  md5: "618e944d7c7cd6521551e30b32322f4a" }
 
 relative_path "zlib-#{version}"
 

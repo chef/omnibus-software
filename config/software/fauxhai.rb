@@ -17,12 +17,12 @@
 name "fauxhai"
 default_version "master"
 
-source git: "https://github.com/customink/fauxhai.git"
-
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 dependency "chef"
+
+source git: "https://github.com/customink/fauxhai.git"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
