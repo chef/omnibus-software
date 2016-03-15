@@ -15,7 +15,7 @@
 #
 
 name "nodejs"
-default_version "0.10.10"
+default_version "0.10.35"
 
 license "MIT"
 license_file "LICENSE"
