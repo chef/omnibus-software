@@ -16,7 +16,7 @@
 
 name "cacerts"
 
-license "MPL 2.0"
+license "MPL-2.0"
 license_file "https://github.com/bagder/ca-bundle/blob/master/README.md"
 
 default_version "2016.01.20"

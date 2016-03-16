@@ -16,7 +16,7 @@
 
 name "ruby"
 
-license "2-Clause BSD"
+license "BSD-2-Clause"
 license_file "BSDL"
 license_file "COPYING"
 license_file "LEGAL"

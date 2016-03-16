@@ -17,7 +17,7 @@
 name "postgresql"
 default_version "9.2.10"
 
-license "Postgresql"
+license "PostgreSQL"
 license_file "COPYRIGHT"
 
 dependency "zlib"

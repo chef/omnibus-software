@@ -16,7 +16,7 @@
 
 name "perl"
 
-license "Artistic"
+license "Artistic-2.0"
 license_file "Artistic"
 
 if windows?
