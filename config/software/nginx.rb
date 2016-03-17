@@ -20,6 +20,9 @@ default_version "1.8.1"
 dependency "pcre"
 dependency "openssl"
 
+license "BSD-2-Clause"
+license_file "LICENSE"
+
 source url: "http://nginx.org/download/nginx-#{version}.tar.gz"
 
 version("1.9.1") { source md5: "fc054d51effa7c80a2e143bc4e2ae6a7" }

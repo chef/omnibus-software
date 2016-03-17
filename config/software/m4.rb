@@ -17,7 +17,7 @@
 name "m4"
 default_version "1.4.17"
 
-license "GPL v3"
+license "GPL-3.0"
 license_file "COPYING"
 
 source url: "https://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz",

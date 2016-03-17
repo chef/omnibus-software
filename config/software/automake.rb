@@ -19,6 +19,9 @@ default_version "1.11.2"
 
 dependency "autoconf"
 
+license "GPL-2.0"
+license_file "COPYING"
+
 version "1.15" do
   source md5: "716946a105ca228ab545fc37a70df3a3"
 end
