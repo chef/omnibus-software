@@ -36,6 +36,7 @@ build do
 
   # Ruby DevKit ships with BSD Tar
   env["PROG_TAR"] = "bsdtar" if windows?
+  env["ARFLAGS"] = "rv #{env["ARFLAGS"]}" if env["ARFLAGS"]
 
   gem "install dep-selector-libgecode" \
       " --version '#{version}'" \
