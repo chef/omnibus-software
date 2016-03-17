@@ -66,7 +66,7 @@ build do
     env = with_standard_compiler_flags
     if solaris_10?
       # For some reason zlib needs this flag on solaris (cargocult warning?)
-      env['CFLAGS'] << " -DNO_VIZ" if solaris2?
+      env['CFLAGS'] << " -DNO_VIZ"
     elsif freebsd?
       # FreeBSD 10+ gets cranky if zlib is not compiled in a
       # position-independent way.

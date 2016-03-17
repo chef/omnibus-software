@@ -41,7 +41,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
   patch source: "libxslt-cve-2015-7995.patch", env: env
-  patch source: "libxslt-solaris-configure.patch", env: env if solaris2?
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris?
   patch source: "libxslt-mingw32.patch", env: env if windows?
 
   configure_commands = [
