@@ -17,7 +17,7 @@
 name "pcre"
 default_version "8.38"
 
-license "BSD"
+license "BSD-2-Clause"
 license_file "LICENCE"
 
 dependency "libedit"

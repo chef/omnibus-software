@@ -17,7 +17,7 @@
 name "keepalived"
 default_version "1.2.9"
 
-license "GPL v2"
+license "GPL-2.0"
 license_file "COPYING"
 
 dependency "popt"

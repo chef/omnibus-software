@@ -20,7 +20,7 @@
 name "bzip2"
 default_version "1.0.6"
 
-license "BSD"
+license "BSD-2-Clause"
 license_file "LICENSE"
 
 dependency "zlib"

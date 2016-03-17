@@ -17,7 +17,7 @@
 name "chef-gem"
 default_version "11.12.2"
 
-license "Apache 2.0"
+license "Apache-2.0"
 license_file "https://github.com/chef/chef/blob/master/LICENSE"
 
 dependency "ruby"

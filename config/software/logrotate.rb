@@ -17,7 +17,7 @@
 name "logrotate"
 default_version "3.8.5"
 
-license "GPL v2"
+license "GPL-2.0"
 license_file "COPYING"
 
 dependency "popt"

@@ -17,7 +17,7 @@
 name "liblzma"
 default_version "5.2.2"
 
-license "Public Domain"
+license "Public-Domain"
 license_file "COPYING"
 
 source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
