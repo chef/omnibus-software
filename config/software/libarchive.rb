@@ -20,7 +20,7 @@
 name "libarchive"
 default_version "3.1.2"
 
-license "BSD 2-Clause"
+license "BSD-2-Clause"
 license_file "COPYING"
 
 source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
