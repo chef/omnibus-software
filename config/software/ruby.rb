@@ -21,31 +21,13 @@ license_file "BSDL"
 license_file "COPYING"
 license_file "LEGAL"
 
-# This is now the main software project for anything ruby related.
-# Even if you want a pre-built version of ruby from ruby-installer, include
-# this project as a dependency. If the version is set to ruby-windows,
-# it redirects to depend on the ruby-windows project.
-
-if windows?
-  default_version "ruby-windows"
-else
-  # - chef-client cannot use 2.2.x yet due to a bug in IRB that affects chef-shell on linux:
-  #   https://bugs.ruby-lang.org/issues/11869
-  # - the current status of 2.3.x is that it downloads but fails to compile.
-  default_version "2.1.6"
-end
+# - chef-client cannot use 2.2.x yet due to a bug in IRB that affects chef-shell on linux:
+#   https://bugs.ruby-lang.org/issues/11869
+# - the current status of 2.3.x is that it downloads but fails to compile.
+# - verify that all ffi libs are available for your version on all platforms.
+default_version "2.1.8"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
-if windows? && version == "ruby-windows"
-    dependency "ruby-windows"
-    dependency "ruby-windows-devkit"
-    dependency "ruby-windows-devkit-bash"
-    # The custom yakyakyak ruby build comes with openssl and the FIPS module.
-    # Don't clobber it.
-    dependency "openssl-windows" unless fips_enabled
-    dependency "cacerts"
-else
 
 unless windows?
   dependency "patch" if solaris2?
@@ -255,5 +237,3 @@ build do
   end
 
 end
-
-end # if windows? && version == 'ruby-windows'
