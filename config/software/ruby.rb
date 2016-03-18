@@ -50,7 +50,6 @@ else
 unless windows?
   dependency "patch" if solaris2?
   dependency "ncurses"
-  dependency "libedit"
 end
 
 dependency "zlib"
@@ -191,14 +190,13 @@ build do
      patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
   end
 
-  configure_command = ["--with-out-ext=dbm",
+  configure_command = ["--with-out-ext=dbm,readline",
                        "--enable-shared",
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?('< 2.3')
-  configure_command << "--enable-libedit" unless windows?
   configure_command << "--with-bundled-md5" if fips_enabled
 
   if aix?
