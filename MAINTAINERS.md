@@ -19,6 +19,7 @@ project lead.
 
 * [Daniel DeLeo](https://github.com/danielsdeleo)
 * [Jay Mundrawala](https://github.com/jdmundrawala)
+* [Kartik Null Cating-Subramanian](https://github.com/ksubrama)
 * [Lamont Granquist](https://github.com/lamont-granquist)
 * [Scott Hain](https://github.com/scotthain)
 * [Seth Vargo](http://github.com/sethvargo)
