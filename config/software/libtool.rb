@@ -35,6 +35,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   update_config_guess
+  update_config_guess(target: "libltdl/config")
 
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
