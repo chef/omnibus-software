@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "1.9.5"
+default_version "2.7.4"
 
 dependency "curl"
 dependency "zlib"
@@ -25,6 +25,10 @@ dependency "libiconv"
 dependency "expat"
 
 relative_path "git-#{version}"
+
+version "2.7.4" do
+  source md5: "c64012d491e24c7d65cd389f75383d91"
+end
 
 version "2.7.1" do
   source md5: "846ac45a1638e9a6ff3a9b790f6c8d99"
