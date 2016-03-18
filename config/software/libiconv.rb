@@ -37,8 +37,8 @@ build do
   # freebsd 10 needs to be build PIC
   env['CFLAGS'] << " -fPIC" if freebsd?
 
-  update_config_guess("build-aux")
-  update_config_guess("libcharset/build-aux")
+  update_config_guess(target: "build-aux")
+  update_config_guess(target: "libcharset/build-aux")
 
   configure_command = "./configure" \
                         " --prefix=#{install_dir}/embedded"

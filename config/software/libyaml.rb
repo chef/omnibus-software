@@ -30,7 +30,7 @@ relative_path "yaml-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
 
-  update_config_guess("config")
+  update_config_guess(target: "config")
 
   configure "--enable-shared", env: env
 

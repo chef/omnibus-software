@@ -89,11 +89,11 @@ build do
   )
   env.delete('CPPFLAGS')
 
-  update_config_guess("erts/autoconf")
-  update_config_guess("lib/common_test/priv/auxdir")
-  update_config_guess("lib/erl_interface/src/auxdir")
-  update_config_guess("lib/wx/autoconf")
-  update_config_guess("lib/test_server/src")
+  update_config_guess(target: "erts/autoconf")
+  update_config_guess(target: "lib/common_test/priv/auxdir")
+  update_config_guess(target: "lib/erl_interface/src/auxdir")
+  update_config_guess(target: "lib/wx/autoconf")
+  update_config_guess(target: "lib/test_server/src")
 
   # Setup the erlang include dir
   mkdir "#{install_dir}/embedded/erlang/include"

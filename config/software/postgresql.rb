@@ -102,7 +102,7 @@ relative_path "postgresql-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  update_config_guess("config")
+  update_config_guess(target: "config")
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \

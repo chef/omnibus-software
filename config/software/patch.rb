@@ -35,7 +35,7 @@ env = with_standard_compiler_flags(with_embedded_path)
 
 build do
 
-  update_config_guess("build-aux")
+  update_config_guess(target: "build-aux")
 
   if windows?
     command "mingw-get.exe -v install msys-patch-bin=#{version}-*",

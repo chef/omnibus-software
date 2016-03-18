@@ -26,7 +26,7 @@ source url: "http://iweb.dl.sourceforge.net/project/expat/expat/#{version}/expat
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  update_config_guess("conftools")
+  update_config_guess(target: "conftools")
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
