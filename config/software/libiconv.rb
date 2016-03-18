@@ -40,8 +40,6 @@ build do
   update_config_guess(target: "build-aux")
   update_config_guess(target: "libcharset/build-aux")
 
-  configure_command = "./configure" \
-                        " --prefix=#{install_dir}/embedded"
   if aix?
     patch_env = env.dup
     patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
@@ -59,7 +57,7 @@ build do
     patch source: "libiconv-1.14-take-windres-rcflags.patch", env: env
   end
 
-  configure(configure_command, env: env)
+  configure(env: env)
 
   pmake = "-j #{workers}" unless windows?
   make "#{pmake}", env: env
