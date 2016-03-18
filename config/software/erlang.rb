@@ -23,6 +23,7 @@ license_file "EPLICENCE"
 dependency "zlib"
 dependency "openssl"
 dependency "ncurses"
+dependency "config_guess"
 
 source url: "http://www.erlang.org/download/otp_src_#{version}.tar.gz"
 
@@ -87,6 +88,12 @@ build do
     "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
   )
   env.delete('CPPFLAGS')
+
+  update_config_guess("erts/autoconf")
+  update_config_guess("lib/common_test/priv/auxdir")
+  update_config_guess("lib/erl_interface/src/auxdir")
+  update_config_guess("lib/wx/autoconf")
+  update_config_guess("lib/test_server/src")
 
   # Setup the erlang include dir
   mkdir "#{install_dir}/embedded/erlang/include"

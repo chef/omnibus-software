@@ -23,6 +23,7 @@ license_file "http://invisible-island.net/ncurses/ncurses.faq.html"
 
 dependency "libtool" if aix?
 dependency "patch" if solaris2?
+dependency "config_guess"
 
 version("5.9") { source md5: "8cb9c412e5f2d96bc6f459aa8c6282a1", url: "https://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz" }
 version("5.9-20150530") { source md5: "bb2cbe1d788d3ab0138fc2734e446b43", url: "ftp://invisible-island.net/ncurses/current/ncurses-5.9-20150530.tgz" }
@@ -68,12 +69,11 @@ build do
     patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0, env: env
   end
 
+  update_config_guess
+
   # AIX's old version of patch doesn't like the patches here
   unless aix?
     if version == "5.9"
-      # Update config.guess to support platforms made after 2010 (like aarch64)
-      patch source: "config_guess_2015-09-24.patch", plevel: 0, env: env
-
       # Patch to add support for GCC 5, doesn't break previous versions
       patch source: "ncurses-5.9-gcc-5.patch", plevel: 1, env: env
     end

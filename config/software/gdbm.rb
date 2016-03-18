@@ -17,6 +17,8 @@
 name "gdbm"
 default_version "1.8.3"
 
+dependency "config_guess"
+
 # Version 1.9 and above are GPLv3, do NOT add later versions in
 version("1.8.3") { source md5: "1d1b1d5c0245b1c00aff92da751e9aa1" }
 
@@ -31,10 +33,7 @@ build do
     patch source: "v1.8.3-Makefile.in.patch", plevel: 0, env: env
   end
 
-  # Update config.guess to support newer platforms (like aarch64)
-  if version == "1.8.3"
-    patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
-  end
+  update_config_guess
 
   if freebsd?
     command "./configure" \

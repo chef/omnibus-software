@@ -21,6 +21,7 @@ license "BSD-3-Clause"
 license_file "COPYING"
 
 dependency "ncurses"
+dependency "config_guess"
 
 version("20150325-3.1") { source md5: "43cdb5df3061d78b5e9d59109871b4f6" }
 version("20141030-3.1") { source md5: "5f18e63346d31b877cdf36b5c59b810b" }
@@ -49,9 +50,7 @@ build do
     patch source: "openbsd-weak-alias-fix.patch", plevel: 1, env: env
   end
 
-  if version == "20120601-3.0" && ppc64le?
-    patch source: "v20120601-3.0.ppc64le-configure.patch", env: env
-  end
+  update_config_guess
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
