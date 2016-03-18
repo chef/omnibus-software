@@ -16,6 +16,13 @@
 
 name "ibm-jre"
 
+license "IBM-Java-contractual-redistribution"
+# This license is stange, it says it cannot be redistributed but Chef has obtained
+# a contractual agreement with IBM to repackange and redistribute the JRE free of
+# charge and without support or warranty to our mutual customers
+license_file "copyright"
+license_file "license_en.txt"
+
 if ppc64?
   source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64-80.tar.xz",
          md5: "face417c3786945c2eb458f058b8616b"
