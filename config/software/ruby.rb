@@ -130,9 +130,6 @@ build do
 
   if solaris2? && version.satisfies?('>= 2.1')
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
-    if platform_version.satisfies?('>= 5.11')
-      patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
-    end
   elsif solaris2? && version =~ /^1.9/
     patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1, env: patch_env
   end
