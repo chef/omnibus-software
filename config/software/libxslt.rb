@@ -22,8 +22,8 @@ license_file "COPYING"
 
 dependency "libxml2"
 dependency "liblzma"
-dependency "libtool" if solaris2?
-dependency "patch" if solaris2?
+dependency "libtool" if solaris_10?
+dependency "patch" if solaris_10?
 
 version "1.1.28" do
   source md5: "9667bf6f9310b957254fdcf6596600b7"
@@ -41,7 +41,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
   patch source: "libxslt-cve-2015-7995.patch", env: env
-  patch source: "libxslt-solaris-configure.patch", env: env if solaris?
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris2?
   patch source: "libxslt-mingw32.patch", env: env if windows?
 
   configure_commands = [

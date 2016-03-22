@@ -64,7 +64,7 @@ build do
     # configure script cannot handle.
     # TODO: Do other OSes need this?  Is this strictly a mac thing?
     env = with_standard_compiler_flags
-    if solaris?
+    if solaris_10?
       # For some reason zlib needs this flag on solaris (cargocult warning?)
       env['CFLAGS'] << " -DNO_VIZ" if solaris2?
     elsif freebsd?
