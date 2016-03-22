@@ -23,7 +23,7 @@ default_version "1.14"
 license "LGPL-2.1"
 license_file "COPYING.LIB"
 
-dependency "patch" if solaris2?
+dependency "patch" if solaris_10?
 
 source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
        md5: 'e34509b1623cec449dfeb73d7ce9c6c6'
