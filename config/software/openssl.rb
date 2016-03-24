@@ -24,7 +24,7 @@ fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) 
 dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
-dependency "patch" if solaris?
+dependency "patch" if solaris_10?
 dependency "openssl-fips" if fips_enabled
 
 default_version "1.0.1s"
