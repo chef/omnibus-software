@@ -30,7 +30,7 @@ default_version "2.1.8"
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
 dependency "patch" if solaris2?
-dependency "ncurses" unless windows? || version.to_f >= 2.1
+dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
 
 dependency "zlib"
 dependency "openssl"
