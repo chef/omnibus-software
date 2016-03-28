@@ -50,7 +50,7 @@ build do
 
   configure(*configure_command, env: env)
 
-  if solaris2?
+  if solaris_10?
     # run old make :(
     make env: env, bin: "/usr/ccs/bin/make"
     make "install", env: env, bin: "/usr/ccs/bin/make"

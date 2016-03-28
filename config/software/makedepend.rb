@@ -32,7 +32,7 @@ dependency "pkg-config-lite"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if solaris2?
+  if solaris_10?
     env['PKG_CONFIG'] = "#{install_dir}/embedded/bin/pkg-config"
   end
 

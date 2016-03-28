@@ -24,7 +24,7 @@ fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) 
 dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
-dependency "patch" if solaris2?
+dependency "patch" if solaris_10?
 dependency "openssl-fips" if fips_enabled
 
 default_version "1.0.1s"
@@ -88,11 +88,13 @@ build do
       "./Configure darwin64-x86_64-cc"
     elsif smartos?
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
-    elsif solaris2?
+    elsif solaris_10?
       # This should not require a /bin/sh, but without it we get
       # Errno::ENOEXEC: Exec format error
       platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
       "/bin/sh ./Configure #{platform}"
+    elsif solaris_11?
+      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
     elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
