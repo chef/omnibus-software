@@ -1,0 +1,18 @@
+diff --git 1/lib/pywintypes.py.orig 2/lib/pywintypes.py
+index c864545..441e8bc 100644
+--- 1/lib/pywintypes.py.orig
++++ 2/lib/pywintypes.py
+@@ -94,6 +94,13 @@ def __import_pywin32_system_module__(modname, globs):
+             if os.path.isfile(os.path.join(os.path.dirname(__file__), filename)):
+                 found = os.path.join(os.path.dirname(__file__), filename)
+         if found is None:
++            # We now look for it in the diverse Python import paths
++            for dir_path in sys.path:
++                filepath = os.path.join(dir_path, filename)
++                if os.path.isfile(filepath):
++                    found = filepath
++                    break
++        if found is None:
+             # give up in disgust.
+             raise ImportError("No system module '%s' (%s)" % (modname, filename))
+     # py2k and py3k differences:
