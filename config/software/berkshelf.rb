@@ -38,6 +38,16 @@ dependency "dep-selector-libgecode"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  gemfile = "#{project_dir}/Gemfile"
+
+  block do
+    require 'fileutils'
+    if File.exist?(gemfile)
+      open(gemfile, 'a') { |f| f.puts "gem 'net-ssh', '= 3.0.2'" }
+    end
+  end
+
+  bundle "lock --update net-ssh", env: env
   bundle "install" \
          " --jobs #{workers}" \
          " --without guard", env: env
