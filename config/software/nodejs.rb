@@ -22,7 +22,7 @@ license_file "LICENSE"
 if ppc64? || ppc64le?
   default_version "0.10.38-release-ppc"
 else
-  default_version "0.10.10"
+  default_version "0.10.35"
 end
 
 dependency "python"

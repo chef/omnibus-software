@@ -1,5 +1,5 @@
 #
-# Copyright 2015 Chef Software, Inc.
+# Copyright 2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,24 +14,21 @@
 # limitations under the License.
 #
 
-name "kitchen-inspec"
+name "winrm-fs"
 default_version "master"
 
-source git: "https://github.com/chef/kitchen-inspec.git"
+source git: "https://github.com/WinRb/winrm-fs.git"
 
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
-dependency "test-kitchen"
-dependency "inspec"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "inject net-ssh 3.0.2", env: env
-  bundle "install --without development guard test", env: env
+  bundle "install --without development", env: env
 
-  gem "build kitchen-inspec.gemspec", env: env
-  gem "install kitchen-inspec-*.gem" \
+  gem "build winrm-fs.gemspec", env: env
+  gem "install winrm-fs-*.gem" \
       " --no-ri --no-rdoc", env: env
 end

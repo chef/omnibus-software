@@ -21,38 +21,17 @@ license_file "BSDL"
 license_file "COPYING"
 license_file "LEGAL"
 
-# This is now the main software project for anything ruby related.
-# Even if you want a pre-built version of ruby from ruby-installer, include
-# this project as a dependency. If the version is set to ruby-windows,
-# it redirects to depend on the ruby-windows project.
-
-if windows?
-  default_version "ruby-windows"
-else
-  # - chef-client cannot use 2.2.x yet due to a bug in IRB that affects chef-shell on linux:
-  #   https://bugs.ruby-lang.org/issues/11869
-  # - the current status of 2.3.x is that it downloads but fails to compile.
-  default_version "2.1.6"
-end
+# - chef-client cannot use 2.2.x yet due to a bug in IRB that affects chef-shell on linux:
+#   https://bugs.ruby-lang.org/issues/11869
+# - the current status of 2.3.x is that it downloads but fails to compile.
+# - verify that all ffi libs are available for your version on all platforms.
+default_version "2.1.8"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
-if windows? && version == "ruby-windows"
-    dependency "ruby-windows"
-    dependency "ruby-windows-devkit"
-    dependency "ruby-windows-devkit-bash"
-    # The custom yakyakyak ruby build comes with openssl and the FIPS module.
-    # Don't clobber it.
-    dependency "openssl-windows" unless fips_enabled
-    dependency "cacerts"
-else
 
-unless windows?
-  dependency "patch" if solaris2?
-  dependency "ncurses"
-  dependency "libedit"
-end
-
+dependency "patch" if solaris_10?
+dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
 dependency "zlib"
 dependency "openssl"
 dependency "libffi"
@@ -123,7 +102,7 @@ elsif aix?
   env['SOLIBS'] = "-lm -lc"
   # need to use GNU m4, default m4 doesn't work
   env['M4'] = "/opt/freeware/bin/m4"
-elsif solaris2?
+elsif solaris_10?
   if sparc?
     # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
     env['CFLAGS'] << " -std=c99 -O0 -g -pipe -mcpu=v9"
@@ -147,12 +126,9 @@ build do
   patch_env = env.dup
   patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}" if aix?
 
-  if solaris2? && version.satisfies?('>= 2.1')
+  if solaris_10? && version.satisfies?('>= 2.1')
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
-    if platform_version.satisfies?('>= 5.11')
-      patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
-    end
-  elsif solaris2? && version =~ /^1.9/
+  elsif solaris_10? && version =~ /^1.9/
     patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1, env: patch_env
   end
 
@@ -191,14 +167,14 @@ build do
      patch source: 'ruby-fix-reserve-stack-segfault.patch', plevel: 1, env: patch_env
   end
 
-  configure_command = ["--with-out-ext=dbm",
+  configure_command = ["--with-out-ext=dbm,readline",
                        "--enable-shared",
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
+                       "--without-tk",
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?('< 2.3')
-  configure_command << "--enable-libedit" unless windows?
   configure_command << "--with-bundled-md5" if fips_enabled
 
   if aix?
@@ -257,5 +233,3 @@ build do
   end
 
 end
-
-end # if windows? && version == 'ruby-windows'

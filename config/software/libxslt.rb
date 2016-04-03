@@ -23,8 +23,8 @@ license_file "COPYING"
 dependency "libxml2"
 dependency "liblzma"
 dependency "config_guess"
-dependency "libtool" if solaris2?
-dependency "patch" if solaris2?
+dependency "libtool" if solaris_10?
+dependency "patch" if solaris_10?
 
 version "1.1.28" do
   source md5: "9667bf6f9310b957254fdcf6596600b7"

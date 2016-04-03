@@ -45,7 +45,7 @@ build do
   ]
 
   # solaris 10 ipv6 support is broken due to no inet_ntop() in -lnsl
-  configure_command << "--enable-ipv6=no" if solaris2?
+  configure_command << "--enable-ipv6=no" if solaris_10?
 
   update_config_guess
 
