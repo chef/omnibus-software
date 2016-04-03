@@ -90,7 +90,7 @@ build do
   ]
 
   # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
-  if (ppc64? || ppc64le?)
+  if ppc64? || ppc64le?
     configure << '--with-lua51'
   else
     configure << '--with-luajit'
