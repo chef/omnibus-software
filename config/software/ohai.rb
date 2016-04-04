@@ -18,18 +18,15 @@
 name "ohai"
 default_version "master"
 
-source git: "git://github.com/opscode/ohai"
+license "Apache-2.0"
+license_file "LICENSE"
+
+source git: "https://github.com/opscode/ohai.git"
 
 relative_path "ohai"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "ruby-windows-devkit"
-else
-  dependency "ruby"
-  dependency "rubygems"
-end
-
+dependency "ruby"
+dependency "rubygems"
 dependency "bundler"
 
 build do

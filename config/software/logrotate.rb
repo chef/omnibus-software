@@ -17,10 +17,20 @@
 name "logrotate"
 default_version "3.8.5"
 
+license "GPL-2.0"
+license_file "COPYING"
+
 dependency "popt"
 
-source url: "https://fedorahosted.org/releases/l/o/logrotate/logrotate-#{version}.tar.gz",
-       md5: "d3c13e2a963a55c584cfaa83e96b173d"
+source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"
+
+version "3.9.2" do
+  source md5: "584bca013dcceeb23b06b27d6d0342fb"
+end
+version "3.8.5" do
+  source md5: "d3c13e2a963a55c584cfaa83e96b173d",
+         url: "https://fedorahosted.org/releases/l/o/logrotate/logrotate-#{version}.tar.gz"
+end
 
 relative_path "logrotate-#{version}"
 
@@ -35,7 +45,7 @@ build do
   env["EXTRA_LDFLAGS"] = env["LDFLAGS"]
   env["EXTRA_CFLAGS"]  = env["CFLAGS"]
 
-  patch source: "logrotate_basedir_override.patch", plevel: 0
+  patch source: "logrotate_basedir_override.patch", plevel: 0, env: env
 
   make "-j #{workers}", env: env
 

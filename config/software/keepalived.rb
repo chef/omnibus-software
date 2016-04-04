@@ -17,10 +17,17 @@
 name "keepalived"
 default_version "1.2.9"
 
+license "GPL-2.0"
+license_file "COPYING"
+
 dependency "popt"
 dependency "openssl"
 
 source url: "http://www.keepalived.org/software/keepalived-#{version}.tar.gz"
+
+version "1.2.19" do
+  source md5: "5c98b06639dd50a6bff76901b53febb6"
+end
 
 version "1.2.9" do
   source md5: "adfad98a2cc34230867d794ebc633492"
@@ -39,7 +46,7 @@ build do
   # d384ce8b3492b9d76af23e621a20bed8da9c6016 of keepalived, (master
   # branch), and should be no longer necessary after 1.2.9.
   if version == "1.2.9"
-    patch source: "keepalived-1.2.9_opscode_centos_5.patch"
+    patch source: "keepalived-1.2.9_opscode_centos_5.patch", env: env
   end
 
   command "./configure" \
@@ -49,5 +56,3 @@ build do
   make "-j #{workers}", env: env
   make "install", env: env
 end
-
-

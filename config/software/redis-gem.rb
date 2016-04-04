@@ -17,6 +17,9 @@
 name "redis-gem"
 default_version "3.1.0"
 
+license "MIT"
+license_file "https://github.com/redis/redis-rb/blob/master/LICENSE"
+
 dependency "ruby"
 dependency "rubygems"
 

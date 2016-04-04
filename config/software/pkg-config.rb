@@ -19,11 +19,15 @@ default_version "0.28"
 
 dependency "libiconv"
 
+version "0.29" do
+  source md5: "77f27dce7ef88d0634d0d6f90e03a77f"
+end
+
 version "0.28" do
   source md5: "aa3c86e67551adc3ac865160e34a2a0d"
 end
 
-source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
+source url: "https://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
 
 relative_path "pkg-config-#{version}"
 
@@ -31,7 +35,13 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if version == "0.28" && ppc64le?
-    patch source: "v0.28.ppc64le-configure.patch", plevel: 1
+    patch source: "v0.28.ppc64le-configure.patch", plevel: 1, env: env
+  end
+
+  # pkg-config (at least up to 0.28) includes an older version of
+  # libcharset/lib/config.charset that doesn't know about openbsd
+  if openbsd?
+    patch source: "openbsd-charset.patch", plevel: 1, env: env
   end
 
   command "./configure" \
@@ -52,4 +62,10 @@ build do
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+  # ensure charset.alias gets installed on openbsd else pkg-config will
+  # exit with byte conversion errors.
+  if openbsd?
+    copy "#{project_dir}/glib/glib/libcharset/charset.alias", "#{install_dir}/embedded/lib/charset.alias"
+  end
 end

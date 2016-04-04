@@ -1,8 +1,8 @@
 # Maintainers
 
-This file lists how the Omnibus project is maintained. When making changes
-to the system, this file tells you who needs to review your patch - you need a
-simple majority of maintainers for the relevant subsystems to provide a :+1: on
+This file lists how the `omnibus-software` project is maintained.
+
+When making changes to the system, you need two maintainers to provide a :+1: on
 your pull request. Additionally, you need to not receive a veto from a
 Lieutenant or the Project Lead.
 
@@ -18,9 +18,11 @@ project lead.
 ## Maintainers
 
 * [Daniel DeLeo](https://github.com/danielsdeleo)
-* [Jay Mundrawala](https://github.com/jdmundrawala)
+* [Jay Mundrawala](https://github.com/jaym)
+* [Kartik Null Cating-Subramanian](https://github.com/ksubrama)
 * [Lamont Granquist](https://github.com/lamont-granquist)
 * [Scott Hain](https://github.com/scotthain)
 * [Seth Vargo](http://github.com/sethvargo)
 * [Steven Danna](https://github.com/stevendanna)
+* [Thom May](https://github.com/thommay)
 * [Yvonne Lam](http://github.com/yzl)

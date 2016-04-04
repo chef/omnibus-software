@@ -1,0 +1,11 @@
+--- openssl-1.0.1q/Makefile.shared.orig	2015-12-15 17:01:08.000000000 -0500
++++ openssl-1.0.1q/Makefile.shared	2015-12-15 17:03:01.000000000 -0500
+@@ -293,7 +293,7 @@
+ 	fi; \
+ 	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; \
+ 	$(PERL) util/mkrc.pl $$dll_name | \
+-		$(CROSS_COMPILE)windres -o rc.o; \
++		$(CROSS_COMPILE)windres $(RCFLAGS) -o rc.o; \
+ 	extras="$$extras rc.o"; \
+ 	ALLSYMSFLAGS='-Wl,--whole-archive'; \
+ 	NOALLSYMSFLAGS='-Wl,--no-whole-archive'; \

@@ -20,28 +20,30 @@
 name "libarchive"
 default_version "3.1.2"
 
+license "BSD-2-Clause"
+license_file "COPYING"
+
 source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
        md5: 'efad5a503f66329bb9d2f4308b5de98a'
 
 relative_path "libarchive-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --without-lzma" \
-          " --without-lzo2" \
-          " --without-nettle" \
-          " --without-xml2" \
-          " --without-expat" \
-          " --without-bz2lib" \
-          " --without-iconv" \
-          " --without-zlib" \
-          " --disable-bsdtar" \
-          " --disable-bsdcpio" \
-          " --without-lzmadec" \
-          " --without-openssl", env: env
+  configure("--prefix=#{install_dir}/embedded",
+            "--without-lzma",
+            "--without-lzo2",
+            "--without-nettle",
+            "--without-xml2",
+            "--without-expat",
+            "--without-bz2lib",
+            "--without-iconv",
+            "--without-zlib",
+            "--disable-bsdtar",
+            "--disable-bsdcpio",
+            "--without-lzmadec",
+            "--without-openssl", env: env)
 
   make env: env
   make "install", env: env

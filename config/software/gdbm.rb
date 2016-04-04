@@ -15,20 +15,25 @@
 #
 
 name "gdbm"
-default_version "1.9.1"
+default_version "1.8.3"
 
-version("1.9.1") { source md5: "59f6e4c4193cb875964ffbe8aa384b58" }
-version("1.11")  { source md5: "72c832680cf0999caedbe5b265c8c1bd" }
+# Version 1.9 and above are GPLv3, do NOT add later versions in
+version("1.8.3") { source md5: "1d1b1d5c0245b1c00aff92da751e9aa1" }
 
-source url: "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz"
+source url: "https://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz"
 
 relative_path "gdbm-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "1.9.1" && ppc64le?
-    patch source: "v1.9.1.ppc64le-configure.patch", plevel: 1
+  if version == "1.8.3"
+    patch source: "v1.8.3-Makefile.in.patch", plevel: 0, env: env
+  end
+
+  # Update config.guess to support newer platforms (like aarch64)
+  if version == "1.8.3"
+    patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
   end
 
   if freebsd?

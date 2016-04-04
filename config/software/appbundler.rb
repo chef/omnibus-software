@@ -15,14 +15,22 @@
 #
 
 name "appbundler"
-default_version "0.4.0"
+default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE.txt"
+
+source git: "https://github.com/chef/appbundler.git"
+
+dependency "rubygems"
 dependency "bundler"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install appbundler" \
-      " --version '#{version}'" \
+  bundle "install --without development", env: env
+
+  gem "build appbundler.gemspec", env: env
+  gem "install appbundler-*.gem" \
       " --no-ri --no-rdoc", env: env
 end
