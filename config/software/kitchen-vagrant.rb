@@ -27,7 +27,6 @@ dependency "test-kitchen"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "inject net-ssh 3.0.2", env: env
   bundle "install --without development guard test", env: env
 
   gem "build kitchen-vagrant.gemspec", env: env
