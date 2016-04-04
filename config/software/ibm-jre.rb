@@ -34,7 +34,7 @@ elsif ppc64le?
   app_version = "ibm-java-ppc64le-80"
   relative_path "ibm-java-ppc64le-80"
 else
-  raise "The IBM JRE support for this platform was not found"
+  puts "The IBM JRE support for this platform was not found, thus it will not be installed"
 end
 
 default_version app_version
