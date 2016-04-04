@@ -26,7 +26,6 @@ dependency "bundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "inject net-ssh 3.0.2", env: env
   bundle "install --with test integration --without tools maintenance", env: env
 
   gem "build inspec.gemspec", env: env
