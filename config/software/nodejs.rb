@@ -15,7 +15,10 @@
 #
 
 name "nodejs"
-default_version "0.10.10"
+default_version "0.10.35"
+
+license "MIT"
+license_file "LICENSE"
 
 dependency "python"
 
@@ -30,6 +33,12 @@ end
 version "0.10.35" do
   source md5: "2c00d8cf243753996eecdc4f6e2a2d11"
 end
+
+version "4.1.2" do
+  source md5: "31a3ee2f51bb2018501048f543ea31c7"
+end
+
+# Warning: NodeJS 5.6.0 requires GCC >= 4.8
 
 source url: "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 

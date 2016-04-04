@@ -17,19 +17,33 @@
 name "libtool"
 default_version "2.4"
 
-version("2.4")   { source md5: "b32b04148ecdd7344abc6fe8bd1bb021" }
-version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }
-version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
+license "GPL-2.0"
+license_file "COPYING"
 
-source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
+# NOTE: 2.4.6 2.4.2 do not compile on solaris2 yet
+version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
+version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }
+version("2.4")   { source md5: "b32b04148ecdd7344abc6fe8bd1bb021" }
+
+source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 
 relative_path "libtool-#{version}"
+
+dependency "config_guess"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version == "2.4" && ppc64le?
-    patch source: "v2.4.ppc64le-configure.patch", plevel: 1
+  # AIX's old version of patch doesn't like the config.guess patch here
+  unless aix?
+    # Update config.guess to support newer platforms (like aarch64)
+    if version == "2.4"
+      update_config_guess
+    end
+  end
+
+  if aix?
+    env["M4"] = "/opt/freeware/bin/m4"
   end
 
   command "./configure" \

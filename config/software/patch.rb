@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,21 +15,29 @@
 #
 
 name "patch"
-default_version "2.7"
 
-version("2.7") { source md5: "1cbaa223ff4991be9fae8ec1d11fb5ab" }
+if windows?
+  # TODO more recent version now?
+  default_version "2.6.1"
+  dependency "mingw-get"
+else
+  default_version "2.7"
 
-source url: "http://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
-
-relative_path "patch-#{version}"
+  version("2.7.5") { source md5: "ed4d5674ef4543b4eb463db168886dc7" }
+  version("2.7") { source md5: "1cbaa223ff4991be9fae8ec1d11fb5ab" }
+  source url: "https://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
+  relative_path "patch-#{version}"
+end
 
 env = with_standard_compiler_flags(with_embedded_path)
 
 build do
-  configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
-
-  command configure_command.join(" "), env: env
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  if windows?
+    command "mingw-get.exe -v install msys-patch-bin=#{version}-*",
+            env: env, cwd: "#{install_dir}/embedded"
+  else
+    configure "--disable-xattr", env: env
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
 end

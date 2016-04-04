@@ -17,11 +17,14 @@
 name "omnibus-ctl"
 default_version "0.3.6"
 
+license "Apache-2.0"
+license_file "https://github.com/chef/omnibus-ctl/blob/master/LICENSE"
+
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 
-source git: "git://github.com/chef/omnibus-ctl.git"
+source git: "https://github.com/chef/omnibus-ctl.git"
 
 relative_path "omnibus-ctl"
 

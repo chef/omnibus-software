@@ -17,12 +17,15 @@
 name "libossp-uuid"
 default_version "1.6.2"
 
+license "MIT"
+license_file "README"
+
 version "1.6.2" do
   source md5: "5db0d43a9022a6ebbbc25337ae28942f"
 end
 
 # ftp on ftp.ossp.org is unavaiable so we must use another mirror site.
-source url: "http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
+source url: "https://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
 
 relative_path "uuid-#{version}"
 

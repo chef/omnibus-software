@@ -17,7 +17,10 @@
 name "make"
 default_version "4.1"
 
-source url: "http://ftp.gnu.org/gnu/make/make-#{version}.tar.gz",
+license "libpng"
+license_file "LICENSE"
+
+source url: "https://ftp.gnu.org/gnu/make/make-#{version}.tar.gz",
        md5: "654f9117957e6fa6a1c49a8f08270ec9"
 
 relative_path "make-#{version}"
@@ -26,6 +29,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
+          " --disable-nls" \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env

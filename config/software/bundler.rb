@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,18 +15,19 @@
 #
 
 name "bundler"
-default_version "1.5.3"
 
-if windows?
-  dependency "ruby-windows"
-else
-  dependency "rubygems"
-end
+license "MIT"
+license_file "https://raw.githubusercontent.com/bundler/bundler/master/LICENSE.md"
+
+dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem "install bundler" \
-      " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+  v_opts = "--version '#{version}'" unless version.nil?
+  gem [
+    "install bundler",
+    v_opts,
+    "--no-ri --no-rdoc",
+  ].compact.join(" "), env: env
 end

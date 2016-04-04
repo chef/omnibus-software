@@ -46,7 +46,6 @@ build do
 
   versions_to_install.each do |version|
     gem "fetch mysql2" \
-        " --version '#{version}'" \
-        " --no-ri --no-rdoc", env: env, cwd: cache_path
+        " --version '#{version}'", env: env, cwd: cache_path
   end
 end

@@ -16,23 +16,35 @@
 name "chef"
 default_version "master"
 
-source git: "git://github.com/chef/chef"
+license "Apache-2.0"
+license_file "LICENSE"
+
+# For the specific super-special version "local_source", build the source from
+# the local git checkout. This is what you'd want to occur by default if you
+# just ran omnibus build locally.
+version("local_source") do
+  source path: "#{project.files_path}/../..",
+         # Since we are using the local repo, we try to not copy any files
+         # that are generated in the process of bundle installing omnibus.
+         # If the install steps are well-behaved, this should not matter
+         # since we only perform bundle and gem installs from the
+         # omnibus cache source directory, but we do this regardless
+         # to maintain consistency between what a local build sees and
+         # what a github based build will see.
+         options: { exclude: [ "omnibus/vendor" ] }
+end
+
+# For any version other than "local_source", fetch from github.
+# This is the behavior the transitive omnibus software deps such as chef-dk
+# expect.
+if version != "local_source"
+  source git: "https://github.com/chef/chef.git"
+end
 
 relative_path "chef"
 
-if windows?
-  dependency "ruby-windows"
-  dependency "openssl-windows"
-  dependency "ruby-windows-devkit"
-  dependency "ruby-windows-devkit-bash"
-  dependency "cacerts"
-  dependency "rubygems"
-else
-  dependency "ruby"
-  dependency "rubygems"
-  dependency "libffi"
-end
-
+dependency "ruby"
+dependency "rubygems"
 dependency "bundler"
 dependency "ohai"
 dependency "appbundler"
@@ -40,73 +52,48 @@ dependency "appbundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # compiled ruby on windows 2k8R2 x86 is having issude compiling
+  # native extensions for pry-byebug so excluding for now
+  excluded_groups = %w{server docgen maintenance pry travis}
+  excluded_groups << 'ruby_prof' if aix?
+
+  # install the whole bundle first
+  bundle "install --without #{excluded_groups.join(' ')}", env: env
+
+  # Install components that live inside Chef's git repo. For now this is just
+  # 'chef-config'
+  bundle "exec rake install_components", env: env
+
+  gemspec_name = windows? ? 'chef-windows.gemspec' : 'chef.gemspec'
+
+  # This step will build native components as needed - the event log dll is
+  # generated as part of this step.  This is why we need devkit.
+  gem "build #{gemspec_name}", env: env
+
+  # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
+  gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
+
+  # Always deploy the powershell modules in the correct place.
   if windows?
-    # Normally we would symlink the required unix tools.
-    # However with the introduction of git-cache to speed up omnibus builds,
-    # we can't do that anymore since git on windows doesn't support symlinks.
-    # https://groups.google.com/forum/#!topic/msysgit/arTTH5GmHRk
-    # Therefore we copy the tools to the necessary places.
-    # We need tar for 'knife cookbook site install' to function correctly
-    {
-      'tar.exe'          => 'bsdtar.exe',
-      'libarchive-2.dll' => 'libarchive-2.dll',
-      'libexpat-1.dll'   => 'libexpat-1.dll',
-      'liblzma-1.dll'    => 'liblzma-1.dll',
-      'libbz2-2.dll'     => 'libbz2-2.dll',
-      'libz-1.dll'       => 'libz-1.dll',
-    }.each do |target, to|
-      copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
-    end
-
-    bundle "install --without server docgen", env: env
-
-    # Install components that live inside Chef's git repo. For now this is just
-    # 'chef-config'
-    bundle "exec rake install_components", env: env
-
-    gem "build chef-{windows,x86-mingw32}.gemspec", env: env
-
-    gem "install chef*mingw32.gem" \
-        " --no-ri --no-rdoc" \
-        " --verbose", env: env
-
-    block "Build Event Log Dll" do
-      Dir.chdir software.project_dir do
-        rake = windows_safe_path("#{install_dir}/embedded/bin/rake")
-        `#{rake} -rdevkit build_eventlog"` if File.exist? "#{software.project_dir}/ext/win32-eventlog"
-      end
-    end
-  else
-
-    # install the whole bundle first
-    bundle "install --without server docgen", env: env
-
-    # Install components that live inside Chef's git repo. For now this is just
-    # 'chef-config'
-    bundle "exec rake install_components", env: env
-
-    gem "build chef.gemspec", env: env
-
-    # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
-    gem "install chef*.gem " \
-        " --no-ri --no-rdoc", env: env
-
+    mkdir "#{install_dir}/modules/chef"
+    copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
   auxiliary_gems = {}
   auxiliary_gems['ruby-shadow'] = '>= 0.0.0' unless aix? || windows?
 
   auxiliary_gems.each do |name, version|
-    gem "install #{name}" \
-        " --version '#{version}'" \
-        " --no-ri --no-rdoc" \
-        " --verbose", env: env
+    gem "install #{name} --version '#{version}' --no-ri --no-rdoc --verbose",
+        env: env
   end
 
   appbundle 'chef'
   appbundle 'ohai'
 
   # Clean up
+  # TODO: Move this cleanup to a more appropriate place that's common to all
+  # software we ship. Lot's of other dependencies and libraries we build for
+  # ChefDK create docs and man pages and those may occur after this build step.
   delete "#{install_dir}/embedded/docs"
   delete "#{install_dir}/embedded/share/man"
   delete "#{install_dir}/embedded/share/doc"
