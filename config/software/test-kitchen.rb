@@ -40,14 +40,13 @@ build do
   end
 
   bundle "install --without guard", env: env
+  bundle "exec rake build", env: env
+
+  gem "install pkg/test-kitchen-*.gem" \
+      " --no-ri --no-rdoc", env: env
 
   block do
     File.delete(gemfile)
     File.rename(tmp_gemfile, gemfile)
   end
-
-  bundle "exec rake build", env: env
-
-  gem "install pkg/test-kitchen-*.gem" \
-      " --no-ri --no-rdoc", env: env
 end
