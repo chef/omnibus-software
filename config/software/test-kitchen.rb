@@ -39,7 +39,7 @@ build do
     end
   end
 
-  bundle "install --without guard", env: env
+  bundle "install --without guard integration", env: env
 
   block do
     File.delete(gemfile)
