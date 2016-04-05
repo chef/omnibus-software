@@ -27,14 +27,6 @@ dependency "nokogiri"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  block do
-    # make sure test-kitchen build honors chef constraints
-    chef_gem_line = "gem \"chef\", path: \"../../chef/chef\""
-    unless IO.readlines("#{project_dir}/Gemfile")[-1] =~ /#{chef_gem_line}/
-      open("#{project_dir}/Gemfile", 'a') { |f| f.puts chef_gem_line }
-    end
-  end
-
   bundle "install --without guard", env: env
   bundle "exec rake build", env: env
 
