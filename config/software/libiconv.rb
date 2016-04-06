@@ -23,6 +23,7 @@ default_version "1.14"
 license "LGPL-2.1"
 license_file "COPYING.LIB"
 
+dependency "config_guess"
 dependency "patch" if solaris_10?
 
 source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
@@ -36,6 +37,9 @@ build do
   # freebsd 10 needs to be build PIC
   env['CFLAGS'] << " -fPIC" if freebsd?
 
+  update_config_guess(target: "build-aux")
+  update_config_guess(target: "libcharset/build-aux")
+
   if aix?
     patch_env = env.dup
     patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
@@ -46,14 +50,6 @@ build do
 
   if version == "1.14" && ppc64le?
     patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1, env: env
-  end
-
-  # AIX's old version of patch doesn't like the config.guess patch here
-  unless aix?
-    # Update config.guess to support newer platforms (like aarch64)
-    if version == "1.14"
-      patch source: "config.guess_2015-09-14.patch", plevel: 0, env: env
-    end
   end
 
   # Make windres use the correct cross compilation architecture flags

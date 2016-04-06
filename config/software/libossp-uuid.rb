@@ -20,6 +20,8 @@ default_version "1.6.2"
 license "MIT"
 license_file "README"
 
+dependency "config_guess"
+
 version "1.6.2" do
   source md5: "5db0d43a9022a6ebbbc25337ae28942f"
 end
@@ -31,6 +33,8 @@ relative_path "uuid-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env

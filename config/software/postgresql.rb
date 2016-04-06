@@ -25,6 +25,7 @@ dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
 dependency "libossp-uuid"
+dependency "config_guess"
 
 version "9.2.14" do
   source md5: "ce2e50565983a14995f5dbcd3c35b627"
@@ -100,6 +101,8 @@ relative_path "postgresql-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess(target: "config")
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
