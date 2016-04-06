@@ -20,6 +20,9 @@
 # tools can be used with https URLs out of the box.
 name "openssl-customization"
 
+license "OpenSSL"
+license_file "https://www.openssl.org/source/license.html"
+
 source path: "#{project.files_path}/#{name}"
 
 dependency "ruby"

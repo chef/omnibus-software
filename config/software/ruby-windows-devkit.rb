@@ -17,6 +17,9 @@
 name "ruby-windows-devkit"
 default_version "4.7.2-20130224"
 
+license "BSD-3-Clause"
+license_file "LICENSE.txt"
+
 if windows_arch_i386?
   version "4.5.2-20111229-1559" do
     source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe",
