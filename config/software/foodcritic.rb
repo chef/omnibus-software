@@ -19,6 +19,9 @@ default_version "v6.0.0"
 
 source git: "https://github.com/acrmp/foodcritic.git"
 
+license "MIT"
+license_file "LICENSE"
+
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"

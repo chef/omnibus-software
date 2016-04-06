@@ -17,6 +17,9 @@
 name "rubocop"
 default_version "master"
 
+license "MIT"
+license_file "LICENSE.txt"
+
 source git: "https://github.com/bbatsov/rubocop.git"
 
 dependency "ruby"

@@ -17,6 +17,9 @@
 name "chef-vault"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/chef/chef-vault.git"
 
 relative_path "chef-vault"

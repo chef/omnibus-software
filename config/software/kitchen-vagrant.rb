@@ -17,6 +17,9 @@
 name "kitchen-vagrant"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/test-kitchen/kitchen-vagrant.git"
 
 dependency "ruby"
