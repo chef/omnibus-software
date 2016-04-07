@@ -24,7 +24,6 @@ dependency "zlib"
 dependency "libiconv"
 dependency "liblzma"
 dependency "config_guess"
-dependency "mingw" if windows?
 
 version "2.9.3" do
   source md5: "daece17e045f1c107610e137ab50c179"
