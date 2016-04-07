@@ -17,6 +17,9 @@
 name "chefspec"
 default_version "master"
 
+license "MIT"
+license_file "LICENSE"
+
 source git: "https://github.com/sethvargo/chefspec.git"
 
 dependency "ruby"

@@ -17,6 +17,9 @@
 name "winrm-fs"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/WinRb/winrm-fs.git"
 
 dependency "ruby"

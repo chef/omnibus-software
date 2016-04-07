@@ -17,6 +17,9 @@
 name "chef-provisioning-fog"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/chef/chef-provisioning-fog.git"
 
 dependency "ruby"

@@ -18,6 +18,9 @@ name "test-kitchen"
 default_version "master"
 relative_path "test-kitchen"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/test-kitchen/test-kitchen.git"
 
 dependency "ruby"

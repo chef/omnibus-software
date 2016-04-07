@@ -17,6 +17,9 @@
 name "knife-windows"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/chef/knife-windows.git"
 
 dependency "ruby"

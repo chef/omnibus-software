@@ -17,6 +17,9 @@
 name "fauxhai"
 default_version "master"
 
+license "MIT"
+license_file "LICENSE"
+
 source git: "https://github.com/customink/fauxhai.git"
 
 dependency "ruby"

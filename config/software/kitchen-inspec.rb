@@ -17,6 +17,9 @@
 name "kitchen-inspec"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/chef/kitchen-inspec.git"
 
 dependency "ruby"
