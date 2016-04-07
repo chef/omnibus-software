@@ -23,6 +23,8 @@ name "shebang-cleanup"
 
 default_version "0.0.2"
 
+license :project_license
+
 build do
   if windows?
     block "Update batch files to point at embedded ruby" do

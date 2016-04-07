@@ -18,6 +18,8 @@ name "clean-static-libs"
 description "cleanup un-needed static libraries from the build"
 default_version '1.0.0'
 
+license :project_license
+
 build do
   # Remove static object files for all platforms
   # except AIX which uses them at runtime.

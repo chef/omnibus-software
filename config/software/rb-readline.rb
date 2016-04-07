@@ -17,6 +17,9 @@
 name "rb-readline"
 default_version "master"
 
+license "BSD-3-Clause"
+license_file "LICENSE"
+
 dependency "ruby"
 dependency "rubygems"
 
