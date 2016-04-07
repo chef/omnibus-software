@@ -22,7 +22,6 @@ license_file "COPYING"
 
 dependency "libxml2"
 dependency "liblzma"
-dependency "config_guess"
 dependency "libtool" if solaris_10?
 dependency "patch" if solaris_10?
 
@@ -39,8 +38,6 @@ source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 relative_path "libxslt-#{version}"
 
 build do
-  update_config_guess
-
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
 
   patch source: "libxslt-cve-2015-7995.patch", env: env
