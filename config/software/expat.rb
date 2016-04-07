@@ -18,15 +18,12 @@ name "expat"
 default_version "2.1.0"
 
 relative_path "expat-#{version}"
-dependency "config_guess"
 
 source url: "http://iweb.dl.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz",
        md5: "dd7dab7a5fea97d2a6a43f511449b7cd"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-
-  update_config_guess(target: "conftools")
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env

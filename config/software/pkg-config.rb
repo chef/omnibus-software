@@ -18,7 +18,6 @@ name "pkg-config"
 default_version "0.28"
 
 dependency "libiconv"
-dependency "config_guess"
 
 version "0.29" do
   source md5: "77f27dce7ef88d0634d0d6f90e03a77f"
@@ -35,7 +34,9 @@ relative_path "pkg-config-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  update_config_guess
+  if version == "0.28" && ppc64le?
+    patch source: "v0.28.ppc64le-configure.patch", plevel: 1, env: env
+  end
 
   # pkg-config (at least up to 0.28) includes an older version of
   # libcharset/lib/config.charset that doesn't know about openbsd
