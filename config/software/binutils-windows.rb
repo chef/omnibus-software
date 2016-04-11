@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-name "binutils"
+name "binutils-windows"
 default_version "2.25-tdm64-1"
 
 dependency "msys-base"
