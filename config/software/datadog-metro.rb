@@ -18,7 +18,7 @@ end
 
 build do
    ship_license "https://raw.githubusercontent.com/DataDog/go-metro/master/LICENSE"
-   ship_license "https://raw.githubusercontent.com/DataDog/go-metro/master/THIRD_PARY_LICENSES.md"
+   ship_license "https://raw.githubusercontent.com/DataDog/go-metro/master/THIRD_PARTY_LICENSES.md"
    command "mkdir -p /var/cache/omnibus/src/datadog-metro/src/github.com/DataDog", :env => env
    command "#{gobin} get -v -d github.com/DataDog/go-metro", :env => env, :cwd => "/var/cache/omnibus/src/datadog-metro"
    command "git checkout #{default_version} && git pull", :env => env, :cwd => "/var/cache/omnibus/src/datadog-metro/src/github.com/DataDog/go-metro"
