@@ -43,6 +43,7 @@ build do
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
+          " --disable-cpp" \
           " --enable-utf" \
           " --enable-unicode-properties" \
           " --enable-pcretest-libedit", env: env
