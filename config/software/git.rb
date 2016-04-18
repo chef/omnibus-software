@@ -80,6 +80,7 @@ build do
     NO_INSTALL_HARDLINKS: "YesPlease",
     NO_PERL: "YesPlease",
     NO_PYTHON: "YesPlease",
+    NO_TCLTK: "YesPlease",
   }
 
   if freebsd?
