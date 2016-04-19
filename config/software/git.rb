@@ -17,6 +17,9 @@
 name "git"
 default_version "2.7.4"
 
+license "LGPL-2.1"
+license_file "LGPL-2.1"
+
 dependency "curl"
 dependency "zlib"
 dependency "openssl"
