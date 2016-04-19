@@ -66,6 +66,11 @@ build do
 
     configure_command = ["perl.exe ./Configure #{platform}"]
     configure_command << "--prefix=#{install_dir}/embedded"
+  elsif ppc64? && rhel?
+    # you have to specify on el ppc64 (big-endian only) otherwise it has won't
+    # compile
+    configure_command = ["perl ./Configure linux-ppc64"]
+    configure_command << "--prefix=#{install_dir}/embedded"
   else
     configure_command = ["./config"]
   end
