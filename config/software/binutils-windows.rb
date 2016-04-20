@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2016 Chef Software, Inc.
+# Copyright 2012-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,31 +14,18 @@
 # limitations under the License.
 #
 
-name "binutils"
-default_version "2.26"
+name "binutils-windows"
+default_version "2.25-tdm64-1"
 
-version("2.26") { source md5: "9615feddaeedc214d1a1ecd77b6697449c952eab69d79ab2125ea050e944bcc1" }
+dependency "msys-base"
 
 license "GPL-3.0"
 license_file "COPYING"
 license_file "COPYING.LIB"
 
-source url: "https://ftp.gnu.org/gnu/binutils/binutils-#{version}.tar.gz"
-
-dependency "config_guess"
-
-relative_path "binutils-#{version}"
+source url: "http://iweb.dl.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-#{version}.tar.lzma"
+version("2.25-tdm64-1") { source sha256: "4722bb7b4d46cef714234109e25e5d1cfd29f4e53365b6d615c8a00735f60e40" }
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
-  update_config_guess
-
-  configure_command = ["./configure",
-                     "--prefix=#{install_dir}/embedded"]
-
-  command configure_command.join(" "), env: env
-
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  copy "*", "#{install_dir}/embedded"
 end
