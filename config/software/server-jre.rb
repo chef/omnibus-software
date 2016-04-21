@@ -15,10 +15,10 @@
 #
 
 name "server-jre"
-default_version "8u91"
+default_version "8u91m"
 
-unless _64_bit? or armhl?
-  raise "Server-jre can only be installed on x86_64 and armhl systems."
+unless _64_bit? or armhf?
+  raise "Server-jre can only be installed on x86_64 and armhf systems."
 end
 
 license "Oracle-Binary"
