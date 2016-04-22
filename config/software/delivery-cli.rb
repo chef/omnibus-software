@@ -26,17 +26,33 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # The rust core libraries are dynamicaly linked
-  env['LD_LIBRARY_PATH']            = "#{install_dir}/embedded/lib"
-  env['DYLD_FALLBACK_LIBRARY_PATH'] = "#{install_dir}/embedded/lib:" if mac_os_x?
+  if linux?
+    env['LD_LIBRARY_PATH'] = "#{install_dir}/embedded/lib"
+  elsif mac_os_x?
+    env['DYLD_FALLBACK_LIBRARY_PATH'] = "#{install_dir}/embedded/lib:"
+  end
 
-  # Allows us to build with kitchen builders on virtualbox -
-  # due to a bug in virtualbox vboxsf, libgit2 (used by cargo) will
-  # encounter failures when using the default vboxsf-mounted
-  # /home/vagrant/.cargo location
-  env['CARGO_HOME']                 = "#{Omnibus::Config.base_dir}/cargo"
+  # pass version info into the build
+  env['DELIV_CLI_VERSION'] = version
+  env['DELIV_CLI_GIT_SHA'] = Omnibus::Fetcher.resolve_version(version, source)
 
-  env['OPENSSL_PREFIX']             = "#{install_dir}/embedded/lib"
+  if windows?
+    copy "#{install_dir}/embedded/bin/ssleay32.dll", "#{install_dir}/embedded/bin/libssl32.dll"
+    env["OPENSSL_LIB_DIR"] = "#{install_dir}/embedded/bin"
+  end
+
   command "cargo build -j #{workers} --release", env: env
+
   mkdir "#{install_dir}/bin"
-  copy "#{project_dir}/target/release/delivery", "#{install_dir}/bin/delivery"
+
+  if windows?
+    copy "#{project_dir}/target/release/delivery.exe", "#{install_dir}/bin/delivery.exe"
+    # When using `openssl` dependency, by default it builds the libraries inside
+    # `embedded/bin/`. We are copying the libs inside `bin/`.
+    copy "#{install_dir}/embedded/bin/ssleay32.dll", "#{install_dir}/bin/ssleay32.dll"
+    copy "#{install_dir}/embedded/bin/libeay32.dll", "#{install_dir}/bin/libeay32.dll"
+    copy "#{install_dir}/embedded/bin/zlib1.dll", "#{install_dir}/bin/zlib1.dll"
+  else
+    copy "#{project_dir}/target/release/delivery", "#{install_dir}/bin/delivery"
+  end
 end
