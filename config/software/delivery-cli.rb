@@ -17,6 +17,9 @@
 name "delivery-cli"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/chef/delivery-cli.git"
 
 dependency "openssl"

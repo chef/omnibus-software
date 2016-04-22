@@ -17,6 +17,9 @@
 name "rust"
 default_version "2015-10-03"
 
+license "Apache-2.0"
+license_file "COPYRIGHT"
+
 # Nightly releases use a slighty different URL and TARBALL naming convention
 if version =~ /\d{4}-\d{2}-\d{2}/
   relative_path_template = "rust-nightly-x86_64-%{host_triple}"

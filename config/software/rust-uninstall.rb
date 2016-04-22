@@ -16,6 +16,8 @@
 name "rust-uninstall"
 default_version "0.0.1"
 
+license :project_license
+
 dependency "rust"
 
 build do
