@@ -25,5 +25,5 @@ build do
   # we don't want to ship the Rust and Cargo in our final artifact. Luckily
   # Rust ships with a nice uninstall script which makes it easy to strip
   # everything out.
-  command "#{install_dir}/embedded/lib/rustlib/uninstall.sh", env: env
+  command "sh #{install_dir}/embedded/lib/rustlib/uninstall.sh", env: env
 end
