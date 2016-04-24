@@ -49,7 +49,7 @@ version "8u91" do
            unsafe: true
   end
 
-  relative_path "jdk1.8.0_74"
+  relative_path "jdk1.8.0_91"
 end
 
 version "8u74" do
