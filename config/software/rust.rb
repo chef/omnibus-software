@@ -34,25 +34,25 @@ if windows?
 
   version "2015-10-03" do
     source md5: "25ae6f2624a02fde12d515779a238658",
-           url: url_template % {host_triple: host_triple}
+           url: url_template % { host_triple: host_triple }
   end
 elsif mac_os_x?
   host_triple = "apple-darwin"
 
   version "2015-10-03" do
     source md5: "0485cb9902a3b3c563c6c6e20b311419",
-           url: url_template % {host_triple: host_triple}
+           url: url_template % { host_triple: host_triple }
   end
 else
   host_triple = "unknown-linux-gnu"
 
   version "2015-10-03" do
     source md5: "eff35d920b30f191b659075a563197a6",
-           url: url_template % {host_triple: host_triple}
+           url: url_template % { host_triple: host_triple }
   end
 end
 
-relative_path relative_path_template % {host_triple: host_triple}
+relative_path relative_path_template % { host_triple: host_triple }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
