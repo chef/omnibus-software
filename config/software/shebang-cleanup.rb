@@ -41,7 +41,7 @@ build do
             File.open("#{install_dir}/bin/#{bin}.bat", "w") do |f|
               f.puts <<-EOF
 @ECHO OFF
-"%~dp0\\..\\embedded\\bin\\ruby.exe" "%~dpn0" %*
+"%~dp0..\\embedded\\bin\\ruby.exe" "%~dpn0" %*
               EOF
             end
           end
@@ -49,7 +49,7 @@ build do
             File.open("#{install_dir}/embedded/bin/#{bin}.bat", "w") do |f|
               f.puts <<-EOF
 @ECHO OFF
-"%~dp0\\ruby.exe" "%~dpn0" %*
+"%~dp0ruby.exe" "%~dpn0" %*
               EOF
             end
           end
@@ -63,7 +63,7 @@ build do
       File.open("#{install_dir}/embedded/bin/gem.bat", "w") do |f|
         f.puts <<-EOF
 @ECHO OFF
-"%~dp0\\ruby.exe" "%~dpn0" %*
+"%~dp0ruby.exe" "%~dpn0" %*
         EOF
       end
     end
