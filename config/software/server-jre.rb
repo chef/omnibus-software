@@ -15,7 +15,7 @@
 #
 
 name "server-jre"
-default_version "8u91m"
+default_version "8u91"
 
 unless _64_bit? or armhf?
   raise "Server-jre can only be installed on x86_64 and armhf systems."
