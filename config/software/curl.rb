@@ -19,6 +19,7 @@ default_version "7.47.1"
 
 dependency "zlib"
 dependency "openssl"
+dependency "cacerts"
 
 license "MIT"
 license_file "COPYING"
@@ -68,6 +69,7 @@ build do
     "--without-librtmp",
     "--with-ssl=#{install_dir}/embedded",
     "--with-zlib=#{install_dir}/embedded",
+    "--with-ca-bundle=#{install_dir}/embedded/ssl/certs",
   ]
 
   command configure_command.join(" "), env: env
