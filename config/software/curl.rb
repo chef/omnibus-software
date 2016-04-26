@@ -69,7 +69,7 @@ build do
     "--without-librtmp",
     "--with-ssl=#{install_dir}/embedded",
     "--with-zlib=#{install_dir}/embedded",
-    "--with-ca-bundle=#{install_dir}/embedded/ssl/certs",
+    "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
   ]
 
   command configure_command.join(" "), env: env
