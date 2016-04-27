@@ -44,8 +44,8 @@ build do
     env["OPENSSL_LIB_DIR"] = "#{install_dir}/embedded/bin"
   end
 
-  env['RUSTFLAGS'] = "-m32"
-  command "cargo build -j #{workers} --target i686-pc-windows-gnu --release", env: env
+  env['TARGET'] = "i686-pc-windows-gnu"
+  command "cargo build -j #{workers} --release", env: env
 
   mkdir "#{install_dir}/bin"
 
