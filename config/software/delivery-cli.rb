@@ -44,7 +44,7 @@ build do
     env["OPENSSL_LIB_DIR"] = "#{install_dir}/embedded/bin"
   end
 
-  command "cargo build -j #{workers} --release", env: env
+  command "cargo build -j #{workers} -g --release", env: env
 
   mkdir "#{install_dir}/bin"
 
