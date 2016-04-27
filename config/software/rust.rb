@@ -68,7 +68,7 @@ end
 relative_path relative_path_template % { host_triple: host_triple, arch: arch }
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
 
   command "sh install.sh" \
           " --prefix=#{install_dir}/embedded" \
