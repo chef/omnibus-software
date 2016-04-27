@@ -26,7 +26,7 @@ dependency "openssl"
 dependency "rust"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
 
   # The rust core libraries are dynamicaly linked
   if linux?
