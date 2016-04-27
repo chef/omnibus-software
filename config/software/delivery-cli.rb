@@ -44,8 +44,7 @@ build do
     env["OPENSSL_LIB_DIR"] = "#{install_dir}/embedded/bin"
   end
 
-  require 'pry'; binding.pry
-  command "cargo build -j #{workers} --release", env: env
+  command "cargo build -j #{workers} --target i686-pc-windows-gnu --release", env: env
 
   mkdir "#{install_dir}/bin"
 
