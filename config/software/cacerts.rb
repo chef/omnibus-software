@@ -17,7 +17,7 @@
 name "cacerts"
 
 license "MPL-2.0"
-license_file "http://hg.mozilla.org/releases/mozilla-release/raw-file/tip/security/nss/COPYING"
+license_file "https://hg.mozilla.org/releases/mozilla-release/raw-file/tip/security/nss/COPYING"
 
 default_version "2016.01.20"
 
@@ -25,12 +25,12 @@ dependency "curl"
 
 version "2016.01.20" do
   source sha256: "ab982de0bc0dfb32a926d35efbb77d6b3dd3cfccaaee1d4f5eba4735b3bc0cf7"
-  source url: "http://hg.mozilla.org/releases/mozilla-release/raw-file/64df3815df9c/security/nss/lib/ckfw/builtins/certdata.txt"
+  source url: "https://hg.mozilla.org/releases/mozilla-release/raw-file/64df3815df9c/security/nss/lib/ckfw/builtins/certdata.txt"
 end
 
 version "2015.10.28" do
   source sha256: "a0a4e6336af93c4e15bca4c37e29d73c41550c4d0cf896138e3a68c4d97df81f"
-  source url: "http://hg.mozilla.org/releases/mozilla-release/raw-file/2f1a37cb43ac/security/nss/lib/ckfw/builtins/certdata.txt"
+  source url: "https://hg.mozilla.org/releases/mozilla-release/raw-file/2f1a37cb43ac/security/nss/lib/ckfw/builtins/certdata.txt"
 end
 
 relative_path "cacerts-#{version}"
