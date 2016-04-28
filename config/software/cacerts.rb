@@ -17,24 +17,29 @@
 name "cacerts"
 
 license "MPL-2.0"
-license_file "https://github.com/bagder/ca-bundle/blob/master/README.md"
+license_file "http://hg.mozilla.org/releases/mozilla-release/raw-file/tip/security/nss/COPYING"
 
 default_version "2016.01.20"
 
+dependency "curl"
+
 version "2016.01.20" do
-  source md5: "36eee0e80373937dd90a9a334ae42817"
-  source url: "https://raw.githubusercontent.com/bagder/ca-bundle/dfcc02c918b7bf40ed3a7f27a634c74ef4e80829/ca-bundle.crt"
+  source sha256: "ab982de0bc0dfb32a926d35efbb77d6b3dd3cfccaaee1d4f5eba4735b3bc0cf7"
+  source url: "http://hg.mozilla.org/releases/mozilla-release/raw-file/64df3815df9c/security/nss/lib/ckfw/builtins/certdata.txt"
 end
 
 version "2015.10.28" do
-  source md5: "3c58c3f2435598a942dc37cdb02a3ec3"
-  source url: "https://raw.githubusercontent.com/bagder/ca-bundle/86347ecbdc2277f365d02f0d208b822a214e012d/ca-bundle.crt"
+  source sha256: "a0a4e6336af93c4e15bca4c37e29d73c41550c4d0cf896138e3a68c4d97df81f"
+  source url: "http://hg.mozilla.org/releases/mozilla-release/raw-file/2f1a37cb43ac/security/nss/lib/ckfw/builtins/certdata.txt"
 end
 
 relative_path "cacerts-#{version}"
 
 build do
   mkdir "#{install_dir}/embedded/ssl/certs"
+
+  # Generate the ca-bundle.crt from the certdata obtained from mozilla
+  command "perl #{install_dir}/embedded/bin/mk-ca-bundle.pl -n ca-bundle.crt"
 
   # Append the 1024bit Verisign certs so that S3 continues to work
   block do
