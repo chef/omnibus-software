@@ -76,4 +76,6 @@ build do
 
   make "-j #{workers}", env: env
   make "install", env: env
+
+  copy "#{project_dir}/lib/mk-ca-bundle.pl" "#{install_dir}/embedded/bin/"
 end
