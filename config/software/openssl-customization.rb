@@ -20,8 +20,7 @@
 # tools can be used with https URLs out of the box.
 name "openssl-customization"
 
-license "OpenSSL"
-license_file "https://www.openssl.org/source/license.html"
+license :project_license
 
 source path: "#{project.files_path}/#{name}"
 
