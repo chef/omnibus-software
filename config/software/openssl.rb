@@ -24,7 +24,7 @@ dependency "makedepend"
 
 
 default_version "1.0.1t"
-source url: "http://www.openssl.org/source/#{name}-#{version}.tar.gz",
+source url: "ftp://ftp.openssl.org/source/#{name}-#{version}.tar.gz", # FIXME: use https as soon as we upgrade to debian 7
        sha256: "4a6ee491a2fdb22e519c76fdc2a628bb3cec12762cd456861d207996c8a07088"
 
 relative_path "openssl-#{version}"
