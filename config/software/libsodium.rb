@@ -19,6 +19,9 @@
 name "libsodium"
 default_version "1.0.2"
 
+license "ISC"
+license_file "LICENSE"
+
 dependency "autoconf"
 dependency "automake"
 dependency "libtool"
