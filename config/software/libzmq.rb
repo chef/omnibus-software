@@ -18,6 +18,10 @@
 name "libzmq"
 default_version "2.1.11"
 
+license "GPL-3.0"
+license_file "COPYING"
+license_file "COPYING.LESSER"
+
 dependency "autoconf"
 dependency "automake"
 dependency "libtool"
