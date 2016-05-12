@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.7.4"
+default_version "2.8.2"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -29,9 +29,14 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
+version "2.8.2" do
+  source md5: "3022d8ebf64b35b9704d5adf54b256f9"
+end
+
 version "2.7.4" do
   source md5: "c64012d491e24c7d65cd389f75383d91"
 end
+
 version "2.7.3" do
   source md5: "cf6ed3510f0d7784da5e9f4e64c6a43e"
 end
