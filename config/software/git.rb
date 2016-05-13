@@ -105,7 +105,7 @@ build do
     config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
   elsif solaris?
     env['CC'] = 'gcc'
-    env['SHELL_PATH'] = "#{install_dir}/embedded/bin/bash"
+    env['SHELL_PATH'] = which("bash")
     config_hash['NEEDS_SOCKET'] = "YesPlease"
     config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
   elsif aix?
