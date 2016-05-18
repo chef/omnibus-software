@@ -37,9 +37,13 @@ relative_path "rsync-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --disable-iconv", env: env
+  configure_args = [
+    "--disable-iconv",
+  ]
+
+  update_config_guess
+
+  configure(*configure_args, env: env)
 
   make "-j #{workers}", env: env
   make "install", env: env

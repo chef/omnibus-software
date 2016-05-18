@@ -36,10 +36,11 @@ build do
     patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
   end
 
-  # --disable-nls => Disable localization support.
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --disable-nls", env: env
+  configure_args = [
+    "--disable-nls",
+  ]
+
+  configure(*configure_args, env: env)
 
   make "-j #{workers}", env: env
   make "install", env: env
