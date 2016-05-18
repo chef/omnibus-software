@@ -18,6 +18,9 @@ name "patch"
 
 dependency "config_guess"
 
+license "GPL-3.0"
+license_file "COPYING"
+
 if windows?
   # TODO more recent version now?
   default_version "2.6.1"
