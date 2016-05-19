@@ -17,7 +17,7 @@
 name "rubygems"
 
 license "MIT"
-license_file "LICENSE.txt"
+license_file "https://raw.githubusercontent.com/rubygems/rubygems/master/LICENSE.txt"
 
 dependency "ruby"
 
