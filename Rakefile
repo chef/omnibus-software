@@ -1,8 +1,5 @@
 require 'bundler/gem_tasks'
-require 'rubocop/rake_task'
 require 'omnibus-software'
-
-RuboCop::RakeTask.new
 
 task :test do
   OmnibusSoftware.verify!
@@ -31,8 +28,15 @@ task :list do
   OmnibusSoftware.list
 end
 
+require "chefstyle"
+require "rubocop/rake_task"
+desc " Run ChefStyle"
+RuboCop::RakeTask.new(:chefstyle) do |task|
+  task.options << "--display-cop-names"
+end
+
 namespace :travis do
-  task ci: ['rubocop', 'test']
+  task ci: ['chefstyle', 'test']
 end
 
 task default: ['travis:ci']
