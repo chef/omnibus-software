@@ -73,10 +73,10 @@ build do
   # AIX needs /opt/freeware/bin only for patch
   if aix?
     patch_env = env.dup
-    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
 
     # But only needs the below for 1.9.5
-    if version == '1.9.5'
+    if version == "1.9.5"
       patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
     end
   end
@@ -92,25 +92,25 @@ build do
   }
 
   if freebsd?
-    config_hash['CHARSET_LIB'] = "-lcharset"
-    config_hash['FREAD_READS_DIRECTORIES'] = "UnfortunatelyYes"
-    config_hash['HAVE_CLOCK_GETTIME'] = "YesPlease"
-    config_hash['HAVE_CLOCK_MONOTONIC'] = "YesPlease"
-    config_hash['HAVE_GETDELIM'] = "YesPlease"
-    config_hash['HAVE_PATHS_H'] = "YesPlease"
-    config_hash['HAVE_STRINGS_H'] = "YesPlease"
-    config_hash['PTHREAD_LIBS'] = "-pthread"
-    config_hash['USE_ST_TIMESPEC'] = "YesPlease"
-    config_hash['HAVE_BSD_SYSCTL'] = "YesPlease"
-    config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
+    config_hash["CHARSET_LIB"] = "-lcharset"
+    config_hash["FREAD_READS_DIRECTORIES"] = "UnfortunatelyYes"
+    config_hash["HAVE_CLOCK_GETTIME"] = "YesPlease"
+    config_hash["HAVE_CLOCK_MONOTONIC"] = "YesPlease"
+    config_hash["HAVE_GETDELIM"] = "YesPlease"
+    config_hash["HAVE_PATHS_H"] = "YesPlease"
+    config_hash["HAVE_STRINGS_H"] = "YesPlease"
+    config_hash["PTHREAD_LIBS"] = "-pthread"
+    config_hash["USE_ST_TIMESPEC"] = "YesPlease"
+    config_hash["HAVE_BSD_SYSCTL"] = "YesPlease"
+    config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   elsif solaris?
-    env['CC'] = 'gcc'
-    env['SHELL_PATH'] = "#{install_dir}/embedded/bin/bash"
-    config_hash['NEEDS_SOCKET'] = "YesPlease"
-    config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
+    env["CC"] = "gcc"
+    env["SHELL_PATH"] = "#{install_dir}/embedded/bin/bash"
+    config_hash["NEEDS_SOCKET"] = "YesPlease"
+    config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   elsif aix?
-    env['CC'] = 'xlc_r'
-    env['INSTALL'] = '/opt/freeware/bin/install'
+    env["CC"] = "xlc_r"
+    env["INSTALL"] = "/opt/freeware/bin/install"
     # xlc doesn't understand the '-Wl,-rpath' syntax at all so... we don't enable
     # the NO_R_TO_GCC_LINKER flag. This means that it will try to use the
     # old style -R for libraries and as a result, xlc will ignore it. In this case, we
@@ -118,22 +118,22 @@ build do
     # command line argument in omnibus itself.
   else
     # Linux things!
-    config_hash['HAVE_PATHS_H'] = "YesPlease"
-    config_hash['NO_R_TO_GCC_LINKER'] = "YesPlease"
+    config_hash["HAVE_PATHS_H"] = "YesPlease"
+    config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   end
 
   erb source: "config.mak.erb",
       dest: "#{project_dir}/config.mak",
       mode: 0755,
       vars: {
-               cc: env['CC'],
-               ld: env['LD'],
-               cflags: env['CFLAGS'],
-               cppflags: env['CPPFLAGS'],
-               install: env['INSTALL'],
+               cc: env["CC"],
+               ld: env["LD"],
+               cflags: env["CFLAGS"],
+               cppflags: env["CPPFLAGS"],
+               install: env["INSTALL"],
                install_dir: install_dir,
-               ldflags: env['LDFLAGS'],
-               shell_path: env['SHELL_PATH'],
+               ldflags: env["LDFLAGS"],
+               shell_path: env["SHELL_PATH"],
                config_hash: config_hash,
              }
 

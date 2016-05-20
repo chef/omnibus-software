@@ -28,14 +28,14 @@ license :project_license
 build do
   if windows?
     block "Update batch files to point at embedded ruby" do
-      load_gemspec = if Gem::VERSION >= '2'
-                       require 'rubygems/package'
+      load_gemspec = if Gem::VERSION >= "2"
+                       require "rubygems/package"
                        Gem::Package.method(:new)
                      else
-                       require 'rubygems/format'
+                       require "rubygems/format"
                        Gem::Format.method(:from_file_by_path)
                      end
-      Dir["#{install_dir.gsub(/\\/, '/')}/embedded/lib/ruby/gems/**/cache/*.gem"].each do |gem_file|
+      Dir["#{install_dir.tr('\\', '/')}/embedded/lib/ruby/gems/**/cache/*.gem"].each do |gem_file|
         load_gemspec.call(gem_file).spec.executables.each do |bin|
           if File.exist?("#{install_dir}/bin/#{bin}")
             File.open("#{install_dir}/bin/#{bin}.bat", "w") do |f|

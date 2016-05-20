@@ -40,10 +40,10 @@ build do
     # We can't use the top-level Makefile. Instead, the developers have made
     # an organic, artisanal, hand-crafted Makefile.gcc for us which takes a few
     # variables.
-    env['BINARY_PATH'] = "/bin"
-    env['LIBRARY_PATH'] = "/lib"
-    env['INCLUDE_PATH'] = "/include"
-    env['DESTDIR'] = "#{install_dir}/embedded"
+    env["BINARY_PATH"] = "/bin"
+    env["LIBRARY_PATH"] = "/lib"
+    env["INCLUDE_PATH"] = "/include"
+    env["DESTDIR"] = "#{install_dir}/embedded"
 
     make_args = [
       "-fwin32/Makefile.gcc",
@@ -66,11 +66,11 @@ build do
     env = with_standard_compiler_flags
     if solaris_10?
       # For some reason zlib needs this flag on solaris (cargocult warning?)
-      env['CFLAGS'] << " -DNO_VIZ"
+      env["CFLAGS"] << " -DNO_VIZ"
     elsif freebsd?
       # FreeBSD 10+ gets cranky if zlib is not compiled in a
       # position-independent way.
-      env['CFLAGS'] << " -fPIC"
+      env["CFLAGS"] << " -fPIC"
     end
 
     configure env: env

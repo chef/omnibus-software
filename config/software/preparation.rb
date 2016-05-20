@@ -16,7 +16,7 @@
 
 name "preparation"
 description "the steps required to preprare the build"
-default_version '1.0.0'
+default_version "1.0.0"
 
 license :project_license
 

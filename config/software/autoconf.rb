@@ -38,7 +38,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if solaris2?
-    env['M4'] = "#{install_dir}/embedded/bin/m4"
+    env["M4"] = "#{install_dir}/embedded/bin/m4"
   end
 
   command "./configure" \

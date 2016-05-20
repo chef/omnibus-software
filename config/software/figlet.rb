@@ -25,14 +25,14 @@ relative_path "figlet-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  env['DEFAULTFONTDIR'] = "#{install_dir}/share/figlet/fonts"
-  env['prefix'] = "#{install_dir}/embedded"
+  env["DEFAULTFONTDIR"] = "#{install_dir}/share/figlet/fonts"
+  env["prefix"] = "#{install_dir}/embedded"
 
   if aix?
     # give us /opt/freeware/bin/patch
-    env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
-    env['CC'] = 'cc_r -q64'
-    env['LD'] = 'cc_r -q64'
+    env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    env["CC"] = "cc_r -q64"
+    env["LD"] = "cc_r -q64"
     patch source: "aix-figlet-cdefs.patch", plevel: 0, env: env
   end
 

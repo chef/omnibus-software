@@ -27,7 +27,7 @@ dependency "config_guess"
 dependency "patch" if solaris_10?
 
 source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
-       md5: 'e34509b1623cec449dfeb73d7ce9c6c6'
+       md5: "e34509b1623cec449dfeb73d7ce9c6c6"
 
 relative_path "libiconv-#{version}"
 
@@ -35,17 +35,17 @@ build do
   env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
 
   # freebsd 10 needs to be build PIC
-  env['CFLAGS'] << " -fPIC" if freebsd?
+  env["CFLAGS"] << " -fPIC" if freebsd?
 
   update_config_guess(target: "build-aux")
   update_config_guess(target: "libcharset/build-aux")
 
   if aix?
     patch_env = env.dup
-    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
-    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: patch_env
+    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    patch source: "libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch", env: patch_env
   else
-    patch source: 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch', env: env
+    patch source: "libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch", env: env
   end
 
   if version == "1.14" && ppc64le?

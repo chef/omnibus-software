@@ -21,7 +21,7 @@ license "LGPL-2.1"
 # the license file does not ship in the portable git package so pull from the source repo
 license_file "https://raw.githubusercontent.com/git-for-windows/git/master/LGPL-2.1"
 
-arch_suffix = windows_arch_i386? ? '32' : '64'
+arch_suffix = windows_arch_i386? ? "32" : "64"
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
 
 if windows_arch_i386?

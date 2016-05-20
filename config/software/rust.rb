@@ -30,13 +30,13 @@ else
 end
 
 # Default architecture is x86_64
-arch = 'x86_64'
+arch = "x86_64"
 
 if windows?
   host_triple = "pc-windows-gnu"
 
   if windows_arch_i386?
-    arch = 'i686'
+    arch = "i686"
 
     version "2015-10-03" do
       source md5: "e56f92d70db368027f01c4d9fe69ec9f",

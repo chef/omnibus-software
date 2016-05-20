@@ -25,7 +25,6 @@ source url: "https://miru.hk/archive/#{zmq_installer}",
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-
   command "#{zmq_installer} /S /D=#{windows_safe_path(project_dir)}", env: env
 
   copy "bin/*", "#{install_dir}/embedded/bin"
