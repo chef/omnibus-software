@@ -55,12 +55,12 @@ build do
   # many gems that ship with native extensions assume tar will be available
   # in the PATH.
   {
-    'tar.exe'          => 'bsdtar.exe',
-    'libarchive-2.dll' => 'libarchive-2.dll',
-    'libexpat-1.dll'   => 'libexpat-1.dll',
-    'liblzma-1.dll'    => 'liblzma-1.dll',
-    'libbz2-2.dll'     => 'libbz2-2.dll',
-    'libz-1.dll'       => 'libz-1.dll',
+    "tar.exe"          => "bsdtar.exe",
+    "libarchive-2.dll" => "libarchive-2.dll",
+    "libexpat-1.dll"   => "libexpat-1.dll",
+    "liblzma-1.dll"    => "liblzma-1.dll",
+    "libbz2-2.dll"     => "libbz2-2.dll",
+    "libz-1.dll"       => "libz-1.dll",
   }.each do |target, to|
     copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
   end

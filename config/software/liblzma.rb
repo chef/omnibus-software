@@ -30,7 +30,7 @@ build do
   # liblzma properly uses CFLAGS for C compilation and CPPFLAGS for common
   # flags used across tools such as windres.  Don't put anything in it
   # that can be misinterpreted by windres.
-  env['CPPFLAGS'] = "-I#{install_dir}/embedded/include" if windows?
+  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include" if windows?
 
   config_command = [
     "--disable-debug",

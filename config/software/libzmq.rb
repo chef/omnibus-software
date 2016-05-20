@@ -53,12 +53,12 @@ source url: "http://download.zeromq.org/zeromq-#{version}.tar.gz"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  env['CXXFLAGS'] = "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+  env["CXXFLAGS"] = "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
 
   # centos 5 has an old version of gcc (4.2.1) that has trouble with
   # long long and c++ in pedantic mode
   # This patch is specific to zeromq4
-  if version.satisfies?('>= 4')
+  if version.satisfies?(">= 4")
     patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch", env: env if el?
   end
 

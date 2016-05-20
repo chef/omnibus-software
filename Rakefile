@@ -1,5 +1,5 @@
-require 'bundler/gem_tasks'
-require 'omnibus-software'
+require "bundler/gem_tasks"
+require "omnibus-software"
 
 task :test do
   OmnibusSoftware.verify!
@@ -36,7 +36,7 @@ RuboCop::RakeTask.new(:chefstyle) do |task|
 end
 
 namespace :travis do
-  task ci: ['chefstyle', 'test']
+  task ci: %w{chefstyle test}
 end
 
-task default: ['travis:ci']
+task default: ["travis:ci"]

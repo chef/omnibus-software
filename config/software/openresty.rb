@@ -55,7 +55,7 @@ relative_path "#{source_package_name}-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  env['PATH'] += "#{env['PATH']}:/usr/sbin:/sbin"
+  env["PATH"] += "#{env['PATH']}:/usr/sbin:/sbin"
 
   if version == "1.7.10.1" && (ppc64? || ppc64le?)
     patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
@@ -74,14 +74,14 @@ build do
     "--with-ld-opt=\"-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz\"",
     "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"",
     # Options inspired by the OpenResty Cookbook
-    '--with-md5-asm',
-    '--with-sha1-asm',
-    '--with-pcre-jit',
-    '--without-http_ssi_module',
-    '--without-mail_smtp_module',
-    '--without-mail_imap_module',
-    '--without-mail_pop3_module',
-    '--with-ipv6',
+    "--with-md5-asm",
+    "--with-sha1-asm",
+    "--with-pcre-jit",
+    "--without-http_ssi_module",
+    "--without-mail_smtp_module",
+    "--without-mail_imap_module",
+    "--without-mail_pop3_module",
+    "--with-ipv6",
     # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
     # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
     # However, they require libatomic-ops-dev and libaio
@@ -91,17 +91,17 @@ build do
 
   # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
   if ppc64? || ppc64le?
-    configure << '--with-lua51'
+    configure << "--with-lua51"
   else
-    configure << '--with-luajit'
+    configure << "--with-luajit"
   end
 
   # OpenResty 1.7 + RHEL5 Fixes:
   # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
   # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
   if rhel? &&
-     platform_version.satisfies?('< 6.0') &&
-     version.satisfies?('>= 1.7')
+      platform_version.satisfies?("< 6.0") &&
+      version.satisfies?(">= 1.7")
     configure << "--with-luajit-xcflags='-std=gnu99'"
   end
 

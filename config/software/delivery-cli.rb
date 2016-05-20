@@ -30,14 +30,14 @@ build do
 
   # The rust core libraries are dynamicaly linked
   if linux?
-    env['LD_LIBRARY_PATH'] = "#{install_dir}/embedded/lib"
+    env["LD_LIBRARY_PATH"] = "#{install_dir}/embedded/lib"
   elsif mac_os_x?
-    env['DYLD_FALLBACK_LIBRARY_PATH'] = "#{install_dir}/embedded/lib:"
+    env["DYLD_FALLBACK_LIBRARY_PATH"] = "#{install_dir}/embedded/lib:"
   end
 
   # pass version info into the build
-  env['DELIV_CLI_VERSION'] = version
-  env['DELIV_CLI_GIT_SHA'] = Omnibus::Fetcher.resolve_version(version, source)
+  env["DELIV_CLI_VERSION"] = version
+  env["DELIV_CLI_GIT_SHA"] = Omnibus::Fetcher.resolve_version(version, source)
 
   if windows?
     copy "#{install_dir}/embedded/bin/ssleay32.dll", "#{install_dir}/embedded/bin/libssl32.dll"

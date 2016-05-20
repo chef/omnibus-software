@@ -26,7 +26,6 @@ dependency "autoconf"
 dependency "automake"
 dependency "libtool"
 
-
 # perhaps use git https://github.com/jedisct1/libsodium/
 version "1.0.8" do
   source md5: "0a66b86fd3aab3fe4c858edcd2772760"

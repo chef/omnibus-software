@@ -32,20 +32,17 @@ source url: "https://www.openssl.org/source/openssl-fips-#{version}.tar.gz", ext
 
 relative_path "openssl-fips-#{version}"
 
-
 build do
   # According to the FIPS manual, this is the only environment you are allowed
   # to build it in, to ensure security.
   env = {}
-  env['FIPSDIR'] = "#{install_dir}/embedded"
-
+  env["FIPSDIR"] = "#{install_dir}/embedded"
 
   if windows?
     # The cross-toolchain we have won't work out of the box on windows for 32-bit.
     # This sucks.  Maybe eventually we'll use Visual Studio?
     env = with_embedded_path({}, msys: true)
     default_env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
-
 
     if windows_arch_i386?
       # Patch Makefile.shared to let us set the bit-ness of the resource compiler.
@@ -58,8 +55,8 @@ build do
       platform = "mingw"
       # Sparingly bring in the only flags absolutely needed to build this.
       # Do not bring in optimization flags and other library paths.
-      env['ARFLAGS'] = default_env['ARFLAGS']
-      env['RCFLAGS'] = default_env['RCFLAGS']
+      env["ARFLAGS"] = default_env["ARFLAGS"]
+      env["RCFLAGS"] = default_env["RCFLAGS"]
     else
       platform = "mingw64"
     end

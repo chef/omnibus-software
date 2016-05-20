@@ -55,7 +55,7 @@ build do
   # compiled ruby on windows 2k8R2 x86 is having issude compiling
   # native extensions for pry-byebug so excluding for now
   excluded_groups = %w{server docgen maintenance pry travis}
-  excluded_groups << 'ruby_prof' if aix?
+  excluded_groups << "ruby_prof" if aix?
 
   # install the whole bundle first
   bundle "install --without #{excluded_groups.join(' ')}", env: env
@@ -64,7 +64,7 @@ build do
   # 'chef-config'
   bundle "exec rake install_components", env: env
 
-  gemspec_name = windows? ? 'chef-windows.gemspec' : 'chef.gemspec'
+  gemspec_name = windows? ? "chef-windows.gemspec" : "chef.gemspec"
 
   # This step will build native components as needed - the event log dll is
   # generated as part of this step.  This is why we need devkit.
@@ -80,15 +80,15 @@ build do
   end
 
   auxiliary_gems = {}
-  auxiliary_gems['ruby-shadow'] = '>= 0.0.0' unless aix? || windows?
+  auxiliary_gems["ruby-shadow"] = ">= 0.0.0" unless aix? || windows?
 
   auxiliary_gems.each do |name, version|
     gem "install #{name} --version '#{version}' --no-ri --no-rdoc --verbose",
         env: env
   end
 
-  appbundle 'chef'
-  appbundle 'ohai'
+  appbundle "chef"
+  appbundle "ohai"
 
   # Clean up
   # TODO: Move this cleanup to a more appropriate place that's common to all
