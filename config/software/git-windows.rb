@@ -64,11 +64,11 @@ build do
   block "Create bat files to point to executables under embedded/git/cmd" do
     Dir.glob("#{destination}/cmd/*") do |git_bin|
       ext = File.extname(git_bin)
-      File.open("#{install_dir}/embedded/bin/#{File.basename(git_bin, ext)}.bat", "w") do |f|
-        f.puts <<-EOF
-@ECHO OFF
-"%~dp0..\\git\\cmd\\#{File.basename(git_bin)}" %*
-        EOF
+      base = File.basename(git_bin, ext)
+      File.open("#{install_dir}/embedded/bin/#{base}.bat", "w") do |f|
+        f.puts "@ECHO OFF"
+        f.print "START \"\" " if ["gitk", "git-gui"].include?(base.downcase)
+        f.puts "\"%~dp0..\\git\\cmd\\#{base}#{ext}\" %*"
       end
     end
   end
