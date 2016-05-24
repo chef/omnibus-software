@@ -15,7 +15,7 @@
 #
 
 name "rust"
-default_version "2015-10-03"
+default_version "1.8.0"
 
 license "Apache-2.0"
 license_file "COPYRIGHT"
