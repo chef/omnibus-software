@@ -18,7 +18,7 @@ name "ruby-windows-devkit"
 default_version "4.7.2-20130224"
 
 license "BSD-3-Clause"
-license_file "LICENSE.txt"
+license_file "LICENSE"
 
 if windows_arch_i386?
   version "4.5.2-20111229-1559" do
