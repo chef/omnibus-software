@@ -8,7 +8,7 @@ env = {
 if ohai['platform_family'] == 'mac_os_x'
   gobin = "/usr/local/bin/go"
 elsif ohai['platform'] == 'windows'
-  gobin = "go"
+  gobin = 'C:/Go/bin/go'
 else
   env['GOROOT'] = "/usr/local/go"
   gobin = "/usr/local/go/bin/go"
