@@ -6,5 +6,5 @@ dependency "pip"
 
 build do
   ship_license "https://raw.githubusercontent.com/cablehead/python-consul/master/LICENSE"
-  command "#{install_dir}/embedded/bin/pip install --install-option=\"--install-scripts=#{install_dir}/bin\" python-consul==#{version}"
+  pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" python-consul==#{version}"
 end
