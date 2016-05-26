@@ -26,5 +26,5 @@ build do
    command "git checkout v2.6", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/src/datadog-gohai/src/github.com/cihub/seelog"
    # Checkout and build gohai
    command "git checkout #{version} && git pull", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/src/datadog-gohai/src/github.com/DataDog/gohai"
-   command "cd $GOPATH/src/github.com/DataDog/gohai && #{gobin} run make.go #{gobin} && mv gohai #{install_dir}/bin/gohai", :env => env
+   command "cd #{env['GOPATH']}/src/github.com/DataDog/gohai && #{gobin} run make.go #{gobin} && mv gohai #{install_dir}/bin/gohai", :env => env
 end
