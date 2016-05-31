@@ -22,6 +22,9 @@ dependency "ncurses"
 
 version("4.3.30") { source md5: "a27b3ee9be83bd3ba448c0ff52b28447" }
 
+license "GPL-3.0"
+license_file "COPYING"
+
 source url: "https://ftp.gnu.org/gnu/bash/bash-#{version}.tar.gz"
 
 relative_path "bash-#{version}"
