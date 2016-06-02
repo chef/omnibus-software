@@ -26,7 +26,7 @@ relative_path "ExtUtils-Embed-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
-    "INSTALL_BASE" => "#{install_dir}/embedded",
+    "INSTALL_BASE" => "#{install_dir}/embedded"
   )
 
   command "#{install_dir}/embedded/bin/perl Makefile.PL", env: env

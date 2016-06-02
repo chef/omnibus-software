@@ -35,7 +35,7 @@ build do
   mkdir "#{install_dir}/embedded/service/rabbitmq"
   sync  "#{project_dir}/", "#{install_dir}/embedded/service/rabbitmq/"
 
-  %w(rabbitmqctl rabbitmq-env rabbitmq-server).each do |bin|
+  %w{rabbitmqctl rabbitmq-env rabbitmq-server}.each do |bin|
     link "#{install_dir}/embedded/service/rabbitmq/sbin/#{bin}", "#{install_dir}/embedded/bin/#{bin}"
   end
 end

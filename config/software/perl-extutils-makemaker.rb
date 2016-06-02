@@ -31,12 +31,11 @@ end
 
 source url: "http://search.cpan.org/CPAN/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-#{version}.tar.gz"
 
-
 relative_path "ExtUtils-MakeMaker-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
-    "INSTALL_BASE" => "#{install_dir}/embedded",
+    "INSTALL_BASE" => "#{install_dir}/embedded"
   )
 
   command "#{install_dir}/embedded/bin/perl Makefile.PL", env: env

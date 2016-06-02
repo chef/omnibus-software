@@ -1,5 +1,4 @@
-#
-# Copyright 2012-2016 Chef Software, Inc.
+# Copyright 2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +13,19 @@
 # limitations under the License.
 #
 
-name "rb-readline"
-default_version "master"
+name "rust-uninstall"
+default_version "0.0.1"
 
-license "BSD-3-Clause"
-license_file "LICENSE"
+license :project_license
 
-dependency "ruby"
-dependency "rubygems"
-
-source git: "https://github.com/ConnorAtherton/rb-readline.git"
+dependency "rust"
 
 build do
-  env = with_embedded_path
+  env = with_standard_compiler_flags(with_embedded_path)
 
-  ruby "setup.rb", env: env
+  # Until Omnibus has full support for build depedencies (see chef/omnibus#483)
+  # we don't want to ship the Rust and Cargo in our final artifact. Luckily
+  # Rust ships with a nice uninstall script which makes it easy to strip
+  # everything out.
+  command "sh #{install_dir}/embedded/lib/rustlib/uninstall.sh", env: env
 end

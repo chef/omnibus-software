@@ -33,7 +33,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if solaris2?
-    env['ABI'] = "32"
+    env["ABI"] = "32"
   end
 
   configure_command = ["./configure",

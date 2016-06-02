@@ -31,11 +31,11 @@ build do
 
   block do
     # make sure test-kitchen build honors chef constraints
-    require 'fileutils'
+    require "fileutils"
     FileUtils.cp(gemfile, tmp_gemfile)
     chef_gem_line = "gem \"chef\", path: \"../../chef/chef\""
     unless IO.readlines(gemfile)[-1] =~ /#{chef_gem_line}/
-      open(gemfile, 'a') { |f| f.puts chef_gem_line }
+      open(gemfile, "a") { |f| f.puts chef_gem_line }
     end
   end
 

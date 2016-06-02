@@ -19,10 +19,12 @@
 name "libsodium"
 default_version "1.0.2"
 
+license "ISC"
+license_file "LICENSE"
+
 dependency "autoconf"
 dependency "automake"
 dependency "libtool"
-
 
 # perhaps use git https://github.com/jedisct1/libsodium/
 version "1.0.8" do

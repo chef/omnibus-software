@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-Omnibus.logger.deprecated('berkshelf2') do
-  'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.'
+Omnibus.logger.deprecated("berkshelf2") do
+  "Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future."
 end
 
 name "berkshelf2"

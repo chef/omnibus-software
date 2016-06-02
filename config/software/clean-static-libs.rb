@@ -16,7 +16,9 @@
 
 name "clean-static-libs"
 description "cleanup un-needed static libraries from the build"
-default_version '1.0.0'
+default_version "1.0.0"
+
+license :project_license
 
 build do
   # Remove static object files for all platforms
@@ -24,7 +26,7 @@ build do
   unless aix?
     block "Remove static libraries" do
       # find the embedded ruby gems dir and clean it up for globbing
-      target_dir = "#{install_dir}/embedded/lib/ruby/gems".gsub(/\\/, '/')
+      target_dir = "#{install_dir}/embedded/lib/ruby/gems".tr('\\', "/")
 
       # find all the static *.a files and delete them
       Dir.glob("#{target_dir}/**/*.a").each do |f|

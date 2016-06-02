@@ -24,7 +24,7 @@ license "BSD-2-Clause"
 license_file "COPYING"
 
 source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
-       md5: 'efad5a503f66329bb9d2f4308b5de98a'
+       md5: "efad5a503f66329bb9d2f4308b5de98a"
 
 relative_path "libarchive-#{version}"
 

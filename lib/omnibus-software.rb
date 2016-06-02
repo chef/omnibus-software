@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-require 'pathname'
-require 'omnibus'
-require 'highline'
+require "pathname"
+require "omnibus"
+require "highline"
 
 module OmnibusSoftware
   class << self
@@ -26,7 +26,7 @@ module OmnibusSoftware
     # @return [Pathname]
     #
     def root
-      @root ||= Pathname.new(File.expand_path('../../', __FILE__))
+      @root ||= Pathname.new(File.expand_path("../../", __FILE__))
     end
 
     #
@@ -38,7 +38,7 @@ module OmnibusSoftware
     #
     def verify!
       for_each_software do |_software|
-        $stdout.print '.'
+        $stdout.print "."
       end
     end
 
@@ -90,13 +90,13 @@ module OmnibusSoftware
 
     def fake_project
       @fake_project ||= Omnibus::Project.new.evaluate do
-        name 'project.sample'
-        install_dir 'tmp/project.sample'
+        name "project.sample"
+        install_dir "tmp/project.sample"
       end
     end
 
     def software_dir
-      OmnibusSoftware.root.join('config/software')
+      OmnibusSoftware.root.join("config/software")
     end
 
     def load_software(software_name)
@@ -106,7 +106,7 @@ module OmnibusSoftware
 
     def for_each_software
       Dir.glob("#{software_dir}/*.rb").each do |filepath|
-        name = File.basename(filepath, '.rb')
+        name = File.basename(filepath, ".rb")
         yield load_software(name)
       end
     end
