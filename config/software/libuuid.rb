@@ -17,6 +17,9 @@
 name "libuuid"
 default_version "2.21"
 
+license "LGPL-2.1"
+license_file "COPYING"
+
 source url: "https://www.kernel.org/pub/linux/utils/util-linux/v#{version}/util-linux-#{version}.tar.gz"
 
 # We use the version in util-linux, and only build the libuuid subdirectory
@@ -27,7 +30,6 @@ end
 version "2.21" do
   source md5: "4222aa8c2a1b78889e959a4722f1881a"
 end
-
 
 relative_path "util-linux-#{version}"
 

@@ -20,6 +20,8 @@
 # tools can be used with https URLs out of the box.
 name "openssl-customization"
 
+license :project_license
+
 source path: "#{project.files_path}/#{name}"
 
 dependency "ruby"
@@ -43,8 +45,8 @@ build do
     end
 
     if windows?
-      embedded_ruby_site_dir = get_sanitized_rbconfig('sitelibdir')
-      embedded_ruby_lib_dir  = get_sanitized_rbconfig('rubylibdir')
+      embedded_ruby_site_dir = get_sanitized_rbconfig("sitelibdir")
+      embedded_ruby_lib_dir  = get_sanitized_rbconfig("rubylibdir")
 
       source_ssl_env_hack      = File.join(project_dir, "windows", "ssl_env_hack.rb")
       destination_ssl_env_hack = File.join(embedded_ruby_site_dir, "ssl_env_hack.rb")
@@ -62,7 +64,7 @@ build do
         f.write(unpatched_openssl_rb)
       end
     else
-      embedded_ruby_lib_dir  = get_sanitized_rbconfig('rubylibdir')
+      embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
       source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
       File.open(source_openssl_rb, "r+") do |f|
         unpatched_openssl_rb = f.read

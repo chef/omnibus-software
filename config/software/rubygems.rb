@@ -17,115 +17,66 @@
 name "rubygems"
 
 license "MIT"
-license_file "LICENSE.txt"
+license_file "https://raw.githubusercontent.com/rubygems/rubygems/master/LICENSE.txt"
 
 dependency "ruby"
 
-source git: 'https://github.com/rubygems/rubygems.git' if version
+if version && !source
+  # NOTE: 2.1.11 is the last version of rubygems before the 2.2.x change to native gem install location
+  #
+  #  https://github.com/rubygems/rubygems/issues/874
+  #
+  # This is a breaking change for omnibus clients.  Chef-11 needs to be pinned to 2.1.11 for eternity.
+  # We have switched from tarballs to just `gem update --system`, but for backcompat
+  # we pin the previously known tarballs.
+  known_tarballs = {
+    "2.1.11" => "b561b7aaa70d387e230688066e46e448",
+    "2.2.1" => "1f0017af0ad3d3ed52665132f80e7443",
+    "2.4.1" => "7e39c31806bbf9268296d03bd97ce718",
+    "2.4.4" => "440a89ad6a3b1b7a69b034233cc4658e",
+    "2.4.5" => "5918319a439c33ac75fbbad7fd60749d",
+    "2.4.8" => "dc77b51449dffe5b31776bff826bf559",
+  }
+  known_tarballs.each do |version, md5|
+    self.version version do
+      source md5: md5, url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
+      relative_path "rubygems-#{version}"
+    end
+  end
 
-# NOTE: Originally we always installed rubygems from tarballs, but now we want
-# to default to pulling from git. Rubygems uses the leading "v" in their
-# version tags, e.g., v2.4.4 (instead of just 2.4.4). There are a lot of
-# omnibus projects using this, and we don't want to force everyone to change
-# their version pins to include the leading "v", so we need to set the source
-# URL on a per-version basis.
-tarball_url = "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
-
-version "1.8.29" do
-  source md5: "a57fec0af33e2e2e1dbb3a68f6cc7269", url: tarball_url
-  source.delete(:git)
+  version("v2.4.4_plus_debug") { source git: "https://github.com/danielsdeleo/rubygems.git" }
+  version("2.4.4.debug.1")     { source git: "https://github.com/danielsdeleo/rubygems.git" }
+  # This is the 2.4.8 release with a fix for
+  # windows so things like `gem install "pry"` still
+  # work
+  version("jdm/2.4.8-patched") { source git: "https://github.com/jaym/rubygems.git" }
 end
 
-version "1.8.24" do
-  source md5: "3a555b9d579f6a1a1e110628f5110c6b", url: tarball_url
-  source.delete(:git)
+# If we still don't have a source (if it's a tarball) grab from ruby ...
+if version && !source
+  # If the version is a gem version, we"ll just be using rubygems.
+  # If it's a branch or SHA (i.e. v1.2.3) we use github.
+  begin
+    Gem::Version.new(version)
+  rescue ArgumentError
+    source git: "https://github.com/rubygems/rubygems.git"
+  end
 end
 
-# NOTE: this is the last version of rubygems before the 2.2.x change to native gem install location
-#
-#  https://github.com/rubygems/rubygems/issues/874
-#
-# This is a breaking change for omnibus clients.  Chef-11 needs to be pinned to 2.1.11 for eternity.
-version "2.1.11" do
-  source md5: "b561b7aaa70d387e230688066e46e448", url: tarball_url
-  source.delete(:git)
-end
-
-version "2.2.1" do
-  source md5: "1f0017af0ad3d3ed52665132f80e7443", url: tarball_url
-  source.delete(:git)
-end
-
-version "2.4.1" do
-  source md5: "7e39c31806bbf9268296d03bd97ce718", url: tarball_url
-  source.delete(:git)
-end
-
-version "2.4.4" do
-  source md5: "440a89ad6a3b1b7a69b034233cc4658e", url: tarball_url
-  source.delete(:git)
-end
-
-version "2.4.5" do
-  source md5: "5918319a439c33ac75fbbad7fd60749d", url: tarball_url
-  source.delete(:git)
-end
-
-version "2.4.8" do
-  source md5: "dc77b51449dffe5b31776bff826bf559", url: tarball_url
-  source.delete(:git)
-end
-
-version "v2.4.4_plus_debug" do
-  source git: 'https://github.com/danielsdeleo/rubygems.git'
-end
-
-version "2.4.4.debug.1" do
-  source git: 'https://github.com/danielsdeleo/rubygems.git'
-end
-
-version "2.5.2" do
-  source md5: "59d25b2148cc950fb2fd2b441d23954d", url: tarball_url
-  source.delete(:git)
-end
-
-# This is the 2.4.8 release with a fix for
-# windows so things like `gem install 'pry'` still
-# work
-#
-version "jdm/2.4.8-patched" do
-  source git: 'https://github.com/jaym/rubygems.git'
-end
-
-# tarballs get expanded as rubygems-xyz, git repo is always rubygems:
-if source && source.key?(:url)
-  relative_path "rubygems-#{version}"
-else
+# git repo is always expanded to "rubygems"
+if source && source.include?(:git)
   relative_path "rubygems"
 end
-
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version
+  if source
+    # Building from source:
     ruby "setup.rb --no-ri --no-rdoc", env: env
-
-    if windows?
-      # Our poor man's way of detecting which compiler suite got used
-      # because we can't ask if ruby-windows-devkit got included in the project.
-      if File.exist?("#{install_dir}/embedded/msys/1.0/bin")
-        # Render our registration script and run it in the context of the embedded ruby.
-        erb source: 'register_devtools.rb.erb', dest: "#{project_dir}/register_devtools.rb",
-          vars: { paths: [ "#{install_dir}/embedded/bin", "#{install_dir}/embedded/msys/1.0/bin" ] }
-        ruby "register_devtools.rb", env: env
-      elsif File.exist?("#{install_dir}/embedded/dk.rb")
-        # After installing ruby, we need to rerun the command that patches devkit
-        # functionality into rubygems.
-        ruby "dk.rb install", env: env, cwd: "#{install_dir}/embedded"
-      end
-    end
   else
-    gem "update --system", env: env
+    # Installing direct from rubygems:
+    # If there is no version, this will get latest.
+    gem "update --system #{version}", env: env
   end
 end

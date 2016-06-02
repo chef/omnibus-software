@@ -22,6 +22,7 @@ license_file "LICENCE"
 
 dependency "libedit"
 dependency "ncurses"
+dependency "config_guess"
 
 version "8.38" do
   source md5: "8a353fe1450216b6655dfcf3561716d9"
@@ -38,8 +39,11 @@ relative_path "pcre-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  update_config_guess
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
+          " --disable-cpp" \
           " --enable-utf" \
           " --enable-unicode-properties" \
           " --enable-pcretest-libedit", env: env

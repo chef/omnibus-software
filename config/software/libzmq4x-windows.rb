@@ -17,6 +17,9 @@
 name "libzmq4x-windows"
 default_version "1.0.21"
 
+license "LGPL-3.0"
+license_file "https://raw.githubusercontent.com/jaym/zeromq4-x/master/COPYING"
+
 # Longer term we need to move this to a chef internal build pipeline
 # https://github.com/jdmundrawala/zeromq4-x/releases/download/libzmq4x-1.0.21/libzmq4x-windows.zip
 #

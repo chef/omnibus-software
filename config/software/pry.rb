@@ -16,6 +16,9 @@
 
 name "pry"
 
+license "MIT"
+license_file "LICENSE"
+
 dependency "ruby"
 dependency "rubygems"
 

@@ -42,8 +42,8 @@ build do
   # The list of arguments to pass to make
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
 
-  patch source: 'makefile_take_env_vars.patch', env: env
-  patch source: 'soname_install_dir.patch', env: env if mac_os_x?
+  patch source: "makefile_take_env_vars.patch", env: env
+  patch source: "soname_install_dir.patch", env: env if mac_os_x?
 
   make "#{args}", env: env
   make "#{args} -f Makefile-libbz2_so", env: env

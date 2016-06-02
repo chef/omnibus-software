@@ -15,22 +15,22 @@
 #
 
 name "libyaml"
-default_version '0.1.6'
+default_version "0.1.6"
 
 license "MIT"
 license_file "LICENSE"
 
+dependency "config_guess"
+
 source url: "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz",
-       md5: '5fe00cda18ca5daeb43762b80c38e06e'
+       md5: "5fe00cda18ca5daeb43762b80c38e06e"
 
 relative_path "yaml-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
 
-  if version == "0.1.6" && ppc64le?
-    patch source: "v0.1.6.ppc64le-configure.patch", plevel: 1, env: env
-  end
+  update_config_guess(target: "config")
 
   configure "--enable-shared", env: env
 

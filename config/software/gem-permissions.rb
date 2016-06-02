@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2016 Chef Software, Inc.
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,20 @@
 # limitations under the License.
 #
 
-name "rb-readline"
-default_version "master"
+#
+# Use this software definition to fix the gem-permissions on * nix builds.
+#
 
-license "BSD-3-Clause"
-license_file "LICENSE"
+name "gem-permissions"
 
-dependency "ruby"
-dependency "rubygems"
+default_version "0.0.1"
 
-source git: "https://github.com/ConnorAtherton/rb-readline.git"
+license :project_license
 
 build do
-  env = with_embedded_path
-
-  ruby "setup.rb", env: env
+  unless windows?
+    block "Fix gem permissions" do
+      FileUtils.chmod_R "a+rX", "#{install_dir}/embedded/lib/ruby/gems/"
+    end
+  end
 end

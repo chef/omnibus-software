@@ -16,6 +16,11 @@
 
 name "patch"
 
+dependency "config_guess"
+
+license "GPL-3.0"
+license_file "COPYING"
+
 if windows?
   # TODO more recent version now?
   default_version "2.6.1"
@@ -32,6 +37,9 @@ end
 env = with_standard_compiler_flags(with_embedded_path)
 
 build do
+
+  update_config_guess(target: "build-aux")
+
   if windows?
     command "mingw-get.exe -v install msys-patch-bin=#{version}-*",
             env: env, cwd: "#{install_dir}/embedded"

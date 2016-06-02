@@ -27,7 +27,7 @@ dependency "makedepend" unless aix? || windows?
 dependency "patch" if solaris_10?
 dependency "openssl-fips" if fips_enabled
 
-default_version "1.0.1s"
+default_version "1.0.1t"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
@@ -36,6 +36,7 @@ source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract:
 # We have not tested version 1.0.2. It's here so we can run experimental builds
 # to verify that it still compiles on all our platforms.
 version("1.0.2g") { source md5: "f3c710c045cdee5fd114feb69feba7aa" }
+version("1.0.1t") { source md5: "9837746fcf8a6727d46d22ca35953da1" }
 version("1.0.1s") { source md5: "562986f6937aabc7c11a6d376d8a0d26" }
 version("1.0.1r") { source md5: "1abd905e079542ccae948af37e393d28" }
 
@@ -48,7 +49,7 @@ build do
     env["M4"] = "/opt/freeware/bin/m4"
   elsif freebsd?
     # Should this just be in standard_compiler_flags?
-    env['LDFLAGS'] += " -Wl,-rpath,#{install_dir}/embedded/lib"
+    env["LDFLAGS"] += " -Wl,-rpath,#{install_dir}/embedded/lib"
   elsif windows?
     # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
     # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
@@ -56,9 +57,9 @@ build do
     # Do not enable SSE2 generally because the hand optimized assembly will
     # overwrite registers that mingw expects to get preserved.
     arch_flag = windows_arch_i386? ? "-m32" : "-m64"
-    env['CFLAGS'] = "-I#{install_dir}/embedded/include #{arch_flag}"
-    env['CPPFLAGS'] = env['CFLAGS']
-    env['CXXFLAGS'] = env['CFLAGS']
+    env["CFLAGS"] = "-I#{install_dir}/embedded/include #{arch_flag}"
+    env["CPPFLAGS"] = env["CFLAGS"]
+    env["CXXFLAGS"] = env["CFLAGS"]
   end
 
   configure_args = [
@@ -114,10 +115,10 @@ build do
 
     # This enables omnibus to use 'makedepend'
     # from fileset 'X11.adt.imake' (AIX install media)
-    env['PATH'] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
+    env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
 
     patch_env = env.dup
-    patch_env['PATH'] = "/opt/freeware/bin:#{env['PATH']}"
+    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
   else
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: env
@@ -134,7 +135,7 @@ build do
 
   # Out of abundance of caution, we put the feature flags first and then
   # the crazy platform specific compiler flags at the end.
-  configure_args << env['CFLAGS'] << env['LDFLAGS']
+  configure_args << env["CFLAGS"] << env["LDFLAGS"]
 
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
