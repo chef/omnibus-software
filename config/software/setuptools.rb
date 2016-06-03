@@ -25,7 +25,7 @@ relative_path "setuptools-#{version}"
 
 if ohai['platform'] == 'windows'
   # FIXME: this file changes, which breaks the build. Let's put it on S3
-  source :url => 'https://bootstrap.pypa.io/ez_setup.py',
+  source :url => 'http://dd-agent-omnibus.s3.amazonaws.com/ez_setup.py',
          :md5 => 'ce2f1224d50f529b6093e3feb0799f09'
 
   build do
