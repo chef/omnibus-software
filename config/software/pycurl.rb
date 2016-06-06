@@ -21,13 +21,14 @@ if ohai['platform'] != "windows"
     command "#{install_dir}/embedded/bin/pip install #{name}==#{version}", :env => build_env
   end
 else
-  if ohai['kernel']['machine'] == 'x86_64'
-    wheel_name = "pycurl-7.19.5.1-cp27-none-win_amd64.whl"
-    wheel_md5 = 'ed9b98964a07ce5a5de309d3a8d983bb'
-  else
-    wheel_name = "pycurl-7.19.5.1-cp27‑none-win32.whl"
-    wheel_md5 = 'ed9b98964a07ce5a5de309d3a8d983bb'
-  end
+  version '7.43.0'
+  # if ohai['kernel']['machine'] == 'x86_64'
+  #   wheel_name = "pycurl-7.43.0-cp27-none-win_amd64.whl"
+  #   wheel_md5 = '66c232b0da1e8314cf3794c5644ff49f'
+  # else
+  wheel_name = "pycurl-7.43.0-cp27-none-win32.whl"
+  wheel_md5 = '5d5a5c540c2d79d7321233b667c0d2a1'
+  # end
 
   source :url => "https://s3.amazonaws.com/dd-agent-omnibus/#{wheel_name}",
          :md5 => wheel_md5

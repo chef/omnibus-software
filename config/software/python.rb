@@ -69,15 +69,15 @@ else
   dependency "vc_redist"
   dependency "vc_python"
 
-  if ohai['kernel']['machine'] == 'x86_64'
-    msi_name = "python-#{version}.amd64.msi"
-    source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.amd64.msi",
-           :md5 => '25acca42662d4b02682eee0df3f3446d'
-  else
-    msi_name = "python-#{version}.msi"
-    source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.msi",
-           :md5 => '241bf8e097ab4e1047d9bb4f59602095'
-  end
+  # if ohai['kernel']['machine'] == 'x86_64'
+  #   msi_name = "python-#{version}.amd64.msi"
+  #   source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.amd64.msi",
+  #          :md5 => '25acca42662d4b02682eee0df3f3446d'
+  # else
+  msi_name = "python-#{version}.msi"
+  source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.msi",
+         :md5 => '241bf8e097ab4e1047d9bb4f59602095'
+  # end
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it
