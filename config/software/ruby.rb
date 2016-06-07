@@ -225,6 +225,24 @@ build do
     # On windows, msys make 3.81 breaks with parallel builds.
     make env: env
     make "install", env: env
+
+    # Needed now that we switched to msys2 and have not figured out how to tell
+    # it how to statically link yet
+    dlls = ["libwinpthread-1"]
+    if windows_arch_i386
+      dlls << "libgcc_s_dw2-1"
+    else
+      dlls << "libgcc_s_seh-1"
+    end
+    dlls.each do |dll|
+      arch_suffix = windows_arch_i386? ? "32" : "64"
+      windows_path = "C:/msys2/mingw#{arch_suffix}/bin/#{dll}.dll"
+      if File.exist?(windows_path)
+        copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
+      else
+        raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
+      end
+    end
   else
     make "-j #{workers}", env: env
     make "-j #{workers} install", env: env
