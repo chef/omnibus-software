@@ -44,6 +44,7 @@ whitelist_file "jre/bin/policytool"
 whitelist_file "jre/lib"
 whitelist_file "jre/plugin"
 whitelist_file "jre/bin/appletviewer"
+whitelist_file "jre/bin/unpack200"
 
 build do
   mkdir "#{install_dir}/embedded/jre"
