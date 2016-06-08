@@ -3,6 +3,7 @@ default_version "2.6.2"
 
 dependency "python"
 dependency "pip"
+dependency "pyopenssl"
 
 build do
   ship_license "https://raw.githubusercontent.com/kennethreitz/requests/master/LICENSE"
