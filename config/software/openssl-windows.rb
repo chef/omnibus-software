@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,66 +14,143 @@
 # limitations under the License.
 #
 
-#
-# openssl 1.0.0m fixes a security vulnerability:
-#   https://www.openssl.org/news/secadv_20140605.txt
-# Since the rubyinstaller.org doesn't release ruby when a dependency gets
-# patched, we are manually patching the dependency until we get a new
-# ruby release on windows.
-# This component should be removed when we upgrade to the next version of
-# rubyinstaller > 1.9.3-p545 and 2.0.0-p451
-#
-# openssl 1.0.0n fixes more security vulnerabilities...
-#   https://www.openssl.org/news/secadv_20140806.txt
-
 name "openssl-windows"
-default_version "1.0.1p"
 
-# Let's assume ruby is installed on windows so we don't have to ship it with the agent
-# dependency "ruby-windows"
+license "OpenSSL"
+license_file "LICENSE"
 
-source url: "http://dl.bintray.com/oneclick/OpenKnapsack/x86/openssl-#{version}-x86-windows.tar.lzma"
+fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
-version('1.0.0n') { source md5: "9506530353f3b984680ec27b7270874a" }
-version('1.0.0q') { source md5: "577dbe528415c6f178a9431fd0554df4" }
-version('1.0.0r') { source md5: "25402ddce541aa54eb5e114721926e72" }
-version('1.0.1m') do
-  source url: "https://github.com/jdmundrawala/knapsack-recipes/releases/download/openssl-1.0.1m/openssl-1.0.1m-x86-windows.tar.lzma",
-         md5: "789c307a560386a55e14f3e04cd69865"
-end
+dependency "zlib"
+dependency "cacerts"
+dependency "makedepend" unless aix? || windows?
 
-version('1.0.1p') do
-  source url: "https://github.com/jaym/windows-openssl-build/releases/download/openssl-1.0.1p/openssl-1.0.1p-x86-windows.tar.lzma",
-         md5: "013c0f27c4839c89e33037acc72f17c5"
-end
+default_version "1.0.1t"
+
+# OpenSSL source ships with broken symlinks which windows doesn't allow.
+# Skip error checking.
+# source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
+source url: "https://dd-agent-omnibus.s3.amazonaws.com/openssl-#{version}.tar.gz", extract: :lax_tar
+
+# We have not tested version 1.0.2. It's here so we can run experimental builds
+# to verify that it still compiles on all our platforms.
+version("1.0.2g") { source md5: "f3c710c045cdee5fd114feb69feba7aa" }
+version("1.0.1t") { source md5: "9837746fcf8a6727d46d22ca35953da1" }
+version("1.0.1s") { source md5: "562986f6937aabc7c11a6d376d8a0d26" }
+version("1.0.1r") { source md5: "1abd905e079542ccae948af37e393d28" }
+
+relative_path "openssl-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
 
-  # Make sure the OpenSSL version is suitable for our path:
-  # OpenSSL version is something like
-  # OpenSSL 1.0.0k 5 Feb 2013
-  # Forget that check, no way I'll install ruby, let's assume it's in the path already
-  command "ruby -e \"require 'openssl'; puts 'OpenSSL patch version check expecting <= #{version}'; exit(1) if OpenSSL::OPENSSL_VERSION.split(' ')[1] >= '#{version}'\""
+  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  if aix?
+    env["M4"] = "/opt/freeware/bin/m4"
+  elsif freebsd?
+    # Should this just be in standard_compiler_flags?
+    env["LDFLAGS"] += " -Wl,-rpath,#{install_dir}/embedded/lib"
+  elsif windows?
+    # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
+    # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
+    # and the 32-bit calling convention involving XMM registers is...  vague.
+    # Do not enable SSE2 generally because the hand optimized assembly will
+    # overwrite registers that mingw expects to get preserved.
+    arch_flag = windows_arch_i386? ? "-m32" : "-m64"
+    env["CFLAGS"] = "-I#{install_dir}/embedded/include #{arch_flag}"
+    env["CPPFLAGS"] = env["CFLAGS"]
+    env["CXXFLAGS"] = env["CFLAGS"]
+  end
 
-  tmpdir = File.join(Omnibus::Config.cache_dir, "openssl-cache")
+  configure_args = [
+    "--prefix=#{install_dir}/embedded",
+    "--with-zlib-lib=#{install_dir}/embedded/lib",
+    "--with-zlib-include=#{install_dir}/embedded/include",
+    "no-idea",
+    "no-mdc2",
+    "no-rc5",
+    "shared",
+  ]
 
-  # Ensure the directory exists
-  mkdir tmpdir
+  if fips_enabled
+    configure_args << "--with-fipsdir=#{install_dir}/embedded" << "fips"
+  end
 
-  # First extract the tar file out of lzma archive.
-  command "7z.exe x #{project_file} -o#{tmpdir} -r -y", env: env
+  if windows?
+    configure_args << "zlib-dynamic"
+  else
+    configure_args << "zlib"
+  end
 
-  # Now extract the files out of tar archive.
-  command "7z.exe x #{File.join(tmpdir, "openssl-#{version}-x86-windows.tar")} -o#{tmpdir} -r -y", env: env
+  configure_cmd =
+    if aix?
+      "perl ./Configure aix64-cc"
+    elsif mac_os_x?
+      "./Configure darwin64-x86_64-cc"
+    elsif smartos?
+      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+    elsif solaris_10?
+      # This should not require a /bin/sh, but without it we get
+      # Errno::ENOEXEC: Exec format error
+      platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
+      "/bin/sh ./Configure #{platform}"
+    elsif solaris_11?
+      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+    elsif windows?
+      platform = windows_arch_i386? ? "mingw" : "mingw64"
+      "perl.exe ./Configure #{platform}"
+    else
+      prefix =
+        if linux? && ppc64?
+          "./Configure linux-ppc64"
+        elsif linux? && ohai["kernel"]["machine"] == "s390x"
+          "./Configure linux64-s390x"
+        else
+          "./config"
+        end
+      "#{prefix} disable-gost"
+    end
 
-  # In case...
-  mkdir "#{install_dir}/embedded/bin"
+  if aix?
 
-  # Copy over the required dlls into embedded/bin
-  copy "#{tmpdir}/bin/libeay32.dll", "#{install_dir}/embedded/bin/"
-  copy "#{tmpdir}/bin/ssleay32.dll", "#{install_dir}/embedded/bin/"
+    # This enables omnibus to use 'makedepend'
+    # from fileset 'X11.adt.imake' (AIX install media)
+    env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
 
-  # Also copy over the openssl executable for debugging
-  copy "#{tmpdir}/bin/openssl.exe", "#{install_dir}/embedded/bin/"
+    patch_env = env.dup
+    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
+  else
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: env
+  end
+
+  if windows?
+    # Patch Makefile.shared to let us set the bit-ness of the resource compiler.
+    patch source: "openssl-1.0.1q-take-windres-rcflags.patch", env: env
+    # Patch Makefile.org to update the compiler flags/options table for mingw.
+    patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
+    # Patch Configure to call ar.exe without anooying it.
+    patch source: "openssl-1.0.1q-ar-needs-operation-before-target.patch", env: env
+  end
+
+  # Out of abundance of caution, we put the feature flags first and then
+  # the crazy platform specific compiler flags at the end.
+  configure_args << env["CFLAGS"] << env["LDFLAGS"]
+
+  configure_command = configure_args.unshift(configure_cmd).join(" ")
+
+  command configure_command, env: env, in_msys_bash: true
+  make "depend", env: env
+  # make -j N on openssl is not reliable
+  make env: env
+  if aix?
+    # We have to sudo this because you can't actually run slibclean without being root.
+    # Something in openssl changed in the build process so now it loads the libcrypto
+    # and libssl libraries into AIX's shared library space during the first part of the
+    # compile. This means we need to clear the space since it's not being used and we
+    # can't install the library that is already in use. Ideally we would patch openssl
+    # to make this not be an issue.
+    # Bug Ref: http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
+    command "sudo /usr/sbin/slibclean", env: env
+  end
+  make "install", env: env
 end
