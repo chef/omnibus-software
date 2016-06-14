@@ -15,9 +15,9 @@
 #
 
 name "gtar"
-default_version "1.2.9"
+default_version "1.29"
 
-version("1.2.9") { source md5: "2e115fe26e435e33b0d5c022e4490567" }
+version("1.29") { source md5: "c57bd3e50e43151442c1995f6236b6e9" }
 
 license "GPL-3.0"
 license_file "COPYING"
