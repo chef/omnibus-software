@@ -31,7 +31,7 @@ version "0.973" do
   source md5: "0994e9f906a7a4a2e97049c8dbaef584"
 end
 
-source url: "http://www.cpan.org/authors/id/D/DW/DWHEELER/App-Sqitch-#{version}.tar.gz"
+source url: "https://github.com/theory/#{name}/archive/#{version}.tar.gz"
 
 relative_path "App-Sqitch-#{version}"
 
