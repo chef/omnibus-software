@@ -1,10 +1,10 @@
 name "expat"
-default_version "2.1.0"
+default_version "2.1.1"
 
-relative_path "expat-2.1.0"
+relative_path "expat-2.1.1"
 
-source :url => "http://downloads.sourceforge.net/project/expat/expat/2.1.0/expat-2.1.0.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fexpat%2F&ts=1374730265&use_mirror=iweb",
-       :md5 => "dd7dab7a5fea97d2a6a43f511449b7cd"
+source :url => "http://downloads.sourceforge.net/project/expat/expat/2.1.1/expat-2.1.1.tar.bz2?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fexpat%2F&ts=1465411104&use_mirror=heanet",
+       :md5 => "7380a64a8e3a9d66a9887b01d0d7ea81"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
