@@ -16,13 +16,13 @@
 #
 
 name "curl"
-default_version "7.41.0"
+default_version "7.49.1"
 
 dependency "zlib"
 dependency "openssl"
 
-source :url => "http://s3.amazonaws.com/dd-agent-omnibus/curl-#{version}.tar.gz",
-       :md5 => "7321a0a3012f8eede729b5a44ebef5bd"
+source :url => "https://curl.haxx.se/download/curl-#{version}.tar.gz",
+       :md5 => "2feb3767b958add6a177c6602ff21e8c"
 
 relative_path "curl-#{version}"
 
