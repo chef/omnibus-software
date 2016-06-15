@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.9.3"
+default_version "2.9.4"
 
 license "MIT"
 license_file "COPYING"
@@ -24,6 +24,10 @@ dependency "zlib"
 dependency "libiconv"
 dependency "liblzma"
 dependency "config_guess"
+
+version "2.9.4" do
+  source md5: "ae249165c173b1ff386ee8ad676815f5"
+end
 
 version "2.9.3" do
   source md5: "daece17e045f1c107610e137ab50c179"
