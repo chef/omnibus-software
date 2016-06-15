@@ -46,7 +46,7 @@ build do
   # iteration treats colons as a delimiter so we are using a cygwin
   # style path to accomodate
   configure_commands = [
-    "--with-libxml-prefix=#{install_dir.sub('C:', '/C')}/embedded",
+    "--with-libxml-prefix=#{install_dir}/embedded",
     "--with-libxml-include-prefix=#{install_dir}/embedded/include",
     "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
     "--without-python",
