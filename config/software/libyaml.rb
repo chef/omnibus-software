@@ -16,12 +16,12 @@
 #
 
 name "libyaml"
-default_version '0.1.6'
+default_version 'tip'
 
-source :url => "http://dd-agent-omnibus.s3.amazonaws.com/yaml-#{version}.tar.gz",
-       :md5 => '5fe00cda18ca5daeb43762b80c38e06e'
+source :url => "https://bitbucket.org/xi/libyaml/get/tip.tar.gz",
+       :md5 => '45f5ba9e66909aa1f6ce86b993d8d93e'
 
-relative_path "yaml-#{version}"
+relative_path "xi-libyaml-ba4ccf3f9c73"
 
 env = with_embedded_path()
 env = with_standard_compiler_flags(env)
