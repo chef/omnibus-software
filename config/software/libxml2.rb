@@ -34,7 +34,7 @@ source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
 relative_path "libxml2-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
 
   configure_command = [
     "--with-zlib=#{install_dir}/embedded",
@@ -50,10 +50,6 @@ build do
 
   configure(*configure_command, env: env)
 
-  if windows?
-    make env: env
-  else
-    make "-j #{workers}", env: env
-  end
+  make "-j #{workers}", env: env
   make "install", env: env
 end

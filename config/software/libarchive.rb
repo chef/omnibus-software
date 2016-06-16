@@ -29,7 +29,7 @@ source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
 relative_path "libarchive-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
 
   configure("--prefix=#{install_dir}/embedded",
             "--without-lzma",
@@ -45,6 +45,6 @@ build do
             "--without-lzmadec",
             "--without-openssl", env: env)
 
-  make env: env
-  make "install", env: env
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end
