@@ -145,8 +145,10 @@ build do
   # other platforms.  generally you need to have a condition where the
   # embedded and non-embedded libs get into a fight (libiconv, openssl, etc)
   # and ruby trying to set LD_LIBRARY_PATH itself gets it wrong.
+  #
+  # Also, fix paths emitted in the makefile on windows on both msys and msys2.
   if version.satisfies?(">= 2.1")
-    patch source: "ruby-2_1_3-no-mkmf.patch", plevel: 1, env: patch_env
+    patch source: "ruby-mkmf.patch", plevel: 1, env: patch_env
     # should intentionally break and fail to apply on 2.2, patch will need to
     # be fixed.
   end
@@ -222,11 +224,10 @@ build do
   env["PKG_CONFIG"] = "/bin/true" if aix?
 
   configure(*configure_command, env: env)
-  if windows?
-    # On windows, msys make 3.81 breaks with parallel builds.
-    make env: env
-    make "install", env: env
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 
+  if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
     dlls = ["libwinpthread-1"]
@@ -245,8 +246,6 @@ build do
       end
     end
   else
-    make "-j #{workers}", env: env
-    make "-j #{workers} install", env: env
   end
 
 end
