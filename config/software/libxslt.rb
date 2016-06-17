@@ -41,7 +41,7 @@ relative_path "libxslt-#{version}"
 build do
   update_config_guess
 
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
 
   patch source: "libxslt-cve-2015-7995.patch", env: env
   patch source: "libxslt-solaris-configure.patch", env: env if solaris?
@@ -60,9 +60,8 @@ build do
   if windows?
     # Apply a post configure patch to prevent dll base address clash
     patch source: "libxslt-windows-relocate.patch", env: env if windows?
-    make env: env
-  else
-    make "-j #{workers}", env: env
   end
+
+  make "-j #{workers}", env: env
   make "install", env: env
 end

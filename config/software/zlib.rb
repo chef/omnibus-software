@@ -33,7 +33,7 @@ relative_path "zlib-#{version}"
 
 build do
   if windows?
-    env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+    env = with_standard_compiler_flags(with_embedded_path)
 
     patch source: "zlib-windows-relocate.patch", env: env
 
@@ -51,11 +51,9 @@ build do
       "CFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "ASFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "LDFLAGS=\"#{env['LDFLAGS']}\"",
-      "ARFLAGS=\"rcs #{env['ARFLAGS']}\"",
-      "RCFLAGS=\"--define GCC_WINDRES #{env['RCFLAGS']}\"",
+      "-j #{workers}",
     ]
 
-    # On windows, msys make 3.81 doesn't support -j.
     make(*make_args, env: env)
     make("install", *make_args, env: env)
   else

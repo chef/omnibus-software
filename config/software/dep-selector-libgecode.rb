@@ -23,7 +23,7 @@ license_file "https://github.com/chef/dep-selector-libgecode/blob/master/LICENSE
 dependency "rubygems"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
 
   # On some RHEL-based systems, the default GCC that's installed is 4.1. We
   # need to use 4.4, which is provided by the gcc44 and gcc44-c++ packages.
