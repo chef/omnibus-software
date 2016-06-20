@@ -19,7 +19,7 @@ name "nodejs"
 license "MIT"
 license_file "LICENSE"
 
-if ppc64? || ppc64le?
+if ppc64? || ppc64le? || ohai["kernel"]["machine"] == "s390x"
   default_version "0.10.38-release-ppc"
 else
   default_version "0.10.35"
