@@ -16,12 +16,12 @@
 #
 
 name "libyaml"
-default_version 'tip'
+default_version '8a2d1e93b2a2'
 
-source :url => "https://bitbucket.org/xi/libyaml/get/tip.tar.gz",
-       :md5 => '45f5ba9e66909aa1f6ce86b993d8d93e'
+source :url => "https://bitbucket.org/xi/libyaml/get/#{version}.tar.gz",
+       :md5 => '601fbd125721460eee302d7d8b058434'
 
-relative_path "xi-libyaml-ba4ccf3f9c73"
+relative_path "xi-libyaml-#{version}"
 
 env = with_embedded_path()
 env = with_standard_compiler_flags(env)
