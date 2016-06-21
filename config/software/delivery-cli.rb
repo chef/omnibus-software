@@ -15,6 +15,9 @@
 #
 
 name "delivery-cli"
+# Delivery CLI is only pushed to the master branch of Github after it
+# is successfully Delivered. So pulling in the "master" version
+# will always give you the latest Delivered version.
 default_version "master"
 
 license "Apache-2.0"
