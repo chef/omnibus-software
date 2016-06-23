@@ -30,6 +30,7 @@ dependency "rust"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  env["RUST_BACKTRACE"] = 1
 
   # The rust core libraries are dynamicaly linked
   if linux?
