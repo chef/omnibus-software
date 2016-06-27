@@ -140,6 +140,8 @@ build do
   # NOTE - If you run ./configure the environment variables set above will not be
   # used and only the command line args will be used. The issue with this is you
   # cannot specify everything on the command line that you can with the env vars.
-  make "prefix=#{install_dir}/embedded -j #{workers}", env: env
-  make "prefix=#{install_dir}/embedded install", env: env
+  # NOTE - We build to a custom bindir temporarily because we want to put the
+  # Git binaries at the end of the user's path when running `chef shell-init`.
+  make "prefix=#{install_dir}/embedded bindir=#{install_dir}/gitbin -j #{workers}", env: env
+  make "prefix=#{install_dir}/embedded bindir=#{install_dir}/gitbin install", env: env
 end
