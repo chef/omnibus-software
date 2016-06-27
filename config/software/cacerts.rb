@@ -37,7 +37,7 @@ relative_path "cacerts-#{version}"
 build do
   mkdir "#{install_dir}/embedded/ssl/certs"
 
-  copy "#{project_dir}/cacert*.crt", "#{install_dir}/embedded/ssl/certs/cacert.pem"
+  copy "#{project_dir}/cacert*.pem", "#{install_dir}/embedded/ssl/certs/cacert.pem"
 
   # Windows does not support symlinks
   unless windows?
