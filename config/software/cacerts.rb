@@ -37,14 +37,7 @@ relative_path "cacerts-#{version}"
 build do
   mkdir "#{install_dir}/embedded/ssl/certs"
 
-  # Append the 1024bit Verisign certs so that S3 continues to work
-  block do
-    unless File.foreach("#{project_dir}/ca-bundle.crt").grep(/^Verisign Class 3 Public Primary Certification Authority$/).any?
-      File.open("#{project_dir}/ca-bundle.crt", "a") { |fd| fd.write(VERISIGN_CERTS) }
-    end
-  end
-
-  copy "#{project_dir}/ca-bundle.crt", "#{install_dir}/embedded/ssl/certs/cacert.pem"
+  copy "#{project_dir}/cacert*.crt", "#{install_dir}/embedded/ssl/certs/cacert.pem"
 
   # Windows does not support symlinks
   unless windows?
