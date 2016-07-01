@@ -25,6 +25,7 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 
+# If you upgrade OpenSSl, you'll probably have to upgrade the `cyptography` module as well
 default_version "1.0.1t"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.

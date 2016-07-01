@@ -1,13 +1,16 @@
 name "pyopenssl"
+# If you upgrade pyopenssl, you'll probably have to upgrade `cryptography` as well
 default_version "0.14"
 
 if ohai['platform'] == 'windows'
   dependency "openssl-windows"
   dependency "python"
   dependency "pip"
+  dependency "cryptography"
 
   build do
     ship_license "https://raw.githubusercontent.com/pyca/pyopenssl/master/LICENSE"
+    # No -I because we want to use the already installed version of `cryptography`
     pip "install pyopenssl==#{version}"
   end
 else
