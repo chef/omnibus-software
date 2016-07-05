@@ -28,8 +28,11 @@ source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
 
 relative_path "libarchive-#{version}"
 
+dependency "config_guess"
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  update_config_guess(target: "build/autoconf/")
 
   configure("--prefix=#{install_dir}/embedded",
             "--without-lzma",
