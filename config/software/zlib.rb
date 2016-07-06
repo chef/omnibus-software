@@ -51,7 +51,14 @@ build do
       "CFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "ASFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "LDFLAGS=\"#{env['LDFLAGS']}\"",
-      "-j #{workers}",
+      # The win32 makefile for zlib does not handle parallel make correctly.
+      # In particular, see it's rule for IMPLIB and SHAREDLIB. The ld step in
+      # SHAREDLIB will generate both the dll and the dll.a files. The step to
+      # strip the dll occurs next but since the dll.a file is already present,
+      # make will attempt to link example_d.exe and minigzip_d.exe in parallel
+      # with the strip step - causing gcc to freak out when a source file is
+      # rewritten part way through the linking stage.
+      #"-j #{workers}",
     ]
 
     make(*make_args, env: env)
