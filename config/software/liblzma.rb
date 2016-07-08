@@ -27,10 +27,23 @@ relative_path "xz-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  # liblzma properly uses CFLAGS for C compilation and CPPFLAGS for common
-  # flags used across tools such as windres.  Don't put anything in it
-  # that can be misinterpreted by windres.
-  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include" if windows?
+
+  if windows?
+    # liblzma properly uses CFLAGS for C compilation and CPPFLAGS for common
+    # flags used across tools such as windres.  Don't put anything in it
+    # that can be misinterpreted by windres.
+    env["CPPFLAGS"] = "-I#{install_dir}/embedded/include"
+
+    # We had some issue with ld.exe crashing with various strange error codes
+    # when building .exes that linked against the dlls that it had created
+    # earlier. Turning of LTO (link-time optimizations) seems to help.
+    # If you are using a newer binutils or gcc more recent than 5.4.0, you might
+    # want to experiment with removing this. Just remember to expire the
+    # omnibus cache and try it over and over - the issue seems to be very timing
+    # sensitive and is not easily reproducible.
+    env["CFLAGS"] += " -fno-lto"
+    env["CXXFLAGS"] += " -fno-lto"
+  end
 
   config_command = [
     "--disable-debug",
