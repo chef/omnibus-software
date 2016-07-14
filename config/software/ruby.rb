@@ -41,6 +41,7 @@ dependency "libyaml"
 # and that's the only one we will ever use.
 dependency "libiconv"
 
+version("2.3.1")      { source md5: "0d896c2e7fd54f722b399f407e48a4c6" }
 version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 
 version("2.2.4")      { source md5: "9a5e15f9d5255ba37ace18771b0a8dd2" }
@@ -49,6 +50,7 @@ version("2.2.2")      { source md5: "326e99ddc75381c7b50c85f7089f3260" }
 version("2.2.1")      { source md5: "b49fc67a834e4f77249eb73eecffb1c9" }
 version("2.2.0")      { source md5: "cd03b28fd0b555970f5c4fd481700852" }
 
+version("2.1.9")      { source md5: "d9d2109d3827789344cc3aceb8e1d697" }
 version("2.1.8")      { source md5: "091b62f0a9796a3c55de2a228a0e6ef3" }
 version("2.1.7")      { source md5: "2e143b8e19b056df46479ae4412550c9" }
 version("2.1.6")      { source md5: "6e5564364be085c45576787b48eeb75f" }
