@@ -33,6 +33,11 @@ elsif ppc64le?
          md5: "199e3f1b5e3035bc813094e2973ffafb"
   app_version = "ibm-java-ppc64le-80"
   relative_path "ibm-java-ppc64le-80"
+elsif ohai["kernel"]["machine"].eql? "s390x"
+  source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-s390x-80.tar.gz",
+         md5: "722bf5ab5436add5fdddbed4b07503c7"
+  app_version = "ibm-java-s390x-80"
+  relative_path "ibm-java-s390x-80"
 else
   puts "The IBM JRE support for this platform was not found, thus it will not be installed"
 end
