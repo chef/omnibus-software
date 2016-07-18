@@ -23,7 +23,7 @@ license_file "README.markdown"
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
-dependency "lua" if ppc64? || ppc64le? || ohai["kernel"]["machine"] == "s390x"
+dependency "lua" if ppc64? || ppc64le? || s390x?
 
 source_package_name = "openresty"
 
@@ -58,7 +58,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   env["PATH"] += "#{env['PATH']}:/usr/sbin:/sbin"
 
-  if version == "1.7.10.1" && (ppc64? || ppc64le? || ohai["kernel"]["machine"] == "s390x")
+  if version == "1.7.10.1" && (ppc64? || ppc64le? || s390x?)
     patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
   end
 
@@ -91,7 +91,7 @@ build do
   ]
 
   # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
-  if ppc64? || ppc64le? || ohai["kernel"]["machine"] == "s390x"
+  if ppc64? || ppc64le? || s390x?
     configure << "--with-lua51=#{install_dir}/embedded/lib"
   else
     configure << "--with-luajit"

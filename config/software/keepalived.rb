@@ -55,7 +55,7 @@ build do
     " --disable-iconv",
   ]
 
-  if ohai["kernel"]["machine"] == "s390x"
+  if s390x?
     configure << "--with-kernel-dir=/usr/src/linux/include/uapi"
   end
 

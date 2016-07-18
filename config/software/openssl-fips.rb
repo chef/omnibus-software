@@ -57,7 +57,7 @@ build do
     # compile
     configure_command = ["perl ./Configure linux-ppc64"]
     configure_command << "--prefix=#{install_dir}/embedded"
-  elsif ohai["kernel"]["machine"].eql? "s390x"
+  elsif s390x?
     configure_command = ["perl ./Configure linux64-s390x"]
     configure_command << "--prefix=#{install_dir}/embedded"
     # Unfortunately openssl-fips is not supported on s390x, so we have to tell it to
