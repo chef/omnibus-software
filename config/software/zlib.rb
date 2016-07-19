@@ -24,7 +24,7 @@ version "1.2.6" do
   source md5: "618e944d7c7cd6521551e30b32322f4a"
 end
 
-source url: "http://iweb.dl.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
+source url: "http://zlib.net/zlib-#{version}.tar.gz"
 
 relative_path "zlib-#{version}"
 
