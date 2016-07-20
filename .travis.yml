@@ -1,15 +1,8 @@
 rvm: 2.1
 
+before_install:
+  - gem install bundler
+
 bundler_args: --jobs 7
 
 script: bundle exec rake travis:ci
-
-notifications:
-  hipchat:
-    on_change: true
-    on_failure: true
-    on_success: false
-    on_pull_requests: false
-    rooms:
-      - secure: XJGQPfNmCH4SjDPUMlinLMVjp0iACEQBxuAsUjhspgQbarNHo/aQ0jU++k6P4feGrSpSSFl8QH9sy3IqvIbiU8DzR6F8T+I63FztPvwIO4NW4c3FknBprNQbAJSCQ02XfoDXF8JO19mx3DZfmc7ObbdhoD7DrKoZvgtHbqhMkx4= # Build Statuses
-      - secure: axRyMDofVTprR+N7xGqss6fkphj5wHxv2GVC2bAmQt04SgWa4AhpdroE4s9yOupOPlbWElbJVcobvY3djpsgq0UPkDsaA93cvIeAV7MRwLyp1z97pyxXm2dvMzk8XFITq5qmJeKAEMTPeTnksJKgvB5TVGPTgrrF+1+fTSlWw6E= # Release Engineering

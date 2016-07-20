@@ -23,7 +23,7 @@ source url: "https://github.com/opscode/msys-bash/releases/download/bash-#{versi
        md5: "22d5dbbd9bd0b3e0380d7a0e79c3108e"
 
 build do
-  temp_directory = File.join(cache_dir, "bash-cache")
+  temp_directory = File.join(Omnibus::Config.cache_dir, "bash-cache")
   mkdir temp_directory
   # First extract the tar file out of lzma archive.
   command "7z.exe x #{project_file} -o#{temp_directory} -r -y"

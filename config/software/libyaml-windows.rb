@@ -33,7 +33,7 @@ source :url => "http://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windo
        :md5 => "8bb5d8e43cf18ec48b4751bdd0111c84"
 
 build do
-  temp_directory = File.join(Config.cache_dir, "libyaml-cache")
+  temp_directory = File.join(Omnibus::Config.cache_dir, "libyaml-cache")
 
   # Ensure the directory exists
   mkdir temp_directory
