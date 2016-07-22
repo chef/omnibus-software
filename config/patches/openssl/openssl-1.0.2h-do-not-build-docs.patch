@@ -1,0 +1,20 @@
+--- a/Makefile.org
++++ b/Makefile.org
+@@ -169,7 +169,7 @@ SHELL=/bin/sh
+
+ TOP=    .
+ ONEDIRS=out tmp
+-EDIRS=  times doc bugs util include certs ms shlib mt demos perl sf dep VMS
++EDIRS=  times bugs util include certs ms shlib mt demos perl sf dep VMS
+ WDIRS=  windows
+ LIBS=   libcrypto.a libssl.a
+ SHARED_CRYPTO=libcrypto$(SHLIB_EXT)
+@@ -530,7 +530,7 @@ dist:
+        @$(MAKE) SDIRS='$(SDIRS)' clean
+        @$(MAKE) TAR='$(TAR)' TARFLAGS='$(TARFLAGS)' $(DISTTARVARS) tar
+
+-install: all install_docs install_sw
++install: all install_sw
+
+ install_sw:
+        @$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
