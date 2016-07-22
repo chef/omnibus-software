@@ -18,7 +18,7 @@
 name "nokogiri"
 default_version "1.6.2.1"
 
-if ohai['platform'] == 'windows'
+if ohai["platform"] == "windows"
   dependency "ruby-windows"
   dependency "ruby-windows-devkit"
 else

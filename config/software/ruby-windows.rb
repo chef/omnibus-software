@@ -43,7 +43,7 @@ build do
   # => warn "DL is deprecated, please use Fiddle"
   if version.start_with? "2"
     block do
-      require 'digest/md5'
+      require "digest/md5"
 
       dl_path = File.join(install_dir, "embedded/lib/ruby/2.0.0/dl.rb")
       if Digest::MD5.hexdigest(File.read(dl_path)) == "78c185a3fcc7b5e2c3db697c85110d8f"

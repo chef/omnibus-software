@@ -1,18 +1,17 @@
-name 'guidata'
+name "guidata"
 
-default_version '1.6.1'
+default_version "1.6.1"
 
-dependency 'pyside'
+dependency "pyside"
 
-source :url => "https://github.com/PierreRaybaut/guidata/archive/v#{version}.zip",
-	     :md5 => '6827b98db4aca3ca50a7efa419367633'
-       # :sha1 => 'abc80daf473562eb6132c2245d8108afe6451645'
+source :url => "https://guidata.googlecode.com/files/guidata-#{version}.zip",
+       :md5 => "47d625f998b5092ba797c8657979aa94"
 
 relative_path "guidata-#{version}"
 
 build do
-  patch :source => 'fix_blocking_import.patch'
-  patch :source => 'remove_default_image_path.patch' if ohai['platform_family'] == 'mac_os_x'
+  patch :source => "fix_blocking_import.patch"
+  patch :source => "remove_default_image_path.patch" if ohai["platform_family"] == "mac_os_x"
   if ohai['platform'] == 'windows'
     env = {
       "PATH" => "#{windows_safe_path(install_dir)}\\embedded\\bin:#{ENV["PATH"]}"

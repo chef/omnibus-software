@@ -1,10 +1,10 @@
-name 'py2app'
+name "py2app"
 
-default_version '0.9.0'
-dependency 'pip'
+default_version "0.9.0"
+dependency "pip"
 
 env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
 }
 
 build do

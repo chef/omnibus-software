@@ -32,10 +32,10 @@ relative_path "nagios-plugins-1.4.15"
 configure_env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
 }
 
-gem_env = {"GEM_PATH" => nil, "GEM_HOME" => nil}
+gem_env = { "GEM_PATH" => nil, "GEM_HOME" => nil }
 
 build do
   # configure it
@@ -48,7 +48,7 @@ build do
           :env => configure_env)
 
   # build it
-  command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "sudo make install"
 
   # NOTE: cargo culted from commit 0e6eb2d4a7978c5683a3e15c956c0c2b78f3d904

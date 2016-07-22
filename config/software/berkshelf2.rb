@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-Omnibus.logger.deprecated('berkshelf2') { 'Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future.' }
+Omnibus.logger.deprecated("berkshelf2") { "Please upgrade to Berkshelf 3. Continued use of Berkshelf 2 will not be supported in the future." }
 
 name "berkshelf2"
 default_version "2.0.18"
@@ -26,7 +26,7 @@ dependency "nokogiri"
 dependency "libffi"
 
 build do
-  gem 'install hashie --no-rdoc --no-ri -v \'~> 2.0.0\''
-  gem 'install varia_model --no-rdoc --no-ri -v 0.3.2'
+  gem "install hashie --no-rdoc --no-ri -v '~> 2.0.0'"
+  gem "install varia_model --no-rdoc --no-ri -v 0.3.2"
   gem "install berkshelf --no-rdoc --no-ri -v #{version}"
 end

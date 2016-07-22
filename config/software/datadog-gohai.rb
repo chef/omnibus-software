@@ -5,7 +5,7 @@ env = {
   "GOPATH" => "#{Omnibus::Config.cache_dir}/src/#{name}"
 }
 
-if ohai['platform_family'] == 'mac_os_x'
+if ohai["platform_family"] == "mac_os_x"
   gobin = "/usr/local/bin/go"
 elsif ohai['platform'] == 'windows'
   gobin = 'C:/Go/bin/go'

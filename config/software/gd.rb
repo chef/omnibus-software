@@ -35,11 +35,11 @@ configure_env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "LIBS" => "-liconv"
+  "LIBS" => "-liconv",
 }
 
 build do
-  patch :source => 'gd-2.0.33-configure-libpng.patch'
+  patch :source => "gd-2.0.33-configure-libpng.patch"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-libiconv-prefix=#{install_dir}/embedded",
@@ -51,6 +51,6 @@ build do
           :env => configure_env,
           :cwd => source_dir)
 
-  command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/bin", "LIBS" => "-liconv"}, :cwd => source_dir
+  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/bin", "LIBS" => "-liconv" }, :cwd => source_dir
   command "make install", :cwd => source_dir
 end

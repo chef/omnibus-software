@@ -111,7 +111,7 @@ runsvdir -P #{install_dir}/service 'log: .......................................
      "#{install_dir}/init"].each do |dir|
       FileUtils.mkdir_p(dir)
       # make sure cached builds include this dir
-      FileUtils.touch(File.join(dir, '.gitkeep'))
+      FileUtils.touch(File.join(dir, ".gitkeep"))
     end
   end
 end

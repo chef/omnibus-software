@@ -10,4 +10,3 @@ build do
       "\"--install-scripts=#{windows_safe_path(install_dir)}/bin\" "\
       "#{name}==#{version}"
 end
-

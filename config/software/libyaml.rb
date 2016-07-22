@@ -16,10 +16,10 @@
 #
 
 name "libyaml"
-default_version '8a2d1e93b2a2'
+default_version "8a2d1e93b2a2"
 
 source :url => "https://bitbucket.org/xi/libyaml/get/#{version}.tar.gz",
-       :md5 => '601fbd125721460eee302d7d8b058434',
+       :md5 => "601fbd125721460eee302d7d8b058434",
        :extract => :seven_zip
 
 relative_path "xi-libyaml-#{version}"

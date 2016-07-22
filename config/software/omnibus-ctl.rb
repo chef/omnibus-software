@@ -40,4 +40,3 @@ build do
   mkdir "#{install_dir}/embedded/service/omnibus-ctl"
   touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
 end
-

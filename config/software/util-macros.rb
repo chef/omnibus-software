@@ -9,7 +9,7 @@ source :url => "http://xorg.freedesktop.org/releases/individual/util/util-macros
 relative_path "util-macros-#{version}"
 
 configure_env =
-  case ohai['platform']
+  case ohai["platform"]
   when "aix"
     {
       "CC" => "xlc -q64",
@@ -26,17 +26,17 @@ configure_env =
   when "mac_os_x"
     {
       "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
+      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib",
     }
   when "solaris2"
     {
       "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"
+      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     }
   else
     {
       "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib"
+      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib",
     }
   end
 

@@ -22,13 +22,13 @@ name "libarchive"
 default_version "3.1.2"
 
 source :url => "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
-  :md5 => 'efad5a503f66329bb9d2f4308b5de98a'
+       :md5 => "efad5a503f66329bb9d2f4308b5de98a"
 
 relative_path "libarchive-#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include "
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include ",
 }
 
 build do

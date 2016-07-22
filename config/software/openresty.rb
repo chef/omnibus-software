@@ -31,7 +31,7 @@ build do
   env = {
     "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
   }
 
   command ["./configure",
@@ -46,20 +46,20 @@ build do
            "--with-ld-opt=\"-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz\"",
            "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"",
            # Options inspired by the OpenResty Cookbook
-           '--with-md5-asm',
-           '--with-sha1-asm',
-           '--with-pcre-jit',
-           '--with-luajit',
-           '--without-http_ssi_module',
-           '--without-mail_smtp_module',
-           '--without-mail_imap_module',
-           '--without-mail_pop3_module',
-           '--with-ipv6',
+           "--with-md5-asm",
+           "--with-sha1-asm",
+           "--with-pcre-jit",
+           "--with-luajit",
+           "--without-http_ssi_module",
+           "--without-mail_smtp_module",
+           "--without-mail_imap_module",
+           "--without-mail_pop3_module",
+           "--with-ipv6",
            # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
            # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
            # However, they require libatomic-ops-dev and libaio
-           #'--with-file-aio',
-           #'--with-libatomic'
+           #"--with-file-aio",
+           #"--with-libatomic"
           ].join(" "), :env => env
 
   command "make -j #{workers}", :env => env

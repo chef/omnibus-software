@@ -27,13 +27,13 @@ configure_env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
 }
 
 build do
   command "./configure --prefix=#{install_dir}/embedded --enable-shared --enable-static", :env => configure_env
   mkdir "#{install_dir}/embedded/man/man1"
-  command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
   delete "#{install_dir}/embedded/man"
 end

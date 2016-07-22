@@ -32,14 +32,14 @@ relative_path "openssl-#{version}"
 build do
   patch :source => "openssl-1.0.2i-do-not-build-docs.patch"
 
-  env = case ohai['platform']
+  env = case ohai["platform"]
         when "mac_os_x"
           {
             "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
-            "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses"
+            "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
           }
         when "aix"
-        {
+          {
             "CC" => "xlc -q64",
             "CXX" => "xlC -q64",
             "LD" => "ld -b64",
@@ -50,17 +50,17 @@ build do
             "AR" => "/usr/bin/ar",
             "ARFLAGS" => "-X64 cru",
             "M4" => "/opt/freeware/bin/m4",
-        }
+          }
         when "solaris2"
           {
             "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
             "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"
+            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
           }
         else
           {
             "CFLAGS" => "-I#{install_dir}/embedded/include",
-            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
           }
         end
 
@@ -73,10 +73,10 @@ build do
     "no-rc5",
     "zlib",
     "shared",
-    "no-ssl3"
+    "no-ssl3",
   ].join(" ")
 
-  configure_command = case ohai['platform']
+  configure_command = case ohai["platform"]
                       when "aix"
                         ["perl", "./Configure",
                          "aix64-cc",
@@ -124,7 +124,7 @@ build do
                       else
                         ["./config",
                         common_args,
-                        "disable-gost",  # fixes build on linux, but breaks solaris
+                        "disable-gost", # fixes build on linux, but breaks solaris
                         "-L#{install_dir}/embedded/lib",
                         "-I#{install_dir}/embedded/include",
                         "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
@@ -137,10 +137,10 @@ build do
   has_gmake = system("gmake --version")
 
   if has_gmake
-    env.merge!({'MAKE' => 'gmake'})
-    make_binary = 'gmake'
+    env["MAKE"] = "gmake"
+    make_binary = "gmake"
   else
-    make_binary = 'make'
+    make_binary = "make"
   end
   ship_license "https://raw.githubusercontent.com/openssl/openssl/master/LICENSE"
 

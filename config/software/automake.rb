@@ -28,11 +28,11 @@ relative_path "automake-1.11.2"
 configure_env = {
   "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
 }
 
 build do
-  command "./bootstrap", :env => {"PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"}
+  command "./bootstrap", :env => { "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}" }
   command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
   command "make -j #{workers}"
   command "make install"

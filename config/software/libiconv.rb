@@ -21,12 +21,12 @@ default_version "1.14"
 dependency "libgcc"
 
 source :url => "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
-       :md5 => 'e34509b1623cec449dfeb73d7ce9c6c6',
+       :md5 => "e34509b1623cec449dfeb73d7ce9c6c6"
        :extract => :seven_zip
 
 relative_path "libiconv-#{version}"
 
-env = case ohai['platform']
+env = case ohai["platform"]
       when "aix"
         {
           "CC" => "xlc -q64",
@@ -36,21 +36,21 @@ env = case ohai['platform']
           "CXXFLAGS" => "-O -q64 -I#{install_dir}/embedded/include",
           "LD" => "ld -b64",
           "OBJECT_MODE" => "64",
-          "ARFLAGS" => "-X64 cru "
+          "ARFLAGS" => "-X64 cru ",
         }
       else
         {
           "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-          "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+          "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
         }
       end
 
-if ohai['platform'] == "solaris2"
+if ohai["platform"] == "solaris2"
   env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc", "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
 end
 
 build do
-  patch :source => 'libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch'
+  patch :source => "libiconv-1.14_srclib_stdio.in.h-remove-gets-declarations.patch"
   command "./configure --prefix=#{install_dir}/embedded", :env => env
   command "make -j #{workers}", :env => env
   command "make -j #{workers} install-lib libdir=#{install_dir}/embedded/lib includedir=#{install_dir}/embedded/include", :env => env

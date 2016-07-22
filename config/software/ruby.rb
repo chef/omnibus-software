@@ -26,7 +26,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
-dependency "libgcc" if ohai['platform'] == "solaris2"
+dependency "libgcc" if ohai["platform"] == "solaris2"
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
@@ -43,7 +43,7 @@ relative_path "ruby-#{version}"
 env = with_embedded_path()
 env = with_standard_compiler_flags(env)
 
-case ohai['platform']
+case ohai["platform"]
 when "mac_os_x"
   # -Qunused-arguments suppresses "argument unused during compilation"
   # warnings. These can be produced if you compile a program that doesn't
@@ -51,8 +51,8 @@ when "mac_os_x"
   # would be harmless, except that autoconf treats any output to stderr as
   # a failure when it makes a test program to check your CFLAGS (regardless
   # of the actual exit code from the compiler).
-  env['CFLAGS'] << " -I#{install_dir}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
-  env['LDFLAGS'] << " -arch x86_64"
+  env["CFLAGS"] << " -I#{install_dir}/embedded/include/ncurses -arch x86_64 -m64 -O3 -g -pipe -Qunused-arguments"
+  env["LDFLAGS"] << " -arch x86_64"
 when "aix"
   # -O2/O3 optimized away some configure test which caused ext libs to fail, so aix only gets -O
   #
@@ -61,11 +61,11 @@ when "aix"
   #
   # I believe -qhot was necessary to prevent segfaults in threaded libs
   #
-  env['CFLAGS'] << " -q64 -qhot"
-  env['M4'] = "/opt/freeware/bin/m4"
-  env['warnflags'] = "-qinfo=por"
-else  # including solaris, linux
-  env['CFLAGS'] << " -O3 -g -pipe"
+  env["CFLAGS"] << " -q64 -qhot"
+  env["M4"] = "/opt/freeware/bin/m4"
+  env["warnflags"] = "-qinfo=por"
+else # including solaris, linux
+  env["CFLAGS"] << " -O3 -g -pipe"
 end
 
 build do
@@ -78,7 +78,7 @@ build do
                        "--disable-install-doc",
                        "--without-gmp"]
 
-  case ohai['platform']
+  case ohai["platform"]
   when "aix"
     patch :source => "ruby-aix-configure.patch", :plevel => 1
     patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
@@ -116,25 +116,23 @@ build do
     "BUNDLE_BIN_PATH" => nil,
     "BUNDLE_GEMFILE"  => nil,
     "GEM_PATH"        => nil,
-    "GEM_HOME"        => nil
+    "GEM_HOME"        => nil,
   })
 
   # @todo: move into omnibus-ruby
   has_gmake = system("gmake --version")
 
   if has_gmake
-    env.merge!({'MAKE' => 'gmake'})
-    make_binary = 'gmake'
+    env["MAKE"] = "gmake"
+    make_binary = "gmake"
   else
-    make_binary = 'make'
+    make_binary = "make"
   end
 
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
-  env.merge!({
-    "PKG_CONFIG" => "/bin/true",
-  }) if ohai['platform'] == "aix"
+  env["PKG_CONFIG"] = "/bin/true" if ohai["platform"] == "aix"
 
   command configure_command.join(" "), :env => env
   command "#{make_binary} -j #{workers}", :env => env

@@ -2,7 +2,7 @@ name "homebrew"
 
 default_version "0"
 
-install_url = 'https://raw.githubusercontent.com/Homebrew/install/master/install'
+install_url = "https://raw.githubusercontent.com/Homebrew/install/master/install"
 
 build do
   command "echo | "\

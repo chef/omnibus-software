@@ -26,7 +26,7 @@ description "On UNIX systems where we bootstrap a compiler, copy the libgcc"
 default_version "0.0.1"
 
 libgcc_file =
-  case ohai['platform']
+  case ohai["platform"]
   when "solaris2"
     "/opt/csw/lib/libgcc_s.so.1"
   when "aix"
@@ -45,12 +45,12 @@ build do
       raise "cannot find libgcc -- where is your gcc compiler?"
     end
   else
-      # If there's nothing to do (on OSX for instance), we still create a file
-      # in datadog agent to be sure there's something to commit.
-      # Indeed, since libgcc is often (always?) the first piece of software to
-      # be built, it may trigger a bug when using git cache : git tries to tag
-      # the /opt/datadog-agent repo after this build but can't find a valid
-      # HEAD since no commit could have been done.
-      command "touch #{install_dir}/uselessfile"
+    # If there's nothing to do (on OSX for instance), we still create a file
+    # in datadog agent to be sure there's something to commit.
+    # Indeed, since libgcc is often (always?) the first piece of software to
+    # be built, it may trigger a bug when using git cache : git tries to tag
+    # the /opt/datadog-agent repo after this build but can't find a valid
+    # HEAD since no commit could have been done.
+    command "touch #{install_dir}/uselessfile"
   end
 end
