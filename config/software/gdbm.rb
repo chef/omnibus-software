@@ -27,19 +27,19 @@ relative_path "gdbm-#{version}"
 
 build do
   env = case ohai["platform"]
-  when "solaris2"
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -R#{install_dir}/embedded/lib",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-      "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
-    }
-  else
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-    }
+        when "solaris2"
+          {
+            "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -R#{install_dir}/embedded/lib",
+            "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+            "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
+          }
+        else
+          {
+            "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+            "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+            "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+          }
         end
 
   configure_command = ["./configure",
