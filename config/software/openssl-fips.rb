@@ -57,6 +57,12 @@ build do
     # compile
     configure_command = ["perl ./Configure linux-ppc64"]
     configure_command << "--prefix=#{install_dir}/embedded"
+  elsif s390x?
+    configure_command = ["perl ./Configure linux64-s390x"]
+    configure_command << "--prefix=#{install_dir}/embedded"
+    # Unfortunately openssl-fips is not supported on s390x, so we have to tell it to
+    # compile solely in C
+    configure_command << "no-asm"
   else
     configure_command = ["./config"]
   end
