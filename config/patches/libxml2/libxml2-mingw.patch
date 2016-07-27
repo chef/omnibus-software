@@ -1,0 +1,227 @@
+--- libxml2-2.9.0/uri.c.orig	2013-03-31 04:05:23 +0400
++++ libxml2-2.9.0/uri.c	2013-03-31 04:07:40 +0400
+@@ -2469,7 +2469,7 @@
+     len = xmlStrlen(path);
+     if ((len > 2) && IS_WINDOWS_PATH(path)) {
+         /* make the scheme 'file' */
+-	uri->scheme = xmlStrdup(BAD_CAST "file");
++	uri->scheme = (char *) xmlStrdup(BAD_CAST "file");
+ 	/* allocate space for leading '/' + path + string terminator */
+ 	uri->path = xmlMallocAtomic(len + 2);
+ 	if (uri->path == NULL) {
+@@ -2478,15 +2478,15 @@
+ 	}
+ 	/* Put in leading '/' plus path */
+ 	uri->path[0] = '/';
+-	p = uri->path + 1;
+-	strncpy(p, path, len + 1);
++	p = BAD_CAST (uri->path + 1);
++	strncpy((char *) p, (const char *) path, len + 1);
+     } else {
+-	uri->path = xmlStrdup(path);
++	uri->path = (char *) xmlStrdup(path);
+ 	if (uri->path == NULL) {
+ 	    xmlFreeURI(uri);
+ 	    return(NULL);
+ 	}
+-	p = uri->path;
++	p = BAD_CAST (uri->path);
+     }
+     /* Now change all occurences of '\' to '/' */
+     while (*p != '\0') {
+--- libxml2-2.9.0/uri.c.orig	2013-03-31 04:07:40 +0400
++++ libxml2-2.9.0/uri.c	2013-03-31 04:08:56 +0400
+@@ -2387,7 +2387,6 @@
+  */
+ #if defined(_WIN32) && !defined(__CYGWIN__)
+     int len = 0;
+-    int i = 0;
+     xmlChar *p = NULL;
+ #endif
+     xmlURIPtr uri;
+--- libxml2-2.9.0/xmlIO.c.orig	2013-03-31 14:58:05 +0400
++++ libxml2-2.9.0/xmlIO.c	2013-03-31 15:09:24 +0400
+@@ -668,7 +668,11 @@
+     wPath = __xmlIOWin32UTF8ToWChar(path);
+     if (wPath)
+     {
++#if !defined(__MINGW64_VERSION_MAJOR) || !(defined(_FILE_OFFSET_BITS) && (_FILE_OFFSET_BITS == 64))
+        retval = _wstat(wPath,info);
++#else
++       retval = _wstati64(wPath,info);
++#endif
+        xmlFree(wPath);
+     }
+     /* maybe path in native encoding */
+--- libxml2-2.9.0/xmlIO.c.orig	2013-03-31 03:56:30 +0400
++++ libxml2-2.9.0/xmlIO.c	2013-03-31 04:09:56 +0400
+@@ -59,7 +59,7 @@
+ #  endif
+ #else
+ #  ifdef HAVE__STAT
+-#    if defined(_WIN32) || defined (__DJGPP__) && !defined (__CYGWIN__)
++#    if (defined(_WIN32)  && !defined(__MINGW64_VERSION_MAJOR)) || defined (__DJGPP__) && !defined (__CYGWIN__)
+ #      define stat _stat
+ #    endif
+ #  endif
+--- libxml2-2.9.0/xmlIO.c.orig	2013-03-31 14:51:01 +0400
++++ libxml2-2.9.0/xmlIO.c	2013-03-31 14:58:05 +0400
+@@ -40,6 +40,7 @@
+ #endif
+ 
+ #if defined(WIN32) || defined(_WIN32)
++#include "wsockcompat.h"
+ #include <windows.h>
+ #endif
+ 
+--- libxml2-2.9.0/nanohttp.c.orig	2013-03-31 15:49:18 +0400
++++ libxml2-2.9.0/nanohttp.c	2013-03-31 16:26:30 +0400
+@@ -75,14 +75,15 @@
+ #endif
+ 
+ #if defined(__MINGW32__) || defined(_WIN32_WCE)
+-#ifndef _WINSOCKAPI_
+-#define _WINSOCKAPI_
+-#endif
+ #include <wsockcompat.h>
+ #include <winsock2.h>
+ #undef XML_SOCKLEN_T
++#if defined(__MINGW64_VERSION_MAJOR)
++#define XML_SOCKLEN_T int
++#else
+ #define XML_SOCKLEN_T unsigned int
+ #endif
++#endif
+ 
+ #include <libxml/globals.h>
+ #include <libxml/xmlerror.h>
+--- libxml2-2.9.0/include/wsockcompat.h.orig	2013-03-31 14:51:00 +0400
++++ libxml2-2.9.0/include/wsockcompat.h	2013-03-31 15:11:58 +0400
+@@ -41,7 +41,7 @@
+ #define EWOULDBLOCK             WSAEWOULDBLOCK
+ #define ESHUTDOWN               WSAESHUTDOWN
+ 
+-#if (!defined(_MSC_VER) || (_MSC_VER < 1600))
++#if (!defined(_MSC_VER) || (_MSC_VER < 1600)) && !defined(__MINGW64_VERSION_MAJOR)
+ #define EINPROGRESS             WSAEINPROGRESS
+ #define EALREADY                WSAEALREADY
+ #define ENOTSOCK                WSAENOTSOCK
+--- libxml2-2.9.0/nanoftp.c.orig	2013-03-31 15:18:52 +0400
++++ libxml2-2.9.0/nanoftp.c	2013-03-31 15:20:50 +0400
+@@ -83,9 +83,14 @@
+ #if defined(__MINGW32__) || defined(_WIN32_WCE)
+ #include <wsockcompat.h>
+ #include <winsock2.h>
++#if defined(__MINGW64_VERSION_MAJOR)
++#undef XML_SOCKLEN_T
++#define XML_SOCKLEN_T int
++#else
+ #undef XML_SOCKLEN_T
+ #define XML_SOCKLEN_T unsigned int
+ #endif
++#endif
+ 
+ /**
+  * A couple portability macros
+--- libxml2-2.9.0/nanoftp.c.orig	2013-03-31 14:51:01 +0400
++++ libxml2-2.9.0/nanoftp.c	2013-03-31 15:17:24 +0400
+@@ -78,9 +78,6 @@
+ 
+ 
+ #if defined(__MINGW32__) || defined(_WIN32_WCE)
+-#ifndef _WINSOCKAPI_
+-#define _WINSOCKAPI_
+-#endif
+ #include <wsockcompat.h>
+ #include <winsock2.h>
+ #undef XML_SOCKLEN_T
+--- libxml2-2.9.0/nanoftp.c.orig	2013-03-31 15:17:24 +0400
++++ libxml2-2.9.0/nanoftp.c	2013-03-31 15:18:52 +0400
+@@ -31,6 +31,7 @@
+ #ifdef HAVE_SYS_SOCKET_H
+ #include <sys/socket.h>
+ #endif
++#include "wsockcompat.h"
+ #ifdef HAVE_NETINET_IN_H
+ #include <netinet/in.h>
+ #endif
+--- libxml2-2.9.0/xmllint.c.orig	2013-03-31 14:51:00 +0400
++++ libxml2-2.9.0/xmllint.c	2013-03-31 15:38:13 +0400
+@@ -28,12 +28,15 @@
+ #endif
+ 
+ #ifdef __MINGW32__
+-#define _WINSOCKAPI_
+ #include <wsockcompat.h>
+ #include <winsock2.h>
+ #undef XML_SOCKLEN_T
++#if defined(__MINGW64_VERSION_MAJOR)
++#define XML_SOCKLEN_T int
++#else
+ #define XML_SOCKLEN_T unsigned int
+ #endif
++#endif
+ 
+ #ifdef HAVE_SYS_TIMEB_H
+ #include <sys/timeb.h>
+--- libxml2-2.9.0/threads.c.orig	2013-03-31 14:51:01 +0400
++++ libxml2-2.9.0/threads.c	2013-03-31 15:23:45 +0400
+@@ -157,7 +157,7 @@
+ static DWORD mainthread;
+ static struct {
+     DWORD done;
+-    DWORD control;
++    LONG control;
+ } run_once = { 0, 0};
+ static volatile LPCRITICAL_SECTION global_init_lock = NULL;
+ 
+--- libxml2-2.9.0/testThreadsWin32.c.orig	2013-03-31 14:50:56 +0400
++++ libxml2-2.9.0/testThreadsWin32.c	2013-03-31 15:44:28 +0400
+@@ -17,7 +17,7 @@
+ static HANDLE tid[MAX_ARGC];
+ 
+ static const char *catalog = "test/threads/complex.xml";
+-static char *testfiles[] = {
++static const char *testfiles[] = {
+     "test/threads/abc.xml",
+     "test/threads/acb.xml",
+     "test/threads/bac.xml",
+@@ -105,7 +105,7 @@
+ 		{
+ 			DWORD useless;
+ 			tid[i] = CreateThread(NULL, 0,
+-				thread_specific_data, testfiles[i], 0, &useless);
++				thread_specific_data, (LPVOID) testfiles[i], 0, &useless);
+ 			if (tid[i] == NULL)
+ 			{
+ 				perror("CreateThread");
+--- libxml2-2.9.0/timsort.h.orig	2013-03-31 15:49:18 +0400
++++ libxml2-2.9.0/timsort.h	2013-03-31 16:08:17 +0400
+@@ -315,7 +315,15 @@
+     SORT_TYPE *tempstore = (SORT_TYPE *)realloc(store->storage, new_size * sizeof(SORT_TYPE));
+     if (tempstore == NULL)
+     {
+-      fprintf(stderr, "Error allocating temporary storage for tim sort: need %lu bytes", sizeof(SORT_TYPE) * new_size);
++      fprintf(stderr, "Error allocating temporary storage for tim sort: need "
++#if defined(_MSC_VER)
++          "%Iu"
++#elif defined(__MINGW32_MAJOR_VERSION)
++          "%u"
++#else
++          "%zu"
++#endif
++          " bytes",sizeof(SORT_TYPE) * new_size);
+       exit(1);
+     }
+     store->storage = tempstore;
+--- libxml2-2.9.4/configure.orig	2016-07-27 16:54:58.000000000 -0400
++++ libxml2-2.9.4/configure	2016-07-27 16:55:14.000000000 -0400
+@@ -16494,7 +16494,7 @@
+  WIN32_EXTRA_LIBADD="-lws2_32"
+  WIN32_EXTRA_LDFLAGS="-no-undefined"
+ 
+-$as_echo "#define _WINSOCKAPI_ 1" >>confdefs.h
++#$as_echo "#define _WINSOCKAPI_ 1" >>confdefs.h
+ 
+  if test "${PYTHON}" != ""
+  then

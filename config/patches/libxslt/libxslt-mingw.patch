@@ -1,0 +1,79 @@
+--- libxslt-1.1.29/libxslt/security.c.orig	2013-04-01 02:31:05 +0400
++++ libxslt-1.1.29/libxslt/security.c	2013-04-01 02:32:21 +0400
+@@ -342,8 +342,16 @@
+ 		}
+ 	    }
+ 	    ret = xsltCheckWritePath(sec, ctxt, directory);
+-	    if (ret == 1)
++	    if (ret == 1) {
+ 		ret = mkdir(directory, 0755);
++		if (ret == -1 && errno == EEXIST) {
++		    struct stat buf;
++                    ret = stat(directory, &buf);
++                    if (ret == 0) {
++                        ret = S_ISDIR(buf.st_mode) ? 0 : -1;
++                    }
++		}
++	    }
+ 	}
+ 	xmlFree(directory);
+ 	if (ret < 0)
+--- libxslt-1.1.29/configure.orig  2016-07-29 12:02:44.000000000 -0400
++++ libxslt-1.1.29/configure 2016-07-29 12:03:08.000000000 -0400
+@@ -14829,15 +14829,6 @@
+  *-*-mingw*)
+  WIN32_EXTRA_LIBADD="-lwsock32"
+  WIN32_EXTRA_LDFLAGS="-no-undefined"
+-
+-$as_echo "#define _WINSOCKAPI_ 1" >>confdefs.h
+-
+-
+-$as_echo "#define snprintf _snprintf" >>confdefs.h
+-
+-
+-$as_echo "#define vsnprintf _vsnprintf" >>confdefs.h
+-
+  ;;
+ esac
+
+--- libxslt-1.1.29/libxslt/win32config-orig.h  2016-07-29 12:02:44.000000000 -0400
++++ libxslt-1.1.29/libxslt/win32config.h 2016-07-29 12:03:08.000000000 -0400
+@@ -123,7 +123,5 @@
+ #define ATTRIBUTE_UNUSED
+ #endif
+
+-#define _WINSOCKAPI_
+-
+ #endif /* __LIBXSLT_WIN32_CONFIG__ */
+
+--- libxslt-1.1.29/xsltproc/xsltproc-orig.c 2016-07-29 12:29:25.000000000 -0400
++++ libxslt-1.1.29/xsltproc/xsltproc.c  2016-07-29 12:32:18.000000000 -0400
+@@ -6,6 +6,7 @@
+  * daniel@veillard.com
+  */
+
++#include <winsock2.h>
+ #include "libxslt/libxslt.h"
+ #include "libxslt/xsltconfig.h"
+ #include "libexslt/exslt.h"
+--- libxslt-1.1.29/libxslt/xsltutils-orig.c  2016-07-29 12:29:40.000000000 -0400
++++ libxslt-1.1.29/libxslt/xsltutils.c 2016-07-29 12:32:31.000000000 -0400
+@@ -10,6 +10,7 @@
+  */
+
+ #define IN_LIBXSLT
++#include <winsock2.h>
+ #include "libxslt.h"
+
+ #ifndef  XSLT_NEED_TRIO
+--- libxslt-1.1.29/tests/plugins/Makefile.in.orig  2016-07-29 13:30:30.000000000 -0400
++++ libxslt-1.1.29/tests/plugins/Makefile.in 2016-07-29 13:27:00.000000000 -0400
+@@ -114,7 +114,7 @@
+ xmlsoft_org_xslt_testplugin_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+ 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+ 	$(xmlsoft_org_xslt_testplugin_la_CFLAGS) $(CFLAGS) \
+-	$(xmlsoft_org_xslt_testplugin_la_LDFLAGS) $(LDFLAGS) -o $@
++	$(xmlsoft_org_xslt_testplugin_la_LDFLAGS) $(LDFLAGS) $(WIN32_EXTRA_LDFLAGS) -o $@
+ @WITH_MODULES_TRUE@am_xmlsoft_org_xslt_testplugin_la_rpath =
+ AM_V_P = $(am__v_P_@AM_V@)
+ am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
