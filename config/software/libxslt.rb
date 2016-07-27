@@ -43,20 +43,25 @@ build do
   # the libxslt configure script iterates directories specified in
   # --with-libxml-prefix looking for the libxml2 config script. That
   # iteration treats colons as a delimiter so we are using a cygwin
-  # style path to accomodate
+  # style path to accomodate.
   configure_commands = [
-    "--with-libxml-prefix=#{install_dir.sub('C:', '/C')}/embedded",
-    "--with-libxml-include-prefix=#{install_dir}/embedded/include",
-    "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
+    "--with-libxml-prefix=#{to_msys2_path(install_dir, "embedded")}",
     "--without-python",
     "--without-crypto",
+    "--without-debug",
+    "--without-debugger",
+    "--disable-dependency-tracking",
   ]
 
+  # Don't leave static libraries on windows.
+  configure_commands << "--disable-static" if windows?
   configure(*configure_commands, env: env)
 
   if windows?
+    # Patch to reduce warnings and fix type declaration issues in mingw.
+    patch source: "libxslt-mingw.patch", env: env
     # Apply a post configure patch to prevent dll base address clash
-    patch source: "libxslt-windows-relocate.patch", env: env if windows?
+    patch source: "libxslt-windows-relocate.patch", env: env
   end
 
   make "-j #{workers}", env: env
