@@ -52,7 +52,7 @@ build do
     patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1, env: env
   end
 
-  configure(env: env)
+  configure("--disable-dependency-tracking", env: env)
 
   pmake = "-j #{workers}"
   make "#{pmake}", env: env

@@ -38,7 +38,6 @@ build do
     "--disable-doc",
     "--disable-scripts",
   ]
-  config_command << "--disable-nls" if windows?
 
   configure(*config_command, env: env)
 
