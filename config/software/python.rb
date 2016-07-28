@@ -71,7 +71,7 @@ else
 
   msi_name = "python-#{version}.amd64.msi"
   source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.amd64.msi",
-         :md5 => '25acca42662d4b02682eee0df3f3446d'
+         :sha256 => '909fded3cca65feaf9e1db943e886586eb27f0f4396c977868ad6489063a3912'
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it
