@@ -38,9 +38,20 @@ build do
     "--disable-dependency-tracking",
     "--disable-doc",
     "--disable-scripts",
+    "--disable-lzmainfo",
+    "--disable-lzma-links",
+    "--disable-lzmadec",
+    "--disable-xz",
+    "--disable-xzdec",
+    "--with-libiconv-prefix=#{to_msys2_path(install_dir, "embedded")}",
   ]
+
+  if windows?
+    config_command << "--disable-static"
+    config_command << "--disable-nls" # Is this really needed? Can't we vendor libintl?
+  end
 
   configure(*config_command, env: env)
 
-  make "install", env: env
+  make "install -j #{workers}", env: env
 end
