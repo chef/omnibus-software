@@ -225,6 +225,9 @@ build do
     end
 
     configure_command << " debugflags=-g"
+  elsif solaris? && version.satisfies?(">= 2.3")
+    patch source: "ruby-solaris-10u6-ntop.patch", plevel: 1, env: patch_env
+    configure_command << "--with-opt-dir=#{install_dir}/embedded"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
