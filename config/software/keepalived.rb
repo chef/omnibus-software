@@ -49,9 +49,17 @@ build do
     patch source: "keepalived-1.2.9_opscode_centos_5.patch", env: env
   end
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
-          " --disable-iconv", env: env
+  configure = [
+    "./configure",
+    "--prefix=#{install_dir}/embedded",
+    " --disable-iconv",
+  ]
+
+  if s390x?
+    configure << "--with-kernel-dir=/usr/src/linux/include/uapi"
+  end
+
+  command configure.join(" "), env: env
 
   make "-j #{workers}", env: env
   make "install", env: env

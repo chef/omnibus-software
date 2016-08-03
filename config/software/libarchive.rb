@@ -28,23 +28,35 @@ source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
 
 relative_path "libarchive-#{version}"
 
+dependency "config_guess"
+
 build do
-  env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
+  update_config_guess(target: "build/autoconf/")
 
-  configure("--prefix=#{install_dir}/embedded",
-            "--without-lzma",
-            "--without-lzo2",
-            "--without-nettle",
-            "--without-xml2",
-            "--without-expat",
-            "--without-bz2lib",
-            "--without-iconv",
-            "--without-zlib",
-            "--disable-bsdtar",
-            "--disable-bsdcpio",
-            "--without-lzmadec",
-            "--without-openssl", env: env)
+  configure = [
+    "./configure",
+    "--prefix=#{install_dir}/embedded",
+    "--without-lzma",
+    "--without-lzo2",
+    "--without-nettle",
+    "--without-xml2",
+    "--without-expat",
+    "--without-bz2lib",
+    "--without-iconv",
+    "--without-zlib",
+    "--disable-bsdtar",
+    "--disable-bsdcpio",
+    "--without-lzmadec",
+    "--without-openssl",
+  ]
 
-  make env: env
-  make "install", env: env
+  if s390x?
+    configure << "--disable-xattr --disable-acl"
+  end
+
+  command configure.join(" "), env: env
+
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end
