@@ -32,7 +32,7 @@ source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
 relative_path "libiconv-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
 
   # freebsd 10 needs to be build PIC
   env["CFLAGS"] << " -fPIC" if freebsd?
@@ -52,14 +52,9 @@ build do
     patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1, env: env
   end
 
-  # Make windres use the correct cross compilation architecture flags
-  if windows?
-    patch source: "libiconv-1.14-take-windres-rcflags.patch", env: env
-  end
-
   configure(env: env)
 
-  pmake = "-j #{workers}" unless windows?
+  pmake = "-j #{workers}"
   make "#{pmake}", env: env
   make "#{pmake} install-lib" \
           " libdir=#{install_dir}/embedded/lib" \

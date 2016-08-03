@@ -15,6 +15,9 @@
 #
 
 name "delivery-cli"
+# Delivery CLI is only pushed to the master branch of Github after it
+# is successfully Delivered. So pulling in the "master" version
+# will always give you the latest Delivered version.
 default_version "master"
 
 license "Apache-2.0"
@@ -27,6 +30,7 @@ dependency "rust"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  env["RUST_BACKTRACE"] = "1"
 
   # The rust core libraries are dynamicaly linked
   if linux?
@@ -55,6 +59,25 @@ build do
     copy "#{install_dir}/embedded/bin/ssleay32.dll", "#{install_dir}/bin/ssleay32.dll"
     copy "#{install_dir}/embedded/bin/libeay32.dll", "#{install_dir}/bin/libeay32.dll"
     copy "#{install_dir}/embedded/bin/zlib1.dll", "#{install_dir}/bin/zlib1.dll"
+
+    # Needed now that we switched to msys2 and have not figured out how to tell
+    # it how to statically link yet
+    dlls = ["libwinpthread-1"]
+    if windows_arch_i386?
+      dlls << "libgcc_s_dw2-1"
+    else
+      dlls << "libgcc_s_seh-1"
+    end
+    dlls.each do |dll|
+      arch_suffix = windows_arch_i386? ? "32" : "64"
+      windows_path = "C:/msys2/mingw#{arch_suffix}/bin/#{dll}.dll"
+      if File.exist?(windows_path)
+        copy windows_path, "#{install_dir}/bin/#{dll}.dll"
+      else
+        raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
+      end
+    end
+
   else
     copy "#{project_dir}/target/release/delivery", "#{install_dir}/bin/delivery"
   end

@@ -17,7 +17,8 @@
 name "config_guess"
 default_version "master"
 
-source git: "http://git.savannah.gnu.org/r/config.git"
+# occasionally http protocol downloads get 500s, so we use git://
+source git: "git://git.sv.gnu.org/config.git"
 
 # http://savannah.gnu.org/projects/config
 license "GPL-3.0 (with exception)"

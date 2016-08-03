@@ -44,7 +44,7 @@ relative_path "openssl-#{version}"
 
 build do
 
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
   elsif freebsd?
@@ -56,8 +56,7 @@ build do
     # and the 32-bit calling convention involving XMM registers is...  vague.
     # Do not enable SSE2 generally because the hand optimized assembly will
     # overwrite registers that mingw expects to get preserved.
-    arch_flag = windows_arch_i386? ? "-m32" : "-m64"
-    env["CFLAGS"] = "-I#{install_dir}/embedded/include #{arch_flag}"
+    env["CFLAGS"] = "-I#{install_dir}/embedded/include"
     env["CPPFLAGS"] = env["CFLAGS"]
     env["CXXFLAGS"] = env["CFLAGS"]
   end
@@ -103,8 +102,10 @@ build do
       prefix =
         if linux? && ppc64?
           "./Configure linux-ppc64"
-        elsif linux? && ohai["kernel"]["machine"] == "s390x"
-          "./Configure linux64-s390x"
+        elsif linux? && s390x?
+          # With gcc > 4.3 on s390x there is an error building
+          # with inline asm enabled
+          "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
         else
           "./config"
         end
@@ -125,12 +126,8 @@ build do
   end
 
   if windows?
-    # Patch Makefile.shared to let us set the bit-ness of the resource compiler.
-    patch source: "openssl-1.0.1q-take-windres-rcflags.patch", env: env
     # Patch Makefile.org to update the compiler flags/options table for mingw.
     patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
-    # Patch Configure to call ar.exe without anooying it.
-    patch source: "openssl-1.0.1q-ar-needs-operation-before-target.patch", env: env
   end
 
   # Out of abundance of caution, we put the feature flags first and then
