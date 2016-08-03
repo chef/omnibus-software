@@ -129,6 +129,8 @@ build do
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   elsif solaris_10? && version =~ /^1.9/
     patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1, env: patch_env
+  elsif solaris_11? && version =~ /^2.1/
+    patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
   end
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
