@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,30 +14,27 @@
 # limitations under the License.
 #
 
-name "util-macros"
-default_version "1.18.0"
+name "fakeroot"
+default_version "1.20.2"
 
-version "1.19.0" do
-  source md5: "40e1caa49a71a26e0aa68ddd00203717"
-end
+version("1.20.2") { source sha256: "7c0a164d19db3efa9e802e0fc7cdfeff70ec6d26cdbdc4338c9c2823c5ea230c" }
 
-version "1.18.0" do
-  source md5: "fd0ba21b3179703c071bbb4c3e5fb0f4"
-end
-
-source url: "https://www.x.org/releases/individual/util/util-macros-#{version}.tar.gz"
-
-license "MIT"
+license "GPL-3.0"
 license_file "COPYING"
 
-relative_path "util-macros-#{version}"
+source url: "ftp://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_#{version}.orig.tar.bz2"
+
+relative_path "fakeroot-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded",
+                       # This bit of magic is so we don't require the libcap library
+                       "ac_cv_func_capset=no"]
 
+  command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end

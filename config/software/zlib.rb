@@ -24,7 +24,7 @@ version "1.2.6" do
   source md5: "618e944d7c7cd6521551e30b32322f4a"
 end
 
-source url: "http://tenet.dl.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
+source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
 
 license "Zlib"
 license_file "README"
@@ -33,7 +33,7 @@ relative_path "zlib-#{version}"
 
 build do
   if windows?
-    env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+    env = with_standard_compiler_flags(with_embedded_path)
 
     patch source: "zlib-windows-relocate.patch", env: env
 
@@ -51,11 +51,16 @@ build do
       "CFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "ASFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "LDFLAGS=\"#{env['LDFLAGS']}\"",
-      "ARFLAGS=\"rcs #{env['ARFLAGS']}\"",
-      "RCFLAGS=\"--define GCC_WINDRES #{env['RCFLAGS']}\"",
+      # The win32 makefile for zlib does not handle parallel make correctly.
+      # In particular, see its rule for IMPLIB and SHAREDLIB. The ld step in
+      # SHAREDLIB will generate both the dll and the dll.a files. The step to
+      # strip the dll occurs next but since the dll.a file is already present,
+      # make will attempt to link example_d.exe and minigzip_d.exe in parallel
+      # with the strip step - causing gcc to freak out when a source file is
+      # rewritten part way through the linking stage.
+      #"-j #{workers}",
     ]
 
-    # On windows, msys make 3.81 doesn't support -j.
     make(*make_args, env: env)
     make("install", *make_args, env: env)
   else

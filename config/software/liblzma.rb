@@ -26,7 +26,7 @@ source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
 relative_path "xz-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
   # liblzma properly uses CFLAGS for C compilation and CPPFLAGS for common
   # flags used across tools such as windres.  Don't put anything in it
   # that can be misinterpreted by windres.

@@ -28,7 +28,7 @@ source url: "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz",
 relative_path "yaml-#{version}"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true))
+  env = with_standard_compiler_flags(with_embedded_path)
 
   update_config_guess(target: "config")
 
@@ -40,12 +40,6 @@ build do
     patch source: "v0.1.6.windows-configure.patch", plevel: 1, env: env
   end
 
-  # On windows, msys make 3.81 breaks with parallel builds.
-  if windows?
-    make env: env
-    make "install", env: env
-  else
-    make "-j #{workers}", env: env
-    make "-j #{workers} install", env: env
-  end
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end
