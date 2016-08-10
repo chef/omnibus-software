@@ -19,6 +19,7 @@ default_version "1.1.29"
 
 license "MIT"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 dependency "libxml2"
 dependency "liblzma"

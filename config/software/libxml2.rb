@@ -19,6 +19,7 @@ default_version "2.9.4"
 
 license "MIT"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 dependency "zlib"
 dependency "libiconv"

@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
 
   # Software definitions in this bundle require at least this version of
   # omnibus because of the dsl methods they are using.
+  # FIXME: We need to pin to a later version of omnibus with this PR
+  # since we are using a new software DSL: skip_transitive_dependency_licensing
   s.add_dependency "omnibus", ">= 5.2.0"
   s.add_dependency "chef-sugar", ">= 3.4.0"
 
