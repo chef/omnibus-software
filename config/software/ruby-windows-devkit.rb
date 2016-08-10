@@ -19,6 +19,7 @@ default_version "4.7.2-20130224"
 
 license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/oneclick/rubyinstaller/master/LICENSE.txt"
+skip_transitive_dependency_licensing true
 
 if windows_arch_i386?
   version "4.5.2-20111229-1559" do

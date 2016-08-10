@@ -24,6 +24,7 @@ name "shebang-cleanup"
 default_version "0.0.2"
 
 license :project_license
+skip_transitive_dependency_licensing true
 
 build do
   if windows?
