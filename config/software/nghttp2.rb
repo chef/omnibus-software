@@ -13,7 +13,7 @@ env = {
   "CYTHON" => "#{install_dir}/embedded/bin/cython",
   "PYTHON" => "#{install_dir}/embedded/bin/python2.7",
   "PYTHON_CPPFLAGS" => "-I#{install_dir}/embedded/include/python2.7",
-  "PYTHON_LDFLAGS" => "-L#{install_dir}/embedded/lib -lpython2.7",
+  "PYTHON_LDFLAGS" => "-L#{install_dir}/embedded/lib -lpython2.7 -lm",
   "OPENSSL_CFLAGS" => "-I#{install_dir}/embedded/include/openssl",
   "OPENSSL_LIBS" => "-L#{install_dir}/embedded/lib"
 }
