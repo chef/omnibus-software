@@ -23,6 +23,7 @@ name "gem-permissions"
 default_version "0.0.1"
 
 license :project_license
+skip_transitive_dependency_licensing true
 
 build do
   unless windows?

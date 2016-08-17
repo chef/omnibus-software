@@ -20,6 +20,7 @@ default_version "3.2.1"
 
 license "MIT"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 # Is libtool actually necessary? Doesn't configure generate one?
 dependency "libtool" unless windows?

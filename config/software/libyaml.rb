@@ -19,6 +19,7 @@ default_version "0.1.6"
 
 license "MIT"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 

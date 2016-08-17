@@ -19,6 +19,7 @@ description "cleanup un-needed static libraries from the build"
 default_version "1.0.0"
 
 license :project_license
+skip_transitive_dependency_licensing true
 
 build do
   # Remove static object files for all platforms

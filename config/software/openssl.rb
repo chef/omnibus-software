@@ -18,6 +18,7 @@ name "openssl"
 
 license "OpenSSL"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
