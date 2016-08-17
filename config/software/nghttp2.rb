@@ -9,6 +9,7 @@ source :url => "https://github.com/nghttp2/nghttp2/releases/download/v1.12.0/ngh
 
 relative_path "nghttp2-#{version}"
 
+SITE_PACKAGES = "#{install_dir}/embedded/lib/python2.7/site-packages"
 env = {
   "CYTHON" => "#{install_dir}/embedded/bin/cython",
   "PYTHON" => "#{install_dir}/embedded/bin/python2.7",
@@ -30,4 +31,7 @@ build do
   ].join(" "), :env => env
   command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "make install"
+  command "unzip #{SITE_PACKAGES}/python_nghttp2-*.egg -d #{SITE_PACKAGES}"
+  command "rm #{SITE_PACKAGES}/python_nghttp2-*.egg"
+  command "rm -rf #{SITE_PACKAGES}/EGG_INFO"
 end
