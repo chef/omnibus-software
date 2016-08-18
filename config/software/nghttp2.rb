@@ -21,6 +21,8 @@ env = {
 
 build do
   patch :source => 'unzip_egg.patch'
+  # since we patched a .am file, we need to rerun autotools
+  command "autoreconf"
   command [
     "./configure",
     "--enable-python-bindings",
@@ -30,6 +32,7 @@ build do
     "--prefix=#{install_dir}/embedded",
     ""
   ].join(" "), :env => env
+  command "automake"
   command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "make install"
 end
