@@ -18,6 +18,7 @@ name "perl"
 
 license "Artistic-2.0"
 license_file "Artistic"
+skip_transitive_dependency_licensing true
 
 default_version "5.18.1"
 

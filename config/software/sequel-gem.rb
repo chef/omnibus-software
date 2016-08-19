@@ -19,6 +19,9 @@ default_version "4.13.0"
 
 license "MIT"
 license_file "https://github.com/jeremyevans/sequel/blob/master/MIT-LICENSE"
+# sequel gem does not have any dependencies. We only install it from
+# rubygems here.
+skip_transitive_dependency_licensing true
 
 dependency "ruby"
 dependency "rubygems"

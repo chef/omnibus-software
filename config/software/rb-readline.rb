@@ -19,6 +19,7 @@ default_version "master"
 
 license "BSD-3-Clause"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 dependency "ruby"
 dependency "rubygems"

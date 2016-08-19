@@ -20,6 +20,7 @@ default_version "5.9"
 license "MIT"
 license_file "http://invisible-island.net/ncurses/ncurses-license.html"
 license_file "http://invisible-island.net/ncurses/ncurses.faq.html"
+skip_transitive_dependency_licensing true
 
 dependency "libtool" if aix?
 dependency "config_guess"

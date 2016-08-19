@@ -19,6 +19,7 @@ default_version "1.7004"
 
 license "Artistic-2.0"
 license_file "http://dev.perl.org/licenses/artistic.html"
+skip_transitive_dependency_licensing true
 
 dependency "perl"
 

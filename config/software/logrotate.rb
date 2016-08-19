@@ -19,6 +19,7 @@ default_version "3.8.5"
 
 license "GPL-2.0"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 dependency "popt"
 
