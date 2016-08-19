@@ -16,13 +16,14 @@
 #
 
 name "curl"
-default_version "7.49.1"
+default_version "7.50.0"
 
 dependency "zlib"
 dependency "openssl"
+dependency "nghttp2"
 
 source :url => "https://curl.haxx.se/download/curl-#{version}.tar.gz",
-       :md5 => "2feb3767b958add6a177c6602ff21e8c"
+       :md5 => "03940d7d4fcea1521fbbf07c1cf16f5e"
 
 relative_path "curl-#{version}"
 
@@ -46,8 +47,10 @@ build do
            "--without-libidn",
            "--without-gnutls",
            "--without-librtmp",
+           "--without-libssh2",
            "--with-ssl=#{install_dir}/embedded",
-           "--with-zlib=#{install_dir}/embedded"].join(" ")
+           "--with-zlib=#{install_dir}/embedded",
+           "--with-nghttp2=#{install_dir}/embedded"].join(" ")
 
   command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "make install"
