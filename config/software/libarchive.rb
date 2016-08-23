@@ -22,6 +22,7 @@ default_version "3.1.2"
 
 license "BSD-2-Clause"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
        md5: "efad5a503f66329bb9d2f4308b5de98a"

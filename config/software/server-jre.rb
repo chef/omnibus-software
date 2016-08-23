@@ -22,6 +22,7 @@ raise "Server-jre can only be installed on x86_64 systems." unless _64_bit?
 license "Oracle-Binary"
 license_file "LICENSE"
 license_file "http://java.com/license"
+skip_transitive_dependency_licensing true
 
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"

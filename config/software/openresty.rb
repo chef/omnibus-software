@@ -19,6 +19,7 @@ default_version "1.9.7.2"
 
 license "BSD-2-Clause"
 license_file "README.markdown"
+skip_transitive_dependency_licensing true
 
 dependency "pcre"
 dependency "openssl"

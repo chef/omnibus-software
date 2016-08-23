@@ -19,6 +19,7 @@ default_version "1.16"
 
 license "MIT"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 

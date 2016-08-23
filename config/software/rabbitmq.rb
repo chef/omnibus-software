@@ -19,6 +19,7 @@ default_version "2.7.1"
 
 license "MPL-2.0"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 dependency "erlang"
 

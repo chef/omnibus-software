@@ -19,6 +19,7 @@ default_version "2.7.9"
 
 license "Python-2.0"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 dependency "ncurses"
 dependency "zlib"

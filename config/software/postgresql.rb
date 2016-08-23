@@ -19,6 +19,7 @@ default_version "9.2.10"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
+skip_transitive_dependency_licensing true
 
 dependency "zlib"
 dependency "openssl"
