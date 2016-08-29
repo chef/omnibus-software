@@ -2,6 +2,7 @@
 .bundle
 Gemfile.lock
 pkg/*
+/binstubs
 
 # avoid generic ctags files
 tags
