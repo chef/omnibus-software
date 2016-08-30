@@ -21,6 +21,7 @@ version("5.1.5") { source md5: "2e115fe26e435e33b0d5c022e4490567" }
 
 license "MIT"
 license_file "COPYRIGHT"
+skip_transitive_dependency_licensing true
 
 source url: "https://www.lua.org/ftp/lua-#{version}.tar.gz"
 
