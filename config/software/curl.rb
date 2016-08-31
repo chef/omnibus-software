@@ -58,7 +58,8 @@ if ohai['platform'] != 'windows'
 else
   # Compiling is hard... let's ship binaries instead : TODO: react according to platform
   source :url => "https://s3.amazonaws.com/dd-agent-omnibus/curl4-7.43.0.tar.gz",
-         :md5 => '885daa917d96c9d8278bda39a9295f47'
+         :md5 => '885daa917d96c9d8278bda39a9295f47',
+         :extract => :seven_zip
 
   relative_path "curl"
 

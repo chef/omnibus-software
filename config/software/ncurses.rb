@@ -22,7 +22,8 @@ dependency "libgcc"
 dependency "libtool" if ohai['platform'] == "aix"
 
 source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
-       md5: "8cb9c412e5f2d96bc6f459aa8c6282a1"
+       md5: "8cb9c412e5f2d96bc6f459aa8c6282a1",
+       extract: :seven_zip
 
 relative_path "ncurses-5.9"
 

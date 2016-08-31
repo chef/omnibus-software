@@ -31,7 +31,7 @@ default_version "1.0.1t"
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
 # source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
-source url: "https://dd-agent-omnibus.s3.amazonaws.com/openssl-#{version}.tar.gz", extract: :lax_tar
+source url: "https://dd-agent-omnibus.s3.amazonaws.com/openssl-#{version}.tar.gz", extract: :seven_zip
 
 # We have not tested version 1.0.2. It's here so we can run experimental builds
 # to verify that it still compiles on all our platforms.
