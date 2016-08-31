@@ -4,8 +4,9 @@ name 'vc_redist'
 default_version '90'
 
 # TODO: same for 32 bits
-source :url => 'https://s3.amazonaws.com/dd-agent-omnibus/msvcrntm_x64.tar.xz',
-       :md5 => 'c400e8d66b2e723df1a05759bec3cde8'
+# source :url => 'https://s3.amazonaws.com/dd-agent-omnibus/msvcrntm_x64.tar.gz',
+source :url => 'http://degemer.github.io/msvcrntm_x64.tar.gz',
+       :sha256 => '8473bb0c6a1c83e12e2392317f7e9197694833d4eb2c27621859396c868faeda'
 
 relative_path "vc_redist"
 

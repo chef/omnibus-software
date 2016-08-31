@@ -1,8 +1,10 @@
 name "procps-ng"
 default_version "3.3.9"
 
-source :url => "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz",
-       :md5 => '0980646fa25e0be58f7afb6b98f79d74'
+dependency 'ncurses'
+
+source :url => "https://gitlab.com/procps-ng/procps/repository/archive.tar.gz?ref=v#{version}",
+       :sha256 => '86421ed15ad84895c0defe6f4e42a1c1e3e901a2a8fced4ac5457157a3448237'
 
 relative_path "procps-ng-3.3.9"
 
@@ -13,7 +15,7 @@ env = {
 }
 
 build do
-  ship_source "http://dd-accgent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz"
+  ship_source "https://gitlab.com/procps-ng/procps/repository/archive.tar.gz?ref=v#{version}"
   ship_license "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
