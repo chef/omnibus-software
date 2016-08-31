@@ -44,9 +44,18 @@ build do
   configure_command = [
     "--with-zlib=#{install_dir}/embedded",
     "--with-iconv=#{install_dir}/embedded",
+    "--with-lzma=#{install_dir}/embedded",
     "--without-python",
     "--without-icu",
+    "--disable-dependency-tracking",
   ]
+
+  if windows?
+    # Only build dlls on windows. Don't leave static libraries around.
+    configure_command << "--disable-static"
+    # Reduce warnings and make types agree better.
+    patch source: "libxml2-mingw.patch", env: env if windows?
+  end
 
   # solaris 10 ipv6 support is broken due to no inet_ntop() in -lnsl
   configure_command << "--enable-ipv6=no" if solaris_10?
