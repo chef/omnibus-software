@@ -219,6 +219,12 @@ build do
     configure_command << "ac_cv_func_dl_iterate_phdr=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   elsif windows?
+    if version.satisfies?(">= 2.3")
+      # Windows Nano Server COM libraries do not support Apartment threading
+      # instead COINIT_MULTITHREADED must be used
+      patch source: "ruby_nano.patch", plevel: 1, env: patch_env
+    end
+
     configure_command << " debugflags=-g"
   elsif solaris? && version.satisfies?(">= 2.3")
     patch source: "ruby-solaris-10u6-ntop.patch", plevel: 1, env: patch_env
