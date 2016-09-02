@@ -22,6 +22,7 @@ dependency "config_guess"
 
 license "MIT"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 source url: "http://downloads.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz",
        md5: "dd7dab7a5fea97d2a6a43f511449b7cd"

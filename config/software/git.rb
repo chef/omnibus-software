@@ -19,6 +19,7 @@ default_version "2.8.2"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
+skip_transitive_dependency_licensing true
 
 dependency "curl"
 dependency "zlib"

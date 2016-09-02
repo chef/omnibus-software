@@ -23,6 +23,7 @@ dependency "cacerts"
 
 license "MIT"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 version "7.47.1" do
   source md5: "3f9d1be7bf33ca4b8c8602820525302b"
