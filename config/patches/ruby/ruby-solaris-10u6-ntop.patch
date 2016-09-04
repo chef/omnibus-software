@@ -1,0 +1,33 @@
+diff --git a/ext/socket/ancdata.c b/ext/socket/ancdata.c
+index 02766ba..cac76ed 100644
+--- a/ext/socket/ancdata.c
++++ b/ext/socket/ancdata.c
+@@ -8,6 +8,28 @@ static VALUE sym_wait_readable, sym_wait_writable;
+ #if defined(HAVE_STRUCT_MSGHDR_MSG_CONTROL)
+ static VALUE rb_cAncillaryData;
+ 
++#if !defined HAVE_INET_NTOP && ! defined _WIN32
++static const char *
++inet_ntop(int af, const void *addr, char *numaddr, size_t numaddr_len)
++{
++#ifdef HAVE_INET_NTOA
++    struct in_addr in;
++    memcpy(&in.s_addr, addr, sizeof(in.s_addr));
++    snprintf(numaddr, numaddr_len, "%s", inet_ntoa(in));
++#else
++    unsigned long x = ntohl(*(unsigned long*)addr);
++    snprintf(numaddr, numaddr_len, "%d.%d.%d.%d",
++	     (int) (x>>24) & 0xff, (int) (x>>16) & 0xff,
++	     (int) (x>> 8) & 0xff, (int) (x>> 0) & 0xff);
++#endif
++    return numaddr;
++}
++#elif defined __MINGW32__
++# define inet_ntop(f,a,n,l)      rb_w32_inet_ntop(f,a,n,l)
++#elif defined _MSC_VER && RUBY_MSVCRT_VERSION < 90
++const char *WSAAPI inet_ntop(int, const void *, char *, size_t);
++#endif
++
+ static VALUE
+ constant_to_sym(int constant, ID (*intern_const)(int))
+ {

@@ -1,18 +1,22 @@
-diff --git a/include/yaml.h b/include/yaml.h
-index 5a04d36..70d839e 100644
 --- a/include/yaml.h
 +++ b/include/yaml.h
-@@ -29,7 +29,7 @@ extern "C" {
- #ifdef _WIN32
- #   if defined(YAML_DECLARE_STATIC)
- #       define  YAML_DECLARE(type)  type
+@@ -26,15 +26,7 @@
+ 
+ /** The public API declaration. */
+ 
+-#ifdef _WIN32
+-#   if defined(YAML_DECLARE_STATIC)
+-#       define  YAML_DECLARE(type)  type
 -#   elif defined(YAML_DECLARE_EXPORT)
-+#   elif defined(YAML_DECLARE_EXPORT) || defined(DLL_EXPORT)
- #       define  YAML_DECLARE(type)  __declspec(dllexport) type
- #   else
- #       define  YAML_DECLARE(type)  __declspec(dllimport) type
-diff --git a/src/Makefile b/src/Makefile
-index b72224d..a413ce0 100644
+-#       define  YAML_DECLARE(type)  __declspec(dllexport) type
+-#   else
+-#       define  YAML_DECLARE(type)  __declspec(dllimport) type
+-#   endif
+-#else
++#if defined(__MINGW32__)
+ #   define  YAML_DECLARE(type)  type
+ #endif
+
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -219,7 +219,7 @@ top_srcdir = ..

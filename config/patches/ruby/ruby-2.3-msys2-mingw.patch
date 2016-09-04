@@ -1,0 +1,19 @@
+--- a/tool/rbinstall.rb
++++ b/tool/rbinstall.rb
+@@ -276,14 +276,12 @@ def open_for_install(path, mode)
+ 
+ def with_destdir(dir)
+   return dir if !$destdir or $destdir.empty?
+-  dir = dir.sub(/\A\w:/, '') if File::PATH_SEPARATOR == ';'
+   $destdir + dir
+ end
+ 
+ def without_destdir(dir)
+-  return dir if !$destdir or $destdir.empty? or !dir.start_with?($destdir)
+-  dir = dir.sub(/\A\w:/, '') if File::PATH_SEPARATOR == ';'
+-  dir[$destdir.size..-1]
++  return dir if !$destdir or $destdir.empty?
++  dir.start_with?($destdir) ? dir[$destdir.size..-1] : dir
+ end
+ 
+ def prepare(mesg, basedir, subdirs=nil)
