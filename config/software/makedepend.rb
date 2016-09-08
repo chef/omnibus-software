@@ -33,10 +33,6 @@ dependency "pkg-config-lite"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if solaris_10?
-    env["PKG_CONFIG"] = "#{install_dir}/embedded/bin/pkg-config"
-  end
-
   command "./configure --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env

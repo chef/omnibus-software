@@ -25,7 +25,6 @@ license_file "COPYING.LIB"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
-dependency "patch" if solaris_10?
 
 source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
        md5: "e34509b1623cec449dfeb73d7ce9c6c6"
