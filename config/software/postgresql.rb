@@ -72,6 +72,10 @@ version "9.4.0" do
   source md5: "8cd6e33e1f8d4d2362c8c08bd0e8802b"
 end
 
+version "9.3.14" do
+  source sha256: "5c4322f1c42ba1ff4b28383069c56663b46160bb08e85d41fa2ab9a5009d039d"
+end
+
 version "9.3.10" do
   source md5: "ec2365548d08f69c8023eddd4f2d1a28"
 end
