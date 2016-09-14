@@ -32,8 +32,11 @@ dependency "bundler"
 build do
   env = with_embedded_path()
 
-  # Do not install development dependencies
-  bundle "install --without development development_extras rbx", env: env
+  # We should not be installing development dependencies either, but
+  # this upstream bug causes issues between libyajl2-gem and ffi-yajl
+  # (specifically, "corrupted Gemfile.lock" failures)
+  # https://github.com/bundler/bundler/issues/4467
+  bundle "install --without development_extras", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"
