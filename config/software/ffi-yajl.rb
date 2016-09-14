@@ -32,7 +32,8 @@ dependency "bundler"
 build do
   env = with_embedded_path()
 
-  bundle "install --without development_extras", env: env
+  # Do not install development dependencies
+  bundle "install --without development development_extras rbx", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"
