@@ -20,6 +20,9 @@ relative_path "ffi-yajl"
 
 source git: "https://github.com/opscode/ffi-yajl.git"
 
+license "MIT"
+license_file "LICENSE"
+
 dependency "ruby"
 
 dependency "rubygems"
