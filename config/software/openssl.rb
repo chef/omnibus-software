@@ -95,7 +95,8 @@ build do
       platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
       "/bin/sh ./Configure #{platform} -static-libgcc"
     elsif solaris_11?
-      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+      platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
+      "/bin/bash ./Configure #{platform} -static-libgcc"
     elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
