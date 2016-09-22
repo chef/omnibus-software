@@ -23,14 +23,14 @@ dependency "libgcc"
 dependency "makedepend"
 
 
-default_version "1.0.2h"
+default_version "1.0.2i"
 source url: "https://www.openssl.org/source/#{name}-#{version}.tar.gz",
-       sha256: "1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919"
+       sha256: "9287487d11c9545b6efb287cdb70535d4e9b284dd10d51441d9b9963d000de6f"
 
 relative_path "openssl-#{version}"
 
 build do
-  patch :source => "openssl-1.0.2h-do-not-build-docs.patch"
+  patch :source => "openssl-1.0.2i-do-not-build-docs.patch"
 
   env = case ohai['platform']
         when "mac_os_x"
