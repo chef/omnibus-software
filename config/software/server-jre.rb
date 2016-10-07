@@ -21,7 +21,13 @@ raise "Server-jre can only be installed on x86_64 systems." unless _64_bit?
 
 license "Oracle-Binary"
 license_file "LICENSE"
-license_file "http://java.com/license"
+#
+# October 2016 (ssd):
+# Unfortunately http://java.com/license/ redirects to https://java.com/license/
+# which then redirects to http://www.oracle.com/technetwork/java/javase/terms/license/
+# triggering a bad redirect error.
+#
+license_file "http://www.oracle.com/technetwork/java/javase/terms/license/"
 skip_transitive_dependency_licensing true
 
 whitelist_file "jre/bin/javaws"
