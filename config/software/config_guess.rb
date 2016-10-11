@@ -17,8 +17,8 @@
 name "config_guess"
 default_version "master"
 
-# occasionally http protocol downloads get 500s, so we use git://
-source git: "git://git.sv.gnu.org/config.git"
+# Use our github mirror of the savannah repository
+source git: "https://github.com/chef/config-mirror.git"
 
 # http://savannah.gnu.org/projects/config
 license "GPL-3.0 (with exception)"
