@@ -23,6 +23,9 @@ license_file "https://github.com/theory/sqitch/blob/master/README.md"
 dependency "perl"
 dependency "cpanminus"
 
+# install a LGPL-licensed version of libintl-perl:
+dependency "libintl-perl"
+
 version "0.9994" do
   source md5: "7227dfcd141440f23d99f01a2b01e0f2"
 end
