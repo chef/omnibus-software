@@ -13,5 +13,5 @@ build do
     "PATH" => "/#{install_dir}/embedded/bin:#{ENV['PATH']}",
     "ARCHFLAGS" => "-arch x86_64"
   }
-  command "#{install_dir}/embedded/bin/pip install -I #{name}==#{version}", :env => build_env
+  command "#{install_dir}/embedded/bin/pip install #{name}==#{version}", :env => build_env
 end
