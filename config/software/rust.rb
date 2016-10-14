@@ -39,7 +39,7 @@ if windows?
     arch = "i686"
 
     version "1.12.0" do
-      source sha256: "1662a0a706b71402a358f36b9d2415983bf96e491b61eece2f56744c12ca9e24",
+      source sha256: "15f5e3d41984afc14be7858d88ee9de0945352ab0df6e2954a1a872dad4ed343",
              url: url_template % { host_triple: host_triple, arch: arch }
     end
 
@@ -58,6 +58,11 @@ if windows?
              url: url_template % { host_triple: host_triple, arch: arch }
     end
   else
+    version "1.12.0" do
+      source sha256: "66bf7cd73400f1046a971870735f5aad17d1b12a3b93f7c6d8fdb4b381d31365",
+             url: url_template % { host_triple: host_triple, arch: arch }
+    end
+
     version "1.9.0" do
       source sha256: "0b052f2c7541dd10ad7ea61402a6a4381acbac4bb43feef6bd8ee89c5d815412",
              url: url_template % { host_triple: host_triple, arch: arch }
@@ -78,7 +83,7 @@ elsif mac_os_x?
   host_triple = "apple-darwin"
 
   version "1.12.0" do
-    source sha256: "a4d3a19acc1d7a5f1fa42b52c17f72f19edac594612de9b54128477d4ee2f5e5",
+    source sha256: "608c4530dcbd2e29c9600a0743b1a83a62556c9525385a7e1a7ba4aa1467a132",
            url: url_template % { host_triple: host_triple, arch: arch }
   end
 
