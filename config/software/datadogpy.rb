@@ -1,5 +1,5 @@
 name "datadogpy"
-default_version "0.10.0"
+default_version "0.14.0"
 
 dependency "python"
 dependency "pip"
