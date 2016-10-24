@@ -90,6 +90,8 @@ build do
       "./Configure darwin64-x86_64-cc"
     elsif smartos?
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+    elsif omnios?
+      "/bin/bash ./Configure solaris-x86-gcc"
     elsif solaris_10?
       # This should not require a /bin/sh, but without it we get
       # Errno::ENOEXEC: Exec format error

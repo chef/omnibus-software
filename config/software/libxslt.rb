@@ -38,7 +38,7 @@ build do
 
   env = with_standard_compiler_flags(with_embedded_path)
 
-  patch source: "libxslt-solaris-configure.patch", env: env if solaris?
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris? || omnios?
 
   # the libxslt configure script iterates directories specified in
   # --with-libxml-prefix looking for the libxml2 config script. That
