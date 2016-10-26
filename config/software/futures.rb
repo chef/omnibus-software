@@ -5,6 +5,6 @@ dependency "python"
 dependency "pip"
 
 build do
-  ship_license "https://pythonfutures.googlecode.com/hg/LICENSE"
+  ship_license "https://raw.githubusercontent.com/agronholm/pythonfutures/master/LICENSE"
   command "#{install_dir}/embedded/bin/pip install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
 end
