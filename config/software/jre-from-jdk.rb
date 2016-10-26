@@ -21,8 +21,8 @@
 name "jre-from-jdk"
 default_version "8u91"
 
-unless armhf?
-  raise "The 'jre-from-jdk' can only be installed on armhf"
+unless _64_bit? || armhf?
+  raise "The 'jre-from-jdk' can only be installed on armhf and x86_64"
 end
 
 license "Oracle-Binary"
@@ -39,8 +39,16 @@ license_cookie = "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-s
 
 version "8u91" do
   # https://www.oracle.com/webfolder/s/digest/8u91checksum.html
-  source url: "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-arm32-vfp-hflt.tar.gz",
-         md5: "1dd3934a493b474dd79b50adbd6df6a2",
+  if armhf?
+    file = "jdk-8u91-linux-arm32-vfp-hflt.tar.gz"
+    md5 = "1dd3934a493b474dd79b50adbd6df6a2"
+  else
+    file = "jdk-8u91-linux-x64.tar.gz"
+    md5 = "3f3d7d0cd70bfe0feab382ed4b0e45c0"
+  end
+
+  source url: "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/#{file}",
+         md5: md5,
          cookie: license_cookie,
          warning: license_warning,
          unsafe: true
