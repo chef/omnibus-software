@@ -44,7 +44,7 @@ license_cookie = "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-s
 version "8u91" do
   # https://www.oracle.com/webfolder/s/digest/8u91checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/server-jre-8u91-linux-x64.tar.gz",
-         md5: "3f3d7d0cd70bfe0feab382ed4b0e45c0",
+         md5: "c8aefc3b97328d6f5197315fa6507bbf",
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
