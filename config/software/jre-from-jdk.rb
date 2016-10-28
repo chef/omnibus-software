@@ -27,6 +27,7 @@ end
 
 license "Oracle-Binary"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
