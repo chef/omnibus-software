@@ -37,6 +37,7 @@ if version && !source
     "2.4.4" => "440a89ad6a3b1b7a69b034233cc4658e",
     "2.4.5" => "5918319a439c33ac75fbbad7fd60749d",
     "2.4.8" => "dc77b51449dffe5b31776bff826bf559",
+    "2.6.7" => "9cd4c5bdc70b525dfacd96e471a64605",
   }
   known_tarballs.each do |version, md5|
     self.version version do
