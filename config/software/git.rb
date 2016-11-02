@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.8.2"
+default_version "2.10.2"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -29,6 +29,10 @@ dependency "libiconv"
 dependency "expat"
 
 relative_path "git-#{version}"
+
+version "2.10.2" do
+  source md5: "45e8b30a9e7c1b734128cc0fc6663619"
+end
 
 version "2.8.2" do
   source md5: "3022d8ebf64b35b9704d5adf54b256f9"
@@ -117,6 +121,9 @@ build do
     # old style -R for libraries and as a result, xlc will ignore it. In this case, we
     # we want that to happen because we explicitly set the libpath with the correct
     # command line argument in omnibus itself.
+    if version.satisfies?(">=2.10.2")
+      config_hash["NO_REGEX"] = "NeedsStartEnd"
+    end
   else
     # Linux things!
     config_hash["HAVE_PATHS_H"] = "YesPlease"
