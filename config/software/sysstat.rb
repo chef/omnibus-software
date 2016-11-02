@@ -1,8 +1,8 @@
 name "sysstat"
 default_version "11.1.3"
 
-source :url => "http://perso.orange.fr/sebastien.godard/sysstat-#{version}.tar.xz",
-       :md5 => "27385bcb6c1e585de8ba7cb25ac67aef"
+source url: "https://github.com/sysstat/sysstat/archive/v#{version}.tar.gz",
+       sha256: "e76dff7fa9246b94c4e1efc5ca858422856e110f09d6a58c5bf6000ae9c9d16e"
 
 relative_path "sysstat-#{version}"
 
@@ -13,7 +13,7 @@ env = {
 }
 
 build do
-  ship_source "http://perso.orange.fr/sebastien.godard/sysstat-#{version}.tar.xz"
+  ship_source "https://github.com/sysstat/sysstat/archive/v#{version}.tar.gz"
   ship_license "https://raw.githubusercontent.com/sysstat/sysstat/master/COPYING"
   command(["./configure",
        "--prefix=#{install_dir}/embedded",
