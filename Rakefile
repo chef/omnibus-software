@@ -21,7 +21,6 @@ task :build do
   OmnibusSoftware.build_software(software_name, path)
 end
 
-
 task :fetch_all do
   rake_fakeout
   path = ARGV[1] || "."
