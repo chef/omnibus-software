@@ -17,11 +17,18 @@
 name "inspec"
 default_version "master"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 source git: "https://github.com/chef/inspec.git"
 
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
+dependency "nokogiri"
+# Dependency added to avoid this pry error:
+# "Sorry, you can't use Pry without Readline or a compatible library."
+dependency "rb-readline"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
