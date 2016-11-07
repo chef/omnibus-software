@@ -37,10 +37,9 @@ build do
     env["ABI"] = "32"
   end
 
-  configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
+  configure_command = "--prefix=#{install_dir}/embedded"
 
-  command configure_command.join(" "), env: env
+  configure configure_command, env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end
