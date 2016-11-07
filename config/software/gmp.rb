@@ -17,6 +17,7 @@
 name "gmp"
 default_version "6.0.0a"
 
+version("6.1.1")  { source md5: "4c175f86e11eb32d8bf9872ca3a8e11d" }
 version("6.1.0")  { source md5: "86ee6e54ebfc4a90b643a65e402c4048" }
 version("6.0.0a") { source md5: "b7ff2d88cae7f8085bd5006096eed470" }
 
