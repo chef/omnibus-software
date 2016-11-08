@@ -28,9 +28,12 @@ relative_path "make-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure" \
-          " --disable-nls" \
-          " --prefix=#{install_dir}/embedded", env: env
+  configure_args = [
+    "--disable-nls",
+    "--prefix=#{install_dir}/embedded",
+  ]
+
+  configure configure_args.join(" "), env: env
 
   make "-j #{workers}", env: env
   make "install", env: env
