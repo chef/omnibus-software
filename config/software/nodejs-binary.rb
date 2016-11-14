@@ -35,6 +35,8 @@ version "6.7.0" do
                   "de8e4ca71caa8be6eaf80e65b89de2a6d152fa4ce08efcbc90ce7e1bfdf130e7"
                 elsif ppc64?
                   "e8ce540b592d337304a10f4eb19bb4efee889c6676c5f188d072bfb2a8089927"
+                elsif s390x?
+                  "e0f2616b4beb4c2505edb19e3cbedbf3d1c958441517cc9a1e918f6feaa4b95b"
                 else
                   "abe81b4150917cdbbeebc6c6b85003b80c972d32c8f5dfd2970d32e52a6877af"
                 end
@@ -45,6 +47,8 @@ arch_ext = if ppc64le?
              "ppc64le"
            elsif ppc64?
              "ppc64"
+           elsif s390x?
+             "s390x"
            else
              "x64"
            end
