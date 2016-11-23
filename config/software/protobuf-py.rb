@@ -23,7 +23,7 @@ build do
 
     # Note: RHEL5 is equipped with gcc4.1 that is not supported by Protobuf (it actually crashes during the build)
     # so we use the official package from PyPI and skip the CPP extension for the time being.
-    if ohai['platform_family'] != 'rhel' && ohai['platform_family'] != 'suse'
+    if ohai['platform_family'] == 'debian'
         # C++ runtime
         command ["cd .. && ./configure",
                  "--prefix=#{install_dir}/embedded",
@@ -45,6 +45,6 @@ build do
         delete "#{install_dir}/embedded/lib/libprotoc.*"
         delete "#{install_dir}/embedded/bin/protoc"
     else
-        command "#{install_dir}/embedded/bin/pip install protobuf==#{rhel_pip_version}"
+        pip "install protobuf==#{rhel_pip_version}"
     end
 end
