@@ -5,7 +5,7 @@ source :url => "https://gitlab.com/procps-ng/procps/repository/archive.tar.gz?re
        :sha256 => '86421ed15ad84895c0defe6f4e42a1c1e3e901a2a8fced4ac5457157a3448237',
        :extract => :seven_zip
 
-relative_path "procps-ng-3.3.9"
+relative_path "procps-v3.3.9-85fff468fa263cdd2ff1c0144579527c32333695"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
