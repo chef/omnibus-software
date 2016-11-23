@@ -1,8 +1,6 @@
 name "procps-ng"
 default_version "3.3.9"
 
-dependency 'ncurses'
-
 source :url => "https://gitlab.com/procps-ng/procps/repository/archive.tar.gz?ref=v#{version}",
        :sha256 => '86421ed15ad84895c0defe6f4e42a1c1e3e901a2a8fced4ac5457157a3448237',
        :extract => :seven_zip
