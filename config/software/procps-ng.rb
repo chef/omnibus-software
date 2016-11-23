@@ -16,6 +16,7 @@ env = {
 build do
   ship_source "https://gitlab.com/procps-ng/procps/repository/archive.tar.gz?ref=v#{version}"
   ship_license "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
+  command "./autogen.sh"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--without-ncurses",
