@@ -18,24 +18,26 @@ name "openssl-windows"
 
 license "OpenSSL"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
 dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
+dependency "openssl-fips" if fips_enabled
 
-# If you upgrade OpenSSl, you'll probably have to upgrade the `cyptography` module as well
-default_version "1.0.1t"
+default_version "1.0.2j"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
-# source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
-source url: "https://dd-agent-omnibus.s3.amazonaws.com/openssl-#{version}.tar.gz", extract: :seven_zip
+source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
-# We have not tested version 1.0.2. It's here so we can run experimental builds
-# to verify that it still compiles on all our platforms.
+version("1.0.2j") { source sha256: "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431" }
+version("1.0.2i") { source sha256: "9287487d11c9545b6efb287cdb70535d4e9b284dd10d51441d9b9963d000de6f" }
+version("1.0.2h") { source sha256: "1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919" }
 version("1.0.2g") { source md5: "f3c710c045cdee5fd114feb69feba7aa" }
+version("1.0.1u") { source sha256: "4312b4ca1215b6f2c97007503d80db80d5157f76f8f7d3febbe6b4c56ff26739" }
 version("1.0.1t") { source md5: "9837746fcf8a6727d46d22ca35953da1" }
 version("1.0.1s") { source md5: "562986f6937aabc7c11a6d376d8a0d26" }
 version("1.0.1r") { source md5: "1abd905e079542ccae948af37e393d28" }
@@ -44,7 +46,7 @@ relative_path "openssl-#{version}"
 
 build do
 
-  env = with_standard_compiler_flags(with_embedded_path({}, msys: true), bfd_flags: true)
+  env = with_standard_compiler_flags(with_embedded_path)
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
   elsif freebsd?
@@ -56,8 +58,7 @@ build do
     # and the 32-bit calling convention involving XMM registers is...  vague.
     # Do not enable SSE2 generally because the hand optimized assembly will
     # overwrite registers that mingw expects to get preserved.
-    arch_flag = windows_arch_i386? ? "-m32" : "-m64"
-    env["CFLAGS"] = "-I#{install_dir}/embedded/include #{arch_flag}"
+    env["CFLAGS"] = "-I#{install_dir}/embedded/include"
     env["CPPFLAGS"] = env["CFLAGS"]
     env["CXXFLAGS"] = env["CFLAGS"]
   end
@@ -89,13 +90,16 @@ build do
       "./Configure darwin64-x86_64-cc"
     elsif smartos?
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+    elsif omnios?
+      "/bin/bash ./Configure solaris-x86-gcc"
     elsif solaris_10?
       # This should not require a /bin/sh, but without it we get
       # Errno::ENOEXEC: Exec format error
       platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
-      "/bin/sh ./Configure #{platform}"
+      "/bin/sh ./Configure #{platform} -static-libgcc"
     elsif solaris_11?
-      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+      platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
+      "/bin/bash ./Configure #{platform} -static-libgcc"
     elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
@@ -103,8 +107,10 @@ build do
       prefix =
         if linux? && ppc64?
           "./Configure linux-ppc64"
-        elsif linux? && ohai["kernel"]["machine"] == "s390x"
-          "./Configure linux64-s390x"
+        elsif linux? && s390x?
+          # With gcc > 4.3 on s390x there is an error building
+          # with inline asm enabled
+          "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
         else
           "./config"
         end
@@ -125,12 +131,8 @@ build do
   end
 
   if windows?
-    # Patch Makefile.shared to let us set the bit-ness of the resource compiler.
-    patch source: "openssl-1.0.1q-take-windres-rcflags.patch", env: env
     # Patch Makefile.org to update the compiler flags/options table for mingw.
     patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
-    # Patch Configure to call ar.exe without anooying it.
-    patch source: "openssl-1.0.1q-ar-needs-operation-before-target.patch", env: env
   end
 
   # Out of abundance of caution, we put the feature flags first and then
