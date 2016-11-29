@@ -15,7 +15,7 @@
 #
 
 name "git-windows"
-default_version "2.8.2"
+default_version "2.10.2"
 
 license "LGPL-2.1"
 # the license file does not ship in the portable git package so pull from the source repo
@@ -27,9 +27,11 @@ source url: "https://github.com/git-for-windows/git/releases/download/v#{version
 if windows_arch_i386?
   version("2.8.1") { source sha256: "0b6efaaeb4b127edb3a534261b2c9175bd86ee8683dff6e12ccb194e6abb990e" }
   version("2.8.2") { source sha256: "da25bc12efa864cda53dc6485c84dd8b0d41883dd360db505c026c284ef58d8e" }
+  version("2.10.2") { source sha256: "edc616817e96a6f15246bb0dd93c97e53d38d3b2a0b7375f26bd0bd082c41a73" }
 else
   version("2.8.1") { source sha256: "dc9d971156cf3b6853bc0c1ad0ca76f1d2c24478cca80036919f12fe46acd64e" }
   version("2.8.2") { source sha256: "553acbf46bacc67c73b954689ad3d9ac294bf9cbe249a5b78159a1f92f37105b" }
+  version("2.10.2") { source sha256: "101314826892480043d5b11989726fc8ee448991eb7b0a1c61aca751161bc15b" }
 end
 
 # The git portable archives come with their own copy of posix related tools
