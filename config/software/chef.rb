@@ -87,8 +87,8 @@ build do
         env: env
   end
 
-  appbundle "chef"
-  appbundle "ohai"
+  appbundle "chef", env: env
+  appbundle "ohai", env: env
 
   # Clean up
   # TODO: Move this cleanup to a more appropriate place that's common to all
