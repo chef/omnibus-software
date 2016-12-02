@@ -38,13 +38,14 @@ build do
                      "--prefix=#{install_dir}/embedded",
                      "--disable-nls",
                      "--enable-languages=c,c++",
-                     "--with-as=/usr/ccs/bin/as",
-                     "--with-ld=/usr/ccs/bin/ld"]
+                     "--disable-multilib"]
 
   command configure_command.join(" "), env: env
   # gcc takes quite a long time to build (over 2 hours) so we're setting the mixlib shellout
   # timeout to 4 hours. It's not great but it's required (on solaris at least, need to verify
   # on any other platforms we may use this with)
-  make "-j #{workers}", env: env, timeout: 14400
-  make "-j #{workers} install", env: env
+  # gcc also has issues on a lot of platforms when running a multithreaded job,
+  # so unfortunately we have to build with 1 worker :(
+  make env: env, timeout: 14400
+  make "install", env: env
 end
