@@ -3,6 +3,7 @@
 Gemfile.lock
 pkg/*
 /binstubs
+/bin
 
 # avoid generic ctags files
 tags
