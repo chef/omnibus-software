@@ -41,9 +41,16 @@ build do
     # We can't use the top-level Makefile. Instead, the developers have made
     # an organic, artisanal, hand-crafted Makefile.gcc for us which takes a few
     # variables.
-    env["BINARY_PATH"] = "#{install_dir}/embedded/bin"
-    env["LIBRARY_PATH"] = "#{install_dir}/embedded/lib"
-    env["INCLUDE_PATH"] = "#{install_dir}/embedded/include"
+    if ENV["MSYS_TOOLCHAIN"]
+      env["BINARY_PATH"] = "#{install_dir}/embedded/bin"
+      env["LIBRARY_PATH"] = "#{install_dir}/embedded/lib"
+      env["INCLUDE_PATH"] = "#{install_dir}/embedded/include"
+    else
+      env["BINARY_PATH"] = "/bin"
+      env["LIBRARY_PATH"] = "/lib"
+      env["INCLUDE_PATH"] = "/include"
+      env["DESTDIR"] = "#{install_dir}/embedded"
+    end
 
     make_args = [
       "-fwin32/Makefile.gcc",
@@ -51,7 +58,6 @@ build do
       "CFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "ASFLAGS=\"#{env['CFLAGS']} -Wall\"",
       "LDFLAGS=\"#{env['LDFLAGS']}\"",
-      "-j #{workers}",
     ]
 
     # The win32 makefile for zlib does not handle parallel make correctly.
@@ -64,6 +70,10 @@ build do
     #
     # We currently sidestep this by doing make install which only builds
     # and strips the core library and none of the example files.
+    make_args << "-j #{workers}" if ENV["MSYS_TOOLCHAIN"]
+
+    make(*make_args, env: env) unless ENV["MSYS_TOOLCHAIN"]
+
     make("install", *make_args, env: env)
   else
     # We omit the omnibus path here because it breaks mac_os_x builds by picking

@@ -234,9 +234,14 @@ build do
   env["PKG_CONFIG"] = "/bin/true" if aix?
 
   configure(*configure_command, env: env)
-  pmake = "-j #{workers}" unless windows?
-  make pmake, env: env
-  make "#{pmake} install", env: env
+  if ENV["MSYS_TOOLCHAIN"]
+    pmake = "-j #{workers}" unless windows?
+    make pmake, env: env
+    make "#{pmake} install", env: env
+  else
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
 
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
