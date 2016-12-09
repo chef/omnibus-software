@@ -34,7 +34,7 @@ end
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   configure_string = <<EOF
-./configure --with-ssl=#{install_dir}/embedded --prefix=#{install_dir}/embedded
+./configure --with-ssl=#{install_dir}/embedded --prefix=#{install_dir}/embedded --enable-fips
 EOF
   command configure_string, env: env
   make env: env
