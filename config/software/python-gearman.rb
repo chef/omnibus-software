@@ -6,11 +6,7 @@ dependency "pip"
 
 build do
   ship_license "https://raw.githubusercontent.com/Yelp/python-gearman/master/LICENSE.txt"
-  if ohai['platform'] == 'windows'
-    pip "install --install-option=\"--install-scripts="\
-             "'#{windows_safe_path(install_dir)}\\bin'\" gearman==#{version}"
-  else
-    pip "install --install-option=\"--install-scripts="\
-             "#{install_dir}/bin\" gearman==#{version}"
-  end
+  pip "install --install-option=\"--install-scripts="\
+      "#{windows_safe_path(install_dir)}/bin\" "\
+      "gearman==#{version}"
 end

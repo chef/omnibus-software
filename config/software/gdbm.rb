@@ -21,8 +21,7 @@ default_version "1.11"
 dependency "libgcc"
 
 source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
-       :md5 => "72c832680cf0999caedbe5b265c8c1bd",
-       :extract => :seven_zip
+       :md5 => "72c832680cf0999caedbe5b265c8c1bd"
 
 relative_path "gdbm-#{version}"
 

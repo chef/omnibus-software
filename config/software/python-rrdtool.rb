@@ -1,5 +1,5 @@
 name "python-rrdtool"
-default_version "1.4.7"
+default_version "1.3.8"
 dependency "python"
 
 build do

@@ -1,5 +1,5 @@
 name "cryptography"
-default_version "1.3.2"
+default_version "1.6"
 
 dependency "python"
 dependency "pip"
@@ -7,5 +7,5 @@ dependency "openssl-windows"
 
 build do
   ship_license "https://github.com/pyca/cryptography/blob/master/LICENSE.APACHE"
-  pip "install -I cryptography==#{version}"
+  pip "install cryptography==#{version}"
 end

@@ -6,11 +6,7 @@ dependency "pip"
 
 build do
   ship_license "https://raw.githubusercontent.com/andymccurdy/redis-py/master/LICENSE"
-  if ohai['platform'] == 'windows'
-    pip "install --install-option=\"--install-scripts='"\
-             "#{windows_safe_path(install_dir)}\\bin\" redis==#{version}"
-  else
-    pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" "\
-             "redis==#{version}"
-  end
+  pip "install --install-option=\"--install-scripts="\
+      "#{windows_safe_path(install_dir)}/bin\" "\
+      "redis==#{version}"
 end

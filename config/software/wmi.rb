@@ -6,5 +6,5 @@ dependency 'pip'
 
 build do
   ship_license 'MIT'
-  pip "install -I #{name}==#{version}"
+  pip "install #{name}==#{version}"
 end

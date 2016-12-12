@@ -39,7 +39,7 @@ build do
         # Python lib
         command "#{install_dir}/embedded/bin/python setup.py build --cpp_implementation", :env => env
         command "#{install_dir}/embedded/bin/python setup.py test --cpp_implementation", :env => env
-        command "#{install_dir}/embedded/bin/pip install . --install-option=\"--cpp_implementation\""
+        pip "install . --install-option=\"--cpp_implementation\""
 
         # We don't need protoc anymore
         delete "#{install_dir}/embedded/lib/libprotoc.*"
