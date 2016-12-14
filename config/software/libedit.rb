@@ -29,7 +29,8 @@ version "20130712-3.1" do
   source md5: "0891336c697362727a1fa7e60c5cb96c"
 end
 
-source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
+source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz",
+       :extract => :seven_zip
 
 relative_path "libedit-#{version}"
 

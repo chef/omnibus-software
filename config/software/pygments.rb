@@ -21,5 +21,5 @@ default_version "1.6"
 dependency "pip"
 
 build do
-  command "#{install_dir}/embedded/bin/pip install --build #{project_dir} #{name}==#{version}"
+  pip "install --build #{project_dir} #{name}==#{version}"
 end

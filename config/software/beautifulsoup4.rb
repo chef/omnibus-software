@@ -6,5 +6,5 @@ dependency "pip"
 
 build do
   ship_license "http://bazaar.launchpad.net/~leonardr/beautifulsoup/bs4/download/head:/copying-20110228012957-7ptf6yxua0sj3vhn-1/LICENSE"
-  command "#{install_dir}/embedded/bin/pip install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
+  pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
 end

@@ -13,7 +13,7 @@ env = {
 }
 
 build do
-  ship_source "http://dd-accgent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz"
+  ship_source "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz"
   ship_license "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",

@@ -6,5 +6,5 @@ dependency "pip"
 
 build do
   ship_license "https://raw.githubusercontent.com/rthalley/dnspython/v1.12.0/LICENSE"
-  command "#{install_dir}/embedded/bin/pip install --install-option=\"--install-scripts=#{install_dir}/bin\" dnspython==#{version}"
+  pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" dnspython==#{version}"
 end

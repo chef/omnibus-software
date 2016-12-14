@@ -6,5 +6,7 @@ dependency "pip"
 dependency "virtualenv"
 
 build do
-  command "#{install_dir}/embedded/bin/pip install -I --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
+  pip "install --install-option=\"--install-scripts="\
+      "#{windows_safe_path(install_dir)}/bin\" "\
+      "#{name}==#{version}"
 end

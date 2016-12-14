@@ -1,8 +1,8 @@
 name "sysstat"
 default_version "11.1.3"
 
-source url: "https://github.com/sysstat/sysstat/archive/v#{version}.tar.gz",
-       sha256: "e76dff7fa9246b94c4e1efc5ca858422856e110f09d6a58c5bf6000ae9c9d16e"
+source :url => "https://github.com/sysstat/sysstat/archive/v#{version}.tar.gz",
+       :sha256 => "e76dff7fa9246b94c4e1efc5ca858422856e110f09d6a58c5bf6000ae9c9d16e"
 
 relative_path "sysstat-#{version}"
 

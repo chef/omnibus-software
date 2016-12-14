@@ -12,5 +12,5 @@ dependency "python"
 dependency "pip"
 
 build do
-  command "#{install_dir}/embedded/bin/pip install #{name}==#{version}"
+  pip "install #{name}==#{version}"
 end

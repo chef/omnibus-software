@@ -8,5 +8,5 @@ env = {
 }
 
 build do
-  command "#{install_dir}/embedded/bin/pip install -U py2app", :env => env
+  pip "install -U py2app", :env => env
 end

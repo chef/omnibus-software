@@ -1,0 +1,11 @@
+--- openssl-1.0.1q/Makefile.org.orig	2015-12-15 17:34:30.000000000 -0500
++++ openssl-1.0.1q/Makefile.org	2015-12-15 18:38:03.000000000 -0500
+@@ -64,7 +64,7 @@
+ EX_LIBS=
+ EXE_EXT=
+ ARFLAGS=
+-AR=ar $(ARFLAGS) r
++AR=ar r $(ARFLAGS)
+ RANLIB= ranlib
+ NM= nm
+ PERL= perl

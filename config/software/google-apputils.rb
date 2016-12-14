@@ -11,6 +11,8 @@ default_version "0.4.2"
 dependency "python"
 dependency "pip"
 
+# Required by snakebite
+
 build do
-  command "#{install_dir}/embedded/bin/pip install #{name}==#{version}"
+    pip "install #{name}==#{version}"
 end

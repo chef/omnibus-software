@@ -6,5 +6,7 @@ dependency "pip"
 
 build do
   ship_license "PSFL"
-  command "#{install_dir}/embedded/bin/pip install -I --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
+  pip "install -I --install-option=\"--install-scripts="\
+      "#{windows_safe_path(install_dir)}/bin\" "\
+      "#{name}==#{version}"
 end
