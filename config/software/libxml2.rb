@@ -19,6 +19,7 @@ default_version "2.9.4"
 
 license "MIT"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 dependency "zlib"
 dependency "libiconv"
@@ -46,9 +47,6 @@ build do
     "--without-python",
     "--without-icu",
   ]
-
-  # solaris 10 ipv6 support is broken due to no inet_ntop() in -lnsl
-  configure_command << "--enable-ipv6=no" if solaris_10?
 
   update_config_guess
 

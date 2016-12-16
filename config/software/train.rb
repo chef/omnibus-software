@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,29 +14,22 @@
 # limitations under the License.
 #
 
-name "cpanminus"
-default_version "1.7004"
+name "train"
+default_version "master"
 
-license "Artistic-2.0"
-license_file "http://dev.perl.org/licenses/artistic.html"
-skip_transitive_dependency_licensing true
+source git: "https://github.com/chef/train.git"
 
-dependency "perl"
+license "Apache-2.0"
+license_file "LICENSE"
 
-version "1.7040" do
-  source md5: "4fabebffe22eaaf584b345b082a8a9c1"
-end
-
-version "1.7004" do
-  source md5: "02fe90392f33a12979e188ea110dae67"
-end
-
-source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
-
-relative_path "cpanminus-#{version}"
+dependency "ruby"
+dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "cat cpanm | perl - App::cpanminus", env: env
+  bundle "install --without development test integration tools", env: env
+
+  gem "build train.gemspec", env: env
+  gem "install train-*.gem --no-ri --no-rdoc", env: env
 end

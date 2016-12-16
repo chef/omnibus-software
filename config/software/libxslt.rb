@@ -19,12 +19,11 @@ default_version "1.1.29"
 
 license "MIT"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 dependency "libxml2"
 dependency "liblzma"
 dependency "config_guess"
-dependency "libtool" if solaris_10?
-dependency "patch" if solaris_10?
 
 version "1.1.29" do
   source md5: "a129d3c44c022de3b9dcf6d6f288d72e"
@@ -39,7 +38,7 @@ build do
 
   env = with_standard_compiler_flags(with_embedded_path)
 
-  patch source: "libxslt-solaris-configure.patch", env: env if solaris?
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris? || omnios? || smartos?
 
   # the libxslt configure script iterates directories specified in
   # --with-libxml-prefix looking for the libxml2 config script. That

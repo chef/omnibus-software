@@ -20,6 +20,7 @@ dependency "config_guess"
 
 license "GPL-3.0"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 default_version "2.7"
 

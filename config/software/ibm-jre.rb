@@ -22,6 +22,7 @@ license "IBM-Java-contractual-redistribution"
 # charge and without support or warranty to our mutual customers
 license_file "copyright"
 license_file "license_en.txt"
+skip_transitive_dependency_licensing true
 
 if ppc64?
   source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64-80.tar.xz",

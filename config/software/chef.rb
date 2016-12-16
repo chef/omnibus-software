@@ -54,7 +54,7 @@ build do
 
   # compiled ruby on windows 2k8R2 x86 is having issude compiling
   # native extensions for pry-byebug so excluding for now
-  excluded_groups = %w{server docgen maintenance pry travis}
+  excluded_groups = %w{server docgen maintenance pry travis integration}
   excluded_groups << "ruby_prof" if aix?
 
   # install the whole bundle first
@@ -87,8 +87,8 @@ build do
         env: env
   end
 
-  appbundle "chef"
-  appbundle "ohai"
+  appbundle "chef", env: env
+  appbundle "ohai", env: env
 
   # Clean up
   # TODO: Move this cleanup to a more appropriate place that's common to all

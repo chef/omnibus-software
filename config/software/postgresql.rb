@@ -19,6 +19,7 @@ default_version "9.2.10"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
+skip_transitive_dependency_licensing true
 
 dependency "zlib"
 dependency "openssl"
@@ -69,6 +70,10 @@ end
 
 version "9.4.0" do
   source md5: "8cd6e33e1f8d4d2362c8c08bd0e8802b"
+end
+
+version "9.3.14" do
+  source sha256: "5c4322f1c42ba1ff4b28383069c56663b46160bb08e85d41fa2ab9a5009d039d"
 end
 
 version "9.3.10" do

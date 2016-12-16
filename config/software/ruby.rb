@@ -20,6 +20,7 @@ license "BSD-2-Clause"
 license_file "BSDL"
 license_file "COPYING"
 license_file "LEGAL"
+skip_transitive_dependency_licensing true
 
 # - chef-client cannot use 2.2.x yet due to a bug in IRB that affects chef-shell on linux:
 #   https://bugs.ruby-lang.org/issues/11869
@@ -29,7 +30,6 @@ default_version "2.1.8"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
-dependency "patch" if solaris_10?
 dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
 dependency "zlib"
 dependency "openssl"
@@ -41,7 +41,7 @@ dependency "libyaml"
 # and that's the only one we will ever use.
 dependency "libiconv"
 
-version("2.3.1")      { source md5: "0d896c2e7fd54f722b399f407e48a4c6" }
+version("2.3.1")      { source sha256: "b87c738cb2032bf4920fef8e3864dc5cf8eae9d89d8d523ce0236945c5797dcd" }
 version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 
 version("2.2.5")      { source md5: "bd8e349d4fb2c75d90817649674f94be" }
@@ -51,7 +51,7 @@ version("2.2.2")      { source md5: "326e99ddc75381c7b50c85f7089f3260" }
 version("2.2.1")      { source md5: "b49fc67a834e4f77249eb73eecffb1c9" }
 version("2.2.0")      { source md5: "cd03b28fd0b555970f5c4fd481700852" }
 
-version("2.1.9")      { source md5: "d9d2109d3827789344cc3aceb8e1d697" }
+version("2.1.9")      { source sha256: "034cb9c50676d2c09b3b6cf5c8003585acea05008d9a29fa737c54d52c1eb70c" }
 version("2.1.8")      { source md5: "091b62f0a9796a3c55de2a228a0e6ef3" }
 version("2.1.7")      { source md5: "2e143b8e19b056df46479ae4412550c9" }
 version("2.1.6")      { source md5: "6e5564364be085c45576787b48eeb75f" }
@@ -106,7 +106,7 @@ elsif aix?
 elsif solaris_10?
   if sparc?
     # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
-    env["CFLAGS"] << " -std=c99 -O0 -g -pipe -mcpu=v9"
+    env["CFLAGS"] << " -std=c99 -O3 -g -pipe -mcpu=v9"
     env["LDFLAGS"] << " -mcpu=v9"
   else
     env["CFLAGS"] << " -std=c99 -O3 -g -pipe"
@@ -129,8 +129,6 @@ build do
 
   if solaris_10? && version.satisfies?(">= 2.1")
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
-  elsif solaris_10? && version =~ /^1.9/
-    patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1, env: patch_env
   elsif solaris_11? && version =~ /^2.1/
     patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
   end
@@ -160,7 +158,7 @@ build do
   # Fix reserve stack segmentation fault when building on RHEL5 or below
   # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
   # in Ruby trunk and expected to be included in future point releases.
-  # https://redmine.ruby-lang.org/issues/11602
+  # https://bugs.ruby-lang.org/issues/11602
   if rhel? &&
       platform_version.satisfies?("< 6") &&
       (version == "2.1.7" || version == "2.2.3")
@@ -213,6 +211,12 @@ build do
     configure_command << "ac_cv_func_dl_iterate_phdr=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   elsif windows?
+    if version.satisfies?(">= 2.3")
+      # Windows Nano Server COM libraries do not support Apartment threading
+      # instead COINIT_MULTITHREADED must be used
+      patch source: "ruby_nano.patch", plevel: 1, env: patch_env
+    end
+
     configure_command << " debugflags=-g"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"

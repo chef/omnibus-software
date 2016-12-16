@@ -18,6 +18,8 @@ name "setuptools"
 default_version "0.7.7"
 
 license "Python Software Foundation"
+license_file "https://raw.githubusercontent.com/pypa/setuptools/master/LICENSE"
+skip_transitive_dependency_licensing true
 
 dependency "python"
 

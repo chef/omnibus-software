@@ -19,6 +19,7 @@ default_version "2.7.9"
 
 license "Python-2.0"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 dependency "ncurses"
 dependency "zlib"
@@ -53,6 +54,10 @@ build do
 
   # There exists no configure flag to tell Python to not compile readline
   delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"
+
+  # Ditto for sqlite3
+  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_sqlite3.*"
+  delete "#{install_dir}/embedded/lib/python2.7/sqlite3/"
 
   # Remove unused extension which is known to make healthchecks fail on CentOS 6
   delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"

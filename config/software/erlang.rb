@@ -19,6 +19,7 @@ default_version "18.3"
 
 license "Apache-2.0"
 license_file "LICENSE.txt"
+skip_transitive_dependency_licensing true
 
 dependency "zlib"
 dependency "openssl"
@@ -133,6 +134,8 @@ build do
           " --enable-dynamic-ssl-lib" \
           " --enable-shared-zlib" \
           " --enable-hipe" \
+          " --without-wx" \
+          " --without-megaco" \
           " --without-javac" \
           " --with-ssl=#{install_dir}/embedded" \
           " --disable-debug", env: env

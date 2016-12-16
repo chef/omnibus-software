@@ -20,6 +20,9 @@ relative_path "libyajl2-gem"
 
 source git: "https://github.com/opscode/libyajl2-gem.git"
 
+license "Apache-2.0"
+license_file "LICENSE"
+
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"

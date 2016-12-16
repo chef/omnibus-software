@@ -15,12 +15,20 @@
 #
 
 name "lua"
-default_version "5.1.5"
+default_version "5.3.3"
 
-version("5.1.5") { source md5: "2e115fe26e435e33b0d5c022e4490567" }
+version("5.1.5") do
+  source md5: "2e115fe26e435e33b0d5c022e4490567"
+  license_file "COPYRIGHT" # dropped in 5.2.x
+end
+
+version("5.2.4") { source sha256: "b9e2e4aad6789b3b63a056d442f7b39f0ecfca3ae0f1fc0ae4e9614401b69f4b" }
+
+version("5.3.3") { source sha256: "5113c06884f7de453ce57702abaac1d618307f33f6789fa870e87a59d772aca2" }
 
 license "MIT"
-license_file "COPYRIGHT"
+license_file "https://www.lua.org/license.html"
+skip_transitive_dependency_licensing true
 
 source url: "https://www.lua.org/ftp/lua-#{version}.tar.gz"
 

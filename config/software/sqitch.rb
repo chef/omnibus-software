@@ -23,6 +23,9 @@ license_file "https://github.com/theory/sqitch/blob/master/README.md"
 dependency "perl"
 dependency "cpanminus"
 
+# install a LGPL-licensed version of libintl-perl:
+dependency "libintl-perl"
+
 version "0.9994" do
   source md5: "7227dfcd141440f23d99f01a2b01e0f2"
 end
@@ -43,4 +46,34 @@ build do
   command "./Build installdeps --cpan_client 'cpanm -v --notest'", env: env
   command "./Build", env: env
   command "./Build install", env: env
+
+  # Here is another licensing fun. Some of the dependencies of sqitch
+  # unfortunately have GPL3 and LGPL3 licenses which are requiring us to remove
+  # them from our packages after installing sqitch. Here we are uninstalling
+  # them without breaking the licensing information collection.
+  %w{Test-MockModule}.each do |package_name|
+    module_name = package_name.gsub("-", "::")
+
+    # Here we run cpanm --uninstall with a different PERL_CPANM_HOME. The reason
+    # for this is to keep the licensing information for sqitch intact. The way
+    # license_scout works is to look into PERL_CPANM_HOME/latest-build (by
+    # default ~/.cpanm/latest-build) which contains the modules installed during
+    # the last install. This directory is a symlink that points to the directory
+    # contains the information about the latest build. Without changing
+    # PERL_CPANM_HOME we would overwrite the link and will not be able to
+    # collect the dependencies installed to our package while doing the actual
+    # sqitch install.
+    Dir.mktmpdir do |tmpdir|
+      command "cpanm --force --uninstall #{module_name}", env: env.merge({
+        "PERL_CPANM_HOME" => tmpdir,
+      })
+    end
+
+    # Here we are removing the problematic package from the original
+    # PERL_CPANM_HOME cache directory. This ensures that we do not add
+    # licensing information about these components to our package.
+    cpanm_root = File.expand_path("~/.cpanm/latest-build")
+    delete "#{cpanm_root}/#{package_name}*"
+  end
+
 end

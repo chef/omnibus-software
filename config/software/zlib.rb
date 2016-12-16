@@ -28,6 +28,7 @@ source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zli
 
 license "Zlib"
 license_file "README"
+skip_transitive_dependency_licensing true
 
 relative_path "zlib-#{version}"
 
@@ -69,10 +70,7 @@ build do
     # configure script cannot handle.
     # TODO: Do other OSes need this?  Is this strictly a mac thing?
     env = with_standard_compiler_flags
-    if solaris_10?
-      # For some reason zlib needs this flag on solaris (cargocult warning?)
-      env["CFLAGS"] << " -DNO_VIZ"
-    elsif freebsd?
+    if freebsd?
       # FreeBSD 10+ gets cranky if zlib is not compiled in a
       # position-independent way.
       env["CFLAGS"] << " -fPIC"

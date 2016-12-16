@@ -15,7 +15,7 @@
 #
 
 name "rust"
-default_version "1.9.0"
+default_version "1.12.0"
 
 license "Apache-2.0"
 license_file "LICENSE-APACHE"
@@ -38,6 +38,11 @@ if windows?
   if windows_arch_i386?
     arch = "i686"
 
+    version "1.12.0" do
+      source sha256: "15f5e3d41984afc14be7858d88ee9de0945352ab0df6e2954a1a872dad4ed343",
+             url: url_template % { host_triple: host_triple, arch: arch }
+    end
+
     version "1.9.0" do
       source sha256: "df2dfd8a455769c183f764b109786fb96ecd6af2a10912e86342d9d4df16ea82",
              url: url_template % { host_triple: host_triple, arch: arch }
@@ -53,6 +58,11 @@ if windows?
              url: url_template % { host_triple: host_triple, arch: arch }
     end
   else
+    version "1.12.0" do
+      source sha256: "66bf7cd73400f1046a971870735f5aad17d1b12a3b93f7c6d8fdb4b381d31365",
+             url: url_template % { host_triple: host_triple, arch: arch }
+    end
+
     version "1.9.0" do
       source sha256: "0b052f2c7541dd10ad7ea61402a6a4381acbac4bb43feef6bd8ee89c5d815412",
              url: url_template % { host_triple: host_triple, arch: arch }
@@ -72,6 +82,11 @@ if windows?
 elsif mac_os_x?
   host_triple = "apple-darwin"
 
+  version "1.12.0" do
+    source sha256: "608c4530dcbd2e29c9600a0743b1a83a62556c9525385a7e1a7ba4aa1467a132",
+           url: url_template % { host_triple: host_triple, arch: arch }
+  end
+
   version "1.9.0" do
     source sha256: "d59b5509e69c1cace20a57072e3b3ecefdbfd8c7e95657b0ff2ac10aa1dfebe6",
            url: url_template % { host_triple: host_triple, arch: arch }
@@ -88,6 +103,11 @@ elsif mac_os_x?
   end
 else
   host_triple = "unknown-linux-gnu"
+
+  version "1.12.0" do
+    source sha256: "3a9647123f1f056571d6603e40f21a96162702e1ae4725ee8c2bc9452a87cf5d",
+           url: url_template % { host_triple: host_triple, arch: arch }
+  end
 
   version "1.9.0" do
     source sha256: "288ff13efa2577e81c77fc2cb6e2b49b1ed0ceab51b4fa12f7efb87039ac49b7",

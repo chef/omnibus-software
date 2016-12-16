@@ -1,5 +1,5 @@
 #
-# Copyright 2015 Chef Software, Inc.
+# Copyright 2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,28 +14,35 @@
 # limitations under the License.
 #
 
-name "inspec"
+name "berkshelf-no-depselector"
 default_version "master"
 
 license "Apache-2.0"
 license_file "LICENSE"
 
-source git: "https://github.com/chef/inspec.git"
+source git: "https://github.com/berkshelf/berkshelf.git"
+
+relative_path "berkshelf"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
+unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
+  dependency "libarchive"
+end
+
 dependency "nokogiri"
-# Dependency added to avoid this pry error:
-# "Sorry, you can't use Pry without Readline or a compatible library."
-dependency "rb-readline"
+dependency "bundler"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --with test integration --without tools maintenance", env: env
+  bundle "install" \
+         " --jobs #{workers}" \
+         " --without guard changelog development test", env: env
 
-  gem "build inspec.gemspec", env: env
-  gem "install inspec-*.gem" \
+  bundle "exec thor gem:build", env: env
+
+  gem "install pkg/berkshelf-*.gem" \
       " --no-ri --no-rdoc", env: env
 end
