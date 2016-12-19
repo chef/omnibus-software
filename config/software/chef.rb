@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 name "chef"
-default_version "master"
+default_version "bp-423/git-stunnel"
 
 license "Apache-2.0"
 license_file "LICENSE"

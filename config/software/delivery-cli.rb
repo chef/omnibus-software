@@ -24,6 +24,7 @@ license "Apache-2.0"
 license_file "LICENSE"
 
 source git: "https://github.com/chef/delivery-cli.git"
+default_version "bp-423/git-stunnel"
 
 dependency "openssl"
 dependency "rust"
