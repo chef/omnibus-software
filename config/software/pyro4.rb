@@ -1,5 +1,5 @@
 name "pyro4"
-default_version "4.35"
+default_version "4.36"
 
 dependency "python"
 dependency "pip"
