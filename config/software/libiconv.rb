@@ -52,11 +52,17 @@ build do
     patch source: "v1.14.ppc64le-ldemulation.patch", plevel: 1, env: env
   end
 
-  configure(env: env)
+  config_command = [ "--disable-dependency-tracking" ]
 
-  pmake = "-j #{workers}"
-  make "#{pmake}", env: env
-  make "#{pmake} install-lib" \
+  if windows?
+    config_command << "--disable-static"
+    config_command << "--disable-nls" # Is this really needed - can't we vendor libintl?
+  end
+
+  configure(*config_command, env: env)
+
+  make "-j #{workers}", env: env
+  make "install-lib" \
           " libdir=#{install_dir}/embedded/lib" \
           " includedir=#{install_dir}/embedded/include", env: env
 end

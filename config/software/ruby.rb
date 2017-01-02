@@ -155,6 +155,11 @@ build do
     # be fixed.
   end
 
+  # Fix gem install paths in msys2.
+  if windows? && version.satisfies?(">= 2.3")
+    patch source: "ruby-2.3-msys2-mingw.patch", plevel: 1, env: patch_env
+  end
+
   # Fix reserve stack segmentation fault when building on RHEL5 or below
   # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
   # in Ruby trunk and expected to be included in future point releases.
@@ -175,6 +180,8 @@ build do
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
   configure_command << "--with-bundled-md5" if fips_enabled
+  # solaris 10u7- ipv6 support is broken
+  configure_command << "--disable-ipv6" if solaris_10?
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
@@ -218,6 +225,9 @@ build do
     end
 
     configure_command << " debugflags=-g"
+  elsif solaris? && version.satisfies?(">= 2.3")
+    patch source: "ruby-solaris-10u6-ntop.patch", plevel: 1, env: patch_env
+    configure_command << "--with-opt-dir=#{install_dir}/embedded"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
@@ -228,8 +238,9 @@ build do
   env["PKG_CONFIG"] = "/bin/true" if aix?
 
   configure(*configure_command, env: env)
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  pmake = "-j #{workers}"
+  make pmake, env: env
+  make "#{pmake} install", env: env
 
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell

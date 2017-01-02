@@ -35,8 +35,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
 
-  configure = [
-    "./configure",
+  configure_commands = [
     "--prefix=#{install_dir}/embedded",
     "--without-lzma",
     "--without-lzo2",
@@ -52,11 +51,11 @@ build do
     "--without-openssl",
   ]
 
-  if s390x?
-    configure << "--disable-xattr --disable-acl"
-  end
+  # Don't leave static libraries on windows.
+  configure_commands << "--disable-static" if windows?
+  configure_commands << "--disable-xattr --disable-acl" if s390x?
 
-  command configure.join(" "), env: env
+  configure(*configure_commands, env: env)
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
