@@ -26,7 +26,7 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "patch" if solaris_10?
-dependency "openssl-fips" if fips_enabled
+dependency "openssl-fips" if fips_mode?
 
 default_version "1.0.1t"
 
@@ -72,7 +72,7 @@ build do
     "shared",
   ]
 
-  if fips_enabled
+  if fips_mode?
     configure_args << "--with-fipsdir=#{install_dir}/embedded" << "fips"
   end
 

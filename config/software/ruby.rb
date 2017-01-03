@@ -28,8 +28,6 @@ skip_transitive_dependency_licensing true
 # - verify that all ffi libs are available for your version on all platforms.
 default_version "2.3.1"
 
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
 dependency "patch" if solaris_10?
 dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
 dependency "zlib"
@@ -180,7 +178,7 @@ build do
                        "--without-tk",
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
-  configure_command << "--with-bundled-md5" if fips_enabled
+  configure_command << "--with-bundled-md5" if fips_mode?
   # solaris 10u7- ipv6 support is broken
   configure_command << "--disable-ipv6" if solaris_10?
 
