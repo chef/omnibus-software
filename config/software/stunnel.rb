@@ -14,20 +14,8 @@
 # limitations under the License.
 #
 
-# NOTE: you will most likely want to enable openssl fips in your project file like:
-#
-# override :fips, enabled: true
-#
-# Also, due to linking difficulty, you can't have openssl fips enabled in a project
-# you also want openssl non-fips, so making a separate project to wrap stunnel is
-# likely needed.
-
-# NOTE: FIPS defaults to on, since that makes the most sense for stunnel,
-# compared to other software definitions where it defaults to off.
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || true
-
 name "stunnel"
-default_version "5.38"
+default_version "5.39"
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -43,13 +31,44 @@ version "5.38" do
   source sha256: "09ada29ba1683ab1fd1f31d7bed8305127a0876537e836a40cb83851da034fd5"
 end
 
+version "5.39" do
+  source sha256: "288c087a50465390d05508068ac76c8418a21fae7275febcc63f041ec5b04dee"
+end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  configure_string = "./configure --with-ssl=#{install_dir}/embedded --prefix=#{install_dir}/embedded"
-  if fips_enabled
-    configure_string += " --enable-fips"
+
+  patch source: "stunnel-on-windows.patch", plevel: 1, env: env if windows?
+
+  configure_args = [
+    "--with-ssl=#{install_dir}/embedded",
+    "--prefix=#{install_dir}/embedded",
+  ]
+  configure_args << "--enable-fips" if fips_mode?
+
+  configure(*configure_args, env: env)
+
+  if windows?
+    # We only build the 64 bit executable for now
+    # make "mingw", env: env, cwd: "#{project_dir}/src"
+
+    # src/mingw.mk hardcodes and assumes SSL is at /opt so we patch and use
+    # an env variable to redirect it to the correct location
+    env["WIN32_SSL_DIR_PATCHED"] = "#{install_dir}/embedded"
+    make "mingw64", env: env, cwd: "#{project_dir}/src"
+
+    # Stack Smash Protection
+    dll = "libssp-0.dll"
+    mingw = ENV["MSYSTEM"].downcase
+    msys_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] ? "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin" : "C:/msys2"
+    windows_path = "#{msys_path}/#{mingw}/bin/#{dll}"
+    if File.exist?(windows_path)
+      copy windows_path, "#{install_dir}/embedded/bin/#{dll}"
+    else
+      raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
+    end
+  else
+    make env: env
+    make "install", env: env
   end
-  command configure_string, env: env
-  make env: env
-  make "install", env: env
 end

@@ -28,8 +28,6 @@ skip_transitive_dependency_licensing true
 # - verify that all ffi libs are available for your version on all platforms.
 default_version "2.1.8"
 
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
 dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
 dependency "zlib"
 dependency "openssl"
@@ -174,7 +172,7 @@ build do
                        "--without-tk",
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
-  configure_command << "--with-bundled-md5" if fips_enabled
+  configure_command << "--with-bundled-md5" if fips_mode?
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
