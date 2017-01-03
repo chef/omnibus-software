@@ -20,13 +20,11 @@ license "OpenSSL"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
 dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "patch" if solaris_10?
-dependency "openssl-fips" if fips_enabled
+dependency "openssl-fips" if fips_mode?
 
 default_version "1.0.1u"
 
@@ -76,7 +74,7 @@ build do
     "shared",
   ]
 
-  if fips_enabled
+  if fips_mode?
     configure_args << "--with-fipsdir=#{install_dir}/embedded" << "fips"
   end
 
