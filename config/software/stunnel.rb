@@ -33,11 +33,13 @@ end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  configure_string = "./configure --with-ssl=#{install_dir}/embedded --prefix=#{install_dir}/embedded"
-  if fips_mode?
-    configure_string += " --enable-fips"
-  end
-  command configure_string, env: env
+  configure_args = [
+    "--with-ssl=#{install_dir}/embedded",
+    "--prefix=#{install_dir}/embedded",
+  ]
+  configure_args << "--enable-fips" if fips_mode?
+
+  configure(*configure_args, env: env)
   make env: env
   make "install", env: env
 end
