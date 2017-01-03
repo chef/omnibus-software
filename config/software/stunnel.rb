@@ -58,10 +58,12 @@ build do
     make "mingw64", env: env, cwd: "#{project_dir}/src"
 
     # Stack Smash Protection
-    arch_suffix = windows_arch_i386? ? "32" : "64"
-    windows_path = "C:/opscode/omnibus-toolchain/embedded/bin/mingw#{arch_suffix}/bin/libssp-0.dll"
+    dll = "libssp-0.dll"
+    mingw = ENV["MSYSTEM"].downcase
+    msys_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] ? "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin" : "C:/msys2"
+    windows_path = "#{msys_path}/#{mingw}/bin/#{dll}"
     if File.exist?(windows_path)
-      copy windows_path, "#{install_dir}/embedded/bin/libssp-0.dll"
+      copy windows_path, "#{install_dir}/embedded/bin/#{dll}"
     else
       raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
     end
