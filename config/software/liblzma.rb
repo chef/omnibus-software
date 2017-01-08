@@ -21,7 +21,7 @@ license "Public-Domain"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
+source url: "http://downloads.sourceforge.net/project/lzmautils/xz-#{version}.tar.gz",
        md5: "7cf6a8544a7dae8e8106fdf7addfa28c"
 
 relative_path "xz-#{version}"
