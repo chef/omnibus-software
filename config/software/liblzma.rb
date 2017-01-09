@@ -15,14 +15,14 @@
 #
 
 name "liblzma"
-default_version "5.2.2"
+default_version "5.2.3"
 
 license "Public-Domain"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
-       md5: "7cf6a8544a7dae8e8106fdf7addfa28c"
+       md5: "ef68674fb47a8b8e741b34e429d86e9d"
 
 relative_path "xz-#{version}"
 
