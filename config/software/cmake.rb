@@ -3,7 +3,7 @@ name "cmake"
 default_version "3.1.3"
 
 source :url => "http://www.cmake.org/files/v#{version[0..2]}/cmake-#{version}.tar.gz",
-       :md5 => "5697a77503bb5636f4b4057dcc02aa32"
+       :md5 => "5697a77503bb5636f4b4057dcc02aa32",
        :extract => :seven_zip
 
 relative_path "cmake-#{version}"

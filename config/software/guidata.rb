@@ -12,9 +12,9 @@ relative_path "guidata-#{version}"
 build do
   patch :source => "fix_blocking_import.patch"
   patch :source => "remove_default_image_path.patch" if ohai["platform_family"] == "mac_os_x"
-  if ohai['platform'] == 'windows'
+  if ohai["platform"] == "windows"
     env = {
-      "PATH" => "#{windows_safe_path(install_dir)}\\embedded\\bin:#{ENV["PATH"]}"
+      "PATH" => "#{windows_safe_path(install_dir)}\\embedded\\bin:#{ENV["PATH"]}",
     }
     command "SET LC_ALL=\"C\""
     command "SET PATH=\"#{env['PATH']}\""
@@ -22,7 +22,7 @@ build do
             "--record \"#{windows_safe_path(install_dir)}\\embedded\\guidata-files.txt\""
   else
     env = {
-      "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
+      "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
     }
     command "#{install_dir}/embedded/bin/python setup.py install "\
             "--record #{install_dir}/embedded/guidata-files.txt", :env => env

@@ -22,14 +22,14 @@ default_version "8.1.2"
 dependency "setuptools"
 
 source :url => "https://github.com/pypa/pip/archive/#{version}.tar.gz",
-       :sha256 => '8dae1fb72e29c2b6ff6ed267861179216bf98d3bda6d30e527dbed0db5ac7e1d',
+       :sha256 => "8dae1fb72e29c2b6ff6ed267861179216bf98d3bda6d30e527dbed0db5ac7e1d",
        :extract => :seven_zip
 
 relative_path "pip-#{version}"
 
 build do
   ship_license "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
-  if ohai['platform'] == 'windows'
+  if ohai["platform"] == "windows"
     command "\"#{windows_safe_path(install_dir)}\\embedded\\python.exe\" setup.py install "\
             "--prefix=\"#{windows_safe_path(install_dir)}\\embedded\""
   else

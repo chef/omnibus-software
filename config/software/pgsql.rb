@@ -15,4 +15,3 @@ build do
   mkdir "#{windows_safe_path(install_dir)}\\embedded\\include\\postgresql"
   command "COPY bin\\pg_config.exe #{windows_safe_path(install_dir)}\\embedded\\Scripts"
 end
-

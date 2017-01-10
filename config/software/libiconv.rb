@@ -21,7 +21,7 @@ default_version "1.14"
 dependency "libgcc"
 
 source :url => "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz",
-       :md5 => "e34509b1623cec449dfeb73d7ce9c6c6"
+       :md5 => "e34509b1623cec449dfeb73d7ce9c6c6",
        :extract => :seven_zip
 
 relative_path "libiconv-#{version}"
@@ -46,7 +46,11 @@ env = case ohai["platform"]
       end
 
 if ohai["platform"] == "solaris2"
-  env.merge!({"LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc", "LD_OPTIONS" => "-R#{install_dir}/embedded/lib"})
+  env_more = {
+    "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
+    "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
+  }
+  env.merge!(env_more)
 end
 
 build do

@@ -18,7 +18,7 @@
 name "python"
 default_version "2.7.13"
 
-if ohai['platform'] != 'windows'
+if ohai["platform"] != "windows"
 
   dependency "ncurses"
   dependency "zlib"
@@ -27,31 +27,31 @@ if ohai['platform'] != 'windows'
   dependency "libsqlite3"
 
   source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-         :sha256 => 'a4f05a0720ce0fd92626f0278b6b433eee9a6173ddf2bced7957dfb599a5ece1'
+         :sha256 => "a4f05a0720ce0fd92626f0278b6b433eee9a6173ddf2bced7957dfb599a5ece1"
 
   relative_path "Python-#{version}"
 
   env = {
     "CFLAGS" => "-I#{install_dir}/embedded/include -O2 -g -pipe",
-    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
   }
 
   python_configure = ["./configure",
                       "--enable-universalsdk=/",
                       "--prefix=#{install_dir}/embedded"]
 
-  if ohai['platform_family'] == 'mac_os_x'
-    python_configure.push('--enable-ipv6',
-                          '--with-universal-archs=intel',
-                          '--enable-shared')
+  if ohai["platform_family"] == "mac_os_x"
+    python_configure.push("--enable-ipv6",
+                          "--with-universal-archs=intel",
+                          "--enable-shared")
   end
 
   python_configure.push("--with-dbmliborder=")
 
   build do
     ship_license "PSFL"
-    patch :source => 'python-2.7.11-avoid-allocating-thunks-in-ctypes.patch' if linux?
-    patch :source => 'python-2.7.11-fix-platform-ubuntu.diff' if linux?
+    patch :source => "python-2.7.11-avoid-allocating-thunks-in-ctypes.patch" if linux?
+    patch :source => "python-2.7.11-fix-platform-ubuntu.diff" if linux?
 
     command python_configure.join(" "), :env => env
     command "make -j #{workers}", :env => env
@@ -71,13 +71,12 @@ else
 
   msi_name = "python-#{version}.amd64.msi"
   source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.amd64.msi",
-         :sha256 => '8b3e65fc1aad8809bb69477e922c3609a8e8fa9e2f6d5ab8f00f3553e3c61d7a'
+         :sha256 => "8b3e65fc1aad8809bb69477e922c3609a8e8fa9e2f6d5ab8f00f3553e3c61d7a"
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it
     # (fortunately we're building in a VM :) )
     command "start /wait msiexec /x #{msi_name} /L uninstallation_logs.txt ADDLOCAL=DefaultFeature /qn"
-
 
     mkdir "#{windows_safe_path(install_dir)}\\embedded"
 

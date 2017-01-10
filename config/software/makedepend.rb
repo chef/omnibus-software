@@ -39,9 +39,6 @@ configure_env =
       "LDFLAGS" => "-q64 -Wl,-blibpath:/usr/lib:/lib",
       "OBJECT_MODE" => "64",
       "ARFLAGS" => "-X64 cru",
-      "LD" => "ld -b64",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru "
     }
   when "mac_os_x"
     {

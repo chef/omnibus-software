@@ -44,9 +44,7 @@ RuboCop::RakeTask.new(:chefstyle) do |task|
 end
 
 namespace :travis do
-  # FIXME: re-add `chefstyle` once all the rubocop offenses have been fixed
-  # -> `task ci: %w{chefstyle test}`
-  task ci: %w{test}
+  task ci: %w{chefstyle test}
 end
 
 task default: ["travis:ci"]

@@ -29,7 +29,6 @@ end
 source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz",
        extract: :seven_zip
 
-
 relative_path "libtool-#{version}"
 env = with_embedded_path()
 # AIX uses gcc/g++ instead of xlc/xlC

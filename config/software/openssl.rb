@@ -22,7 +22,6 @@ dependency "cacerts"
 dependency "libgcc"
 dependency "makedepend"
 
-
 default_version "1.0.2i"
 source url: "https://www.openssl.org/source/#{name}-#{version}.tar.gz",
        sha256: "9287487d11c9545b6efb287cdb70535d4e9b284dd10d51441d9b9963d000de6f"
