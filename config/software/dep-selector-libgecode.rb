@@ -24,8 +24,8 @@ dependency "bundler"
 # to use 4.4, which is provided by the gcc44 and gcc44-c++ packages. These do
 # not use the gcc binaries so we set the flags to point to the correct version
 # here.
-env = if File.exist?('/usr/bin/gcc44')
-        { 'CC' => 'gcc44', 'CXX' => 'g++44' }
+env = if File.exist?("/usr/bin/gcc44")
+        { "CC" => "gcc44", "CXX" => "g++44" }
       else
         {}
       end

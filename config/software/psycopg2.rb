@@ -6,7 +6,7 @@ dependency "pip"
 dependency "libpq"
 
 env = {
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}"
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
 }
 
 build do

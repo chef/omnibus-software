@@ -9,7 +9,7 @@ relative_path "perl-#{version}"
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
 }
 
 build do
@@ -19,7 +19,7 @@ build do
             "-Dprefix=#{install_dir}/embedded",
             "-Duseshrplib", ## Compile shared libperl
             "-Dusethreads", ## Compile ithread support
-            "-Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'"
+            "-Dnoextensions='DB_File GDBM_File NDBM_File ODBM_File'",
            ].join(" "), :env => env
   command "make -j #{workers}"
   command "make install", :env => env

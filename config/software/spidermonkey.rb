@@ -23,7 +23,7 @@ source :url => "http://ftp.mozilla.org/pub/mozilla.org/js/js-1.8.0-rc1.tar.gz",
 
 relative_path "js"
 
-env = {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+env = { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
 working_dir = "#{project_dir}/src"
 
 # == Build Notes ==
@@ -52,7 +52,7 @@ build do
           :env => env,
           :cwd => working_dir)
 
-  if ohai['kernel']['machine'] =~ /x86_64/
+  if ohai["kernel"]["machine"] =~ /x86_64/
     move "#{install_dir}/embedded/lib64/libjs.a", "#{install_dir}/embedded/lib"
     move "#{install_dir}/embedded/lib64/libjs.so", "#{install_dir}/embedded/lib"
   end

@@ -6,7 +6,6 @@ relative_path "flex-2.6.0"
 source :url => "https://fossies.org/linux/misc/flex-2.6.0.tar.gz",
        :md5 => "5724bcffed4ebe39e9b55a9be80859ec"
 
-
 env = with_standard_compiler_flags()
 
 build do

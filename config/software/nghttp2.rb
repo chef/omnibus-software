@@ -10,7 +10,7 @@ relative_path "nghttp2-#{version}"
 
 env = {
   "OPENSSL_CFLAGS" => "-I#{install_dir}/embedded/include/openssl",
-  "OPENSSL_LIBS" => "-L#{install_dir}/embedded/lib"
+  "OPENSSL_LIBS" => "-L#{install_dir}/embedded/lib",
 }
 
 build do
@@ -20,8 +20,7 @@ build do
     "--disable-examples",
     "--disable-hpack-tools",
     "--prefix=#{install_dir}/embedded",
-    ""
   ].join(" "), :env => env
-  command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

@@ -14,37 +14,37 @@ relative_path "protobuf-#{version}/python"
 
 env = {}
 
-if ohai['platform_family'] == 'mac_os_x'
-    env['MACOSX_DEPLOYMENT_TARGET'] = '10.9'
+if ohai["platform_family"] == "mac_os_x"
+  env["MACOSX_DEPLOYMENT_TARGET"] = "10.9"
 end
 
 build do
-    ship_license "https://raw.githubusercontent.com/google/protobuf/3.1.x/LICENSE"
+  ship_license "https://raw.githubusercontent.com/google/protobuf/3.1.x/LICENSE"
 
-    # Note: RHEL5 is equipped with gcc4.1 that is not supported by Protobuf (it actually crashes during the build)
-    # so we use the official package from PyPI and skip the CPP extension for the time being.
-    if ohai['platform_family'] == 'debian'
-        # C++ runtime
-        command ["cd .. && ./configure",
-                 "--prefix=#{install_dir}/embedded",
-                 "--enable-static=no",
-                 "--without-zlib"].join(" ")
+  # Note: RHEL5 is equipped with gcc4.1 that is not supported by Protobuf (it actually crashes during the build)
+  # so we use the official package from PyPI and skip the CPP extension for the time being.
+  if ohai["platform_family"] == "debian"
+    # C++ runtime
+    command ["cd .. && ./configure",
+                "--prefix=#{install_dir}/embedded",
+                "--enable-static=no",
+                "--without-zlib"].join(" ")
 
-        # You might want to temporarily uncomment the following line to check build sanity (e.g. when upgrading the
-        # library) but there's no need to perform the check every time.
-        # command "cd .. && make check"
-        command "cd .. && make -j #{workers}"
-        command "cd .. && make install"
+    # You might want to temporarily uncomment the following line to check build sanity (e.g. when upgrading the
+    # library) but there's no need to perform the check every time.
+    # command "cd .. && make check"
+    command "cd .. && make -j #{workers}"
+    command "cd .. && make install"
 
-        # Python lib
-        command "#{install_dir}/embedded/bin/python setup.py build --cpp_implementation", :env => env
-        command "#{install_dir}/embedded/bin/python setup.py test --cpp_implementation", :env => env
-        pip "install . --install-option=\"--cpp_implementation\""
+    # Python lib
+    command "#{install_dir}/embedded/bin/python setup.py build --cpp_implementation", :env => env
+    command "#{install_dir}/embedded/bin/python setup.py test --cpp_implementation", :env => env
+    pip "install . --install-option=\"--cpp_implementation\""
 
-        # We don't need protoc anymore
-        delete "#{install_dir}/embedded/lib/libprotoc.*"
-        delete "#{install_dir}/embedded/bin/protoc"
-    else
-        pip "install protobuf==#{rhel_pip_version}"
-    end
+    # We don't need protoc anymore
+    delete "#{install_dir}/embedded/lib/libprotoc.*"
+    delete "#{install_dir}/embedded/bin/protoc"
+  else
+    pip "install protobuf==#{rhel_pip_version}"
+  end
 end

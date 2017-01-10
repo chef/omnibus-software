@@ -18,7 +18,7 @@
 name "nginx"
 default_version "1.4.4"
 
-if ohai['platform'] != 'windows'
+if ohai["platform"] != "windows"
 
   dependency "pcre"
   dependency "openssl"
@@ -37,7 +37,7 @@ if ohai['platform'] != 'windows'
              "--with-debug",
              "--with-ld-opt=-L#{install_dir}/embedded/lib",
              "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" ")
-    command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+    command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
     command "make install"
 
     # ensure the logs directory is available on rebuild from git cache

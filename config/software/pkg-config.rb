@@ -27,7 +27,7 @@ end
 source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz",
        :extract => :seven_zip
 
-relative_path 'pkg-config-0.28'
+relative_path "pkg-config-0.28"
 
 env = with_embedded_path()
 env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
@@ -36,19 +36,19 @@ paths = [ "#{install_dir}/embedded/bin/pkgconfig" ]
 
 build do
   ship_source "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
-  command "./configure --prefix=#{install_dir}/embedded --disable-debug --disable-host-tool --with-internal-glib --with-pc-path=#{paths*':'}", :env => env
+  command "./configure --prefix=#{install_dir}/embedded --disable-debug --disable-host-tool --with-internal-glib --with-pc-path=#{paths * ':'}", :env => env
   # #203: pkg-configs internal glib does not provide a way to pass ldflags.
   # Only allows GLIB_CFLAGS and GLIB_LIBS.
   # These do not serve our purpose, so we must explicitly
   # ./configure in the glib dir, with the Omnibus ldflags.
   command(
     [
-      './configure',
+      "./configure",
       "--prefix=#{install_dir}/embedded",
-      '--with-libiconv=gnu'
-    ].join(' '),
+      "--with-libiconv=gnu",
+    ].join(" "),
     env: env,
-    cwd: File.join(project_dir, 'glib')
+    cwd: File.join(project_dir, "glib")
   )
   command "make -j #{workers}", env: env
   command "make -j #{workers} install", env: env

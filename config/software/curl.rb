@@ -18,7 +18,7 @@
 name "curl"
 default_version "7.51.0"
 
-if ohai['platform'] != 'windows'
+if ohai["platform"] != "windows"
   dependency "zlib"
   dependency "openssl"
   dependency "nghttp2"
@@ -30,7 +30,7 @@ if ohai['platform'] != 'windows'
   build do
     ship_license "https://raw.githubusercontent.com/bagder/curl/master/COPYING"
     block do
-      FileUtils.rm_rf(File.join(project_dir, 'src/tool_hugehelp.c'))
+      FileUtils.rm_rf(File.join(project_dir, "src/tool_hugehelp.c"))
     end
 
     command ["./configure",
@@ -52,13 +52,13 @@ if ohai['platform'] != 'windows'
              "--with-zlib=#{install_dir}/embedded",
              "--with-nghttp2=#{install_dir}/embedded"].join(" ")
 
-    command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+    command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
     command "make install"
   end
 else
   # Compiling is hard... let's ship binaries instead : TODO: react according to platform
   source :url => "https://s3.amazonaws.com/dd-agent-omnibus/curl4-7.43.0.tar.gz",
-         :md5 => '885daa917d96c9d8278bda39a9295f47',
+         :md5 => "885daa917d96c9d8278bda39a9295f47",
          :extract => :seven_zip
 
   relative_path "curl"
@@ -66,6 +66,6 @@ else
   build do
     ship_license "https://raw.githubusercontent.com/bagder/curl/master/COPYING"
 
-    copy 'cygcurl-4.dll', "\"#{windows_safe_path(install_dir)}\\embedded\\Lib\\cygcurl.dll\""
+    copy "cygcurl-4.dll", "\"#{windows_safe_path(install_dir)}\\embedded\\Lib\\cygcurl.dll\""
   end
 end

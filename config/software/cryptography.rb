@@ -4,7 +4,7 @@ default_version "1.3.2"
 dependency "python"
 dependency "pip"
 
-if ohai['platform'] == 'windows'
+if ohai["platform"] == "windows"
   dependency "openssl-windows"
 else
   dependency "libffi" # indirectly through the `cffi` python lib cryptography depends on

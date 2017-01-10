@@ -19,7 +19,7 @@ name "libxslt"
 default_version "1.1.28"
 
 dependency "libxml2"
-dependency "libtool" if ohai['platform'] == "solaris2"
+dependency "libtool" if ohai["platform"] == "solaris2"
 dependency "liblzma"
 
 version "1.1.26" do
@@ -38,7 +38,7 @@ build do
   env = {
     "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
+    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
   }
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
@@ -48,6 +48,6 @@ build do
            "--without-python",
            "--without-crypto"].join(" "),
           :env => env)
-  command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/bin"}
-  command "make install", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/bin"}
+  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/bin" }
+  command "make install", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/bin" }
 end
