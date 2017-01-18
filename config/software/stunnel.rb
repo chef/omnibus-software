@@ -38,7 +38,7 @@ end
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  patch source: "stunnel-on-windows.patch", plevel: 1 if windows?
+  patch source: "stunnel-on-windows.patch", plevel: 1, env: env if windows?
 
   configure_args = [
     "--with-ssl=#{install_dir}/embedded",
