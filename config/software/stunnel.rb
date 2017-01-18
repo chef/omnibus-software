@@ -49,13 +49,15 @@ build do
   configure(*configure_args, env: env)
 
   if windows?
-    # We only build the 64 bit executable for now
-    # make "mingw", env: env, cwd: "#{project_dir}/src"
-
     # src/mingw.mk hardcodes and assumes SSL is at /opt so we patch and use
     # an env variable to redirect it to the correct location
     env["WIN32_SSL_DIR_PATCHED"] = "#{install_dir}/embedded"
-    make "mingw64", env: env, cwd: "#{project_dir}/src"
+
+    if windows_arch_i386?
+      make "mingw", env: env, cwd: "#{project_dir}/src"
+    else
+      make "mingw64", env: env, cwd: "#{project_dir}/src"
+    end
 
     # Stack Smash Protection
     dll = "libssp-0.dll"
