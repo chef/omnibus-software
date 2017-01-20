@@ -59,15 +59,18 @@ build do
       make "mingw64", env: env, cwd: "#{project_dir}/src"
     end
 
-    # Stack Smash Protection
-    dll = "libssp-0.dll"
     mingw = ENV["MSYSTEM"].downcase
     msys_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] ? "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin" : "C:/msys2"
-    windows_path = "#{msys_path}/#{mingw}/bin/#{dll}"
-    if File.exist?(windows_path)
-      copy windows_path, "#{install_dir}/embedded/bin/#{dll}"
-    else
-      raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
+
+    block "copy required windows files" do
+      copy_files = ["#{project_dir}/bin/#{mingw}/stunnel.exe", "#{project_dir}/bin/#{mingw}/tstunnel.exe", "#{msys_path}/#{mingw}/bin/libssp-0.dll"]
+      copy_files.each do |file|
+        if File.exist?(file)
+          copy file, "#{install_dir}/embedded/bin/#{File.basename(file)}"
+        else
+          raise "Cannot find required file for Windows: #{file}"
+        end
+      end
     end
   else
     make env: env
