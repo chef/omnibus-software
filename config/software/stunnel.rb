@@ -67,7 +67,7 @@ build do
       copy_files = [
         "#{project_dir}/bin/#{windows_build_type}/stunnel.exe",
         "#{project_dir}/bin/#{windows_build_type}/tstunnel.exe",
-        "#{msys_path}/#{ENV["MSYSTEM"].downcase}/bin/libssp-0.dll"
+        "#{msys_path}/#{ENV["MSYSTEM"].downcase}/bin/libssp-0.dll",
       ]
       copy_files.each do |file|
         if File.exist?(file)
