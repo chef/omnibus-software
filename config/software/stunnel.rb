@@ -53,20 +53,15 @@ build do
     # an env variable to redirect it to the correct location
     env["WIN32_SSL_DIR_PATCHED"] = "#{install_dir}/embedded"
 
-    if windows_arch_i386?
-      windows_build_type = "mingw"
-      make windows_build_type, env: env, cwd: "#{project_dir}/src"
-    else
-      windows_build_type = "mingw64"
-      make windows_build_type, env: env, cwd: "#{project_dir}/src"
-    end
+    target = windows_arch_i386? ? "mingw" : "mingw64"
+    make target, env: env, cwd: "#{project_dir}/src"
 
     msys_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] ? "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin" : "C:/msys2"
 
     block "copy required windows files" do
       copy_files = [
-        "#{project_dir}/bin/#{windows_build_type}/stunnel.exe",
-        "#{project_dir}/bin/#{windows_build_type}/tstunnel.exe",
+        "#{project_dir}/bin/#{target}/stunnel.exe",
+        "#{project_dir}/bin/#{target}/tstunnel.exe",
         "#{msys_path}/#{ENV["MSYSTEM"].downcase}/bin/libssp-0.dll",
       ]
       copy_files.each do |file|
