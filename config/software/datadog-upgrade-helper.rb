@@ -1,5 +1,5 @@
 name "datadog-upgrade-helper"
-default_version "last-stable"
+default_version "master"
 
 env = {
   "GOPATH" => "#{Omnibus::Config.cache_dir}/src/#{name}",
