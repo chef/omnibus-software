@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,135 +16,138 @@
 
 name "openssl"
 
+license "OpenSSL"
+license_file "LICENSE"
+skip_transitive_dependency_licensing true
+
 dependency "zlib"
 dependency "cacerts"
-dependency "libgcc"
-dependency "makedepend"
+dependency "makedepend" unless aix? || windows?
 
-default_version "1.0.2i"
-source url: "https://www.openssl.org/source/#{name}-#{version}.tar.gz",
-       sha256: "9287487d11c9545b6efb287cdb70535d4e9b284dd10d51441d9b9963d000de6f"
+default_version "1.0.2j"
+
+# OpenSSL source ships with broken symlinks which windows doesn't allow.
+# Skip error checking.
+source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
+
+version("1.0.2j") { source sha256: "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431" }
+version("1.0.2i") { source sha256: "9287487d11c9545b6efb287cdb70535d4e9b284dd10d51441d9b9963d000de6f" }
+version("1.0.2h") { source sha256: "1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919" }
+version("1.0.2g") { source md5: "f3c710c045cdee5fd114feb69feba7aa" }
+version("1.0.1u") { source sha256: "4312b4ca1215b6f2c97007503d80db80d5157f76f8f7d3febbe6b4c56ff26739" }
+version("1.0.1t") { source md5: "9837746fcf8a6727d46d22ca35953da1" }
+version("1.0.1s") { source md5: "562986f6937aabc7c11a6d376d8a0d26" }
+version("1.0.1r") { source md5: "1abd905e079542ccae948af37e393d28" }
 
 relative_path "openssl-#{version}"
 
 build do
-  patch :source => "openssl-1.0.2i-do-not-build-docs.patch"
 
-  env = case ohai["platform"]
-        when "mac_os_x"
-          {
-            "CFLAGS" => "-arch x86_64 -m64 -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
-            "LDFLAGS" => "-arch x86_64 -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -I#{install_dir}/embedded/include/ncurses",
-          }
-        when "aix"
-          {
-            "CC" => "xlc -q64",
-            "CXX" => "xlC -q64",
-            "LD" => "ld -b64",
-            "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
-            "CXXFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
-            "LDFLAGS" => "-q64 -L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-            "OBJECT_MODE" => "64",
-            "AR" => "/usr/bin/ar",
-            "ARFLAGS" => "-X64 cru",
-            "M4" => "/opt/freeware/bin/m4",
-          }
-        when "solaris2"
-          {
-            "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-            "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-            "LD_OPTIONS" => "-R#{install_dir}/embedded/lib",
-          }
-        else
-          {
-            "CFLAGS" => "-I#{install_dir}/embedded/include",
-            "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
-          }
-        end
+  env = with_standard_compiler_flags(with_embedded_path)
+  if aix?
+    env["M4"] = "/opt/freeware/bin/m4"
+  elsif freebsd?
+    # Should this just be in standard_compiler_flags?
+    env["LDFLAGS"] += " -Wl,-rpath,#{install_dir}/embedded/lib"
+  elsif windows?
+    # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
+    # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
+    # and the 32-bit calling convention involving XMM registers is...  vague.
+    # Do not enable SSE2 generally because the hand optimized assembly will
+    # overwrite registers that mingw expects to get preserved.
+    env["CFLAGS"] = "-I#{install_dir}/embedded/include"
+    env["CPPFLAGS"] = env["CFLAGS"]
+    env["CXXFLAGS"] = env["CFLAGS"]
+  end
 
-  common_args = [
+  configure_args = [
     "--prefix=#{install_dir}/embedded",
     "--with-zlib-lib=#{install_dir}/embedded/lib",
     "--with-zlib-include=#{install_dir}/embedded/include",
     "no-idea",
     "no-mdc2",
     "no-rc5",
-    "zlib",
     "shared",
     "no-ssl3",
-  ].join(" ")
+  ]
 
-  configure_command = case ohai["platform"]
-                      when "aix"
-                        ["perl", "./Configure",
-                         "aix64-cc",
-                         common_args,
-                        "-L#{install_dir}/embedded/lib",
-                        "-I#{install_dir}/embedded/include",
-                        "-Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib"].join(" ")
-                      when "mac_os_x"
-                        ["./Configure",
-                         "darwin64-x86_64-cc",
-                         common_args,
-                        ].join(" ")
-                      when "smartos"
-                        ["/bin/bash ./Configure",
-                         "solaris64-x86_64-gcc",
-                         common_args,
-                         "-L#{install_dir}/embedded/lib",
-                         "-I#{install_dir}/embedded/include",
-                         "-R#{install_dir}/embedded/lib",
-                        "-static-libgcc"].join(" ")
-                      when "solaris2"
-                        if Config.solaris_compiler == "gcc"
-                          if architecture == "sparc"
-                            ["/bin/sh ./Configure",
-                             "solaris-sparcv9-gcc",
-                             common_args,
-                            "-L#{install_dir}/embedded/lib",
-                            "-I#{install_dir}/embedded/include",
-                            "-R#{install_dir}/embedded/lib",
-                            "-static-libgcc"].join(" ")
-                          else
-                            # This should not require a /bin/sh, but without it we get
-                            # Errno::ENOEXEC: Exec format error
-                            ["/bin/sh ./Configure",
-                             "solaris-x86-gcc",
-                             common_args,
-                            "-L#{install_dir}/embedded/lib",
-                            "-I#{install_dir}/embedded/include",
-                            "-R#{install_dir}/embedded/lib",
-                            "-static-libgcc"].join(" ")
-                          end
-                        else
-                          raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
-                        end
-                      else
-                        ["./config",
-                        common_args,
-                        "disable-gost", # fixes build on linux, but breaks solaris
-                        "-L#{install_dir}/embedded/lib",
-                        "-I#{install_dir}/embedded/include",
-                        "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
-                      end
-
-  # openssl build process uses a `makedepend` tool that we build inside the bundle.
-  env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
-
-  # @todo: move into omnibus-ruby
-  has_gmake = system("gmake --version")
-
-  if has_gmake
-    env["MAKE"] = "gmake"
-    make_binary = "gmake"
+  if windows?
+    configure_args << "zlib-dynamic"
   else
-    make_binary = "make"
+    configure_args << "zlib"
   end
-  ship_license "https://raw.githubusercontent.com/openssl/openssl/master/LICENSE"
 
-  command configure_command, :env => env
-  command "#{make_binary} depend", :env => env
+  configure_cmd =
+    if aix?
+      "perl ./Configure aix64-cc"
+    elsif mac_os_x?
+      "./Configure darwin64-x86_64-cc"
+    elsif smartos?
+      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+    elsif omnios?
+      "/bin/bash ./Configure solaris-x86-gcc"
+    elsif solaris_10?
+      # This should not require a /bin/sh, but without it we get
+      # Errno::ENOEXEC: Exec format error
+      platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
+      "/bin/sh ./Configure #{platform} -static-libgcc"
+    elsif solaris_11?
+      platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
+      "/bin/bash ./Configure #{platform} -static-libgcc"
+    elsif windows?
+      platform = windows_arch_i386? ? "mingw" : "mingw64"
+      "perl.exe ./Configure #{platform}"
+    else
+      prefix =
+        if linux? && ppc64?
+          "./Configure linux-ppc64"
+        elsif linux? && s390x?
+          # With gcc > 4.3 on s390x there is an error building
+          # with inline asm enabled
+          "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
+        else
+          "./config"
+        end
+      "#{prefix} disable-gost"
+    end
+
+  if aix?
+
+    # This enables omnibus to use 'makedepend'
+    # from fileset 'X11.adt.imake' (AIX install media)
+    env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
+
+    patch_env = env.dup
+    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
+  else
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: env
+  end
+
+  if windows?
+    # Patch Makefile.org to update the compiler flags/options table for mingw.
+    patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
+  end
+
+  # Out of abundance of caution, we put the feature flags first and then
+  # the crazy platform specific compiler flags at the end.
+  configure_args << env["CFLAGS"] << env["LDFLAGS"]
+
+  configure_command = configure_args.unshift(configure_cmd).join(" ")
+
+  command configure_command, env: env, in_msys_bash: true
+  make "depend", env: env
   # make -j N on openssl is not reliable
-  command "#{make_binary}", :env => env
-  command "#{make_binary} install", :env => env
+  make env: env
+  if aix?
+    # We have to sudo this because you can't actually run slibclean without being root.
+    # Something in openssl changed in the build process so now it loads the libcrypto
+    # and libssl libraries into AIX's shared library space during the first part of the
+    # compile. This means we need to clear the space since it's not being used and we
+    # can't install the library that is already in use. Ideally we would patch openssl
+    # to make this not be an issue.
+    # Bug Ref: http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
+    command "sudo /usr/sbin/slibclean", env: env
+  end
+  make "install", env: env
 end

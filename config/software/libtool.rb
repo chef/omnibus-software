@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,31 +15,37 @@
 #
 
 name "libtool"
-default_version "2.4.2"
+default_version "2.4"
 
-version "2.4" do
-  source md5: "b32b04148ecdd7344abc6fe8bd1bb021"
-end
+license "GPL-2.0"
+license_file "COPYING"
+skip_transitive_dependency_licensing true
 
-version "2.4.2" do
-  source md5: "d2f3b7d4627e69e13514a40e72a24d50"
-end
+dependency "config_guess"
 
-source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz",
-       extract: :seven_zip
+# NOTE: 2.4.6 2.4.2 do not compile on solaris2 yet
+version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
+version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }
+version("2.4")   { source md5: "b32b04148ecdd7344abc6fe8bd1bb021" }
+
+source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 
 relative_path "libtool-#{version}"
-env = with_embedded_path()
-# AIX uses gcc/g++ instead of xlc/xlC
-env = with_standard_compiler_flags(env, :aix => { :use_gcc => true })
 
 build do
-  mkdir "/tmp/build/embedded"
-  if ohai["platform"] == "aix"
-    command "./configure --prefix=/tmp/build/embedded --with-gcc", :env => env
-  else
-    command "./configure --prefix=/tmp/build/embedded", :env => env
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess
+  update_config_guess(target: "libltdl/config")
+
+  if aix?
+    env["M4"] = "/opt/freeware/bin/m4"
   end
-  command "make -j #{workers}", :env => env
-  command "make install", :env => env
+
+  mkdir "/tmp/build/embedded"
+  command "./configure" \
+          " --prefix=/tmp/build/embedded", env: env
+
+  make env: env
+  make "install", env: env
 end

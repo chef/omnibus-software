@@ -1,15 +1,11 @@
 name "cryptography"
-default_version "1.3.2"
+default_version "1.7.1"
 
 dependency "python"
 dependency "pip"
 
-if ohai["platform"] == "windows"
-  dependency "openssl-windows"
-else
-  dependency "libffi" # indirectly through the `cffi` python lib cryptography depends on
-  dependency "openssl"
-end
+dependency "libffi" # indirectly through the `cffi` python lib cryptography depends on
+dependency "openssl"
 
 build do
   ship_license "https://github.com/pyca/cryptography/blob/master/LICENSE.APACHE"

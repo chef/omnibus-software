@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,32 +15,52 @@
 #
 
 name "libffi"
-default_version "3.0.13"
 
-dependency "libgcc"
-dependency "libtool"
+default_version "3.2.1"
 
-source :url => "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz",
-       :md5 => "45f3b6dbc9ee7c7dfbbbc5feba571529",
-       :extract => :seven_zip
+license "MIT"
+license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
-relative_path "libffi-3.0.13"
+# Is libtool actually necessary? Doesn't configure generate one?
+dependency "libtool" unless windows?
 
-env = with_embedded_path()
-env = with_standard_compiler_flags(env)
+version("3.0.13") { source md5: "45f3b6dbc9ee7c7dfbbbc5feba571529" }
+version("3.2.1")  { source md5: "83b89587607e3eb65c70d361f13bab43" }
+
+source url: "ftp://sourceware.org/pub/libffi/libffi-#{version}.tar.gz"
+
+relative_path "libffi-#{version}"
 
 build do
-  ship_license "https://raw.githubusercontent.com/atgreen/libffi/master/LICENSE"
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{workers}", :env => env
-  command "make -j #{workers} install", :env => env
-  # libffi's default install location of header files is awful...
-  copy "#{install_dir}/embedded/lib/libffi-3.0.13/include/*", "#{install_dir}/embedded/include"
+  env = with_standard_compiler_flags(with_embedded_path)
 
-  # On 64-bit centos, libffi libraries are places under /embedded/lib64
-  # move them over to lib
-  if (rhel? || suse?) && _64_bit?
-    move "#{install_dir}/embedded/lib64/*", "#{install_dir}/embedded/lib/"
-    delete "#{install_dir}/embedded/lib64"
+  env["INSTALL"] = "/opt/freeware/bin/install" if aix?
+
+  configure_command = []
+
+  # AIX's old version of patch doesn't like the patch here
+  unless aix?
+    # Patch to disable multi-os-directory via configure flag (don't use /lib64)
+    # Works on all platforms, and is compatible on 32bit platforms as well
+    if version == "3.2.1"
+      patch source: "libffi-3.2.1-disable-multi-os-directory.patch", plevel: 1, env: env
+      configure_command << "--disable-multi-os-directory"
+    end
   end
+
+  configure(*configure_command, env: env)
+
+  if solaris_10?
+    # run old make :(
+    make env: env, bin: "/usr/ccs/bin/make"
+    make "install", env: env, bin: "/usr/ccs/bin/make"
+  else
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
+
+  # libffi's default install location of header files is awful...
+  copy "#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{install_dir}/embedded/include"
+
 end
