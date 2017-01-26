@@ -15,7 +15,7 @@
 #
 
 name "runit"
-default_version "2.1.2"
+default_version "2.1.1"
 
 license "BSD-3-Clause"
 license_file "../package/COPYING"
