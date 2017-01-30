@@ -1,6 +1,8 @@
 name "datadog-gohai"
 default_version "last-stable"
 
+always_build true
+
 env = {
   "GOPATH" => "#{Omnibus::Config.cache_dir}/src/#{name}",
 }

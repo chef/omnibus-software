@@ -1,6 +1,8 @@
 name "datadog-metro"
 default_version "last-stable"
 
+always_build true
+
 env = {
   "GOROOT" => "/usr/local/go",
   "GOPATH" => "/var/cache/omnibus/src/datadog-metro",
