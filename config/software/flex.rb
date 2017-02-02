@@ -1,9 +1,9 @@
 name "flex"
 default_version "2.6.0"
 
-relative_path "flex-2.6.0"
+relative_path "flex-#{version}"
 
-source :url => "https://fossies.org/linux/misc/flex-2.6.0.tar.gz",
+source :url => "https://downloads.sourceforge.net/project/flex/flex-#{version}.tar.gz",
        :md5 => "5724bcffed4ebe39e9b55a9be80859ec"
 
 env = with_standard_compiler_flags()
