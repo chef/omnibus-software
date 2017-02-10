@@ -3,7 +3,6 @@ default_version "4.2.5"
 
 dependency "python"
 dependency "pip"
-dependency "pysnmp-mibs"
 dependency "pyasn1"
 
 build do
