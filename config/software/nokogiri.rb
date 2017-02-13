@@ -17,7 +17,7 @@
 name "nokogiri"
 
 license "MIT"
-license_file "https://github.com/sparklemotion/nokogiri/blob/master/LICENSE.txt"
+license_file "https://raw.githubusercontent.com/sparklemotion/nokogiri/master/LICENSE.md"
 # We install only nokogiri from rubygems here.
 skip_transitive_dependency_licensing true
 
