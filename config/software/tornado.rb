@@ -8,7 +8,7 @@ dependency "futures"
 
 build do
   ship_license "https://raw.githubusercontent.com/tornadoweb/tornado/master/LICENSE"
-  pip "install -I --install-option=\"--install-scripts="\
+  pip "install --install-option=\"--install-scripts="\
       "#{windows_safe_path(install_dir)}/bin\" "\
       "#{name}==#{version}"
 end

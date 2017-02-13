@@ -6,5 +6,5 @@ dependency "pip"
 
 build do
   ship_license "https://raw.githubusercontent.com/Cairnarvon/uptime/master/COPYING.txt"
-  pip "install -I --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
+  pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
 end
