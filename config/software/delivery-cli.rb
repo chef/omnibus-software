@@ -18,7 +18,7 @@ name "delivery-cli"
 # Delivery CLI is only pushed to the master branch of Github after it
 # is successfully Delivered. So pulling in the "master" version
 # will always give you the latest Delivered version.
-default_version "master"
+default_version "tc/fix-fips-windows"
 
 license "Apache-2.0"
 license_file "LICENSE"
