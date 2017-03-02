@@ -5,7 +5,7 @@ default_version "90"
 
 # TODO: same for 32 bits
 # source :url => "https://s3.amazonaws.com/dd-agent-omnibus/msvcrntm_x64.tar.gz",
-source :url => "http://derekwbrown.github.io/msvc_runtime_x64.tgz",
+source :url => "https://s3.amazonaws.com/dd-agent-omnibus/msvc_runtime_x64.tgz",
        :sha256 => "ee3d4be86e7a63a7a9f9f325962fcf62436ac234f1fd69919003463ffd43ee3f",
        :extract => :seven_zip
 
