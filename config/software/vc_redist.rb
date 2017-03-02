@@ -5,13 +5,15 @@ default_version "90"
 
 # TODO: same for 32 bits
 # source :url => "https://s3.amazonaws.com/dd-agent-omnibus/msvcrntm_x64.tar.gz",
-source :url => "http://degemer.github.io/msvcrntm_x64.tar.gz",
-       :sha256 => "8473bb0c6a1c83e12e2392317f7e9197694833d4eb2c27621859396c868faeda",
+source :url => "https://s3.amazonaws.com/dd-agent-omnibus/msvc_runtime_x64.tgz",
+       :sha256 => "ee3d4be86e7a63a7a9f9f325962fcf62436ac234f1fd69919003463ffd43ee3f",
        :extract => :seven_zip
 
-relative_path "vc_redist"
-
 build do
-  # We also need to have these dlls side by side with the `.exe`... I think
-  command "XCOPY /YEH .\\*.dll \"#{windows_safe_path(install_dir)}\\embedded\" /MIR"
+  # Because python is built with really old (VS2008) visual c++, and with the CRT
+  # as a DLL, we need to redistribute the CRT DLLS.  We (now) need the DLLS in
+  # both embedded and dist, as we have executables in each of those directories
+  # that require them.
+  command "XCOPY /YEH .\\*.* \"#{windows_safe_path(install_dir)}\\embedded\" /IR"
+  command "XCOPY /YEH .\\*.* \"#{windows_safe_path(install_dir)}\\dist\" /IR"
 end
