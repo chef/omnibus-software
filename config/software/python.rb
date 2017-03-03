@@ -52,6 +52,7 @@ if ohai["platform"] != "windows"
     ship_license "PSFL"
     patch :source => "python-2.7.11-avoid-allocating-thunks-in-ctypes.patch" if linux?
     patch :source => "python-2.7.11-fix-platform-ubuntu.diff" if linux?
+    patch :source => "python-2.7.13-fix-ssl-leak.patch"
 
     command python_configure.join(" "), :env => env
     command "make -j #{workers}", :env => env
