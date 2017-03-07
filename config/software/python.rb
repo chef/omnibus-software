@@ -16,9 +16,9 @@
 #
 
 name "python"
-default_version "2.7.13"
 
 if ohai["platform"] != "windows"
+  default_version "2.7.13"
 
   dependency "ncurses"
   dependency "zlib"
@@ -66,13 +66,15 @@ if ohai["platform"] != "windows"
   end
 
 else
+  # 2.7.13 has a mem leak that we can patch on Unix but not on Windows (since we don't build from source on Windows)
+  default_version "2.7.12"
 
   dependency "vc_redist"
   dependency "vc_python"
 
   msi_name = "python-#{version}.amd64.msi"
   source :url => "https://www.python.org/ftp/python/#{version}/python-#{version}.amd64.msi",
-         :sha256 => "8b3e65fc1aad8809bb69477e922c3609a8e8fa9e2f6d5ab8f00f3553e3c61d7a"
+         :sha256 => "909fded3cca65feaf9e1db943e886586eb27f0f4396c977868ad6489063a3912"
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it
