@@ -16,12 +16,12 @@
 #
 
 name "scandir"
-default_version "1.2"
+default_version "1.5"
 
 dependency "python"
 dependency "pip"
 
 build do
-  ship_license "https://raw.githubusercontent.com/benhoyt/scandir/v1.2/LICENSE.txt"
+  ship_license "https://raw.githubusercontent.com/benhoyt/scandir/v1.5/LICENSE.txt"
   pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
 end
