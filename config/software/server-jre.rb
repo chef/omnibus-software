@@ -74,6 +74,17 @@ version "8u91" do
   relative_path "jdk1.8.0_91"
 end
 
+version "7u80" do
+  # https://www.oracle.com/webfolder/s/digest/7u80checksum.html
+  source url: "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/server-jre-7u80-linux-x64.tar.gz",
+         md5: "366a145fb3a185264b51555546ce2f87",
+         cookie: license_cookie,
+         warning: license_warning,
+         unsafe: true
+
+  relative_path "jdk1.7.0_80"
+end
+
 build do
   mkdir "#{install_dir}/embedded/jre"
   sync  "#{project_dir}/", "#{install_dir}/embedded/jre"
