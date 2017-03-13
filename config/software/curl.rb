@@ -15,7 +15,7 @@
 #
 
 name "curl"
-default_version "7.51.0"
+default_version "7.53.1"
 
 dependency "zlib"
 dependency "openssl"
@@ -25,6 +25,7 @@ license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
+version("7.53.1") { source sha256: "64f9b7ec82372edb8eaeded0a9cfa62334d8f98abc65487da01188259392911d" }
 version("7.51.0") { source sha256: "65b5216a6fbfa72f547eb7706ca5902d7400db9868269017a8888aa91d87977c" }
 version("7.47.1") { source md5: "3f9d1be7bf33ca4b8c8602820525302b" }
 version("7.36.0") { source md5: "643a7030b27449e76413d501d4b8eb57" }
