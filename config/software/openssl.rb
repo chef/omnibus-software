@@ -114,17 +114,21 @@ build do
       "#{prefix} disable-gost"
     end
 
-  if aix?
+  patch_env = if aix?
+                # This enables omnibus to use 'makedepend'
+                # from fileset 'X11.adt.imake' (AIX install media)
+                env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
+                penv = env.dup
+                penv["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+                penv
+              else
+                env
+              end
 
-    # This enables omnibus to use 'makedepend'
-    # from fileset 'X11.adt.imake' (AIX install media)
-    env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
+  patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
 
-    patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
-    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
-  else
-    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: env
+  if version == "1.0.1k"
+    patch source: "openssl-1.0.1k-no-bang.patch", env: patch_env, plevel: 1
   end
 
   if windows?
