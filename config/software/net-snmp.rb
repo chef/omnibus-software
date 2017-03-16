@@ -18,7 +18,7 @@ name "net-snmp"
 default_version "5.7.3"
 
 version "5.7.3" do
-  source md5: "d4a3459e1577d0efa8d96ca70a885e53"
+  source sha256: "12ef89613c7707dc96d13335f153c1921efc9d61d3708ef09f3fc4a7014fb4f0"
 end
 
 dependency "zlib"
