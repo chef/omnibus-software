@@ -1,6 +1,10 @@
 name "net-snmp-lib"
 default_version "5.7.3"
 
+# This definition differs from `net-snmp` in that this one will only ship
+# libnetsnmp and not the rest of the package. Headers are also installed
+# but not shipped, so they're provided for building (if needed).
+
 version "5.7.3" do
   source sha256: "12ef89613c7707dc96d13335f153c1921efc9d61d3708ef09f3fc4a7014fb4f0"
 end
