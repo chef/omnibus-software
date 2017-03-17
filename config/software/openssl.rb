@@ -127,8 +127,8 @@ build do
 
   patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
 
-  if version == "1.0.1k"
-    patch source: "openssl-1.0.1k-no-bang.patch", env: patch_env, plevel: 1
+  if version == "1.0.2k"
+    patch source: "openssl-1.0.2k-no-bang.patch", env: patch_env, plevel: 1
   end
 
   if windows?
