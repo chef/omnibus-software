@@ -22,6 +22,7 @@ build_env = {
 
 net_snmp_configure = ["./configure",
                       "--with-defaults",
+                      "--enable-ipv6",
                       "--prefix=#{install_dir}/embedded",
                       "--with-ldflags=-L#{install_dir}/embedded/lib",
                       "--with-cflags=-I#{install_dir}/embedded/include",
@@ -30,9 +31,16 @@ net_snmp_configure = ["./configure",
                       "--disable-embedded-perl",
                       "--without-perl-modules",
                       "--enable-shared",
-                      "--enable-static"]
+                      "--disable-static"]
 build do
   ship_license "https://gist.githubusercontent.com/truthbk/219266c31f7d664c749dba525eb8a7b0/raw/82539d51d5b1e545e1ceb241b25f476956b636f9/net-snmp.license"
+
+  if mac_os_x?
+    copy "include/net-snmp/system/darwin13.h", "include/net-snmp/system/darwin14.h"
+    copy "include/net-snmp/system/darwin13.h", "include/net-snmp/system/darwin15.h"
+    copy "include/net-snmp/system/darwin13.h", "include/net-snmp/system/darwin16.h"
+  end
+
   command net_snmp_configure.join(" "), :env => build_env
   command "make -j #{workers}", :env => build_env
   command "make install"
