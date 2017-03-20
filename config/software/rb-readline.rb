@@ -24,7 +24,7 @@ skip_transitive_dependency_licensing true
 dependency "ruby"
 dependency "rubygems"
 
-source git: "https://github.com/ConnorAtherton/rb-readline.git"
+source git: "git@github.com:ConnorAtherton/rb-readline.git"
 
 build do
   env = with_embedded_path

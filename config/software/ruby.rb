@@ -97,11 +97,11 @@ elsif freebsd?
 elsif aix?
   # this magic per IBM
   env["LDSHARED"] = "xlc -G"
-  env["CFLAGS"] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  env["CFLAGS"] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include -g"
   # this magic per IBM
   env["XCFLAGS"] = "-DRUBY_EXPORT"
   # need CPPFLAGS set so ruby doesn't try to be too clever
-  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include -g"
   env["SOLIBS"] = "-lm -lc"
   # need to use GNU m4, default m4 doesn't work
   env["M4"] = "/opt/freeware/bin/m4"
