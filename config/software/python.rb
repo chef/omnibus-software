@@ -25,6 +25,7 @@ dependency "ncurses"
 dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
+dependency "sqlite3"
 
 version("2.7.11") { source md5: "6b6076ec9e93f05dd63e47eb9c15728b" }
 version("2.7.9") { source md5: "5eebcaa0030dc4061156d3429657fb83" }
