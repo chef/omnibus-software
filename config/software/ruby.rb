@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2016 Chef Software, Inc.
+# Copyright 2012-2017, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,10 +22,6 @@ license_file "COPYING"
 license_file "LEGAL"
 skip_transitive_dependency_licensing true
 
-# - chef-client cannot use 2.2.x yet due to a bug in IRB that affects chef-shell on linux:
-#   https://bugs.ruby-lang.org/issues/11869
-# - the current status of 2.3.x is that it downloads but fails to compile.
-# - verify that all ffi libs are available for your version on all platforms.
 default_version "2.1.8"
 
 dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
@@ -39,6 +35,7 @@ dependency "libyaml"
 # and that's the only one we will ever use.
 dependency "libiconv"
 
+version("2.4.1")      { source sha256: "a330e10d5cb5e53b3a0078326c5731888bb55e32c4abfeb27d9e7f8e5d000250" }
 version("2.4.0")      { source sha256: "152fd0bd15a90b4a18213448f485d4b53e9f7662e1508190aa5b702446b29e3d" }
 
 version("2.3.3")      { source sha256: "241408c8c555b258846368830a06146e4849a1d58dcaf6b14a3b6a73058115b7" }
