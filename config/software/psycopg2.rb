@@ -1,9 +1,8 @@
 name "psycopg2"
-default_version "2.6.2"
+default_version "2.7.1"
 
 dependency "python"
 dependency "pip"
-dependency "libpq"
 
 env = {
   "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
