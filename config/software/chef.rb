@@ -38,7 +38,7 @@ end
 # This is the behavior the transitive omnibus software deps such as chef-dk
 # expect.
 if version != "local_source"
-  source git: "https://github.com/chef/chef.git"
+  source git: "git@github.com:chef/chef.git"
 end
 
 relative_path "chef"
