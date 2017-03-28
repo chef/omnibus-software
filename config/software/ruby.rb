@@ -110,6 +110,9 @@ elsif solaris_10?
   else
     env["CFLAGS"] << " -std=c99 -O3 -g -pipe"
   end
+elsif solaris_11?
+  env["CFLAGS"] << " -std=c99"
+  env["CPPFLAGS"] << " -D_XOPEN_SOURCE=600 -D_XPG6"
 elsif windows?
   env["CPPFLAGS"] << " -DFD_SETSIZE=2048"
 else # including linux
