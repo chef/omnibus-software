@@ -143,6 +143,11 @@ build do
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
   command configure_command, env: env, in_msys_bash: true
+
+  if windows?
+    patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
+  end
+
   make "depend", env: env
   # make -j N on openssl is not reliable
   make env: env
