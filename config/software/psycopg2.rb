@@ -8,6 +8,8 @@ env = {
   "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
 }
 
+whitelist_file 'psycopg2\/.libs'
+
 build do
   ship_license "https://raw.githubusercontent.com/psycopg/psycopg2/master/LICENSE"
   pip "install #{name}==#{version}", :env => env
