@@ -33,7 +33,7 @@ version "2.9.3" do
   source md5: "daece17e045f1c107610e137ab50c179"
 end
 
-source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
+source url: "ftp://xmlsoft.org/libxslt/libxml2-#{version}.tar.gz"
 
 relative_path "libxml2-#{version}"
 
