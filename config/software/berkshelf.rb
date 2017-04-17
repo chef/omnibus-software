@@ -31,19 +31,11 @@ unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:v
   dependency "libarchive"
 end
 
-dependency "nokogiri"
-dependency "bundler"
 dependency "dep-selector-libgecode"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install" \
-         " --jobs #{workers}" \
-         " --without guard", env: env
-
-  bundle "exec thor gem:build", env: env
-
-  gem "install pkg/berkshelf-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem "build berkshelf.gemspec", env: env
+  gem "install --no-ri --no-rdoc berkshelf-*.gem", env: env
 end
