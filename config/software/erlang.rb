@@ -99,6 +99,11 @@ version "18.3" do
   relative_path "otp_src_18.3"
 end
 
+version '18.2' do
+  source md5: 'b336d2a8ccfbe60266f71d102e99f7ed'
+  relative_path 'otp_src_18.2'
+end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
     # WARNING!
