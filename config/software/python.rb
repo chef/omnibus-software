@@ -36,10 +36,8 @@ source url: "https://python.org/ftp/python/#{version}/Python-#{version}.tgz"
 relative_path "Python-#{version}"
 
 build do
-  env = {
-    "CFLAGS" => "-I#{install_dir}/embedded/include -O3 -g -pipe",
-    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
-  }
+  env = with_standard_compiler_flags(with_embedded_path)
+
   if mac_os_x?
     os_x_release = ohai["platform_version"].match(/([0-9]+\.[0-9]+).*/).captures[0]
     env["MACOSX_DEPLOYMENT_TARGET"] = os_x_release
