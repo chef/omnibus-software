@@ -1,5 +1,5 @@
 name "kafka-python"
-default_version "1.3.1"
+default_version "1.3.3"
 
 dependency "python"
 dependency "pip"
