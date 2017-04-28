@@ -6,7 +6,6 @@ branches:
   only:
     - master
     - omnibus/3.2-stable
-
 bundler_args: --jobs 7
 
 before_install: gem install bundler
