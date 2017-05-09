@@ -22,11 +22,18 @@ default_version "1.0.2"
 license "ISC"
 license_file "LICENSE"
 
-dependency "autoconf"
-dependency "automake"
-dependency "libtool"
+# Depend on the msys2/mingw environment given to us and don't build our
+# own build tools on windows.
+unless windows?
+  dependency "autoconf"
+  dependency "automake"
+  dependency "libtool"
+end
 
 # perhaps use git https://github.com/jedisct1/libsodium/
+version "1.0.12" do
+  source md5: "c308e3faa724b630b86cc0aaf887a5d4"
+end
 version "1.0.8" do
   source md5: "0a66b86fd3aab3fe4c858edcd2772760"
 end
@@ -47,8 +54,7 @@ relative_path "libsodium-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+  configure "--disable-dependency-tracking", env: env
   make "-j #{workers}", env: env
   make "install", env: env
 end
