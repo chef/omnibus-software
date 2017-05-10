@@ -70,6 +70,11 @@ build do
     patch source: "zeromq-4.0.5_configure-pedantic_centos_5.patch", env: env if el?
   end
 
+  # Some test files use inet_pton which is not readily available on windows.
+  if version.satisfies?(">= 4") && version.satisfies?("< 4.1") && windows?
+    patch source: "zeromq-4.0.11_mingw_inet_pton.patch", env: env
+  end
+
   command("./autogen.sh", env: env, in_msys_bash: true)
   config_command = [
     "--with-libsodium",
