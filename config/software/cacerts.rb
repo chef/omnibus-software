@@ -41,6 +41,7 @@ build do
   mkdir "#{install_dir}/embedded/ssl/certs"
 
   copy "#{project_dir}/cacert*.pem", "#{install_dir}/embedded/ssl/certs/cacert.pem"
+  copy "#{project_dir}/cacert*.pem", "#{install_dir}/embedded/ssl/cert.pem" if windows?
 
   # Windows does not support symlinks
   unless windows?
