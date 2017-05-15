@@ -13,6 +13,8 @@ build do
     command "perl Makefile.PL", :cwd => "/tmp/ExtUtils-MakeMaker-6.31"
     if ohai["kernel"]["machine"] == "i686"
       command "curl -O http://cpansearch.perl.org/src/JHI/perl-5.8.0/thrdvar.h", :cwd => "/usr/lib/perl5/CORE/"
+    elsif ohai["kernel"]["machine"] == "x86_64"
+      command "curl -O http://cpansearch.perl.org/src/JHI/perl-5.8.0/thrdvar.h", :cwd => "/usr/lib64/perl5/CORE/"
     end
     command "make", :cwd => "/tmp/ExtUtils-MakeMaker-6.31"
     command "make install", :cwd => "/tmp/ExtUtils-MakeMaker-6.31"
