@@ -56,7 +56,7 @@ build do
     " --disable-iconv",
   ]
 
-  if s390x?
+  if suse?
     configure << "--with-kernel-dir=/usr/src/linux/include/uapi"
   end
 

@@ -35,8 +35,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
 
-  configure = [
-    "./configure",
+  configure_args = [
     "--prefix=#{install_dir}/embedded",
     "--without-lzma",
     "--without-lzo2",
@@ -53,10 +52,10 @@ build do
   ]
 
   if s390x?
-    configure << "--disable-xattr --disable-acl"
+    configure_args << "--disable-xattr --disable-acl"
   end
 
-  command configure.join(" "), env: env
+  configure configure_args.join(" "), env: env
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env

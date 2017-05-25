@@ -15,7 +15,7 @@
 #
 
 name "rabbitmq"
-default_version "2.7.1"
+default_version "3.6.6"
 
 license "MPL-2.0"
 license_file "LICENSE"
@@ -29,6 +29,11 @@ version("2.8.7") { source md5: "35e8d78f8d7ae4372db23fe50db82c64" }
 version("2.7.1") { source md5: "34a5f9fb6f22e6681092443fcc80324f" }
 
 source url: "https://www.rabbitmq.com/releases/rabbitmq-server/v#{version}/rabbitmq-server-generic-unix-#{version}.tar.gz"
+
+version("3.6.6") do
+  source(sha256: "781d17a6c8bbfbcd749d23913218de38e692a5e3093cf47eecf499532ac25d61",
+         url: "http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.6/rabbitmq-server-generic-unix-3.6.6.tar.xz" )
+end
 
 relative_path "rabbitmq_server-#{version}"
 

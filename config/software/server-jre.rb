@@ -15,7 +15,7 @@
 #
 
 name "server-jre"
-default_version "8u91"
+default_version "8u121"
 
 unless _64_bit?
   raise "Server-jre can only be installed on x86_64 systems."
@@ -41,6 +41,28 @@ whitelist_file "jre/bin/appletviewer"
 license_warning = "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
 license_cookie = "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
 
+version "8u121" do
+  # https://www.oracle.com/webfolder/s/digest/8u121checksum.html
+  source url: "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/server-jre-8u121-linux-x64.tar.gz",
+         sha256: "c25a60d02475499109f2bd6aa483721462aa7bfbb86b23ca6ac59be472747e5d",
+         cookie: license_cookie,
+         warning: license_warning,
+         unsafe:  true
+
+  relative_path "jdk1.8.0_121"
+end
+
+version "8u111" do
+  # https://www.oracle.com/webfolder/s/digest/8u111checksum.html
+  source url: "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/server-jre-8u111-linux-x64.tar.gz",
+         sha256: "53442420cd9534ded4beca16c32c1d109cf5add637db764c86660c6eea1d88d4",
+         cookie: license_cookie,
+         warning: license_warning,
+         unsafe:  true
+
+  relative_path "jdk1.8.0_111"
+end
+
 version "8u91" do
   # https://www.oracle.com/webfolder/s/digest/8u91checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/server-jre-8u91-linux-x64.tar.gz",
@@ -52,46 +74,7 @@ version "8u91" do
   relative_path "jdk1.8.0_91"
 end
 
-version "8u74" do
-  # https://www.oracle.com/webfolder/s/digest/8u74checksum.html
-  source url: "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/server-jre-8u74-linux-x64.tar.gz",
-         md5: "2c244c8071b7997219fe664ef1968adf",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
-  relative_path "jdk1.8.0_74"
-end
-
-version "8u31" do
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/8u31-b13/server-jre-8u31-linux-x64.tar.gz",
-         md5:     "9d69cdc00c536b8c9f5b26a3128bd2a1",
-         cookie:  license_cookie,
-         warning: license_warning,
-         unsafe:  true
-  relative_path "jdk1.8.0_31"
-end
-
-version "7u80" do
-  # https://www.oracle.com/webfolder/s/digest/7u80checksum.html
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/server-jre-7u80-linux-x64.tar.gz",
-         md5:     "6152f8a7561acf795ca4701daa10a965",
-         cookie:  license_cookie,
-         warning: license_warning,
-         unsafe:  true
-  relative_path "jdk1.7.0_80"
-end
-
-version "7u25" do
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/7u25-b15/server-jre-7u25-linux-x64.tar.gz",
-         md5:     "7164bd8619d731a2e8c01d0c60110f80",
-         cookie:  license_cookie,
-         warning: license_warning,
-         unsafe:  true
-  relative_path "jdk1.7.0_25"
-end
-
 build do
   mkdir "#{install_dir}/embedded/jre"
-
   sync  "#{project_dir}/", "#{install_dir}/embedded/jre"
 end

@@ -126,6 +126,19 @@ build do
     link "#{install_dir}/embedded/include/#{name}", "#{install_dir}/embedded/erlang/include/#{name}"
   end
 
+  # Note 2017-02-28 sr: HiPE doesn't compile with OTP 18.3 on ppc64le (https://bugs.erlang.org/browse/ERL-369)
+  # Compiling fails when linking beam.smp, with
+  #     powerpc64le-linux-gnu/libutil.so: error adding symbols: File in wrong format
+  #
+  # We've been having issues with ppc64le and hipe before, too:
+  # https://github.com/chef/chef-server/commit/4fa25ed695acaf819b11f71c6db1aab5c8adcaee
+  #
+  # It's trying to compile using a linker script for ppc64, it seems:
+  # https://github.com/erlang/otp/blob/c1ea854fac3d8ed14/erts/emulator/hipe/elf64ppc.x
+  # Probably introduced with https://github.com/erlang/otp/commit/37d63e9b8a0a96
+  # See also https://sourceware.org/ml/binutils/2015-05/msg00148.html
+  hipe = ppc64le? ? "disable" : "enable"
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --enable-threads" \
@@ -133,7 +146,7 @@ build do
           " --enable-kernel-poll" \
           " --enable-dynamic-ssl-lib" \
           " --enable-shared-zlib" \
-          " --enable-hipe" \
+          " --#{hipe}-hipe" \
           " --without-wx" \
           " --without-megaco" \
           " --without-javac" \

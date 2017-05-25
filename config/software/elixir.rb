@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2017, Chef Software Inc.
+# Copyright 2017 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,23 +14,21 @@
 # limitations under the License.
 #
 
-name "pry"
+name "elixir"
+default_version "1.4.2"
 
-license "MIT"
-license_file "https://github.com/pry/pry/blob/master/LICENSE"
+license "Apache-2.0"
+license_file "LICENSE"
 
-skip_transitive_dependency_licensing true
+dependency "erlang"
 
-dependency "ruby"
-dependency "rubygems"
+version("1.4.2") { source sha256: "cb4e2ec4d68b3c8b800179b7ae5779e2999aa3375f74bd188d7d6703497f553f" }
+source url: "https://github.com/elixir-lang/elixir/archive/v#{version}.tar.gz"
+relative_path "elixir-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem_command = [ "install pry --no-ri --no-rdoc" ]
-  gem_command << "--version '#{version}'" unless version.nil?
-
-  gem gem_command.join(" "), env: env
-
-  gem "install pry-remote pry-byebug pry-stack_explorer --no-ri --no-rdoc"
+  make env: env
+  make "install PREFIX=#{install_dir}/embedded", env: env
 end

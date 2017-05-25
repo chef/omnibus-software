@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2017, Chef Software Inc.
+# Copyright 2012-2017 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,23 +14,27 @@
 # limitations under the License.
 #
 
-name "pry"
+name "rbnacl-libsodium"
+default_version "1.0.11"
+relative_path "rbnacl-libsodium"
+
+source git: "https://github.com/cryptosphere/rbnacl-libsodium.git"
 
 license "MIT"
-license_file "https://github.com/pry/pry/blob/master/LICENSE"
-
-skip_transitive_dependency_licensing true
+license_file "LICENSE"
 
 dependency "ruby"
 dependency "rubygems"
+dependency "bundler"
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_embedded_path()
 
-  gem_command = [ "install pry --no-ri --no-rdoc" ]
-  gem_command << "--version '#{version}'" unless version.nil?
+  bundle "install --without development_extras", env: env
+  bundle "exec rake gem", env: env
 
-  gem gem_command.join(" "), env: env
+  delete "pkg/*java*"
 
-  gem "install pry-remote pry-byebug pry-stack_explorer --no-ri --no-rdoc"
+  gem "install pkg/rbnacl-libsodium-*.gem" \
+      " --no-ri --no-rdoc", env: env
 end

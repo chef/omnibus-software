@@ -1,11 +1,12 @@
 #
-# Copyright 2012-2017, Chef Software Inc.
+# Copyright:: Copyright (c) 2016 Chef Software, Inc.
+# License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#    http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,24 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+name "veil-gem"
+default_version "master"
+source git: "https://github.com/chef/chef_secrets.git"
 
-name "pry"
-
-license "MIT"
-license_file "https://github.com/pry/pry/blob/master/LICENSE"
-
-skip_transitive_dependency_licensing true
+license "Apache-2.0"
+license_file "LICENSE"
 
 dependency "ruby"
 dependency "rubygems"
 
 build do
+  delete "veil-*.gem"
+
   env = with_standard_compiler_flags(with_embedded_path)
 
-  gem_command = [ "install pry --no-ri --no-rdoc" ]
-  gem_command << "--version '#{version}'" unless version.nil?
+  bundle "install --without development", env: env
 
-  gem gem_command.join(" "), env: env
-
-  gem "install pry-remote pry-byebug pry-stack_explorer --no-ri --no-rdoc"
+  gem "build veil.gemspec", env: env
+  gem "install veil*.gem --no-rdoc --no-ri --without development", env: env
 end

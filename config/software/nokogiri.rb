@@ -1,5 +1,4 @@
-#
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2017, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +16,7 @@
 name "nokogiri"
 
 license "MIT"
-license_file "https://github.com/sparklemotion/nokogiri/blob/master/LICENSE.txt"
+license_file "https://raw.githubusercontent.com/sparklemotion/nokogiri/master/LICENSE.md"
 # We install only nokogiri from rubygems here.
 skip_transitive_dependency_licensing true
 
@@ -27,7 +26,6 @@ using_prebuilt_ruby = windows? && (project.overrides[:ruby].nil? || project.over
 unless using_prebuilt_ruby
   dependency "libxml2"
   dependency "libxslt"
-  dependency "libiconv"
   dependency "liblzma"
   dependency "zlib"
 end
@@ -75,7 +73,7 @@ build do
       "--with-xml2-include=#{install_dir}/embedded/include/libxml2",
       "--with-xslt-lib=#{install_dir}/embedded/lib",
       "--with-xslt-include=#{install_dir}/embedded/include/libxslt",
-      "--with-iconv-dir=#{install_dir}/embedded",
+      "--without-iconv",
       "--with-zlib-dir=#{install_dir}/embedded",
     ]
   end

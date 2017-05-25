@@ -54,6 +54,12 @@ build do
 
   update_config_guess
 
+  # This patch was written against 3.0.7.  A slightly different patch
+  # will be needed if we upgrade to 3.2 or unstable.
+  if version.satisfies?(">= 3.0.7", "< 3.1")
+    patch source: "password-from-environment.patch", plevel: 1, env: env
+  end
+
   make "-j #{workers}", env: env
   make "install", env: env
 end

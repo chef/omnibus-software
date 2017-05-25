@@ -1,0 +1,22 @@
+*** lib/vtls/schannel.c.orig    Thu Mar 30 23:13:48 2017
+--- lib/vtls/schannel.c Thu Mar 30 23:13:54 2017
+***************
+*** 48,49 ****
+--- 48,53 ----
+
++ #if defined(_AIX)
++ #  define HAS_ALPN 0
++ #endif
++
+  #include "curl_sspi.h"
+*** lib/vtls/openssl.c.orig     Thu Mar 30 23:20:11 2017
+--- lib/vtls/openssl.c  Thu Mar 30 23:33:55 2017
+***************
+*** 1594,1596 ****
+  #if OPENSSL_VERSION_NUMBER >= 0x10002000L \
+!     && !defined(OPENSSL_NO_TLSEXT)
+  #  define HAS_ALPN 1
+--- 1594,1596 ----
+  #if OPENSSL_VERSION_NUMBER >= 0x10002000L \
+!     && !defined(OPENSSL_NO_TLSEXT) && !(_AIX)
+  #  define HAS_ALPN 1
