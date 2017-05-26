@@ -1,5 +1,5 @@
 name "pyasn1"
-default_version "0.1.9"
+default_version "0.2.3"
 
 dependency "python"
 dependency "pip"
