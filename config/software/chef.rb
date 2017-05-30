@@ -74,6 +74,11 @@ build do
   # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
   gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
 
+  # ensure we put the gems in the right place to get picked up by the publish scripts
+  delete "pkg"
+  mkdir "pkg"
+  copy "chef*.gem", "pkg"
+
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
