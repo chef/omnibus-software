@@ -2,7 +2,7 @@ name "jmxfetch"
 
 jmx_version = ENV["JMX_VERSION"]
 if jmx_version.nil? || jmx_version.empty?
-  default_version "0.13.1"
+  default_version "0.14.0"
 else
   default_version jmx_version
 end
@@ -17,6 +17,10 @@ end
 
 version "0.13.1" do
   source sha256: "7dcd8370c500b68e53465e6cc4b578302919cd272c12d2a32b4766eb41c03339"
+end
+
+version "0.14.0" do
+  source sha256: "e4fa8ce43f2af3e6ee9ddbcdb7c34a84646484374c8e19718ce507fdee96ec55"
 end
 
 source :url => "https://dd-jmxfetch.s3.amazonaws.com/jmxfetch-#{version}-jar-with-dependencies.jar"
