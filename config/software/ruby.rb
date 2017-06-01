@@ -119,7 +119,9 @@ else # including linux
   end
 end
 
+
 build do
+
   # AIX needs /opt/freeware/bin only for patch
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}" if aix?
@@ -163,15 +165,17 @@ build do
     patch source: "ruby-fix-reserve-stack-segfault.patch", plevel: 1, env: patch_env
   end
 
-  configure_command = ["--with-out-ext=dbm,readline",
-                       "--enable-shared",
-                       "--disable-install-doc",
-                       "--without-gmp",
-                       "--without-gdbm",
-                       "--without-tk",
-                       "--disable-dtrace"]
+  configure_command = [
+    "--with-out-ext=dbm,readline",
+    "--enable-shared",
+    "--disable-install-doc",
+    "--without-gmp",
+    "--without-gdbm",
+    "--without-tk",
+    "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
   configure_command << "--with-bundled-md5" if fips_mode?
+  configure_command << "--bindir=#{overrides[:bin_dir]}" if overrides[:bin_dir]
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
@@ -227,6 +231,17 @@ build do
   configure(*configure_command, env: env)
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+  if overrides[:bin_dir]
+    %w{ erb gem irb rake rdoc ri ruby bundle }.each do |cmd|
+      link "#{overrides[:bin_dir]}/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+    end
+    block do
+      %w{ bundle appbundler }.each do |cmd|
+        FileUtils.ln_s "#{overrides[:bin_dir]}/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+      end
+    end
+  end
 
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
