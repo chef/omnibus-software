@@ -233,12 +233,10 @@ build do
   make "-j #{workers} install", env: env
 
   if overrides[:bin_dir]
-    %w{ erb gem irb rake rdoc ri ruby bundle }.each do |cmd|
-      link "#{overrides[:bin_dir]}/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
-    end
     block do
-      %w{ bundle appbundler }.each do |cmd|
-        FileUtils.ln_s "#{overrides[:bin_dir]}/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+      # may not exist so we can't use the omnibus link helper
+      %w{ erb gem irb rake rdoc ri ruby bundle appbundler }.each do |cmd|
+        FileUtils.ln_sf "#{overrides[:bin_dir]}/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
       end
     end
   end
@@ -258,6 +256,7 @@ build do
       windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
       if File.exist?(windows_path)
         copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
+        copy windows_path, "#{install_dir}/bin/#{dll}.dll"
       else
         raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
       end
