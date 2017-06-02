@@ -239,9 +239,12 @@ build do
         to = "#{overrides[:bin_dir]}/#{cmd}"
         from = "#{install_dir}/embedded/bin/#{cmd}"
         if windows?
+          puts "FROM: #{from}.bat"
           File.open("#{from}.bat", "w") do |f|
             f.puts "@ECHO OFF"
             f.puts "\"#{to.gsub('/', '\\')}\" %*"
+            f.close
+            puts IO.read(f.path)
           end
         else
           FileUtils.ln_sf to, from
