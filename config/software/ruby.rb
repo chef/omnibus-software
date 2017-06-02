@@ -235,7 +235,7 @@ build do
   if overrides[:bin_dir]
     block do
       # may not exist so we can't use the omnibus link helper, also can't use symlinks on windows
-      command "#{overrides[:bin_dir]}/ruby -e 'puts $:'"
+      puts command("#{overrides[:bin_dir]}/ruby -e 'puts $:'").stdout
 
       %w{ erb gem irb rake rdoc ri ruby bundle appbundler }.each do |cmd|
         to = "#{overrides[:bin_dir]}/#{cmd}"
