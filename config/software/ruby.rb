@@ -234,9 +234,18 @@ build do
 
   if overrides[:bin_dir]
     block do
-      # may not exist so we can't use the omnibus link helper
+      # may not exist so we can't use the omnibus link helper, also can't use symlinks on windows
       %w{ erb gem irb rake rdoc ri ruby bundle appbundler }.each do |cmd|
-        FileUtils.ln_sf "#{overrides[:bin_dir]}/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+        to = "#{overrides[:bin_dir]}/#{cmd}"
+        from = "#{install_dir}/embedded/bin/#{cmd}"
+        if windows?
+          File.open("#{from}.bat", "w") do |f|
+            f.puts "@ECHO OFF"
+            f.puts "\"#{to.gsub('/', '\\')}\" %*"
+          end
+        else
+          FileUtils.ln_sf to, from
+        end
       end
     end
   end
@@ -263,11 +272,12 @@ build do
     end
 
     if !overrides[:bin_dir]
-      if version.satisfies?(">= 2.4")
-        %w{ erb gem irb rdoc ri }.each do |cmd|
-          link "#{install_dir}/embedded/bin/#{cmd}", "#{project_dir}/bin/#{cmd}"
-        end
-      end
+      # FIXME: le broken
+            if version.satisfies?(">= 2.4")
+              %w{ erb gem irb rdoc ri }.each do |cmd|
+                link "#{install_dir}/embedded/bin/#{cmd}", "#{project_dir}/bin/#{cmd}"
+              end
+            end
     end
   end
 
