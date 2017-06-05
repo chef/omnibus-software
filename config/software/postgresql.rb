@@ -28,6 +28,10 @@ dependency "ncurses"
 dependency "libossp-uuid"
 dependency "config_guess"
 
+version "9.2.21" do
+  source sha256: "0697e843523ee60c563f987f9c65bc4201294b18525d6e5e4b2c50c6d4058ef9"
+end
+
 version "9.2.14" do
   source md5: "ce2e50565983a14995f5dbcd3c35b627"
 end
