@@ -41,7 +41,7 @@ if version && !source
     "2.6.8" => "40b3250f28c1d0d5cb9ff5ab2b17df6e",
   }
   known_tarballs.each do |version, md5|
-    self.version version do
+    version version do
       source md5: md5, url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
       relative_path "rubygems-#{version}"
     end
