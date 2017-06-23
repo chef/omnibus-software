@@ -35,8 +35,10 @@ version("18.3") { source md5: "7e4ff32f97c36fb3dab736f8d481830b" }
 version("20.0") { source md5: "2faed2c3519353e6bc2501ed4d8e6ae7" }
 
 build do
-  # Don't listen on 127.0.0.1/::1 implicitly whenever ERL_EPMD_ADDRESS is given
-  patch source: "epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
+  if version.satisfies?(">= 20.0")
+    # Don't listen on 127.0.0.1/::1 implicitly whenever ERL_EPMD_ADDRESS is given
+    patch source: "epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
+  end
 
   env = with_standard_compiler_flags(with_embedded_path).merge(
     # WARNING!
@@ -50,7 +52,7 @@ build do
   update_config_guess(target: "lib/erl_interface/src/auxdir")
   update_config_guess(target: "lib/wx/autoconf")
 
-  if Gem::Version.new(version) >= Gem::Version.new("19.0")
+  if version.satisfies?(">= 19.0")
     update_config_guess(target: "lib/common_test/test_server/src")
   else
     update_config_guess(target: "lib/test_server/src")
