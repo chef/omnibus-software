@@ -37,7 +37,11 @@ version "0.7.1" do
   source md5: "c224fe3923d1dcfe418c65c8a7246316"
 end
 
-source url: "https://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"
+if Gem::Version.new("#{version}") > Gem::Version.new("1.0.8")
+  source url: "https://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"
+else
+  source url: "https://download.libsodium.org/libsodium/releases/old/libsodium-#{version}.tar.gz"
+end
 
 relative_path "libsodium-#{version}"
 
