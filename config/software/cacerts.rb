@@ -20,9 +20,11 @@ license "MPL-2.0"
 license_file "https://github.com/bagder/ca-bundle/blob/master/README.md"
 skip_transitive_dependency_licensing true
 
-default_version "2017-01-18"
+default_version "2017-06-07"
 
 source url: "https://curl.haxx.se/ca/cacert-#{version}.pem"
+
+version("2017-06-07") { source sha256: "e78c8ab7b4432bd466e64bb942d988f6c0ac91cd785017e465bdc96d42fe9dd0" }
 
 version("2017-01-18") { source sha256: "e62a07e61e5870effa81b430e1900778943c228bd7da1259dd6a955ee2262b47" }
 
