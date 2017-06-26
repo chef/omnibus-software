@@ -17,7 +17,7 @@
 name "foodcritic"
 default_version "v6.0.0"
 
-source git: "https://github.com/acrmp/foodcritic.git"
+source git: "https://github.com/foodcritic/foodcritic.git"
 
 dependency "ruby"
 dependency "rubygems"

@@ -17,7 +17,7 @@
 name "fauxhai"
 default_version "master"
 
-source git: "https://github.com/customink/fauxhai.git"
+source git: "https://github.com/chefspec/fauxhai.git"
 
 dependency "ruby"
 dependency "rubygems"
