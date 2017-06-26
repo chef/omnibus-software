@@ -159,8 +159,14 @@ build do
   if rhel? &&
       platform_version.satisfies?("< 6") &&
       (version == "2.1.7" || version == "2.2.3")
-
     patch source: "ruby-fix-reserve-stack-segfault.patch", plevel: 1, env: patch_env
+  end
+
+  if rhel? &&
+      platform_version.satisfies?("< 6") &&
+      version.satisfies?(">= 2.4") &&
+      version.satisfies?("< 2.5")
+    patch source: "ruby_no_conversion_warnings.patch", plevel: 1, env: patch_env
   end
 
   configure_command = ["--with-out-ext=dbm,readline",
