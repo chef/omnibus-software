@@ -28,7 +28,7 @@ skip_transitive_dependency_licensing true
 # see: https://github.com/chef/omnibus/blob/2f9687fb1a3d2459b932acb4dcb37f4cb6335f4c/lib/omnibus/library.rb#L64-L77
 #
 #dependency "ruby-windows-devkit"
-source url: "https://github.com/opscode/msys-bash/releases/download/bash-#{version}/bash-#{version}-bin.tar.lzma",
+source url: "https://github.com/chef/msys-bash/releases/download/bash-#{version}/bash-#{version}-bin.tar.lzma",
        md5: "22d5dbbd9bd0b3e0380d7a0e79c3108e"
 
 relative_path "bin"
