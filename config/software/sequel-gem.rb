@@ -15,7 +15,7 @@
 #
 
 name "sequel-gem"
-default_version "4.13.0"
+default_version "4.47.0"
 
 license "MIT"
 license_file "https://github.com/jeremyevans/sequel/blob/master/MIT-LICENSE"
