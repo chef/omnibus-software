@@ -15,7 +15,7 @@
 #
 
 name "redis-gem"
-default_version "3.1.0"
+default_version "3.3.3"
 
 license "MIT"
 license_file "https://github.com/redis/redis-rb/blob/master/LICENSE"
