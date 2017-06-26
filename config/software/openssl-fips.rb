@@ -21,6 +21,7 @@ license "OpenSSL"
 license_file "https://www.openssl.org/source/license.html"
 skip_transitive_dependency_licensing true
 
+version("2.0.16") { source sha256: "a3cd13d0521d22dd939063d3b4a0d4ce24494374b91408a05bdaca8b681c63d4" }
 version("2.0.14") { source sha256: "8ea069ec39f9c49d85b9831b16daa29936b4527446998336cf93e575f07626c0" }
 version("2.0.11") { source sha256: "a6532875956d357a05838ca2c9865b8eecac211543e4246512684b17acbbdfac" }
 version("2.0.10") { source sha256: "a42ccf5f08a8b510c0c78da1ba889532a0ce24e772b576604faf09b4d6a0f771" }
