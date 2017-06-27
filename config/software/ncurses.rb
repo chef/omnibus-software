@@ -64,7 +64,7 @@ build do
     patch source: "patch-cxx_cursesf.h", plevel: 0, env: env
     patch source: "patch-cxx_cursesm.h", plevel: 0, env: env
 
-    # Opscode patches - <someara@opscode.com>
+    # Chef patches - <sean@sean.io>
     # The configure script from the pristine tarball detects xopen_source_extended incorrectly.
     # Manually working around a false positive.
     patch source: "ncurses-5.9-solaris-xopen_source_extended-detection.patch", plevel: 0, env: env

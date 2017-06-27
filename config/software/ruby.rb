@@ -199,7 +199,7 @@ build do
     configure_command << "ac_cv_header_execinfo_h=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   elsif smartos?
-    # Opscode patch - someara@opscode.com
+    # Chef patch - sean@sean.io
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
     patch source: "ruby-openssl-1.0.1c.patch", plevel: 1, env: patch_env
 
