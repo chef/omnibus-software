@@ -14,18 +14,19 @@
 # limitations under the License.
 #
 
-name "postgresql"
+name "postgresql-versioned"
 
 pg_common_path = File.expand_path("../../common/postgresql.rb", __FILE__)
 instance_eval(IO.read(pg_common_path), pg_common_path)
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  short_version = version.gsub(/^([0-9]+).([0-9]+).[0-9]+$/, '\1.\2')
 
   update_config_guess(target: "config")
 
   command "./configure" \
-          " --prefix=#{install_dir}/embedded" \
+          " --prefix=#{install_dir}/embedded/postgresql/#{short_version}" \
           " --with-libedit-preferred" \
           " --with-openssl" \
           " --with-ossp-uuid" \
@@ -33,5 +34,11 @@ build do
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
   make "world -j #{workers}", env: env
-  make "install-world", env: env
+  make "install-world -j #{workers}", env: env
+
+  block do
+    Dir.glob("#{install_dir}/embedded/postgresql/#{short_version}/bin/*").sort.each do |bin|
+      link bin, "#{install_dir}/embedded/bin/#{File.basename(bin)}"
+    end
+  end
 end
