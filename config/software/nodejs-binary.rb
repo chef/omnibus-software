@@ -43,6 +43,20 @@ version "6.7.0" do
   source sha256: source_hash
 end
 
+version "8.1.2" do
+  source(sha256:
+    if ppc64le?
+      "83c0e5c6643381dd91f25607df17798ed637e590aadcb40334f4e2fb5401cd9a"
+    elsif ppc64?
+      "5d7247a857368c0fa74439342b0347bd273384e7116bd073e56d5744ef5d690c"
+    elsif s390x?
+      "05204ddcfdb479437e1eecacc59e5db5637f466a71e01bf7c5e9812ac67736fb"
+    else
+      "73b116238dd930efbed7c2f6ba24c5c04f27223fcc44d1d35305e22d70c4bb87"
+    end
+  )
+end
+
 arch_ext = if ppc64le?
              "ppc64le"
            elsif ppc64?
