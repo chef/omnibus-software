@@ -17,7 +17,7 @@
 name "pry"
 
 license "MIT"
-license_file "https://github.com/pry/pry/blob/master/LICENSE"
+license_file "https://raw.githubusercontent.com/pry/pry/master/LICENSE"
 
 skip_transitive_dependency_licensing true
 

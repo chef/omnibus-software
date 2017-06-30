@@ -17,7 +17,7 @@
 name "cacerts"
 
 license "MPL-2.0"
-license_file "https://github.com/bagder/ca-bundle/blob/master/README.md"
+license_file "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
 skip_transitive_dependency_licensing true
 
 default_version "2017-06-07"
