@@ -18,7 +18,7 @@ name "sqitch"
 default_version "0.973"
 
 license "MIT"
-license_file "https://github.com/theory/sqitch/blob/master/README.md"
+license_file "https://raw.githubusercontent.com/theory/sqitch/master/README.md"
 
 dependency "perl"
 dependency "cpanminus"
