@@ -201,7 +201,8 @@ build do
   elsif smartos?
     # Chef patch - sean@sean.io
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
-    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1, env: patch_env
+    # patch included upstream in Ruby 2.4.1
+    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1, env: patch_env unless version.satisfies?(">= 2.4.1")
 
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
