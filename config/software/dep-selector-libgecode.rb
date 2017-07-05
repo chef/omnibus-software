@@ -18,7 +18,7 @@ name "dep-selector-libgecode"
 default_version "1.3.1"
 
 license "Apache-2.0"
-license_file "https://github.com/chef/dep-selector-libgecode/blob/master/LICENSE.txt"
+license_file "https://raw.githubusercontent.com/chef/dep-selector-libgecode/master/LICENSE.txt"
 # dep-selector-libgecode does not have any dependencies. We only install it from
 # rubygems here.
 skip_transitive_dependency_licensing true
