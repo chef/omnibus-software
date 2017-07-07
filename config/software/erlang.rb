@@ -35,7 +35,7 @@ version("18.3") { source md5: "7e4ff32f97c36fb3dab736f8d481830b" }
 version("20.0") { source md5: "2faed2c3519353e6bc2501ed4d8e6ae7" }
 
 build do
-  if version.satisfies?(">= 20.0")
+  if version.satisfies?(">= 18.3")
     # Don't listen on 127.0.0.1/::1 implicitly whenever ERL_EPMD_ADDRESS is given
     patch source: "epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
   end
