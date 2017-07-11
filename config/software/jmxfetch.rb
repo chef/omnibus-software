@@ -1,10 +1,14 @@
 name "jmxfetch"
 
-jmx_version = ENV["JMX_VERSION"]
-if jmx_version.nil? || jmx_version.empty?
-  raise "Please specify a JMX_VERSION env variable to build."
+if windows?
+  default_version "0.15.0"
 else
-  default_version jmx_version
+  jmx_version = ENV["JMX_VERSION"]
+  if jmx_version.nil? || jmx_version.empty?
+    raise "Please specify a JMX_VERSION env variable to build."
+  else
+    default_version jmx_version
+  end
 end
 
 version "0.12.0" do
@@ -21,6 +25,10 @@ end
 
 version "0.14.0" do
   source sha256: "e4fa8ce43f2af3e6ee9ddbcdb7c34a84646484374c8e19718ce507fdee96ec55"
+end
+
+version "0.15.0" do
+  source sha256: "fcdcb204203c83409337ef00f34a09092b4314e8ce1ba094595b7c0c153a5678"
 end
 
 source :url => "https://dd-jmxfetch.s3.amazonaws.com/jmxfetch-#{version}-jar-with-dependencies.jar"
