@@ -2,7 +2,7 @@ name "jmxfetch"
 
 jmx_version = ENV["JMX_VERSION"]
 if jmx_version.nil? || jmx_version.empty?
-  fail "Please specify a JMX_VERSION env variable to build."
+  raise "Please specify a JMX_VERSION env variable to build."
 else
   default_version jmx_version
 end
