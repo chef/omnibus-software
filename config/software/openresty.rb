@@ -63,6 +63,10 @@ build do
     patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
   end
 
+  if version == "1.11.2.1"
+    patch source: "v1.11.2.1_bundled-nginx-cve-2017-7529.patch", plevel: 1
+  end
+
   configure = [
     "./configure",
     "--prefix=#{install_dir}/embedded",
