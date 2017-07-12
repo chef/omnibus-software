@@ -97,8 +97,8 @@ build do
     configure << "--with-http_v2_module"
   end
 
-  # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
-  if ppc64? || ppc64le? || s390x?
+  # Non-latest LuaJIT doesn't support POWER correctly so use Lua51 there instead
+  if ( ppc64? || ppc64le? || s390x? ) && version.satisfies?("<= 1.11.2.1")
     configure << "--with-lua51=#{install_dir}/embedded/lib"
   else
     configure << "--with-luajit"
