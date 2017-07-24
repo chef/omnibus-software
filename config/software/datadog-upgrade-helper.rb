@@ -16,5 +16,5 @@ if ohai["platform"] == "windows"
 end
 
 build do
-  command "#{gobin} build && mv datadog-upgrade-helper #{install_dir}/bin/upgrade-helper", :env => env
+  command "#{gobin} build && move datadog-upgrade-helper.exe #{windows_safe_path(install_dir)}\\bin\\upgrade-helper.exe", :env => env
 end
