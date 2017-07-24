@@ -11,10 +11,6 @@ else
   default_version helper_branch
 end
 
-if ohai["platform"] == "windows"
-  gobin = "C:/Go/bin/go"
-end
-
 build do
-  command "#{gobin} build && move datadog-upgrade-helper.exe #{windows_safe_path(install_dir)}\\bin\\upgrade-helper.exe", :env => env
+  command "go build && move datadog-upgrade-helper.exe #{windows_safe_path(install_dir)}\\bin\\upgrade-helper.exe", :env => env
 end
