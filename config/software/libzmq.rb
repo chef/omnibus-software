@@ -63,6 +63,10 @@ source url: "http://download.zeromq.org/zeromq-#{version}.tar.gz"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # If we were building with CMake this would be the default
+  # and newer versions of libzmq use this as the default.
+  env["CPPFLAGS"] = "#{env['CPPFLAGS']} -DFD_SETSIZE=1024" if windows?
+
   # centos 5 has an old version of gcc (4.2.1) that has trouble with
   # long long and c++ in pedantic mode
   # This patch is specific to zeromq4
