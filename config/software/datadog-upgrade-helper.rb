@@ -12,5 +12,5 @@ else
 end
 
 build do
-  command "go build && mv datadog-upgrade-helper #{install_dir}/bin/upgrade-helper", :env => env
+  command "go build && move datadog-upgrade-helper.exe #{windows_safe_path(install_dir)}\\bin\\upgrade-helper.exe", :env => env
 end
