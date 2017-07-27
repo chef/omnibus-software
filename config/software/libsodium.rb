@@ -32,7 +32,7 @@ end
 
 # perhaps use git https://github.com/jedisct1/libsodium/
 version "1.0.12" do
-  source md5: "c308e3faa724b630b86cc0aaf887a5d4"
+  source sha256: "b8648f1bb3a54b0251cf4ffa4f0d76ded13977d4fa7517d988f4c902dd8e2f95"
 end
 version "1.0.8" do
   source md5: "0a66b86fd3aab3fe4c858edcd2772760"
