@@ -45,7 +45,7 @@ version "4.1.4" do
 end
 # Last stable version for "4.0.x"
 version "4.0.7" do
-  source md5: "9b46f7e7b0704b83638ef0d461fd59ab"
+  source sha256: "e00b2967e074990d0538361cc79084a0a92892df2c6e7585da34e4c61ee47b03"
   dependency "libsodium"
 end
 version "4.0.5" do
