@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "9.2.24" # NOTE: This version is EoL, but many downstream users take the default, and we shouldn't break them
+default_version "9.4.1"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
