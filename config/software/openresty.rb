@@ -23,7 +23,7 @@ default_version "1.11.2.4"
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
-dependency "lua" if ppc64? || ppc64le? || s390x?
+dependency "luajit" if ppc64? || ppc64le? || s390x?
 
 source_package_name = "openresty"
 
@@ -97,13 +97,9 @@ build do
     configure << "--with-http_v2_module"
   end
 
-  # Non-latest LuaJIT doesn't support POWER correctly so use Lua51 there instead
+  # Build with custom LuaJIT on IBM platforms
   if ( ppc64? || ppc64le? || s390x? )
-    if version.satisfies?("<= 1.11.2.1")
-      configure << "--with-lua51=#{install_dir}/embedded/lib"
-    else
-      configure << "--without-luajit"
-    end
+    configure << "--with-luajit=#{install_dir}/embedded/lib"
   else
     configure << "--with-luajit"
   end
