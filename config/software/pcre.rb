@@ -29,6 +29,10 @@ version "8.38" do
   source md5: "8a353fe1450216b6655dfcf3561716d9"
 end
 
+version "8.35" do
+  source md5: "ed58bcbe54d3b1d59e9f5415ef45ce1c"
+end
+
 version "8.31" do
   source md5: "fab1bb3b91a4c35398263a5c1e0858c1"
 end
