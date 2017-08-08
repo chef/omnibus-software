@@ -15,19 +15,18 @@
 #
 
 name "luajit"
-default_version "2.1.0-beta2"
 
 license "MIT"
 license_file "https://opensource.org/licenses/mit-license.php"
 skip_transitive_dependency_licensing true
 
 if ppc64? || ppc64le?
+  version "ppc64-port"
   source git: "https://github.com/PPC64/LuaJIT"
 elsif s390x?
-  source git: "https://github.com/linux-on-ibm-z/LuaJIT/tree/v2.1"
+  version "v2.1"
+  source git: "https://github.com/linux-on-ibm-z/LuaJIT"
 end
-
-relative_path "luajit-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
