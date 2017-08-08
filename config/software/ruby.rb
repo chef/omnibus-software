@@ -152,6 +152,13 @@ build do
     # be fixed.
   end
 
+  # Fix find_proxy with IP format proxy and domain format uri raises an exception.
+  # This only affects 2.4 and the fix is expected to be included in 2.4.2
+  # https://github.com/ruby/ruby/pull/1513
+  if version == "2.4.0" || version == "2.4.1"
+    patch source: "2.4_no_proxy_exception.patch", plevel: 1, env: patch_env
+  end
+
   # Fix reserve stack segmentation fault when building on RHEL5 or below
   # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
   # in Ruby trunk and expected to be included in future point releases.
