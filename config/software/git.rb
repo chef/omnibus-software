@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.10.2"
+default_version "2.14.1"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -29,6 +29,10 @@ dependency "libiconv"
 dependency "expat"
 
 relative_path "git-#{version}"
+
+version "2.14.1" do
+  source md5: "e965a37b3d277f2e7e78f5b04de28e2a"
+end
 
 version "2.10.2" do
   source md5: "45e8b30a9e7c1b734128cc0fc6663619"
