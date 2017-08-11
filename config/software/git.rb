@@ -31,7 +31,7 @@ dependency "expat"
 relative_path "git-#{version}"
 
 version "2.14.1" do
-  source md5: "e965a37b3d277f2e7e78f5b04de28e2a"
+  source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079806b58321c2cf85a4464"
 end
 
 version "2.10.2" do
