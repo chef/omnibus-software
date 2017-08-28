@@ -1,9 +1,9 @@
 diff --git a/pcap/pcap.go b/pcap/pcap.go
-index b8eb666..9a623cd 100644
+index 30c024a..24193a1 100644
 --- a/pcap/pcap.go
 +++ b/pcap/pcap.go
-@@ -9,11 +9,12 @@ package pcap
- 
+@@ -9,12 +9,13 @@ package pcap
+
  /*
  #cgo solaris LDFLAGS: -L /opt/local/lib -lpcap
 -#cgo linux LDFLAGS: -lpcap
@@ -12,6 +12,7 @@ index b8eb666..9a623cd 100644
  #cgo dragonfly LDFLAGS: -lpcap
  #cgo freebsd LDFLAGS: -lpcap
  #cgo openbsd LDFLAGS: -lpcap
+ #cgo netbsd LDFLAGS: -lpcap
 -#cgo darwin LDFLAGS: -lpcap
 +#cgo darwin LDFLAGS: /usr/local/Cellar/libpcap/1.7.4/lib/libpcap.a
  #cgo windows CFLAGS: -I C:/WpdPack/Include
