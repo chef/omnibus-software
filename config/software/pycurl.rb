@@ -37,11 +37,11 @@ else
     # This is a custom built pycurl
     python_lib_path = File.join(install_dir, "embedded", "Lib", "site-packages")
     command "powershell.exe -Command wget -outfile pycurl.pyd https://s3.amazonaws.com/dd-agent-omnibus/pycurl.pyd"
-    pycurl_sha256 = "47 c6 b1 ca aa 11 a5 a1 cf 39 38 a1 0b f3 2a 21 e8 72 3c 16 ec bb 4a f8 b8 20 87 4d be 29 ba 31"
-    command "CertUtil -hashfile pycurl.pyd SHA256 | grep '#{pycurl_sha256}' && mv pycurl.pyd #{python_lib_path}"
+    pycurl_sha256 = "47c6b1caaa11a5a1cf3938a10bf32a21e8723c16ecbb4af8b820874dbe29ba31"
+    command "powershell -Command \"if ( $(CertUtil -hashfile pycurl.pyd sha256)[1] -replace \\\" \\\",\\\"\\\" | grep \"#{pycurl_sha256}\" ) { mv pycurl.pyd #{python_lib_path} -force } else { exit 1 } \" "
 
     command "powershell.exe -Command wget -outfile msvcr110.dll https://s3.amazonaws.com/dd-agent-omnibus/msvcr110.dll"
-    vcruntime_sha256 = "0c bb d9 69 1f 08 43 4d a3 61 78 74 f9 9c 6d d8 75 38 cb d6 5b 5d 8b c3 9f ce 37 8d 4e d2 9e ed"
-    command "CertUtil -hashfile msvcr110.dll SHA256 | grep '#{vcruntime_sha256}' && mv msvcr110.dll #{python_lib_path}"
+    vcruntime_sha256 = "0cbbd9691f08434da3617874f99c6dd87538cbd65b5d8bc39fce378d4ed29eed"
+    command "powershell -Command \"if ( $(CertUtil -hashfile msvcr110.dll sha256)[1] -replace \\\" \\\",\\\"\\\" | grep \"#{vcruntime_sha256}\" ) { mv msvcr110.dll #{python_lib_path} -force } else { exit 1 } \" "
   end
 end
