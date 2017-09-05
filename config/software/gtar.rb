@@ -44,7 +44,7 @@ build do
   if nexus? || ios_xr? || s390x?
     # ios_xr and nexus don't support posix acls
     configure_command << " --without-posix-acls"
-  elsif osx?
+  elsif osx? && version.satisfies?("= 1.28")
     # lovingly borrowed from the awesome Homebrew project, thank you!
     # https://github.com/Homebrew/homebrew-core/blob/de3b1aeec9cc8d36f849b0ae959ee4b7f6610c1f/Formula/gnu-tar.rb
     patch source: "gnutar-configure-xattrs.patch", env: env
