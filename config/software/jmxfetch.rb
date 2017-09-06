@@ -35,12 +35,18 @@ version "0.16.0" do
   source sha256: "7ca7aee7ba63e5938df35bb6327d7b10c86ed800a88e6c8173a4f5931a25641d"
 end
 
+jar_dir = "#{install_dir}/agent/checks/libs"
+agent_version = ENV["AGENT_VERSION"] || "5"
+if agent_version[0] == "6"
+  jar_dir = "#{install_dir}/bin/agent/dist/jmx"
+end
+
 source :url => "https://dd-jmxfetch.s3.amazonaws.com/jmxfetch-#{version}-jar-with-dependencies.jar"
 
 relative_path "jmxfetch"
 
 build do
   ship_license "https://raw.githubusercontent.com/DataDog/jmxfetch/master/LICENSE"
-  mkdir "#{install_dir}/agent/checks/libs"
-  copy "jmxfetch-*-jar-with-dependencies.jar", "#{install_dir}/agent/checks/libs"
+  mkdir jar_dir
+  copy "jmxfetch-*-jar-with-dependencies.jar", jar_dir
 end
