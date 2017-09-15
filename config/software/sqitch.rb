@@ -41,7 +41,11 @@ relative_path "App-Sqitch-#{version}"
 # See https://github.com/theory/sqitch for more
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-
+  # Lists-MoreUtils-XS does not build on RHEL 5 or SUSE 11 currently.
+  # This option is used by the Lists-MoreUtils build configuration to
+  # decide whether to use the -XS package or a pure perl
+  # implementation.
+  env["PERL_MM_OPT"] = "PUREPERL_ONLY=1"
   command "perl Build.PL", env: env
   command "./Build installdeps --cpan_client 'cpanm -v --notest'", env: env
   command "./Build", env: env
