@@ -21,6 +21,7 @@ default_version "2.1.11"
 license "LGPL-3.0"
 license_file "COPYING"
 license_file "COPYING.LESSER"
+skip_transitive_dependency_licensing true
 
 # Depend on the msys2/mingw environment given to us and don't build our
 # own build tools on windows.
