@@ -21,6 +21,7 @@ default_version "1.0.2"
 
 license "ISC"
 license_file "LICENSE"
+skip_transitive_dependency_licensing true
 
 # Depend on the msys2/mingw environment given to us and don't build our
 # own build tools on windows.
