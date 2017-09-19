@@ -15,6 +15,7 @@
 
 name "wildfly"
 default_version "10.1.0.Final"
+skip_transitive_dependency_licensing true
 
 version "10.1.0.Final" do
   source md5: "d49d042509d51713038394715b8480ab"
