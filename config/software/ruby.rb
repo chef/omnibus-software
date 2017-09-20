@@ -279,6 +279,12 @@ build do
         copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
       end
     end
+
+    # Ruby 2.4 seems to mark rake.bat as read-only.
+    # Mark it as writable so that we can install other version of rake without
+    # running into permission errors.
+    command "attrib -r #{install_dir}/embedded/bin/rake.bat"
+
   end
 
 end
