@@ -8,7 +8,7 @@ end
 dependency "zlib"
 dependency "openssl"
 
-source url: "https://downloads.sourceforge.net/project/net-snmp/net-snmp/#{version}/net-snmp-#{version}.tar.gz",
+source url: "https://dd-agent.s3.amazonaws.com/net-snmp/net-snmp-#{version}.tar.gz",
        extract: :seven_zip
 
 relative_path "net-snmp-#{version}"
