@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.9.4"
+default_version "2.9.5"
 
 license "MIT"
 license_file "COPYING"
@@ -24,6 +24,10 @@ skip_transitive_dependency_licensing true
 dependency "zlib"
 dependency "liblzma"
 dependency "config_guess"
+
+version "2.9.5" do
+  source sha256: "4031c1ecee9ce7ba4f313e91ef6284164885cdb69937a123f6a83bb6a72dcd38"
+end
 
 version "2.9.4" do
   source md5: "ae249165c173b1ff386ee8ad676815f5"
