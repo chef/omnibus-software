@@ -15,7 +15,7 @@
 #
 
 name "server-jre"
-default_version "8u121"
+default_version "8u144"
 
 unless _64_bit?
   raise "Server-jre can only be installed on x86_64 systems."
@@ -40,6 +40,17 @@ whitelist_file "jre/bin/appletviewer"
 
 license_warning = "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
 license_cookie = "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
+
+version "8u144" do
+  # https://www.oracle.com/webfolder/s/digest/8u144checksum.html
+  source url: "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/server-jre-8u144-linux-x64.tar.gz",
+         sha256: "8ba6f1c692518beb0c727c6e1fb8c30a5dfcc38f8ef9f4f7c7c114c01c747ebc",
+         cookie: license_cookie,
+         warning: license_warning,
+         unsafe:  true
+
+  relative_path "jdk1.8.0_144"
+end
 
 version "8u121" do
   # https://www.oracle.com/webfolder/s/digest/8u121checksum.html
