@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "9.2.10"
+default_version "10.0"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
@@ -27,6 +27,10 @@ dependency "libedit"
 dependency "ncurses"
 dependency "libossp-uuid"
 dependency "config_guess"
+
+version "10.0" do
+  source sha256: "712f5592e27b81c5b454df96b258c14d94b6b03836831e015c65d6deeae57fd1"
+end
 
 version "9.2.22" do
   source sha256: "a70e94fa58776b559a8f7b5301371ac4922c9e3ed313ccbef20862514de7c192"
@@ -124,8 +128,15 @@ source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{vers
 
 relative_path "postgresql-#{version}"
 
+dependency "openssl"
+dependency "zlib"
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  if version.start_with? "10"
+    patch source: "postgresql-10.0-do-not-build-server.patch"
+  end
 
   update_config_guess(target: "config")
 
@@ -134,9 +145,11 @@ build do
           " --with-libedit-preferred" \
           " --with-openssl" \
           " --with-ossp-uuid" \
+          " --with-zlib" \
+          " --without-readline" \
           " --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
-  make "world -j #{workers}", env: env
-  make "install-world", env: env
+  make "-j #{workers}", env: env
+  make "install", env: env
 end

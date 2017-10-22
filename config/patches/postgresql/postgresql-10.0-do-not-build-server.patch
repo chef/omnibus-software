@@ -1,0 +1,46 @@
+diff -ru postgresql-10.0-org/src/bin/Makefile postgresql-10.0/src/bin/Makefile
+--- postgresql-10.0-org/src/bin/Makefile	2017-10-22 14:56:50.371010822 +0300
++++ postgresql-10.0/src/bin/Makefile	2017-10-22 14:58:08.026272180 +0300
+@@ -14,22 +14,7 @@
+ include $(top_builddir)/src/Makefile.global
+ 
+ SUBDIRS = \
+-	initdb \
+-	pg_archivecleanup \
+-	pg_basebackup \
+-	pg_config \
+-	pg_controldata \
+-	pg_ctl \
+-	pg_dump \
+-	pg_resetwal \
+-	pg_rewind \
+-	pg_test_fsync \
+-	pg_test_timing \
+-	pg_upgrade \
+-	pg_waldump \
+-	pgbench \
+-	psql \
+-	scripts
++	pg_config
+ 
+ ifeq ($(PORTNAME), win32)
+ SUBDIRS += pgevent
+diff -ru postgresql-10.0-org/src/Makefile postgresql-10.0/src/Makefile
+--- postgresql-10.0-org/src/Makefile	2017-10-22 14:56:50.367010859 +0300
++++ postgresql-10.0/src/Makefile	2017-10-22 14:57:48.154461245 +0300
+@@ -15,14 +15,9 @@
+ SUBDIRS = \
+ 	common \
+ 	port \
+-	timezone \
+ 	backend \
+-	backend/utils/mb/conversion_procs \
+-	backend/snowball \
+ 	include \
+ 	interfaces \
+-	backend/replication/libpqwalreceiver \
+-	backend/replication/pgoutput \
+ 	fe_utils \
+ 	bin \
+ 	pl \
+Only in postgresql-10.0/src: Makefile.orig
