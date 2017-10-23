@@ -1,0 +1,19 @@
+# Documentation available at https://expeditor-docs.es.chef.io/
+
+# Slack channel in Chef Software slack to send notifications about build failures, etc
+slack:
+  notify_channel: eng-services-notify
+
+github:
+  # The Github Team primarily responsible for handling incoming Pull Requests.
+  maintainer_group: chef/engineering-services
+  # Which Github branches to build Omnibus releases from, and what versions
+  release_branch:
+    - master
+
+# These actions are taken, in order they are specified, anytime a Pull Request is merged.
+merge_actions:
+   - built_in:trigger_omnibus_build:
+      ignore_labels:
+        - "Omnibus: Skip Build"
+        - "Expeditor: Skip All"
