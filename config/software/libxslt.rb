@@ -44,6 +44,9 @@ build do
 
   patch source: "libxslt-solaris-configure.patch", env: env if solaris? || omnios? || smartos?
 
+  if windows? && version.satisfies?(">=1.1.30")
+    patch source: "libxslt-windows-relocate-1.1.30.patch", env: env
+  end
   # the libxslt configure script iterates directories specified in
   # --with-libxml-prefix looking for the libxml2 config script. That
   # iteration treats colons as a delimiter so we are using a cygwin
@@ -58,9 +61,9 @@ build do
 
   configure(*configure_commands, env: env)
 
-  if windows?
+  if windows? && version.satisfies?("<1.1.30")
     # Apply a post configure patch to prevent dll base address clash
-    patch source: "libxslt-windows-relocate.patch", env: env if windows?
+    patch source: "libxslt-windows-relocate.patch", env: env
   end
 
   make "-j #{workers}", env: env
