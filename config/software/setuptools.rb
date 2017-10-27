@@ -15,7 +15,7 @@
 #
 
 name "setuptools"
-default_version "0.7.7"
+default_version "20.0"
 
 license "Python Software Foundation"
 license_file "https://raw.githubusercontent.com/pypa/setuptools/master/LICENSE"
