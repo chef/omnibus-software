@@ -25,7 +25,7 @@ dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2l"
+default_version "1.0.2m"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
