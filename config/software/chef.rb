@@ -63,6 +63,7 @@ build do
 
   # Install components that live inside Chef's git repo. For now this is just
   # 'chef-config'
+  command "env", env: env
   bundle "exec rake install_components", env: env
 
   gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
