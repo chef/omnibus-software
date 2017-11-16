@@ -29,6 +29,7 @@ dependency "nokogiri"
 # Dependency added to avoid this pry error:
 # "Sorry, you can't use Pry without Readline or a compatible library."
 dependency "rb-readline"
+dependency "appbundler"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -38,4 +39,6 @@ build do
   gem "build inspec.gemspec", env: env
   gem "install inspec-*.gem" \
       " --no-ri --no-rdoc", env: env
+
+  appbundle "inspec", env: env
 end
