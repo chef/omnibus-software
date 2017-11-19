@@ -30,13 +30,17 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+version("2.4.2")      { source sha256: "93b9e75e00b262bc4def6b26b7ae8717efc252c47154abb7392e54357e6c8c9c" }
 version("2.4.1")      { source sha256: "a330e10d5cb5e53b3a0078326c5731888bb55e32c4abfeb27d9e7f8e5d000250" }
 version("2.4.0")      { source sha256: "152fd0bd15a90b4a18213448f485d4b53e9f7662e1508190aa5b702446b29e3d" }
 
+version("2.3.5")      { source sha256: "5462f7bbb28beff5da7441968471ed922f964db1abdce82b8860608acc23ddcc" }
+version("2.3.4")      { source sha256: "98e18f17c933318d0e32fed3aea67e304f174d03170a38fd920c4fbe49fec0c3" }
 version("2.3.3")      { source sha256: "241408c8c555b258846368830a06146e4849a1d58dcaf6b14a3b6a73058115b7" }
 version("2.3.1")      { source sha256: "b87c738cb2032bf4920fef8e3864dc5cf8eae9d89d8d523ce0236945c5797dcd" }
 version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 
+version("2.2.8")      { source sha256: "8f37b9d8538bf8e50ad098db2a716ea49585ad1601bbd347ef84ca0662d9268a" }
 version("2.2.6")      { source sha256: "de8e192791cb157d610c48a9a9ff6e7f19d67ce86052feae62b82e3682cc675f" }
 version("2.2.5")      { source md5: "bd8e349d4fb2c75d90817649674f94be" }
 version("2.2.4")      { source md5: "9a5e15f9d5255ba37ace18771b0a8dd2" }
@@ -152,6 +156,13 @@ build do
     # be fixed.
   end
 
+  # Fix find_proxy with IP format proxy and domain format uri raises an exception.
+  # This only affects 2.4 and the fix is expected to be included in 2.4.2
+  # https://github.com/ruby/ruby/pull/1513
+  if version == "2.4.0" || version == "2.4.1"
+    patch source: "2.4_no_proxy_exception.patch", plevel: 1, env: patch_env
+  end
+
   # Fix reserve stack segmentation fault when building on RHEL5 or below
   # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
   # in Ruby trunk and expected to be included in future point releases.
@@ -226,6 +237,11 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
+  # This patch is expected to be included in 2.3.5 and is already in 2.4.1.
+  if version == "2.3.4"
+    patch source: "ruby_2_3_gcc7.patch", plevel: 0, env: patch_env
+  end
+
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
@@ -238,12 +254,16 @@ build do
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
-    dlls = ["libwinpthread-1"]
+    dlls = [
+      "libwinpthread-1",
+      "libstdc++-6",
+    ]
     if windows_arch_i386?
       dlls << "libgcc_s_dw2-1"
     else
       dlls << "libgcc_s_seh-1"
     end
+
     dlls.each do |dll|
       mingw = ENV["MSYSTEM"].downcase
       msys_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] ? "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin" : "C:/msys2"
@@ -260,6 +280,12 @@ build do
         copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
       end
     end
+
+    # Ruby 2.4 seems to mark rake.bat as read-only.
+    # Mark it as writable so that we can install other version of rake without
+    # running into permission errors.
+    command "attrib -r #{install_dir}/embedded/bin/rake.bat"
+
   end
 
 end

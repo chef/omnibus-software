@@ -50,6 +50,10 @@ build do
   delete "#{project_dir}/lib/sigar/*freebsd*"
   delete "#{project_dir}/config"
   mkdir  "#{project_dir}/plugins"
+  # by default RPMs will not include empty directories in the final packag.e
+  # ES will fail to start if this dir is not present.
+  touch  "#{project_dir}/plugins/.gitkeep"
+
   sync   "#{project_dir}/", "#{target_path}"
 
   # Dropping a VERSION file here allows additional software definitions

@@ -1,29 +1,20 @@
-From 5b4b994e9c62f7e7f49d1f4a3c3df8d251f73109 Mon Sep 17 00:00:00 2001
-From: Stephan Renatus <srenatus@chef.io>
-Date: Fri, 23 Jun 2017 10:46:59 +0200
-Subject: [PATCH] epmd: require explicitly adding loopback address
+From fae952def3698b588b96231862123ee3547c702e Mon Sep 17 00:00:00 2001
+From: Steven Danna <steve@chef.io>
+Date: Tue, 14 Nov 2017 21:08:05 +0000
+Subject: [PATCH] epmd: require explicitly adding address
 
-Extracted from @msantos' PR:
-https://github.com/erlang/otp/pull/1075/commits/0800214dc6aec5327f4e984047dd05a8829ae5e4
+Based on the following PR:
 
-Signed-off-by: Stephan Renatus <srenatus@chef.io>
+   https://github.com/erlang/otp/pull/1075/commits/0800214dc6aec5327f4e984047dd05a8829ae5e4
 ---
- erts/epmd/src/epmd_srv.c | 36 +++---------------------------------
- 1 file changed, 3 insertions(+), 33 deletions(-)
+ erts/epmd/src/epmd_srv.c | 31 ++++++++++++-------------------
+ 1 file changed, 12 insertions(+), 19 deletions(-)
 
 diff --git a/erts/epmd/src/epmd_srv.c b/erts/epmd/src/epmd_srv.c
-index 66c10a65bc..3b4c3286bb 100644
+index e1bac99ef9..f42a97330e 100644
 --- a/erts/epmd/src/epmd_srv.c
 +++ b/erts/epmd/src/epmd_srv.c
-@@ -206,7 +206,6 @@ void run(EpmdVars *g)
-   int i;
-   int opt;
-   unsigned short sport = g->port;
--  int bound = 0;
- 
-   node_init(g);
-   g->conn = conn_init(g);
-@@ -252,14 +251,6 @@ void run(EpmdVars *g)
+@@ -257,14 +257,6 @@ void run(EpmdVars *g)
        char *tmp = NULL;
        char *token = NULL;
  
@@ -38,7 +29,7 @@ index 66c10a65bc..3b4c3286bb 100644
  	  if ((tmp = strdup(g->addresses)) == NULL)
  	{
  	  dbg_perror(g,"cannot allocate memory");
-@@ -273,7 +264,6 @@ void run(EpmdVars *g)
+@@ -278,7 +270,6 @@ void run(EpmdVars *g)
  	  struct in_addr addr;
  #if defined(EPMD6)
  	  struct in6_addr addr6;
@@ -46,7 +37,7 @@ index 66c10a65bc..3b4c3286bb 100644
  
  	  if (inet_pton(AF_INET6,token,&addr6) == 1)
  	    {
-@@ -296,15 +286,6 @@ void run(EpmdVars *g)
+@@ -301,15 +292,6 @@ void run(EpmdVars *g)
  	      epmd_cleanup_exit(g,1);
  	    }
  
@@ -62,38 +53,32 @@ index 66c10a65bc..3b4c3286bb 100644
  	  num_sockets++;
  
  	  if (num_sockets >= MAX_LISTEN_SOCKETS)
-@@ -366,16 +347,10 @@ void run(EpmdVars *g)
- 
-       if ((listensock[i] = socket(sa->sa_family,SOCK_STREAM,0)) < 0)
- 	{
--	  switch (errno) {
--	      case EAFNOSUPPORT:
--	      case EPROTONOSUPPORT:
--	          continue;
--	      default:
--	          dbg_perror(g,"error opening stream socket");
--	          epmd_cleanup_exit(g,1);
--	  }
-+	  dbg_perror(g,"error opening stream socket");
-+	  epmd_cleanup_exit(g,1);
+@@ -374,13 +356,24 @@ void run(EpmdVars *g)
+ 	  switch (errno) {
+ 	      case EAFNOSUPPORT:
+ 	      case EPROTONOSUPPORT:
++                  /*
++                   * Log error but continue. We can get here for
++                   * in6addr_any on machines that don't have IPv6
++                   * support. If we can't bind any addresses, we'll
++                   * exit further down
++                   *
++                   */
++                  dbg_perror(g,"error opening stream socket");
+ 	          continue;
+ 	      default:
+ 	          dbg_perror(g,"error opening stream socket");
+ 	          epmd_cleanup_exit(g,1);
+ 	  }
  	}
 -      g->listenfd[bound++] = listensock[i];
-+      g->listenfd[i] = listensock[i];
++      else
++        {
++          g->listenfd[bound++] = listensock[i];
++        }
  
  #if HAVE_DECL_IPV6_V6ONLY
        opt = 1;
-@@ -440,11 +415,6 @@ void run(EpmdVars *g)
-       }
-       select_fd_set(g, listensock[i]);
-     }
--  if (bound == 0) {
--      dbg_perror(g,"unable to bind any address");
--      epmd_cleanup_exit(g,1);
--  }
--  num_sockets = bound;
- #ifdef HAVE_SYSTEMD_DAEMON
-     }
-     if (g->is_systemd) {
 -- 
-2.11.0
+2.14.1
 

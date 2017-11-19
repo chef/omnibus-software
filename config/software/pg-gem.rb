@@ -18,8 +18,8 @@ name "pg-gem"
 default_version "0.17.1"
 
 license "BSD-2-Clause"
-license_file "https://github.com/ged/ruby-pg/blob/master/LICENSE"
-license_file "https://github.com/ged/ruby-pg/blob/master/BSDL"
+license_file "https://raw.githubusercontent.com/ged/ruby-pg/master/LICENSE"
+license_file "https://raw.githubusercontent.com/ged/ruby-pg/master/BSDL"
 # pg gem does not have any dependencies. We only install it from
 # rubygems here.
 skip_transitive_dependency_licensing true

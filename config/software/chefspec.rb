@@ -17,7 +17,7 @@
 name "chefspec"
 default_version "master"
 
-source git: "https://github.com/sethvargo/chefspec.git"
+source git: "https://github.com/chefspec/chefspec.git"
 
 dependency "ruby"
 dependency "rubygems"

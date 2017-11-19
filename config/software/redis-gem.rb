@@ -18,7 +18,7 @@ name "redis-gem"
 default_version "3.3.3"
 
 license "MIT"
-license_file "https://github.com/redis/redis-rb/blob/master/LICENSE"
+license_file "https://raw.githubusercontent.com/redis/redis-rb/master/LICENSE"
 # redis gem does not have any dependencies. We only install it from
 # rubygems here.
 skip_transitive_dependency_licensing true
