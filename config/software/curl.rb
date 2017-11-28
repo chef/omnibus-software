@@ -69,6 +69,7 @@ build do
     "--disable-ldap",
     "--disable-ldaps",
     "--disable-rtsp",
+    "--disable-smb",
     "--enable-proxy",
     "--disable-dependency-tracking",
     "--enable-ipv6",
@@ -79,8 +80,6 @@ build do
     "--with-zlib=#{install_dir}/embedded",
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
   ]
-
-  configure_command << "--disable-ntlm-wb" if aix?
 
   command configure_command.join(" "), env: env
 
