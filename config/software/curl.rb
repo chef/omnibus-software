@@ -80,6 +80,8 @@ build do
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
   ]
 
+  configure_command << "--disable-ntlm-wb" if aix?
+
   command configure_command.join(" "), env: env
 
   make "-j #{workers}", env: env
