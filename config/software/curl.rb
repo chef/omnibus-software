@@ -58,6 +58,8 @@ build do
     # otherwise gawk will die during ./configure with variations on the theme of:
     # "/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded"
     env["LIBPATH"] = "/usr/lib:/lib"
+    # force disabling NTLM in all forms
+    env["USE_NTLM"] = "false"
   end
 
   configure_command = [
