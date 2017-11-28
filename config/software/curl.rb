@@ -68,6 +68,7 @@ build do
     "--enable-optimize",
     "--disable-ldap",
     "--disable-ldaps",
+    "--disable-ntlm-wb",
     "--disable-rtsp",
     "--disable-smb",
     "--enable-proxy",
