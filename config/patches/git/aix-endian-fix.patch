@@ -1,0 +1,20 @@
+*** sha1dc/sha1.c_orig  Wed Dec  6 00:18:55 2017
+--- sha1dc/sha1.c       Wed Dec  6 00:17:57 2017
+***************
+*** 69,74 ****
+--- 69,83 ----
+  #define SHA1DC_BIGENDIAN
+  #endif
+
++ /* Not under GCC-alike */
++ #elif defined(BYTE_ORDER) && defined(BIG_ENDIAN)
++ /*
++  * AIX doesn't use _ for constants so we're looking for these
++  */
++ #if BYTE_ORDER == BIG_ENDIAN
++ #define SHA1DC_BIGENDIAN
++ #endif
++
+  /* Not under GCC-alike or glibc */
+  #elif defined(_BYTE_ORDER) && defined(_BIG_ENDIAN) && defined(_LITTLE_ENDIAN)
+  /*

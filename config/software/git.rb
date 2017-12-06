@@ -92,6 +92,12 @@ build do
     if version == "1.9.5"
       patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
     end
+
+    # In 2.13.1 they introduced some sha code that wasn't super good at
+    # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
+    if version.satisfies?(">2.10.2")
+      patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
+    end
   end
 
   config_hash = {
