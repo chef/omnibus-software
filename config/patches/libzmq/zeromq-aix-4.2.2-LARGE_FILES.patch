@@ -1,0 +1,55 @@
+*** src/tcp_connecter.cpp       Sat Feb 18 18:05:37 2017
+--- src/tcp_connecter.cpp       Thu Dec 14 20:51:26 2017
+***************
+*** 183,189 ****
+  void zmq::tcp_connecter_t::start_connecting ()
+  {
+      //  Open the connecting socket.
+!     const int rc = open ();
+
+      //  Connect may succeed in synchronous manner.
+      if (rc == 0) {
+--- 183,189 ----
+  void zmq::tcp_connecter_t::start_connecting ()
+  {
+      //  Open the connecting socket.
+!     const int rc = openn ();
+
+      //  Connect may succeed in synchronous manner.
+      if (rc == 0) {
+***************
+*** 244,250 ****
+      return interval;
+  }
+
+! int zmq::tcp_connecter_t::open ()
+  {
+      zmq_assert (s == retired_fd);
+
+--- 244,250 ----
+      return interval;
+  }
+
+! int zmq::tcp_connecter_t::openn ()
+  {
+      zmq_assert (s == retired_fd);
+
+*** src/tcp_connecter.hpp       Sat Feb 18 18:05:37 2017
+--- src/tcp_connecter.hpp       Thu Dec 14 20:50:40 2017
+***************
+*** 84,90 ****
+          //  Open TCP connecting socket. Returns -1 in case of error,
+          //  0 if connect was successful immediately. Returns -1 with
+          //  EAGAIN errno if async connect was launched.
+!         int open ();
+
+          //  Close the connecting socket.
+          void close ();
+--- 84,90 ----
+          //  Open TCP connecting socket. Returns -1 in case of error,
+          //  0 if connect was successful immediately. Returns -1 with
+          //  EAGAIN errno if async connect was launched.
+!         int openn ();
+
+          //  Close the connecting socket.
+          void close ();
