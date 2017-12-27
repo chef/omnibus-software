@@ -8,7 +8,7 @@ dependency "pip"
 dependency "six"
 
 source :url => "https://github.com/google/protobuf/releases/download/v#{version}/protobuf-python-#{version}.tar.gz",
-       :sha256 => "0bc10bfd00a9614fae58c86c21fbcf339790e48accf6d45f098034de985f5405"
+       :sha256 => "13d3c15ebfad8c28bee203dd4a0f6e600d2a7d2243bac8b5d0e517466500fcae"
 
 relative_path "protobuf-#{version}/python"
 
