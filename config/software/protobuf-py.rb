@@ -1,6 +1,6 @@
 name "protobuf-py"
-default_version "3.1.0"
-rhel_pip_version = "3.1.0.post1"
+default_version "3.5.1"
+rhel_pip_version = "3.5.1"
 
 dependency "python"
 dependency "setuptools"
