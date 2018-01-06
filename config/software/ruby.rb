@@ -30,16 +30,21 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
+
+version("2.4.3")      { source sha256: "fd0375582c92045aa7d31854e724471fb469e11a4b08ff334d39052ccaaa3a98" }
 version("2.4.2")      { source sha256: "93b9e75e00b262bc4def6b26b7ae8717efc252c47154abb7392e54357e6c8c9c" }
 version("2.4.1")      { source sha256: "a330e10d5cb5e53b3a0078326c5731888bb55e32c4abfeb27d9e7f8e5d000250" }
 version("2.4.0")      { source sha256: "152fd0bd15a90b4a18213448f485d4b53e9f7662e1508190aa5b702446b29e3d" }
 
+version("2.3.6")      { source sha256: "8322513279f9edfa612d445bc111a87894fac1128eaa539301cebfc0dd51571e" }
 version("2.3.5")      { source sha256: "5462f7bbb28beff5da7441968471ed922f964db1abdce82b8860608acc23ddcc" }
 version("2.3.4")      { source sha256: "98e18f17c933318d0e32fed3aea67e304f174d03170a38fd920c4fbe49fec0c3" }
 version("2.3.3")      { source sha256: "241408c8c555b258846368830a06146e4849a1d58dcaf6b14a3b6a73058115b7" }
 version("2.3.1")      { source sha256: "b87c738cb2032bf4920fef8e3864dc5cf8eae9d89d8d523ce0236945c5797dcd" }
 version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 
+version("2.2.9")      { source sha256: "2f47c77054fc40ccfde22501425256d32c4fa0ccaf9554f0d699ed436beca1a6" }
 version("2.2.8")      { source sha256: "8f37b9d8538bf8e50ad098db2a716ea49585ad1601bbd347ef84ca0662d9268a" }
 version("2.2.6")      { source sha256: "de8e192791cb157d610c48a9a9ff6e7f19d67ce86052feae62b82e3682cc675f" }
 version("2.2.5")      { source md5: "bd8e349d4fb2c75d90817649674f94be" }
