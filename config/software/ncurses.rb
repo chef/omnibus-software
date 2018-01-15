@@ -61,6 +61,10 @@ build do
   ship_license "https://gist.githubusercontent.com/remh/41a4f7433c77841c302c/raw/d15db09a192ca0e51022005bfb4c3a414a996896/ncurse.LICENSE"
   env.delete("CPPFLAGS")
 
+  if ohai["platform_family"] == "debian" || ohai["platform_family"] == "rhel"
+    patch source: "ncurses-5.9-gcc-5.patch", plevel: 1
+  end
+
   if ohai["platform"] == "smartos"
     # SmartOS is Illumos Kernel, plus NetBSD userland with a GNU toolchain.
     # These patches are taken from NetBSD pkgsrc and provide GCC 4.7.0
