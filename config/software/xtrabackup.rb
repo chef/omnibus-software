@@ -8,6 +8,8 @@ relative_path "percona-xtrabackup-percona-xtrabackup-2.4.9"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  command "cmake -DBUILD_CONFIG=xtrabackup_release && make -j4", env: env
-  command "make install", env: env
+  command "cmake -DBUILD_CONFIG=xtrabackup_release -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/usr/local/boost_1_59_0", env: env
+  make "-j #{workers}", env: env
+  make "install", env: env
+  command "mv -v /usr/local/xtrabackup/bin/* /usr/bin/"
 end
