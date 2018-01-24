@@ -1,7 +1,9 @@
 name "percona-xtrabackup"
 default_version "2.4.9"
 
-source url: "https://github.com/percona/percona-xtrabackup/archive/percona-xtrabackup-2.4.9.tar.gz"
+source url: "https://github.com/percona/percona-xtrabackup/archive/percona-xtrabackup-2.4.9.tar.gz",
+       :sha256 => "53e613e12dbd93277fb3004b66d8d2c12476e4febca2bcd2d0f2115dc18cb265",
+       :extract => :seven_zip
 relative_path "percona-xtrabackup-percona-xtrabackup-2.4.9"
 
 build do
