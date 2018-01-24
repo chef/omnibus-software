@@ -130,7 +130,11 @@ build do
                 env
               end
 
-  patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
+  if version.start_with? "1.0"
+    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
+  elsif version.start_with? "1.1"
+    patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
+  end
 
   if version == "1.0.2k"
     patch source: "openssl-1.0.2k-no-bang.patch", env: patch_env, plevel: 1
