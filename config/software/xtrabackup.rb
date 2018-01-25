@@ -1,12 +1,12 @@
-name "percona-xtrabackup"
+name "xtrabackup"
 default_version "2.4.9"
 
 skip_transitive_dependency_licensing true
 
-source url: "https://github.com/percona/percona-xtrabackup/archive/percona-xtrabackup-2.4.9.tar.gz",
-       sha256: "53e613e12dbd93277fb3004b66d8d2c12476e4febca2bcd2d0f2115dc18cb265"
+source url: "https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/source/tarball/percona-xtrabackup-2.4.9.tar.gz",
+       md5: "fca658cb3b004d2a2df342a136125f84"
 
-relative_path "percona-xtrabackup-percona-xtrabackup-2.4.9"
+relative_path "percona-xtrabackup-2.4.9"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
