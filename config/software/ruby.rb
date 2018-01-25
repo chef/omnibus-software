@@ -185,6 +185,15 @@ build do
     patch source: "ruby_no_conversion_warnings.patch", plevel: 1, env: patch_env
   end
 
+  # RHEL 6's gcc doesn't support `#pragma GCC diagnostic` inside functions, so
+  # we'll guard their inclusion more specifically. As of 2018-01-25 this is fixed
+  # upstream and ought to be in 2.5.1
+  if rhel? &&
+      platform_version.satisfies?("< 7") &&
+      (version == "2.5.0")
+    patch source: "prelude_25_el6_no_pragma.patch", plevel: 0, env: patch_env
+  end
+
   configure_command = ["--with-out-ext=dbm,readline",
                        "--enable-shared",
                        "--disable-install-doc",
