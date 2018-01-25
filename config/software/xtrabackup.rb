@@ -12,8 +12,9 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   command "cmake -DBUILD_CONFIG=xtrabackup_release " \
           "-DWITH_MAN_PAGES=OFF -DDOWNLOAD_BOOST=1 " \
-          "-DWITH_BOOST=#{install_dir}/embedded/lib/boost_1_59_0", env: env
+          "-DWITH_BOOST=#{install_dir}/embedded/lib/boost_1_59_0" \
+          "-DINSTALL_BINDIR=#{install_dir}/embedded/bin", env: env
 
-  make "prefix=#{install_dir}/embedded -j #{workers}", env: env
-  make "prefix=#{install_dir}/embedded install", env: env
+  make "-j #{workers}", env: env
+  make "install", env: env
 end
