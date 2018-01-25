@@ -4,8 +4,8 @@ default_version "2.4.9"
 skip_transitive_dependency_licensing true
 
 source url: "https://github.com/percona/percona-xtrabackup/archive/percona-xtrabackup-2.4.9.tar.gz",
-       :md5 => "be54cc7f8843fcfa3334917b732ac234",
-       :extract => :seven_zip
+       sha256: "53e613e12dbd93277fb3004b66d8d2c12476e4febca2bcd2d0f2115dc18cb265"
+
 relative_path "percona-xtrabackup-percona-xtrabackup-2.4.9"
 
 build do
