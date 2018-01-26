@@ -20,27 +20,31 @@ license "OpenSSL"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
-fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
-
 dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
-dependency "openssl-fips" if fips_enabled
+dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2j"
+default_version "1.0.2k"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
+version("1.1.0g") { source sha256: "de4d501267da39310905cb6dc8c6121f7a2cad45a7707f76df828fe1b85073af" }
+version("1.1.0f") { source sha256: "12f746f3f2493b2f39da7ecf63d7ee19c6ac9ec6a4fcd8c229da8a522cb12765" }
+version("1.0.2n") { source sha256: "370babb75f278c39e0c50e8c4e7493bc0f18db6867478341a832a982fd15a8fe" }
+version("1.0.2m") { source sha256: "8c6ff15ec6b319b50788f42c7abc2890c08ba5a1cdcd3810eb9092deada37b0f" }
+version("1.0.2l") { source sha256: "ce07195b659e75f4e1db43552860070061f156a98bb37b672b101ba6e3ddf30c" }
+version("1.0.2k") { source sha256: "6b3977c61f2aedf0f96367dcfb5c6e578cf37e7b8d913b4ecb6643c3cb88d8c0" }
 version("1.0.2j") { source sha256: "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431" }
 version("1.0.2i") { source sha256: "9287487d11c9545b6efb287cdb70535d4e9b284dd10d51441d9b9963d000de6f" }
 version("1.0.2h") { source sha256: "1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919" }
-version("1.0.2g") { source md5: "f3c710c045cdee5fd114feb69feba7aa" }
+version("1.0.2g") { source sha256: "b784b1b3907ce39abf4098702dade6365522a253ad1552e267a9a0e89594aa33" }
 version("1.0.1u") { source sha256: "4312b4ca1215b6f2c97007503d80db80d5157f76f8f7d3febbe6b4c56ff26739" }
-version("1.0.1t") { source md5: "9837746fcf8a6727d46d22ca35953da1" }
-version("1.0.1s") { source md5: "562986f6937aabc7c11a6d376d8a0d26" }
-version("1.0.1r") { source md5: "1abd905e079542ccae948af37e393d28" }
+version("1.0.1t") { source sha256: "4a6ee491a2fdb22e519c76fdc2a628bb3cec12762cd456861d207996c8a07088" }
+version("1.0.1s") { source sha256: "e7e81d82f3cd538ab0cdba494006d44aab9dd96b7f6233ce9971fb7c7916d511" }
+version("1.0.1r") { source sha256: "784bd8d355ed01ce98b812f873f8b2313da61df7c7b5677fcf2e57b0863a3346" }
 
 relative_path "openssl-#{version}"
 
@@ -64,18 +68,16 @@ build do
   end
 
   configure_args = [
-    "--prefix=#{install_dir}/embedded",
-    "--with-zlib-lib=#{install_dir}/embedded/lib",
-    "--with-zlib-include=#{install_dir}/embedded/include",
-    "no-idea",
-    "no-mdc2",
-    "no-rc5",
-    "shared",
+      "--prefix=#{install_dir}/embedded",
+      "--with-zlib-lib=#{install_dir}/embedded/lib",
+      "--with-zlib-include=#{install_dir}/embedded/include",
+      "no-idea",
+      "no-mdc2",
+      "no-rc5",
+      "shared",
   ]
 
-  if fips_enabled
-    configure_args << "--with-fipsdir=#{install_dir}/embedded" << "fips"
-  end
+  configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
 
   if windows?
     configure_args << "zlib-dynamic"
@@ -84,50 +86,58 @@ build do
   end
 
   configure_cmd =
-    if aix?
-      "perl ./Configure aix64-cc"
-    elsif mac_os_x?
-      "./Configure darwin64-x86_64-cc"
-    elsif smartos?
-      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
-    elsif omnios?
-      "/bin/bash ./Configure solaris-x86-gcc"
-    elsif solaris_10?
-      # This should not require a /bin/sh, but without it we get
-      # Errno::ENOEXEC: Exec format error
-      platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
-      "/bin/sh ./Configure #{platform} -static-libgcc"
-    elsif solaris_11?
-      platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
-      "/bin/bash ./Configure #{platform} -static-libgcc"
-    elsif windows?
-      platform = windows_arch_i386? ? "mingw" : "mingw64"
-      "perl.exe ./Configure #{platform}"
-    else
-      prefix =
-        if linux? && ppc64?
-          "./Configure linux-ppc64"
-        elsif linux? && s390x?
-          # With gcc > 4.3 on s390x there is an error building
-          # with inline asm enabled
-          "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
-        else
-          "./config"
-        end
-      "#{prefix} disable-gost"
-    end
+      if aix?
+        "perl ./Configure aix64-cc"
+      elsif mac_os_x?
+        "./Configure darwin64-x86_64-cc"
+      elsif smartos?
+        "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+      elsif omnios?
+        "/bin/bash ./Configure solaris-x86-gcc"
+      elsif solaris_10?
+        # This should not require a /bin/sh, but without it we get
+        # Errno::ENOEXEC: Exec format error
+        platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
+        "/bin/sh ./Configure #{platform} -static-libgcc"
+      elsif solaris_11?
+        platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
+        "/bin/bash ./Configure #{platform} -static-libgcc"
+      elsif windows?
+        platform = windows_arch_i386? ? "mingw" : "mingw64"
+        "perl.exe ./Configure #{platform}"
+      else
+        prefix =
+            if linux? && ppc64?
+              "./Configure linux-ppc64"
+            elsif linux? && s390x?
+              # With gcc > 4.3 on s390x there is an error building
+              # with inline asm enabled
+              "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
+            else
+              "./config"
+            end
+        "#{prefix} disable-gost"
+      end
 
-  if aix?
+  patch_env = if aix?
+                # This enables omnibus to use 'makedepend'
+                # from fileset 'X11.adt.imake' (AIX install media)
+                env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
+                penv = env.dup
+                penv["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+                penv
+              else
+                env
+              end
 
-    # This enables omnibus to use 'makedepend'
-    # from fileset 'X11.adt.imake' (AIX install media)
-    env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
-
-    patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+  if version.start_with? "1.0"
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
-  else
-    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: env
+  elsif version.start_with? "1.1"
+    patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
+  end
+
+  if version == "1.0.2k"
+    patch source: "openssl-1.0.2k-no-bang.patch", env: patch_env, plevel: 1
   end
 
   if windows?
@@ -142,6 +152,11 @@ build do
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
   command configure_command, env: env, in_msys_bash: true
+
+  if windows?
+    patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
+  end
+
   make "depend", env: env
   # make -j N on openssl is not reliable
   make env: env
