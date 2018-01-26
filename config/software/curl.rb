@@ -60,8 +60,7 @@ build do
     env["LIBPATH"] = "/usr/lib:/lib"
   end
 
-  configure_command = [
-    "./configure",
+  configure_options = [
     "--prefix=#{install_dir}/embedded",
     "--disable-manual",
     "--disable-debug",
@@ -80,7 +79,7 @@ build do
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
   ]
 
-  command configure_command.join(" "), env: env
+  configure(*configure_options, env: env)
 
   make "-j #{workers}", env: env
   make "install", env: env
