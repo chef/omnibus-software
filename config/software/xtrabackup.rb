@@ -6,7 +6,7 @@ skip_transitive_dependency_licensing true
 source url: "https://s3.amazonaws.com/twindb-release/percona-xtrabackup-2.4.9.tar.gz",
        md5: "fca658cb3b004d2a2df342a136125f84"
 
-relative_path "percona-xtrabackup-percona-xtrabackup-2.4.9"
+relative_path "percona-xtrabackup-2.4.9"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
