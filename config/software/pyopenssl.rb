@@ -1,6 +1,6 @@
 name "pyopenssl"
 # If you upgrade pyopenssl, you'll probably have to upgrade `cryptography` as well
-default_version "0.14"
+default_version "17.5.0"
 
 dependency "python"
 dependency "pip"
