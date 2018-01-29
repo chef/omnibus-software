@@ -7,6 +7,7 @@ source url: "https://s3.amazonaws.com/twindb-release/percona-xtrabackup-2.4.9.ta
        md5: "fca658cb3b004d2a2df342a136125f84"
 
 relative_path "percona-xtrabackup-2.4.9"
+whitelist_file /.*/
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
