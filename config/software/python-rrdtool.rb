@@ -16,7 +16,7 @@ build do
     end
     command "make", :cwd => "/tmp/ExtUtils-MakeMaker-6.31"
     command "make install", :cwd => "/tmp/ExtUtils-MakeMaker-6.31"
-    command "curl -O https://oss.oetiker.ch/rrdtool/pub/rrdtool-#{version}.tar.gz", :cwd => "/opt/"
+    command "curl -O https://ftp.cs.pu.edu.tw/network/rrdtool/pub/rrdtool-#{version}.tar.gz", :cwd => "/opt/"
     command "tar -xzvf rrdtool-#{version}.tar.gz", :cwd => "/opt/"
     command "./configure", :cwd => "/opt/rrdtool-#{version}", :env => { "PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/" }
     command "make", :cwd => "/opt/rrdtool-#{version}", :env => { "PKG_CONFIG_PATH" => "/usr/lib/pkgconfig/" }
