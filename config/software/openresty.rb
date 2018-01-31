@@ -97,13 +97,6 @@ build do
     configure << "--with-http_v2_module"
   end
 
-  # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
-  if ppc64? || ppc64le? || s390x?
-    configure << "--with-lua51=#{install_dir}/embedded/lib"
-  else
-    configure << "--with-luajit"
-  end
-
   # OpenResty 1.7 + RHEL5 Fixes:
   # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
   # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
