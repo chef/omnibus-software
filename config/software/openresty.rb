@@ -18,7 +18,7 @@ name "openresty"
 license "BSD-2-Clause"
 license_file "README.markdown"
 skip_transitive_dependency_licensing true
-default_version "1.11.2.1"
+default_version "1.11.2.5"
 
 dependency "pcre"
 dependency "openssl"
@@ -27,6 +27,7 @@ dependency "lua" if ppc64? || ppc64le? || s390x?
 
 source_package_name = "openresty"
 
+version("1.11.2.5") { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f57820aa8e92d7888d8ad657b9" }
 version("1.11.2.1") { source md5: "f26d152f40c5263b383a5b7c826a6c7e" }
 version("1.9.7.3") { source md5: "33579b96a8c22bedee97eadfc99d9564" }
 
