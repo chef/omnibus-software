@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "9.2.10"
+default_version "9.2.24"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
@@ -28,28 +28,16 @@ dependency "ncurses"
 dependency "libossp-uuid"
 dependency "config_guess"
 
-version "9.2.22" do
-  source sha256: "a70e94fa58776b559a8f7b5301371ac4922c9e3ed313ccbef20862514de7c192"
+version "10.1" do
+  source sha256: "3ccb4e25fe7a7ea6308dea103cac202963e6b746697366d72ec2900449a5e713"
 end
 
-version "9.2.21" do
-  source sha256: "0697e843523ee60c563f987f9c65bc4201294b18525d6e5e4b2c50c6d4058ef9"
+version "9.6.6" do
+  source sha256: "399cdffcb872f785ba67e25d275463d74521566318cfef8fe219050d063c8154"
 end
 
-version "9.2.14" do
-  source md5: "ce2e50565983a14995f5dbcd3c35b627"
-end
-
-version "9.2.10" do
-  source md5: "7b81646e2eaf67598d719353bf6ee936"
-end
-
-version "9.2.9" do
-  source md5: "38b0937c86d537d5044c599273066cfc"
-end
-
-version "9.2.8" do
-  source md5: "c5c65a9b45ee53ead0b659be21ca1b97"
+version "9.5.10" do
+  source sha256: "945d7ade094dded6b95495d8f1561a12ac9608276858ed30adf3c3658275f281"
 end
 
 version "9.5.8" do
@@ -66,6 +54,10 @@ end
 
 version "9.5beta1" do
   source md5: "4bd67bfa4dc148e3f9d09f6699b5931f"
+end
+
+version "9.4.15" do
+  source sha256: "12bfb3c7e8e45515ef921ad365e122682a5c4935dcc0032644433af2de31acc4"
 end
 
 version "9.4.13" do
@@ -86,6 +78,10 @@ end
 
 version "9.4.0" do
   source md5: "8cd6e33e1f8d4d2362c8c08bd0e8802b"
+end
+
+version "9.3.20" do
+  source sha256: "eb138ad67075b8acb4fae56e98ca7be5d85f3da0ba658fc48206834598a2e6ca"
 end
 
 version "9.3.18" do
@@ -110,6 +106,34 @@ end
 
 version "9.3.4" do
   source md5: "d0a41f54c377b2d2fab4a003b0dac762"
+end
+
+version "9.2.24" do
+  source sha256: "a754c02f7051c2f21e52f8669a421b50485afcde9a581674d6106326b189d126"
+end
+
+version "9.2.22" do
+  source sha256: "a70e94fa58776b559a8f7b5301371ac4922c9e3ed313ccbef20862514de7c192"
+end
+
+version "9.2.21" do
+  source sha256: "0697e843523ee60c563f987f9c65bc4201294b18525d6e5e4b2c50c6d4058ef9"
+end
+
+version "9.2.14" do
+  source md5: "ce2e50565983a14995f5dbcd3c35b627"
+end
+
+version "9.2.10" do
+  source md5: "7b81646e2eaf67598d719353bf6ee936"
+end
+
+version "9.2.9" do
+  source md5: "38b0937c86d537d5044c599273066cfc"
+end
+
+version "9.2.8" do
+  source md5: "c5c65a9b45ee53ead0b659be21ca1b97"
 end
 
 version "9.1.15" do
