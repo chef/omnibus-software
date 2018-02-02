@@ -27,7 +27,9 @@ dependency "lua" if ppc64? || ppc64le? || s390x?
 
 source_package_name = "openresty"
 
+# Versions above 1.11.2.2 require SSE4.2 CPU support
 version("1.11.2.5") { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f57820aa8e92d7888d8ad657b9" }
+version("1.11.2.2") { source sha256: "7f9ca62cfa1e4aedf29df9169aed0395fd1b90de254139996e554367db4d5a01" }
 version("1.11.2.1") { source md5: "f26d152f40c5263b383a5b7c826a6c7e" }
 version("1.9.7.3") { source md5: "33579b96a8c22bedee97eadfc99d9564" }
 
