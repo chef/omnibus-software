@@ -15,7 +15,7 @@
 #
 
 name "curl"
-default_version "7.56.0"
+default_version "7.59.0"
 
 dependency "zlib"
 dependency "openssl"
@@ -24,6 +24,7 @@ dependency "cacerts"
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
+version("7.59.0") { source sha256: "099d9c32dc7b8958ca592597c9fabccdf4c08cfb7c114ff1afbbc4c6f13c9e9e" }
 version("7.56.0") { source sha256: "f1bc17a7e5662dbd8d4029750a6dbdb72a55cf95826a270ab388b05075526104" }
 version("7.53.1") { source sha256: "64f9b7ec82372edb8eaeded0a9cfa62334d8f98abc65487da01188259392911d" }
 version("7.51.0") { source sha256: "65b5216a6fbfa72f547eb7706ca5902d7400db9868269017a8888aa91d87977c" }
