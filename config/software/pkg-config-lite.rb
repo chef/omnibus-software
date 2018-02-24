@@ -27,7 +27,8 @@ version "0.28-1" do
   source md5: "61f05feb6bab0a6bbfab4b6e3b2f44b6"
 end
 
-source url: "http://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
+# source url: "http://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
+source url: "https://tenet.dl.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
 
 relative_path "pkg-config-lite-#{version}"
 
