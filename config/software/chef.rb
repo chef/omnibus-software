@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2017, Chef Software Inc.
+# Copyright 2012-2018, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -89,8 +89,8 @@ build do
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  appbundle "chef", env: env
-  appbundle "ohai", env: env
+  appbundle "chef", without: %w{integration docgen maintenance ci travis}, env: env
+  appbundle "ohai", without: %w{changelog}, env: env
 
   # Clean up
   # TODO: Move this cleanup to a more appropriate place that's common to all
