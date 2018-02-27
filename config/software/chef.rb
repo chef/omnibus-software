@@ -89,8 +89,8 @@ build do
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  appbundle "chef", without: %w{integration docgen maintenance ci travis}, env: env
-  appbundle "ohai", without: %w{changelog}, env: env
+  appbundle "chef", lockdir: project_dir, without: %w{integration docgen maintenance ci travis}, env: env
+  appbundle "ohai", lockdir: project_dir, without: %w{changelog}, env: env
 
   # Clean up
   # TODO: Move this cleanup to a more appropriate place that's common to all
