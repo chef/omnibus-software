@@ -21,7 +21,7 @@ source git: "https://github.com/jonlives/knife-spork.git"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "chef"
 
 build do

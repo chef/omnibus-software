@@ -22,7 +22,7 @@ source git: "https://github.com/chef/chef-provisioning-fog.git"
 dependency "ruby"
 dependency "rubygems"
 dependency "nokogiri"
-dependency "bundler"
+
 dependency "chef"
 
 build do

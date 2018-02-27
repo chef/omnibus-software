@@ -21,7 +21,7 @@ source git: "https://github.com/bbatsov/rubocop.git"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

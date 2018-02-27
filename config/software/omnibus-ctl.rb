@@ -24,7 +24,7 @@ skip_transitive_dependency_licensing true
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 
 source git: "https://github.com/chef/omnibus-ctl.git"
 

@@ -21,7 +21,7 @@ source git: "https://github.com/foodcritic/foodcritic.git"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "nokogiri"
 dependency "chef"
 

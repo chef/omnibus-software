@@ -21,7 +21,7 @@ source git: "https://github.com/chefspec/chefspec.git"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "chef"
 dependency "fauxhai"
 

@@ -49,7 +49,7 @@ relative_path "chef"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "ohai"
 dependency "appbundler"
 
