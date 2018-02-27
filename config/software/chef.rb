@@ -89,7 +89,7 @@ build do
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  appbundle "chef", lockdir: project_dir, without: excluded_groups, env: env
+  appbundle "chef", lockdir: project_dir, without: excluded_groups + %w{development test}, env: env
   appbundle "ohai", lockdir: project_dir, without: %w{changelog}, env: env
 
   # Clean up
