@@ -21,7 +21,7 @@ source git: "https://github.com/test-kitchen/kitchen-vagrant.git"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "test-kitchen"
 
 build do

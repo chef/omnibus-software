@@ -27,7 +27,7 @@ dependency "ruby"
 
 dependency "rubygems"
 dependency "libyajl2-gem"
-dependency "bundler"
+
 
 build do
   env = with_embedded_path()

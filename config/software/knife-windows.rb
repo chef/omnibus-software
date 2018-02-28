@@ -21,7 +21,7 @@ source git: "https://github.com/chef/knife-windows.git"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "chef"
 
 build do

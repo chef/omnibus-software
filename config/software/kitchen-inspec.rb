@@ -21,7 +21,7 @@ source git: "https://github.com/chef/kitchen-inspec.git"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "test-kitchen"
 dependency "inspec"
 

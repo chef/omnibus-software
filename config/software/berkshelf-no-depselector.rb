@@ -32,7 +32,7 @@ unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:v
 end
 
 dependency "nokogiri"
-dependency "bundler"
+
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

@@ -32,7 +32,7 @@ unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:v
 end
 
 dependency "nokogiri"
-dependency "bundler"
+
 dependency "dep-selector-libgecode"
 
 build do

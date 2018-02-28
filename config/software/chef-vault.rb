@@ -23,7 +23,7 @@ relative_path "chef-vault"
 
 dependency "ruby"
 dependency "rubygems"
-dependency "bundler"
+
 dependency "chef"
 
 build do
