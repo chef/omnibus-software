@@ -95,7 +95,7 @@ build do
   bundle "install --without #{excluded_groups.join(' ')}", env: env
 
   appbundle "chef", lockdir: project_dir, without: excluded_groups, env: env
-  appbundle "ohai", lockdir: project_dir, without: %w{changelog}, env: env
+  appbundle "ohai", lockdir: project_dir, without: %w{changelog development ci}, env: env
 
   # Clean up
   # TODO: Move this cleanup to a more appropriate place that's common to all
