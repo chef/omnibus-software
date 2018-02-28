@@ -91,7 +91,7 @@ build do
 
   # rebundle without dev+test for appbundling (XXX: appbundler should support this)
   excluded_groups += %w{development test}
-  delete "Gemfile.lock"t
+  delete "Gemfile.lock"
   bundle "install --without #{excluded_groups.join(' ')}", env: env
 
   appbundle "chef", lockdir: project_dir, without: excluded_groups, env: env
