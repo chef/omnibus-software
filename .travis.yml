@@ -1,8 +1,7 @@
 sudo: false
 rvm:
-  - 2.2.8
-  - 2.3.5
-  - 2.4.2
+  - 2.3.6
+  - 2.4.3
 branches:
   only:
     - master
