@@ -25,7 +25,7 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 version("3.3.2") { source sha256: "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce" }
-version("3.1.2") { source md5: "efad5a503f66329bb9d2f4308b5de98a" }
+version("3.1.2") { source sha256: "eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e" }
 
 source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz"
 
