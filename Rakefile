@@ -21,7 +21,7 @@ task :fetch_all do
 end
 
 def rake_fakeout
-  ARGV.each { |a| task a.to_sym {} }
+  ARGV.each { |a| task a.to_sym {} } # rubocop: disable Lint/AmbiguousBlockAssociation
 end
 
 task :list do
