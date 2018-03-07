@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2017, Chef Software Inc.
+# Copyright 2012-2018, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -118,7 +118,15 @@ elsif solaris_11?
   env["CFLAGS"] << " -std=c99"
   env["CPPFLAGS"] << " -D_XOPEN_SOURCE=600 -D_XPG6"
 elsif windows?
-  env["CPPFLAGS"] << " -DFD_SETSIZE=2048"
+  env["CFLAGS"] = "-I#{install_dir}/embedded/include -DFD_SETSIZE=2048"
+  if windows_arch_i386?
+    # 32-bit windows can't compile ruby with -O2 due to compiler bugs.
+    env["CFLAGS"] << " -m32 -march=i686 -O"
+  else
+    env["CFLAGS"] << " -m64 -march=x86-64 -O2"
+  end
+  env["CPPFLAGS"] = env["CFLAGS"]
+  env["CXXFLAGS"] = env["CFLAGS"]
 else # including linux
   if version.satisfies?(">= 2.3.0") &&
       rhel? && platform_version.satisfies?("< 6.0")
