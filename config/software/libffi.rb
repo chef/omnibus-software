@@ -28,7 +28,7 @@ dependency "libtool" unless windows?
 version("3.0.13") { source md5: "45f3b6dbc9ee7c7dfbbbc5feba571529" }
 version("3.2.1")  { source md5: "83b89587607e3eb65c70d361f13bab43" }
 
-source url: "ftp://sourceware.org/pub/libffi/libffi-#{version}.tar.gz"
+source url: "https://www.mirrorservice.org/sites/sourceware.org/pub/libffi/libffi-#{version}.tar.gz"
 
 relative_path "libffi-#{version}"
 
