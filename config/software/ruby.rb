@@ -247,6 +247,11 @@ build do
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
     configure_command << "ac_cv_func_dl_iterate_phdr=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
+  elsif solaris2?
+    # In ruby-2.5.0 on Solaris 11 Random.urandom defaults to arc4random_buf() as
+    # its implementation which is buggy and returns nothing but zeros.  We therefore
+    # force that API off.
+    configure_command << "ac_cv_func_arc4random_buf=no"
   elsif windows?
     if version.satisfies?(">= 2.3") &&
         version.satisfies?("< 2.5")
