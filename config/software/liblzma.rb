@@ -22,7 +22,7 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 version("5.2.2") { source md5: "7cf6a8544a7dae8e8106fdf7addfa28c" }
-version("5.2.3") { source md5: "ef68674fb47a8b8e741b34e429d86e9d" }
+version("5.2.3") { source sha256: "71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb" }
 
 source url: "http://tukaani.org/xz/xz-#{version}.tar.gz"
 
