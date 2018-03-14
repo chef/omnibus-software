@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright 2012-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ name "zlib"
 default_version "1.2.11"
 
 version "1.2.11" do
-  source md5: "1c9f62f0778697a09d36121ead88e08e"
+  source sha256: "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1"
 end
 version "1.2.8" do
   source md5: "44d667c142d7cda120332623eab69f40"
@@ -27,7 +27,7 @@ version "1.2.6" do
   source md5: "618e944d7c7cd6521551e30b32322f4a"
 end
 
-source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
+source url: "https://zlib.net/zlib-#{version}.tar.gz"
 
 license "Zlib"
 license_file "README"
