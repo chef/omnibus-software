@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.9.7"
+default_version "2.9.8"
 
 license "MIT"
 license_file "COPYING"
@@ -24,6 +24,10 @@ skip_transitive_dependency_licensing true
 dependency "zlib"
 dependency "liblzma"
 dependency "config_guess"
+
+version "2.9.8" do
+  source sha256: "0b74e51595654f958148759cfef0993114ddccccbb6f31aee018f3558e8e2732"
+end
 
 version "2.9.7" do
   source sha256: "f63c5e7d30362ed28b38bfa1ac6313f9a80230720b7fb6c80575eeab3ff5900c"
@@ -34,11 +38,11 @@ version "2.9.5" do
 end
 
 version "2.9.4" do
-  source md5: "ae249165c173b1ff386ee8ad676815f5"
+  source sha256: "ffb911191e509b966deb55de705387f14156e1a56b21824357cdf0053233633c"
 end
 
 version "2.9.3" do
-  source md5: "daece17e045f1c107610e137ab50c179"
+  source sha256: "4de9e31f46b44d34871c22f54bfc54398ef124d6f7cafb1f4a5958fbcd3ba12d"
 end
 
 source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
