@@ -28,7 +28,7 @@ dependency "zlib"
 dependency "openssl"
 
 version "1.0.6" do
-  source sha256: "0b74e51595654f958148759cfef0993114ddccccbb6f31aee018f3558e8e2732"
+  source sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
 end
 source url: "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz"
 
