@@ -33,7 +33,6 @@ relative_path "libarchive-#{version}"
 
 dependency "config_guess"
 dependency "libxml2"
-dependency "bzip2"
 dependency "zlib"
 dependency "liblzma"
 
@@ -46,6 +45,7 @@ build do
     "--without-lzo2",
     "--without-nettle",
     "--without-expat",
+    "--without-bz2lib",
     "--without-iconv",
     "--disable-bsdtar", # tar command line tool
     "--disable-bsdcpio", # cpio command line tool
