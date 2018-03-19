@@ -38,10 +38,11 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # Avoid warning where .rodata cannot be used when making a shared object
-  env["CFLAGS"] << " -fPIC"
+  env["CFLAGS"] << " -fPIC" unless aix?
 
   # The list of arguments to pass to make
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
+  args << " BIGFILES='-D_LARGE_FILES'" if aix?
 
   patch source: "makefile_take_env_vars.patch", env: env
   patch source: "soname_install_dir.patch", env: env if mac_os_x?
