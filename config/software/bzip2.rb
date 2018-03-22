@@ -42,7 +42,7 @@ build do
 
   # The list of arguments to pass to make
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
-  args << " BIGFILES='-D_LARGE_FILES'" if aix?
+  args << " CFLAGS='-qpic=small -qpic=large -O2 -g -D_ALL_SOURCE -D_LARGE_FILES'" if aix?
 
   patch source: "makefile_take_env_vars.patch", env: env
   patch source: "soname_install_dir.patch", env: env if mac_os_x?
