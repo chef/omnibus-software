@@ -38,13 +38,15 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # Avoid warning where .rodata cannot be used when making a shared object
-  env["CFLAGS"] << " -fPIC"
+  env["CFLAGS"] << " -fPIC" unless aix?
 
   # The list of arguments to pass to make
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
+  args << " CFLAGS='-qpic=small -qpic=large -O2 -g -D_ALL_SOURCE -D_LARGE_FILES'" if aix?
 
   patch source: "makefile_take_env_vars.patch", env: env
   patch source: "soname_install_dir.patch", env: env if mac_os_x?
+  patch source: "aix_makefile.patch", env: env if aix?
 
   make "#{args}", env: env
   make "#{args} -f Makefile-libbz2_so", env: env
