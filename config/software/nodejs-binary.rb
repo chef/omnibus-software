@@ -43,6 +43,34 @@ version "6.7.0" do
   source sha256: source_hash
 end
 
+# These are the last versions of their series that provide both ppc64 and ppc64le versions
+version "8.9.1" do
+  source_hash = if ppc64le?
+                  "d3e11a9ef301afdecb10ed26470492fd03402b86bf9efc3f89a9aef541bf9a2c"
+                elsif ppc64?
+                  "7ab8c4bf36364624b6bc7610319f1e2c32a7c882aa6392ce285faaee39597dce"
+                elsif s390x?
+                  "48160ddaa7397cf85ca0cf333cc87dc3485956c75a3cdf98f04735bb81b37da6"
+                else # x64
+                  "0e49da19cdf4c89b52656e858346775af21f1953c308efbc803b665d6069c15c"
+                end
+  source sha256: source_hash
+end
+
+# These are the last versions of their series that provide both ppc64 and ppc64le versions
+version "9.2.0" do
+  source_hash = if ppc64le?
+                  "9a173db0c0b88dcddf08542736c597c87bf86d536df8fa65a4fdff75e7bb4243"
+                elsif ppc64?
+                  "34b3d6d7e6036e38aacab6754f55711ac9582a3d963a06f5f75e07e2d986d2a2"
+                elsif s390x?
+                  "c5f6315da901bbb54ffa0b23b58cd0b46f0ebfbe2a4f1847ec1d330602000bfd"
+                else # x64
+                  "36ef2b3d1a99555390835d6fd4ad194a769df6841cbcc46cba0dffbaf6e6aa34"
+                end
+  source sha256: source_hash
+end
+
 arch_ext = if ppc64le?
              "ppc64le"
            elsif ppc64?
