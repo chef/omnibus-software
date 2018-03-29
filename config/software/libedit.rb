@@ -49,6 +49,10 @@ build do
 
   if openbsd?
     patch source: "openbsd-weak-alias-fix.patch", plevel: 1, env: env
+  elsif aix?
+    # this forces us to build correctly, in the event that the system locale
+    # is non-standard.
+    env["LC_ALL"] = "en_US"
   end
 
   update_config_guess
