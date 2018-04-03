@@ -27,7 +27,7 @@ version "1.2.6" do
   source md5: "618e944d7c7cd6521551e30b32322f4a"
 end
 
-source url: "https://zlib.net/zlib-#{version}.tar.gz"
+source url: "https://zlib.net/fossils/zlib-#{version}.tar.gz"
 
 license "Zlib"
 license_file "README"
