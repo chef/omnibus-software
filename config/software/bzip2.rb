@@ -1,5 +1,5 @@
 #
-# Copyright 2013-2014 Chef Software, Inc.
+# Copyright 2013-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ dependency "zlib"
 dependency "openssl"
 
 version "1.0.6" do
-  source md5: "00b516f4704d4a7cb50a1d97e6e8e15b"
+  source sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
 end
 source url: "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz"
 
@@ -38,13 +38,15 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # Avoid warning where .rodata cannot be used when making a shared object
-  env["CFLAGS"] << " -fPIC"
+  env["CFLAGS"] << " -fPIC" unless aix?
 
   # The list of arguments to pass to make
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
+  args << " CFLAGS='-qpic=small -qpic=large -O2 -g -D_ALL_SOURCE -D_LARGE_FILES'" if aix?
 
   patch source: "makefile_take_env_vars.patch", env: env
   patch source: "soname_install_dir.patch", env: env if mac_os_x?
+  patch source: "aix_makefile.patch", env: env if aix?
 
   make "#{args}", env: env
   make "#{args} -f Makefile-libbz2_so", env: env

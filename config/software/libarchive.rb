@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,18 +18,24 @@
 # https://github.com/berkshelf/api.berkshelf.com
 
 name "libarchive"
-default_version "3.1.2"
+default_version "3.3.2"
 
 license "BSD-2-Clause"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
-       md5: "efad5a503f66329bb9d2f4308b5de98a"
+version("3.3.2") { source sha256: "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce" }
+version("3.1.2") { source sha256: "eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e" }
+
+source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz"
 
 relative_path "libarchive-#{version}"
 
 dependency "config_guess"
+dependency "libxml2"
+dependency "bzip2"
+dependency "zlib"
+dependency "liblzma"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -37,17 +43,12 @@ build do
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
-    "--without-lzma",
     "--without-lzo2",
     "--without-nettle",
-    "--without-xml2",
     "--without-expat",
-    "--without-bz2lib",
     "--without-iconv",
-    "--without-zlib",
-    "--disable-bsdtar",
-    "--disable-bsdcpio",
-    "--without-lzmadec",
+    "--disable-bsdtar", # tar command line tool
+    "--disable-bsdcpio", # cpio command line tool
     "--without-openssl",
   ]
 

@@ -1,0 +1,12 @@
+diff -Naur bzip2-1.0.6_orig/Makefile-libbz2_so bzip2-1.0.6_aix/Makefile-libbz2_so
+--- bzip2-1.0.6_orig/Makefile-libbz2_so	2010-09-10 16:07:52.000000000 -0700
++++ bzip2-1.0.6_aix/Makefile-libbz2_so	2018-03-21 23:42:14.000000000 -0700
+@@ -35,7 +35,7 @@
+       bzlib.o
+ 
+ all: $(OBJS)
+-	$(CC) -shared -Wl,-soname -Wl,libbz2.so.1.0 -o libbz2.so.1.0.6 $(OBJS)
++	$(CC) -qmkshrobj -Wl,-soname -o libbz2.so.1.0.6 $(OBJS)
+ 	$(CC) $(CFLAGS) -o bzip2-shared bzip2.c libbz2.so.1.0.6
+ 	rm -f libbz2.so.1.0
+ 	ln -s libbz2.so.1.0.6 libbz2.so.1.0
