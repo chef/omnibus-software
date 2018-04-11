@@ -13,16 +13,19 @@ project lead.
 
 ## Project Lead
 
-* [Seth Chisamore](https://github.com/schisamo)
+- [Scott Hain](https://github.com/scotthain)
 
 ## Maintainers
 
-* [Daniel DeLeo](https://github.com/danielsdeleo)
-* [Jay Mundrawala](https://github.com/jaym)
-* [Kartik Null Cating-Subramanian](https://github.com/ksubrama)
-* [Lamont Granquist](https://github.com/lamont-granquist)
-* [Scott Hain](https://github.com/scotthain)
-* [Seth Vargo](http://github.com/sethvargo)
-* [Steven Danna](https://github.com/stevendanna)
-* [Thom May](https://github.com/thommay)
-* [Yvonne Lam](http://github.com/yzl)
+- [Robb Kidd](https://github.com/robbkidd)
+- [Seth Chisamore](https://github.com/schisamo)
+- [Jeremiah Snapp](https://github.com/jeremiahsnapp)
+- [Jaymala Sinha](https://github.com/jaymalasinha)
+- [Daniel DeLeo](https://github.com/danielsdeleo)
+- [Jay Mundrawala](https://github.com/jaym)
+- [Kartik Null Cating-Subramanian](https://github.com/ksubrama)
+- [Lamont Granquist](https://github.com/lamont-granquist)
+- [Seth Vargo](http://github.com/sethvargo)
+- [Steven Danna](https://github.com/stevendanna)
+- [Thom May](https://github.com/thommay)
+- [Yvonne Lam](http://github.com/yzl)
