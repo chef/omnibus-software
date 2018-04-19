@@ -18,6 +18,10 @@ name "rbzmq"
 default_version "master"
 source git: "https://github.com/chef/rbzmq.git"
 
+license "LGPL-3.0"
+license_file "LICENSE.txt"
+skip_transitive_dependency_licensing true
+
 dependency "libzmq"
 dependency "libsodium"
 dependency "ruby"
