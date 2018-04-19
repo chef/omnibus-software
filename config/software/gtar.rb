@@ -15,8 +15,9 @@
 #
 
 name "gtar"
-default_version "1.29"
+default_version "1.30"
 
+version("1.30") { source md5: "e0c5ed59e4dd33d765d6c90caadd3c73" }
 version("1.29") { source md5: "c57bd3e50e43151442c1995f6236b6e9" }
 version("1.28") { source md5: "6ea3dbea1f2b0409b234048e021a9fd7" }
 
@@ -50,10 +51,17 @@ build do
     patch source: "gnutar-configure-xattrs.patch", env: env
     env["gl_cv_func_getcwd_abort_bug"] = "no"
   elsif aix?
-    # AIX has a gross patch that is required since xlc gets confused by too many #ifndefs
-    patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
-    patch source: "aix_ifndef.patch", plevel: 0, env: patch_env
+    if version.satisfies?("<= 1.28")
+      # AIX has a gross patch that is required since xlc gets confused by too many #ifndefs
+      patch_env = env.dup
+      patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+      patch source: "aix_ifndef.patch", plevel: 0, env: patch_env
+    elsif version.satisfies?("> 1.28")
+      # xlc doesn't allow duplicate entries in case statements
+      patch_env = env.dup
+      patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+      patch source: "aix_extra_case.patch", plevel: 0, env: patch_env
+    end
   end
 
   command configure_command.join(" "), env: env
