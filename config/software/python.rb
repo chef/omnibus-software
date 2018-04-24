@@ -26,6 +26,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 
+version("2.7.14") { source sha256: "304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8" }
 version("2.7.13") { source md5: "17add4bf0ad0ec2f08e0cae6d205c700" }
 version("2.7.11") { source md5: "6b6076ec9e93f05dd63e47eb9c15728b" }
 version("2.7.9") { source md5: "5eebcaa0030dc4061156d3429657fb83" }
