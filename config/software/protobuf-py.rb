@@ -6,8 +6,10 @@ dependency "setuptools"
 dependency "pip"
 dependency "six"
 
-source :url => "https://github.com/google/protobuf/releases/download/v#{version}/protobuf-python-#{version}.tar.gz",
-       :sha256 => "13d3c15ebfad8c28bee203dd4a0f6e600d2a7d2243bac8b5d0e517466500fcae"
+if not windows?
+  source :url => "https://github.com/google/protobuf/releases/download/v#{version}/protobuf-python-#{version}.tar.gz",
+         :sha256 => "13d3c15ebfad8c28bee203dd4a0f6e600d2a7d2243bac8b5d0e517466500fcae"
+end
 
 relative_path "protobuf-#{version}/python"
 
