@@ -1,7 +1,7 @@
 name "jmxfetch"
 
 if windows?
-  default_version "0.19.0"
+  default_version "0.20.0"
 else
   jmx_version = ENV["JMX_VERSION"]
   if jmx_version.nil? || jmx_version.empty?
@@ -49,6 +49,10 @@ end
 
 version "0.19.0" do
   source sha256: "28f345c2d407e85802c43201e1e1ea5b8664f39ac705ac8e6b44295b641c5d70"
+end
+
+version "0.20.0" do
+  source sha256: "5aad61dfec602ad536f855a12e6c47289515a10808422fc984a57c6a59964c04"
 end
 
 jar_dir = "#{install_dir}/agent/checks/libs"
