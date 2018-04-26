@@ -25,6 +25,7 @@ license_file "LICENSE"
 
 source url: "http://nginx.org/download/nginx-#{version}.tar.gz"
 
+version("1.14.0") { source sha256: "5d15becbf69aba1fe33f8d416d97edd95ea8919ea9ac519eff9bafebb6022cb5" }
 version("1.12.2") { source sha256: "305f379da1d5fb5aefa79e45c829852ca6983c7cd2a79328f8e084a324cf0416" }
 version("1.10.2") { source md5: "e8f5f4beed041e63eb97f9f4f55f3085" }
 version("1.9.1") { source md5: "fc054d51effa7c80a2e143bc4e2ae6a7" }
