@@ -15,7 +15,11 @@
 #
 
 name "zlib"
-default_version "1.2.8"
+default_version "1.2.11"
+
+version "1.2.11" do
+  source md5: "1c9f62f0778697a09d36121ead88e08e"
+end
 
 version "1.2.8" do
   source md5: "44d667c142d7cda120332623eab69f40"
@@ -25,7 +29,8 @@ version "1.2.6" do
 end
 
 # source url: "http://downloads.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
-source url: "https://ayera.dl.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
+# source url: "https://ayera.dl.sourceforge.net/project/libpng/zlib/#{version}/zlib-#{version}.tar.gz"
+source url: "http://www.zlib.net/zlib-#{version}.tar.gz"
 
 license "Zlib"
 license_file "README"
