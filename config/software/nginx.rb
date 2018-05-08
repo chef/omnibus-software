@@ -47,6 +47,7 @@ build do
           " --with-http_stub_status_module" \
           " --with-ipv6" \
           " --with-debug" \
+ 	  " --with-http_realip_module" \
           " --with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"" \
           " --with-ld-opt=-L#{install_dir}/embedded/lib", env: env
 
