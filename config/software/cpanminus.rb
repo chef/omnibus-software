@@ -28,7 +28,7 @@ relative_path "cpanminus-#{version}"
 version "1.7907" do
   source url: "https://github.com/miyagawa/cpanminus/archive/App-cpanminus-#{version}.tar.gz",
          md5: "1c06fd9153a4b725a7d6829abc1d83d6"
-  relative_path "cpanminus-App-cpanminus-#{version}"
+  relative_path "cpanminus-App-cpanminus-#{version}/App-cpanminus"
 end
 
 version "1.7040" do
