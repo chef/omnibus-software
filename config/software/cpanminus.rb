@@ -15,13 +15,18 @@
 #
 
 name "cpanminus"
-default_version "1.7004"
+default_version "1.7907"
 
 license "Artistic-2.0"
 license_file "http://dev.perl.org/licenses/artistic.html"
 skip_transitive_dependency_licensing true
 
 dependency "perl"
+
+version "1.7907" do
+  source url: "https://github.com/miyagawa/cpanminus/archive/App-cpanminus-#{version}.tar.gz",
+         md5: "1c06fd9153a4b725a7d6829abc1d83d6"
+end
 
 version "1.7040" do
   source md5: "4fabebffe22eaaf584b345b082a8a9c1"
@@ -33,7 +38,11 @@ end
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
 
-relative_path "cpanminus-#{version}"
+if version.eql?('1.7907') 
+  relative_path "cpanminus-App-cpanminus-#{version}"
+else
+  relative_path "cpanminus-#{version}"
+end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

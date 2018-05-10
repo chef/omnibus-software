@@ -28,6 +28,9 @@ end
 version "7.10" do
   source md5: "2639a21adee5e0a903730c12dcba08ec"
 end
+version "7.34" do
+  source md5: "073c0fb4eebf3953de2a1e94fa189bac"
+end
 
 source url: "http://search.cpan.org/CPAN/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-#{version}.tar.gz"
 

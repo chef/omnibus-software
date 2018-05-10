@@ -20,8 +20,14 @@ license "Artistic-2.0"
 license_file "Artistic"
 skip_transitive_dependency_licensing true
 
-default_version "5.18.1"
+default_version "5.24.4"
 
+version "5.26.2" do
+  source md5: "dc0fea097f3992a8cd53f8ac0810d523"
+end
+version "5.24.4" do
+  source md5: "0cf94185b622d37a820edfc87e89c642"
+end
 version "5.22.1" do
   source md5: "19295bbb775a3c36123161b9bf4892f1"
 end
