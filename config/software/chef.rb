@@ -50,7 +50,6 @@ relative_path "chef"
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
-dependency "appbundler"
 dependency "libarchive" # for archive resource
 
 build do
