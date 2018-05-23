@@ -50,7 +50,6 @@ relative_path "chef"
 dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
-dependency "ohai"
 dependency "appbundler"
 dependency "libarchive" # for archive resource
 
@@ -59,7 +58,7 @@ build do
 
   # compiled ruby on windows 2k8R2 x86 is having issues compiling
   # native extensions for pry-byebug so excluding for now
-  excluded_groups = %w{server docgen maintenance pry travis integration ci}
+  excluded_groups = %w{server docgen maintenance pry travis integration ci development}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
 
@@ -90,8 +89,9 @@ build do
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  appbundle "chef", env: env
-  appbundle "ohai", env: env
+  appbundle "chef", lockdir: project_dir, gem: "chef", without: %w{integration docgen maintenance ci travis}, env: env
+  appbundle "ohai", lockdir: project_dir, gem: "ohai", without: %w{changelog}, env: env
+  appbundle "inspec", lockdir: project_dir, gem: "inspec", without: %w{deploy tools maintenance integration}, env: env
 
   # Clean up
   # TODO: Move this cleanup to a more appropriate place that's common to all
