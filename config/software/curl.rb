@@ -16,14 +16,14 @@
 #
 
 name "curl"
-default_version "7.51.0"
+default_version "7.59.0"
 
 if ohai["platform"] != "windows"
   dependency "zlib"
   dependency "openssl"
   dependency "nghttp2"
   source :url => "https://curl.haxx.se/download/curl-#{version}.tar.gz",
-         :sha256 => "65b5216a6fbfa72f547eb7706ca5902d7400db9868269017a8888aa91d87977c"
+         :sha256 => "099d9c32dc7b8958ca592597c9fabccdf4c08cfb7c114ff1afbbc4c6f13c9e9e"
 
   relative_path "curl-#{version}"
 
