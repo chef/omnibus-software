@@ -88,7 +88,7 @@ build do
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  appbundle "chef", lockdir: project_dir, gem: "chef", without: %w{integration docgen maintenance ci travis}, env: env
+  appbundle "chef", lockdir: project_dir, gem: "chef", without: %w{integration docgen maintenance ci travis ruby_prof ruby_shadow}, env: env
   appbundle "ohai", lockdir: project_dir, gem: "ohai", without: %w{changelog}, env: env
   appbundle "inspec", lockdir: project_dir, gem: "inspec", without: %w{deploy tools maintenance integration}, env: env
 
