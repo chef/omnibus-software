@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.14.1"
+default_version "2.17.1"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -29,6 +29,10 @@ dependency "libiconv"
 dependency "expat"
 
 relative_path "git-#{version}"
+
+version "2.17.1" do
+  source sha256: "ec6452f0c8d5c1f3bcceabd7070b8a8a5eea11d4e2a04955c139b5065fd7d09a"
+end
 
 version "2.15.1" do
   source sha256: "85fca8781a83c96ba6db384cc1aa6a5ee1e344746bafac1cbe1f0fe6d1109c84"

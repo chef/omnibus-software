@@ -15,21 +15,38 @@
 #
 
 name "git-windows"
-default_version "2.14.1"
+default_version "2.17.1"
 
 license "LGPL-2.1"
 # the license file does not ship in the portable git package so pull from the source repo
 license_file "https://raw.githubusercontent.com/git-for-windows/git/master/LGPL-2.1"
 
 arch_suffix = windows_arch_i386? ? "32" : "64"
+# The Git for Windows project includes a build number in their tagging
+# scheme and therefore in the URLs for downloaded releases.
+# Occasionally, something goes wrong with a build/release and the "real"
+# release of a version has a build number other than 1. And so far, the
+# release URLs have not followed a consistent pattern for whether and how
+# the build number is included.
+# This URL pattern has worked for most releases. If a version has multiple
+# builds, set the `source url:` again explicitly to the one appropriate for
+# that version's release.
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
 
 if windows_arch_i386?
+  version("2.17.1") do
+    source(sha256: "74ef9dce2a185535dc5cbe7d53076df8558d739f29721be33b894d21b653f194",
+           url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.2/PortableGit-#{version}.2-#{arch_suffix}-bit.7z.exe")
+  end
   version("2.14.1") { source sha256: "df3f9b6c2dd2b12e5cb7035b9ca48d13b973d054a35b0939953aa6e7a00a0659" }
   version("2.12.0") { source sha256: "0375ba0a05f9cd501cc8089b9af6f2adf8904a5efb1e5b9421e6561bd9f8c817" }
   version("2.8.1") { source sha256: "0b6efaaeb4b127edb3a534261b2c9175bd86ee8683dff6e12ccb194e6abb990e" }
   version("2.8.2") { source sha256: "da25bc12efa864cda53dc6485c84dd8b0d41883dd360db505c026c284ef58d8e" }
 else
+  version("2.17.1") do
+    source(sha256: "5664ee470caf44743be1514c71f77cb8ac360dd69a667e6dd668cc6531acb8ba",
+           url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.2/PortableGit-#{version}.2-#{arch_suffix}-bit.7z.exe")
+  end
   version("2.14.1") { source sha256: "3c3270a9df5f3db1f7637d86b94fb54a96e9145ba43c98a3e993cdffb1a1842e" }
   version("2.12.0") { source sha256: "5bebd0ee21e5cf3976bc71826a28b2663c7a0c9b5c98f4ab46ff03c3c0d3556f" }
   version("2.8.1") { source sha256: "dc9d971156cf3b6853bc0c1ad0ca76f1d2c24478cca80036919f12fe46acd64e" }
