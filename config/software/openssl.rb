@@ -20,7 +20,6 @@ license "OpenSSL"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
-dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "openssl-fips" if fips_mode?
@@ -71,21 +70,17 @@ build do
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
-    "--with-zlib-lib=#{install_dir}/embedded/lib",
-    "--with-zlib-include=#{install_dir}/embedded/include",
+    "no-comp",
     "no-idea",
     "no-mdc2",
     "no-rc5",
+    "no-ssl2",
+    "no-ssl3",
+    "no-zlib",
     "shared",
   ]
 
   configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
-
-  if windows?
-    configure_args << "zlib-dynamic"
-  else
-    configure_args << "zlib"
-  end
 
   configure_cmd =
     if aix?
