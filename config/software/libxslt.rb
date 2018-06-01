@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "libxslt"
-default_version "1.1.30"
+default_version "1.1.32"
 
 license "MIT"
 license_file "COPYING"
@@ -25,13 +25,9 @@ dependency "libxml2"
 dependency "liblzma"
 dependency "config_guess"
 
-version "1.1.30" do
-  source sha256: "ba65236116de8326d83378b2bd929879fa185195bc530b9d1aba72107910b6b3"
-end
-
-version "1.1.29" do
-  source md5: "a129d3c44c022de3b9dcf6d6f288d72e"
-end
+version("1.1.32") { source sha256: "526ecd0abaf4a7789041622c3950c0e7f2c4c8835471515fd77eec684a355460" }
+version("1.1.30") { source sha256: "ba65236116de8326d83378b2bd929879fa185195bc530b9d1aba72107910b6b3" }
+version("1.1.29") { source sha256: "b5976e3857837e7617b29f2249ebb5eeac34e249208d31f1fbf7a6ba7a4090ce" }
 
 source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 
