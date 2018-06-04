@@ -40,10 +40,12 @@ if ohai["platform"] != "windows"
                       "--enable-universalsdk=/",
                       "--prefix=#{install_dir}/embedded"]
 
-  if ohai["platform_family"] == "mac_os_x"
+  if mac_os_x?
     python_configure.push("--enable-ipv6",
                           "--with-universal-archs=intel",
                           "--enable-shared")
+  elsif linux?
+    python_configure.push("--enable-unicode=ucs4")
   end
 
   python_configure.push("--with-dbmliborder=")
