@@ -37,6 +37,10 @@ dependency "bzip2"
 dependency "zlib"
 dependency "liblzma"
 
+if windows?
+  dependency "cmake"
+end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
@@ -56,8 +60,13 @@ build do
     configure_args << "--disable-xattr --disable-acl"
   end
 
-  configure configure_args.join(" "), env: env
-
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  if windows?
+    command "cmake -G \"MSYS Makefiles\" -D ENABLE_COVERAGE=OFF -D ENABLE_EXPAT=OFF -D ENABLE_ICONV=OFF -D ENABLE_OPENSSL=OFF -D ENABLE_TAR=OFF -D ENABLE_CPIO=OFF -D ENABLE_TEST=OFF -D ENABLE_NETTLE=OFF -D ENABLE_CAT=OFF -D ENABLE_LZO=OFF -D CMAKE_INSTALL_PREFIX=\"#{install_dir}/embedded\" .", env: env
+    command "mingw32-make -j #{workers}", env: env
+    command "mingw32-make -j #{workers} install", env: env
+  else
+    configure configure_args.join(" "), env: env
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
 end
