@@ -17,12 +17,12 @@
 
 name "pip"
 
-default_version "8.1.2"
+default_version "10.0.1"
 
 dependency "setuptools"
 
 source :url => "https://github.com/pypa/pip/archive/#{version}.tar.gz",
-       :sha256 => "8dae1fb72e29c2b6ff6ed267861179216bf98d3bda6d30e527dbed0db5ac7e1d",
+       :sha256 => "2c39367b8529f50746b399d7e4563df48a148b8558ae6f7236b51c155359365a",
        :extract => :seven_zip
 
 relative_path "pip-#{version}"
