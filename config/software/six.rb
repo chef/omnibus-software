@@ -1,5 +1,5 @@
 name "six"
-default_version "1.10.0"
+default_version "1.11.0"
 
 dependency "python"
 dependency "pip"
