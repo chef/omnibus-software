@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,14 +15,15 @@
 #
 
 name "liblzma"
-default_version "5.2.3"
+default_version "5.2.4"
 
 license "Public-Domain"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-version("5.2.2") { source md5: "7cf6a8544a7dae8e8106fdf7addfa28c" }
+version("5.2.4") { source sha256: "b512f3b726d3b37b6dc4c8570e137b9311e7552e8ccbab4d39d47ce5f4177145" }
 version("5.2.3") { source sha256: "71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb" }
+version("5.2.2") { source sha256: "73df4d5d34f0468bd57d09f2d8af363e95ed6cc3a4a86129d2f2c366259902a2" }
 
 source url: "http://tukaani.org/xz/xz-#{version}.tar.gz"
 
