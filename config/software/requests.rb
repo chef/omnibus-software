@@ -1,5 +1,5 @@
 name "requests"
-default_version "2.18.4"
+default_version "2.19.1"
 
 dependency "python"
 dependency "pip"
