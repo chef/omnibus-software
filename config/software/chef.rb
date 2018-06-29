@@ -88,6 +88,7 @@ build do
   if windows?
     mkdir "#{install_dir}/modules/chef"
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
+    move "distro/ruby_bin_folder/*", "#{install_dir}/embedded/bin" if Dir.exist?("distro/ruby_bin_folder")
   end
 
   appbundle "chef", env: env
