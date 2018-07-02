@@ -24,7 +24,6 @@ skip_transitive_dependency_licensing true
 
 default_version "2.1.8"
 
-dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
 dependency "zlib"
 dependency "openssl"
 dependency "libffi"
@@ -67,14 +66,6 @@ version("2.1.4")      { source md5: "89b2f4a197621346f6724a3c35535b19" }
 version("2.1.3")      { source md5: "74a37b9ad90e4ea63c0eed32b9d5b18f" }
 version("2.1.2")      { source md5: "a5b5c83565f8bd954ee522bd287d2ca1" }
 version("2.1.1")      { source md5: "e57fdbb8ed56e70c43f39c79da1654b2" }
-
-version("2.0.0-p645") { source md5: "49919bba0c855eaf8e247108c7933a62" }
-version("2.0.0-p594") { source md5: "a9caa406da5d72f190e28344e747ee74" }
-version("2.0.0-p576") { source md5: "2e1f4355981b754d92f7e2cc456f843d" }
-
-version("1.9.3-p550") { source md5: "e05135be8f109b2845229c4f47f980fd" }
-version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
-version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
@@ -145,7 +136,7 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}" if aix?
 
-  if solaris_10? && version.satisfies?(">= 2.1")
+  if solaris_10?
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   elsif solaris_11? && version =~ /^2.1/
     patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
@@ -154,7 +145,7 @@ build do
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
   # library.  Disabling it as we do for Solaris.
-  if ios_xr? && version.satisfies?(">= 2.1")
+  if ios_xr?
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   end
 
@@ -167,11 +158,9 @@ build do
   # and ruby trying to set LD_LIBRARY_PATH itself gets it wrong.
   #
   # Also, fix paths emitted in the makefile on windows on both msys and msys2.
-  if version.satisfies?(">= 2.1")
-    patch source: "ruby-mkmf.patch", plevel: 1, env: patch_env
-    # should intentionally break and fail to apply on 2.2, patch will need to
-    # be fixed.
-  end
+  # should intentionally break and fail to apply on 2.2, patch will need to
+  # be fixed.
+  patch source: "ruby-mkmf.patch", plevel: 1, env: patch_env
 
   # Fix find_proxy with IP format proxy and domain format uri raises an exception.
   # This only affects 2.4 and the fix is expected to be included in 2.4.2
