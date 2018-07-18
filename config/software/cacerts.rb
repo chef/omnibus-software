@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,11 @@ license "MPL-2.0"
 license_file "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
 skip_transitive_dependency_licensing true
 
-default_version "2018-03-07"
+default_version "2018-06-20"
 
 source url: "https://curl.haxx.se/ca/cacert-#{version}.pem"
+
+version("2018-06-20") { source sha256: "238823cd92d3bcdd67c1c278536d6c282dd6b526ee6ee97efbf00ef31d8c5d79" }
 
 version("2018-03-07") { source sha256: "79ea479e9f329de7075c40154c591b51eb056d458bc4dff76d9a4b9c6c4f6d0b" }
 
