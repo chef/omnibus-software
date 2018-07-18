@@ -57,16 +57,6 @@ version("2.2.2")      { source md5: "326e99ddc75381c7b50c85f7089f3260" }
 version("2.2.1")      { source md5: "b49fc67a834e4f77249eb73eecffb1c9" }
 version("2.2.0")      { source md5: "cd03b28fd0b555970f5c4fd481700852" }
 
-version("2.1.9")      { source sha256: "034cb9c50676d2c09b3b6cf5c8003585acea05008d9a29fa737c54d52c1eb70c" }
-version("2.1.8")      { source md5: "091b62f0a9796a3c55de2a228a0e6ef3" }
-version("2.1.7")      { source md5: "2e143b8e19b056df46479ae4412550c9" }
-version("2.1.6")      { source md5: "6e5564364be085c45576787b48eeb75f" }
-version("2.1.5")      { source md5: "df4c1b23f624a50513c7a78cb51a13dc" }
-version("2.1.4")      { source md5: "89b2f4a197621346f6724a3c35535b19" }
-version("2.1.3")      { source md5: "74a37b9ad90e4ea63c0eed32b9d5b18f" }
-version("2.1.2")      { source md5: "a5b5c83565f8bd954ee522bd287d2ca1" }
-version("2.1.1")      { source md5: "e57fdbb8ed56e70c43f39c79da1654b2" }
-
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 relative_path "ruby-#{version}"
@@ -138,8 +128,6 @@ build do
 
   if solaris_10?
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
-  elsif solaris_11? && version =~ /^2.1/
-    patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
   end
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
