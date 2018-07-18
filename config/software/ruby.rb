@@ -22,7 +22,7 @@ license_file "COPYING"
 license_file "LEGAL"
 skip_transitive_dependency_licensing true
 
-default_version "2.1.8"
+default_version "2.2.10"
 
 dependency "zlib"
 dependency "openssl"
