@@ -157,23 +157,6 @@ build do
     patch source: "2.4_no_proxy_exception.patch", plevel: 1, env: patch_env
   end
 
-  # Fix reserve stack segmentation fault when building on RHEL5 or below
-  # Currently only affects 2.1.7 and 2.2.3. This patch taken from the fix
-  # in Ruby trunk and expected to be included in future point releases.
-  # https://bugs.ruby-lang.org/issues/11602
-  if rhel? &&
-      platform_version.satisfies?("< 6") &&
-      (version == "2.1.7" || version == "2.2.3")
-    patch source: "ruby-fix-reserve-stack-segfault.patch", plevel: 1, env: patch_env
-  end
-
-  if rhel? &&
-      platform_version.satisfies?("< 6") &&
-      version.satisfies?(">= 2.4") &&
-      version.satisfies?("< 2.5")
-    patch source: "ruby_no_conversion_warnings.patch", plevel: 1, env: patch_env
-  end
-
   # RHEL 6's gcc doesn't support `#pragma GCC diagnostic` inside functions, so
   # we'll guard their inclusion more specifically. As of 2018-01-25 this is fixed
   # upstream and ought to be in 2.5.1
