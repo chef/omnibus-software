@@ -166,10 +166,10 @@ build do
     patch source: "prelude_25_el6_no_pragma.patch", plevel: 0, env: patch_env
   end
 
-  # Backporting a 2.6.0 fix to 2.5.1. This allows us to build Nokogiri 1.8.3. Basically we only
-  # include `-Werror` linker warnings when building native gems if we are on Windows. This
-  # prevents some "expected" warnings from failing the build.
-  if version == "2.5.1"
+  # Backporting a 2.6.0 fix to 2.5.1 (and 2.4.4 for ChefDK 2). This allows us to build Nokogiri 1.8.3.
+  # Basically we only include `-Werror` linker warnings when building native gems if we are on Windows.
+  # This prevents some "expected" warnings from failing the build.
+  if version == "2.5.1" || version == "2.4.4"
     patch source: "ruby-only-compiler-warnings-on-windows.patch", plevel: 1, env: patch_env
   end
 
