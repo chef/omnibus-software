@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,46 +18,55 @@
 # https://github.com/berkshelf/api.berkshelf.com
 
 name "libarchive"
-default_version "3.1.2"
+default_version "3.3.2"
 
 license "BSD-2-Clause"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
-       md5: "efad5a503f66329bb9d2f4308b5de98a"
+version("3.3.2") { source sha256: "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce" }
+version("3.1.2") { source sha256: "eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e" }
+
+source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz"
 
 relative_path "libarchive-#{version}"
 
 dependency "config_guess"
+dependency "libxml2"
+dependency "bzip2"
+dependency "zlib"
+dependency "liblzma"
+
+if windows?
+  dependency "cmake"
+end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
 
-  configure = [
-    "./configure",
+  configure_args = [
     "--prefix=#{install_dir}/embedded",
-    "--without-lzma",
     "--without-lzo2",
     "--without-nettle",
-    "--without-xml2",
     "--without-expat",
-    "--without-bz2lib",
     "--without-iconv",
-    "--without-zlib",
-    "--disable-bsdtar",
-    "--disable-bsdcpio",
-    "--without-lzmadec",
+    "--disable-bsdtar", # tar command line tool
+    "--disable-bsdcpio", # cpio command line tool
     "--without-openssl",
   ]
 
   if s390x?
-    configure << "--disable-xattr --disable-acl"
+    configure_args << "--disable-xattr --disable-acl"
   end
 
-  command configure.join(" "), env: env
-
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  if windows?
+    command "cmake -G \"MSYS Makefiles\" -D ENABLE_COVERAGE=OFF -D ENABLE_EXPAT=OFF -D ENABLE_ICONV=OFF -D ENABLE_OPENSSL=OFF -D ENABLE_TAR=OFF -D ENABLE_CPIO=OFF -D ENABLE_TEST=OFF -D ENABLE_NETTLE=OFF -D ENABLE_CAT=OFF -D ENABLE_LZO=OFF -D CMAKE_INSTALL_PREFIX=\"#{install_dir}/embedded\" .", env: env
+    command "mingw32-make -j #{workers}", env: env
+    command "mingw32-make -j #{workers} install", env: env
+  else
+    configure configure_args.join(" "), env: env
+    make "-j #{workers}", env: env
+    make "-j #{workers} install", env: env
+  end
 end

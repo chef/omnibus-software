@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2016 Chef Software, Inc.
+# Copyright 2012-2017, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@
 name "pry"
 
 license "MIT"
-license_file "LICENSE"
+license_file "https://raw.githubusercontent.com/pry/pry/master/LICENSE"
+
+skip_transitive_dependency_licensing true
 
 dependency "ruby"
 dependency "rubygems"

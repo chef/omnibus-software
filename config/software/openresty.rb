@@ -18,7 +18,7 @@ name "openresty"
 license "BSD-2-Clause"
 license_file "README.markdown"
 skip_transitive_dependency_licensing true
-default_version "1.11.2.1"
+default_version "1.11.2.5"
 
 dependency "pcre"
 dependency "openssl"
@@ -27,6 +27,9 @@ dependency "lua" if ppc64? || ppc64le? || s390x?
 
 source_package_name = "openresty"
 
+# Versions above 1.11.2.2 require SSE4.2 CPU support
+version("1.11.2.5") { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f57820aa8e92d7888d8ad657b9" }
+version("1.11.2.2") { source sha256: "7f9ca62cfa1e4aedf29df9169aed0395fd1b90de254139996e554367db4d5a01" }
 version("1.11.2.1") { source md5: "f26d152f40c5263b383a5b7c826a6c7e" }
 version("1.9.7.3") { source md5: "33579b96a8c22bedee97eadfc99d9564" }
 
@@ -90,6 +93,11 @@ build do
     #'--with-file-aio',
     #'--with-libatomic'
   ]
+
+  # HTTP/2 was introduced with nginx 1.9.5
+  if version.satisfies?(">= 1.9.5")
+    configure << "--with-http_v2_module"
+  end
 
   # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
   if ppc64? || ppc64le? || s390x?

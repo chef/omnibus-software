@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2018, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@ default_version "master"
 
 license "Apache-2.0"
 license_file "LICENSE"
+
+# Grab accompanying notice file.
+# So that Open4/deep_merge/diff-lcs disclaimers are present in Omnibus LICENSES tree.
+license_file "NOTICE"
 
 # For the specific super-special version "local_source", build the source from
 # the local git checkout. This is what you'd want to occur by default if you
@@ -48,14 +52,16 @@ dependency "rubygems"
 dependency "bundler"
 dependency "ohai"
 dependency "appbundler"
+dependency "libarchive" # for archive resource
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # compiled ruby on windows 2k8R2 x86 is having issude compiling
+  # compiled ruby on windows 2k8R2 x86 is having issues compiling
   # native extensions for pry-byebug so excluding for now
-  excluded_groups = %w{server docgen maintenance pry travis integration}
+  excluded_groups = %w{server docgen maintenance pry travis integration ci}
   excluded_groups << "ruby_prof" if aix?
+  excluded_groups << "ruby_shadow" if aix?
 
   # install the whole bundle first
   bundle "install --without #{excluded_groups.join(' ')}", env: env
@@ -64,7 +70,7 @@ build do
   # 'chef-config'
   bundle "exec rake install_components", env: env
 
-  gemspec_name = windows? ? "chef-windows.gemspec" : "chef.gemspec"
+  gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
 
   # This step will build native components as needed - the event log dll is
   # generated as part of this step.  This is why we need devkit.
@@ -73,18 +79,15 @@ build do
   # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
   gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
 
+  # ensure we put the gems in the right place to get picked up by the publish scripts
+  delete "pkg"
+  mkdir "pkg"
+  copy "chef*.gem", "pkg"
+
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
-  end
-
-  auxiliary_gems = {}
-  auxiliary_gems["ruby-shadow"] = ">= 0.0.0" unless aix? || windows?
-
-  auxiliary_gems.each do |name, version|
-    gem "install #{name} --version '#{version}' --no-ri --no-rdoc --verbose",
-        env: env
   end
 
   appbundle "chef", env: env

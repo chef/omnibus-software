@@ -18,7 +18,7 @@ name "ffi-yajl"
 default_version "master"
 relative_path "ffi-yajl"
 
-source git: "https://github.com/opscode/ffi-yajl.git"
+source git: "https://github.com/chef/ffi-yajl.git"
 
 license "MIT"
 license_file "LICENSE"

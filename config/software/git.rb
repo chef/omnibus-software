@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.10.2"
+default_version "2.17.1"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -29,6 +29,18 @@ dependency "libiconv"
 dependency "expat"
 
 relative_path "git-#{version}"
+
+version "2.17.1" do
+  source sha256: "ec6452f0c8d5c1f3bcceabd7070b8a8a5eea11d4e2a04955c139b5065fd7d09a"
+end
+
+version "2.15.1" do
+  source sha256: "85fca8781a83c96ba6db384cc1aa6a5ee1e344746bafac1cbe1f0fe6d1109c84"
+end
+
+version "2.14.1" do
+  source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079806b58321c2cf85a4464"
+end
 
 version "2.10.2" do
   source md5: "45e8b30a9e7c1b734128cc0fc6663619"
@@ -83,6 +95,12 @@ build do
     # But only needs the below for 1.9.5
     if version == "1.9.5"
       patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
+    end
+
+    # In 2.13.1 they introduced some sha code that wasn't super good at
+    # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
+    if version.satisfies?(">2.10.2")
+      patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
     end
   end
 

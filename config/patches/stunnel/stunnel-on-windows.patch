@@ -1,0 +1,42 @@
+diff --git a/src/mingw.mk b/src/mingw.mk
+index 244602f..055c425 100644
+--- a/src/mingw.mk
++++ b/src/mingw.mk
+@@ -12,7 +12,7 @@
+ bindir = ../bin/$(win32_mingw)
+ objdir = ../obj/$(win32_mingw)
+
+-win32_ssl_dir = /opt/openssl-$(win32_mingw)
++win32_ssl_dir = $(WIN32_SSL_DIR_PATCHED)
+ win32_cppflags = -I$(win32_ssl_dir)/include
+ win32_cflags = -mthreads -fstack-protector -O2
+ win32_cflags += -Wall -Wextra -Wpedantic -Wformat=2 -Wconversion -Wno-long-long
+@@ -34,7 +34,8 @@ win32_cli_objs = $(addsuffix .o, $(addprefix $(objdir)/, $(win32_cli)))
+
+ win32_prefix = $(win32_targetcpu)-w64-mingw32-
+ win32_cc = $(win32_prefix)gcc
+-win32_windres = $(win32_prefix)windres
++# Our build system only has windres.exe, no prefix
++win32_windres = windres
+
+ all: mkdirs $(bindir)/stunnel.exe $(bindir)/tstunnel.exe
+
+diff --git a/src/stunnel.c b/src/stunnel.c
+index 00637b0..5a6a0a1 100644
+--- a/src/stunnel.c
++++ b/src/stunnel.c
+@@ -46,7 +46,13 @@
+ #pragma GCC diagnostic ignored "-pedantic"
+ #endif /* __GNUC__ */
+
+-#include <openssl/applink.c>
++/*
++ * Maybe we could remove
++ * omnibus-software/config/patches/openssl-fips/openssl-fips-fix-compiler-flags-table-for-msys.patch
++ * and leave this include here? Building applink into openssl broke some version
++ * of Ruby
++ */
++/* #include <openssl/applink.c> */
+
+ #ifdef __GNUC__
+ #pragma GCC diagnostic pop

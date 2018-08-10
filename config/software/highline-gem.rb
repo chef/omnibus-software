@@ -18,7 +18,7 @@ name "highline-gem"
 default_version "1.6.21"
 
 license "Ruby"
-license_file "https://github.com/JEG2/highline/blob/master/LICENSE"
+license_file "https://raw.githubusercontent.com/JEG2/highline/master/LICENSE"
 license_file "http://www.ruby-lang.org/en/LICENSE.txt"
 # highline does not have any dependencies. We only install it from
 # rubygems here.

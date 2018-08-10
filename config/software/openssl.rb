@@ -20,19 +20,20 @@ license "OpenSSL"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
-dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2k"
+default_version "1.0.2o"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
+version("1.1.0h") { source sha256: "5835626cde9e99656585fc7aaa2302a73a7e1340bf8c14fd635a62c66802a517" }
 version("1.1.0g") { source sha256: "de4d501267da39310905cb6dc8c6121f7a2cad45a7707f76df828fe1b85073af" }
 version("1.1.0f") { source sha256: "12f746f3f2493b2f39da7ecf63d7ee19c6ac9ec6a4fcd8c229da8a522cb12765" }
+version("1.0.2o") { source sha256: "ec3f5c9714ba0fd45cb4e087301eb1336c317e0d20b575a125050470e8089e4d" }
 version("1.0.2n") { source sha256: "370babb75f278c39e0c50e8c4e7493bc0f18db6867478341a832a982fd15a8fe" }
 version("1.0.2m") { source sha256: "8c6ff15ec6b319b50788f42c7abc2890c08ba5a1cdcd3810eb9092deada37b0f" }
 version("1.0.2l") { source sha256: "ce07195b659e75f4e1db43552860070061f156a98bb37b672b101ba6e3ddf30c" }
@@ -68,56 +69,52 @@ build do
   end
 
   configure_args = [
-      "--prefix=#{install_dir}/embedded",
-      "--with-zlib-lib=#{install_dir}/embedded/lib",
-      "--with-zlib-include=#{install_dir}/embedded/include",
-      "no-idea",
-      "no-mdc2",
-      "no-rc5",
-      "shared",
+    "--prefix=#{install_dir}/embedded",
+    "no-comp",
+    "no-idea",
+    "no-mdc2",
+    "no-rc5",
+    "no-ssl2",
+    "no-ssl3",
+    "no-zlib",
+    "shared",
   ]
 
   configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
 
-  if windows?
-    configure_args << "zlib-dynamic"
-  else
-    configure_args << "zlib"
-  end
-
   configure_cmd =
-      if aix?
-        "perl ./Configure aix64-cc"
-      elsif mac_os_x?
-        "./Configure darwin64-x86_64-cc"
-      elsif smartos?
-        "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
-      elsif omnios?
-        "/bin/bash ./Configure solaris-x86-gcc"
-      elsif solaris_10?
-        # This should not require a /bin/sh, but without it we get
-        # Errno::ENOEXEC: Exec format error
-        platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
-        "/bin/sh ./Configure #{platform} -static-libgcc"
-      elsif solaris_11?
-        platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
-        "/bin/bash ./Configure #{platform} -static-libgcc"
-      elsif windows?
-        platform = windows_arch_i386? ? "mingw" : "mingw64"
-        "perl.exe ./Configure #{platform}"
-      else
-        prefix =
-            if linux? && ppc64?
-              "./Configure linux-ppc64"
-            elsif linux? && s390x?
-              # With gcc > 4.3 on s390x there is an error building
-              # with inline asm enabled
-              "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
-            else
-              "./config"
-            end
-        "#{prefix} disable-gost"
-      end
+    if aix?
+      "perl ./Configure aix64-cc"
+    elsif mac_os_x?
+      "./Configure darwin64-x86_64-cc"
+    elsif smartos?
+      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+    elsif omnios?
+      "/bin/bash ./Configure solaris-x86-gcc"
+    elsif solaris_10?
+      # This should not require a /bin/sh, but without it we get
+      # Errno::ENOEXEC: Exec format error
+      platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
+      "/bin/sh ./Configure #{platform} -static-libgcc"
+    elsif solaris_11?
+      platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
+      "/bin/bash ./Configure #{platform} -static-libgcc"
+    elsif windows?
+      platform = windows_arch_i386? ? "mingw" : "mingw64"
+      "perl.exe ./Configure #{platform}"
+    else
+      prefix =
+        if linux? && ppc64?
+          "./Configure linux-ppc64"
+        elsif linux? && s390x?
+          # With gcc > 4.3 on s390x there is an error building
+          # with inline asm enabled
+          "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
+        else
+          "./config"
+        end
+      "#{prefix} disable-gost"
+    end
 
   patch_env = if aix?
                 # This enables omnibus to use 'makedepend'

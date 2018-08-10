@@ -28,6 +28,14 @@ dependency "ncurses"
 dependency "libossp-uuid"
 dependency "config_guess"
 
+version "9.2.22" do
+  source sha256: "a70e94fa58776b559a8f7b5301371ac4922c9e3ed313ccbef20862514de7c192"
+end
+
+version "9.2.21" do
+  source sha256: "0697e843523ee60c563f987f9c65bc4201294b18525d6e5e4b2c50c6d4058ef9"
+end
+
 version "9.2.14" do
   source md5: "ce2e50565983a14995f5dbcd3c35b627"
 end
@@ -44,6 +52,10 @@ version "9.2.8" do
   source md5: "c5c65a9b45ee53ead0b659be21ca1b97"
 end
 
+version "9.5.8" do
+  source sha256: "ade57068f134f36710fa953e1ef79185abd96572f8098741413132f79ed37202"
+end
+
 version "9.5.1" do
   source md5: "11e037afaa4bd0c90bb3c3d955e2b401"
 end
@@ -54,6 +66,10 @@ end
 
 version "9.5beta1" do
   source md5: "4bd67bfa4dc148e3f9d09f6699b5931f"
+end
+
+version "9.4.13" do
+  source sha256: "0080f55d65194de8b96a2dab153443f8248ff2b2b10e6ab4cda2dcadcac7f2ab"
 end
 
 version "9.4.6" do
@@ -70,6 +86,10 @@ end
 
 version "9.4.0" do
   source md5: "8cd6e33e1f8d4d2362c8c08bd0e8802b"
+end
+
+version "9.3.18" do
+  source sha256: "ad60d12a5a3dd0f6f5904c41b87e43eff49d3f74e45129fe52c5744366ff2fe0"
 end
 
 version "9.3.14" do
