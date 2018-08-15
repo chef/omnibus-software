@@ -28,7 +28,7 @@ version "0.28-1" do
 end
 
 # source url: "http://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
-source url: "https://tenet.dl.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
+source url: "https://s3.amazonaws.com/twindb-release/pkg-config-lite-#{version}.tar.gz"
 
 relative_path "pkg-config-lite-#{version}"
 
