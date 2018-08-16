@@ -26,8 +26,8 @@ default_version "1.0.6"
 dependency "zlib"
 dependency "openssl"
 
-source :url => "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz",
-       :md5 => "00b516f4704d4a7cb50a1d97e6e8e15b"
+source :url => "https://s3.amazonaws.com/dd-agent/bzip2/bzip2-#{version}.tar.gz",
+       :sha256 => "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
 
 relative_path "#{name}-#{version}"
 
