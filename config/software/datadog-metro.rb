@@ -31,7 +31,7 @@ build do
   ship_license "https://raw.githubusercontent.com/DataDog/go-metro/master/THIRD_PARTY_LICENSES.md"
 
   if ohai["platform_family"] == "rhel"
-    command "mv gometro-centos6 #{install_dir}/bin/go-metro"
+    command "mv gometro-centos6-#{version} #{install_dir}/bin/go-metro"
   else
     command "mkdir -p /var/cache/omnibus/src/datadog-metro/src/github.com/DataDog", :env => env
     command "#{gobin} get -v -d github.com/DataDog/go-metro", :env => env, :cwd => "/var/cache/omnibus/src/datadog-metro"
