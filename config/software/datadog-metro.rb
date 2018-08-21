@@ -10,12 +10,12 @@ env = {
 
 dependency "libpcap"
 
-version "1.0.0" do
-  source :sha256 => "a6fb05dcbe0f412eaac44095db67a8d71cce6c66dc900b0b78258de4ee43bf2f"
-end
-
 if ohai["platform_family"] == "rhel"
   source :url => "https://s3.amazonaws.com/dd-agent/go-metro/gometro-centos6-#{version}"
+
+  version "1.0.0" do
+    source :sha256 => "a6fb05dcbe0f412eaac44095db67a8d71cce6c66dc900b0b78258de4ee43bf2f"
+  end
 end
 
 #TODO: complete OSX support.
