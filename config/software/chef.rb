@@ -64,11 +64,7 @@ build do
   excluded_groups << "ruby_shadow" if aix?
 
   # install the whole bundle first
-  bundle "install --without #{excluded_groups.join(' ')}", env: env
-
-  # Install components that live inside Chef's git repo. For now this is just
-  # 'chef-config'
-  bundle "exec rake install_components", env: env
+  bundle install
 
   gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
 
