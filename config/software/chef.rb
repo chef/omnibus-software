@@ -66,18 +66,8 @@ build do
   # install the whole bundle first
   bundle "install --without #{excluded_groups.join(' ')}", env: env
 
-  # Install components that live inside Chef's git repo. For now this is just
-  # 'chef-config'
-  bundle "exec rake install_components", env: env
-
-  gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
-
-  # This step will build native components as needed - the event log dll is
-  # generated as part of this step.  This is why we need devkit.
-  gem "build #{gemspec_name}", env: env
-
-  # Don't use -n #{install_dir}/bin. Appbundler will take care of them later
-  gem "install chef*.gem --no-ri --no-rdoc --verbose", env: env
+  # use the rake install task to build/install chef-config
+  bundle "exec rake install", env: env
 
   # ensure we put the gems in the right place to get picked up by the publish scripts
   delete "pkg"
