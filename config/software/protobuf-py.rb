@@ -25,7 +25,7 @@ end
 build do
   ship_license "https://raw.githubusercontent.com/google/protobuf/3.5.x/LICENSE"
 
-  if windows?
+  unless linux?
     pip "install protobuf==#{version}"
   else
     # C++ runtime
