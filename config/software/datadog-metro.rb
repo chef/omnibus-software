@@ -31,8 +31,8 @@ build do
   ship_license "https://raw.githubusercontent.com/DataDog/go-metro/master/THIRD_PARTY_LICENSES.md"
 
   if ohai["platform_family"] == "rhel"
-    command "mv gometro-centos6-#{version} #{install_dir}/bin/go-metro"
-    command "chmod ug+x #{install_dir}/bin/go-metro"
+    command "mv gometro-centos6-#{version} #{install_dir}/bin/go-metro.bin"
+    command "chmod ug+x #{install_dir}/bin/go-metro.bin"
   else
     command "mkdir -p /var/cache/omnibus/src/datadog-metro/src/github.com/DataDog", :env => env
     command "#{gobin} get -v -d github.com/DataDog/go-metro", :env => env, :cwd => "/var/cache/omnibus/src/datadog-metro"
@@ -45,6 +45,6 @@ build do
     patch :source => "libpcap-static-link.patch", :plevel => 1,
           :acceptable_output => "Reversed (or previously applied) patch detected",
           :target => "/var/cache/omnibus/src/datadog-metro/src/github.com/google/gopacket/pcap/pcap.go"
-    command "#{gobin} build -o #{install_dir}/bin/go-metro github.com/DataDog/go-metro", :env => env, :cwd => "/var/cache/omnibus/src/datadog-metro"
+    command "#{gobin} build -o #{install_dir}/bin/go-metro.bin github.com/DataDog/go-metro", :env => env, :cwd => "/var/cache/omnibus/src/datadog-metro"
   end
 end
