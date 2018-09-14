@@ -25,10 +25,13 @@
 # of rubyinstaller.org
 #
 name "libyaml-windows"
-default_version "0.1.6"
+default_version "0.1.7"
 
-source :url => "http://packages.openknapsack.org/libyaml/libyaml-0.1.6-x86-windows.tar.lzma",
-       :md5 => "8bb5d8e43cf18ec48b4751bdd0111c84",
+version "0.1.7" do
+  source sha256: "c90f4a678a7901bf0c48fc50cd6ffbd96eeb0b0184ba6c853fc0f54702213674"
+end
+
+source :url => "https://s3.amazonaws.com/dd-agent/libyaml-#{version}-x64-windows.tar.lzma",
        :extract => :seven_zip
 
 build do
@@ -39,7 +42,7 @@ build do
   # First extract the tar file out of lzma archive.
   command "7z.exe x #{project_file} -o#{temp_directory} -r -y"
   # Now extract the files out of tar archive.
-  command "7z.exe x #{File.join(temp_directory, "libyaml-0.1.6-x86-windows.tar")} -o#{temp_directory} -r -y"
+  command "7z.exe x #{File.join(temp_directory, "libyaml-#{version}-x64-windows.tar")} -o#{temp_directory} -r -y"
   # Now copy over libyaml-0-2.dll to the build dir
   copy("#{temp_directory}/bin/libyaml-0-2.dll", "#{install_dir}/embedded/bin/libyaml-0-2.dll")
 end
