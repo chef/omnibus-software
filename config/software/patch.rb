@@ -1,5 +1,5 @@
 #
-# Copyright 2015 Chef Software, Inc.
+# Copyright 2015-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ license "GPL-3.0"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-default_version "2.7"
+default_version "2.7.6"
 
 version("2.7.6") { source sha256: "8cf86e00ad3aaa6d26aca30640e86b0e3e1f395ed99f189b06d4c9f74bc58a4e" }
 version("2.7.5") { source sha256: "7436f5a19f93c3ca83153ce9c5cbe4847e97c5d956e57a220121e741f6e7968f" }
