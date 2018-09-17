@@ -29,7 +29,7 @@ dependency "openssl"
 
 version("1.0.6") { source sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd" }
 
-source url: "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz"
+source url: "https://fossies.org/linux/misc/#{name}-#{version}.tar.gz"
 
 relative_path "#{name}-#{version}"
 
