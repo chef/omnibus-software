@@ -7,7 +7,7 @@ dependency "pip"
 dependency "six"
 
 if not windows?
-  source :url => "https://github.com/google/protobuf/releases/download/v#{version}/protobuf-python-#{version}.tar.gz",
+  source :url => "https://github.com/protocolbuffers/protobuf/releases/download/v#{version}/protobuf-python-#{version}.tar.gz",
          :sha256 => "13d3c15ebfad8c28bee203dd4a0f6e600d2a7d2243bac8b5d0e517466500fcae"
 end
 
