@@ -49,6 +49,7 @@ build do
           " --with-debug" \
           " --with-http_sub_module" \
  	  " --with-http_realip_module" \
+	  " --with-http_hls_module" \
           " --with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"" \
           " --with-ld-opt=-L#{install_dir}/embedded/lib", env: env
 
