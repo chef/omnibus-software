@@ -24,6 +24,8 @@ license :project_license
 skip_transitive_dependency_licensing true
 
 build do
+  env = with_standard_compiler_flags(with_embedded_path)
+
   # Clear the now-unnecessary git caches, cached gems, and git-checked-out gems
   block "Delete bundler git cache and git installs" do
     gemdir = shellout!("#{install_dir}/embedded/bin/gem environment gemdir", env: env).stdout.chomp
