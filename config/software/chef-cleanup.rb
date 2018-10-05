@@ -30,7 +30,8 @@ build do
   block "Delete bundler git cache and git installs" do
     gemdir = shellout!("#{install_dir}/embedded/bin/gem environment gemdir", env: env).stdout.chomp
     remove_directory "#{gemdir}/cache"
-    remove_directory "#{gemdir}/bundler"
+# chef installs and ships with gems directly from git
+#    remove_directory "#{gemdir}/bundler"
     remove_directory "#{gemdir}/doc"
   end
 
