@@ -17,6 +17,10 @@
 name "automake"
 default_version "1.11.2"
 
+# requires perl < 5.26 due to a bug in automake <= 1.15:
+# https://lists.gnu.org/archive/html/bug-automake/2017-06/msg00003.html
+dependency "perl"
+
 dependency "autoconf"
 
 license "GPL-2.0"
