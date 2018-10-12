@@ -83,11 +83,11 @@ elsif freebsd?
 elsif aix?
   # this magic per IBM
   env["LDSHARED"] = "xlc -G"
-  env["CFLAGS"] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
+  env["CFLAGS"]= "xlc_r -q64 -I/opt/angrychef/embedded/include -D_LARGE_FILES -O "
   # this magic per IBM
   env["XCFLAGS"] = "-DRUBY_EXPORT"
+  env["CPPFLAGS"]= "xlc_r -q64 -I/opt/angrychef/embedded/include -D_LARGE_FILES -O "
   # need CPPFLAGS set so ruby doesn't try to be too clever
-  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include/ncurses -I#{install_dir}/embedded/include"
   env["SOLIBS"] = "-lm -lc"
   # need to use GNU m4, default m4 doesn't work
   env["M4"] = "/opt/freeware/bin/m4"
@@ -186,16 +186,12 @@ build do
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
     patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env
-    # have ruby use zlib on AIX correctly
-    patch source: "ruby_aix_openssl.patch", plevel: 1, env: patch_env
-    # AIX has issues with ssl retries, need to patch to have it retry
-    patch source: "ruby_aix_2_1_3_ssl_EAGAIN.patch", plevel: 1, env: patch_env
     # the next two patches are because xlc doesn't deal with long vs int types well
     patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
     patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
 
     # per IBM, just help ruby along on what it's running on
-    configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
+    configure_command << "--host=powerpc-ibm-aix7.1.0.0 --target=powerpc-ibm-aix7.1.0.0 --build=powerpc-ibm-aix7.1.0.0 --enable-pthread"
 
   elsif freebsd?
     # Disable optional support C level backtrace support. This requires the
