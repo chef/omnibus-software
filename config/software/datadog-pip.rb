@@ -13,24 +13,19 @@ relative_path "pip"
 
 pip_version = ENV["PIP_VERSION"]
 if pip_version.nil? || pip_version.empty?
-  pip_version = "trishankatdatadog/10.0.1.tuf"
+  pip_version = "trishankatdatadog/18.1.tuf-in-toto"
 end
 default_version pip_version
 
-# Phase 1 stuff - unneeded currently
-# substitution_layer_url = "https://github.com/in-toto/in-toto/archive/add-substitution-layer.zip"
-
 build do
-  # NOTE: the [tuf] notation used for the pip commands below is to enforce the installation
-  # of the `extras_require` defined in the setup.py.
+  # NOTE: the [tuf-in-toto] notation used for the pip commands below is to
+  # enforce the installation of the `extras_require` defined in the setup.py.
   # (http://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-extras-optional-features-with-their-own-dependencies)
   if ohai["platform"] == "windows"
     python_bin = "\"#{windows_safe_path(install_dir)}\\embedded\\python.exe\""
-    command("#{python_bin} -m pip install --disable-pip-version-check --no-cache --upgrade #{windows_safe_path(project_dir)}\\[tuf]")
+    command("#{python_bin} -m pip install --disable-pip-version-check --no-cache --upgrade #{windows_safe_path(project_dir)}\\[tuf-in-toto]")
   else
-    pip "install --disable-pip-version-check --no-cache --upgrade #{project_dir}/[tuf]"
+    pip "install --disable-pip-version-check --no-cache --upgrade #{project_dir}/[tuf-in-toto]"
   end
 
-  # Phase 1 stuff - unneeded currently
-  # pip "install --disable-pip-version-check --no-cache --upgrade #{substitution_layer_url}"
 end
