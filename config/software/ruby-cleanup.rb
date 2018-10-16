@@ -16,9 +16,9 @@
 #
 
 #
-# Common cleanup routines for chef + chef-dk omnibus packages
+# Common cleanup routines for ruby apps (InSpec, Workstation, Chef, etc)
 #
-name "chef-cleanup"
+name "ruby-cleanup"
 
 license :project_license
 skip_transitive_dependency_licensing true
