@@ -35,7 +35,7 @@ if version.satisfies?("<= 18.3") || version.satisfies?("=20.0")
   relative_path "otp_src_#{version}"
 else
   source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
-  relative_path "OTP-#{version}"
+  relative_path "otp-OTP-#{version}"
 end
 
 version("18.1") { source md5: "fa64015fdd133e155b5b19bf90ac8678" }
@@ -97,6 +97,17 @@ build do
   # See also https://sourceware.org/ml/binutils/2015-05/msg00148.html
   hipe = ppc64le? ? "disable" : "enable"
 
+  if !File.exist?("./configure")
+    # Building from github source requires this step
+    command "./otp_build autoconf"
+  end
+  # Note: et, debugger and observer applications require wx to
+  # build. The tarballs from the downloads site has prebuilt the beam
+  # files, so we were able to get away without disabling them and
+  # still build. When building from raw source we must disable them
+  # explicitly.
+  wx = "without"
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --enable-threads" \
@@ -105,7 +116,10 @@ build do
           " --enable-dynamic-ssl-lib" \
           " --enable-shared-zlib" \
           " --#{hipe}-hipe" \
-          " --without-wx" \
+          " --#{wx}-wx" \
+          " --#{wx}-et" \
+          " --#{wx}-debugger" \
+          " --#{wx}-observer" \
           " --without-megaco" \
           " --without-javac" \
           " --with-ssl=#{install_dir}/embedded" \
