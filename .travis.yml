@@ -1,7 +1,9 @@
+language: ruby
+cache: bundler
 sudo: false
 rvm:
-  - 2.4.4
-  - 2.5.1
+  - 2.4.5
+  - 2.5.3
 branches:
   only:
     - master

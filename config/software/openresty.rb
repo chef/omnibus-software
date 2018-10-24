@@ -90,8 +90,8 @@ build do
     # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
     # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
     # However, they require libatomic-ops-dev and libaio
-    #'--with-file-aio',
-    #'--with-libatomic'
+    # '--with-file-aio',
+    # '--with-libatomic'
   ]
 
   # HTTP/2 was introduced with nginx 1.9.5
