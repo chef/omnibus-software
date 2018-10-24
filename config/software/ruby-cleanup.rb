@@ -26,13 +26,12 @@ skip_transitive_dependency_licensing true
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Clear the now-unnecessary git caches, cached gems, and git-checked-out gems
+  # Clear the now-unnecessary git caches, cached gems, build information
   block "Delete bundler git cache and git installs" do
     gemdir = shellout!("#{install_dir}/embedded/bin/gem environment gemdir", env: env).stdout.chomp
     remove_directory "#{gemdir}/cache"
-# chef installs and ships with gems directly from git
-#    remove_directory "#{gemdir}/bundler"
     remove_directory "#{gemdir}/doc"
+    remove_directory "#{gemdir}/build_info"
   end
 
   # Clean up docs
@@ -42,5 +41,6 @@ build do
   delete "#{install_dir}/embedded/share/gtk-doc"
   delete "#{install_dir}/embedded/ssl/man"
   delete "#{install_dir}/embedded/man"
+  delete "#{install_dir}/embedded/share/info"
   delete "#{install_dir}/embedded/info"
 end
