@@ -7,6 +7,16 @@ name "datadog-pip"
 
 dependency "pip"
 
+flags = ''
+if ohai["kernel"]["machine"].start_with?("arm")
+  # installing the pip dependencies on armv7 makes it build the `cffi` python package
+  # there is no pre-built ARM wheel of that package, and building it from source requires libffi to be installed
+  dependency 'libffi'
+  # --no-buid-isolation is to fix: `No sources permitted for cffi` when pip is building it from source
+  # see https://github.com/pypa/pip/issues/5171
+  flags = '--no-build-isolation'
+end
+
 source git: "https://github.com/DataDog/pip.git"
 
 relative_path "pip"
@@ -25,7 +35,11 @@ build do
     python_bin = "\"#{windows_safe_path(install_dir)}\\embedded\\python.exe\""
     command("#{python_bin} -m pip install --disable-pip-version-check --no-cache --upgrade #{windows_safe_path(project_dir)}\\[tuf-in-toto]")
   else
-    pip "install --disable-pip-version-check --no-cache --upgrade #{project_dir}/[tuf-in-toto]"
+    build_env = {
+      "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
+      "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
+    }
+    pip "install #{flags} --disable-pip-version-check --no-cache --upgrade #{project_dir}/[tuf-in-toto]", :env => build_env
   end
 
 end
