@@ -14,8 +14,12 @@
 #
 
 name "wildfly"
-default_version "11.0.0.Final"
+default_version "13.0.0.Final"
 skip_transitive_dependency_licensing true
+
+version "13.0.0.Final" do
+  source md5: "8944455abcbe8ca185ed2ef36a02aa04"
+end
 
 version "11.0.0.Final" do
   source md5: "c68224ce162371a1aa7890f847cebca5"
