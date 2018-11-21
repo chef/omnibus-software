@@ -24,17 +24,19 @@ dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2p"
+default_version "1.0.2q"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
+version("1.1.1a") { source sha256: "fc20130f8b7cbd2fb918b2f14e2f429e109c31ddd0fb38fc5d71d9ffed3f9f41" }
 version("1.1.1") { source sha256: "2836875a0f89c03d0fdf483941512613a50cfb421d6fd94b9f41d7279d586a3d" }
 version("1.1.0i") { source sha256: "ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08c17b2cdadc118253cf99" }
 version("1.1.0h") { source sha256: "5835626cde9e99656585fc7aaa2302a73a7e1340bf8c14fd635a62c66802a517" }
 version("1.1.0g") { source sha256: "de4d501267da39310905cb6dc8c6121f7a2cad45a7707f76df828fe1b85073af" }
 version("1.1.0f") { source sha256: "12f746f3f2493b2f39da7ecf63d7ee19c6ac9ec6a4fcd8c229da8a522cb12765" }
+version("1.0.2q") { source sha256: "5744cfcbcec2b1b48629f7354203bc1e5e9b5466998bbccc5b5fcde3b18eb684" }
 version("1.0.2p") { source sha256: "50a98e07b1a89eb8f6a99477f262df71c6fa7bef77df4dc83025a2845c827d00" }
 version("1.0.2o") { source sha256: "ec3f5c9714ba0fd45cb4e087301eb1336c317e0d20b575a125050470e8089e4d" }
 version("1.0.2n") { source sha256: "370babb75f278c39e0c50e8c4e7493bc0f18db6867478341a832a982fd15a8fe" }
