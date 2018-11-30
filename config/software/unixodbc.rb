@@ -14,6 +14,8 @@ build do
   configure_args = [
     "--disable-readline",
     "--prefix=#{install_dir}/embedded",
+    "--with-included-ltdl",
+    "--enable-ltdl-install",
   ]
 
   configure_command = configure_args.unshift("./configure").join(" ")
