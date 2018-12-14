@@ -28,7 +28,7 @@ dependency "inspec"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development guard test", env: env
+  bundle "install --without development guard test tools integration", env: env
 
   gem "build kitchen-inspec.gemspec", env: env
   gem "install kitchen-inspec-*.gem" \
