@@ -8,7 +8,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 dependency "libsqlite3"
-dependency "xz"
+dependency "liblzma"
 dependency "gdbm"
 
 version "3.6.7" do
