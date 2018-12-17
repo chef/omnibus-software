@@ -1,6 +1,6 @@
 name "python3"
 
-default_version "3.6.7"
+default_version "3.7.1"
 
 dependency "libffi"
 dependency "ncurses"
