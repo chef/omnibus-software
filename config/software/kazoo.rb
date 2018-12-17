@@ -1,5 +1,5 @@
 name "kazoo"
-default_version "2.4.0"
+default_version "2.6.0"
 
 dependency "python"
 dependency "pip"
