@@ -1,7 +1,6 @@
 name "protobuf-py"
 default_version "3.5.1"
 
-dependency "python"
 dependency "setuptools"
 dependency "pip"
 dependency "six"
