@@ -1,10 +1,18 @@
 language: ruby
 cache: bundler
 sudo: false
+
 rvm:
   - 2.4.5
   - 2.5.3
   - 2.6
+  - ruby-head
+
+matrix:
+  allow_failures:
+    - rvm: 2.6
+    - rvm: ruby-head
+
 branches:
   only:
     - master
