@@ -31,7 +31,9 @@ if mac_os_x?
                         "--with-universal-archs=intel",
                         "--enable-shared")
 elsif linux?
-  python_configure.push("--enable-unicode=ucs4")
+  python_configure.push("--enable-shared",
+                        "--enable-optimizations",
+                        "--enable-ipv6")
 elsif aix?
   # something here... 
 end
