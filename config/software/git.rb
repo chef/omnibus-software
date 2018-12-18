@@ -25,7 +25,7 @@ dependency "curl"
 dependency "zlib"
 dependency "openssl"
 dependency "pcre"
-dependency "libiconv"
+dependency "libiconv" # FIXME: can we figure out how to remove this?
 dependency "expat"
 
 relative_path "git-#{version}"
@@ -46,42 +46,6 @@ version "2.14.1" do
   source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079806b58321c2cf85a4464"
 end
 
-version "2.10.2" do
-  source md5: "45e8b30a9e7c1b734128cc0fc6663619"
-end
-
-version "2.8.2" do
-  source md5: "3022d8ebf64b35b9704d5adf54b256f9"
-end
-
-version "2.7.4" do
-  source md5: "c64012d491e24c7d65cd389f75383d91"
-end
-
-version "2.7.3" do
-  source md5: "cf6ed3510f0d7784da5e9f4e64c6a43e"
-end
-
-version "2.7.1" do
-  source md5: "846ac45a1638e9a6ff3a9b790f6c8d99"
-end
-
-version "2.6.2" do
-  source md5: "da293290da69f45a86a311ad3cd43dc8"
-end
-
-version "2.2.1" do
-  source md5: "ff41fdb094eed1ec430aed8ee9b9849c"
-end
-
-version "1.9.5" do
-  source md5: "e9c82e71bec550e856cccd9548902885"
-end
-
-version "1.9.0" do
-  source md5: "0e00839539fc43cd2c350589744f254a"
-end
-
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
 build do
@@ -95,11 +59,6 @@ build do
   if aix?
     patch_env = env.dup
     patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
-
-    # But only needs the below for 1.9.5
-    if version == "1.9.5"
-      patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
-    end
 
     # In 2.13.1 they introduced some sha code that wasn't super good at
     # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
@@ -130,11 +89,6 @@ build do
     config_hash["USE_ST_TIMESPEC"] = "YesPlease"
     config_hash["HAVE_BSD_SYSCTL"] = "YesPlease"
     config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
-  elsif solaris_10?
-    env["CC"] = "gcc"
-    env["SHELL_PATH"] = "#{install_dir}/embedded/bin/bash"
-    config_hash["NEEDS_SOCKET"] = "YesPlease"
-    config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   elsif aix?
     env["CC"] = "xlc_r"
     env["INSTALL"] = "/opt/freeware/bin/install"
@@ -143,9 +97,7 @@ build do
     # old style -R for libraries and as a result, xlc will ignore it. In this case, we
     # we want that to happen because we explicitly set the libpath with the correct
     # command line argument in omnibus itself.
-    if version.satisfies?(">=2.10.2")
-      config_hash["NO_REGEX"] = "NeedsStartEnd"
-    end
+    config_hash["NO_REGEX"] = "NeedsStartEnd"
   else
     # Linux things!
     config_hash["HAVE_PATHS_H"] = "YesPlease"
