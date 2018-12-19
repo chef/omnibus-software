@@ -32,5 +32,5 @@ build do
 
   gem "build foodcritic.gemspec", env: env
   gem "install foodcritic-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

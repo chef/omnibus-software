@@ -49,5 +49,5 @@ build do
   bundle "exec rake build", env: env
 
   gem "install pkg/test-kitchen-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

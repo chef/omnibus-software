@@ -36,5 +36,5 @@ build do
   delete "pkg/*java*"
 
   gem "install pkg/rbnacl-libsodium-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

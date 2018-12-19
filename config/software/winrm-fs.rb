@@ -30,5 +30,5 @@ build do
 
   gem "build winrm-fs.gemspec", env: env
   gem "install winrm-fs-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

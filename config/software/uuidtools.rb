@@ -25,5 +25,5 @@ build do
 
   gem "install uuidtools" \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

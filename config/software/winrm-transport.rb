@@ -30,5 +30,5 @@ build do
 
   gem "build winrm-transport.gemspec", env: env
   gem "install winrm-transport-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

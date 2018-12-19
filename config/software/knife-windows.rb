@@ -31,5 +31,5 @@ build do
 
   gem "build knife-windows.gemspec", env: env
   gem "install knife-windows-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

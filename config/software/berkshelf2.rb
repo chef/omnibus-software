@@ -34,25 +34,25 @@ build do
 
   gem "install celluloid" \
       " --version '~> 0.16.0'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   gem "install celluloid-io" \
       " --version '~> 0.16.1'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   gem "install hashie" \
       " --version '~> 2.0.0'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   gem "install varia_model" \
       " --version '0.3.2'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   gem "install i18n" \
       " --version '0.6.11'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   gem "install berkshelf" \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

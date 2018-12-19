@@ -43,5 +43,5 @@ build do
 
   gem "install dep-selector-libgecode" \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

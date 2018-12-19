@@ -30,5 +30,5 @@ build do
 
   gem "build rubocop.gemspec", env: env
   gem "install rubocop-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

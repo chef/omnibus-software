@@ -31,5 +31,5 @@ build do
 
   gem "build fauxhai.gemspec", env: env
   gem "install fauxhai-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end
