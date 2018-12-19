@@ -33,7 +33,6 @@ if mac_os_x?
                         "--enable-shared")
 elsif linux?
   python_configure.push("--enable-shared",
-                        "--enable-optimizations",
                         "--enable-ipv6")
 elsif aix?
   # something here... 
