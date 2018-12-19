@@ -24,5 +24,5 @@ build do
 
   gem "install unicorn" \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

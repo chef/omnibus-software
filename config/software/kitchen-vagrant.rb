@@ -31,5 +31,5 @@ build do
 
   gem "build kitchen-vagrant.gemspec", env: env
   gem "install kitchen-vagrant-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

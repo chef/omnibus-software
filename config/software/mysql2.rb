@@ -40,7 +40,7 @@ build do
 
   gem "install rake-compiler" \
       " --version '0.8.3'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   mkdir cache_path
 

@@ -32,5 +32,5 @@ build do
 
   gem "build appbundler.gemspec", env: env
   gem "install appbundler-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      " --no-document", env: env
 end

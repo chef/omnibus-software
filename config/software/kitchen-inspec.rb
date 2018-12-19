@@ -32,5 +32,5 @@ build do
 
   gem "build kitchen-inspec.gemspec", env: env
   gem "install kitchen-inspec-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

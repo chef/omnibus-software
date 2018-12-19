@@ -33,5 +33,5 @@ build do
   bundle "install --without development test integration tools", env: env
 
   gem "build train.gemspec", env: env
-  gem "install train-*.gem --no-ri --no-rdoc", env: env
+  gem "install train-*.gem  --no-document", env: env
 end

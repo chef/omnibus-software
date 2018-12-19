@@ -32,5 +32,5 @@ build do
   bundle "install --without development", env: env
 
   gem "build veil.gemspec", env: env
-  gem "install veil*.gem --no-rdoc --no-ri --without development", env: env
+  gem "install veil*.gem --no-document  --without development", env: env
 end
