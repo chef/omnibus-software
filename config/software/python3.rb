@@ -9,7 +9,6 @@ dependency "openssl"
 dependency "bzip2"
 dependency "libsqlite3"
 dependency "liblzma"
-dependency "gdbm"
 dependency "readline"
 
 version "3.6.7" do
