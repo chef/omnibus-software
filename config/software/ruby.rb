@@ -32,6 +32,7 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+version("2.6.0")      { source sha256: "f3c35b924a11c88ff111f0956ded3cdc12c90c04b72b266ac61076d3697fc072" }
 version("2.5.3")      { source sha256: "9828d03852c37c20fa333a0264f2490f07338576734d910ee3fd538c9520846c" }
 version("2.5.1")      { source sha256: "dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1" }
 version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
@@ -90,14 +91,6 @@ elsif aix?
   env["SOLIBS"] = "-lm -lc"
   # need to use GNU m4, default m4 doesn't work
   env["M4"] = "/opt/freeware/bin/m4"
-elsif solaris_10?
-  if sparc?
-    # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
-    env["CFLAGS"] << " -std=c99 -O3 -g -pipe -mcpu=v9"
-    env["LDFLAGS"] << " -mcpu=v9"
-  else
-    env["CFLAGS"] << " -std=c99 -O3 -g -pipe"
-  end
 elsif solaris_11?
   env["CFLAGS"] << " -std=c99"
   env["CPPFLAGS"] << " -D_XOPEN_SOURCE=600 -D_XPG6"
