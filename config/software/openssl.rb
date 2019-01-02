@@ -96,11 +96,6 @@ build do
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
     elsif omnios?
       "/bin/bash ./Configure solaris-x86-gcc"
-    elsif solaris_10?
-      # This should not require a /bin/sh, but without it we get
-      # Errno::ENOEXEC: Exec format error
-      platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
-      "/bin/sh ./Configure #{platform} -static-libgcc"
     elsif solaris_11?
       platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
       "/bin/bash ./Configure #{platform} -static-libgcc"
