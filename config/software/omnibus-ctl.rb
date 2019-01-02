@@ -15,7 +15,7 @@
 #
 
 name "omnibus-ctl"
-default_version "0.3.6"
+default_version "master"
 
 license "Apache-2.0"
 license_file "https://raw.githubusercontent.com/chef/omnibus-ctl/master/LICENSE"
