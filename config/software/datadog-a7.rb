@@ -1,5 +1,5 @@
 name "datadog-a7"
-default_version "0.0.3"
+default_version "0.0.4"
 
 dependency "python"
 dependency "pip"
