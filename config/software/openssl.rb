@@ -85,7 +85,9 @@ build do
     "shared",
   ]
 
-  configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
+  # For OpenSSL <= 1.0.2, `--prefix` and `--openssldir` should be specified.
+  # See https://wiki.openssl.org/index.php/Compilation_and_Installation#PREFIX_and_OPENSSLDIR
+  configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips", "--openssldir=#{install_dir}/embedded"] if fips_mode?
 
   configure_cmd =
     if aix?
