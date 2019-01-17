@@ -38,6 +38,16 @@ if windows?
   if windows_arch_i386?
     arch = "i686"
 
+    version "1.32.0" do
+      source sha256: "226b00e61095fe1b8a7f1f186087731a294235b4da53601b709517ca9dc624f0",
+             url: url_template % { host_triple: host_triple, arch: arch }
+    end
+
+    version "1.31.1" do
+      source sha256: "59696727a86d1f762ed9afa409ce01cbb9e0858f8ee4f047100ccc489dca13fe",
+             url: url_template % { host_triple: host_triple, arch: arch }
+    end
+
     version "1.27.0" do
       source sha256: "8aff736c3c456e4b8c5ade02ae9b725eb9e896c303c8c160c7b414dab3b69681",
              url: url_template % { host_triple: host_triple, arch: arch }
@@ -78,6 +88,16 @@ if windows?
              url: url_template % { host_triple: host_triple, arch: arch }
     end
   else
+    version "1.32.0" do
+      source sha256: "358e1435347c67dbf33aa9cad6fe501a833d6633ed5d5aa1863d5dffa0349be9",
+             url: url_template % { host_triple: host_triple, arch: arch }
+    end
+
+    version "1.31.1" do
+      source sha256: "7ddd4bd95433352520bb4ead9c4c83ecaaa881d1b750ddc5079c909e8ef61a7a",
+             url: url_template % { host_triple: host_triple, arch: arch }
+    end
+
     version "1.27.0" do
       source sha256: "c8b26cd85d890794c13c4494d47d9dbd2e9f8a2d3dbc7601819d6fc21bd24484",
              url: url_template % { host_triple: host_triple, arch: arch }
@@ -122,6 +142,16 @@ if windows?
 elsif mac_os_x?
   host_triple = "apple-darwin"
 
+  version "1.32.0" do
+    source sha256: "f0dfba507192f9b5c330b5984ba71d57d434475f3d62bd44a39201e36fa76304",
+           url: url_template % { host_triple: host_triple, arch: arch }
+  end
+
+  version "1.31.1" do
+    source sha256: "8398b1b303bdf0e7605d08b87070a514a4f588797c6fb3593718cb9cec233ad6",
+             url: url_template % { host_triple: host_triple, arch: arch }
+  end
+
   version "1.27.0" do
     source sha256: "a1d48190992e01aac1a181bce490c80cb2c1421724b4ff0e2fb7e224a958ce0f",
            url: url_template % { host_triple: host_triple, arch: arch }
@@ -163,6 +193,16 @@ elsif mac_os_x?
   end
 else
   host_triple = "unknown-linux-gnu"
+
+  version "1.32.0" do
+    source sha256: "e024698320d76b74daf0e6e71be3681a1e7923122e3ebd03673fcac3ecc23810",
+           url: url_template % { host_triple: host_triple, arch: arch }
+  end
+
+  version "1.31.1" do
+    source sha256: "a64685535d0c457f49a8712a096a5c21564cd66fd2f7da739487f028192ebe3c",
+             url: url_template % { host_triple: host_triple, arch: arch }
+  end
 
   version "1.27.0" do
     source sha256: "235ad78e220b10a2d0267aea1e2c0f19ef5eaaff53ad6ff8b12c1d4370dec9a3",
