@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/DataDog/omnibus-software.svg?branch=master)](https://travis-ci.org/DataDog/omnibus-software)
+[![Build Status](https://travis-ci.com/DataDog/omnibus-software.svg?branch=master)](https://travis-ci.com/DataDog/omnibus-software)
 
 This Repo is a fork of the [Opscode Omnibus Software Repo](https://github.com/opscode/omnibus-software)
 
