@@ -1,0 +1,51 @@
+From 46861309169c43b5d72d65e4827f33c350538e2f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
+Date: Wed, 9 Jan 2019 17:23:52 +0100
+Subject: [PATCH] Don't use C99 features yet.
+
+Fixes #15519
+---
+ addr2line.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/addr2line.c b/addr2line.c
+index a11d32b73d..e3527f1174 100644
+--- a/addr2line.c
++++ b/addr2line.c
+@@ -1194,6 +1194,7 @@ static char *
+ di_find_abbrev(DebugInfoReader *reader, uint64_t abbrev_number)
+ {
+     char *p;
++    uint64_t n;
+     if (abbrev_number < ABBREV_TABLE_SIZE) {
+         return reader->abbrev_table[abbrev_number];
+     }
+@@ -1207,7 +1208,7 @@ di_find_abbrev(DebugInfoReader *reader, uint64_t abbrev_number)
+         uint64_t form = uleb128(&p);
+         if (!at && !form) break;
+     }
+-    for (uint64_t n = uleb128(&p); abbrev_number != n; n = uleb128(&p)) {
++    for (n = uleb128(&p); abbrev_number != n; n = uleb128(&p)) {
+         if (n == 0) {
+             fprintf(stderr,"%d: Abbrev Number %"PRId64" not found\n",__LINE__, abbrev_number);
+             exit(1);
+@@ -1511,6 +1512,7 @@ debug_info_read(DebugInfoReader *reader, int num_traces, void **traces,
+         DIE die;
+         ranges_t ranges = {};
+         line_info_t line = {};
++	int i;
+ 
+         if (!di_read_die(reader, &die)) continue;
+         /* fprintf(stderr,"%d:%tx: <%d>\n",__LINE__,die.pos,reader->level,die.tag); */
+@@ -1555,7 +1557,7 @@ debug_info_read(DebugInfoReader *reader, int num_traces, void **traces,
+         }
+         /* ranges_inspect(reader, &ranges); */
+         /* fprintf(stderr,"%d:%tx: %x ",__LINE__,diepos,die.tag); */
+-        for (int i=offset; i < num_traces; i++) {
++        for (i=offset; i < num_traces; i++) {
+             uintptr_t addr = (uintptr_t)traces[i];
+             uintptr_t offset = addr - reader->obj->base_addr + reader->obj->vmaddr;
+             uintptr_t saddr = ranges_include(reader, &ranges, offset);
+-- 
+2.20.1
+

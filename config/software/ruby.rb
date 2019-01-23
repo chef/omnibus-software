@@ -154,6 +154,12 @@ build do
     patch source: "prelude_25_el6_no_pragma.patch", plevel: 0, env: patch_env
   end
 
+  # ruby 2.6.0 snuck in C99 features. This *should* be fixed in 2.6.1 as it's merged to trunk as of 1/22/19
+  # https://bugs.ruby-lang.org/issues/15519
+  if version == "2.6.0"
+    patch source: "0001-Don-t-use-C99-features-yet.patch", plevel: 1, env: patch_env
+  end
+
   # Backporting a 2.6.0 fix to 2.5.1 (and 2.4.4 for ChefDK 2). This allows us to build Nokogiri 1.8.3.
   # Basically we only include `-Werror` linker warnings when building native gems if we are on Windows.
   # This prevents some "expected" warnings from failing the build.
