@@ -65,9 +65,9 @@ else
   default_version "3.7.1"
 
   source :url => "https://s3.amazonaws.com/dd-agent-omnibus/python-windows-#{version}-amd64.zip",
-         :sha256 => "26ee710e18334e37a881b94931ebc19e7b24018721c930fc7a5c6e6d28e149fd"
+         :sha256 => "c9da8a6890ce7df603724abebcd893c63616f499b9a619bb39399a09f382269a"
 
   build do
-    command "XCOPY /YEHIR .\\embedded \"#{windows_safe_path(install_dir)}\\embedded\""
+    command "XCOPY /YEHIR *.* \"#{windows_safe_path(install_dir)}\\embedded\""
   end
 end
