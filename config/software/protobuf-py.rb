@@ -1,7 +1,6 @@
 name "protobuf-py"
 default_version "3.5.1"
 
-dependency "python"
 dependency "setuptools"
 dependency "pip"
 dependency "six"
@@ -41,6 +40,10 @@ build do
     if ohai["platform_family"] == "rhel" && ohai["platform_version"].to_i == 5
       patch :source => "setup-py-no-debug-symbols-for-gcc-41.patch", :plevel => 2
     end
+
+    # backport from 3.6.1: fix build error with python3.7
+    patch :source => "Add-Python-3.7-compatibility-4862.patch", :plevel => 2
+
     # Python lib
     command ["#{install_dir}/embedded/bin/python",
            "setup.py",

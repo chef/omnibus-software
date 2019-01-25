@@ -1,7 +1,6 @@
 name "six"
 default_version "1.11.0"
 
-dependency "python"
 dependency "pip"
 
 build do
