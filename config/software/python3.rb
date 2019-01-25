@@ -10,7 +10,6 @@ if ohai["platform"] != "windows"
   dependency "bzip2"
   dependency "libsqlite3"
   dependency "liblzma"
-  dependency "readline"
 
   version "3.6.7" do
     source :sha256 => "b7c36f7ed8f7143b2c46153b7332db2227669f583ea0cce753facf549d1a4239"
@@ -56,6 +55,12 @@ if ohai["platform"] != "windows"
     command "make -j #{workers}", :env => env
     command "make install", :env => env
     # delete "#{install_dir}/embedded/lib/python2.7/test"
+
+  # There exists no configure flag to tell Python to not compile readline support :(
+    major, minor, bugfix = version.split(".")
+    block do
+      FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python#{major}.#{minor}/lib-dynload/readline.*"))
+    end
 
     link "#{install_dir}/embedded/bin/python3", "#{install_dir}/embedded/bin/python"
     link "#{install_dir}/embedded/bin/pip3", "#{install_dir}/embedded/bin/pip"
