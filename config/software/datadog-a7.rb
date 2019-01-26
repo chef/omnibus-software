@@ -1,11 +1,11 @@
 name "datadog-a7"
 default_version "0.0.5"
 
-dependency "pip"
+dependency "pip-py2"
 
 build do
   ship_license "https://raw.githubusercontent.com/DataDog/datadog-checks-shared/master/LICENSE"
-  pip "install --install-option=\"--install-scripts="\
+  py2pip "install --install-option=\"--install-scripts="\
       "#{windows_safe_path(install_dir)}/bin\" "\
       "#{name}==#{version}"
 end
