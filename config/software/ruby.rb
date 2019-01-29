@@ -180,7 +180,11 @@ build do
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
-    patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env
+    if version.satisfies?(">= 2.6")
+      patch source: "ruby-aix-configure_26_and_later.patch", plevel: 1, env: patch_env
+    else
+      patch source: "ruby-aix-configure_pre26.patch", plevel: 1, env: patch_env
+    end
     # have ruby use zlib on AIX correctly
     patch source: "ruby_aix_openssl.patch", plevel: 1, env: patch_env
     # AIX has issues with ssl retries, need to patch to have it retry
