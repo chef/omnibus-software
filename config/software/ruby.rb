@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2018, Chef Software Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
-version("2.6.0")      { source sha256: "f3c35b924a11c88ff111f0956ded3cdc12c90c04b72b266ac61076d3697fc072" }
+version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
 version("2.5.3")      { source sha256: "9828d03852c37c20fa333a0264f2490f07338576734d910ee3fd538c9520846c" }
 version("2.5.1")      { source sha256: "dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1" }
 version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
@@ -152,12 +152,6 @@ build do
       platform_version.satisfies?("< 7") &&
       (version == "2.5.0")
     patch source: "prelude_25_el6_no_pragma.patch", plevel: 0, env: patch_env
-  end
-
-  if version == "2.6.0"
-    # ruby 2.6.0 snuck in C99 features. This *should* be fixed in 2.6.1 as it's merged to trunk as of 1/22/19
-    # https://bugs.ruby-lang.org/issues/15519
-    patch source: "2.6_Don-t-use-C99-features-yet.patch", plevel: 1, env: patch_env
   end
 
   # Backporting a 2.6.0 fix to 2.5.1 (and 2.4.4 for ChefDK 2). This allows us to build Nokogiri 1.8.3.
