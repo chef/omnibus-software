@@ -20,7 +20,7 @@ default_version "4.2.1"
 license "GPL-3.0"
 license_file "COPYING"
 
-version("4.2.1") { source sha256: "d6e262bf3601b42d2b1e4ef8310029e1dcf20083c5446b4b7aa67081fdffc589" }
+version("4.2.1") { source sha256: "e40b8f018c1da64edd1cc9a6fce5fa63b2e707e404e20cad91fbae337c98a5b7" }
 version("4.1") { source sha256: "9fc7a9783d3d2ea002aa1348f851875a2636116c433677453cc1d1acc3fc4d55" }
 
 source url: "https://ftp.gnu.org/gnu/make/make-#{version}.tar.gz"
