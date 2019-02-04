@@ -28,6 +28,7 @@ dependency "lua" if ppc64? || ppc64le? || s390x?
 source_package_name = "openresty"
 
 # Versions above 1.11.2.2 require SSE4.2 CPU support
+version("1.13.6.2") { source sha256: "946e1958273032db43833982e2cec0766154a9b5cb8e67868944113208ff2942" }
 version("1.11.2.5") { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f57820aa8e92d7888d8ad657b9" }
 version("1.11.2.2") { source sha256: "7f9ca62cfa1e4aedf29df9169aed0395fd1b90de254139996e554367db4d5a01" }
 version("1.11.2.1") { source md5: "f26d152f40c5263b383a5b7c826a6c7e" }
@@ -101,7 +102,12 @@ build do
 
   # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
   if ppc64? || ppc64le? || s390x?
-    configure << "--with-lua51=#{install_dir}/embedded/lib"
+    # 1.13 breaks these; discover a workaround
+    if version.satisfies?(">= 1.13")
+      exit("ppc64? || ppc64le? || s390x? unsupported for 1.13 and greater")
+    else
+      configure << "--with-lua51=#{install_dir}/embedded/lib"
+    end
   else
     configure << "--with-luajit"
   end
