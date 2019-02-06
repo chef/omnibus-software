@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.9.8"
+default_version "2.9.9"
 
 license "MIT"
 license_file "COPYING"
@@ -25,6 +25,7 @@ dependency "zlib"
 dependency "liblzma"
 dependency "config_guess"
 
+version("2.9.9") { source sha256: "94fb70890143e3c6549f265cee93ec064c80a84c42ad0f23e85ee1fd6540a871" }
 version("2.9.8") { source sha256: "0b74e51595654f958148759cfef0993114ddccccbb6f31aee018f3558e8e2732" }
 version("2.9.7") { source sha256: "f63c5e7d30362ed28b38bfa1ac6313f9a80230720b7fb6c80575eeab3ff5900c" }
 version("2.9.5") { source sha256: "4031c1ecee9ce7ba4f313e91ef6284164885cdb69937a123f6a83bb6a72dcd38" }
