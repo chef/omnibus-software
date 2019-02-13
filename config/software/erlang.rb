@@ -61,9 +61,9 @@ build do
   env.delete("CPPFLAGS")
 
   # The TYPE env var sets the type of emulator you want
-  # We want the default so we delete TYPE from ENV in case
-  # it was set by CI.
-  ENV.delete("TYPE")
+  # We want the default so we give TYPE and empty value
+  # in case it was set by CI.
+  env["TYPE"] = ""
 
   update_config_guess(target: "erts/autoconf")
   update_config_guess(target: "lib/common_test/priv/auxdir")
