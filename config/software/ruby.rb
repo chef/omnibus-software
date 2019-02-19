@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2018, Chef Software Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
-version("2.6.0")      { source sha256: "f3c35b924a11c88ff111f0956ded3cdc12c90c04b72b266ac61076d3697fc072" }
+version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
 version("2.5.3")      { source sha256: "9828d03852c37c20fa333a0264f2490f07338576734d910ee3fd538c9520846c" }
 version("2.5.1")      { source sha256: "dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1" }
 version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
@@ -170,6 +170,10 @@ build do
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
   configure_command << "--with-bundled-md5" if fips_mode?
+
+  # jit doesn't compile on all platforms in 2.6.0
+  # we should evaluate this when new releases come out to see if we can turn it back on
+  configure_command << "--disable-jit-support" if version.satisfies?(">= 2.6")
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
