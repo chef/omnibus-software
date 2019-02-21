@@ -22,7 +22,7 @@ default_version "18.1"
 dependency "setuptools"
 
 source :url => "https://github.com/pypa/pip/archive/#{version}.tar.gz",
-       :sha256 => "2c39367b8529f50746b399d7e4563df48a148b8558ae6f7236b51c155359365a",
+       :sha256 => "3ff036bbbce30f27b0ba440134defa66a135740c9e3401bd466e7f0d8153147c",
        :extract => :seven_zip
 
 relative_path "pip-#{version}"
