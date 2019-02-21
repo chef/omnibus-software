@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2017 Chef Software, Inc.
+# Copyright:: Copyright (c) 2012-2019 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,7 @@
 
 # We use the version in util-linux, and only build the libuuid subdirectory
 name "libsodium"
-default_version "1.0.2"
+default_version "1.0.17"
 
 license "ISC"
 license_file "LICENSE"
@@ -29,6 +29,10 @@ unless windows?
   dependency "autoconf"
   dependency "automake"
   dependency "libtool"
+end
+
+version "1.0.17" do
+  source sha256: "0cc3dae33e642cc187b5ceb467e0ad0e1b51dcba577de1190e9ffa17766ac2b1"
 end
 
 # perhaps use git https://github.com/jedisct1/libsodium/

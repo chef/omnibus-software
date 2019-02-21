@@ -53,6 +53,7 @@ dependency "bundler"
 dependency "ohai"
 dependency "appbundler"
 dependency "libarchive" # for archive resource
+dependency "libsodium" # for ed25519 support
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
