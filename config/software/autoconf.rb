@@ -20,6 +20,7 @@ default_version "2.68"
 license "GPL-3.0"
 license_file "COPYING"
 license_file "COPYING.EXCEPTION"
+skip_transitive_dependency_licensing true
 
 dependency "m4"
 
