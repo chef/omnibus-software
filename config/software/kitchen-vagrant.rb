@@ -27,9 +27,9 @@ dependency "test-kitchen"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development guard test", env: env
+  bundle "install --without development guard test changelog", env: env
 
   gem "build kitchen-vagrant.gemspec", env: env
   gem "install kitchen-vagrant-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

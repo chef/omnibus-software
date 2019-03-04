@@ -45,5 +45,5 @@ build do
   bundle "exec thor gem:build", env: env
 
   gem "install pkg/berkshelf-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      " --no-document", env: env
 end

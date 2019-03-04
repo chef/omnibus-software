@@ -21,6 +21,7 @@ dependency "autoconf"
 
 license "GPL-2.0"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 version "1.15" do
   source md5: "716946a105ca228ab545fc37a70df3a3"

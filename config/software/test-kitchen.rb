@@ -39,7 +39,7 @@ build do
     end
   end
 
-  bundle "install --without guard", env: env
+  bundle "install --without changelog debug chefstyle docs integration", env: env
 
   block do
     File.delete(gemfile)
@@ -49,5 +49,5 @@ build do
   bundle "exec rake build", env: env
 
   gem "install pkg/test-kitchen-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

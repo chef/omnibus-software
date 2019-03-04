@@ -38,7 +38,7 @@ build do
 
   gem "build inspec.gemspec", env: env
   gem "install inspec-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   appbundle "inspec", env: env
 end

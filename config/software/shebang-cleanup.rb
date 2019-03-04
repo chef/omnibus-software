@@ -40,17 +40,17 @@ build do
         load_gemspec.call(gem_file).spec.executables.each do |bin|
           if File.exist?("#{install_dir}/bin/#{bin}")
             File.open("#{install_dir}/bin/#{bin}.bat", "w") do |f|
-              f.puts <<-EOF
-@ECHO OFF
-"%~dp0..\\embedded\\bin\\ruby.exe" "%~dpn0" %*
+              f.puts <<~EOF
+                @ECHO OFF
+                "%~dp0..\\embedded\\bin\\ruby.exe" "%~dpn0" %*
               EOF
             end
           end
           if File.exist?("#{install_dir}/embedded/bin/#{bin}")
             File.open("#{install_dir}/embedded/bin/#{bin}.bat", "w") do |f|
-              f.puts <<-EOF
-@ECHO OFF
-"%~dp0ruby.exe" "%~dpn0" %*
+              f.puts <<~EOF
+                @ECHO OFF
+                "%~dp0ruby.exe" "%~dpn0" %*
               EOF
             end
           end
@@ -62,9 +62,9 @@ build do
 
       # Fix gem.bat
       File.open("#{install_dir}/embedded/bin/gem.bat", "w") do |f|
-        f.puts <<-EOF
-@ECHO OFF
-"%~dp0ruby.exe" "%~dpn0" %*
+        f.puts <<~EOF
+          @ECHO OFF
+          "%~dp0ruby.exe" "%~dpn0" %*
         EOF
       end
     end

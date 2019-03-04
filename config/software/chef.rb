@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2018, Chef Software Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -62,12 +62,19 @@ build do
   excluded_groups = %w{server docgen maintenance pry travis integration ci}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
+  excluded_groups << "ed25519" if solaris2?
 
   # install the whole bundle first
   bundle "install --without #{excluded_groups.join(' ')}", env: env
 
   # use the rake install task to build/install chef-config
   bundle "exec rake install", env: env
+
+  gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
+
+  # This step will build native components as needed - the event log dll is
+  # generated as part of this step.  This is why we need devkit.
+  gem "build #{gemspec_name}", env: env
 
   # ensure we put the gems in the right place to get picked up by the publish scripts
   delete "pkg"
@@ -82,16 +89,4 @@ build do
 
   appbundle "chef", env: env
   appbundle "ohai", env: env
-
-  # Clean up
-  # TODO: Move this cleanup to a more appropriate place that's common to all
-  # software we ship. Lot's of other dependencies and libraries we build for
-  # ChefDK create docs and man pages and those may occur after this build step.
-  delete "#{install_dir}/embedded/docs"
-  delete "#{install_dir}/embedded/share/man"
-  delete "#{install_dir}/embedded/share/doc"
-  delete "#{install_dir}/embedded/share/gtk-doc"
-  delete "#{install_dir}/embedded/ssl/man"
-  delete "#{install_dir}/embedded/man"
-  delete "#{install_dir}/embedded/info"
 end

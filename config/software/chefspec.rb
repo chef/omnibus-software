@@ -32,5 +32,5 @@ build do
 
   gem "build chefspec.gemspec", env: env
   gem "install chefspec-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

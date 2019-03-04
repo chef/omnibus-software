@@ -28,7 +28,6 @@ task :list do
   OmnibusSoftware.list
 end
 
-require "json"
 require "chefstyle"
 require "rubocop/rake_task"
 desc " Run ChefStyle"

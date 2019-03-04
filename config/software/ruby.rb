@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2018, Chef Software Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,22 +22,29 @@ license_file "COPYING"
 license_file "LEGAL"
 skip_transitive_dependency_licensing true
 
-default_version "2.2.10"
+# the default versions should always be the latest release of ruby
+# if you consume this definition it is your responsibility to pin
+# to the desired version of ruby. don't count on this not changing.
+default_version "2.5.3"
 
 dependency "zlib"
 dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
+version("2.5.3")      { source sha256: "9828d03852c37c20fa333a0264f2490f07338576734d910ee3fd538c9520846c" }
 version("2.5.1")      { source sha256: "dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1" }
 version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
 
+version("2.4.5")      { source sha256: "6737741ae6ffa61174c8a3dcdd8ba92bc38827827ab1d7ea1ec78bc3cefc5198" }
 version("2.4.4")      { source sha256: "254f1c1a79e4cc814d1e7320bc5bdd995dc57e08727d30a767664619a9c8ae5a" }
 version("2.4.3")      { source sha256: "fd0375582c92045aa7d31854e724471fb469e11a4b08ff334d39052ccaaa3a98" }
 version("2.4.2")      { source sha256: "93b9e75e00b262bc4def6b26b7ae8717efc252c47154abb7392e54357e6c8c9c" }
 version("2.4.1")      { source sha256: "a330e10d5cb5e53b3a0078326c5731888bb55e32c4abfeb27d9e7f8e5d000250" }
 version("2.4.0")      { source sha256: "152fd0bd15a90b4a18213448f485d4b53e9f7662e1508190aa5b702446b29e3d" }
 
+version("2.3.8")      { source sha256: "b5016d61440e939045d4e22979e04708ed6c8e1c52e7edb2553cf40b73c59abf" }
 version("2.3.7")      { source sha256: "35cd349cddf78e4a0640d28ec8c7e88a2ae0db51ebd8926cd232bb70db2c7d7f" }
 version("2.3.6")      { source sha256: "8322513279f9edfa612d445bc111a87894fac1128eaa539301cebfc0dd51571e" }
 version("2.3.5")      { source sha256: "5462f7bbb28beff5da7441968471ed922f964db1abdce82b8860608acc23ddcc" }
@@ -49,13 +56,6 @@ version("2.3.0")      { source md5: "e81740ac7b14a9f837e9573601db3162" }
 version("2.2.10")     { source sha256: "cd51019eb9d9c786d6cb178c37f6812d8a41d6914a1edaf0050c051c75d7c358" }
 version("2.2.9")      { source sha256: "2f47c77054fc40ccfde22501425256d32c4fa0ccaf9554f0d699ed436beca1a6" }
 version("2.2.8")      { source sha256: "8f37b9d8538bf8e50ad098db2a716ea49585ad1601bbd347ef84ca0662d9268a" }
-version("2.2.6")      { source sha256: "de8e192791cb157d610c48a9a9ff6e7f19d67ce86052feae62b82e3682cc675f" }
-version("2.2.5")      { source md5: "bd8e349d4fb2c75d90817649674f94be" }
-version("2.2.4")      { source md5: "9a5e15f9d5255ba37ace18771b0a8dd2" }
-version("2.2.3")      { source md5: "150a5efc5f5d8a8011f30aa2594a7654" }
-version("2.2.2")      { source md5: "326e99ddc75381c7b50c85f7089f3260" }
-version("2.2.1")      { source md5: "b49fc67a834e4f77249eb73eecffb1c9" }
-version("2.2.0")      { source md5: "cd03b28fd0b555970f5c4fd481700852" }
 
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
@@ -91,14 +91,6 @@ elsif aix?
   env["SOLIBS"] = "-lm -lc"
   # need to use GNU m4, default m4 doesn't work
   env["M4"] = "/opt/freeware/bin/m4"
-elsif solaris_10?
-  if sparc?
-    # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
-    env["CFLAGS"] << " -std=c99 -O3 -g -pipe -mcpu=v9"
-    env["LDFLAGS"] << " -mcpu=v9"
-  else
-    env["CFLAGS"] << " -std=c99 -O3 -g -pipe"
-  end
 elsif solaris_11?
   env["CFLAGS"] << " -std=c99"
   env["CPPFLAGS"] << " -D_XOPEN_SOURCE=600 -D_XPG6"
@@ -125,10 +117,6 @@ build do
   # AIX needs /opt/freeware/bin only for patch
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}" if aix?
-
-  if solaris_10?
-    patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
-  end
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
@@ -182,6 +170,10 @@ build do
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
   configure_command << "--with-bundled-md5" if fips_mode?
+
+  # jit doesn't compile on all platforms in 2.6.0
+  # we should evaluate this when new releases come out to see if we can turn it back on
+  configure_command << "--disable-jit-support" if version.satisfies?(">= 2.6")
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries

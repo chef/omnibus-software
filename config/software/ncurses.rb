@@ -24,7 +24,6 @@ skip_transitive_dependency_licensing true
 
 dependency "libtool" if aix?
 dependency "config_guess"
-dependency "patch" if solaris_10?
 
 version("5.9") { source md5: "8cb9c412e5f2d96bc6f459aa8c6282a1", url: "https://s3.amazonaws.com/twindb-release/ncurses-5.9.tar.gz" }
 version("5.9-20150530") { source md5: "bb2cbe1d788d3ab0138fc2734e446b43", url: "ftp://invisible-island.net/ncurses/current/ncurses-5.9-20150530.tgz" }
@@ -128,10 +127,6 @@ build do
     # use gnu install from the coreutils IBM rpm package
     env["INSTALL"] = "/opt/freeware/bin/install"
   end
-
-  # only Solaris 10 sh has a problem with
-  # parens enclosed case statement conditions the configure script
-  configure_command.unshift "bash" if solaris_10?
 
   command configure_command.join(" "), env: env
 

@@ -40,5 +40,5 @@ build do
   delete "pkg/*java*"
 
   gem "install pkg/libyajl2-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

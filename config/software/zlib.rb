@@ -56,7 +56,7 @@ build do
       # make will attempt to link example_d.exe and minigzip_d.exe in parallel
       # with the strip step - causing gcc to freak out when a source file is
       # rewritten part way through the linking stage.
-      #"-j #{workers}",
+      # "-j #{workers}",
     ]
 
     make(*make_args, env: env)

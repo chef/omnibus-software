@@ -31,5 +31,5 @@ build do
 
   gem "build knife-spork.gemspec", env: env
   gem "install knife-spork-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

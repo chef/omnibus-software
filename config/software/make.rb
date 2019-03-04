@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
 #
 
 name "make"
-default_version "4.1"
+default_version "4.2.1"
 
-license "Zlib"
-license_file "README"
+license "GPL-3.0"
+license_file "COPYING"
 
-source url: "https://ftp.gnu.org/gnu/make/make-#{version}.tar.gz",
-       md5: "654f9117957e6fa6a1c49a8f08270ec9"
+version("4.2.1") { source sha256: "e40b8f018c1da64edd1cc9a6fce5fa63b2e707e404e20cad91fbae337c98a5b7" }
+version("4.1") { source sha256: "9fc7a9783d3d2ea002aa1348f851875a2636116c433677453cc1d1acc3fc4d55" }
+
+source url: "https://ftp.gnu.org/gnu/make/make-#{version}.tar.gz"
 
 relative_path "make-#{version}"
 
