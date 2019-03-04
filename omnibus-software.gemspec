@@ -17,6 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency "chef-sugar", ">= 3.4.0"
 
   s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 end
