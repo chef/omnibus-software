@@ -1,11 +1,11 @@
 name "datadog-a7"
 default_version "0.0.5"
 
-dependency "pip-py2"
+dependency "pip"
 
 build do
   ship_license "https://raw.githubusercontent.com/DataDog/datadog-checks-shared/master/LICENSE"
-  py2pip "install --install-option=\"--install-scripts="\
+  pip "install --install-option=\"--install-scripts="\
       "#{windows_safe_path(install_dir)}/bin\" "\
       "#{name}==#{version} "\
       "configparser==3.5.0" # this pins a dependency of pylint->datadog-a7, later versions (up to v3.7.1) are broken.
