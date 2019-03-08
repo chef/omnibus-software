@@ -8,7 +8,7 @@ end
 task :fetch do
   rake_fakeout
   software_name = ARGV[1]
-  path = ARGV[2] || "."
+  path = ARGV[2] || "downloads"
   puts "Downloading #{software_name} to #{path}"
   OmnibusSoftware.fetch(software_name, path)
 end
@@ -16,14 +16,14 @@ end
 task :build do
   rake_fakeout
   software_name = ARGV[1]
-  path = ARGV[2] || "."
-  puts "Downloading #{software_name} to #{path}"
+  path = ARGV[2] || "downloads"
+  puts "Downloading #{software_name} to #{path} and building"
   OmnibusSoftware.build_software(software_name, path)
 end
 
 task :fetch_all do
   rake_fakeout
-  path = ARGV[1] || "."
+  path = ARGV[1] || "downloads"
   puts "Downloading all software to #{path}"
   OmnibusSoftware.fetch_all(path)
 end

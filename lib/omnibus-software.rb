@@ -102,7 +102,7 @@ module OmnibusSoftware
 
     def fake_project
       @fake_project ||= Omnibus::Project.new.evaluate do
-        name "project.sample"
+        name "projectsample"
         install_dir "/tmp/project.sample"
         maintainer "John Doe"
         build_version "1.0"
