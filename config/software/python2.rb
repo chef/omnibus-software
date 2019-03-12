@@ -88,6 +88,5 @@ else
             "\"#{windows_safe_path(install_dir)}\\embedded\" /L uninstallation_logs.txt "\
             "ADDLOCAL=DefaultFeature  /qn"
 
-    command "SETX PYTHONPATH \"#{windows_safe_path(install_dir)}\\embedded\""
   end
 end
