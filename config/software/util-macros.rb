@@ -38,7 +38,7 @@ configure_env =
   end
 
 build do
-  ship_license "http://cgit.freedesktop.org/xorg/util/macros/plain/COPYING"
+  ship_license "./COPYING"
   command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
   command "make -j #{workers}", :env => configure_env
   command "make -j #{workers} install", :env => configure_env
