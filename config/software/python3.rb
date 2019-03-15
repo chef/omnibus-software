@@ -73,6 +73,6 @@ else
          :sha256 => "c9da8a6890ce7df603724abebcd893c63616f499b9a619bb39399a09f382269a"
 
   build do
-    command "XCOPY /YEHIR *.* \"#{windows_safe_path(install_dir)}\\embedded\""
+    command "XCOPY /YEHIR *.* \"#{windows_safe_path(python_3_embedded)}\""
   end
 end
