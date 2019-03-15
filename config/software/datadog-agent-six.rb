@@ -18,7 +18,7 @@ build do
   env = {
     "Python2_ROOT_DIR" => "#{install_dir}/embedded",
     "Python3_ROOT_DIR" => "#{install_dir}/embedded",
-    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
+    "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
   }
 
   command "cmake -DCMAKE_INSTALL_PREFIX:PATH=#{install_dir}/embedded .", :env => env
