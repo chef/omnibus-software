@@ -31,4 +31,7 @@ build do
     v_opts,
     " --no-document --force",
   ].compact.join(" "), env: env
+
+  # confirm the install was successful
+  command "bundle version", env: env
 end
