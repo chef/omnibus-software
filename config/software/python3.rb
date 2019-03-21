@@ -56,14 +56,11 @@ if ohai["platform"] != "windows"
     command "make install", :env => env
     # delete "#{install_dir}/embedded/lib/python2.7/test"
 
-  # There exists no configure flag to tell Python to not compile readline support :(
+    # There exists no configure flag to tell Python to not compile readline support :(
     major, minor, bugfix = version.split(".")
     block do
       FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python#{major}.#{minor}/lib-dynload/readline.*"))
     end
-
-    link "#{install_dir}/embedded/bin/python3", "#{install_dir}/embedded/bin/python"
-    link "#{install_dir}/embedded/bin/pip3", "#{install_dir}/embedded/bin/pip"
   end
 
 else
