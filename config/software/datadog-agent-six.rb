@@ -25,7 +25,7 @@ if ohai["platform"] != "windows"
     command "make install"
   end
 else
- build do
+  build do
     env = {
         "Python2_ROOT_DIR" => "#{windows_safe_path(python_2_embedded)}",
         "Python3_ROOT_DIR" => "#{windows_safe_path(python_3_embedded)}",
