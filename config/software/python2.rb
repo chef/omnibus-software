@@ -37,18 +37,18 @@ if ohai["platform"] != "windows"
   }
 
   python_configure = ["./configure",
-                      "--enable-universalsdk=/",
                       "--prefix=#{install_dir}/embedded"]
 
   if mac_os_x?
     python_configure.push("--enable-ipv6",
                           "--with-universal-archs=intel",
-                          "--enable-shared")
+                          "--enable-shared",
+                          "--without-gcc",
+                          "CC=clang",
+                          "MACOSX_DEPLOYMENT_TARGET=10.12")
   elsif linux?
     python_configure.push("--enable-unicode=ucs4")
   end
-
-  python_configure.push("--with-dbmliborder=")
 
   build do
     ship_license "PSFL"
