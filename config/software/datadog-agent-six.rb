@@ -20,7 +20,7 @@ if ohai["platform"] != "windows"
         "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
     }
 
-    command "cmake -DCMAKE_INSTALL_PREFIX:PATH=#{install_dir}/embedded .", :env => env
+    command "cmake -DCMAKE_FIND_FRAMEWORK:STRING=NEVER -DCMAKE_INSTALL_PREFIX:PATH=#{install_dir}/embedded .", :env => env
     command "make -j #{workers}"
     command "make install"
   end
