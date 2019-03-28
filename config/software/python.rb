@@ -18,7 +18,7 @@
 name "python"
 
 if ohai["platform"] != "windows"
-  default_version "2.7.15"
+  default_version "2.7.16"
 
   dependency "ncurses"
   dependency "zlib"
@@ -27,7 +27,7 @@ if ohai["platform"] != "windows"
   dependency "libsqlite3"
 
   source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-         :sha256 => "18617d1f15a380a919d517630a9cd85ce17ea602f9bbdc58ddc672df4b0239db"
+         :sha256 => "01da813a3600876f03f46db11cc5c408175e99f03af2ba942ef324389a83bad5"
 
   relative_path "Python-#{version}"
 
@@ -67,14 +67,14 @@ if ohai["platform"] != "windows"
   end
 
 else
-  default_version "2.7.15"
+  default_version "2.7.16"
 
   dependency "vc_redist"
   dependency "vc_python"
 
   msi_name = "python-#{version}.amd64.msi"
   source :url => "https://www.python.org/ftp/python/#{version}/#{msi_name}",
-         :sha256 => "5e85f3c4c209de98480acbf2ba2e71a907fd5567a838ad4b6748c76deb286ad7"
+         :sha256 => "7c0f45993019152d46041a7db4b947b919558fdb7a8f67bcd0535bc98d42b603"
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it
