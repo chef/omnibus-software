@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2019 Chef Software, Inc.
+# Copyright 2012-2015 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,11 +23,10 @@ skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 
-version("0.2.2") { source sha256: "46bca77dc8be954686cff21888d6ce10ca4016b360ae1f56962e6882a17aa1fe" }
-version("0.1.7") { source sha256: "e1884d0fa1eec8cf869ac6bebbf25391e81956aa2970267f974a9fa5e0b968e2" }
-version("0.1.6") { source sha256: "a0ad4b8cfa4b26c669c178af08147449ea7e6d50374cc26503edc56f3be894cf" }
+version("0.1.7") { source sha256: "8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729" }
+version("0.1.6") { source sha256: "7da6971b4bd08a986dd2a61353bc422362bd0edcc67d7ebaac68c95f74182749" }
 
-source url: "https://github.com/yaml/libyaml/archive/#{version}.tar.gz"
+source url: "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz"
 
 relative_path "yaml-#{version}"
 
