@@ -16,58 +16,43 @@
 #
 
 name "curl"
-default_version "7.59.0"
+default_version "7.64.1"
 
-if ohai["platform"] != "windows"
-  dependency "zlib"
-  dependency "openssl"
-  dependency "nghttp2"
-  source :url => "https://curl.haxx.se/download/curl-#{version}.tar.gz",
-         :sha256 => "099d9c32dc7b8958ca592597c9fabccdf4c08cfb7c114ff1afbbc4c6f13c9e9e"
+dependency "zlib"
+dependency "openssl"
+dependency "nghttp2"
+source :url => "https://curl.haxx.se/download/curl-#{version}.tar.gz",
+       :sha256 => "432d3f466644b9416bc5b649d344116a753aeaa520c8beaf024a90cba9d3d35d"
 
-  relative_path "curl-#{version}"
+relative_path "curl-#{version}"
 
-  build do
-    ship_license "https://raw.githubusercontent.com/bagder/curl/master/COPYING"
-    block do
-      FileUtils.rm_rf(File.join(project_dir, "src/tool_hugehelp.c"))
-    end
-
-    # curl requires pkg-config that is shipped with the agent
-    env = { "PATH" => "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"] }
-    command ["./configure",
-             "--prefix=#{install_dir}/embedded",
-             "--disable-manual",
-             "--disable-debug",
-             "--enable-optimize",
-             "--disable-ldap",
-             "--disable-ldaps",
-             "--disable-rtsp",
-             "--enable-proxy",
-             "--disable-dependency-tracking",
-             "--enable-ipv6",
-             "--without-libidn",
-             "--without-gnutls",
-             "--without-librtmp",
-             "--without-libssh2",
-             "--with-ssl=#{install_dir}/embedded",
-             "--with-zlib=#{install_dir}/embedded",
-             "--with-nghttp2=#{install_dir}/embedded"].join(" "), env: env
-
-    command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
-    command "make install"
+build do
+  ship_license "https://raw.githubusercontent.com/bagder/curl/master/COPYING"
+  block do
+    FileUtils.rm_rf(File.join(project_dir, "src/tool_hugehelp.c"))
   end
-else
-  # Compiling is hard... let's ship binaries instead : TODO: react according to platform
-  source :url => "https://s3.amazonaws.com/dd-agent-omnibus/curl4-7.43.0.tar.gz",
-         :md5 => "885daa917d96c9d8278bda39a9295f47",
-         :extract => :seven_zip
 
-  relative_path "curl"
+  # curl requires pkg-config that is shipped with the agent
+  env = { "PATH" => "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"] }
+  command ["./configure",
+           "--prefix=#{install_dir}/embedded",
+           "--disable-manual",
+           "--disable-debug",
+           "--enable-optimize",
+           "--disable-ldap",
+           "--disable-ldaps",
+           "--disable-rtsp",
+           "--enable-proxy",
+           "--disable-dependency-tracking",
+           "--enable-ipv6",
+           "--without-libidn",
+           "--without-gnutls",
+           "--without-librtmp",
+           "--without-libssh2",
+           "--with-ssl=#{install_dir}/embedded",
+           "--with-zlib=#{install_dir}/embedded",
+           "--with-nghttp2=#{install_dir}/embedded"].join(" "), env: env
 
-  build do
-    ship_license "https://raw.githubusercontent.com/bagder/curl/master/COPYING"
-
-    copy "cygcurl-4.dll", "\"#{windows_safe_path(install_dir)}\\embedded\\Lib\\cygcurl.dll\""
-  end
+  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "make install"
 end
