@@ -81,12 +81,18 @@ build do
   mkdir "pkg"
   copy "chef*.gem", "pkg"
 
+  extra_bin_files = []
+  Dir["#{project_dir}/spec/support/bin/*"].each do |binstub|
+    extra_bin_files << File.basename(binstub)
+    copy binstub, "#{install_dir}/embedded/bin"
+  end
+
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  appbundle "chef", env: env
+  appbundle "chef", extra_bin_files: extra_bin_files, env: env
   appbundle "ohai", env: env
 end
