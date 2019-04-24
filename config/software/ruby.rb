@@ -25,7 +25,7 @@ skip_transitive_dependency_licensing true
 # the default versions should always be the latest release of ruby
 # if you consume this definition it is your responsibility to pin
 # to the desired version of ruby. don't count on this not changing.
-default_version "2.5.5"
+default_version "2.6.2"
 
 dependency "zlib"
 dependency "openssl"
