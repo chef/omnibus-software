@@ -52,7 +52,7 @@ end
 if version.satisfies?(">= 1.0.9")
   source url: "https://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"
 else
-  source url: "https://download.libsodium.org/libsodium/releases/old/libsodium-#{version}.tar.gz"
+  source url: "https://download.libsodium.org/libsodium/releases/old/unsupported/libsodium-#{version}.tar.gz"
 end
 
 relative_path "libsodium-#{version}"
