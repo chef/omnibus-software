@@ -81,30 +81,22 @@ build do
   mkdir "pkg"
   copy "chef*.gem", "pkg"
 
-  # the binstubs do not ship in the rubygem, but have to ship in the tests in order to test,
-  # we need to copy those manually over to embedded/bin
-  extra_bin_files = []
-  Dir["#{project_dir}/spec/support/bin/*"].each do |binstub|
-    extra_bin_files << File.basename(binstub)
-    copy binstub, "#{install_dir}/embedded/bin"
-  end
-
-  # restore the binstubs into the ruby gem library location as well
-  block "Install binstubs into the gem" do
-    chef_gem_path = File.expand_path("../..", shellout!("#{install_dir}/embedded/bin/gem which chef").stdout.chomp)
-
-    Dir["#{project_dir}/spec/support/bin/*"].each do |binstub|
-      copy_file binstub, "#{chef_gem_path}/bin"
-    end
-  end
-
   # Always deploy the powershell modules in the correct place.
   if windows?
     mkdir "#{install_dir}/modules/chef"
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  # The extra_bin_files arg is for binstubs we do not ship in the gem
-  appbundle "chef", extra_bin_files: extra_bin_files, env: env
-  appbundle "ohai", env: env
+  block do
+    if Dir.exist?("#{project_dir}/chef-bin")
+      # Chef >= 15
+      appbundle "chef", lockdir: project_dir, gem: "chef-bin", env: env
+      appbundle "chef", lockdir: project_dir, gem: "chef", env: env
+      appbundle "chef", lockdir: project_dir, gem: "ohai", env: env
+    else
+      # Chef < 15
+      appbundle "chef", env: env
+      appbundle "ohai", env: env
+    end
+  end
 end
