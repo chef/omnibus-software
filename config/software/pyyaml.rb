@@ -1,5 +1,5 @@
 name "pyyaml"
-default_version "3.11"
+default_version "5.1"
 
 dependency "python"
 dependency "pip"
