@@ -49,7 +49,7 @@ build do
     remove_directory "#{gemdir}/build_info"
   end
 
-  # Clean up docs
+  # Clean up docs and gem/bundler leftovers
   delete "#{install_dir}/embedded/docs"
   delete "#{install_dir}/embedded/share/man"
   delete "#{install_dir}/embedded/share/doc"
@@ -58,6 +58,9 @@ build do
   delete "#{install_dir}/embedded/man"
   delete "#{install_dir}/embedded/share/info"
   delete "#{install_dir}/embedded/info"
+  delete "#{install_dir}/embedded/lib/ruby/gems/*/bundler/gems/*"
+  delete "#{install_dir}/embedded/lib/ruby/gems/*/extensions/*/*/*/gem_make.out"
+  delete "#{install_dir}/embedded/lib/ruby/gems/*/extensions/*/*/*/mkmf.log"
 
   # Check for multiple versions of the `bundler` gem and fail the build if we find more than 1.
   # Having multiple versions has burned us too many times in the past - causes warnings when
