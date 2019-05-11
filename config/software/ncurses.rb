@@ -20,6 +20,7 @@ default_version "5.9"
 
 dependency "libgcc"
 dependency "libtool" if ohai["platform"] == "aix"
+dependency "config_guess"
 
 source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
        md5: "8cb9c412e5f2d96bc6f459aa8c6282a1",
@@ -97,6 +98,8 @@ build do
     # to remove this after upgrading to any release created after June 2012
     patch source: "ncurses-clang.patch"
   end
+
+  update_config_guess
 
   # build wide-character libraries
   cmd_array = ["./configure",

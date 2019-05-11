@@ -21,6 +21,7 @@ default_version "1.1.28"
 dependency "libxml2"
 dependency "libtool" if ohai["platform"] == "solaris2"
 dependency "liblzma"
+dependency "config_guess"
 
 version "1.1.26" do
   source md5: "e61d0364a30146aaa3001296f853b2b9"
@@ -40,6 +41,9 @@ build do
     "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
   }
+
+  update_config_guess
+
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-libxml-prefix=#{install_dir}/embedded",
