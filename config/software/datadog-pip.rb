@@ -8,7 +8,7 @@ name "datadog-pip"
 dependency "pip"
 
 flags = ''
-if ohai["kernel"]["machine"].start_with?("arm")
+if ohai["kernel"]["machine"].start_with?("arm") || ohai["kernel"]["machine"].start_with?("aarch")
   # installing the pip dependencies on armv7 makes it build the `cffi` python package
   # there is no pre-built ARM wheel of that package, and building it from source requires libffi to be installed
   dependency 'libffi'
