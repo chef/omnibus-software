@@ -7,14 +7,14 @@ name "datadog-pip"
 
 dependency "pip"
 
-flags = ''
-if ohai["kernel"]["machine"].start_with?("arm") || ohai["kernel"]["machine"].start_with?("aarch")
+flags = ""
+if ohai["kernel"]["machine"].start_with?("arm", "aarch")
   # installing the pip dependencies on armv7 makes it build the `cffi` python package
   # there is no pre-built ARM wheel of that package, and building it from source requires libffi to be installed
-  dependency 'libffi'
+  dependency "libffi"
   # --no-buid-isolation is to fix: `No sources permitted for cffi` when pip is building it from source
   # see https://github.com/pypa/pip/issues/5171
-  flags = '--no-build-isolation'
+  flags = "--no-build-isolation"
 end
 
 source git: "https://github.com/DataDog/pip.git"
