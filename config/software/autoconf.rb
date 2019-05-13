@@ -31,7 +31,7 @@ env = {
 }
 
 build do
-  update_config_guess(target: 'build-aux')
+  update_config_guess(target: "build-aux")
   command "./configure --prefix=#{install_dir}/embedded", :env => env
   command "make -j #{workers}"
   command "make install"

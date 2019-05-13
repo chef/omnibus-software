@@ -33,7 +33,7 @@ configure_env = {
 }
 
 build do
-  update_config_guess(target: 'lib')
+  update_config_guess(target: "lib")
   command "./bootstrap", :env => { "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}" }
   command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
   command "make -j #{workers}"
