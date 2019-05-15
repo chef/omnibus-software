@@ -25,6 +25,7 @@ build do
 
   cmd = ["./configure",
          "--disable-keyutils",
+         "--without-system-verto", # do not prefer libverto from the system, if installed
          "--without-libedit", # we don't want to link with libraries outside of the install dir
          "--prefix=#{install_dir}/embedded"].join(" ")
   env = {
