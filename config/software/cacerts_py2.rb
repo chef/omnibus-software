@@ -20,7 +20,7 @@ name "cacerts_py2"
 # so the hashsum check will break every time the file is updated on the remote
 default_version "latest"
 
-source url: "https://curl.haxx.se/ca/cacert-2019-05-15.pem",
+source url: "https://curl.haxx.se/ca/cacert.pem",
        sha256: "cb2eca3fbfa232c9e3874e3852d43b33589f27face98eef10242a853d83a437a",
        target_filename: "cacert.pem"
 
