@@ -237,6 +237,10 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
+  if version.satisfies?(">= 2.6")
+    patch source: "ruby-kernel-require.patch", plevel:1, env: patch_env
+  end
+
   # This patch is expected to be included in 2.3.5 and is already in 2.4.1.
   if version == "2.3.4"
     patch source: "ruby_2_3_gcc7.patch", plevel: 0, env: patch_env
