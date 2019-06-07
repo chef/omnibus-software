@@ -2,6 +2,7 @@ name "python-etcd"
 default_version "0.4.5"
 
 dependency "python"
+dependency "python-urllib3"
 dependency "pip"
 
 build do
