@@ -28,15 +28,15 @@ task :list do
   OmnibusSoftware.list
 end
 
-require "chefstyle"
-require "rubocop/rake_task"
-desc " Run ChefStyle"
-RuboCop::RakeTask.new(:chefstyle) do |task|
-  task.options << "--display-cop-names"
+begin
+  require "chefstyle"
+  require "rubocop/rake_task"
+  desc "Run Chefstyle tests"
+  RuboCop::RakeTask.new(:style) do |task|
+    task.options += ["--display-cop-names", "--no-color"]
+  end
+rescue LoadError
+  puts "chefstyle gem is not installed. bundle install first to make sure all dependencies are installed."
 end
 
-namespace :travis do
-  task ci: %w{chefstyle test}
-end
-
-task default: ["travis:ci"]
+task default: %w{style test}
