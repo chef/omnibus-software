@@ -23,4 +23,4 @@ branches:
 
 bundler_args: --jobs 7
 
-script: bundle exec rake travis:ci
+script: bundle exec rake
