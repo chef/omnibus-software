@@ -1,6 +1,6 @@
 # Omnibus Software
 
-[![Build Status](http://img.shields.io/travis/chef/omnibus-software.svg)][travis]
+[![Build Status](https://badge.buildkite.com/e07e55eb2f281ec50dbd0f2bdbf8da4a2f246b864bffd17dfb.svg)](https://buildkite.com/chef-oss/chef-omnibus-software-master-verify)
 
 **Umbrella Project**: [Chef Foundation](https://github.com/chef/chef-oss-practices/blob/master/projects/chef-foundation.md)
 
@@ -25,7 +25,7 @@ For more information on writing your own software definitions, please see [the O
 ## License
 
 ```text
-Copyright 2012-2017 Chef Software, Inc.
+Copyright 2012-2019 Chef Software, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -39,5 +39,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-[travis]: https://travis-ci.org/chef/omnibus-software
