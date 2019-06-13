@@ -1,4 +1,4 @@
-# Copyright 2012-2017, Chef Software Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -79,6 +79,4 @@ build do
   end
 
   gem gem_command.join(" "), env: env
-
-  delete "#{install_dir}/embedded/lib/ruby/gems/2.1.0/gems/mini_portile2-2.0.0/test"
 end
