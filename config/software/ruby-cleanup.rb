@@ -26,6 +26,21 @@ skip_transitive_dependency_licensing true
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Remove static object files for all platforms
+  # except AIX which uses them at runtime.
+  unless aix?
+    block "Remove static libraries" do
+      # find the embedded ruby gems dir and clean it up for globbing
+      target_dir = "#{install_dir}/embedded/lib/ruby/gems".tr('\\', "/")
+
+      # find all the static *.a files and delete them
+      Dir.glob("#{target_dir}/**/*.a").each do |f|
+        puts "Deleting #{f}"
+        File.delete(f)
+      end
+    end
+  end
+
   # Clear the now-unnecessary git caches, cached gems, build information
   block "Delete bundler git cache and git installs" do
     gemdir = shellout!("#{install_dir}/embedded/bin/gem environment gemdir", env: env).stdout.chomp
