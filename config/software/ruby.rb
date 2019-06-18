@@ -25,13 +25,14 @@ skip_transitive_dependency_licensing true
 # the default versions should always be the latest release of ruby
 # if you consume this definition it is your responsibility to pin
 # to the desired version of ruby. don't count on this not changing.
-default_version "2.5.5"
+default_version "2.6.3"
 
 dependency "zlib"
 dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+version("2.6.3")      { source sha256: "577fd3795f22b8d91c1d4e6733637b0394d4082db659fccf224c774a2b1c82fb" }
 version("2.6.2")      { source sha256: "a0405d2bf2c2d2f332033b70dff354d224a864ab0edd462b7a413420453b49ab" }
 version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
 version("2.5.5")      { source sha256: "28a945fdf340e6ba04fc890b98648342e3cccfd6d223a48f3810572f11b2514c" }
@@ -40,6 +41,7 @@ version("2.5.3")      { source sha256: "9828d03852c37c20fa333a0264f2490f07338576
 version("2.5.1")      { source sha256: "dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1" }
 version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
 
+version("2.4.6")      { source sha256: "de0dc8097023716099f7c8a6ffc751511b90de7f5694f401b59f2d071db910be" }
 version("2.4.5")      { source sha256: "6737741ae6ffa61174c8a3dcdd8ba92bc38827827ab1d7ea1ec78bc3cefc5198" }
 version("2.4.4")      { source sha256: "254f1c1a79e4cc814d1e7320bc5bdd995dc57e08727d30a767664619a9c8ae5a" }
 version("2.4.3")      { source sha256: "fd0375582c92045aa7d31854e724471fb469e11a4b08ff334d39052ccaaa3a98" }
@@ -180,7 +182,11 @@ build do
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
-    patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env
+    if version.satisfies?(">= 2.6")
+      patch source: "ruby-aix-configure_26_and_later.patch", plevel: 1, env: patch_env
+    else
+      patch source: "ruby-aix-configure_pre26.patch", plevel: 1, env: patch_env
+    end
     # have ruby use zlib on AIX correctly
     patch source: "ruby_aix_openssl.patch", plevel: 1, env: patch_env
     # AIX has issues with ssl retries, need to patch to have it retry

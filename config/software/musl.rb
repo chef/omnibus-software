@@ -65,20 +65,21 @@
 #####################################################################
 
 name "musl"
-default_version "1.1.20"
+default_version "1.1.22"
 
 license "MIT"
 license_file "COPYRIGHT"
 
 version("1.1.19") { source sha256: "db59a8578226b98373f5b27e61f0dd29ad2456f4aa9cec587ba8c24508e4c1d9" }
 version("1.1.20") { source sha256: "44be8771d0e6c6b5f82dd15662eb2957c9a3173a19a8b49966ac0542bbd40d61" }
+version("1.1.22") { source sha256: "8b0941a48d2f980fd7036cfbd24aa1d414f03d9a0652ecbd5ec5c7ff1bee29e3" }
 
 source url: "https://www.musl-libc.org/releases/musl-#{version}.tar.gz"
 
 relative_path "musl-#{version}"
 
 build do
-  # The musl definition must be compiled with a system
+  # The musl definition must be compiled with a system gcc.
   # This isn't a self-hosting build definition wherein
   # musl compiles itself.
   env = with_standard_compiler_flags(with_embedded_path)
