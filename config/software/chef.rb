@@ -59,7 +59,7 @@ build do
 
   # compiled ruby on windows 2k8R2 x86 is having issues compiling
   # native extensions for pry-byebug so excluding for now
-  excluded_groups = %w{server docgen maintenance pry travis integration ci}
+  excluded_groups = %w{server docgen maintenance pry travis integration ci chefstyle}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
   excluded_groups << "ed25519" if solaris2?
@@ -87,6 +87,16 @@ build do
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
   end
 
-  appbundle "chef", env: env
-  appbundle "ohai", env: env
+  block do
+    if Dir.exist?("#{project_dir}/chef-bin")
+      # Chef >= 15
+      appbundle "chef", lockdir: project_dir, gem: "chef-bin", without: excluded_groups, env: env
+      appbundle "chef", lockdir: project_dir, gem: "chef", without: excluded_groups, env: env
+      appbundle "chef", lockdir: project_dir, gem: "ohai", without: excluded_groups, env: env
+    else
+      # Chef < 15
+      appbundle "chef", env: env
+      appbundle "ohai", env: env
+    end
+  end
 end

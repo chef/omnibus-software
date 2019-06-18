@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014-2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "openssl-fips"
-default_version "2.0.10"
+default_version "2.0.16"
 
 license "OpenSSL"
 license_file "https://www.openssl.org/source/license.html"

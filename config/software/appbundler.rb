@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014-2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ name "appbundler"
 default_version "master"
 
 license "Apache-2.0"
-license_file "LICENSE.txt"
+license_file "LICENSE"
 
 source git: "https://github.com/chef/appbundler.git"
 
@@ -28,7 +28,7 @@ dependency "bundler"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development", env: env
+  bundle "install --without docs debug", env: env
 
   gem "build appbundler.gemspec", env: env
   gem "install appbundler-*.gem" \
