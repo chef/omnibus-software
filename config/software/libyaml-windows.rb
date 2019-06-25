@@ -39,10 +39,8 @@ build do
 
   # Ensure the directory exists
   mkdir temp_directory
-  # First extract the tar file out of lzma archive.
-  command "7z.exe x #{project_file} -o#{temp_directory} -r -y"
-  # Now extract the files out of tar archive.
-  command "7z.exe x #{File.join(temp_directory, "libyaml-#{version}-x64-windows.zip")} -o#{temp_directory} -r -y"
+  # First extract the zip file
+  command "7z.exe x #{project_file} -o#{temp_directory} "
   # Now copy over libyaml-0-2.dll to the build dir
   copy("#{temp_directory}/bin/libyaml-0-2.dll", "#{install_dir}/embedded/bin/libyaml-0-2.dll")
 end
