@@ -42,5 +42,5 @@ build do
   # First extract the zip file
   command "7z.exe x #{project_file} -o#{temp_directory} "
   # Now copy over libyaml-0-2.dll to the build dir
-  copy("#{temp_directory}/bin/libyaml-0-2.dll", "#{install_dir}/embedded/bin/libyaml-0-2.dll")
+  copy("#{temp_directory}/bin/libyaml-0-2.dll", "#{windows_safe_path(python_2_embedded)}/DLLs/libyaml-0-2.dll")
 end
