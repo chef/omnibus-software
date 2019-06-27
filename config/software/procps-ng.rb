@@ -1,6 +1,8 @@
 name "procps-ng"
 default_version "3.3.9"
 
+ship_source true
+
 source :url => "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz",
        :md5 => "0980646fa25e0be58f7afb6b98f79d74"
 
@@ -13,7 +15,6 @@ env = {
 }
 
 build do
-  ship_source "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz"
   ship_license "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
