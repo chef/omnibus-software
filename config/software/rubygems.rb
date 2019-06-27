@@ -76,6 +76,8 @@ build do
 
   if source
     # Building from source:
+    command "git submodule init", env: env
+    command "git submodule update", env: env
     ruby "setup.rb  --no-document", env: env
   else
     # Installing direct from rubygems:
