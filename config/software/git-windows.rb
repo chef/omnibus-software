@@ -84,7 +84,7 @@ build do
       base = File.basename(git_bin, ext)
       File.open("#{install_dir}/embedded/bin/#{base}.bat", "w") do |f|
         f.puts "@ECHO OFF"
-        f.print "START \"\" " if ["gitk", "git-gui"].include?(base.downcase)
+        f.print "START \"\" " if %w{gitk git-gui}.include?(base.downcase)
         f.puts "\"%~dp0..\\git\\cmd\\#{base}#{ext}\" %*"
       end
     end
