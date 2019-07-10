@@ -67,6 +67,6 @@ build do
     # Installing direct from rubygems:
     # If there is no version, this will get latest.
     gem "update --no-document --system #{version}", env: env
-    gem "gem uninstall rubygems-update -ax"
+    gem "uninstall rubygems-update -ax"
   end
 end
