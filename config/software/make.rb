@@ -30,6 +30,11 @@ relative_path "make-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Work around an error caused by Glibc 2.27
+  #
+  # Thanks to: http://www.linuxfromscratch.org/lfs/view/8.2/chapter05/make.html
+  command "sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c", env: env
+
   command "./configure" \
           " --disable-nls" \
           " --prefix=#{install_dir}/embedded", env: env
