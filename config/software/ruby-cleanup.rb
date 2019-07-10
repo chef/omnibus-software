@@ -58,4 +58,14 @@ build do
   delete "#{install_dir}/embedded/man"
   delete "#{install_dir}/embedded/share/info"
   delete "#{install_dir}/embedded/info"
+
+  # Check for multiple versions of the `bundler` gem and fail the build if we find more than 1.
+  # Having multiple versions has burned us too many times in the past - causes warnings when
+  # invoking binaries.
+  block "Ensure only 1 copy of bundler is installed" do
+    bundler = shellout!("#{install_dir}/embedded/bin/gem list '^bundler$'", env: env).stdout.chomp
+    if bundler.include?(",")
+      raise "Multiple copies of bundler installed, ensure only 1 remains. Output:\n" + bundler
+    end
+  end
 end
