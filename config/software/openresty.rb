@@ -61,7 +61,7 @@ relative_path "#{source_package_name}-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  env["PATH"] += "#{env['PATH']}:/usr/sbin:/sbin"
+  env["PATH"] += "#{env["PATH"]}:/usr/sbin:/sbin"
 
   if version == "1.7.10.1" && (ppc64? || ppc64le? || s390x?)
     patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1

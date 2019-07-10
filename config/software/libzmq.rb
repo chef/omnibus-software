@@ -89,7 +89,7 @@ build do
 
   # If we were building with CMake this would be the default
   # and newer versions of libzmq use this as the default.
-  env["CPPFLAGS"] = "#{env['CPPFLAGS']} -DFD_SETSIZE=1024" if windows?
+  env["CPPFLAGS"] = "#{env["CPPFLAGS"]} -DFD_SETSIZE=1024" if windows?
 
   # centos 5 has an old version of gcc (4.2.1) that has trouble with
   # long long and c++ in pedantic mode

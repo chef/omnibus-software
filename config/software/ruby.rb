@@ -121,7 +121,7 @@ end
 build do
   # AIX needs /opt/freeware/bin only for patch
   patch_env = env.dup
-  patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+  patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the

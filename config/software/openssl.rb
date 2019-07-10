@@ -124,7 +124,7 @@ build do
                 # from fileset 'X11.adt.imake' (AIX install media)
                 env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
                 penv = env.dup
-                penv["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+                penv["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
                 penv
               else
                 env

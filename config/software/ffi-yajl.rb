@@ -30,7 +30,7 @@ dependency "libyajl2-gem"
 dependency "bundler"
 
 build do
-  env = with_embedded_path()
+  env = with_embedded_path
 
   # We should not be installing development dependencies either, but
   # this upstream bug causes issues between libyajl2-gem and ffi-yajl
