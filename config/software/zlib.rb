@@ -46,9 +46,9 @@ build do
     make_args = [
       "-fwin32/Makefile.gcc",
       "SHARED_MODE=1",
-      "CFLAGS=\"#{env['CFLAGS']} -Wall\"",
-      "ASFLAGS=\"#{env['CFLAGS']} -Wall\"",
-      "LDFLAGS=\"#{env['LDFLAGS']}\"",
+      "CFLAGS=\"#{env["CFLAGS"]} -Wall\"",
+      "ASFLAGS=\"#{env["CFLAGS"]} -Wall\"",
+      "LDFLAGS=\"#{env["LDFLAGS"]}\"",
       # The win32 makefile for zlib does not handle parallel make correctly.
       # In particular, see its rule for IMPLIB and SHAREDLIB. The ld step in
       # SHAREDLIB will generate both the dll and the dll.a files. The step to

@@ -56,7 +56,7 @@ build do
     # which is not really what we want in a http/2 world, but we're not there
     # yet.
     patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
     patch source: "curl-aix-disable-alpn.patch", plevel: 0, env: patch_env
 
     # otherwise gawk will die during ./configure with variations on the theme of:

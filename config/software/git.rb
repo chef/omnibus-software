@@ -58,7 +58,7 @@ build do
   # AIX needs /opt/freeware/bin only for patch
   if aix?
     patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
 
     # In 2.13.1 they introduced some sha code that wasn't super good at
     # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
