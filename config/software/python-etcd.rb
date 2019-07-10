@@ -2,10 +2,10 @@ name "python-etcd"
 default_version "0.4.5"
 
 dependency "python"
+dependency "python-urllib3"
 dependency "pip"
 
 build do
   ship_license "https://raw.githubusercontent.com/jplana/python-etcd/master/LICENSE.txt"
-  # pin the `urllib3` subdependency to 1.16 to avoid memory bloat of 1.17 (see commit for details)
-  pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" urllib3==1.16 python-etcd==#{version}"
+  pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" python-etcd==#{version}"
 end
