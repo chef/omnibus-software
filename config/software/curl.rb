@@ -28,11 +28,6 @@ version("7.65.1") { source sha256: "821aeb78421375f70e55381c9ad2474bf279fc454b79
 version("7.65.0") { source sha256: "2a65f4f858a1fa949c79f926ddc2204c2be353ccbad014e95cd322d4a87d82ad" }
 version("7.63.0") { source sha256: "d483b89062832e211c887d7cf1b65c902d591b48c11fe7d174af781681580b41" }
 version("7.59.0") { source sha256: "099d9c32dc7b8958ca592597c9fabccdf4c08cfb7c114ff1afbbc4c6f13c9e9e" }
-version("7.56.0") { source sha256: "f1bc17a7e5662dbd8d4029750a6dbdb72a55cf95826a270ab388b05075526104" }
-version("7.53.1") { source sha256: "64f9b7ec82372edb8eaeded0a9cfa62334d8f98abc65487da01188259392911d" }
-version("7.51.0") { source sha256: "65b5216a6fbfa72f547eb7706ca5902d7400db9868269017a8888aa91d87977c" }
-version("7.47.1") { source md5: "3f9d1be7bf33ca4b8c8602820525302b" }
-version("7.36.0") { source md5: "643a7030b27449e76413d501d4b8eb57" }
 
 source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz"
 
