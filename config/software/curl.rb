@@ -57,6 +57,9 @@ build do
     # otherwise gawk will die during ./configure with variations on the theme of:
     # "/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded"
     env["LIBPATH"] = "/usr/lib:/lib"
+  elsif solaris_11?
+    # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris 11
+    env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
   end
 
   configure_options = [
