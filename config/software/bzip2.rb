@@ -18,7 +18,7 @@
 # and should be picked up automatically when building Python.
 
 name "bzip2"
-default_version "1.0.6"
+default_version "1.0.8"
 
 license "BSD-2-Clause"
 license_file "LICENSE"
@@ -27,9 +27,14 @@ skip_transitive_dependency_licensing true
 dependency "zlib"
 dependency "openssl"
 
-version("1.0.6") { source sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd" }
-
-source url: "https://fossies.org/linux/misc/#{name}-#{version}.tar.gz"
+version("1.0.6") do
+  source sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
+  source url: "https://astuteinternet.dl.sourceforge.net/project/bzip2/bzip2-#{version}.tar.gz"
+end
+version("1.0.8") do
+  source sha256: "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
+  source url: "https://fossies.org/linux/misc/#{name}-#{version}.tar.gz"
+end
 
 relative_path "#{name}-#{version}"
 
