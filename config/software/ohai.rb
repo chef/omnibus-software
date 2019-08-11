@@ -16,7 +16,7 @@
 #
 
 name "ohai"
-default_version "master"
+default_version "v14.8.12"
 
 license "Apache-2.0"
 license_file "LICENSE"
