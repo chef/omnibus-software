@@ -33,7 +33,7 @@ build do
   # Work around an error caused by Glibc 2.27
   #
   # Thanks to: http://www.linuxfromscratch.org/lfs/view/8.2/chapter05/make.html
-  command "sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c", env: env
+  # command "sed -i -e '211,217 d; 219,229 d; 232 d' glob/glob.c", env: env
 
   command "./configure" \
           " --disable-nls" \
