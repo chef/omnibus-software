@@ -32,8 +32,16 @@ build do
 
   # Work around an error caused by Glibc 2.27
   #
-  # Thanks to: http://www.linuxfromscratch.org/lfs/view/8.2/chapter05/make.html
-  command "sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c", env: env
+  # sed -i is not supported so exclude the patch for FreeBSD, Solaris and AIX
+  unless freebsd? || solaris_11? || aix?
+    if mac_os_x?
+      # OS X ships with BSD sed, where the suffix is mandatory so added sed -i ''
+      command "sed -i '' '211,217 d; 219,229 d; 232 d' glob/glob.c", env: env
+    else
+      # Thanks to: http://www.linuxfromscratch.org/lfs/view/8.2/chapter05/make.html
+      command "sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c", env: env
+    end
+  end
 
   command "./configure" \
           " --disable-nls" \
