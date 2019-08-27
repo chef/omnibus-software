@@ -32,6 +32,8 @@ end
 # Default architecture is x86_64
 arch = "x86_64"
 
+dependency "libiconv"
+
 if windows?
   host_triple = "pc-windows-gnu"
 
