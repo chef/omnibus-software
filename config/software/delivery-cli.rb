@@ -35,7 +35,8 @@ build do
   # The rust core libraries are dynamicaly linked
   if linux?
     env["LD_LIBRARY_PATH"] = "#{install_dir}/embedded/lib"
-  elsif mac_os_x?
+  elsif mac_os_x? &&
+      platform_version.satisfies?("< 10.13") # Setting DYLD PATH fails builds with library conflicts in 10.13
     env["DYLD_FALLBACK_LIBRARY_PATH"] = "#{install_dir}/embedded/lib:"
   end
 
