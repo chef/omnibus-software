@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 name "pycurl"
-default_version "7.43.0.2"
+default_version "7.43.0.3"
 
 dependency "python"
 dependency "pip"
