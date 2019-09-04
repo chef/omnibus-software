@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2018 Chef Software, Inc.
+# Copyright 2014-2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@
 # https://github.com/berkshelf/api.berkshelf.com
 
 name "libarchive"
-default_version "3.3.3"
+default_version "3.4.0"
 
 license "BSD-2-Clause"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
+version("3.4.0") { source sha256: "8643d50ed40c759f5412a3af4e353cffbce4fdf3b5cf321cb72cacf06b2d825e" }
 version("3.3.3") { source sha256: "ba7eb1781c9fbbae178c4c6bad1c6eb08edab9a1496c64833d1715d022b30e2e" }
 version("3.3.2") { source sha256: "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce" }
 version("3.1.2") { source sha256: "eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e" }
