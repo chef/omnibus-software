@@ -176,6 +176,9 @@ build do
     # need to patch ruby's configure file so it knows how to find shared libraries
     if version.satisfies?(">= 2.6")
       patch source: "ruby-aix-configure_26_and_later.patch", plevel: 1, env: patch_env
+      if version.satisfies?("= 2.6.4")
+        patch source: "ruby-2.6.4-bug14834.patch", plevel: 1, env: patch_env
+      end
     else
       patch source: "ruby-aix-configure_pre26.patch", plevel: 1, env: patch_env
     end
@@ -187,8 +190,8 @@ build do
     patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
     patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
 
-    # per IBM, just help ruby along on what it's running on
-    configure_command << "--host=powerpc-ibm-aix6.1.0.0 --target=powerpc-ibm-aix6.1.0.0 --build=powerpc-ibm-aix6.1.0.0 --enable-pthread"
+    # per IBM, just enable pthread
+    configure_command << "--enable-pthread"
 
   elsif freebsd?
     # Disable optional support C level backtrace support. This requires the
