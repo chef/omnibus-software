@@ -24,7 +24,7 @@ dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2s"
+default_version "1.0.2t"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
@@ -37,6 +37,7 @@ version("1.1.0i") { source sha256: "ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08
 version("1.1.0h") { source sha256: "5835626cde9e99656585fc7aaa2302a73a7e1340bf8c14fd635a62c66802a517" }
 version("1.1.0g") { source sha256: "de4d501267da39310905cb6dc8c6121f7a2cad45a7707f76df828fe1b85073af" }
 version("1.1.0f") { source sha256: "12f746f3f2493b2f39da7ecf63d7ee19c6ac9ec6a4fcd8c229da8a522cb12765" }
+version("1.0.2t") { source sha256: "14cb464efe7ac6b54799b34456bd69558a749a4931ecfd9cf9f71d7881cac7bc" }
 version("1.0.2s") { source sha256: "cabd5c9492825ce5bd23f3c3aeed6a97f8142f606d893df216411f07d1abab96" }
 version("1.0.2r") { source sha256: "ae51d08bba8a83958e894946f15303ff894d75c2b8bbd44a852b64e3fe11d0d6" }
 version("1.0.2q") { source sha256: "5744cfcbcec2b1b48629f7354203bc1e5e9b5466998bbccc5b5fcde3b18eb684" }
