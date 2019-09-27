@@ -54,6 +54,6 @@ end
 build do
   mkdir "#{install_dir}/embedded/bin"
   %w{go gofmt}.each do |bin|
-    copy "#{project_dir}/go/bin/#{bin}", "#{install_dir}/embedded/bin/#{bin}"
+    link "#{project_dir}/go/bin/#{bin}", "#{install_dir}/embedded/bin/#{bin}"
   end
 end
