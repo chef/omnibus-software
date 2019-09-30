@@ -25,5 +25,8 @@ build do
   %w{go gofmt}.each do |bin|
     delete "#{install_dir}/embedded/bin/#{bin}"
   end
-  remove_directory "#{install_dir}/embedded/go"
+
+  block "Delete Go language from embedded directory" do
+    remove_directory "#{install_dir}/embedded/go"
+  end
 end
