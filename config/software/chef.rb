@@ -90,11 +90,13 @@ build do
   block do
     if Dir.exist?("#{project_dir}/chef-bin")
       # Chef >= 15
+      appbundle "chef", lockdir: project_dir, gem: "inspec-core-bin", without: excluded_groups, env: env
       appbundle "chef", lockdir: project_dir, gem: "chef-bin", without: excluded_groups, env: env
       appbundle "chef", lockdir: project_dir, gem: "chef", without: excluded_groups, env: env
       appbundle "chef", lockdir: project_dir, gem: "ohai", without: excluded_groups, env: env
     else
       # Chef < 15
+      appbundle "inspec-core", env: env
       appbundle "chef", env: env
       appbundle "ohai", env: env
     end
