@@ -96,7 +96,6 @@ build do
       appbundle "chef", lockdir: project_dir, gem: "ohai", without: excluded_groups, env: env
     else
       # Chef < 15
-      appbundle "inspec-core", env: env
       appbundle "chef", env: env
       appbundle "ohai", env: env
     end
