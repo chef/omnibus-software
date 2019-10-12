@@ -23,13 +23,9 @@ license "GPL-2.0"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-version "1.15" do
-  source md5: "716946a105ca228ab545fc37a70df3a3"
-end
-
-version "1.11.2" do
-  source md5: "79ad64a9f6e83ea98d6964cef8d8a0bc"
-end
+version("1.16") { source md5: "7fb7155e553dc559ac39cf525f0bb5de" }
+version("1.15") { source md5: "716946a105ca228ab545fc37a70df3a3" }
+version("1.11.2") { source md5: "79ad64a9f6e83ea98d6964cef8d8a0bc" }
 
 source url: "https://ftp.gnu.org/gnu/automake/automake-#{version}.tar.gz"
 
@@ -38,7 +34,7 @@ relative_path "automake-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version.satisfies?(">= 1.15")
+  if version.satisfies?(">= 1.15") && version.satisfies?("< 1.16")
     command "./bootstrap.sh", env: env
   else
     command "./bootstrap", env: env
