@@ -20,7 +20,7 @@ default_version "3.13"
 dependency "perl"
 
 version "3.13" do
-  source md5: "0fada5b474e9c97d6262059cf62cfc88"
+  source sha256: "6ba3dacddd2fbb66822b4aa1d11a0a5273cd04c825cb3ff31c20d7037cbfdce8"
 end
 
 source url: "http://search.cpan.org/CPAN/authors/id/J/JD/JDHEDDEN/Thread-Queue-#{version}.tar.gz"
