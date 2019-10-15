@@ -20,14 +20,11 @@ license "Artistic-2.0"
 license_file "Artistic"
 skip_transitive_dependency_licensing true
 
-default_version "5.18.1"
+default_version "5.30.0"
 
-version "5.22.1" do
-  source md5: "19295bbb775a3c36123161b9bf4892f1"
-end
-version "5.18.1" do
-  source md5: "304cb5bd18e48c44edd6053337d3386d"
-end
+version("5.30.0") { source md5: "9770584cdf9b5631c38097645ce33549" }
+version("5.22.1") { source md5: "19295bbb775a3c36123161b9bf4892f1" }
+version("5.18.1") { source md5: "304cb5bd18e48c44edd6053337d3386d" }
 source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
 relative_path "perl-#{version}"
 
