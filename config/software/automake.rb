@@ -35,7 +35,7 @@ relative_path "automake-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if version.satisfies?(">= 1.15") && version.satisfies?("< 1.16")
+  if version == "1.15"
     command "./bootstrap.sh", env: env
   else
     command "./bootstrap", env: env
