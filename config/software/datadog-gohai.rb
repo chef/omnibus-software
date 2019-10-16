@@ -27,7 +27,7 @@ build do
   # Windows depends on the registry, go get that.
   if ohai["platform"] == "windows"
     command "#{gobin} get -d golang.org/x/sys/windows/registry", :env => env
-    command "git checkout 5f54ce54270977bfbd7353a37e64c13d6bd6c9c9", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/src/golang.org/x/sys/windows/registry"
+    command "git checkout 5f54ce54270977bfbd7353a37e64c13d6bd6c9c9", :env => env, :cwd => "#{Omnibus::Config.cache_dir}/src/datadog-gohai/src/golang.org/x/sys/windows/registry"
   end
   # Checkout and build gohai
   command "#{gobin} get -d github.com/DataDog/gohai", :env => env # No need to pull latest from remote with `-u` here since the next command checks out and pulls latest
