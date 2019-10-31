@@ -15,7 +15,7 @@
 #
 
 name "libxslt"
-default_version "1.1.30"
+default_version "1.1.34"
 
 license "MIT"
 license_file "COPYING"
@@ -24,6 +24,10 @@ skip_transitive_dependency_licensing true
 dependency "libxml2"
 dependency "liblzma"
 dependency "config_guess"
+
+version "1.1.34" do
+  source sha256: "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f"
+end
 
 version "1.1.30" do
   source sha256: "ba65236116de8326d83378b2bd929879fa185195bc530b9d1aba72107910b6b3"
