@@ -44,7 +44,7 @@ license_cookie = "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-s
 # This is the final release of the Oracle Java under the 'Oracle Binary Code License Agreement'
 version "8u202" do
   source url: "https://download.oracle.com/otn/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/server-jre-8u202-linux-x64.tar.gz",
-         sha256: "61292e9d9ef84d9702f0e30f57b208e8fbd9a272d87cd530aece4f5213c98e4e",
+         sha256: "174830a00718fa76b87b42e81be0a90ca14e49863ea6737aa0a46ebecaae4576",
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
