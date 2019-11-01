@@ -70,6 +70,35 @@ build do
     end
   end
 
+  block "Removing random non-code files from installed gems" do
+    # find the embedded ruby gems dir and clean it up for globbing
+    target_dir = "#{install_dir}/embedded/lib/ruby/gems/*/gems".tr('\\', "/")
+    files = %w{
+      .travis.yml
+      .rspec
+      .gitignore
+      .document
+      .yardopts
+      .hound.yml
+      .rubocop.yml
+      appveyor.yml
+      .rubocop_todo.yml
+      .ruby-gemset
+      .gemtest
+      .ruby-version
+      .gitmodules
+      .coveralls.yml
+      .yardstick.yml
+      .irbrc
+      Guardfile
+    }
+
+    Dir.glob(Dir.glob("#{target_dir}/*/{#{files.join(",")}}")).each do |f|
+      puts "Deleting #{f}"
+      File.delete(f)
+    end
+  end
+
   # Check for multiple versions of the `bundler` gem and fail the build if we find more than 1.
   # Having multiple versions has burned us too many times in the past - causes warnings when
   # invoking binaries.
