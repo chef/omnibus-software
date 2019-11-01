@@ -57,8 +57,6 @@ build do
   # style path to accomodate
   configure_commands = [
     "--with-libxml-prefix=#{install_dir.sub("C:", "/C")}/embedded",
-    "--with-libxml-include-prefix=#{install_dir}/embedded/include",
-    "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
     "--without-python",
     "--without-crypto",
   ]
