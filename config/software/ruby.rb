@@ -128,6 +128,14 @@ build do
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   end
 
+  # accelerate requires of c-extension.
+  #
+  # this would break code which did `require "thing"` and loaded thing.so and
+  # then fiddled with the libpath and did `require "thing"` and loaded thing.rb
+  # over the top of it.  AFAIK no sane ruby code should need to do that, and the
+  # cost of this behavior in core ruby is enormous.
+  patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
+
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
   # this was a good idea, but it breaks our use case hard.  AIX cannot even
