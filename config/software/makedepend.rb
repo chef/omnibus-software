@@ -21,8 +21,11 @@ license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-source url: "https://www.x.org/releases/individual/util/makedepend-1.0.5.tar.gz",
-       md5: "efb2d7c7e22840947863efaedc175747"
+#source url: "https://www.x.org/releases/individual/util/makedepend-1.0.5.tar.gz",
+#       md5: "efb2d7c7e22840947863efaedc175747"
+
+source url: "http://ftp.riken.jp/X11/ftp.x.org/pub/individual/util/makedepend-1.0.5.tar.gz",
+        md5: "efb2d7c7e22840947863efaedc175747"
 
 relative_path "makedepend-1.0.5"
 
