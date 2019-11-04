@@ -28,7 +28,7 @@ dependency "rubygems"
 dependency "bundler"
 
 build do
-  env = with_embedded_path()
+  env = with_embedded_path
 
   bundle "install --without development_extras", env: env
   bundle "exec rake gem", env: env

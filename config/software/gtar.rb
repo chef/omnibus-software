@@ -49,7 +49,7 @@ build do
     if version.satisfies?("> 1.28") && version.satisfies?("< 1.32")
       # xlc doesn't allow duplicate entries in case statements
       patch_env = env.dup
-      patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+      patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
       patch source: "aix_extra_case.patch", plevel: 0, env: patch_env
     end
   end

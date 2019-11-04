@@ -58,4 +58,56 @@ build do
   delete "#{install_dir}/embedded/man"
   delete "#{install_dir}/embedded/share/info"
   delete "#{install_dir}/embedded/info"
+
+  block "Remove leftovers from compiling gems" do
+    # find the embedded ruby gems dir and clean it up for globbing
+    target_dir = "#{install_dir}/embedded/lib/ruby/gems/*/".tr('\\', "/")
+
+    # find gem_make.out and mkmf.log files
+    Dir.glob(Dir.glob("#{target_dir}/**/{gem_make.out,mkmf.log}")).each do |f|
+      puts "Deleting #{f}"
+      File.delete(f)
+    end
+  end
+
+  block "Removing random non-code files from installed gems" do
+    # find the embedded ruby gems dir and clean it up for globbing
+    target_dir = "#{install_dir}/embedded/lib/ruby/gems/*/gems".tr('\\', "/")
+    files = %w{
+      .travis.yml
+      .rspec
+      .gitignore
+      .document
+      .yardopts
+      .hound.yml
+      .rubocop.yml
+      appveyor.yml
+      .rubocop_todo.yml
+      .ruby-gemset
+      .gemtest
+      .ruby-version
+      .gitmodules
+      .coveralls.yml
+      .yardstick.yml
+      .irbrc
+      Guardfile
+    }
+
+    Dir.glob(Dir.glob("#{target_dir}/*/{#{files.join(",")}}")).each do |f|
+      puts "Deleting #{f}"
+      File.delete(f)
+    end
+  end
+
+  # Check for multiple versions of the `bundler` gem and fail the build if we find more than 1.
+  # Having multiple versions has burned us too many times in the past - causes warnings when
+  # invoking binaries.
+  block "Ensure only 1 copy of bundler is installed" do
+    # The bundler regex must be surrounded by double-quotes (not single) for Windows
+    # Under powershell, it would have to be escaped with a ` character, i.e. `"^bundler$`"
+    bundler = shellout!("#{install_dir}/embedded/bin/gem list \"^bundler$\"", env: env).stdout.chomp
+    if bundler.include?(",")
+      raise "Multiple copies of bundler installed, ensure only 1 remains. Output:\n" + bundler
+    end
+  end
 end

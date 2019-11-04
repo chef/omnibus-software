@@ -102,7 +102,7 @@ build do
   # See also https://sourceware.org/ml/binutils/2015-05/msg00148.html
   hipe = ppc64le? ? "disable" : "enable"
 
-  if !File.exist?("./configure")
+  unless File.exist?("./configure")
     # Building from github source requires this step
     command "./otp_build autoconf"
   end

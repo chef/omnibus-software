@@ -50,6 +50,7 @@ module OmnibusSoftware
       for_each_software do |software|
         # only fetch net_fetcher sources for now
         next if software.source.nil? || software.source[:url].nil?
+
         fetch_software(software, path)
       end
     end
