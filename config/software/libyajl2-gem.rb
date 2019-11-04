@@ -28,7 +28,7 @@ dependency "rubygems"
 dependency "bundler"
 
 build do
-  env = with_embedded_path()
+  env = with_embedded_path
 
   command "git submodule init", env: env
   command "git submodule update", env: env

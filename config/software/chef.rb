@@ -65,7 +65,7 @@ build do
   excluded_groups << "ed25519" if solaris2?
 
   # install the whole bundle first
-  bundle "install --without #{excluded_groups.join(' ')}", env: env
+  bundle "install --without #{excluded_groups.join(" ")}", env: env
 
   # use the rake install task to build/install chef-config
   bundle "exec rake install", env: env
@@ -90,6 +90,7 @@ build do
   block do
     if Dir.exist?("#{project_dir}/chef-bin")
       # Chef >= 15
+      appbundle "chef", lockdir: project_dir, gem: "inspec-core-bin", without: excluded_groups, env: env
       appbundle "chef", lockdir: project_dir, gem: "chef-bin", without: excluded_groups, env: env
       appbundle "chef", lockdir: project_dir, gem: "chef", without: excluded_groups, env: env
       appbundle "chef", lockdir: project_dir, gem: "ohai", without: excluded_groups, env: env

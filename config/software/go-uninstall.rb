@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2017 Chef Software, Inc.
+# Copyright 2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,27 +14,19 @@
 # limitations under the License.
 #
 
-name "bcrypt_pbkdf-ruby"
-default_version "master"
-relative_path "bcrypt_pbkdf"
-
-source git: "https://github.com/mfazekas/bcrypt_pbkdf-ruby.git"
-
-license "MIT"
-license_file "COPYING"
-
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
+name "go-uninstall"
+default_version "0.0.1"
+license :project_license
+dependency "go"
 
 build do
-  env = with_embedded_path
+  # Until Omnibus has full support for build depedencies (see chef/omnibus#483)
+  # we are going to manually uninstall Go
+  %w{go gofmt}.each do |bin|
+    delete "#{install_dir}/embedded/bin/#{bin}"
+  end
 
-  bundle "install --without development", env: env
-  bundle "exec rake gem", env: env
-
-  delete "pkg/*java*"
-
-  gem "install pkg/bcrypt_pbkdf-*.gem" \
-      " --no-document", env: env
+  block "Delete Go language from embedded directory" do
+    remove_directory "#{install_dir}/embedded/go"
+  end
 end
