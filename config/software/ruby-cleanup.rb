@@ -74,23 +74,30 @@ build do
     # find the embedded ruby gems dir and clean it up for globbing
     target_dir = "#{install_dir}/embedded/lib/ruby/gems/*/gems".tr('\\', "/")
     files = %w{
-      .travis.yml
-      .rspec
-      .gitignore
-      .document
-      .yardopts
-      .hound.yml
-      .rubocop.yml
-      appveyor.yml
-      .rubocop_todo.yml
-      .ruby-gemset
-      .gemtest
-      .ruby-version
-      .gitmodules
+      .codeclimate.yml
+      .concourse.yml
       .coveralls.yml
-      .yardstick.yml
+      .document
+      .ebert.yml
+      .gemtest
+      .gitignore
+      .gitmodules
+      .hound.yml
       .irbrc
+      .pelusa.yml
+      .rock.yml
+      .rspec
+      .rubocop.yml
+      .rubocop_*.yml
+      .ruby-gemset
+      .ruby-version
+      .rvmrc
+      .travis.yml
+      .yardopts
+      .yardstick.yml
       Guardfile
+      appveyor.yml
+      ISSUE_TEMPLATE.md
     }
 
     Dir.glob(Dir.glob("#{target_dir}/*/{#{files.join(",")}}")).each do |f|
