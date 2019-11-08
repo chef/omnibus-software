@@ -67,6 +67,13 @@ version("2.3.0")      { source sha256: "ba5ba60e5f1aa21b4ef8e9bf35b9ddb57286cb54
 
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
+semver = version.match(/(\d*)\.*(\d*)\.*(\d*)\.*/)
+ruby_mmv = "#{semver[1]}.#{semver[2]}.0"
+ruby_dir = "#{install_dir}/embedded/lib/ruby/#{ruby_mmv}"
+gem_dir = "#{install_dir}/embedded/lib/ruby/gems/#{ruby_mmv}"
+bin_dirs bin_dirs.concat ["#{gem_dir}/gems/*/bin/**"]
+lib_dirs ["#{ruby_dir}/**", "#{gem_dir}/extensions/**", "#{gem_dir}/gems/*", "#{gem_dir}/gems/*/lib/**", "#{gem_dir}/gems/*/ext/**"]
+
 relative_path "ruby-#{version}"
 
 env = with_standard_compiler_flags(with_embedded_path)

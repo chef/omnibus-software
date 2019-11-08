@@ -19,6 +19,7 @@
 # Common cleanup routines for ruby apps (InSpec, Workstation, Chef, etc)
 #
 name "ruby-cleanup"
+default_version "1.0.0"
 
 license :project_license
 skip_transitive_dependency_licensing true
