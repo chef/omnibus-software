@@ -25,17 +25,23 @@ dependency "python"
 
 version "0.9.8" do
   source md5: "243076241781935f7fcad370195a4291"
+  source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz"
 end
 
 version "0.7.7" do
   source md5: "0d7bc0e1a34b70a97e706ef74aa7f37f"
+  source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz"
 end
 
 version "20.0" do
   source md5: "fb22b2474ca037e0b08f3c3b293e02e6"
+  source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz"
 end
 
-source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz"
+version "41.0.1" do
+  source md5: "6404ca798bb9a9073aff3b91b2df35c8"
+  source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.zip"
+end
 
 relative_path "setuptools-#{version}"
 
