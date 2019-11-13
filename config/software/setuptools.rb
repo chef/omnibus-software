@@ -40,7 +40,7 @@ end
 
 version "41.0.1" do
   source md5: "6404ca798bb9a9073aff3b91b2df35c8"
-  source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.zip"
+  source url: "https://files.pythonhosted.org/packages/1d/64/a18a487b4391a05b9c7f938b94a16d80305bf0369c6b0b9509e86165e1d3/setuptools-#{version}.zip"
 end
 
 relative_path "setuptools-#{version}"
