@@ -108,7 +108,7 @@ elsif windows?
     # 32-bit windows can't compile ruby with -O2 due to compiler bugs.
     env["CFLAGS"] << " -m32 -march=i686 -O"
   else
-    env["CFLAGS"] << " -m64 -march=x86-64 -O2"
+    env["CFLAGS"] << " -m64 -march=x86-64 -O3"
   end
   env["CPPFLAGS"] = env["CFLAGS"]
   env["CXXFLAGS"] = env["CFLAGS"]
