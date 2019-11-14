@@ -105,8 +105,7 @@ elsif solaris_11?
 elsif windows?
   env["CFLAGS"] = "-I#{install_dir}/embedded/include -DFD_SETSIZE=2048"
   if windows_arch_i386?
-    # 32-bit windows can't compile ruby with -O2 due to compiler bugs.
-    env["CFLAGS"] << " -m32 -march=i686 -O"
+    env["CFLAGS"] << " -m32 -march=i686 -O3"
   else
     env["CFLAGS"] << " -m64 -march=x86-64 -O3"
   end
