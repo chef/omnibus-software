@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,15 +22,6 @@ license "LGPL-3.0"
 license_file "COPYING"
 license_file "COPYING.LESSER"
 skip_transitive_dependency_licensing true
-
-# Depend on the msys2/mingw environment given to us and don't build our
-# own build tools on windows.
-unless windows?
-  dependency "autoconf"
-  dependency "automake"
-  dependency "libtool"
-  dependency "pkg-config-lite" if aix?
-end
 
 version "2.2.0" do
   source md5: "1b11aae09b19d18276d0717b2ea288f6"

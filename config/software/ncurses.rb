@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ license_file "http://invisible-island.net/ncurses/ncurses-license.html"
 license_file "http://invisible-island.net/ncurses/ncurses.faq.html"
 skip_transitive_dependency_licensing true
 
-dependency "libtool" if aix?
 dependency "config_guess"
 
 version("5.9") { source md5: "8cb9c412e5f2d96bc6f459aa8c6282a1", url: "https://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz" }
