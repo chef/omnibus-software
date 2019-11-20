@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2019 Chef Software, Inc.
+# Copyright:: Copyright (c) 2012-2019, Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,6 @@ default_version "1.0.17"
 license "ISC"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
-
-# Depend on the msys2/mingw environment given to us and don't build our
-# own build tools on windows.
-unless windows?
-  dependency "autoconf"
-  dependency "automake"
-  dependency "libtool"
-end
 
 version "1.0.17" do
   source sha256: "0cc3dae33e642cc187b5ceb467e0ad0e1b51dcba577de1190e9ffa17766ac2b1"
