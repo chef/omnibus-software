@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2016 Chef Software, Inc.
+# Copyright 2012-2019, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "cacerts"
-dependency "makedepend" unless aix? || windows?
 dependency "openssl-fips" if fips_mode?
 
 default_version "1.0.2t"
