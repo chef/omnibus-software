@@ -2,7 +2,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
-  gem "omnibus", git: "https://github.com/chef/omnibus"
+  gem "omnibus", git: "https://github.com/chef/omnibus", branch: "jm/deep_sign"
   gem "highline"
   gem "rake"
   gem "chefstyle"

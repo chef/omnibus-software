@@ -100,4 +100,12 @@ build do
       appbundle "ohai", env: env
     end
   end
+
+  block "Delete test folder from problem gems" do
+    env["VISUAL"] = "echo"
+    %w{rubyzip}.each do |gem|
+      gem_install_dir = shellout!("#{install_dir}/embedded/bin/gem open #{gem}", env: env).stdout.chomp
+      remove_directory "#{gem_install_dir}/test"
+    end
+  end
 end

@@ -79,4 +79,10 @@ build do
   end
 
   gem gem_command.join(" "), env: env
+
+  block "Delete test folder of mini-portile2 gem so downstream projects pass notarization" do
+    env["VISUAL"] = "echo"
+    gem_install_dir = shellout!("#{install_dir}/embedded/bin/gem open mini_portile2", env: env).stdout.chomp
+    remove_directory "#{gem_install_dir}/test"
+  end
 end
