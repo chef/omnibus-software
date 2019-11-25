@@ -135,6 +135,8 @@ build do
   # cost of this behavior in core ruby is enormous.
   patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
 
+  patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
+
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
   # this was a good idea, but it breaks our use case hard.  AIX cannot even
