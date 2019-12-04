@@ -52,6 +52,7 @@ build do
     "--disable-bsdtar", # tar command line tool
     "--disable-bsdcpio", # cpio command line tool
     "--without-openssl",
+    "--without-zstd",
   ]
 
   if s390x?
