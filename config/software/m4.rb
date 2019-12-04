@@ -31,6 +31,8 @@ relative_path "m4-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  patch source: "m4-1.4.18-glibc-change-work-around.patch", plevel: 1, env: env if version == "1.4.18"
+
   command "./configure --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
