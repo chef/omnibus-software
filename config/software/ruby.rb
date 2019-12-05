@@ -133,9 +133,21 @@ build do
   # then fiddled with the libpath and did `require "thing"` and loaded thing.rb
   # over the top of it.  AFAIK no sane ruby code should need to do that, and the
   # cost of this behavior in core ruby is enormous.
+  #
   patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
 
-  patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
+  # accelerate requires by removing a File.expand_path
+  #
+  # the expand_path here seems to be largely useless and produces a large amount
+  # of lstat(2) calls on unix, and increases the runtime of a chef-client --version
+  # test by 33% on windows.  on modern linuxen that have openat(2) it is totally
+  # useless.  this patch breaks no built-in tests on ruby on old platforms, and
+  # it is unclear why or if it is necessary (hand crafted tests designed to try to
+  # abuse it all succeeded after this test).
+  #
+  if version.satisfies?(">= 2.6")
+    patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
+  end
 
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
