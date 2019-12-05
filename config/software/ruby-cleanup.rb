@@ -50,7 +50,7 @@ build do
   end
 
   block "Remove bundler gem caches" do
-     gemdir = shellout!("#{install_dir}/embedded/bin/gem environment gemdir", env: env).stdout.chomp
+    gemdir = shellout!("#{install_dir}/embedded/bin/gem environment gemdir", env: env).stdout.chomp
 
     Dir.glob("#{gemdir}/bundler/gems/**").each do |f|
       puts "Deleting #{f}"
@@ -100,7 +100,6 @@ build do
       .document
       .ebert.yml
       .gemtest
-      .github
       .gitignore
       .gitmodules
       .hound.yml
@@ -147,7 +146,7 @@ build do
       UPGRADING.md
     }
 
-    Dir.glob(Dir.glob("#{gemdir}/*/{#{files.join(",")}}")).each do |f|
+    Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
       puts "Deleting #{f}"
       File.delete(f)
     end
