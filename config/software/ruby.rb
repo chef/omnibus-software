@@ -127,6 +127,17 @@ build do
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   end
 
+  # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
+  # cannot build modern ruby on the RHEL6 base compiler, and the configure script
+  # determines that it supports that flag and so includes it and then ultimately
+  # pushes that into native gem compilations which then blows up for end users when
+  # they try to install native gems.  So, we have to hack this up to avoid using
+  # that flag on RHEL6.
+  #
+  if rhel? && platform_version.satisfies?("< 7")
+    patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
+  end
+
   # accelerate requires of c-extension.
   #
   # this would break code which did `require "thing"` and loaded thing.so and
