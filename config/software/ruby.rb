@@ -120,6 +120,11 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
+  if windows?
+    # remove the warning that the win32 api is going away.
+    patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
+  end
+
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
   # library.  Disabling it as we do for Solaris.
