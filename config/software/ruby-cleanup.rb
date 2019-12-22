@@ -127,22 +127,30 @@ build do
       Code-of-Conduct.md
       CODE_OF_CONDUCT.md
       CONTRIBUTING.md
+      CONTRIBUTING.rdoc
       CONTRIBUTORS.md
+      FAQ.txt
       Guardfile
       GUIDE.md
       HISTORY
       HISTORY.md
       History.rdoc
       HISTORY.txt
+      INSTALL
       ISSUE_TEMPLATE.md
+      Manifest
+      Manifest.txt
       MIGRATING.md
       README
-      README.markdown
       README.*md
+      readme.erb
+      README.markdown
       README.rdoc
       README.txt
+      README_INDEX.rdoc
+      THANKS.txt
       TODO
-      TODO.md
+      TODO*.md
       UPGRADING.md
     }
 
