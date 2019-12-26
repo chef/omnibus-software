@@ -26,7 +26,7 @@ source url: "ftp://ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
 
 relative_path "uuid-#{version}"
 
-env = with_embedded_path()
+env = with_embedded_path
 env = with_standard_compiler_flags(env)
 
 build do

@@ -33,5 +33,5 @@ env = with_embedded_path(env)
 
 build do
   gem "install dep-selector-libgecode --no-rdoc --no-ri -v '#{version}'",
-      env: env
+    env: env
 end

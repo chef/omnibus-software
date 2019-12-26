@@ -5,7 +5,7 @@ branches:
     - master
 
 before_install:
-  - gem install bundler -v 1.17.3
+  - gem install bundler -v 1.17.3 --no-document
 
 bundler_args: --jobs 7
 

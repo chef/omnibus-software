@@ -9,8 +9,8 @@ dependency "libiconv"
 dependency "openssl"
 dependency "gd"
 
-source :url => "http://us.php.net/distributions/php-5.3.10.tar.gz",
-       :md5 => "2b3d2d0ff22175685978fb6a5cbcdc13"
+source url: "http://us.php.net/distributions/php-5.3.10.tar.gz",
+       md5: "2b3d2d0ff22175685978fb6a5cbcdc13"
 
 relative_path "php-5.3.10"
 
@@ -34,8 +34,8 @@ build do
            "--enable-fpm",
            "--with-fpm-user=opscode",
            "--with-fpm-group=opscode"].join(" "),
-          :env => env)
+    env: env)
 
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

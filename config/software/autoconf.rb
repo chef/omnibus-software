@@ -20,8 +20,8 @@ default_version "2.68"
 
 dependency "config_guess"
 
-source :url => "http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz",
-       :md5 => "c3b5247592ce694f7097873aa07d66fe"
+source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz",
+       md5: "c3b5247592ce694f7097873aa07d66fe"
 
 relative_path "autoconf-2.68"
 
@@ -32,7 +32,7 @@ env = {
 
 build do
   update_config_guess(target: "build-aux")
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
+  command "./configure --prefix=#{install_dir}/embedded", env: env
   command "make -j #{workers}"
   command "make install"
 end

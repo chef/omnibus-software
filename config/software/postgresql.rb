@@ -24,18 +24,18 @@ dependency "libedit"
 dependency "ncurses"
 
 version "9.1.9" do
-  source :md5 => "6b5ea53dde48fcd79acfc8c196b83535"
+  source md5: "6b5ea53dde48fcd79acfc8c196b83535"
 end
 
 version "9.2.8" do
-  source :md5 => "c5c65a9b45ee53ead0b659be21ca1b97"
+  source md5: "c5c65a9b45ee53ead0b659be21ca1b97"
 end
 
 version "9.3.4" do
-  source :md5 => "d0a41f54c377b2d2fab4a003b0dac762"
+  source md5: "d0a41f54c377b2d2fab4a003b0dac762"
 end
 
-source :url => "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
+source url: "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
 relative_path "postgresql-#{version}"
 
 configure_env = {
@@ -49,7 +49,7 @@ build do
            "--prefix=#{install_dir}/embedded",
            "--with-libedit-preferred",
            "--with-openssl --with-includes=#{install_dir}/embedded/include",
-           "--with-libraries=#{install_dir}/embedded/lib"].join(" "), :env => configure_env
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+           "--with-libraries=#{install_dir}/embedded/lib"].join(" "), env: configure_env
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

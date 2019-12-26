@@ -31,8 +31,8 @@ version "0.2.2" do
   source sha256: "9d430d3788081027a2dcf13fb8823b5ee296b1c8fe0353c86339b4c7b4018441"
 end
 
-source :url => "https://s3.amazonaws.com/dd-agent-omnibus/libyaml-#{version}-x64-windows.zip",
-       :extract => :seven_zip
+source url: "https://s3.amazonaws.com/dd-agent-omnibus/libyaml-#{version}-x64-windows.zip",
+       extract: :seven_zip
 
 build do
   temp_directory = File.join(Omnibus::Config.cache_dir, "libyaml-cache")

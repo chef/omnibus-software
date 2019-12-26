@@ -37,9 +37,9 @@ build do
   else
     build_env = {
       "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-      "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
+      "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
     }
-    pip "install #{flags} --disable-pip-version-check --no-cache --upgrade #{project_dir}/[tuf-in-toto]", :env => build_env
+    pip "install #{flags} --disable-pip-version-check --no-cache --upgrade #{project_dir}/[tuf-in-toto]", env: build_env
   end
 
 end

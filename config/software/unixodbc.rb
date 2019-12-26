@@ -2,10 +2,10 @@ name "unixodbc"
 default_version "2.3.7"
 
 version "2.3.7" do
-  source :sha256 => "45f169ba1f454a72b8fcbb82abd832630a3bf93baa84731cf2949f449e1e3e77"
+  source sha256: "45f169ba1f454a72b8fcbb82abd832630a3bf93baa84731cf2949f449e1e3e77"
 end
 
-source :url => "http://www.unixodbc.org/unixODBC-#{version}.tar.gz"
+source url: "http://www.unixodbc.org/unixODBC-#{version}.tar.gz"
 
 relative_path "unixODBC-#{version}"
 

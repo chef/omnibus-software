@@ -26,8 +26,8 @@ default_version "1.0.6"
 dependency "zlib"
 dependency "openssl"
 
-source :url => "https://s3.amazonaws.com/dd-agent/bzip2/bzip2-#{version}.tar.gz",
-       :sha256 => "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
+source url: "https://s3.amazonaws.com/dd-agent/bzip2/bzip2-#{version}.tar.gz",
+       sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
 
 relative_path "#{name}-#{version}"
 
@@ -42,9 +42,9 @@ env = {
 
 build do
   ship_license "https://gist.githubusercontent.com/remh/227fefddabefc998235f/raw/cc614178cf79580e04671c4d6acfbe95028b1842/bzip2.LICENSE"
-  patch :source => "makefile_take_env_vars.patch"
-  patch :source => "soname_install_dir.patch" if ohai["platform_family"] == "mac_os_x"
-  command "make PREFIX=#{prefix} VERSION=#{version}", :env => env
-  command "make PREFIX=#{prefix} VERSION=#{version} -f Makefile-libbz2_so", :env => env
-  command "make install VERSION=#{version} PREFIX=#{prefix}", :env => env
+  patch source: "makefile_take_env_vars.patch"
+  patch source: "soname_install_dir.patch" if ohai["platform_family"] == "mac_os_x"
+  command "make PREFIX=#{prefix} VERSION=#{version}", env: env
+  command "make PREFIX=#{prefix} VERSION=#{version} -f Makefile-libbz2_so", env: env
+  command "make install VERSION=#{version} PREFIX=#{prefix}", env: env
 end

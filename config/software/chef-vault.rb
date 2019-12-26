@@ -18,7 +18,7 @@
 name "chef-vault"
 default_version "v2.2.1"
 
-source :git => "git://github.com/Nordstrom/chef-vault.git"
+source git: "git://github.com/Nordstrom/chef-vault.git"
 
 relative_path "chef-vault"
 
@@ -32,11 +32,11 @@ else
   dependency "chef"
 end
 
-env = with_embedded_path()
+env = with_embedded_path
 
 build do
-  bundle "install --no-cache", :env => env
-  gem "build chef-vault.gemspec", :env => env
+  bundle "install --no-cache", env: env
+  gem "build chef-vault.gemspec", env: env
   gem ["install chef-vault-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+       "--no-rdoc --no-ri"].join(" "), env: env
 end

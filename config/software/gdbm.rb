@@ -20,8 +20,8 @@ default_version "1.11"
 
 dependency "libgcc"
 
-source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
-       :md5 => "72c832680cf0999caedbe5b265c8c1bd"
+source url: "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
+       md5: "72c832680cf0999caedbe5b265c8c1bd"
 
 relative_path "gdbm-#{version}"
 
@@ -50,7 +50,7 @@ build do
     configure_command << "--with-pic"
   end
 
-  command configure_command.join(" "), :env => env
-  command "make -j #{workers}", :env => env
-  command "make install", :env => env
+  command configure_command.join(" "), env: env
+  command "make -j #{workers}", env: env
+  command "make install", env: env
 end

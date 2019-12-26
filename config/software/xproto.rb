@@ -2,9 +2,9 @@
 name "xproto"
 default_version "7.0.27"
 
-source :url => "http://xorg.freedesktop.org/releases/individual/proto/xproto-#{version}.tar.gz",
-       :md5 => "f04f535b090f3fd05073370740e99193",
-       :extract => :seven_zip
+source url: "http://xorg.freedesktop.org/releases/individual/proto/xproto-#{version}.tar.gz",
+       md5: "f04f535b090f3fd05073370740e99193",
+       extract: :seven_zip
 
 relative_path "xproto-#{version}"
 
@@ -39,7 +39,7 @@ configure_env =
 
 build do
   ship_license "./COPYING"
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{workers}", :env => configure_env
-  command "make -j #{workers} install", :env => configure_env
+  command "./configure --prefix=#{install_dir}/embedded", env: configure_env
+  command "make -j #{workers}", env: configure_env
+  command "make -j #{workers} install", env: configure_env
 end

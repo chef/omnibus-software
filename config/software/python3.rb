@@ -12,14 +12,14 @@ if ohai["platform"] != "windows"
   dependency "liblzma"
 
   version "3.6.7" do
-    source :sha256 => "b7c36f7ed8f7143b2c46153b7332db2227669f583ea0cce753facf549d1a4239"
+    source sha256: "b7c36f7ed8f7143b2c46153b7332db2227669f583ea0cce753facf549d1a4239"
   end
 
   version "3.7.1" do
-    source :sha256 => "36c1b81ac29d0f8341f727ef40864d99d8206897be96be73dc34d4739c9c9f06"
+    source sha256: "36c1b81ac29d0f8341f727ef40864d99d8206897be96be73dc34d4739c9c9f06"
   end
 
-  source :url => "https://python.org/ftp/python/#{version}/Python-#{version}.tgz"
+  source url: "https://python.org/ftp/python/#{version}/Python-#{version}.tgz"
 
   relative_path "Python-#{version}"
 
@@ -28,11 +28,11 @@ if ohai["platform"] != "windows"
 
   if mac_os_x?
     python_configure.push("--enable-ipv6",
-                          "--with-universal-archs=intel",
-                          "--enable-shared")
+      "--with-universal-archs=intel",
+      "--enable-shared")
   elsif linux?
     python_configure.push("--enable-shared",
-                          "--enable-ipv6")
+      "--enable-ipv6")
   elsif aix?
     # something here...
   end
@@ -51,13 +51,13 @@ if ohai["platform"] != "windows"
               "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
             }
           end
-    command python_configure.join(" "), :env => env
-    command "make -j #{workers}", :env => env
-    command "make install", :env => env
+    command python_configure.join(" "), env: env
+    command "make -j #{workers}", env: env
+    command "make install", env: env
     # delete "#{install_dir}/embedded/lib/python2.7/test"
 
     # There exists no configure flag to tell Python to not compile readline support :(
-    major, minor, bugfix = version.split(".")
+    major, minor, _bugfix = version.split(".")
     block do
       FileUtils.rm_f(Dir.glob("#{install_dir}/embedded/lib/python#{major}.#{minor}/lib-dynload/readline.*"))
     end
@@ -66,8 +66,8 @@ if ohai["platform"] != "windows"
 else
   default_version "3.7.1"
 
-  source :url => "https://s3.amazonaws.com/dd-agent-omnibus/python-windows-#{version}-amd64.zip",
-         :sha256 => "c9da8a6890ce7df603724abebcd893c63616f499b9a619bb39399a09f382269a"
+  source url: "https://s3.amazonaws.com/dd-agent-omnibus/python-windows-#{version}-amd64.zip",
+         sha256: "c9da8a6890ce7df603724abebcd893c63616f499b9a619bb39399a09f382269a"
 
   build do
     command "XCOPY /YEHIR *.* \"#{windows_safe_path(python_3_embedded)}\""

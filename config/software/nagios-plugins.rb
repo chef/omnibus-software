@@ -24,8 +24,8 @@ dependency "postgresql"
 dependency "libiconv"
 
 # the url is the location of a redirect from sourceforge
-source :url => "http://downloads.sourceforge.net/project/nagiosplug/nagiosplug/1.4.15/nagios-plugins-1.4.15.tar.gz",
-       :md5 => "56abd6ade8aa860b38c4ca4a6ac5ab0d"
+source url: "http://downloads.sourceforge.net/project/nagiosplug/nagiosplug/1.4.15/nagios-plugins-1.4.15.tar.gz",
+       md5: "56abd6ade8aa860b38c4ca4a6ac5ab0d"
 
 relative_path "nagios-plugins-1.4.15"
 
@@ -35,7 +35,8 @@ configure_env = {
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
 }
 
-gem_env = { "GEM_PATH" => nil, "GEM_HOME" => nil }
+# Not used - should this be removed
+# gem_env = { "GEM_PATH" => nil, "GEM_HOME" => nil }
 
 build do
   # configure it
@@ -45,10 +46,10 @@ build do
            "--with-openssl=#{install_dir}/embedded",
            "--with-pgsql=#{install_dir}/embedded",
            "--with-libiconv-prefix=#{install_dir}/embedded"].join(" "),
-          :env => configure_env)
+    env: configure_env)
 
   # build it
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "sudo make install"
 
   # NOTE: cargo culted from commit 0e6eb2d4a7978c5683a3e15c956c0c2b78f3d904

@@ -21,21 +21,21 @@ default_version "1.11.2"
 dependency "autoconf"
 dependency "config_guess"
 
-source :url => "http://ftp.gnu.org/gnu/automake/automake-1.11.2.tar.gz",
-       :md5 => "79ad64a9f6e83ea98d6964cef8d8a0bc"
+source url: "http://ftp.gnu.org/gnu/automake/automake-1.11.2.tar.gz",
+       md5: "79ad64a9f6e83ea98d6964cef8d8a0bc"
 
 relative_path "automake-1.11.2"
 
 configure_env = {
   "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}",
+  "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
 }
 
 build do
   update_config_guess(target: "lib")
-  command "./bootstrap", :env => { "PATH" => "#{install_dir}/embedded/bin:#{ENV['PATH']}" }
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
+  command "./bootstrap", env: { "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}" }
+  command "./configure --prefix=#{install_dir}/embedded", env: configure_env
   command "make -j #{workers}"
   command "make install"
 end

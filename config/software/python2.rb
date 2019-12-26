@@ -26,8 +26,8 @@ if ohai["platform"] != "windows"
   dependency "bzip2"
   dependency "libsqlite3"
 
-  source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-         :sha256 => "18617d1f15a380a919d517630a9cd85ce17ea602f9bbdc58ddc672df4b0239db"
+  source url: "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
+         sha256: "18617d1f15a380a919d517630a9cd85ce17ea602f9bbdc58ddc672df4b0239db"
 
   relative_path "Python-#{version}"
 
@@ -41,23 +41,23 @@ if ohai["platform"] != "windows"
 
   if mac_os_x?
     python_configure.push("--enable-ipv6",
-                          "--with-universal-archs=intel",
-                          "--enable-shared",
-                          "--without-gcc",
-                          "CC=clang",
-                          "MACOSX_DEPLOYMENT_TARGET=10.12")
+      "--with-universal-archs=intel",
+      "--enable-shared",
+      "--without-gcc",
+      "CC=clang",
+      "MACOSX_DEPLOYMENT_TARGET=10.12")
   elsif linux?
     python_configure.push("--enable-unicode=ucs4")
   end
 
   build do
     ship_license "PSFL"
-    patch :source => "python-2.7.11-avoid-allocating-thunks-in-ctypes.patch" if linux?
-    patch :source => "python-2.7.11-fix-platform-ubuntu.diff" if linux?
+    patch source: "python-2.7.11-avoid-allocating-thunks-in-ctypes.patch" if linux?
+    patch source: "python-2.7.11-fix-platform-ubuntu.diff" if linux?
 
-    command python_configure.join(" "), :env => env
-    command "make -j #{workers}", :env => env
-    command "make install", :env => env
+    command python_configure.join(" "), env: env
+    command "make -j #{workers}", env: env
+    command "make install", env: env
     delete "#{install_dir}/embedded/lib/python2.7/test"
 
     # There exists no configure flag to tell Python to not compile readline support :(
@@ -73,8 +73,8 @@ else
   dependency "vc_python"
 
   msi_name = "python-#{version}.amd64.msi"
-  source :url => "https://www.python.org/ftp/python/#{version}/#{msi_name}",
-         :sha256 => "5e85f3c4c209de98480acbf2ba2e71a907fd5567a838ad4b6748c76deb286ad7"
+  source url: "https://www.python.org/ftp/python/#{version}/#{msi_name}",
+         sha256: "5e85f3c4c209de98480acbf2ba2e71a907fd5567a838ad4b6748c76deb286ad7"
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it

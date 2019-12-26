@@ -41,7 +41,7 @@ build do
     copy "include/net-snmp/system/darwin13.h", "include/net-snmp/system/darwin16.h"
   end
 
-  command net_snmp_configure.join(" "), :env => build_env
-  command "make -j #{workers}", :env => build_env
+  command net_snmp_configure.join(" "), env: build_env
+  command "make -j #{workers}", env: build_env
   command "make install"
 end

@@ -29,7 +29,7 @@ task :fetch_all do
 end
 
 def rake_fakeout
-  ARGV.each { |a| task a.to_sym {} }
+  ARGV.each { |a| task(a.to_sym {}) }
 end
 
 task :list do
@@ -38,7 +38,7 @@ end
 
 require "chefstyle"
 require "rubocop/rake_task"
-desc " Run ChefStyle"
+desc "Run ChefStyle"
 RuboCop::RakeTask.new(:chefstyle) do |task|
   task.options << "--display-cop-names"
 end

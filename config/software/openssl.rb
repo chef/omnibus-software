@@ -117,7 +117,7 @@ build do
     env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
 
     patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
   else
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: env

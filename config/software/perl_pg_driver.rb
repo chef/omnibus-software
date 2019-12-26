@@ -22,8 +22,8 @@ dependency "perl"
 dependency "cpanminus"
 dependency "postgresql"
 
-source :url => "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz",
-       :md5 => "547de1382a47d66872912fe64282ff55"
+source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz",
+       md5: "547de1382a47d66872912fe64282ff55"
 
 relative_path "DBD-Pg-#{version}"
 
@@ -32,5 +32,5 @@ env = {
 }
 
 build do
-  command "cpanm -v --notest .", :env => env
+  command "cpanm -v --notest .", env: env
 end

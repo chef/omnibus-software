@@ -3,8 +3,8 @@ default_version "3.3.9"
 
 ship_source true
 
-source :url => "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz",
-       :md5 => "0980646fa25e0be58f7afb6b98f79d74"
+source url: "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz",
+       md5: "0980646fa25e0be58f7afb6b98f79d74"
 
 relative_path "procps-ng-3.3.9"
 
@@ -20,8 +20,8 @@ build do
            "--prefix=#{install_dir}/embedded",
            "--without-ncurses",
            ""].join(" "),
-          :env => env)
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+    env: env)
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
   move "#{install_dir}/embedded/usr/bin/*", "#{install_dir}/embedded/bin/"
   delete "#{install_dir}/embedded/usr/bin"

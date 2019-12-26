@@ -21,8 +21,8 @@
 name "libarchive"
 default_version "3.1.2"
 
-source :url => "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
-       :md5 => "efad5a503f66329bb9d2f4308b5de98a"
+source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
+       md5: "efad5a503f66329bb9d2f4308b5de98a"
 
 relative_path "libarchive-#{version}"
 
@@ -44,7 +44,7 @@ build do
     --disable-bsdtar \
     --disable-bsdcpio \
     --without-lzmadec \
-    --without-openssl", :env => env
-  command "make -j #{workers}", :env => env
-  command "make install", :env => env
+    --without-openssl", env: env
+  command "make -j #{workers}", env: env
+  command "make install", env: env
 end

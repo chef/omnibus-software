@@ -18,8 +18,8 @@
 name "spidermonkey"
 default_version "1.8.0"
 
-source :url => "http://ftp.mozilla.org/pub/mozilla.org/js/js-1.8.0-rc1.tar.gz",
-       :md5 => "eaad8815dcc66a717ddb87e9724d964e"
+source url: "http://ftp.mozilla.org/pub/mozilla.org/js/js-1.8.0-rc1.tar.gz",
+       md5: "eaad8815dcc66a717ddb87e9724d964e"
 
 relative_path "js"
 
@@ -41,16 +41,16 @@ build do
            "XCFLAGS=-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
            "-f",
            "Makefile.ref"].join(" "),
-          :env => env,
-          :cwd => working_dir)
+    env: env,
+    cwd: working_dir)
   command(["make -j #{workers}",
            "BUILD_OPT=1",
            "JS_DIST=#{install_dir}/embedded",
            "-f",
            "Makefile.ref",
            "export"].join(" "),
-          :env => env,
-          :cwd => working_dir)
+    env: env,
+    cwd: working_dir)
 
   if ohai["kernel"]["machine"] =~ /x86_64/
     move "#{install_dir}/embedded/lib64/libjs.a", "#{install_dir}/embedded/lib"

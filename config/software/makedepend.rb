@@ -18,9 +18,9 @@
 name "makedepend"
 default_version "1.0.5"
 
-source :url => "http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.gz",
-       :md5 => "efb2d7c7e22840947863efaedc175747",
-       :extract => :seven_zip
+source url: "http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.gz",
+       md5: "efb2d7c7e22840947863efaedc175747",
+       extract: :seven_zip
 
 relative_path "makedepend-1.0.5"
 
@@ -66,7 +66,7 @@ configure_env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + E
 
 build do
   ship_license "https://raw.githubusercontent.com/ioerror/makedepend/master/LICENSE"
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{workers}", :env => configure_env
-  command "make -j #{workers} install", :env => configure_env
+  command "./configure --prefix=#{install_dir}/embedded", env: configure_env
+  command "make -j #{workers}", env: configure_env
+  command "make -j #{workers} install", env: configure_env
 end

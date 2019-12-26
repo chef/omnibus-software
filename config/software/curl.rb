@@ -21,8 +21,8 @@ default_version "7.65.3"
 dependency "zlib"
 dependency "openssl"
 dependency "nghttp2"
-source :url => "https://curl.haxx.se/download/curl-#{version}.tar.gz",
-       :sha256 => "4376ac72b95572fb6c4fbffefb97c7ea0dd083e1974c0e44cd7e49396f454839"
+source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz",
+       sha256: "4376ac72b95572fb6c4fbffefb97c7ea0dd083e1974c0e44cd7e49396f454839"
 
 relative_path "curl-#{version}"
 
@@ -53,6 +53,6 @@ build do
            "--with-zlib=#{install_dir}/embedded",
            "--with-nghttp2=#{install_dir}/embedded"].join(" "), env: env
 
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

@@ -22,8 +22,8 @@ dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 
-source :url => "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
-       :md5 => "5e5359ae3f1b8db4046b358d84fabbc8"
+source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
+       md5: "5e5359ae3f1b8db4046b358d84fabbc8"
 
 relative_path "ngx_openresty-#{version}"
 
@@ -58,11 +58,11 @@ build do
            # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
            # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
            # However, they require libatomic-ops-dev and libaio
-           #"--with-file-aio",
-           #"--with-libatomic"
-          ].join(" "), :env => env
+           # "--with-file-aio",
+           # "--with-libatomic"
+          ].join(" "), env: env
 
-  command "make -j #{workers}", :env => env
+  command "make -j #{workers}", env: env
   command "make install"
   touch "/opt/opscode/embedded/nginx/logs/.gitkeep"
 end

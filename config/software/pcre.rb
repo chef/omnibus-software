@@ -21,8 +21,8 @@ default_version "8.31"
 dependency "libedit"
 dependency "ncurses"
 
-source :url => "http://iweb.dl.sourceforge.net/project/pcre/pcre/8.31/pcre-8.31.tar.gz",
-       :md5 => "fab1bb3b91a4c35398263a5c1e0858c1"
+source url: "http://iweb.dl.sourceforge.net/project/pcre/pcre/8.31/pcre-8.31.tar.gz",
+       md5: "fab1bb3b91a4c35398263a5c1e0858c1"
 
 relative_path "pcre-8.31"
 
@@ -33,10 +33,10 @@ configure_env = {
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--enable-pcretest-libedit"].join(" "), :env => configure_env
+           "--enable-pcretest-libedit"].join(" "), env: configure_env
   command("make -j #{workers}",
-          :env => {
-            "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
-          })
+    env: {
+      "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
+    })
   command "make install"
 end

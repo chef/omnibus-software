@@ -30,7 +30,7 @@ version "20130712-3.1" do
 end
 
 source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz",
-       :extract => :seven_zip
+       extract: :seven_zip
 
 relative_path "libedit-#{version}"
 
@@ -61,11 +61,11 @@ build do
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
   if ohai["platform"] == "freebsd"
-    patch :source => "freebsd-vi-fix.patch"
+    patch source: "freebsd-vi-fix.patch"
   end
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
-           ].join(" "), :env => env
-  command "make -j #{workers}", :env => env
+           ].join(" "), env: env
+  command "make -j #{workers}", env: env
   command "make -j #{workers} install"
 end

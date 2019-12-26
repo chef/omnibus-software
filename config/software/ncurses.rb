@@ -28,7 +28,7 @@ source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz",
 
 relative_path "ncurses-5.9"
 
-env = with_embedded_path()
+env = with_embedded_path
 env = with_standard_compiler_flags(env, aix: { use_gcc: true })
 
 if ohai["platform"] == "solaris2"
@@ -39,9 +39,9 @@ if ohai["platform"] == "solaris2"
 end
 
 # FIXME: validate omnibus-ruby sets this correctly on smartos now via with_standard_compiler_flagS()
-#elsif ohai["platform"] == "smartos"
+# elsif ohai["platform"] == "smartos"
 #  env.merge!({"LD_OPTIONS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib "})
-#end
+# end
 
 ########################################################################
 #
@@ -114,7 +114,7 @@ build do
 
   cmd_array << "--with-libtool" if ohai["platform"] == "aix"
   command(cmd_array.join(" "),
-          env: env)
+    env: env)
   command "make -j #{workers}", env: env
   command "make -j #{workers} install", env: env
 
@@ -130,7 +130,7 @@ build do
            "--enable-overwrite"]
   cmd_array << "--with-libtool" if ohai["platform"] == "aix"
   command(cmd_array.join(" "),
-          env: env)
+    env: env)
   command "make -j #{workers}", env: env
 
   # installing the non-wide libraries will also install the non-wide

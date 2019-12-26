@@ -22,8 +22,8 @@ dependency "autoconf"
 dependency "automake"
 dependency "libtool"
 
-source :url => "http://fastcgi.com/dist/fcgi-2.4.0.tar.gz",
-       :md5 => "d15060a813b91383a9f3c66faf84867e"
+source url: "http://fastcgi.com/dist/fcgi-2.4.0.tar.gz",
+       md5: "d15060a813b91383a9f3c66faf84867e"
 
 relative_path "fcgi-2.4.0"
 
@@ -38,19 +38,19 @@ configure_env = {
 
 build do
   # patch and touch files so it builds
-  diff = <<D
-24a25
-> #include <cstdio>
-D
+  diff = <<~D
+    24a25
+    > #include <cstdio>
+  D
   command "echo '#{diff}' | patch libfcgi/fcgio.cpp"
   touch "COPYING ChangeLog AUTHORS NEWS"
 
   # autoreconf
-  command "autoreconf -i -f", :env => reconf_env
-  command "libtoolize", :env => reconf_env
+  command "autoreconf -i -f", env: reconf_env
+  command "libtoolize", env: reconf_env
 
   # configure and build
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "./configure --prefix=#{install_dir}/embedded", env: configure_env
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

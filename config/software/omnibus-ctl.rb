@@ -22,7 +22,7 @@ dependency "ruby"
 dependency "rubygems"
 dependency "bundler"
 
-source :git => "git://github.com/opscode/omnibus-ctl.git"
+source git: "git://github.com/opscode/omnibus-ctl.git"
 
 relative_path "omnibus-ctl"
 

@@ -23,5 +23,5 @@ dependency "rubygems"
 env = { "GEM_HOME" => nil, "GEM_PATH" => nil }
 
 build do
-  gem "install unicorn --no-rdoc --no-ri -v #{version}", :env => env
+  gem "install unicorn --no-rdoc --no-ri -v #{version}", env: env
 end

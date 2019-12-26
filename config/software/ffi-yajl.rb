@@ -19,7 +19,7 @@ name "ffi-yajl"
 default_version "master"
 relative_path "ffi-yajl"
 
-source :git => "git://github.com/lamont-granquist/ffi-yajl"
+source git: "git://github.com/lamont-granquist/ffi-yajl"
 
 if windows?
   dependency "ruby-windows"
@@ -32,12 +32,12 @@ end
 
 dependency "bundler"
 
-env = with_embedded_path()
+env = with_embedded_path
 
 build do
-  bundle "install --without development_extras", :env => env
-  bundle "exec rake gem", :env => env
-  delete "pkg/*java*", :env => env
+  bundle "install --without development_extras", env: env
+  bundle "exec rake gem", env: env
+  delete "pkg/*java*", env: env
   gem ["install pkg/ffi-yajl-*.gem",
-       "--no-rdoc --no-ri"].join(" "), :env => env
+       "--no-rdoc --no-ri"].join(" "), env: env
 end

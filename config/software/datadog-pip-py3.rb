@@ -6,7 +6,7 @@
 name "datadog-pip-py3"
 
 # pip seems to be included in the py3 distro
-#dependency "pip"
+# dependency "pip"
 
 source git: "https://github.com/DataDog/pip.git"
 

@@ -22,8 +22,8 @@ dependency "gd"
 dependency "php"
 dependency "spawn-fcgi"
 
-source :url => "http://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-3.3.1/nagios-3.3.1.tar.gz",
-       :md5 => "c935354ce0d78a63bfabc3055fa77ad5"
+source url: "http://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-3.3.1/nagios-3.3.1.tar.gz",
+       md5: "c935354ce0d78a63bfabc3055fa77ad5"
 
 relative_path "nagios"
 
@@ -47,7 +47,7 @@ build do
            "--with-lockfile=/var#{install_dir}/nagios/lock",
            "--with-checkresult-dir=/var#{install_dir}/nagios/checkresult",
            "--with-mail=/usr/bin/mail"].join(" "),
-          :env => env)
+    env: env)
 
   # so dome hacky shit
   command "sed -i 's:for file in includes/rss/\\*;:for file in includes/rss/\\*.\\*;:g' ./html/Makefile"
@@ -60,7 +60,7 @@ build do
   command "sudo chown -R $(whoami) /var/opt/opscode/nagios"
 
   # build it
-  command "make -j #{workers} all", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "make -j #{workers} all", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
   command "make install-config"
   command "make install-exfoliation"

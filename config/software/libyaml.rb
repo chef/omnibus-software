@@ -25,7 +25,7 @@ relative_path "yaml-#{version}"
 
 dependency "config_guess"
 
-env = with_embedded_path()
+env = with_embedded_path
 env = with_standard_compiler_flags(env)
 
 build do
@@ -33,7 +33,7 @@ build do
 
   update_config_guess(target: "config")
 
-  command "./configure --enable-shared --prefix=#{install_dir}/embedded", :env => env
+  command "./configure --enable-shared --prefix=#{install_dir}/embedded", env: env
   command "make -j #{workers}", env: env
   command "make -j #{workers} install", env: env
 end

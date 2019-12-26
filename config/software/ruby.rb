@@ -40,7 +40,7 @@ source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[
 
 relative_path "ruby-#{version}"
 
-env = with_embedded_path()
+env = with_embedded_path
 env = with_standard_compiler_flags(env)
 
 case ohai["platform"]
@@ -80,13 +80,13 @@ build do
 
   case ohai["platform"]
   when "aix"
-    patch :source => "ruby-aix-configure.patch", :plevel => 1
-    patch :source => "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", :plevel => 1
+    patch source: "ruby-aix-configure.patch", plevel: 1
+    patch source: "ruby_aix_1_9_3_448_ssl_EAGAIN.patch", plevel: 1
     # our openssl-1.0.1h links against zlib and mkmf tests will fail due to zlib symbols not being
     # found if we do not include -lz.  this later leads to openssl functions being detected as not
     # being available and then internally vendored versions that have signature mismatches are pulled in
     # and the compile explodes.  this problem may not be unique to AIX, but is severe on AIX.
-    patch :source => "ruby_aix_openssl.patch", :plevel => 1
+    patch source: "ruby_aix_openssl.patch", plevel: 1
     # --with-opt-dir causes ruby to send bogus commands to the AIX linker
   when "freebsd"
     configure_command << "--without-execinfo"
@@ -94,13 +94,13 @@ build do
   when "smartos"
     # Opscode patch - someara@opscode.com
     # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
-    patch :source => "ruby-openssl-1.0.1c.patch", :plevel => 1
+    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1
 
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
     # https://www.illumos.org/issues/1587
     # https://github.com/wayneeseguin/rvm/issues/719
-    patch :source => "rvm-cflags.patch", :plevel => 1
+    patch source: "rvm-cflags.patch", plevel: 1
 
     # From RVM forum
     # https://github.com/wayneeseguin/rvm/commit/86766534fcc26f4582f23842a4d3789707ce6b96
@@ -112,11 +112,11 @@ build do
 
   # @todo expose bundle_bust() in the DSL
   env.merge!({
-    "RUBYOPT"         => nil,
+    "RUBYOPT" => nil,
     "BUNDLE_BIN_PATH" => nil,
-    "BUNDLE_GEMFILE"  => nil,
-    "GEM_PATH"        => nil,
-    "GEM_HOME"        => nil,
+    "BUNDLE_GEMFILE" => nil,
+    "GEM_PATH" => nil,
+    "GEM_HOME" => nil,
   })
 
   # @todo: move into omnibus-ruby
@@ -134,7 +134,7 @@ build do
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
   env["PKG_CONFIG"] = "/bin/true" if ohai["platform"] == "aix"
 
-  command configure_command.join(" "), :env => env
-  command "#{make_binary} -j #{workers}", :env => env
-  command "#{make_binary} -j #{workers} install", :env => env
+  command configure_command.join(" "), env: env
+  command "#{make_binary} -j #{workers}", env: env
+  command "#{make_binary} -j #{workers} install", env: env
 end

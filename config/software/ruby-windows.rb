@@ -62,7 +62,7 @@ build do
       Object.const_defined?(:Fiddle)
     end
   end
-  E
+          E
         end
       end
     end

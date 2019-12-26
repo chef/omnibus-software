@@ -26,8 +26,8 @@ if ohai["platform"] != "windows"
   dependency "bzip2"
   dependency "libsqlite3"
 
-  source :url => "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-         :sha256 => "01da813a3600876f03f46db11cc5c408175e99f03af2ba942ef324389a83bad5"
+  source url: "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
+         sha256: "01da813a3600876f03f46db11cc5c408175e99f03af2ba942ef324389a83bad5"
 
   relative_path "Python-#{version}"
 
@@ -42,8 +42,8 @@ if ohai["platform"] != "windows"
 
   if mac_os_x?
     python_configure.push("--enable-ipv6",
-                          "--with-universal-archs=intel",
-                          "--enable-shared")
+      "--with-universal-archs=intel",
+      "--enable-shared")
   elsif linux?
     python_configure.push("--enable-unicode=ucs4")
   end
@@ -52,12 +52,12 @@ if ohai["platform"] != "windows"
 
   build do
     ship_license "PSFL"
-    patch :source => "python-2.7.11-avoid-allocating-thunks-in-ctypes.patch" if linux?
-    patch :source => "python-2.7.11-fix-platform-ubuntu.diff" if linux?
+    patch source: "python-2.7.11-avoid-allocating-thunks-in-ctypes.patch" if linux?
+    patch source: "python-2.7.11-fix-platform-ubuntu.diff" if linux?
 
-    command python_configure.join(" "), :env => env
-    command "make -j #{workers}", :env => env
-    command "make install", :env => env
+    command python_configure.join(" "), env: env
+    command "make -j #{workers}", env: env
+    command "make install", env: env
     delete "#{install_dir}/embedded/lib/python2.7/test"
 
     # There exists no configure flag to tell Python to not compile readline support :(
@@ -73,8 +73,8 @@ else
   dependency "vc_python"
 
   msi_name = "python-#{version}.amd64.msi"
-  source :url => "https://www.python.org/ftp/python/#{version}/#{msi_name}",
-         :sha256 => "7c0f45993019152d46041a7db4b947b919558fdb7a8f67bcd0535bc98d42b603"
+  source url: "https://www.python.org/ftp/python/#{version}/#{msi_name}",
+         sha256: "7c0f45993019152d46041a7db4b947b919558fdb7a8f67bcd0535bc98d42b603"
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it

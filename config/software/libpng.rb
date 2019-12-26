@@ -21,14 +21,14 @@ default_version "1.5.17"
 dependency "zlib"
 
 version "1.5.17" do
-  source :md5 => "d2e27dbd8c6579d1582b3f128fd284b4"
+  source md5: "d2e27dbd8c6579d1582b3f128fd284b4"
 end
 
 version "1.5.13" do
-  source :md5 => "9c5a584d4eb5fe40d0f1bc2090112c65"
+  source md5: "9c5a584d4eb5fe40d0f1bc2090112c65"
 end
 
-source :url => "http://downloads.sourceforge.net/libpng/libpng-#{version}.tar.gz"
+source url: "http://downloads.sourceforge.net/libpng/libpng-#{version}.tar.gz"
 relative_path "libpng-#{version}"
 
 configure_env = {
@@ -38,7 +38,7 @@ configure_env = {
 }
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded --with-zlib-prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "./configure --prefix=#{install_dir}/embedded --with-zlib-prefix=#{install_dir}/embedded", env: configure_env
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

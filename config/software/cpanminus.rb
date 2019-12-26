@@ -20,8 +20,8 @@ default_version "1.7004"
 
 dependency "perl"
 
-source :url => "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz",
-       :md5 => "02fe90392f33a12979e188ea110dae67"
+source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz",
+       md5: "02fe90392f33a12979e188ea110dae67"
 
 relative_path "cpanminus-#{version}"
 
@@ -30,5 +30,5 @@ env = {
 }
 
 build do
-  command "cat cpanm | perl - App::cpanminus", :env => env
+  command "cat cpanm | perl - App::cpanminus", env: env
 end

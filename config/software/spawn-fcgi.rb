@@ -21,8 +21,8 @@ default_version "1.6.3"
 dependency "fcgi"
 dependency "fcgiwrap"
 
-source :url => "http://www.lighttpd.net/download/spawn-fcgi-1.6.3.tar.gz",
-       :md5 => "6d75f9e9435056fa1e574d836d823cd0"
+source url: "http://www.lighttpd.net/download/spawn-fcgi-1.6.3.tar.gz",
+       md5: "6d75f9e9435056fa1e574d836d823cd0"
 
 relative_path "spawn-fcgi-1.6.3"
 
@@ -34,7 +34,7 @@ configure_env = {
 }
 
 build do
-  command "./configure --prefix=#{install_dir}/embedded", :env => configure_env
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "./configure --prefix=#{install_dir}/embedded", env: configure_env
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

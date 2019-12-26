@@ -18,7 +18,7 @@
 name "nfsiostat"
 default_version "nfs-utils-2-1-1"
 
-source :git => "git://git.linux-nfs.org/projects/steved/nfs-utils.git"
+source git: "git://git.linux-nfs.org/projects/steved/nfs-utils.git"
 
 relative_path "nfs-utils"
 

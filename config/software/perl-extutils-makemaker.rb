@@ -3,8 +3,8 @@ default_version "6.78"
 
 dependency "perl"
 
-source :url => "http://search.cpan.org/CPAN/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-#{version}.tar.gz",
-       :md5 => "843886bc1060b5e5c619e34029343eba"
+source url: "http://search.cpan.org/CPAN/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-#{version}.tar.gz",
+       md5: "843886bc1060b5e5c619e34029343eba"
 
 relative_path "ExtUtils-MakeMaker-#{version}"
 

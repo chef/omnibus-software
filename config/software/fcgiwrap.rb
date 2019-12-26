@@ -22,7 +22,7 @@ dependency "autoconf"
 dependency "fcgi"
 
 # TODO: deploy from the 1.0.3 tag / SHA
-source :git => "git://github.com/gnosek/fcgiwrap"
+source git: "git://github.com/gnosek/fcgiwrap"
 
 relative_path "fcgiwrap"
 
@@ -34,8 +34,8 @@ env = {
 }
 
 build do
-  command "autoreconf -i", :env => env
-  command "./configure --prefix=#{install_dir}/embedded", :env => env
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "autoreconf -i", env: env
+  command "./configure --prefix=#{install_dir}/embedded", env: env
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 end

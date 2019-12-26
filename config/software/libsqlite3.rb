@@ -3,7 +3,7 @@ default_version "3.7.7.1"
 
 dependency "config_guess"
 
-source :git => "git://github.com/LuaDist/libsqlite3.git"
+source git: "git://github.com/LuaDist/libsqlite3.git"
 
 relative_path "libsqlite3"
 
@@ -18,8 +18,8 @@ build do
   command(["./configure",
        "--prefix=#{install_dir}/embedded",
        "--disable-nls"].join(" "),
-    :env => env)
-  command "make -j #{workers}", :env => { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+    env: env)
+  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
   delete "#{install_dir}/embedded/bin/sqlite3"
 end
