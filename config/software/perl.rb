@@ -22,7 +22,7 @@ skip_transitive_dependency_licensing true
 
 default_version "5.30.0"
 
-version("5.30.0") { source sha256: "63d5c95d92f0733a6b0603dbfcaf2f9fcb0ef22a5118a7100b3ae99284addb4f" }
+version("5.30.0") { source sha256: "851213c754d98ccff042caa40ba7a796b2cee88c5325f121be5cbb61bbf975f2" }
 
 version "5.26.2" do
   source md5: "dc0fea097f3992a8cd53f8ac0810d523"
@@ -36,7 +36,7 @@ end
 version "5.18.1" do
   source md5: "304cb5bd18e48c44edd6053337d3386d"
 end
-source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
+source url: "https://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
 relative_path "perl-#{version}"
 
 build do
