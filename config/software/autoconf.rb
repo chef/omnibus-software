@@ -16,14 +16,14 @@
 #
 
 name "autoconf"
-default_version "2.68"
+default_version "2.69"
 
 dependency "config_guess"
 
-source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-2.68.tar.gz",
-       md5: "c3b5247592ce694f7097873aa07d66fe"
+source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
+       md5: "82d05e03b93e45f5a39b828dc9c6c29b"
 
-relative_path "autoconf-2.68"
+relative_path "autoconf-2.69"
 
 env = {
   "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",

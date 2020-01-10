@@ -1,12 +1,12 @@
 name "procps-ng"
-default_version "3.3.9"
+default_version "3.3.16"
 
 ship_source true
 
-source url: "http://dd-agent-omnibus.s3.amazonaws.com/#{name}-#{version}.tar.xz",
-       md5: "0980646fa25e0be58f7afb6b98f79d74"
+source url:    "https://gitlab.com/procps-ng/procps/-/archive/v3.3.16/procps-v#{version}.tar.gz",
+       sha256: "7f09945e73beac5b12e163a7ee4cae98bcdd9a505163b6a060756f462907ebbc"
 
-relative_path "procps-ng-3.3.9"
+relative_path "procps-v#{version}"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -16,6 +16,16 @@ env = {
 
 build do
   ship_license "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
+
+  # By default procps-ng will build with the 'UNKNOWN' version if not built
+  # from a git repository and the '.tarball-version' file doesn't exist.
+  # Setting the version in that file will allow binaries to return the correct
+  # info from the '--version' command.
+  File.open(".tarball-version", "w") do |f|
+    f.puts "#{version}"
+  end
+
+  command("./autogen.sh", env: env)
   command(["./configure",
            "--prefix=#{install_dir}/embedded",
            "--without-ncurses",
@@ -23,6 +33,4 @@ build do
     env: env)
   command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
-  move "#{install_dir}/embedded/usr/bin/*", "#{install_dir}/embedded/bin/"
-  delete "#{install_dir}/embedded/usr/bin"
 end
