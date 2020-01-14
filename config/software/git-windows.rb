@@ -15,7 +15,7 @@
 #
 
 name "git-windows"
-default_version "2.24.1"
+default_version "2.25.0"
 
 license "LGPL-2.1"
 # the license file does not ship in the portable git package so pull from the source repo
@@ -34,7 +34,7 @@ arch_suffix = windows_arch_i386? ? "32" : "64"
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
 
 if windows_arch_i386?
-  version("2.24.1") { source sha256: "88f5525999228b0be8bb51788bfaa41b14430904bc65f1d4bbdcf441cac1f7fc" }
+  version("2.25.0") { source sha256: "5ad97ff1e806815aa461ab39794e42455f19c9a6ead08ca0e5b8f2bb085214a6" }
   version("2.23.0") { source sha256: "33388028d45c685201490b0c621d2dbfde89d902a7257771f18de9bb37ae1b9a" }
   version("2.20.0") { source sha256: "d00e31b9d5db9b434d9da10bafb1028de3ea388bab3721d02ad5edb6d46d6507" }
   version("2.18.0") { source sha256: "28e68a781a78009913fef3d6c1074a6c91b05e4010bfd9efaff7b8398c87e017" }
@@ -43,7 +43,7 @@ if windows_arch_i386?
   version("2.8.1") { source sha256: "0b6efaaeb4b127edb3a534261b2c9175bd86ee8683dff6e12ccb194e6abb990e" }
   version("2.8.2") { source sha256: "da25bc12efa864cda53dc6485c84dd8b0d41883dd360db505c026c284ef58d8e" }
 else
-  version("2.24.1") { source sha256: "cb75e4a557e01dd27b5af5eb59dfe28adcbad21638777dd686429dd905d13899" }
+  version("2.25.0") { source sha256: "c191542f68e788f614f8a676460281399af0c9d32f19a5d208e9621dd46264fb" }
   version("2.23.0") { source sha256: "501d8be861ebb8694df3f47f1f673996b1d1672e12559d4a07fae7a2eca3afc7" }
   version("2.20.0") { source sha256: "4f0c60a1d0ac23637d600531da34b48700fcaee7ecd79d36e2f5369dc8fcaef6" }
   version("2.18.0") { source sha256: "cd84a13b6c7aac0e924cb4db2476e2f4379aab4b8e60246992a6c5eebeac360c" }
