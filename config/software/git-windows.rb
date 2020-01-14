@@ -16,7 +16,6 @@
 
 name "git-windows"
 default_version "2.24.1"
-default_version "2.23.0"
 
 license "LGPL-2.1"
 # the license file does not ship in the portable git package so pull from the source repo
