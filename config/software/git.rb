@@ -30,7 +30,7 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
-version("2.24.1") { source sha256: "e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe" }
+version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
 version("2.23.0") { source sha256: "e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe" }
 version("2.19.2") { source sha256: "db893ad69c9ac9498b09677c5839787eba2eb3b7ef2bc30bfba7e62e77cf7850" }
 version("2.17.1") { source sha256: "ec6452f0c8d5c1f3bcceabd7070b8a8a5eea11d4e2a04955c139b5065fd7d09a" }
