@@ -101,7 +101,9 @@ build do
     end
   end
 
-  block "Delete test folder from problem gems" do
+  # The rubyzip gem ships with some test fixture data compressed in a format Apple's notarization service
+  # cannot understand. We need to delete that archive to pass notarization.
+  block "Delete test folder of rubyzip gem so downstream projects pass notarization" do
     env["VISUAL"] = "echo"
     %w{rubyzip}.each do |gem|
       gem_install_dir = shellout!("#{install_dir}/embedded/bin/gem open #{gem}", env: env).stdout.chomp
