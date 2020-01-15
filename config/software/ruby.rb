@@ -126,7 +126,7 @@ build do
   # they try to install native gems.  So, we have to hack this up to avoid using
   # that flag on RHEL6.
   #
-  if rhel? && platform_version.satisfies?("< 7")
+  if rhel? && platform_version.satisfies?("< 7") && version.satisfies?(">= 2.6")
     patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
   end
 
