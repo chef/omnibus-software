@@ -107,9 +107,13 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
+  # remove the warning that the win32 api is going away.
   if windows?
-    # remove the warning that the win32 api is going away.
-    patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
+    if version.satisfies?(">= 2.6")
+      patch source: "ruby-win32_warning_removal_26plus.patch", plevel: 1, env: patch_env
+    else
+      patch source: "ruby-win32_warning_removal_25_and_below.patch", plevel: 1, env: patch_env
+    end
   end
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
