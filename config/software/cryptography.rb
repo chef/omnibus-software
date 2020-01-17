@@ -1,5 +1,5 @@
 name "cryptography"
-default_version "2.3"
+default_version "2.8"
 
 dependency "python"
 dependency "pip"

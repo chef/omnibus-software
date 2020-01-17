@@ -16,10 +16,10 @@
 #
 
 name "postgresql"
-default_version "9.2.8"
+default_version "9.4.25"
 
 dependency "zlib"
-dependency "openssl"
+dependency "openssl" # openssl >= 1.1 is compatible with postgresql >=9.4
 dependency "libedit"
 dependency "ncurses"
 
@@ -33,6 +33,12 @@ end
 
 version "9.3.4" do
   source md5: "d0a41f54c377b2d2fab4a003b0dac762"
+end
+
+# Version lower than 9.4 aren't compatible with openssl 1.1
+# (9.4.12 for openssl 1.1.0 and 9.4.24 for visual studio)
+version "9.4.25" do
+  source md5: "5b8270dfd9a074088d3508836584260e"
 end
 
 source url: "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
