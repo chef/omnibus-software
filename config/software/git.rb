@@ -50,6 +50,8 @@ build do
   if aix?
     patch_env = env.dup
     patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
+    patch_env["CC"] = "cc_r -q64"
+    patch_env["LD"] = "cc_r -q64"
 
     # In 2.13.1 they introduced some sha code that wasn't super good at
     # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
@@ -81,7 +83,8 @@ build do
     config_hash["HAVE_BSD_SYSCTL"] = "YesPlease"
     config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   elsif aix?
-    env["CC"] = "xlc_r"
+    env["CC"] = "xlc_r -qmaxmem=-1"
+    env["LD"] = "xlc_r -q64"
     env["INSTALL"] = "/opt/freeware/bin/install"
     # xlc doesn't understand the '-Wl,-rpath' syntax at all so... we don't enable
     # the NO_R_TO_GCC_LINKER flag. This means that it will try to use the

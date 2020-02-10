@@ -15,12 +15,15 @@
 #
 
 name "bash"
-default_version "4.3.30"
+default_version "5.0"
 
-dependency "libiconv"
+if aix?
+  dependency "libiconv"
+end
+
 dependency "ncurses"
 
-version("4.3.30") { source md5: "a27b3ee9be83bd3ba448c0ff52b28447" }
+version("5.0") { source md5: "2b44b47b905be16f45709648f671820b" }
 
 license "GPL-3.0"
 license_file "COPYING"
