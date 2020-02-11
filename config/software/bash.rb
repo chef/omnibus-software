@@ -17,9 +17,9 @@
 name "bash"
 default_version "5.0"
 
-if aix?
-  dependency "libiconv"
-end
+# if aix?
+#   dependency "libiconv"
+# end
 
 dependency "ncurses"
 
@@ -47,4 +47,9 @@ build do
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+# basbug binary installs with mode 555 which fails notarization on macOS
+  if mac_os_x?
+    File.chmod(0755, "#{install_dir}/embedded/bin/bashbug")
+  end
 end
