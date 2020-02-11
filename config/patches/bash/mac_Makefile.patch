@@ -1,0 +1,49 @@
+--- orig.Makefile.in.orig	2018-05-25 05:47:09.000000000 -0700
++++ Makefile.in	2020-02-11 11:29:24.000000000 -0800
+@@ -574,7 +574,7 @@
+ # Keep GNU Make from exporting the entire environment for small machines.
+ .NOEXPORT:
+ 
+-.made: $(Program) bashbug $(SDIR)/man2html$(EXEEXT)
++.made: $(Program) $(SDIR)/man2html$(EXEEXT)
+ 	@echo "$(Program) last made for a $(Machine) running $(OS)" >.made
+ 
+ $(Program):  .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
+@@ -592,11 +592,6 @@
+ 	@echo "	  ***********************************************************"
+ 	@echo
+ 
+-bashbug: $(SDIR)/bashbug.sh config.h Makefile $(VERSPROG)
+-	@sed -e "s%!PATCHLEVEL!%$(PatchLevel)%" \
+-	     $(SDIR)/bashbug.sh > $@
+-	@chmod a+rx bashbug
+-
+ strip:	$(Program) .made
+ 	$(STRIP) $(Program)
+ 	ls -l $(Program)
+@@ -816,7 +811,6 @@
+ 
+ install:	.made installdirs
+ 	$(INSTALL_PROGRAM) $(INSTALLMODE) $(Program) $(DESTDIR)$(bindir)/$(Program)
+-	$(INSTALL_SCRIPT) $(INSTALLMODE2) bashbug $(DESTDIR)$(bindir)/bashbug
+ 	$(INSTALL_DATA) $(OTHER_DOCS) $(DESTDIR)$(docdir)
+ 	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
+ 		man1dir=$(man1dir) man1ext=$(man1ext) \
+@@ -860,7 +854,7 @@
+ 	-( $(RM) $(DESTDIR)$(pkgconfigdir)/bash.pc )
+ 
+ uninstall:	.made
+-	$(RM) $(DESTDIR)$(bindir)/$(Program) $(DESTDIR)$(bindir)/bashbug
++	$(RM) $(DESTDIR)$(bindir)/$(Program)
+ 	-( cd $(DESTDIR)$(docdir) && ${RM} ${OTHER_INSTALLED_DOCS} )
+ 	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
+ 		man1dir=$(man1dir) man1ext=$(man1ext) \
+@@ -875,7 +869,7 @@
+ 		${INTL_LIBDIR} ${TILDE_LIBDIR} ${ALLOC_LIBDIR} ${SH_LIBDIR}
+ 
+ basic-clean:
+-	$(RM) $(OBJECTS) $(Program) bashbug
++	$(RM) $(OBJECTS) $(Program)
+ 	$(RM) .build .made version.h 
+ 
+ clean:	basic-clean

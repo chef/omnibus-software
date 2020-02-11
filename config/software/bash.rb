@@ -15,12 +15,12 @@
 #
 
 name "bash"
-default_version "4.3.30"
+default_version "5.0"
 
 dependency "libiconv"
 dependency "ncurses"
 
-version("4.3.30") { source md5: "a27b3ee9be83bd3ba448c0ff52b28447" }
+version("5.0") { source md5: "2b44b47b905be16f45709648f671820b" }
 
 license "GPL-3.0"
 license_file "COPYING"
@@ -31,6 +31,9 @@ relative_path "bash-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+# We do not install bashbug in macos as it fails Notarization
+  patch source: "mac_Makefile.patch", plevel: 0, env: env if mac_os_x?
 
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
