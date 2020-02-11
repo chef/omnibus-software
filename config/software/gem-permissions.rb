@@ -22,6 +22,10 @@ name "gem-permissions"
 
 default_version "0.0.1"
 
+dependency "ruby"
+dependency "rubygems"
+dependency "ruby-cleanup"
+
 license :project_license
 skip_transitive_dependency_licensing true
 
