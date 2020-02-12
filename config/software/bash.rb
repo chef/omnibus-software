@@ -27,6 +27,14 @@ license_file "COPYING"
 
 source url: "https://ftp.gnu.org/gnu/bash/bash-#{version}.tar.gz"
 
+# bash builds bash as libraries into a special directory. We need to include
+# that directory in lib_dirs so omnibus can sign them during macOS deep signing.
+lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/bash"]
+
+# bash builds git-core as libraries into a special directory. We need to include
+# that directory in lib_dirs so omnibus can sign them during macOS deep signing.
+lib_dirs lib_dirs.concat ["#{install_dir}/embedded/libexec/git-core"]
+
 relative_path "bash-#{version}"
 
 build do
