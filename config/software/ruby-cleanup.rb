@@ -18,6 +18,8 @@
 #
 # Common cleanup routines for ruby apps (InSpec, Workstation, Chef, etc)
 #
+require "fileutils"
+
 name "ruby-cleanup"
 default_version "1.0.0"
 
