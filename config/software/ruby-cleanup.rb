@@ -139,6 +139,7 @@ build do
       HISTORY.txt
       INSTALL
       ISSUE_TEMPLATE.md
+      JSON-Schema-Test-Suite
       Manifest
       Manifest.txt
       MIGRATING.md
@@ -157,7 +158,12 @@ build do
 
     Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
       puts "Deleting #{f}"
-      File.delete(f)
+      if File.directory?(f)
+        # recursively removes files and the dir
+        FileUtils.remove_dir(f)
+      else
+        File.delete(f)
+      end
     end
   end
 
