@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+dependency "zlib"
 
 name "server-open-jre"
 default_version "11.0.4+11"
