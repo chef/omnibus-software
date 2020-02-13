@@ -15,7 +15,7 @@
 #
 
 name "server-open-jre"
-default_version "11.0.4_11"
+default_version "11.0.4+11"
 
 unless _64_bit?
   raise "Server-open-jre can only be installed on x86_64 systems."
