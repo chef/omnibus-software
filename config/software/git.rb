@@ -43,7 +43,6 @@ source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
 lib_dirs lib_dirs.concat ["#{install_dir}/embedded/libexec/git-core"]
 
-
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
