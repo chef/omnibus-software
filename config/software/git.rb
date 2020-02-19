@@ -39,6 +39,10 @@ version("2.14.1") { source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079
 
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
+# git builds git-core as libraries into a special directory. We need to include
+# that directory in lib_dirs so omnibus can sign them during macOS deep signing.
+lib_dirs lib_dirs.concat ["#{install_dir}/embedded/libexec/git-core"]
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
