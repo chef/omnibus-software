@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014-2019, Chef Software Inc.
+# Copyright:: Copyright (c) 2014-2020, Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ build do
 
   # patchelf was only installed to change the rpath for adoptopenjre binary
   # delete
-  command "find #{install_dir} -name patchelf -delete"
+  command "find #{install_dir} -name patchelf -exec rm -rf {} \;" unless windows?
 
   # Remove static object files for all platforms
   # except AIX which uses them at runtime.
