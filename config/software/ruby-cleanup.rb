@@ -31,7 +31,7 @@ build do
 
   # patchelf was only installed to change the rpath for adoptopenjre binary
   # delete
-  command "find #{install_dir} -name patchelf -exec rm -rf {} \;"
+  command "find #{install_dir} -name patchelf -exec rm -rf {} \;" unless windows?
 
   # Remove static object files for all platforms
   # except AIX which uses them at runtime.
