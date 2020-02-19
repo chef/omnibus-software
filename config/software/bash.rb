@@ -20,7 +20,7 @@ default_version "5.0"
 dependency "libiconv"
 dependency "ncurses"
 
-version("5.0") { source md5: "2b44b47b905be16f45709648f671820b" }
+version("5.0") { source sha256: "b4a80f2ac66170b2913efbfb9f2594f1f76c7b1afd11f799e22035d63077fb4d" }
 
 license "GPL-3.0"
 license_file "COPYING"
