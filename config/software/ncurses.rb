@@ -23,7 +23,6 @@ license_file "http://invisible-island.net/ncurses/ncurses.faq.html"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
-dependency "libtool" if aix?
 
 version("5.9") { source md5: "8cb9c412e5f2d96bc6f459aa8c6282a1", url: "https://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz" }
 version("5.9-20150530") { source md5: "bb2cbe1d788d3ab0138fc2734e446b43", url: "ftp://invisible-island.net/ncurses/current/ncurses-5.9-20150530.tgz" }
