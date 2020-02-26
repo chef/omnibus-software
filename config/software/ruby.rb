@@ -154,8 +154,11 @@ build do
   # it is unclear why or if it is necessary (hand crafted tests designed to try to
   # abuse it all succeeded after this test).
   #
-  if version.satisfies?(">= 2.6")
+  if version.satisfies?("~> 2.6.0")
     patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
+  end
+  if version.satisfies?(">= 2.7")
+    patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
   end
 
   # disable libpath in mkmf across all platforms, it trolls omnibus and
