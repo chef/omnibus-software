@@ -1,4 +1,4 @@
-# Copyright 2012-2019, Chef Software Inc.
+# Copyright 2012-2020, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -67,6 +67,7 @@ build do
     env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 
     gem_command += [
+      "--platform ruby",
       "--",
       "--use-system-libraries",
       "--with-xml2-lib=#{install_dir}/embedded/lib",
