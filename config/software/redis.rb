@@ -21,7 +21,11 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
-default_version "3.0.7"
+default_version "5.0.7"
+
+version "5.0.7" do
+  source sha256: "61db74eabf6801f057fd24b590232f2f337d422280fd19486eca03be87d3a82b"
+end
 
 version "3.0.7" do
   source md5: "84ed3f486e7a6f0ebada6917370f3532"
@@ -54,10 +58,10 @@ build do
 
   update_config_guess
 
-  # This patch was written against 3.0.7.  A slightly different patch
-  # will be needed if we upgrade to 3.2 or unstable.
   if version.satisfies?(">= 3.0.7", "< 3.1")
     patch source: "password-from-environment.patch", plevel: 1, env: env
+  elsif version.satisfies?(">= 5.0", "< 6.0")
+    patch source: "password-from-environment-5.patch", plevel: 1, env: env
   end
 
   make "-j #{workers}", env: env
