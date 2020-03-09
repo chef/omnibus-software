@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2014-2019, Chef Software Inc.
+# Copyright:: Copyright (c) 2014-2020, Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,13 +18,20 @@
 #
 # Common cleanup routines for ruby apps (InSpec, Workstation, Chef, etc)
 #
+require "fileutils"
+
 name "ruby-cleanup"
+default_version "1.0.0"
 
 license :project_license
 skip_transitive_dependency_licensing true
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  # patchelf was only installed to change the rpath for adoptopenjre binary
+  # delete
+  command "find #{install_dir} -name patchelf -exec rm -rf \\{\\} \\;" unless windows?
 
   # Remove static object files for all platforms
   # except AIX which uses them at runtime.
@@ -138,6 +145,7 @@ build do
       HISTORY.txt
       INSTALL
       ISSUE_TEMPLATE.md
+      JSON-Schema-Test-Suite
       Manifest
       Manifest.txt
       MIGRATING.md
@@ -156,7 +164,12 @@ build do
 
     Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
       puts "Deleting #{f}"
-      File.delete(f)
+      if File.directory?(f)
+        # recursively removes files and the dir
+        FileUtils.remove_dir(f)
+      else
+        File.delete(f)
+      end
     end
   end
 

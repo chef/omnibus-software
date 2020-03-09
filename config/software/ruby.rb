@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2019, Chef Software Inc.
+# Copyright 2012-2020, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -53,6 +53,15 @@ version("2.4.9")      { source sha256: "f99b6b5e3aa53d579a49eb719dd0d3834d591241
 version("2.3.8")      { source sha256: "b5016d61440e939045d4e22979e04708ed6c8e1c52e7edb2553cf40b73c59abf" }
 
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
+
+# In order to pass notarization we need to sign any binaries and libraries included in the package.
+# This makes sure we include and bins and libs that are brought in by gems.
+semver = Gem::Version.create(version).segments
+ruby_mmv = "#{semver[0..1].join(".")}.0"
+ruby_dir = "#{install_dir}/embedded/lib/ruby/#{ruby_mmv}"
+gem_dir = "#{install_dir}/embedded/lib/ruby/gems/#{ruby_mmv}"
+bin_dirs bin_dirs.concat ["#{gem_dir}/gems/*/bin/**"]
+lib_dirs ["#{ruby_dir}/**", "#{gem_dir}/extensions/**", "#{gem_dir}/gems/*", "#{gem_dir}/gems/*/lib/**", "#{gem_dir}/gems/*/ext/**"]
 
 relative_path "ruby-#{version}"
 
@@ -116,13 +125,6 @@ build do
     end
   end
 
-  # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
-  # disable ruby from linking against it, but Cisco switches will not have the
-  # library.  Disabling it as we do for Solaris.
-  if ios_xr?
-    patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
-  end
-
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
   # cannot build modern ruby on the RHEL6 base compiler, and the configure script
   # determines that it supports that flag and so includes it and then ultimately
@@ -152,8 +154,11 @@ build do
   # it is unclear why or if it is necessary (hand crafted tests designed to try to
   # abuse it all succeeded after this test).
   #
-  if version.satisfies?(">= 2.6")
+  if version.satisfies?("~> 2.6.0")
     patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
+  end
+  if version.satisfies?(">= 2.7")
+    patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
   end
 
   # disable libpath in mkmf across all platforms, it trolls omnibus and

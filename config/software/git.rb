@@ -39,6 +39,10 @@ version("2.14.1") { source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079
 
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
+# git builds git-core as binaries into a special directory. We need to include
+# that directory in bin_dirs so omnibus can sign them during macOS deep signing.
+bin_dirs bin_dirs.concat ["#{install_dir}/embedded/libexec/git-core"]
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
@@ -83,12 +87,17 @@ build do
   elsif aix?
     env["CC"] = "xlc_r"
     env["INSTALL"] = "/opt/freeware/bin/install"
+    env["CFLAGS"] = "-q64 -qmaxmem=-1 -I#{install_dir}/embedded/include -D_LARGE_FILES -O2"
+    env["CPPFLAGS"] = "-q64 -qmaxmem=-1 -I#{install_dir}/embedded/include -D_LARGE_FILES -O2"
+    env["LDFLAGS"] = "-q64 -L#{install_dir}/embedded/lib -lcurl -lssl -lcrypto -lz -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib"
     # xlc doesn't understand the '-Wl,-rpath' syntax at all so... we don't enable
     # the NO_R_TO_GCC_LINKER flag. This means that it will try to use the
     # old style -R for libraries and as a result, xlc will ignore it. In this case, we
     # we want that to happen because we explicitly set the libpath with the correct
     # command line argument in omnibus itself.
-    config_hash["NO_REGEX"] = "NeedsStartEnd"
+    config_hash["CC_LD_DYNPATH"] = "-R"
+    config_hash["AR"] = "ar -X64"
+    config_hash["NO_REGEX"] = "YesPlease"
   else
     # Linux things!
     config_hash["HAVE_PATHS_H"] = "YesPlease"
