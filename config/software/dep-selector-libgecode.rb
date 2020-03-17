@@ -23,7 +23,7 @@ license_file "https://raw.githubusercontent.com/chef/dep-selector-libgecode/mast
 # rubygems here.
 skip_transitive_dependency_licensing true
 
-dependency "rubygems"
+dependency "ruby"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

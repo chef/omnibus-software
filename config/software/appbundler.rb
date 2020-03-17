@@ -22,8 +22,7 @@ license_file "LICENSE"
 
 source git: "https://github.com/chef/appbundler.git"
 
-dependency "rubygems"
-dependency "bundler"
+dependency "ruby"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

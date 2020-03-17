@@ -30,8 +30,6 @@ unless using_prebuilt_ruby
   dependency "zlib"
 end
 
-dependency "rubygems"
-
 #
 # NOTE: As of nokogiri 1.6.4 it will superficially 'work' to remove most
 # of the nonsense in this file and simply gem install nokogiri on most

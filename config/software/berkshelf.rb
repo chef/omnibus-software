@@ -25,14 +25,12 @@ source git: "https://github.com/berkshelf/berkshelf.git"
 relative_path "berkshelf"
 
 dependency "ruby"
-dependency "rubygems"
 
 unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
   dependency "libarchive"
 end
 
 dependency "nokogiri"
-dependency "bundler"
 dependency "dep-selector-libgecode"
 
 build do
