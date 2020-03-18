@@ -21,13 +21,13 @@
 # This is a Linux/OSX only DSL
 
 name "bzip2"
-default_version "1.0.6"
+default_version "1.0.8"
 
 dependency "zlib"
 dependency "openssl"
 
 source url: "https://s3.amazonaws.com/dd-agent/bzip2/bzip2-#{version}.tar.gz",
-       sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
+       sha256: "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
 
 relative_path "#{name}-#{version}"
 
@@ -41,7 +41,7 @@ env = {
 }
 
 build do
-  ship_license "https://gist.githubusercontent.com/remh/227fefddabefc998235f/raw/cc614178cf79580e04671c4d6acfbe95028b1842/bzip2.LICENSE"
+  ship_license "https://sourceware.org/git/?p=bzip2.git;a=blob_plain;f=LICENSE;h=81a37eab7a5be1a34456f38adb74928cc9073e9b;hb=HEAD"
   patch source: "makefile_take_env_vars.patch"
   patch source: "soname_install_dir.patch" if ohai["platform_family"] == "mac_os_x"
   command "make PREFIX=#{prefix} VERSION=#{version}", env: env
