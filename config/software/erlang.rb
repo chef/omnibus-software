@@ -123,6 +123,7 @@ build do
           " --enable-kernel-poll" \
           " --enable-dynamic-ssl-lib" \
           " --enable-shared-zlib" \
+          " --enable-fips" \
           " --#{hipe}-hipe" \
           " --#{wx}-wx" \
           " --#{wx}-et" \
