@@ -22,7 +22,6 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "ruby"
-dependency "rubygems"
 
 source git: "https://github.com/ConnorAtherton/rb-readline.git"
 

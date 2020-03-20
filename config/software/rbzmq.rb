@@ -25,7 +25,6 @@ skip_transitive_dependency_licensing true
 dependency "libzmq"
 dependency "libsodium"
 dependency "ruby"
-dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

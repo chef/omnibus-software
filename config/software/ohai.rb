@@ -26,8 +26,6 @@ source git: "https://github.com/chef/ohai.git"
 relative_path "ohai"
 
 dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
