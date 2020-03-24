@@ -31,7 +31,6 @@ name "mysql2"
 default_version versions_to_install.join("-")
 
 dependency "ruby"
-dependency "bundler"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

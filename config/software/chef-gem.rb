@@ -21,7 +21,6 @@ license "Apache-2.0"
 license_file "https://raw.githubusercontent.com/chef/chef/master/LICENSE"
 
 dependency "ruby"
-dependency "rubygems"
 dependency "libffi"
 dependency "rb-readline"
 
