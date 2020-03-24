@@ -312,6 +312,12 @@ build do
       end
     end
 
+    # Ruby 2.6 seems to not install bundle.bat.
+    # Install the same version that ships with ruby as a gem
+    if version.satisfies?("= 2.6.5")
+      command "#{install_dir}/embedded/bin/gem.bat install bundler --version 1.17.2 --no-document"
+    end
+
     # Ruby 2.4 seems to mark rake.bat as read-only.
     # Mark it as writable so that we can install other version of rake without
     # running into permission errors.
