@@ -314,8 +314,13 @@ build do
 
     # Ruby 2.6 seems to not install bundle.bat.
     # Install the same version that ships with ruby as a gem
-    if version.satisfies?("= 2.6.5")
-      command "#{install_dir}/embedded/bin/gem.bat install bundler --version 1.17.2 --no-document"
+    if version.satisfies?(">= 2.6.5")
+      block "Create bat files to point to executables under embedded/bin" do
+        File.open("#{install_dir}/embedded/bin/bundle.bat", "w") do |f|
+            f.puts "@ECHO OFF"
+            f.puts "@\"%~dp0..\\embedded\\bin\\ruby.exe\" \"%~dpn0\" %*"
+        end
+      end
     end
 
     # Ruby 2.4 seems to mark rake.bat as read-only.
