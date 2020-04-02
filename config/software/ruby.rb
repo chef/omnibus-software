@@ -207,7 +207,7 @@ build do
     # need to patch ruby's configure file so it knows how to find shared libraries
     if version.satisfies?(">= 2.6")
       patch source: "ruby-aix-configure_26_and_later.patch", plevel: 1, env: patch_env
-      if version == "2.6.4" || version == "2.6.5" # we may need this in 2.6.6 as well. :shrug:
+      if version.satisfies?("~> 2.6.4")
         patch source: "ruby-2.6.4-bug14834.patch", plevel: 1, env: patch_env
       end
     else
