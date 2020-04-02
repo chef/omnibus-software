@@ -25,21 +25,24 @@ skip_transitive_dependency_licensing true
 # the default versions should always be the latest release of ruby
 # if you consume this definition it is your responsibility to pin
 # to the desired version of ruby. don't count on this not changing.
-default_version "2.6.5"
+default_version "2.6.6"
 
 dependency "zlib"
 dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+version("2.7.1")      { source sha256: "d418483bdd0000576c1370571121a6eb24582116db0b7bb2005e90e250eae418" }
 version("2.7.0")      { source sha256: "8c99aa93b5e2f1bc8437d1bbbefd27b13e7694025331f77245d0c068ef1f8cbe" }
 
+version("2.6.6")      { source sha256: "364b143def360bac1b74eb56ed60b1a0dca6439b00157ae11ff77d5cd2e92291" }
 version("2.6.5")      { source sha256: "66976b716ecc1fd34f9b7c3c2b07bbd37631815377a2e3e85a5b194cfdcbed7d" }
 version("2.6.4")      { source sha256: "4fc1d8ba75505b3797020a6ffc85a8bcff6adc4dabae343b6572bf281ee17937" }
 version("2.6.3")      { source sha256: "577fd3795f22b8d91c1d4e6733637b0394d4082db659fccf224c774a2b1c82fb" }
 version("2.6.2")      { source sha256: "a0405d2bf2c2d2f332033b70dff354d224a864ab0edd462b7a413420453b49ab" }
 version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
 
+version("2.5.8")      { source sha256: "6c0bdf07876c69811a9e7dc237c43d40b1cb6369f68e0e17953d7279b524ad9a" }
 version("2.5.7")      { source sha256: "0b2d0d5e3451b6ab454f81b1bfca007407c0548dea403f1eba2e429da4add6d4" }
 version("2.5.6")      { source sha256: "1d7ed06c673020cd12a737ed686470552e8e99d72b82cd3c26daa3115c36bea7" }
 version("2.5.5")      { source sha256: "28a945fdf340e6ba04fc890b98648342e3cccfd6d223a48f3810572f11b2514c" }
@@ -48,9 +51,8 @@ version("2.5.3")      { source sha256: "9828d03852c37c20fa333a0264f2490f07338576
 version("2.5.1")      { source sha256: "dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1" }
 version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
 
+version("2.4.10")     { source sha256: "93d06711795bfb76dbe7e765e82cdff3ddf9d82eff2a1f24dead9bb506eaf2d0" }
 version("2.4.9")      { source sha256: "f99b6b5e3aa53d579a49eb719dd0d3834d59124159a6d4351d1e039156b1c6ae" }
-
-version("2.3.8")      { source sha256: "b5016d61440e939045d4e22979e04708ed6c8e1c52e7edb2553cf40b73c59abf" }
 
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
@@ -172,13 +174,6 @@ build do
   # Also, fix paths emitted in the makefile on windows on both msys and msys2.
   patch source: "ruby-mkmf.patch", plevel: 1, env: patch_env
 
-  # Fix find_proxy with IP format proxy and domain format uri raises an exception.
-  # This only affects 2.4 and the fix is expected to be included in 2.4.2
-  # https://github.com/ruby/ruby/pull/1513
-  if version == "2.4.0" || version == "2.4.1"
-    patch source: "2.4_no_proxy_exception.patch", plevel: 1, env: patch_env
-  end
-
   # RHEL 6's gcc doesn't support `#pragma GCC diagnostic` inside functions, so
   # we'll guard their inclusion more specifically. As of 2018-01-25 this is fixed
   # upstream and ought to be in 2.5.1
@@ -235,11 +230,6 @@ build do
     configure_command << "ac_cv_header_execinfo_h=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   elsif smartos?
-    # Chef patch - sean@sean.io
-    # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
-    # patch included upstream in Ruby 2.4.1
-    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1, env: patch_env unless version.satisfies?(">= 2.4.1")
-
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
     # https://www.illumos.org/issues/1587
@@ -256,21 +246,9 @@ build do
     # force that API off.
     configure_command << "ac_cv_func_arc4random_buf=no"
   elsif windows?
-    if version.satisfies?(">= 2.3") &&
-        version.satisfies?("< 2.5")
-      # Windows Nano Server COM libraries do not support Apartment threading
-      # instead COINIT_MULTITHREADED must be used
-      patch source: "ruby_nano.patch", plevel: 1, env: patch_env
-    end
-
     configure_command << " debugflags=-g"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
-  end
-
-  # This patch is expected to be included in 2.3.5 and is already in 2.4.1.
-  if version == "2.3.4"
-    patch source: "ruby_2_3_gcc7.patch", plevel: 0, env: patch_env
   end
 
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
@@ -289,6 +267,7 @@ build do
       "libwinpthread-1",
       "libstdc++-6",
     ]
+
     if windows_arch_i386?
       dlls << "libgcc_s_dw2-1"
     else
@@ -306,13 +285,11 @@ build do
       end
     end
 
-    if version.satisfies?(">= 2.4")
-      %w{ erb gem irb rdoc ri }.each do |cmd|
-        copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
-      end
+    %w{ erb gem irb rdoc ri }.each do |cmd|
+      copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
     end
 
-    # Ruby 2.4 seems to mark rake.bat as read-only.
+    # Ruby seems to mark rake.bat as read-only.
     # Mark it as writable so that we can install other version of rake without
     # running into permission errors.
     command "attrib -r #{install_dir}/embedded/bin/rake.bat"
