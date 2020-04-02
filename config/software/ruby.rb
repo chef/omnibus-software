@@ -50,8 +50,6 @@ version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7
 
 version("2.4.9")      { source sha256: "f99b6b5e3aa53d579a49eb719dd0d3834d59124159a6d4351d1e039156b1c6ae" }
 
-version("2.3.8")      { source sha256: "b5016d61440e939045d4e22979e04708ed6c8e1c52e7edb2553cf40b73c59abf" }
-
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 # In order to pass notarization we need to sign any binaries and libraries included in the package.
@@ -172,13 +170,6 @@ build do
   # Also, fix paths emitted in the makefile on windows on both msys and msys2.
   patch source: "ruby-mkmf.patch", plevel: 1, env: patch_env
 
-  # Fix find_proxy with IP format proxy and domain format uri raises an exception.
-  # This only affects 2.4 and the fix is expected to be included in 2.4.2
-  # https://github.com/ruby/ruby/pull/1513
-  if version == "2.4.0" || version == "2.4.1"
-    patch source: "2.4_no_proxy_exception.patch", plevel: 1, env: patch_env
-  end
-
   # RHEL 6's gcc doesn't support `#pragma GCC diagnostic` inside functions, so
   # we'll guard their inclusion more specifically. As of 2018-01-25 this is fixed
   # upstream and ought to be in 2.5.1
@@ -235,11 +226,6 @@ build do
     configure_command << "ac_cv_header_execinfo_h=no"
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   elsif smartos?
-    # Chef patch - sean@sean.io
-    # GCC 4.7.0 chokes on mismatched function types between OpenSSL 1.0.1c and Ruby 1.9.3-p286
-    # patch included upstream in Ruby 2.4.1
-    patch source: "ruby-openssl-1.0.1c.patch", plevel: 1, env: patch_env unless version.satisfies?(">= 2.4.1")
-
     # Patches taken from RVM.
     # http://bugs.ruby-lang.org/issues/5384
     # https://www.illumos.org/issues/1587
@@ -256,21 +242,9 @@ build do
     # force that API off.
     configure_command << "ac_cv_func_arc4random_buf=no"
   elsif windows?
-    if version.satisfies?(">= 2.3") &&
-        version.satisfies?("< 2.5")
-      # Windows Nano Server COM libraries do not support Apartment threading
-      # instead COINIT_MULTITHREADED must be used
-      patch source: "ruby_nano.patch", plevel: 1, env: patch_env
-    end
-
     configure_command << " debugflags=-g"
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
-  end
-
-  # This patch is expected to be included in 2.3.5 and is already in 2.4.1.
-  if version == "2.3.4"
-    patch source: "ruby_2_3_gcc7.patch", plevel: 0, env: patch_env
   end
 
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
@@ -289,6 +263,7 @@ build do
       "libwinpthread-1",
       "libstdc++-6",
     ]
+
     if windows_arch_i386?
       dlls << "libgcc_s_dw2-1"
     else
@@ -306,13 +281,11 @@ build do
       end
     end
 
-    if version.satisfies?(">= 2.4")
-      %w{ erb gem irb rdoc ri }.each do |cmd|
-        copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
-      end
+    %w{ erb gem irb rdoc ri }.each do |cmd|
+      copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
     end
 
-    # Ruby 2.4 seems to mark rake.bat as read-only.
+    # Ruby seems to mark rake.bat as read-only.
     # Mark it as writable so that we can install other version of rake without
     # running into permission errors.
     command "attrib -r #{install_dir}/embedded/bin/rake.bat"
