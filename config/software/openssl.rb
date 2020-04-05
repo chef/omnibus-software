@@ -31,7 +31,8 @@ source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract:
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
-lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/engines"]
+# this fails on omnibus 6.1.9
+# lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/engines"]
 
 version("1.1.1d") { source sha256: "1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2" }
 version("1.1.0i") { source sha256: "ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08c17b2cdadc118253cf99" }
