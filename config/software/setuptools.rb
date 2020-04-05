@@ -15,13 +15,13 @@
 #
 
 name "setuptools"
-default_version "20.0"
+default_version "45.1.0"
 
 license "Python Software Foundation"
 license_file "https://raw.githubusercontent.com/pypa/setuptools/master/LICENSE"
 skip_transitive_dependency_licensing true
 
-dependency "python"
+dependency "python3"
 
 version "0.9.8" do
   source md5: "243076241781935f7fcad370195a4291"
@@ -40,7 +40,12 @@ end
 
 version "41.0.1" do
   source md5: "6404ca798bb9a9073aff3b91b2df35c8"
-  source url: "https://files.pythonhosted.org/packages/1d/64/a18a487b4391a05b9c7f938b94a16d80305bf0369c6b0b9509e86165e1d3/setuptools-#{version}.zip"
+  source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.zip"
+end
+
+version "45.1.0" do
+  source md5: "98bd6ed6144cff67854e8c0827bd56fb"
+  source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.zip"
 end
 
 relative_path "setuptools-#{version}"
