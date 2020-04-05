@@ -15,22 +15,29 @@
 #
 
 name "bash"
-default_version "4.3.30"
+default_version "5.0"
 
 dependency "libiconv"
 dependency "ncurses"
 
-version("4.3.30") { source md5: "a27b3ee9be83bd3ba448c0ff52b28447" }
+version("5.0") { source sha256: "b4a80f2ac66170b2913efbfb9f2594f1f76c7b1afd11f799e22035d63077fb4d" }
 
 license "GPL-3.0"
 license_file "COPYING"
 
 source url: "https://ftp.gnu.org/gnu/bash/bash-#{version}.tar.gz"
 
+# bash builds bash as libraries into a special directory. We need to include
+# that directory in lib_dirs so omnibus can sign them during macOS deep signing.
+lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/bash"]
+
 relative_path "bash-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+# We do not install bashbug in macos as it fails Notarization
+  patch source: "mac_Makefile.patch", plevel: 0, env: env if mac_os_x?
 
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]

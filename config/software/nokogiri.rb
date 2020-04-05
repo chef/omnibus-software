@@ -1,4 +1,4 @@
-# Copyright 2012-2019, Chef Software Inc.
+# Copyright 2012-2020, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,8 +29,6 @@ unless using_prebuilt_ruby
   dependency "liblzma"
   dependency "zlib"
 end
-
-dependency "rubygems"
 
 #
 # NOTE: As of nokogiri 1.6.4 it will superficially 'work' to remove most
@@ -67,6 +65,7 @@ build do
     env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
 
     gem_command += [
+      "--platform ruby",
       "--",
       "--use-system-libraries",
       "--with-xml2-lib=#{install_dir}/embedded/lib",
@@ -79,4 +78,12 @@ build do
   end
 
   gem gem_command.join(" "), env: env
+
+  # The mini-portile2 gem ships with some test fixture data compressed in a format Apple's notarization
+  # service cannot understand. We need to delete that archive to pass notarization.
+  block "Delete test folder of mini-portile2 gem so downstream projects pass notarization" do
+    env["VISUAL"] = "echo"
+    gem_install_dir = shellout!("#{install_dir}/embedded/bin/gem open mini_portile2", env: env).stdout.chomp
+    remove_directory "#{gem_install_dir}/test"
+  end
 end

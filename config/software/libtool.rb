@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "libtool"
-default_version "2.4"
+default_version "2.4.6"
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -23,7 +23,6 @@ skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 
-# NOTE: 2.4.6 2.4.2 do not compile on solaris2 yet
 version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
 version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }
 version("2.4")   { source md5: "b32b04148ecdd7344abc6fe8bd1bb021" }

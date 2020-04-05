@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2019-2020 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +14,26 @@
 # limitations under the License.
 #
 
-name "unicorn"
-default_version "4.2.0"
+# This software definition installs project called 'patchelf' which can be
+# used to change rpath of a precompiled binary.
 
-dependency "rubygems"
+name "patchelf"
+
+default_version "0.10"
+
+license :project_license
+
+skip_transitive_dependency_licensing true
+
+version("0.10") { source md5: "228ade8c1b4033670bcf7f77c0ea1fb7" }
+
+source url: "https://nixos.org/releases/patchelf/patchelf-#{version}/patchelf-#{version}.tar.gz"
+
+relative_path "patchelf-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-
-  gem "install unicorn" \
-      " --version '#{version}'" \
-      "  --no-document", env: env
+  configure "--prefix #{install_dir}/embedded"
+  make env: env
+  make "install", env: env
 end

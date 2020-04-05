@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2019 Chef Software, Inc.
+# Copyright 2014-2020 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.23.0"
+default_version "2.24.1"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -30,6 +30,7 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
+version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
 version("2.23.0") { source sha256: "e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe" }
 version("2.19.2") { source sha256: "db893ad69c9ac9498b09677c5839787eba2eb3b7ef2bc30bfba7e62e77cf7850" }
 version("2.17.1") { source sha256: "ec6452f0c8d5c1f3bcceabd7070b8a8a5eea11d4e2a04955c139b5065fd7d09a" }
@@ -37,6 +38,10 @@ version("2.15.1") { source sha256: "85fca8781a83c96ba6db384cc1aa6a5ee1e344746baf
 version("2.14.1") { source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079806b58321c2cf85a4464" }
 
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
+
+# git builds git-core as binaries into a special directory. We need to include
+# that directory in bin_dirs so omnibus can sign them during macOS deep signing.
+bin_dirs bin_dirs.concat ["#{install_dir}/embedded/libexec/git-core"]
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -82,12 +87,17 @@ build do
   elsif aix?
     env["CC"] = "xlc_r"
     env["INSTALL"] = "/opt/freeware/bin/install"
+    env["CFLAGS"] = "-q64 -qmaxmem=-1 -I#{install_dir}/embedded/include -D_LARGE_FILES -O2"
+    env["CPPFLAGS"] = "-q64 -qmaxmem=-1 -I#{install_dir}/embedded/include -D_LARGE_FILES -O2"
+    env["LDFLAGS"] = "-q64 -L#{install_dir}/embedded/lib -lcurl -lssl -lcrypto -lz -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib"
     # xlc doesn't understand the '-Wl,-rpath' syntax at all so... we don't enable
     # the NO_R_TO_GCC_LINKER flag. This means that it will try to use the
     # old style -R for libraries and as a result, xlc will ignore it. In this case, we
     # we want that to happen because we explicitly set the libpath with the correct
     # command line argument in omnibus itself.
-    config_hash["NO_REGEX"] = "NeedsStartEnd"
+    config_hash["CC_LD_DYNPATH"] = "-R"
+    config_hash["AR"] = "ar -X64"
+    config_hash["NO_REGEX"] = "YesPlease"
   else
     # Linux things!
     config_hash["HAVE_PATHS_H"] = "YesPlease"

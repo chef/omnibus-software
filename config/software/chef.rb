@@ -48,8 +48,6 @@ end
 relative_path "chef"
 
 dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
 dependency "ohai"
 dependency "appbundler"
 dependency "libarchive" # for archive resource
@@ -98,6 +96,16 @@ build do
       # Chef < 15
       appbundle "chef", env: env
       appbundle "ohai", env: env
+    end
+  end
+
+  # The rubyzip gem ships with some test fixture data compressed in a format Apple's notarization service
+  # cannot understand. We need to delete that archive to pass notarization.
+  block "Delete test folder of rubyzip gem so downstream projects pass notarization" do
+    env["VISUAL"] = "echo"
+    %w{rubyzip}.each do |gem|
+      gem_install_dir = shellout!("#{install_dir}/embedded/bin/gem open #{gem}", env: env).stdout.chomp
+      remove_directory "#{gem_install_dir}/test"
     end
   end
 end

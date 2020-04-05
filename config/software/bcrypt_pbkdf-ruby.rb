@@ -24,8 +24,6 @@ license "MIT"
 license_file "COPYING"
 
 dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
 
 build do
   env = with_embedded_path

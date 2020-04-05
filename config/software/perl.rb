@@ -20,15 +20,17 @@ license "Artistic-2.0"
 license_file "Artistic"
 skip_transitive_dependency_licensing true
 
-default_version "5.18.1"
+default_version "5.30.0"
 
-version "5.22.1" do
-  source md5: "19295bbb775a3c36123161b9bf4892f1"
-end
-version "5.18.1" do
-  source md5: "304cb5bd18e48c44edd6053337d3386d"
-end
+version("5.30.0") { source sha256: "851213c754d98ccff042caa40ba7a796b2cee88c5325f121be5cbb61bbf975f2" }
+version("5.22.1") { source sha256: "2b475d0849d54c4250e9cba4241b7b7291cffb45dfd083b677ca7b5d38118f27" }
+version("5.18.1") { source sha256: "655e11a8ffba8853efcdce568a142c232600ed120ac24aaebb4e6efe74e85b2b" }
 source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
+
+# perl builds perl as libraries into a special directory. We need to include
+# that directory in lib_dirs so omnibus can sign them during macOS deep signing.
+lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/perl5/**"]
+
 relative_path "perl-#{version}"
 
 build do
@@ -41,6 +43,8 @@ build do
   elsif aix?
     cc_command = "-Dcc='/opt/IBM/xlc/13.1.0/bin/cc_r -q64'"
   elsif freebsd? && ohai["os_version"].to_i >= 1000024
+    cc_command = "-Dcc='clang'"
+  elsif mac_os_x?
     cc_command = "-Dcc='clang'"
   else
     cc_command = "-Dcc='gcc -static-libgcc'"
