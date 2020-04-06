@@ -27,7 +27,7 @@ default_version "1.0.2u"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
-source url: "https://www.openssl.org/source/old/#{version}/openssl-#{version}.tar.gz", extract: :lax_tar
+source url: "https://www.openssl.org/source/old/#{version[/\d*\.\d*\.\d*/, 0]}/openssl-#{version}.tar.gz", extract: :lax_tar
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
