@@ -25,8 +25,6 @@ whitelist_file "#{install_dir}/embedded/sbin/capsh"
 whitelist_file "#{install_dir}/embedded/sbin/getcap"
 whitelist_file "#{install_dir}/embedded/sbin/setcap"
 
-
-
 version("2.25") { source sha256: "693c8ac51e983ee678205571ef272439d83afe62dd8e424ea14ad9790bc35162" }
 
 source url: "http://archive.ubuntu.com/ubuntu/pool/main/libc/libcap2/libcap2_#{version}.orig.tar.xz"
