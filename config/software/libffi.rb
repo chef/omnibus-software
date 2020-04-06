@@ -22,6 +22,7 @@ license "MIT"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
+version("3.3") { source md5: "6313289e32f1d38a9df4770b014a2ca7" }
 version("3.0.13") { source md5: "45f3b6dbc9ee7c7dfbbbc5feba571529" }
 version("3.2.1")  { source md5: "83b89587607e3eb65c70d361f13bab43" }
 
@@ -52,6 +53,6 @@ build do
   make "-j #{workers} install", env: env
 
   # libffi's default install location of header files is awful...
-  copy "#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{install_dir}/embedded/include"
+  copy "#{install_dir}/embedded/lib/libffi-#{version}/include/*", "#{install_dir}/embedded/include/"
 
 end

@@ -23,6 +23,7 @@ skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 
+version("0.2.2") { source sha256: "4a9100ab61047fd9bd395bcef3ce5403365cafd55c1e0d0299cde14958e47be9" }
 version("0.1.7") { source sha256: "8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729" }
 version("0.1.6") { source sha256: "7da6971b4bd08a986dd2a61353bc422362bd0edcc67d7ebaac68c95f74182749" }
 
