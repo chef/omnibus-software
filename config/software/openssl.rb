@@ -28,6 +28,13 @@ default_version "1.1.1f"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
+
+# Note: Since April 2020, only the most recent version of openssl is
+# available at https://www.openssl.org/source/.
+# Older versions of openssl are now there: https://www.openssl.org/source/old/
+# Expect this software definition to break every time openssl is updated.
+# To build with an older version of openssl, you'll need to update the source url to
+# https://www.openssl.org/source/old/<bugfix_version>/openssl-<full_version>.tar.gz
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
 version("1.1.1f") { source sha256: "186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35" }
