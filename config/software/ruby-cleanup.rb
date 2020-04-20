@@ -126,13 +126,17 @@ build do
       .rvmrc
       .simplecov
       .tool-versions
+      Gemfile.travis
       .travis.yml
       .yardopts
       .yardstick.yml
+      bundle_install_all_ruby_versions.sh
       Appraisals
       appveyor.yml
       ARCHITECTURE.md
       CHANGELOG
+      release-script.txt
+      run_specs_all_ruby_versions.sh
       CHANGELOG.md
       CHANGELOG.rdoc
       CHANGELOG.txt
@@ -168,9 +172,11 @@ build do
       README.markdown
       README.rdoc
       README.txt
+      README.euc
       SECURITY.md
       SPEC.rdoc
       THANKS.txt
+      travis_build_script.sh
       TODO
       TODO*.md
       UPGRADING.md
