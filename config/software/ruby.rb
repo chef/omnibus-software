@@ -42,18 +42,6 @@ version("2.6.3")      { source sha256: "577fd3795f22b8d91c1d4e6733637b0394d4082d
 version("2.6.2")      { source sha256: "a0405d2bf2c2d2f332033b70dff354d224a864ab0edd462b7a413420453b49ab" }
 version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
 
-version("2.5.8")      { source sha256: "6c0bdf07876c69811a9e7dc237c43d40b1cb6369f68e0e17953d7279b524ad9a" }
-version("2.5.7")      { source sha256: "0b2d0d5e3451b6ab454f81b1bfca007407c0548dea403f1eba2e429da4add6d4" }
-version("2.5.6")      { source sha256: "1d7ed06c673020cd12a737ed686470552e8e99d72b82cd3c26daa3115c36bea7" }
-version("2.5.5")      { source sha256: "28a945fdf340e6ba04fc890b98648342e3cccfd6d223a48f3810572f11b2514c" }
-version("2.5.4")      { source sha256: "0e4042bce749352dfcf1b9e3013ba7c078b728f51f8adaf6470ce37675e3cb1f" }
-version("2.5.3")      { source sha256: "9828d03852c37c20fa333a0264f2490f07338576734d910ee3fd538c9520846c" }
-version("2.5.1")      { source sha256: "dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1" }
-version("2.5.0")      { source sha256: "46e6f3630f1888eb653b15fa811d77b5b1df6fd7a3af436b343cfe4f4503f2ab" }
-
-version("2.4.10")     { source sha256: "93d06711795bfb76dbe7e765e82cdff3ddf9d82eff2a1f24dead9bb506eaf2d0" }
-version("2.4.9")      { source sha256: "f99b6b5e3aa53d579a49eb719dd0d3834d59124159a6d4351d1e039156b1c6ae" }
-
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 # In order to pass notarization we need to sign any binaries and libraries included in the package.
@@ -120,11 +108,7 @@ build do
 
   # remove the warning that the win32 api is going away.
   if windows?
-    if version.satisfies?(">= 2.6")
-      patch source: "ruby-win32_warning_removal_26plus.patch", plevel: 1, env: patch_env
-    else
-      patch source: "ruby-win32_warning_removal_25_and_below.patch", plevel: 1, env: patch_env
-    end
+    patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
   end
 
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
@@ -134,7 +118,7 @@ build do
   # they try to install native gems.  So, we have to hack this up to avoid using
   # that flag on RHEL6.
   #
-  if rhel? && platform_version.satisfies?("< 7") && version.satisfies?(">= 2.6")
+  if rhel? && platform_version.satisfies?("< 7")
     patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
   end
 
@@ -174,49 +158,28 @@ build do
   # Also, fix paths emitted in the makefile on windows on both msys and msys2.
   patch source: "ruby-mkmf.patch", plevel: 1, env: patch_env
 
-  # RHEL 6's gcc doesn't support `#pragma GCC diagnostic` inside functions, so
-  # we'll guard their inclusion more specifically. As of 2018-01-25 this is fixed
-  # upstream and ought to be in 2.5.1
-  if rhel? &&
-      platform_version.satisfies?("< 7") &&
-      (version == "2.5.0")
-    patch source: "prelude_25_el6_no_pragma.patch", plevel: 0, env: patch_env
-  end
-
-  # Backporting a 2.6.0 fix to 2.5.1 (and 2.4.4 for ChefDK 2). This allows us to build Nokogiri 1.8.3.
-  # Basically we only include `-Werror` linker warnings when building native gems if we are on Windows.
-  # This prevents some "expected" warnings from failing the build.
-  if version == "2.5.1" || version == "2.4.4"
-    patch source: "ruby-only-compiler-warnings-on-windows.patch", plevel: 1, env: patch_env
-  end
-
   configure_command = ["--with-out-ext=dbm,readline",
                        "--enable-shared",
                        "--disable-install-doc",
                        "--without-gmp",
                        "--without-gdbm",
                        "--without-tk",
-                       "--disable-dtrace"]
+                       "--disable-dtrace",
+                       "--disable-jit-support"]
   configure_command << "--with-bundled-md5" if fips_mode?
-
-  # jit doesn't compile on all platforms in 2.6.0
-  # we should evaluate this when new releases come out to see if we can turn it back on
-  configure_command << "--disable-jit-support" if version.satisfies?(">= 2.6")
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
-    if version.satisfies?(">= 2.6")
-      patch source: "ruby-aix-configure_26_and_later.patch", plevel: 1, env: patch_env
-      if version.satisfies?("~> 2.6.4")
-        patch source: "ruby-2.6.4-bug14834.patch", plevel: 1, env: patch_env
-      end
-    else
-      patch source: "ruby-aix-configure_pre26.patch", plevel: 1, env: patch_env
+    patch source: "ruby-aix-configure_26_and_later.patch", plevel: 1, env: patch_env
+
+    if version.satisfies?("~> 2.6.4")
+      patch source: "ruby-2.6.4-bug14834.patch", plevel: 1, env: patch_env
     end
+
     # have ruby use zlib on AIX correctly
     patch source: "ruby_aix_openssl.patch", plevel: 1, env: patch_env
     # AIX has issues with ssl retries, need to patch to have it retry
-    patch source: "ruby_aix_2_1_3_ssl_EAGAIN.patch", plevel: 1, env: patch_env
+    patch source: "ruby_aix_ssl_EAGAIN.patch", plevel: 1, env: patch_env
     # the next two patches are because xlc doesn't deal with long vs int types well
     patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
     patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
