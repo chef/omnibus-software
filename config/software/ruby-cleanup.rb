@@ -101,41 +101,55 @@ build do
 
     # find the embedded ruby gems dir and clean it up for globbing
     files = %w{
+      .appveyor.yml
+      .autotest
+      .circleci
       .codeclimate.yml
       .concourse.yml
       .coveralls.yml
       .document
       .ebert.yml
       .gemtest
+      .github
       .gitignore
       .gitmodules
       .hound.yml
       .irbrc
+      .kokoro
       .pelusa.yml
       .rock.yml
       .rspec
-      .rubocop.yml
       .rubocop_*.yml
+      .rubocop.yml
       .ruby-gemset
       .ruby-version
       .rvmrc
+      .simplecov
+      .tool-versions
+      Gemfile.travis
       .travis.yml
       .yardopts
       .yardstick.yml
+      bundle_install_all_ruby_versions.sh
+      Appraisals
       appveyor.yml
       ARCHITECTURE.md
       CHANGELOG
+      release-script.txt
+      run_specs_all_ruby_versions.sh
       CHANGELOG.md
       CHANGELOG.rdoc
       CHANGELOG.txt
       CHANGES
       CHANGES.md
       CHANGES.txt
-      Code-of-Conduct.md
       CODE_OF_CONDUCT.md
+      Code-of-Conduct.md
+      concourse
       CONTRIBUTING.md
       CONTRIBUTING.rdoc
       CONTRIBUTORS.md
+      donate.png
       FAQ.txt
       Guardfile
       GUIDE.md
@@ -146,20 +160,27 @@ build do
       INSTALL
       ISSUE_TEMPLATE.md
       JSON-Schema-Test-Suite
+      logo.png
       Manifest
       Manifest.txt
       MIGRATING.md
+      NEWS.md
       README
+      README_INDEX.rdoc
       README.*md
       readme.erb
       README.markdown
       README.rdoc
       README.txt
-      README_INDEX.rdoc
+      README.euc
+      SECURITY.md
+      SPEC.rdoc
       THANKS.txt
+      travis_build_script.sh
       TODO
       TODO*.md
       UPGRADING.md
+      warning.txt
     }
 
     Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
