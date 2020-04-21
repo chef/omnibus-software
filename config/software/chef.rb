@@ -1,5 +1,5 @@
 #
-# Copyright:: Chef Software Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -57,12 +57,12 @@ build do
 
   # compiled ruby on windows 2k8R2 x86 is having issues compiling
   # native extensions for pry-byebug so excluding for now
-  excluded_groups = %w{server docgen maintenance pry travis integration ci chefstyle debug}
+  excluded_groups = %w{docgen chefstyle}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
   excluded_groups << "ed25519" if solaris2?
 
-  # install the whole bundle first
+  # The --without groups here MUST match groups in https://github.com/chef/chef/blob/master/Gemfile
   bundle "install --without #{excluded_groups.join(" ")}", env: env
 
   # use the rake install task to build/install chef-config
