@@ -55,14 +55,12 @@ dependency "libarchive" # for archive resource
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # compiled ruby on windows 2k8R2 x86 is having issues compiling
-  # native extensions for pry-byebug so excluding for now
+  # The --without groups here MUST match groups in https://github.com/chef/chef/blob/master/Gemfile
   excluded_groups = %w{docgen chefstyle}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
   excluded_groups << "ed25519" if solaris2?
 
-  # The --without groups here MUST match groups in https://github.com/chef/chef/blob/master/Gemfile
   bundle "install --without #{excluded_groups.join(" ")}", env: env
 
   # use the rake install task to build/install chef-config
