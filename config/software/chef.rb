@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2019, Chef Software Inc.
+# Copyright:: Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ build do
 
   # compiled ruby on windows 2k8R2 x86 is having issues compiling
   # native extensions for pry-byebug so excluding for now
-  excluded_groups = %w{server docgen maintenance pry travis integration ci chefstyle}
+  excluded_groups = %w{server docgen maintenance pry travis integration ci chefstyle debug}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
   excluded_groups << "ed25519" if solaris2?
