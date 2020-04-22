@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2020, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -60,12 +60,14 @@ build do
         end
       end
 
-      # Fix gem.bat
-      File.open("#{install_dir}/embedded/bin/gem.bat", "w") do |f|
-        f.puts <<~EOF
+      # Fix gem.bat and bundle.bat
+      %w{gem bundle}.each do |binstub|
+        File.open("#{install_dir}/embedded/bin/#{binstub}.bat", "w") do |f|
+          f.puts <<~EOF
           @ECHO OFF
           "%~dp0ruby.exe" "%~dpn0" %*
-        EOF
+          EOF
+        end
       end
     end
   else
