@@ -21,17 +21,20 @@ license "OpenSSL"
 license_file "https://www.openssl.org/source/license.html"
 skip_transitive_dependency_licensing true
 
-version("2.0.16") { source sha256: "a3cd13d0521d22dd939063d3b4a0d4ce24494374b91408a05bdaca8b681c63d4" }
-version("2.0.14") { source sha256: "8ea069ec39f9c49d85b9831b16daa29936b4527446998336cf93e575f07626c0" }
-version("2.0.11") { source sha256: "a6532875956d357a05838ca2c9865b8eecac211543e4246512684b17acbbdfac" }
-version("2.0.10") { source sha256: "a42ccf5f08a8b510c0c78da1ba889532a0ce24e772b576604faf09b4d6a0f771" }
-version("2.0.9") { source md5: "c8256051d7a76471c6ad4fb771404e60" }
-
 # HAHAHA According to the FIPS manual, you need to "securely" fetch the source
 # such as asking some humans to mail you a CD-ROM or something.
 # You are then supposed to manually verify the PGP signatures.
 # When making an "official" build - make sure you go do that...
-source url: "https://www.openssl.org/source/openssl-fips-#{version}.tar.gz", extract: :lax_tar
+source url: "https://www.openssl.org/source/old/fips/openssl-fips-#{version}.tar.gz", extract: :lax_tar
+
+version("2.0.16") {
+  source sha256: "a3cd13d0521d22dd939063d3b4a0d4ce24494374b91408a05bdaca8b681c63d4", \
+         url: "https://www.openssl.org/source/openssl-fips-#{version}.tar.gz", extract: :lax_tar
+}
+version("2.0.14") { source sha256: "8ea069ec39f9c49d85b9831b16daa29936b4527446998336cf93e575f07626c0" }
+version("2.0.11") { source sha256: "a6532875956d357a05838ca2c9865b8eecac211543e4246512684b17acbbdfac" }
+version("2.0.10") { source sha256: "a42ccf5f08a8b510c0c78da1ba889532a0ce24e772b576604faf09b4d6a0f771" }
+version("2.0.9") { source md5: "c8256051d7a76471c6ad4fb771404e60" }
 
 relative_path "openssl-fips-#{version}"
 

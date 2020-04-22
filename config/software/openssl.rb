@@ -27,12 +27,16 @@ default_version "1.0.2u"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
-source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
+source url: "https://www.openssl.org/source/old/#{version[/\d*\.\d*\.\d*/, 0]}/openssl-#{version}.tar.gz", extract: :lax_tar
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
 lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/engines"]
 
+version("1.1.1g") {
+  source sha256: "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46", \
+         url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
+}
 version("1.1.1d") { source sha256: "1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2" }
 version("1.1.0i") { source sha256: "ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08c17b2cdadc118253cf99" }
 version("1.1.0l") { source sha256: "74a2f756c64fd7386a29184dc0344f4831192d61dc2481a93a4c5dd727f41148" }
