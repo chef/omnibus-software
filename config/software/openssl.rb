@@ -33,8 +33,8 @@ source url: "https://www.openssl.org/source/old/#{version[/\d*\.\d*\.\d*/, 0]}/o
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
 lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/engines"]
 
-version("1.1.1f") {
-  source sha256: "186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35", \
+version("1.1.1g") {
+  source sha256: "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46", \
          url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 }
 version("1.1.1d") { source sha256: "1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2" }
