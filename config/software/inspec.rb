@@ -1,5 +1,5 @@
 #
-# Copyright 2015 Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ dependency "nokogiri"
 # Dependency added to avoid this pry error:
 # "Sorry, you can't use Pry without Readline or a compatible library."
 dependency "rb-readline"
-dependency "appbundler"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

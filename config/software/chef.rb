@@ -49,7 +49,6 @@ relative_path "chef"
 
 dependency "ruby"
 dependency "ohai"
-dependency "appbundler"
 dependency "libarchive" # for archive resource
 
 build do
