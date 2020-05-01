@@ -180,7 +180,6 @@ build do
       TODO
       TODO*.md
       UPGRADING.md
-      warning.txt
     }
 
     Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
