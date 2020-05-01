@@ -42,6 +42,8 @@ version("2.6.3")      { source sha256: "577fd3795f22b8d91c1d4e6733637b0394d4082d
 version("2.6.2")      { source sha256: "a0405d2bf2c2d2f332033b70dff354d224a864ab0edd462b7a413420453b49ab" }
 version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
 
+version("2.5.8")      { source sha256: "6c0bdf07876c69811a9e7dc237c43d40b1cb6369f68e0e17953d7279b524ad9a" }
+
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 # In order to pass notarization we need to sign any binaries and libraries included in the package.
