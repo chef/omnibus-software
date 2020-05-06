@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2020 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.24.1"
+default_version "2.26.2"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -30,6 +30,7 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
+version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
 version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
 version("2.23.0") { source sha256: "e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe" }
 version("2.19.2") { source sha256: "db893ad69c9ac9498b09677c5839787eba2eb3b7ef2bc30bfba7e62e77cf7850" }
