@@ -65,4 +65,20 @@ build do
   }.each do |target, to|
     copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
   end
+
+  # IIS 8.5 Server STIG finding V-76717 warns on this file because it ends with
+  # `.java`. From the file name it presumes it contains Java source code which
+  # should not be stored on a web server.
+  #
+  # https://www.stigviewer.com/stig/iis_8.5_server/2019-01-08/finding/V-76717
+  #
+  # Searching GitHub for software that may use this functionality with the
+  # the following keywords presented no interesting results
+  # - %language java extension:.y
+  # - bison "-L java"
+  # - bison "--language java"
+  #
+  # It is highly unlikely that a user would try to use our compiler stack on a
+  # Windows system to compile a Java program that used bison.
+  delete "#{install_dir}/embedded/share/bison/lalr1.java"
 end
