@@ -48,7 +48,7 @@ build do
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
   args << " CFLAGS='-qpic=small -qpic=large -O2 -g -D_ALL_SOURCE -D_LARGE_FILES'" if aix?
 
-  patch source: "makefile_take_env_vars.patch", plevel: 1, env: env
+  patch source: "makefile_take_env_vars.patch", plevel: 1, env: env if version == "1.0.6"
   patch source: "soname_install_dir-#{version}.patch", env: env if mac_os_x?
   patch source: "aix_makefile-#{version}.patch", env: env if aix?
 
