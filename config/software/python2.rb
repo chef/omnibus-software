@@ -18,7 +18,7 @@
 name "python2"
 
 if ohai["platform"] != "windows"
-  default_version "2.7.15"
+  default_version "2.7.18"
 
   dependency "ncurses"
   dependency "zlib"
@@ -27,7 +27,7 @@ if ohai["platform"] != "windows"
   dependency "libsqlite3"
 
   source url: "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
-         sha256: "18617d1f15a380a919d517630a9cd85ce17ea602f9bbdc58ddc672df4b0239db"
+         sha256: "da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814"
 
   relative_path "Python-#{version}"
 
@@ -74,7 +74,7 @@ else
 
   msi_name = "python-#{version}.amd64.msi"
   source url: "https://www.python.org/ftp/python/#{version}/#{msi_name}",
-         sha256: "5e85f3c4c209de98480acbf2ba2e71a907fd5567a838ad4b6748c76deb286ad7"
+         sha256: "b74a3afa1e0bf2a6fc566a7b70d15c9bfabba3756fb077797d16fffa27800c05"
 
   build do
     # In case Python is already installed on the build machine well... let's uninstall it
