@@ -101,6 +101,7 @@ build do
 
     # find the embedded ruby gems dir and clean it up for globbing
     files = %w{
+      **/.gitkeep
       .appveyor.yml
       .autotest
       .bnsignore
