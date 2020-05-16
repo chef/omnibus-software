@@ -178,7 +178,6 @@ build do
       TODO
       TODO*.md
       UPGRADING.md
-      VERSION
       appveyor.yml
       azure-pipelines.yml
       builder.blurb
