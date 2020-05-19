@@ -101,12 +101,15 @@ build do
 
     # find the embedded ruby gems dir and clean it up for globbing
     files = %w{
+      **/.gitkeep
       .appveyor.yml
       .autotest
+      .bnsignore
       .circleci
       .codeclimate.yml
       .concourse.yml
       .coveralls.yml
+      .dockerignore
       .document
       .ebert.yml
       .gemtest
@@ -117,26 +120,25 @@ build do
       .irbrc
       .kokoro
       .pelusa.yml
+      .repo-metadata.json
       .rock.yml
       .rspec
-      .rubocop_*.yml
       .rubocop.yml
+      .rubocop_*.yml
       .ruby-gemset
       .ruby-version
       .rvmrc
       .simplecov
       .tool-versions
-      Gemfile.travis
       .travis.yml
       .yardopts
+      .yardopts_guide
+      .yardopts_i18n
       .yardstick.yml
-      bundle_install_all_ruby_versions.sh
-      Appraisals
-      appveyor.yml
+      .zuul.yaml
       ARCHITECTURE.md
+      Appraisals
       CHANGELOG
-      release-script.txt
-      run_specs_all_ruby_versions.sh
       CHANGELOG.md
       CHANGELOG.rdoc
       CHANGELOG.txt
@@ -144,42 +146,51 @@ build do
       CHANGES.md
       CHANGES.txt
       CODE_OF_CONDUCT.md
-      Code-of-Conduct.md
-      concourse
       CONTRIBUTING.md
       CONTRIBUTING.rdoc
       CONTRIBUTORS.md
-      donate.png
+      Code-of-Conduct.md
       FAQ.txt
-      Guardfile
       GUIDE.md
+      Gemfile.travis
+      Guardfile
       HISTORY
       HISTORY.md
-      History.rdoc
       HISTORY.txt
+      History.rdoc
       INSTALL
       ISSUE_TEMPLATE.md
       JSON-Schema-Test-Suite
-      logo.png
+      MIGRATING.md
       Manifest
       Manifest.txt
-      MIGRATING.md
       NEWS.md
       README
-      README_INDEX.rdoc
       README.*md
-      readme.erb
+      README.euc
       README.markdown
       README.rdoc
       README.txt
-      README.euc
+      README_INDEX.rdoc
       SECURITY.md
       SPEC.rdoc
       THANKS.txt
-      travis_build_script.sh
       TODO
       TODO*.md
       UPGRADING.md
+      appveyor.yml
+      azure-pipelines.yml
+      builder.blurb
+      bundle_install_all_ruby_versions.sh
+      codecov.yml
+      concourse
+      docker-compose.yml
+      donate.png
+      logo.png
+      readme.erb
+      release-script.txt
+      run_specs_all_ruby_versions.sh
+      travis_build_script.sh
     }
 
     Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
