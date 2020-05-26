@@ -147,6 +147,13 @@ build do
     patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
   end
 
+  # rubygems 3.1.x perf improvements, this will fail once the rubygems patches are
+  # merged into mainline ruby 2.7
+  #
+  if version.satisfies?("~> 2.7") && version.satisfies?(">= 2.7.0")
+    patch source: "ruby-2.7.1-rubygemsperf.patch", plevel: 1, env: patch_env
+  end
+
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
   # this was a good idea, but it breaks our use case hard.  AIX cannot even
