@@ -37,6 +37,12 @@ build do
 
   configure "--enable-shared", env: env
 
+  # Windows had worse automake/libtool version issues.
+  # Just patch the output instead.
+  if windows?
+    patch source: "windows-configure.patch", plevel: 1, env: env
+  end
+
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end
