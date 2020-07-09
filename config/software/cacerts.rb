@@ -29,13 +29,21 @@ relative_path "cacerts-#{version}"
 build do
   ship_license "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
 
-  mkdir "#{install_dir}/embedded/ssl/certs"
+  if windows?
+    if with_python_runtime? "2"
+      mkdir "#{python_2_embedded}/ssl/certs"
+      copy "#{project_dir}/cacert.pem", "#{python_2_embedded}/ssl/certs/cacert.pem"
+      copy "#{project_dir}/cacert.pem", "#{python_2_embedded}/ssl/cert.pem"
+    end
+    if with_python_runtime? "3"
+      mkdir "#{python_3_embedded}/ssl/certs"
+      copy "#{project_dir}/cacert.pem", "#{python_3_embedded}/ssl/certs/cacert.pem"
+      copy "#{project_dir}/cacert.pem", "#{python_3_embedded}/ssl/cert.pem"
+    end
+  else
+    mkdir "#{install_dir}/embedded/ssl/certs"
+    copy "#{project_dir}/cacert.pem", "#{install_dir}/embedded/ssl/certs/cacert.pem"
 
-  copy "#{project_dir}/cacert.pem", "#{install_dir}/embedded/ssl/certs/cacert.pem"
-  copy "#{project_dir}/cacert.pem", "#{install_dir}/embedded/ssl/cert.pem" if windows?
-
-  # Windows does not support symlinks
-  unless windows?
     link "#{install_dir}/embedded/ssl/certs/cacert.pem", "#{install_dir}/embedded/ssl/cert.pem"
 
     block { File.chmod(0644, "#{install_dir}/embedded/ssl/certs/cacert.pem") }
