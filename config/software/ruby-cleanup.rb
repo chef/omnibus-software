@@ -101,7 +101,6 @@ build do
 
     # find the embedded ruby gems dir and clean it up for globbing
     files = %w{
-      **/.gitkeep
       .appveyor.yml
       .autotest
       .bnsignore
@@ -123,8 +122,8 @@ build do
       .repo-metadata.json
       .rock.yml
       .rspec
-      .rubocop.yml
       .rubocop_*.yml
+      .rubocop.yml
       .ruby-gemset
       .ruby-version
       .rvmrc
@@ -136,8 +135,19 @@ build do
       .yardopts_i18n
       .yardstick.yml
       .zuul.yaml
-      ARCHITECTURE.md
+      **/.gitkeep
+      *Upgrade.md
       Appraisals
+      appveyor.yml
+      ARCHITECTURE.md
+      autotest
+      autotest/*
+      azure-pipelines.yml
+      bench
+      benchmark
+      benchmarks
+      builder.blurb
+      bundle_install_all_ruby_versions.sh
       CHANGELOG
       CHANGELOG.md
       CHANGELOG.rdoc
@@ -146,51 +156,62 @@ build do
       CHANGES.md
       CHANGES.txt
       CODE_OF_CONDUCT.md
+      Code-of-Conduct.md
+      codecov.yml
+      concourse
       CONTRIBUTING.md
       CONTRIBUTING.rdoc
       CONTRIBUTORS.md
-      Code-of-Conduct.md
+      doc
+      doc-api
+      docker-compose.yml
+      Dockerfile*
+      docs
+      donate.png
+      ed25519.png
       FAQ.txt
-      GUIDE.md
+      features
+      frozen_old_spec
       Gemfile.travis
       Guardfile
+      GUIDE.md
       HISTORY
       HISTORY.md
-      HISTORY.txt
       History.rdoc
+      HISTORY.txt
       INSTALL
+      INSTALL.txt
       ISSUE_TEMPLATE.md
       JSON-Schema-Test-Suite
-      MIGRATING.md
+      logo.png
+      man
       Manifest
       Manifest.txt
+      MIGRATING.md
+      minitest
       NEWS.md
+      on_what.rb
       README
+      README_INDEX.rdoc
       README.*md
+      readme.erb
       README.euc
       README.markdown
       README.rdoc
       README.txt
-      README_INDEX.rdoc
+      release-script.txt
+      run_specs_all_ruby_versions.sh
+      samus.json
       SECURITY.md
       SPEC.rdoc
+      test
+      tests
       THANKS.txt
       TODO
       TODO*.md
-      UPGRADING.md
-      appveyor.yml
-      azure-pipelines.yml
-      builder.blurb
-      bundle_install_all_ruby_versions.sh
-      codecov.yml
-      concourse
-      docker-compose.yml
-      donate.png
-      logo.png
-      readme.erb
-      release-script.txt
-      run_specs_all_ruby_versions.sh
       travis_build_script.sh
+      UPGRADING.md
+      yard-template
     }
 
     Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
