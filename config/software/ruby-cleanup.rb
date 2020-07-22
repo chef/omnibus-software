@@ -135,6 +135,7 @@ build do
       .yardopts_i18n
       .yardstick.yml
       .zuul.yaml
+      *.blurb
       **/.gitkeep
       *Upgrade.md
       Appraisals
@@ -162,6 +163,7 @@ build do
       CONTRIBUTING.md
       CONTRIBUTING.rdoc
       CONTRIBUTORS.md
+      design_rationale.rb
       doc
       doc-api
       docker-compose.yml
@@ -172,6 +174,7 @@ build do
       FAQ.txt
       features
       frozen_old_spec
+      Gemfile.devtools
       Gemfile.travis
       Guardfile
       GUIDE.md
@@ -211,6 +214,7 @@ build do
       TODO*.md
       travis_build_script.sh
       UPGRADING.md
+      website
       yard-template
     }
 
