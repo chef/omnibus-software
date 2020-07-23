@@ -142,7 +142,6 @@ build do
       appveyor.yml
       ARCHITECTURE.md
       autotest
-      autotest/*
       azure-pipelines.yml
       bench
       benchmark
