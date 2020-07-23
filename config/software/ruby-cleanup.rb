@@ -147,7 +147,6 @@ build do
       bench
       benchmark
       benchmarks
-      builder.blurb
       bundle_install_all_ruby_versions.sh
       CHANGELOG
       CHANGELOG.md
@@ -176,6 +175,7 @@ build do
       frozen_old_spec
       Gemfile.devtools
       Gemfile.travis
+      Gemfile.noed25519*
       Guardfile
       GUIDE.md
       HISTORY
