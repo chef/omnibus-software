@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.26.2"
+default_version "2.28.0"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -30,6 +30,7 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
+version("2.28.0") { source sha256: "f914c60a874d466c1e18467c864a910dd4ea22281ba6d4d58077cb0c3f115170" }
 version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
 version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
 version("2.23.0") { source sha256: "e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe" }
@@ -51,16 +52,13 @@ build do
   # clever.
   make "distclean"
 
-  # AIX needs /opt/freeware/bin only for patch
+  # In 2.13.1 they introduced some sha code that wasn't super good at endianness
   if aix?
+    # AIX needs /opt/freeware/bin only for patch
     patch_env = env.dup
     patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
 
-    # In 2.13.1 they introduced some sha code that wasn't super good at
-    # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
-    if version.satisfies?(">2.10.2")
-      patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
-    end
+    patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
   end
 
   config_hash = {
