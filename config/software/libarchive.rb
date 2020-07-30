@@ -54,6 +54,7 @@ build do
     "--without-iconv",
     "--disable-bsdtar", # tar command line tool
     "--disable-bsdcpio", # cpio command line tool
+    "--disable-bsdcat", # cat w/ decompression command line tool
     "--without-openssl",
     "--without-zstd",
     "--without-lz4",
