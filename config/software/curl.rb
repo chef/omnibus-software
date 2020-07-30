@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2018 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ dependency "cacerts"
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
+
 version("7.71.1") { source sha256: "59ef1f73070de67b87032c72ee6037cedae71dcb1d7ef2d7f59487704aec069d" }
 version("7.68.0") { source sha256: "1dd7604e418b0b9a9077f62f763f6684c1b092a7bc17e3f354b8ad5c964d7358" }
 version("7.65.1") { source sha256: "821aeb78421375f70e55381c9ad2474bf279fc454b791b7e95fc83562951c690" }
@@ -57,13 +58,14 @@ build do
     # otherwise gawk will die during ./configure with variations on the theme of:
     # "/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded"
     env["LIBPATH"] = "/usr/lib:/lib"
-  elsif solaris_11?
-    # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris 11
+  elsif solaris?
+    # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
   end
 
   configure_options = [
     "--prefix=#{install_dir}/embedded",
+    "--disable-option-checking",
     "--disable-manual",
     "--disable-debug",
     "--enable-optimize",
@@ -80,6 +82,9 @@ build do
     "--without-libidn",
     "--without-gnutls",
     "--without-librtmp",
+    "--without-zsh-functions-dir",
+    "--without-fish-functions-dir",
+    "--disable-mqtt",
     "--with-ssl=#{install_dir}/embedded",
     "--with-zlib=#{install_dir}/embedded",
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
