@@ -56,6 +56,7 @@ build do
     "--disable-bsdcpio", # cpio command line tool
     "--without-openssl",
     "--without-zstd",
+    "--without-lz4",
   ]
 
   if s390x?
