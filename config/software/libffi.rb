@@ -22,8 +22,8 @@ license "MIT"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
-version("3.0.13") { source md5: "45f3b6dbc9ee7c7dfbbbc5feba571529" }
-version("3.2.1")  { source md5: "83b89587607e3eb65c70d361f13bab43" }
+version("3.2.1") { source sha256: "d06ebb8e1d9a22d19e38d63fdb83954253f39bedc5d46232a05645685722ca37" }
+version("3.3") { source sha256: "72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056" }
 
 source url: "ftp://sourceware.org/pub/libffi/libffi-#{version}.tar.gz"
 
