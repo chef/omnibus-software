@@ -46,7 +46,7 @@ build do
 
   env = with_standard_compiler_flags(with_embedded_path)
 
-  patch source: "libxslt-solaris-configure.patch", env: env if solaris? || omnios? || smartos?
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris2? || omnios? || smartos?
 
   if windows? && version.satisfies?(">=1.1.30")
     patch source: "libxslt-windows-relocate-1.1.30.patch", env: env
