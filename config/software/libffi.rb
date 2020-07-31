@@ -34,15 +34,20 @@ build do
 
   env["INSTALL"] = "/opt/freeware/bin/install" if aix?
 
-  configure_command = []
+  # disable option checking as disable-docs is 3.3+ only
+  configure_command = ["--disable-option-checking",
+                       "--disable-docs",
+  ]
 
   # AIX's old version of patch doesn't like the patch here
   unless aix?
-    # Patch to disable multi-os-directory via configure flag (don't use /lib64)
+    # disable multi-os-directory via configure flag (don't use /lib64)
     # Works on all platforms, and is compatible on 32bit platforms as well
+    configure_command << "--disable-multi-os-directory"
+
+    # add the --disable-multi-os-directory flag to 3.2.1
     if version == "3.2.1"
       patch source: "libffi-3.2.1-disable-multi-os-directory.patch", plevel: 1, env: env
-      configure_command << "--disable-multi-os-directory"
     end
   end
 
