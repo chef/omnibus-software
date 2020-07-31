@@ -15,7 +15,7 @@
 #
 
 name "nginx"
-default_version "1.14.2"
+default_version "1.18.0"
 
 dependency "pcre"
 dependency "openssl"
@@ -25,6 +25,7 @@ license_file "LICENSE"
 
 source url: "https://nginx.org/download/nginx-#{version}.tar.gz"
 
+version("1.18.0") { source sha256: "4c373e7ab5bf91d34a4f11a0c9496561061ba5eee6020db272a17a7228d35f99" }
 version("1.14.2") { source sha256: "002d9f6154e331886a2dd4e6065863c9c1cf8291ae97a1255308572c02be9797" }
 version("1.14.0") { source sha256: "5d15becbf69aba1fe33f8d416d97edd95ea8919ea9ac519eff9bafebb6022cb5" }
 version("1.12.2") { source sha256: "305f379da1d5fb5aefa79e45c829852ca6983c7cd2a79328f8e084a324cf0416" }
