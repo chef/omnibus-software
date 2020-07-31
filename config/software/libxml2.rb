@@ -42,6 +42,10 @@ build do
     "--without-python",
     "--without-icu",
     "--without-debug",
+    "--without-mem-debug",
+    "--without-run-debug",
+    "--without-legacy", # we don't need legacy interfaces
+    "--without-sax1", # we don't need legacy interfaces
   ]
 
   update_config_guess
