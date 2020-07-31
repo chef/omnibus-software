@@ -56,8 +56,8 @@ build do
     "--with-libxml-prefix=#{install_dir.sub("C:", "/C")}/embedded",
     "--without-python",
     "--without-crypto",
-    "--without-profiler"
-    "--without-debugger"
+    "--without-profiler",
+    "--without-debugger",
   ]
 
   configure(*configure_commands, env: env)
