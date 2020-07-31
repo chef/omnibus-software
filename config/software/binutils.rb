@@ -36,7 +36,8 @@ build do
   update_config_guess
 
   configure_command = ["./configure",
-                     "--prefix=#{install_dir}/embedded"]
+                     "--prefix=#{install_dir}/embedded",
+                     "--disable-libquadmath"]
 
   command configure_command.join(" "), env: env
 
