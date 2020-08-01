@@ -38,6 +38,7 @@ build do
   configure_command = [
     "--with-zlib=#{install_dir}/embedded",
     "--with-lzma=#{install_dir}/embedded",
+    "--with-sax1", # required for nokogiri to compile
     "--without-iconv",
     "--without-python",
     "--without-icu",
@@ -45,7 +46,6 @@ build do
     "--without-mem-debug",
     "--without-run-debug",
     "--without-legacy", # we don't need legacy interfaces
-    "--without-sax1", # we don't need legacy interfaces
     "--without-catalog",
     "--without-docbook",
   ]
