@@ -42,6 +42,11 @@ build do
     "--disable-dependency-tracking",
     "--disable-doc",
     "--disable-scripts",
+    "--disable-lzma-links",
+    "--disable-lzmainfo",
+    "--disable-lzmadec",
+    "--disable-xzdec",
+    "--disable-xz",
   ]
   config_command << "--disable-nls" if windows?
 
