@@ -239,4 +239,14 @@ build do
       raise "Multiple copies of bundler installed, ensure only 1 remains. Output:\n" + bundler
     end
   end
+
+  block "Remove empty gem dirs from Ruby's built-in gems" do
+    Dir.glob("#{install_dir}/embedded/lib/ruby/gems/*/gems/*".tr('\\', "/")).each do |d|
+      # skip unless the dir is empty
+      next unless Dir.children(d).empty?
+
+      puts "Deleting empty gem dir: #{d}"
+      FileUtils.rm_rf(d)
+    end
+  end
 end
