@@ -113,15 +113,6 @@ build do
     configure << "--with-luajit"
   end
 
-  # OpenResty 1.7 + RHEL5 Fixes:
-  # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
-  # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
-  if rhel? &&
-      platform_version.satisfies?("< 6.0") &&
-      version.satisfies?(">= 1.7")
-    configure << "--with-luajit-xcflags='-std=gnu99'"
-  end
-
   command configure.join(" "), env: env
 
   make "-j #{workers}", env: env
