@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,12 +24,7 @@ skip_transitive_dependency_licensing true
 
 dependency "m4"
 
-version "2.69" do
-  source sha256: "954bd69b391edc12d6a4a51a2dd1476543da5c6bbf05a95b59dc0dd6fd4c2969"
-end
-version "2.68" do
-  source sha256: "eff70a2916f2e2b3ed7fe8a2d7e63d72cf3a23684b56456b319c3ebce0705d99"
-end
+version("2.69") { source sha256: "954bd69b391edc12d6a4a51a2dd1476543da5c6bbf05a95b59dc0dd6fd4c2969" }
 
 source url: "https://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz"
 
