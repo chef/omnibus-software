@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ dependency "libiconv"
 version("4.9.2") { source sha256: "3e573826ec8b0d62d47821408fbc58721cd020df3e594cd492508de487a43b5e" }
 version("4.9.3") { source sha256: "e6c63b40877bc756cc7cfe6ca98013eb15f02ec6c8c2cf68e24533ad1203aaba" }
 version("5.3.0") { source sha256: "b7f5f56bd7db6f4fcaa95511dbf69fc596115b976b5352c06531c2fc95ece2f4" }
+version("9.3.0") { source sha256: "5258a9b6afe9463c2e56b9e8355b1a4bee125ca828b8078f910303bc2ef91fa6" }
 version("10.2.0") { source sha256: "27e879dccc639cd7b0cc08ed575c1669492579529b53c9ff27b0b96265fa867d" }
 
 source url: "https://mirrors.kernel.org/gnu/gcc/gcc-#{version}/gcc-#{version}.tar.gz"
