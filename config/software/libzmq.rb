@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2019, Chef Software Inc.
+# Copyright:: Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,21 +16,12 @@
 
 # We use the version in util-linux, and only build the libuuid subdirectory
 name "libzmq"
-default_version "2.1.11"
+default_version "4.0.7"
 
 license "LGPL-3.0"
 license_file "COPYING"
 license_file "COPYING.LESSER"
 skip_transitive_dependency_licensing true
-
-version "2.2.0" do
-  source md5: "1b11aae09b19d18276d0717b2ea288f6"
-  dependency "libuuid"
-end
-version "2.1.11" do
-  source md5: "f0f9fd62acb1f0869d7aa80379b1f6b7"
-  dependency "libuuid"
-end
 
 version "4.2.2" do
   source md5: "52499909b29604c1e47a86f1cb6a9115"
