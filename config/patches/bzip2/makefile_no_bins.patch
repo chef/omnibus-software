@@ -1,5 +1,5 @@
 --- bzip2-1.0.8/Makefile-orig	2019-07-13 10:50:05.000000000 -0700
-+++ bzip2-1.0.8/Makefile	2020-08-04 11:53:52.000000000 -0700
++++ bzip2-1.0.8/Makefile	2020-08-14 16:35:23.000000000 -0700
 @@ -35,14 +35,11 @@
        decompress.o \
        bzlib.o
@@ -16,7 +16,7 @@
  libbz2.a: $(OBJS)
  	rm -f libbz2.a
  	$(AR) cq libbz2.a $(OBJS)
-@@ -69,47 +66,21 @@
+@@ -69,47 +66,19 @@
  	cmp sample3.tst sample3.ref
  	@cat words3
  
@@ -27,11 +27,11 @@
  	if ( test ! -d $(PREFIX)/man ) ; then mkdir -p $(PREFIX)/man ; fi
  	if ( test ! -d $(PREFIX)/man/man1 ) ; then mkdir -p $(PREFIX)/man/man1 ; fi
  	if ( test ! -d $(PREFIX)/include ) ; then mkdir -p $(PREFIX)/include ; fi
- 	cp -f bzip2 $(PREFIX)/bin/bzip2
+-	cp -f bzip2 $(PREFIX)/bin/bzip2
 -	cp -f bzip2 $(PREFIX)/bin/bunzip2
 -	cp -f bzip2 $(PREFIX)/bin/bzcat
 -	cp -f bzip2recover $(PREFIX)/bin/bzip2recover
- 	chmod a+x $(PREFIX)/bin/bzip2
+-	chmod a+x $(PREFIX)/bin/bzip2
 -	chmod a+x $(PREFIX)/bin/bunzip2
 -	chmod a+x $(PREFIX)/bin/bzcat
 -	chmod a+x $(PREFIX)/bin/bzip2recover
@@ -66,7 +66,7 @@
  	sample1.rb2 sample2.rb2 sample3.rb2 \
  	sample1.tst sample2.tst sample3.tst
  
-@@ -130,8 +101,6 @@
+@@ -130,8 +99,6 @@
  	$(CC) $(CFLAGS) -c bzlib.c
  bzip2.o: bzip2.c
  	$(CC) $(CFLAGS) -c bzip2.c
