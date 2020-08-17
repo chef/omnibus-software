@@ -23,7 +23,7 @@ skip_transitive_dependency_licensing true
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2u"
+default_version "1.0.2v"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
@@ -76,6 +76,7 @@ build do
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
+    "no-unit-test",
     "no-comp",
     "no-idea",
     "no-mdc2",
