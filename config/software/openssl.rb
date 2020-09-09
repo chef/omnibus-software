@@ -23,29 +23,32 @@ skip_transitive_dependency_licensing true
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2v"
-
-# OpenSSL source ships with broken symlinks which windows doesn't allow.
-# Skip error checking.
-source url: "https://www.openssl.org/source/old/#{version[/\d*\.\d*\.\d*/, 0]}/openssl-#{version}.tar.gz", extract: :lax_tar
+default_version "1.0.2w"
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
 lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/engines"]
 
-version("1.1.1g") {
-  source sha256: "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46", \
-         url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
-}
+# OpenSSL source ships with broken symlinks which windows doesn't allow.
+# So skip error checking with `extract: :lax_tar`
+if version.satisfies?("> 1.0.2u") && version.satisfies?("< 1.1.0")
+  # 1.0.2u was the last public release of 1.0.2. Subsequent releases come from a support contract with OpenSSL Software Services
+  source url: "https://s3.amazonaws.com/chef-releng/openssl/openssl-#{version}.tar.gz", extract: :lax_tar
+else
+  # As of 2020-09-09 even openssl-1.0.0.tar.gz can be downloaded from /source/openssl-VERSION.tar.gz
+  # However, the latest releases are not in /source/old/VERSION/openssl-VERSION.tar.gz.
+  # Let's stick with the simpler one for now.
+  source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
+end
+
+version("1.1.1g") { source sha256: "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46" }
 version("1.1.1d") { source sha256: "1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2" }
 version("1.1.0i") { source sha256: "ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08c17b2cdadc118253cf99" }
 version("1.1.0l") { source sha256: "74a2f756c64fd7386a29184dc0344f4831192d61dc2481a93a4c5dd727f41148" }
 version("1.1.0h") { source sha256: "5835626cde9e99656585fc7aaa2302a73a7e1340bf8c14fd635a62c66802a517" }
 
-version("1.0.2v") {
-  source sha256: "eff6ba99e06d87dc9fb00094bd84840950c0cf99d58dee50b1a098356c82bc45", \
-         url: "https://s3.amazonaws.com/chef-releng/openssl/openssl-#{version}.tar.gz", extract: :lax_tar
-}
+version("1.0.2w") { source sha256: "a675ad1a9df59015cebcdf713de76a422347c5d99f11232fe75758143defd680" }
+version("1.0.2v") { source sha256: "eff6ba99e06d87dc9fb00094bd84840950c0cf99d58dee50b1a098356c82bc45" }
 version("1.0.2u") { source sha256: "ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16" }
 version("1.0.2t") { source sha256: "14cb464efe7ac6b54799b34456bd69558a749a4931ecfd9cf9f71d7881cac7bc" }
 version("1.0.2s") { source sha256: "cabd5c9492825ce5bd23f3c3aeed6a97f8142f606d893df216411f07d1abab96" }
