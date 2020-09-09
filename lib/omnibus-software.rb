@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-require "pathname"
+require "pathname" unless defined?(Pathname)
 require "omnibus"
 require "highline"
 
