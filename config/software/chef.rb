@@ -62,7 +62,7 @@ build do
 
   bundle "install --without #{excluded_groups.join(" ")}", env: env
 
-  # use the rake install task to build/install chef-config
+  # use the rake install task to build/install chef-config/chef-utils
   bundle "exec rake install", env: env
 
   gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
@@ -83,17 +83,10 @@ build do
   end
 
   block do
-    if Dir.exist?("#{project_dir}/chef-bin")
-      # Chef >= 15
-      appbundle "chef", lockdir: project_dir, gem: "inspec-core-bin", without: excluded_groups, env: env
-      appbundle "chef", lockdir: project_dir, gem: "chef-bin", without: excluded_groups, env: env
-      appbundle "chef", lockdir: project_dir, gem: "chef", without: excluded_groups, env: env
-      appbundle "chef", lockdir: project_dir, gem: "ohai", without: excluded_groups, env: env
-    else
-      # Chef < 15
-      appbundle "chef", env: env
-      appbundle "ohai", env: env
-    end
+    appbundle "chef", lockdir: project_dir, gem: "inspec-core-bin", without: excluded_groups, env: env
+    appbundle "chef", lockdir: project_dir, gem: "chef-bin", without: excluded_groups, env: env
+    appbundle "chef", lockdir: project_dir, gem: "chef", without: excluded_groups, env: env
+    appbundle "chef", lockdir: project_dir, gem: "ohai", without: excluded_groups, env: env
   end
 
   # The rubyzip gem ships with some test fixture data compressed in a format Apple's notarization service
