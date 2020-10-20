@@ -20,14 +20,13 @@ license "MPL-2.0"
 license_file "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
 skip_transitive_dependency_licensing true
 
-default_version "2020-07-22"
+default_version "2020-10-14"
 
 source url: "https://curl.haxx.se/ca/cacert-#{version}.pem"
 
 version("2020-10-14") { source sha256: "bb28d145ed1a4ee67253d8ddb11268069c9dafe3db25a9eee654974c4e43eee5" }
 version("2020-07-22") { source sha256: "2782f0f8e89c786f40240fc1916677be660fb8d8e25dede50c9f6f7b0c2c2178" }
 version("2020-06-24") { source sha256: "726889705b00f736200ed7999f7a50021b8735d53228d679c4e6665aa3b44987" }
-version("2019-10-16") { source sha256: "5cd8052fcf548ba7e08899d8458a32942bf70450c9af67a0850b4c711804a2e4" }
 
 relative_path "cacerts-#{version}"
 
