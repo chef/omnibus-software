@@ -15,16 +15,20 @@
 #
 
 name "sqitch"
-default_version "0.973"
+default_version "1.1.0"
 
 license "MIT"
-license_file "https://raw.githubusercontent.com/theory/sqitch/master/README.md"
+license_file "https://raw.githubusercontent.com/sqitchers/sqitch/develop/README.md"
 
 dependency "perl"
 dependency "cpanminus"
 
 # install a LGPL-licensed version of libintl-perl:
 dependency "libintl-perl"
+
+version "1.1.0" do
+  source md5: "fc78f2b8bd66fbaeed50a6163d948d0d"
+end
 
 version "0.9994" do
   source md5: "7227dfcd141440f23d99f01a2b01e0f2"
@@ -34,9 +38,9 @@ version "0.973" do
   source md5: "0994e9f906a7a4a2e97049c8dbaef584"
 end
 
-source url: "https://github.com/theory/#{name}/releases/download/v#{version}/app-sqitch-#{version}.tar.gz"
+source url: "https://github.com/sqitchers/#{name}/releases/download/v#{version}/App-Sqitch-v#{version}.tar.gz"
 
-relative_path "App-Sqitch-#{version}"
+relative_path "App-Sqitch-v#{version}"
 
 # See https://github.com/theory/sqitch for more
 build do
@@ -46,7 +50,6 @@ build do
   # decide whether to use the -XS package or a pure perl
   # implementation.
   env["PERL_MM_OPT"] = "PUREPERL_ONLY=1"
-  command "cpanm Moose", env: env
   command "perl Build.PL", env: env
   command "./Build installdeps --cpan_client 'cpanm -v --notest'", env: env
   command "./Build", env: env
@@ -82,3 +85,4 @@ build do
   end
 
 end
+
