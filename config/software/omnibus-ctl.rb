@@ -15,7 +15,7 @@
 #
 
 name "omnibus-ctl"
-default_version "0.7.0"
+default_version "0.3.6"
 
 license "Apache-2.0"
 license_file "https://raw.githubusercontent.com/chef/omnibus-ctl/master/LICENSE"
@@ -24,7 +24,7 @@ skip_transitive_dependency_licensing true
 
 dependency "ruby"
 
-source git: "https://github.com/tehlers320/omnibus-ctl.git"
+source git: "https://github.com/chef/omnibus-ctl.git"
 
 relative_path "omnibus-ctl"
 
