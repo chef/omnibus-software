@@ -15,7 +15,7 @@
 #
 
 name "sqitch"
-default_version "0.973"
+default_version "0.9994"
 
 license "MIT"
 license_file "https://raw.githubusercontent.com/theory/sqitch/master/README.md"
@@ -46,7 +46,6 @@ build do
   # decide whether to use the -XS package or a pure perl
   # implementation.
   env["PERL_MM_OPT"] = "PUREPERL_ONLY=1"
-  command "cpanm Moose", env: env
   command "perl Build.PL", env: env
   command "./Build installdeps --cpan_client 'cpanm -v --notest'", env: env
   command "./Build", env: env
