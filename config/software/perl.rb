@@ -63,11 +63,6 @@ build do
     configure_command << "-Duse64bitall"
   end
 
-  # On Cisco IOS-XR, we don't want libssp as a dependency
-  if ios_xr?
-    configure_command << "-Accflags=-fno-stack-protector"
-  end
-
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   # using the install.perl target lets
