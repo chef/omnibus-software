@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
   # Software definitions in this bundle require at least this version of
   # omnibus because of the dsl methods they are using.
-  s.add_dependency "omnibus", ">= 5.6.1"
+  s.add_dependency "omnibus", ">= 6.0.0"
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]

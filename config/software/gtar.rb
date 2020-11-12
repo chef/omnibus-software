@@ -37,21 +37,19 @@ build do
   ]
 
   # First off let's disable selinux support, as it causes issues on some platforms
-  # We're not doing it on every platform because this breaks on OSX
+  # We're not doing it on every platform because this breaks on macOS
   unless osx?
     configure_command << " --without-selinux"
   end
 
-  if nexus? || ios_xr? || s390x?
-    # ios_xr and nexus don't support posix acls
+  if s390x?
+    # s390x doesn't support posix acls
     configure_command << " --without-posix-acls"
-  elsif aix?
-    if version.satisfies?("> 1.28") && version.satisfies?("< 1.32")
-      # xlc doesn't allow duplicate entries in case statements
-      patch_env = env.dup
-      patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
-      patch source: "aix_extra_case.patch", plevel: 0, env: patch_env
-    end
+  elsif aix? && version.satisfies?("< 1.32")
+    # xlc doesn't allow duplicate entries in case statements
+    patch_env = env.dup
+    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
+    patch source: "aix_extra_case.patch", plevel: 0, env: patch_env
   end
 
   command configure_command.join(" "), env: env

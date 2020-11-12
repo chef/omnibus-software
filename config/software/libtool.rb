@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2019 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ build do
 
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
-  elsif solaris_11?
+  elsif solaris2?
     # We hit this bug on Solaris11 platforms bug#14291: libtool 2.4.2 fails to build due to macro_revision  reversion
     # The problem occurs with LANG=en_US.UTF-8 but not with LANG=C
     env["LANG"] = "C"

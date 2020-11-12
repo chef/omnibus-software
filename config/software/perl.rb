@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ build do
 
   patch source: "perl-#{version}-remove_lnsl.patch", plevel: 1, env: env
 
-  if solaris_11?
+  if solaris2?
     cc_command = "-Dcc='gcc -m64 -static-libgcc'"
   elsif aix?
     cc_command = "-Dcc='/opt/IBM/xlc/13.1.0/bin/cc_r -q64'"
@@ -61,11 +61,6 @@ build do
   if aix?
     configure_command << "-Dmake=gmake"
     configure_command << "-Duse64bitall"
-  end
-
-  # On Cisco IOS-XR, we don't want libssp as a dependency
-  if ios_xr?
-    configure_command << "-Accflags=-fno-stack-protector"
   end
 
   command configure_command.join(" "), env: env
