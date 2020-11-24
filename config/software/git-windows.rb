@@ -15,7 +15,7 @@
 #
 
 name "git-windows"
-default_version "2.28.0"
+default_version "2.29.2"
 
 license "LGPL-2.1"
 # the license file does not ship in the portable git package so pull from the source repo
@@ -34,17 +34,13 @@ arch_suffix = windows_arch_i386? ? "32" : "64"
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
 
 if windows_arch_i386?
+  version("2.29.2") { source sha256: "7479d7de99175e6fc5277fda14af240089bbd96fd60603e517dfb960213a679d" }
   version("2.28.0") { source sha256: "11b854e9246057a22014dbf349adfc160ffa740dba7af0dbd42d642661b2cc7f" }
   version("2.27.0") { source sha256: "8cbe1e3b57eb9d02e92cff12089454f2cf090c02958080d62e199ef8764542d3" }
-  version("2.26.2") { source sha256: "e18f75db932ab314263c5f7fca7a9d638df3539629dbf5248a4089beb4e03685" }
-  version("2.25.0") { source sha256: "5ad97ff1e806815aa461ab39794e42455f19c9a6ead08ca0e5b8f2bb085214a6" }
-  version("2.23.0") { source sha256: "33388028d45c685201490b0c621d2dbfde89d902a7257771f18de9bb37ae1b9a" }
 else
+  version("2.29.2") { source sha256: "035bd5e46f1ee797b012801b3ea6c07327ce29720062423d057d4c2d41b92355" }
   version("2.28.0") { source sha256: "0cd682188b76eeb3a5da3a466d4095d2ccd892e07aae5871c45bf8c43cdb3b13" }
   version("2.27.0") { source sha256: "0fd2218ba73e07e5a664d06e0ce514edcd241a2de0ba29ceca123e7d36aa8f58" }
-  version("2.26.2") { source sha256: "dd36f76a815b993165e67ad3cbc8f5b2976e5757a0c808a4a92fb72d1000e1c8" }
-  version("2.25.0") { source sha256: "c191542f68e788f614f8a676460281399af0c9d32f19a5d208e9621dd46264fb" }
-  version("2.23.0") { source sha256: "501d8be861ebb8694df3f47f1f673996b1d1672e12559d4a07fae7a2eca3afc7" }
 end
 
 # The git portable archives come with their own copy of posix related tools
