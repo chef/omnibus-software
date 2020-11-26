@@ -38,7 +38,7 @@ if windows_arch_i386?
   version("2.28.0") { source sha256: "11b854e9246057a22014dbf349adfc160ffa740dba7af0dbd42d642661b2cc7f" }
   version("2.27.0") { source sha256: "8cbe1e3b57eb9d02e92cff12089454f2cf090c02958080d62e199ef8764542d3" }
 else
-  version("2.29.2") { source sha256: "035bd5e46f1ee797b012801b3ea6c07327ce29720062423d057d4c2d41b92355" }
+  version("2.29.2") { source sha256: "7d114e81a541536b025313efcdf6feea1e973323f2b8f53995721bfd511139bd" }
   version("2.28.0") { source sha256: "0cd682188b76eeb3a5da3a466d4095d2ccd892e07aae5871c45bf8c43cdb3b13" }
   version("2.27.0") { source sha256: "0fd2218ba73e07e5a664d06e0ce514edcd241a2de0ba29ceca123e7d36aa8f58" }
 end
