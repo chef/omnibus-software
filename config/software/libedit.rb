@@ -24,6 +24,7 @@ skip_transitive_dependency_licensing true
 dependency "ncurses"
 dependency "config_guess"
 
+version("20191231-3.1") { source md5: "2e22a51131de94ff2df24901f7cfe416" }
 version("20150325-3.1") { source md5: "43cdb5df3061d78b5e9d59109871b4f6" }
 version("20141030-3.1") { source md5: "5f18e63346d31b877cdf36b5c59b810b" }
 version("20130712-3.1") { source md5: "0891336c697362727a1fa7e60c5cb96c" }
