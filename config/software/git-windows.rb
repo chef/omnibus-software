@@ -34,7 +34,7 @@ arch_suffix = windows_arch_i386? ? "32" : "64"
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
 
 if windows_arch_i386?
-  version("2.29.2") { source sha256: "7479d7de99175e6fc5277fda14af240089bbd96fd60603e517dfb960213a679d" }
+  version("2.29.2") { source sha256: "5e4dc60d3ee143585da03843613bc4d9032b1b6f4d3a2473ef6d9adc8e4c71c0" }
   version("2.28.0") { source sha256: "11b854e9246057a22014dbf349adfc160ffa740dba7af0dbd42d642661b2cc7f" }
   version("2.27.0") { source sha256: "8cbe1e3b57eb9d02e92cff12089454f2cf090c02958080d62e199ef8764542d3" }
 else
