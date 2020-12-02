@@ -24,15 +24,13 @@ license "BSD-2-Clause"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
+version("3.5.0") { source sha256: "fc4bc301188376adc18780d35602454cc8df6396e1b040fbcbb0d4c0469faf54" }
 version("3.4.3") { source sha256: "ee1e749213c108cb60d53147f18c31a73d6717d7e3d2481c157e1b34c881ea39" }
 version("3.4.2") { source sha256: "b60d58d12632ecf1e8fad7316dc82c6b9738a35625746b47ecdcaf4aed176176" }
 version("3.4.1") { source sha256: "fcf87f3ad8db2e4f74f32526dee62dd1fb9894782b0a503a89c9d7a70a235191" }
 version("3.4.0") { source sha256: "8643d50ed40c759f5412a3af4e353cffbce4fdf3b5cf321cb72cacf06b2d825e" }
-version("3.3.3") { source sha256: "ba7eb1781c9fbbae178c4c6bad1c6eb08edab9a1496c64833d1715d022b30e2e" }
-version("3.3.2") { source sha256: "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce" }
-version("3.1.2") { source sha256: "eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e" }
 
-source url: "http://www.libarchive.org/downloads/libarchive-#{version}.tar.gz"
+source url: "https://github.com/libarchive/libarchive/releases/download/v#{version}/libarchive-#{version}.tar.gz"
 
 relative_path "libarchive-#{version}"
 
