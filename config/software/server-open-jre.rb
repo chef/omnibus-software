@@ -37,8 +37,8 @@ whitelist_file "jre/bin/appletviewer"
 license_warning = "By including the JRE, you accept the terms of AdoptOpenJRE."
 
 version "11.0.9.1+1" do
-  source url: "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.9.1%2B1/OpenJDK11U-jre_x64_linux_hotspot_11.0.9.1+1.tar.gz",
-  sha256: "74b493dd8a884dcbee29682ead51b182d9d3e52b40c3d4cbb3167c2fd0063503",
+  source url: "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.9.1%2B1/OpenJDK11U-jre_x64_linux_hotspot_11.0.9.1_1.tar.gz",
+  sha256: "73ce5ce03d2efb097b561ae894903cdab06b8d58fbc2697a5abe44ccd8ecc2e5",
   warning: license_warning,
   unsafe: true
 end
