@@ -29,6 +29,14 @@ dependency "libossp-uuid"
 dependency "config_guess"
 
 #
+# Version 12
+#
+version "12.0" do
+  source sha256: "cda2397215f758b793f741c86be05468257b0e6bcb1a6113882ab5d0df0855c6",
+  url: "https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.bz2"
+end
+
+#
 # Version 9.6
 #
 version "9.6.10" do
