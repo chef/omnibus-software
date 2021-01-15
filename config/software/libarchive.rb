@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2020 Chef Software, Inc.
+# Copyright 2014-2021 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,7 +31,12 @@ version("3.4.2") { source sha256: "b60d58d12632ecf1e8fad7316dc82c6b9738a35625746
 version("3.4.1") { source sha256: "fcf87f3ad8db2e4f74f32526dee62dd1fb9894782b0a503a89c9d7a70a235191" }
 version("3.4.0") { source sha256: "8643d50ed40c759f5412a3af4e353cffbce4fdf3b5cf321cb72cacf06b2d825e" }
 
-source url: "https://github.com/libarchive/libarchive/releases/download/v#{version}/libarchive-#{version}.tar.gz"
+# 3.5.1 no longer includes the "v" in the path
+if version.satisfies?(">= 3.5.1")
+  source url: "https://github.com/libarchive/libarchive/releases/download/#{version}/libarchive-#{version}.tar.gz"
+else
+  source url: "https://github.com/libarchive/libarchive/releases/download/v#{version}/libarchive-#{version}.tar.gz"
+end
 
 relative_path "libarchive-#{version}"
 
