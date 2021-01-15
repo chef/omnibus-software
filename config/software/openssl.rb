@@ -64,6 +64,8 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
+  elsif mac_os_x? && arm?
+    env["CFLAGS"] << " -Qunused-arguments"
   elsif freebsd?
     # Should this just be in standard_compiler_flags?
     env["LDFLAGS"] += " -Wl,-rpath,#{install_dir}/embedded/lib"
@@ -97,7 +99,7 @@ build do
     if aix?
       "perl ./Configure aix64-cc"
     elsif mac_os_x?
-      "./Configure darwin64-x86_64-cc"
+      intel? ? "./Configure darwin64-x86_64-cc" : "./Configure darwin64-arm64-cc no-asm"
     elsif smartos?
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
     elsif omnios?
@@ -137,6 +139,10 @@ build do
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
   elsif version.start_with? "1.1"
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
+  end
+
+  if mac_os_x? && arm?
+    patch source: "openssl-1.0.2x-darwin-arm64.patch"
   end
 
   if windows?
