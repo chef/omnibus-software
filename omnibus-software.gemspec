@@ -1,5 +1,4 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path("lib", __dir__)
 require "omnibus-software/version"
 
 Gem::Specification.new do |s|
@@ -13,7 +12,7 @@ Gem::Specification.new do |s|
 
   # Software definitions in this bundle require at least this version of
   # omnibus because of the dsl methods they are using.
-  s.add_dependency "omnibus", ">= 5.6.1"
+  s.add_dependency "omnibus", ">= 8.0.0"
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]

@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-require "pathname"
+require "pathname" unless defined?(Pathname)
 require "omnibus"
 require "highline"
 
@@ -26,7 +26,7 @@ module OmnibusSoftware
     # @return [Pathname]
     #
     def root
-      @root ||= Pathname.new(File.expand_path("../../", __FILE__))
+      @root ||= Pathname.new(File.expand_path("..", __dir__))
     end
 
     #

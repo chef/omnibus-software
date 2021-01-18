@@ -27,14 +27,9 @@ skip_transitive_dependency_licensing true
 dependency "zlib"
 dependency "openssl"
 
-version("1.0.6") do
-  source sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
-  source url: "https://astuteinternet.dl.sourceforge.net/project/bzip2/bzip2-#{version}.tar.gz"
-end
-version("1.0.8") do
-  source sha256: "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
-  source url: "https://fossies.org/linux/misc/#{name}-#{version}.tar.gz"
-end
+version("1.0.8") { source sha256: "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269" }
+
+source url: "https://fossies.org/linux/misc/#{name}-#{version}.tar.gz"
 
 relative_path "#{name}-#{version}"
 
@@ -49,8 +44,9 @@ build do
   args << " CFLAGS='-qpic=small -qpic=large -O2 -g -D_ALL_SOURCE -D_LARGE_FILES'" if aix?
 
   patch source: "makefile_take_env_vars.patch", plevel: 1, env: env
-  patch source: "soname_install_dir-#{version}.patch", env: env if mac_os_x?
-  patch source: "aix_makefile-#{version}.patch", env: env if aix?
+  patch source: "makefile_no_bins.patch", plevel: 1, env: env # removes various binaries we don't want to ship
+  patch source: "soname_install_dir.patch", env: env if mac_os_x?
+  patch source: "aix_makefile.patch", env: env if aix?
 
   make "#{args}", env: env
   make "#{args} -f Makefile-libbz2_so", env: env

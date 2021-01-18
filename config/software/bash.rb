@@ -36,7 +36,7 @@ relative_path "bash-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-# We do not install bashbug in macos as it fails Notarization
+  # We do not install bashbug in macos as it fails Notarization
   patch source: "mac_Makefile.patch", plevel: 0, env: env if mac_os_x?
 
   configure_command = ["./configure",

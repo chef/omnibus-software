@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2019 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 version("1.4.18") { source sha256: "ab2633921a5cd38e48797bf5521ad259bdc4b979078034a3b790d7fec5493fab" }
-version("1.4.17") { source sha256: "3ce725133ee552b8b4baca7837fb772940b25e81b2a9dc92537aeaf733538c9e" }
 
 source url: "https://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz"
 

@@ -79,7 +79,7 @@ build do
   end
 
   if mac_os_x? ||
-    # Clang became the default compiler in FreeBSD 10+
+      # Clang became the default compiler in FreeBSD 10+
       (freebsd? && ohai["os_version"].to_i >= 1000024)
     # References:
     # https://github.com/Homebrew/homebrew-dupes/issues/43

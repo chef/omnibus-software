@@ -28,6 +28,7 @@ dependency "lua" if ppc64? || ppc64le? || s390x?
 source_package_name = "openresty"
 
 # Versions above 1.11.2.2 require SSE4.2 CPU support
+version("1.17.8.2") { source sha256: "2f321ab11cb228117c840168f37094ee97f8f0316eac413766305409c7e023a0" }
 version("1.15.8.1") { source sha256: "89a1238ca177692d6903c0adbea5bdf2a0b82c383662a73c03ebf5ef9f570842" }
 version("1.13.6.2") { source sha256: "946e1958273032db43833982e2cec0766154a9b5cb8e67868944113208ff2942" }
 version("1.11.2.5") { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f57820aa8e92d7888d8ad657b9" }
@@ -111,15 +112,6 @@ build do
     end
   else
     configure << "--with-luajit"
-  end
-
-  # OpenResty 1.7 + RHEL5 Fixes:
-  # According to https://github.com/openresty/ngx_openresty/issues/85, OpenResty
-  # fails to compile on RHEL5 without the "--with-luajit-xcflags='-std=gnu99'" flags
-  if rhel? &&
-      platform_version.satisfies?("< 6.0") &&
-      version.satisfies?(">= 1.7")
-    configure << "--with-luajit-xcflags='-std=gnu99'"
   end
 
   command configure.join(" "), env: env

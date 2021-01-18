@@ -26,6 +26,8 @@ default_version "1.0.0"
 license :project_license
 skip_transitive_dependency_licensing true
 
+dependency "ruby"
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
@@ -101,29 +103,52 @@ build do
 
     # find the embedded ruby gems dir and clean it up for globbing
     files = %w{
+      .appveyor.yml
+      .autotest
+      .bnsignore
+      .circleci
       .codeclimate.yml
       .concourse.yml
       .coveralls.yml
+      .dockerignore
       .document
       .ebert.yml
       .gemtest
+      .github
       .gitignore
       .gitmodules
       .hound.yml
       .irbrc
+      .kokoro
       .pelusa.yml
+      .repo-metadata.json
       .rock.yml
       .rspec
-      .rubocop.yml
       .rubocop_*.yml
+      .rubocop.yml
       .ruby-gemset
       .ruby-version
       .rvmrc
+      .simplecov
+      .tool-versions
       .travis.yml
       .yardopts
+      .yardopts_guide
+      .yardopts_i18n
       .yardstick.yml
+      .zuul.yaml
+      *.blurb
+      **/.gitkeep
+      *Upgrade.md
+      Appraisals
       appveyor.yml
       ARCHITECTURE.md
+      autotest
+      azure-pipelines.yml
+      bench
+      benchmark
+      benchmarks
+      bundle_install_all_ruby_versions.sh
       CHANGELOG
       CHANGELOG.md
       CHANGELOG.rdoc
@@ -131,12 +156,27 @@ build do
       CHANGES
       CHANGES.md
       CHANGES.txt
-      Code-of-Conduct.md
       CODE_OF_CONDUCT.md
+      Code-of-Conduct.md
+      codecov.yml
+      concourse
       CONTRIBUTING.md
       CONTRIBUTING.rdoc
       CONTRIBUTORS.md
+      design_rationale.rb
+      doc
+      doc-api
+      docker-compose.yml
+      Dockerfile*
+      docs
+      donate.png
+      ed25519.png
       FAQ.txt
+      features
+      frozen_old_spec
+      Gemfile.devtools
+      Gemfile.travis
+      Gemfile.noed25519*
       Guardfile
       GUIDE.md
       HISTORY
@@ -144,22 +184,39 @@ build do
       History.rdoc
       HISTORY.txt
       INSTALL
+      INSTALL.txt
       ISSUE_TEMPLATE.md
       JSON-Schema-Test-Suite
+      logo.png
+      man
       Manifest
       Manifest.txt
       MIGRATING.md
+      minitest
+      NEWS.md
+      on_what.rb
       README
+      README_INDEX.rdoc
       README.*md
       readme.erb
+      README.euc
       README.markdown
       README.rdoc
       README.txt
-      README_INDEX.rdoc
+      release-script.txt
+      run_specs_all_ruby_versions.sh
+      samus.json
+      SECURITY.md
+      SPEC.rdoc
+      test
+      tests
       THANKS.txt
       TODO
       TODO*.md
+      travis_build_script.sh
       UPGRADING.md
+      website
+      yard-template
     }
 
     Dir.glob(Dir.glob("#{gemdir}/gems/*/{#{files.join(",")}}")).each do |f|
@@ -182,6 +239,16 @@ build do
     bundler = shellout!("#{install_dir}/embedded/bin/gem list \"^bundler$\"", env: env).stdout.chomp
     if bundler.include?(",")
       raise "Multiple copies of bundler installed, ensure only 1 remains. Output:\n" + bundler
+    end
+  end
+
+  block "Remove empty gem dirs from Ruby's built-in gems" do
+    Dir.glob("#{install_dir}/embedded/lib/ruby/gems/*/gems/*".tr('\\', "/")).each do |d|
+      # skip unless the dir is empty
+      next unless Dir.children(d).empty?
+
+      puts "Deleting empty gem dir: #{d}"
+      FileUtils.rm_rf(d)
     end
   end
 end

@@ -7,7 +7,3 @@ group :development, :test do
   gem "rake"
   gem "chefstyle"
 end
-
-if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.5")
-  gem "ohai", "<15"
-end

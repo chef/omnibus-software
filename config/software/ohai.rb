@@ -1,5 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,8 @@ dependency "ruby"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without development docs ci", env: env
+  # The --without groups here MUST match groups in https://github.com/chef/ohai/blob/master/Gemfile
+  bundle "install --without development docs debug", env: env
 
   gem "build ohai.gemspec", env: env
   gem "install ohai*.gem" \

@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2020 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.24.1"
+default_version "2.29.2"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -30,12 +30,9 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
-version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
-version("2.23.0") { source sha256: "e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe" }
-version("2.19.2") { source sha256: "db893ad69c9ac9498b09677c5839787eba2eb3b7ef2bc30bfba7e62e77cf7850" }
-version("2.17.1") { source sha256: "ec6452f0c8d5c1f3bcceabd7070b8a8a5eea11d4e2a04955c139b5065fd7d09a" }
-version("2.15.1") { source sha256: "85fca8781a83c96ba6db384cc1aa6a5ee1e344746bafac1cbe1f0fe6d1109c84" }
-version("2.14.1") { source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079806b58321c2cf85a4464" }
+version("2.29.2") { source sha256: "869a121e1d75e4c28213df03d204156a17f02fce2dc77be9795b327830f54195" }
+version("2.28.0") { source sha256: "f914c60a874d466c1e18467c864a910dd4ea22281ba6d4d58077cb0c3f115170" }
+version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
 
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
@@ -50,16 +47,13 @@ build do
   # clever.
   make "distclean"
 
-  # AIX needs /opt/freeware/bin only for patch
+  # In 2.13.1 they introduced some sha code that wasn't super good at endianness
   if aix?
+    # AIX needs /opt/freeware/bin only for patch
     patch_env = env.dup
     patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
 
-    # In 2.13.1 they introduced some sha code that wasn't super good at
-    # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
-    if version.satisfies?(">2.10.2")
-      patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
-    end
+    patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
   end
 
   config_hash = {
