@@ -54,7 +54,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # The --without groups here MUST match groups in https://github.com/chef/chef/blob/master/Gemfile
-  excluded_groups = %w{docgen chefstyle}
+  excluded_groups = %w{docgen chefstyle development test}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
   excluded_groups << "ed25519" if solaris2?
