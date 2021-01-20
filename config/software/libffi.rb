@@ -44,6 +44,8 @@ build do
     # disable multi-os-directory via configure flag (don't use /lib64)
     # Works on all platforms, and is compatible on 32bit platforms as well
     configure_command << "--disable-multi-os-directory"
+    # Workaround issue on Apple M1 https://github.com/libffi/libffi/issues/571
+    configure_command << "--build=aarch64-apple-darwin20.2.0" if mac_os_x? && arm?
 
     # add the --disable-multi-os-directory flag to 3.2.1
     if version == "3.2.1"
