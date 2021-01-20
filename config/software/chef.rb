@@ -62,7 +62,7 @@ build do
   bundle "install --without #{excluded_groups.join(" ")}", env: env
 
   # use the rake install task to build/install chef-config/chef-utils
-  bundle "exec rake install", env: env
+  command "rake install", env: env
 
   gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
 
