@@ -61,6 +61,18 @@ build do
 
   bundle "install --without #{excluded_groups.join(" ")}", env: env
 
+  block do
+    # Install gems from git repos.  This makes the assumption that there is a <gemname>.gemspec and
+    # you can simply gem build + gem install the resulting gem, so nothing fancy.  This does not use
+    # rake install since we need --conservative --minimal-deps in order to not install duplicate gems.
+    #
+    Dir["#{install_dir.tr('\\', "/")}/embedded/lib/ruby/gems/*/bundler/gems/*"].each do |gempath|
+      gemname = File.basename(gempath).gsub(/-[A-Fa-f0-9]{12}$/, "")
+      gem "build #{gemname}.gemspec", env: env, cwd: gempath
+      gem "install #{gemname}*.gem --conservative --minimal-deps --no-document", env: env, cwd: gempath
+    end
+  end
+
   # use the rake install task to build/install chef-config/chef-utils
   command "rake install", env: env
 
@@ -79,18 +91,6 @@ build do
   if windows?
     mkdir "#{install_dir}/modules/chef"
     copy "distro/powershell/chef/*", "#{install_dir}/modules/chef"
-  end
-
-  block do
-    # Install gems from git repos.  This makes the assumption that there is a <gemname>.gemspec and
-    # you can simply gem build + gem install the resulting gem, so nothing fancy.  This does not use
-    # rake install since we need --conservative --minimal-deps in order to not install duplicate gems.
-    #
-    Dir["#{install_dir.tr('\\', "/")}/embedded/lib/ruby/gems/*/bundler/gems/*"].each do |gempath|
-      gemname = File.basename(gempath).gsub(/-[A-Fa-f0-9]{12}$/, "")
-      gem "build #{gemname}.gemspec", env: env, cwd: gempath
-      gem "install #{gemname}*.gem --conservative --minimal-deps --no-document", env: env, cwd: gempath
-    end
   end
 
   block do
