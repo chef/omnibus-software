@@ -62,6 +62,7 @@ build do
   bundle "install --without #{excluded_groups.join(" ")}", env: env
 
   block do
+    puts "WHY IS THIS NOT RUNNING??????!!?!?"
     # Install gems from git repos.  This makes the assumption that there is a <gemname>.gemspec and
     # you can simply gem build + gem install the resulting gem, so nothing fancy.  This does not use
     # rake install since we need --conservative --minimal-deps in order to not install duplicate gems.
