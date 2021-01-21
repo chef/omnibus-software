@@ -54,12 +54,15 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # The --without groups here MUST match groups in https://github.com/chef/chef/blob/master/Gemfile
-  excluded_groups = %w{docgen chefstyle development test}
+  excluded_groups = %w{docgen chefstyle}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
   excluded_groups << "ed25519" if solaris2?
 
-  bundle "install --without #{excluded_groups.join(" ")}", env: env
+  # these are gems which are not shipped but which must be installed in the testers
+  bundle_excludes = excluded_groups + %w{development test}
+
+  bundle "install --without #{bundle_excludes.join(" ")}", env: env
 
   block do
     # Install gems from git repos.  This makes the assumption that there is a <gemname>.gemspec and
