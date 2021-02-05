@@ -37,7 +37,7 @@ build do
 
   bundle "install" \
          " --jobs #{workers}" \
-         " --without changelog docs development", env: env
+         " --without guard changelog development test", env: env
 
   bundle "exec thor gem:build", env: env
 
