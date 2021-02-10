@@ -46,7 +46,7 @@ build do
   # TODO - temporarily disabling this, as it's failing to patch u
   #        on m1/arm64.  Have not looked at why yet, but since this is for
   #        a WIP I'm going to remove it for now.
-  if !(mac_os_x? && arm?)
+  unless mac_os_x? && arm?
     patch source: "makefile_take_env_vars.patch", plevel: 1, env: env
   end
   patch source: "makefile_no_bins.patch", plevel: 1, env: env # removes various binaries we don't want to ship
