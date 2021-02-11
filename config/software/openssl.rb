@@ -40,7 +40,7 @@ else
   # Let's stick with the simpler one for now.
   source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 end
-
+version("1.1.1i") { source sha256: "e8be6a35fe41d10603c3cc635e93289ed00bf34b79671a3a4de64fcee00d5242" }
 version("1.1.1g") { source sha256: "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46" }
 version("1.1.1d") { source sha256: "1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2" }
 version("1.1.0i") { source sha256: "ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08c17b2cdadc118253cf99" }
@@ -141,7 +141,7 @@ build do
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
   end
 
-  if mac_os_x? && arm?
+  if version.start_with?("1.0.2") && mac_os_x? && arm?
     patch source: "openssl-1.0.2x-darwin-arm64.patch"
   end
 
