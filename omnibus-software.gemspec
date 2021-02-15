@@ -6,9 +6,10 @@ Gem::Specification.new do |s|
   s.version     = OmnibusSoftware::VERSION
   s.authors     = ["Chef Software, Inc."]
   s.email       = ["info@chef.io"]
+  s.license     = "Apache-2.0"
   s.homepage    = "https://github.com/chef/omnibus-software"
-  s.summary     = %q{Open Source software for use with Omnibus}
-  s.description = %q{Open Source software build descriptions for use with Omnibus}
+  s.summary     = "Open Source software for use with Omnibus"
+  s.description = "Open Source software build descriptions for use with Omnibus"
 
   # Software definitions in this bundle require at least this version of
   # omnibus because of the dsl methods they are using.
