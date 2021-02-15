@@ -27,8 +27,8 @@ default_version "1.0.2x"
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
-lib_dirs << "#{install_dir}/embedded/lib/engines"
-lib_dirs << "#{install_dir}/embedded/lib/engines-1.1" if version.start_with?("1.1")
+lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
+lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"]) if version.start_with?("1.1")
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # So skip error checking with `extract: :lax_tar`
