@@ -33,7 +33,7 @@ if version && !source
   }
   known_tarballs.each do |vsn, md5|
     version vsn do
-      source md5: md5, url: "http://production.cf.rubygems.org/rubygems/rubygems-#{vsn}.tgz"
+      source md5: md5, url: "https://rubygems.org/rubygems/rubygems-#{vsn}.tgz"
       relative_path "rubygems-#{vsn}"
     end
   end
