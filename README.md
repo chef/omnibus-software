@@ -22,11 +22,16 @@ This repository is the collection of Chef Software's software definitions. We li
 
 For more information on writing your own software definitions, please see [the Omnibus README](https://github.com/chef/omnibus#sharing-software-definitions).
 
-## License
+## Contributing
+
+For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/master/CONTRIBUTING.md)
+
+## License & Copyright
+
+- Copyright:: Copyright (c) 2012-2021 Chef Software, Inc.
+- License:: Apache License, Version 2.0
 
 ```text
-Copyright 2012-2019 Chef Software, Inc.
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
