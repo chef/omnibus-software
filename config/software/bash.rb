@@ -15,7 +15,13 @@
 #
 
 name "bash"
-default_version "5.1" #MPTD revert to 5.0?
+
+# Evidence currently suggests we need Bash 5.1 on Apple M1 (arm64)
+if mac_os_x? && arm?
+  default_version "5.1"
+else
+  default_version "5.0"
+end
 
 dependency "libiconv"
 dependency "ncurses"
