@@ -43,12 +43,7 @@ build do
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
   args << " CFLAGS='-qpic=small -qpic=large -O2 -g -D_ALL_SOURCE -D_LARGE_FILES'" if aix?
 
-  # TODO - temporarily disabling this, as it's failing to patch u
-  #        on m1/arm64.  Have not looked at why yet, but since this is for
-  #        a WIP I'm going to remove it for now.
-  if !(mac_os_x? && arm?)
-    patch source: "makefile_take_env_vars.patch", plevel: 1, env: env
-  end
+  patch source: "makefile_take_env_vars.patch", plevel: 1, env: env
   patch source: "makefile_no_bins.patch", plevel: 1, env: env # removes various binaries we don't want to ship
   patch source: "soname_install_dir.patch", env: env if mac_os_x?
   patch source: "aix_makefile.patch", env: env if aix?
