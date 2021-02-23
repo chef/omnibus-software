@@ -51,7 +51,6 @@ version("1.0.2w") { source sha256: "a675ad1a9df59015cebcdf713de76a422347c5d99f11
 version("1.0.2v") { source sha256: "eff6ba99e06d87dc9fb00094bd84840950c0cf99d58dee50b1a098356c82bc45" }
 version("1.0.2u") { source sha256: "ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16" }
 
-
 relative_path "openssl-#{version}"
 
 build do
