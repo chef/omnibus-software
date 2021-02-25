@@ -18,7 +18,7 @@ This project is managed by the CHEF Release Engineering team. For more informati
 
 ## Using Your Own Software Definitions
 
-This repository is the collection of Chef Software's software definitions. We like that others get utility out of them, but they are not meant to be comprehensive collection of all software on the planet. For more information, please read [Omnibus, a look forward](http://www.getchef.com/blog/2014/06/30/omnibus-a-look-forward/) on the Chef blog.
+This repository is the collection of Chef Software's software definitions. We like that others get utility out of them, but they are not meant to be comprehensive collection of all software on the planet. For more information, please read [Omnibus, a look forward](https://blog.chef.io/omnibus-a-look-forward) on the Chef blog.
 
 For more information on writing your own software definitions, please see [the Omnibus README](https://github.com/chef/omnibus#sharing-software-definitions).
 
