@@ -15,12 +15,13 @@
 #
 
 name "bash"
-default_version "5.0"
+default_version "5.1"
 
 dependency "libiconv"
 dependency "ncurses"
 
 version("5.0") { source sha256: "b4a80f2ac66170b2913efbfb9f2594f1f76c7b1afd11f799e22035d63077fb4d" }
+version("5.1") { source sha256: "cc012bc860406dcf42f64431bcd3d2fa7560c02915a601aba9cd597a39329baa" }
 
 license "GPL-3.0"
 license_file "COPYING"
@@ -36,9 +37,6 @@ relative_path "bash-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # We do not install bashbug in macos as it fails Notarization
-  patch source: "mac_Makefile.patch", plevel: 0, env: env if mac_os_x?
-
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
 
@@ -51,4 +49,7 @@ build do
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+  # We do not install bashbug in macos as it fails Notarization
+  delete "#{install_dir}/embedded/bin/bashbug"
 end
