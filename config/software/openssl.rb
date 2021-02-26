@@ -41,15 +41,12 @@ else
   # Let's stick with the simpler one for now.
   source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 end
+version("1.1.1j") { source sha256: "aaf2fcb575cdf6491b98ab4829abf78a3dec8402b8b81efc8f23c00d443981bf" }
 version("1.1.1i") { source sha256: "e8be6a35fe41d10603c3cc635e93289ed00bf34b79671a3a4de64fcee00d5242" }
-version("1.1.1g") { source sha256: "ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46" }
-version("1.1.1d") { source sha256: "1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2" }
 
 version("1.0.2y") { source sha256: "4882ec99f8e147ab26375da8a6af92efae69b6aef505234764f8cd00a1b81ffc" }
 version("1.0.2x") { source sha256: "79cb4e20004a0d1301210aee7e154ddfba3d6a33d0df1f6c5d3257cb915a59c9" }
 version("1.0.2w") { source sha256: "a675ad1a9df59015cebcdf713de76a422347c5d99f11232fe75758143defd680" }
-version("1.0.2v") { source sha256: "eff6ba99e06d87dc9fb00094bd84840950c0cf99d58dee50b1a098356c82bc45" }
-version("1.0.2u") { source sha256: "ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16" }
 
 relative_path "openssl-#{version}"
 
