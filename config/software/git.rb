@@ -98,6 +98,13 @@ build do
     config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   end
 
+  # ensure that header files in git's source code are found first before looking in other directories
+  # this solves an issue that occurs when libarchive has been built and installed and its archive.h header
+  # file in #{install_dir}/embedded/include is accidentally picked up when compiling git
+  env["CFLAGS"] = "-I. #{env["CFLAGS"]}"
+  env["CPPFLAGS"] = "-I. #{env["CPPFLAGS"]}"
+  env["CXXFLAGS"] = "-I. #{env["CXXFLAGS"]}"
+
   erb source: "config.mak.erb",
       dest: "#{project_dir}/config.mak",
       mode: 0755,
