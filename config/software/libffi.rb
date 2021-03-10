@@ -39,13 +39,15 @@ build do
                        "--disable-docs",
   ]
 
+  if version == "3.3" && mac_os_x? && arm?
+    patch source: "libffi-3.3-arm64.patch", plevel: 1, env: env
+  end
+
   # AIX's old version of patch doesn't like the patch here
   unless aix?
     # disable multi-os-directory via configure flag (don't use /lib64)
     # Works on all platforms, and is compatible on 32bit platforms as well
     configure_command << "--disable-multi-os-directory"
-    # Workaround issue on Apple M1 https://github.com/libffi/libffi/issues/571
-    configure_command << "--build=aarch64-apple-darwin#{ohai["os_version"]}" if mac_os_x? && arm?
 
     # add the --disable-multi-os-directory flag to 3.2.1
     if version == "3.2.1"
