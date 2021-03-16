@@ -90,6 +90,7 @@ build do
     "--with-ssl=#{install_dir}/embedded",
     "--with-zlib=#{install_dir}/embedded",
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
+    "--without-zstd",
   ]
 
   configure(*configure_options, env: env)
