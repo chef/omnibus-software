@@ -1,93 +1,10 @@
-From 849811518f139d9cd32704b1fb72265cee3d571c Mon Sep 17 00:00:00 2001
-From: Tim Smith <tsmith84@gmail.com>
-Date: Wed, 5 Aug 2020 10:09:24 -0700
-Subject: [PATCH] Remove Windows Nano checks in win32ole
-
-We use this in Ohai, windows_font, and windows_shortcut,
-win32-taskscheduler, and wmi gems.
-
-Signed-off-by: Tim Smith <tsmith@chef.io>
----
- ext/win32ole/win32ole.c | 37 +++++--------------------------------
- 1 file changed, 5 insertions(+), 32 deletions(-)
-
-diff --git a/ext/win32ole/win32ole.c b/ext/win32ole/win32ole.c
-index c46d3937c33c..e11a1e78b3f4 100644
---- a/ext/win32ole/win32ole.c
-+++ b/ext/win32ole/win32ole.c
-@@ -51,7 +51,6 @@ static volatile DWORD g_ole_initialized_key = TLS_OUT_OF_INDEXES;
- static BOOL g_uninitialize_hooked = FALSE;
- static BOOL g_cp_installed = FALSE;
- static BOOL g_lcid_installed = FALSE;
--static BOOL g_running_nano = FALSE;
- static HINSTANCE ghhctrl = NULL;
- static HINSTANCE gole32 = NULL;
- static FNCOCREATEINSTANCEEX *gCoCreateInstanceEx = NULL;
-@@ -171,7 +170,6 @@ static VALUE fole_activex_initialize(VALUE self);
- static void com_hash_free(void *ptr);
- static void com_hash_mark(void *ptr);
- static size_t com_hash_size(const void *ptr);
--static void check_nano_server(void);
- 
- static const rb_data_type_t ole_datatype = {
-     "win32ole",
-@@ -820,22 +818,16 @@ ole_initialize(void)
-     }
- 
-     if(g_ole_initialized == FALSE) {
--        if(g_running_nano) {
--            hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
--        } else {
--            hr = OleInitialize(NULL);
--        }
-+        hr = OleInitialize(NULL);
-         if(FAILED(hr)) {
-             ole_raise(hr, rb_eRuntimeError, "fail: OLE initialize");
-         }
-         g_ole_initialized_set(TRUE);
- 
--        if (g_running_nano == FALSE) {
--            hr = CoRegisterMessageFilter(&imessage_filter, &previous_filter);
--            if(FAILED(hr)) {
--                previous_filter = NULL;
--                ole_raise(hr, rb_eRuntimeError, "fail: install OLE MessageFilter");
--            }
-+        hr = CoRegisterMessageFilter(&imessage_filter, &previous_filter);
-+        if(FAILED(hr)) {
-+            previous_filter = NULL;
-+            ole_raise(hr, rb_eRuntimeError, "fail: install OLE MessageFilter");
-         }
-     }
- }
-@@ -3956,31 +3948,12 @@ com_hash_size(const void *ptr)
-     return st_memsize(tbl);
- }
- 
--static void
--check_nano_server(void)
--{
--    HKEY hsubkey;
--    LONG err;
--    const char * subkey = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Server\\ServerLevels";
--    const char * regval = "NanoServer";
--
--    err = RegOpenKeyEx(HKEY_LOCAL_MACHINE, subkey, 0, KEY_READ, &hsubkey);
--    if (err == ERROR_SUCCESS) {
--        err = RegQueryValueEx(hsubkey, regval, NULL, NULL, NULL, NULL);
--        if (err == ERROR_SUCCESS) {
--            g_running_nano = TRUE;
--        }
--        RegCloseKey(hsubkey);
--    }
--}
--
- 
- void
- Init_win32ole(void)
+--- ruby-2.7.2/ext/win32ole/win32ole.c	2021-03-24 07:59:55.000000000 -0700
++++ ruby-2.7.2-orig/ext/win32ole/win32ole.c	2020-10-01 05:15:38.000000000 -0700
+@@ -3969,6 +3969,7 @@
  {
      cWIN32OLE_lcid = LOCALE_SYSTEM_DEFAULT;
      g_ole_initialized_init();
--    check_nano_server();
++    check_nano_server();
  
      com_vtbl.QueryInterface = QueryInterface;
      com_vtbl.AddRef = AddRef;
