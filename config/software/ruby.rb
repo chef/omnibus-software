@@ -136,7 +136,9 @@ build do
   # this removes a checks for windows nano in the win32-ole files.
   # windows nano is a dead platform and not supported by chef so we can avoid
   # registry lookups by patching away this code
-  patch source: "remove_nano.patch", plevel: 1, env: patch_env
+  if windows?
+    patch source: "remove_nano.patch", plevel: 1, env: patch_env
+  end
 
   # accelerate requires by removing a File.expand_path
   #
