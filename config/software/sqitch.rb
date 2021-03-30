@@ -26,6 +26,10 @@ dependency "cpanminus"
 # install a LGPL-licensed version of libintl-perl:
 dependency "libintl-perl"
 
+version "0.9999" do
+  source md5: "f203d4ac02c83b5e1214d92f090acef2"
+end
+
 version "0.9994" do
   source md5: "7227dfcd141440f23d99f01a2b01e0f2"
 end
