@@ -42,9 +42,9 @@ build do
 end
 
 # Perl after 5.18 does not come with this by default
-build do
-  env = with_standard_compiler_flags(with_embedded_path)
-
-  command "cpanm Module::Build", env: env
-end
+#build do
+#  env = with_standard_compiler_flags(with_embedded_path)
+#
+#  command "cpanm Module::Build", env: env
+#end
 
