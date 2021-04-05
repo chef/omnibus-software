@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+# do_not_auto_update
 name "gcc"
 default_version "4.9.2"
 
