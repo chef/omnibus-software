@@ -15,7 +15,7 @@
 #
 
 name "curl"
-default_version "7.75.0"
+default_version "7.76.0"
 
 dependency "zlib"
 dependency "openssl"
@@ -25,7 +25,10 @@ license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
+# version_list: url=https://curl.se/download/ filter=*.tar.gz
+version("7.76.0") { source sha256: "3b4378156ba09e224008e81dcce854b7ce4d182b1f9cfb97fe5ed9e9c18c6bd3" }
 version("7.75.0") { source sha256: "4d51346fe621624c3e4b9f86a8fd6f122a143820e17889f59c18f245d2d8e7a6" }
+version("7.74.0") { source sha256: "e56b3921eeb7a2951959c02db0912b5fcd5fdba5aca071da819e1accf338bbd7" }
 version("7.73.0") { source sha256: "ba98332752257b47b9dea6d8c0ad25ec1745c20424f1dd3ff2c99ab59e97cf91" }
 version("7.71.1") { source sha256: "59ef1f73070de67b87032c72ee6037cedae71dcb1d7ef2d7f59487704aec069d" }
 version("7.68.0") { source sha256: "1dd7604e418b0b9a9077f62f763f6684c1b092a7bc17e3f354b8ad5c964d7358" }
