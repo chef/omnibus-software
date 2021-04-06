@@ -38,7 +38,6 @@ version("3.0.0")      { source sha256: "a13ed141a1c18eb967aac1e33f4d6ad5f21be1ac
 version("2.7.3")      { source sha256: "8925a95e31d8f2c81749025a52a544ea1d05dad18794e6828709268b92e55338" }
 version("2.7.2")      { source sha256: "6e5706d0d4ee4e1e2f883db9d768586b4d06567debea353c796ec45e8321c3d4" }
 version("2.7.1")      { source sha256: "d418483bdd0000576c1370571121a6eb24582116db0b7bb2005e90e250eae418" }
-version("2.7.0")      { source sha256: "8c99aa93b5e2f1bc8437d1bbbefd27b13e7694025331f77245d0c068ef1f8cbe" }
 
 version("2.6.7")      { source sha256: "e4227e8b7f65485ecb73397a83e0d09dcd39f25efd411c782b69424e55c7a99e" }
 version("2.6.6")      { source sha256: "364b143def360bac1b74eb56ed60b1a0dca6439b00157ae11ff77d5cd2e92291" }
@@ -167,10 +166,10 @@ build do
     patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
   end
 
-  # rubygems 3.1.x perf improvements, this will fail once the rubygems patches are
-  # merged into mainline ruby 2.7
+  # rubygems 3.1.x perf improvements
+  # this is part of ruby 2.7.3 so skip it
   #
-  if version.satisfies?("~> 2.7") && version.satisfies?(">= 2.7.0")
+  if version.satisfies?("~> 2.7") && version.satisfies?("< 2.7.3")
     patch source: "ruby-2.7.1-rubygemsperf.patch", plevel: 1, env: patch_env
   end
 
