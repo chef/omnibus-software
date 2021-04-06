@@ -15,6 +15,9 @@
 #
 
 # We use the version in util-linux, and only build the libuuid subdirectory
+#
+# expeditor/ignore: deprecated 2021-04
+
 name "libzmq"
 default_version "4.0.7"
 
