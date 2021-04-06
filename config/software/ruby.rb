@@ -32,6 +32,9 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+version("3.0.1")      { source sha256: "369825db2199f6aeef16b408df6a04ebaddb664fb9af0ec8c686b0ce7ab77727" }
+version("3.0.0")      { source sha256: "a13ed141a1c18eb967aac1e33f4d6ad5f21be1ac543c344e0d6feeee54af8e28" }
+
 version("2.7.2")      { source sha256: "6e5706d0d4ee4e1e2f883db9d768586b4d06567debea353c796ec45e8321c3d4" }
 version("2.7.1")      { source sha256: "d418483bdd0000576c1370571121a6eb24582116db0b7bb2005e90e250eae418" }
 version("2.7.0")      { source sha256: "8c99aa93b5e2f1bc8437d1bbbefd27b13e7694025331f77245d0c068ef1f8cbe" }
@@ -88,8 +91,7 @@ elsif aix?
   # need to use GNU m4, default m4 doesn't work
   env["M4"] = "/opt/freeware/bin/m4"
 elsif solaris2?
-  env["CFLAGS"] << " -std=c99"
-  env["CPPFLAGS"] << " -D_XOPEN_SOURCE=600 -D_XPG6"
+  env["CXXFLAGS"] = "#{env["CXXFLAGS"]} -std=c++0x"
 elsif windows?
   env["CFLAGS"] = "-I#{install_dir}/embedded/include -DFD_SETSIZE=2048"
   if windows_arch_i386?
@@ -108,9 +110,16 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
+  if !windows? && version.satisfies?("~> 3.0")
+    # this one is only on master unlcear if it will be in 3.0.1
+    patch source: "ruby-3.0.0-fdeclspec.patch", plevel: 1, env: patch_env
+  end
+
   # remove the warning that the win32 api is going away.
   if windows?
-    patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
+    if version.satisfies?("< 3.0")
+      patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
+    end
   end
 
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
@@ -197,8 +206,8 @@ build do
     # AIX has issues with ssl retries, need to patch to have it retry
     patch source: "ruby_aix_ssl_EAGAIN.patch", plevel: 1, env: patch_env
     # the next two patches are because xlc doesn't deal with long vs int types well
-    patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env
-    patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env
+    patch source: "ruby-aix-atomic.patch", plevel: 1, env: patch_env if version.satisfies?("< 3.0")
+    patch source: "ruby-aix-vm-core.patch", plevel: 1, env: patch_env if version.satisfies?("< 3.0")
 
     # per IBM, just enable pthread
     configure_command << "--enable-pthread"
