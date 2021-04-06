@@ -1,0 +1,129 @@
+--- a/configure	2021-03-23 12:52:38.000000000 -0700
++++ b/configure	2021-03-31 18:30:08.000000000 -0700
+@@ -9361,34 +9361,11 @@
+ }
+ _ACEOF
+ if ac_fn_c_try_compile "$LINENO"; then :
+-
+-  # RUBY_APPEND_OPTIONS(CC)
+-	for rb_opt in -fdeclspec; do
+-	case " ${CC-} " in #(
+-  *" ${rb_opt} "*) :
+-     ;; #(
+-  '  ') :
+-     CC="${rb_opt}" ;; #(
+-  *) :
+-     CC="$CC ${rb_opt}" ;;
+-esac
+-	done
+-  # RUBY_APPEND_OPTIONS(MJIT_CC)
+-	for rb_opt in -fdeclspec; do
+-	case " ${MJIT_CC-} " in #(
+-  *" ${rb_opt} "*) :
+-     ;; #(
+-  '  ') :
+-     MJIT_CC="${rb_opt}" ;; #(
+-  *) :
+-     MJIT_CC="$MJIT_CC ${rb_opt}" ;;
+-esac
+-	done
+-
++  fdeclspec=yes
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+     $as_echo "${msg_result_yes}yes${msg_reset}" >&6 ; }
+ else
+-
++  fdeclspec=no
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+     $as_echo "${msg_result_no}no${msg_reset}" >&6 ; }
+ fi
+@@ -9406,6 +9383,43 @@
+ 
+ fi
+ 
++if test "$fdeclspec" = yes; then :
++
++    # RUBY_APPEND_OPTIONS(CFLAGS)
++	for rb_opt in -fdeclspec; do
++	case " ${CFLAGS-} " in #(
++  *" ${rb_opt} "*) :
++     ;; #(
++  '  ') :
++     CFLAGS="${rb_opt}" ;; #(
++  *) :
++     CFLAGS="$CFLAGS ${rb_opt}" ;;
++esac
++	done
++    # RUBY_APPEND_OPTIONS(cflags)
++	for rb_opt in -fdeclspec; do
++	case " ${cflags-} " in #(
++  *" ${rb_opt} "*) :
++     ;; #(
++  '  ') :
++     cflags="${rb_opt}" ;; #(
++  *) :
++     cflags="$cflags ${rb_opt}" ;;
++esac
++	done
++    # RUBY_APPEND_OPTIONS(orig_cflags)
++	for rb_opt in -fdeclspec; do
++	case " ${orig_cflags-} " in #(
++  *" ${rb_opt} "*) :
++     ;; #(
++  '  ') :
++     orig_cflags="${rb_opt}" ;; #(
++  *) :
++     orig_cflags="$orig_cflags ${rb_opt}" ;;
++esac
++	done
++
++fi
+ 
+ 
+     save_CXXFLAGS="$CXXFLAGS"
+@@ -9443,21 +9457,11 @@
+ }
+ _ACEOF
+ if ac_fn_cxx_try_link "$LINENO"; then :
+-  # RUBY_APPEND_OPTIONS(CXX)
+-	for rb_opt in -fdeclspec; do
+-	case " ${CXX-} " in #(
+-  *" ${rb_opt} "*) :
+-     ;; #(
+-  '  ') :
+-     CXX="${rb_opt}" ;; #(
+-  *) :
+-     CXX="$CXX ${rb_opt}" ;;
+-esac
+-	done
++  fdeclspec=yes
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+     $as_echo "${msg_result_yes}yes${msg_reset}" >&6 ; }
+ else
+-
++  fdeclspec=no
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+     $as_echo "${msg_result_no}no${msg_reset}" >&6 ; }
+ fi
+@@ -9484,6 +9488,21 @@
+     CXXFLAGS="$save_CXXFLAGS"
+     save_CXXFLAGS=
+ 
++if test "$fdeclspec" = yes; then :
++
++    # RUBY_APPEND_OPTIONS(CXXFLAGS)
++	for rb_opt in -fdeclspec; do
++	case " ${CXXFLAGS-} " in #(
++  *" ${rb_opt} "*) :
++     ;; #(
++  '  ') :
++     CXXFLAGS="${rb_opt}" ;; #(
++  *) :
++     CXXFLAGS="$CXXFLAGS ${rb_opt}" ;;
++esac
++	done
++
++fi
+ 
+ case $RUBY_PATCHLEVEL in #(
+   -*) :

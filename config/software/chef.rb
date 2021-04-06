@@ -67,7 +67,7 @@ build do
   ruby "post-bundle-install.rb", env: env
 
   # use the rake install task to build/install chef-config/chef-utils
-  command "rake install", env: env
+  command "rake install:local", env: env
 
   gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
 
