@@ -15,7 +15,6 @@
 #
 # expeditor/ignore: no version pinning
 
-
 name "rebar"
 
 # Current version (2.3.0) suffers from a pretty bad bug that breaks tests.
