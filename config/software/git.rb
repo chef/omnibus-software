@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.29.2"
+default_version "2.31.1"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -30,6 +30,11 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
+# version_list: url=https://github.com/git/git/releases filter=*.tar.gz
+
+version("2.31.1") { source sha256: "b1c0e95e9861b5d1b9ad3d8deaa2d8c7f02304ffc1b5e8869dd9fb98f9a0d436" }
+version("2.30.2") { source sha256: "e637ff90a3465e519885c8c4b7a67657ab0b7b1820e9324d12e50ec2e38e4d0b" }
+version("2.29.3") { source sha256: "58049054e204d53318c183823b6f5aaf6c65ca8a2f4b1e118cf127fb42e882aa" }
 version("2.29.2") { source sha256: "869a121e1d75e4c28213df03d204156a17f02fce2dc77be9795b327830f54195" }
 version("2.28.0") { source sha256: "f914c60a874d466c1e18467c864a910dd4ea22281ba6d4d58077cb0c3f115170" }
 version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
