@@ -14,10 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 #
 # Common cleanup routines for ruby apps (InSpec, Workstation, Chef, etc)
-#
+# expeditor/ignore: logic only
+
 require "fileutils"
 
 name "ruby-cleanup"
