@@ -18,6 +18,8 @@
 # This software makes sure that SSL_CERT_FILE environment variable is pointed
 # to the bundled CA certificates that ship with omnibus. With this, Chef
 # tools can be used with https URLs out of the box.
+# expeditor/ignore: logic only
+
 name "openssl-customization"
 
 license :project_license

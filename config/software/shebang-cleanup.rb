@@ -18,6 +18,7 @@
 # Use this software definition to fix the shebangs of binaries under embedded/bin
 # to point to the embedded ruby.
 #
+# expeditor/ignore: logic only
 
 name "shebang-cleanup"
 

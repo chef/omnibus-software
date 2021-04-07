@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: logic only
 
 name "version-manifest"
 description "generates a version manifest file"

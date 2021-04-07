@@ -17,6 +17,7 @@
 #
 # Use this software definition to fix the gem-permissions on * nix builds.
 #
+# expeditor/ignore: logic only
 
 name "gem-permissions"
 
