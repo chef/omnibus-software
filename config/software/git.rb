@@ -31,6 +31,7 @@ dependency "expat"
 relative_path "git-#{version}"
 
 # version_list: url=https://www.kernel.org/pub/software/scm/git/ filter=*.tar.gz
+
 version("2.9.5") { source sha256: "8fa575338137d6d850b52d207cf7155cd1f4003ebd698f0fb75f65efb862ef7f" }
 version("2.8.6") { source sha256: "56ff3fa922946e4db0f568ad7390feac332c1c747299a1dc9d2f7d2c88857a46" }
 version("2.7.6") { source sha256: "ce98ac8d823d8015ed863e28b47f38d3926e6f6228090ad90348c58d98ec892a" }
