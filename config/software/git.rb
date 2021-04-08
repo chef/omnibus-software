@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.31.1"
+default_version "2.9.5"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -30,10 +30,17 @@ dependency "expat"
 
 relative_path "git-#{version}"
 
-# version_list: url=https://github.com/git/git/releases filter=*.tar.gz
-version("2.31.1") { source sha256: "b1c0e95e9861b5d1b9ad3d8deaa2d8c7f02304ffc1b5e8869dd9fb98f9a0d436" }
-version("2.30.2") { source sha256: "e637ff90a3465e519885c8c4b7a67657ab0b7b1820e9324d12e50ec2e38e4d0b" }
-version("2.29.3") { source sha256: "58049054e204d53318c183823b6f5aaf6c65ca8a2f4b1e118cf127fb42e882aa" }
+# version_list: url=https://www.kernel.org/pub/software/scm/git/ filter=*.tar.gz
+version("2.9.5") { source sha256: "8fa575338137d6d850b52d207cf7155cd1f4003ebd698f0fb75f65efb862ef7f" }
+version("2.8.6") { source sha256: "56ff3fa922946e4db0f568ad7390feac332c1c747299a1dc9d2f7d2c88857a46" }
+version("2.7.6") { source sha256: "ce98ac8d823d8015ed863e28b47f38d3926e6f6228090ad90348c58d98ec892a" }
+version("2.6.7") { source sha256: "a36577fb94ddfbcb8cbe74c9f4bcdb5c2e36768a32ccebbcd2f173469d95ec3c" }
+version("2.5.6") { source sha256: "905150c5b887cc4f29fcf3eafedd340d0a69eb6ac8064d41627f1b1a894e260f" }
+version("2.4.9") { source sha256: "49024089b2f7b398164072e22a845e7987c9c4043c7bf19778af2ef2b2c285ac" }
+version("2.31.1") { source sha256: "46d37c229e9d786510e0c53b60065704ce92d5aedc16f2c5111e3ed35093bfa7" }
+version("2.30.2") { source sha256: "9ddea08fc7c38f1823a54a014ae2e9ecd45e1b4a06e919025f4c41f2c6a8061b" }
+version("2.3.9") { source sha256: "5f98f3700045d9786c51c32004ba86984d2af5cfa96df6ebe07188060ea68826" }
+version("2.29.3") { source sha256: "dfaa7608c67fa84483c09fdbea1367848d56b050ed200e541a9829701d45ccad" }
 version("2.29.2") { source sha256: "869a121e1d75e4c28213df03d204156a17f02fce2dc77be9795b327830f54195" }
 version("2.28.0") { source sha256: "f914c60a874d466c1e18467c864a910dd4ea22281ba6d4d58077cb0c3f115170" }
 version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
