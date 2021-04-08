@@ -1,0 +1,12 @@
+diff -ur a/configure b/configure
+--- a/configure	2021-04-07 19:32:43.879122199 -0700
++++ b/configure	2021-04-07 19:36:06.420115452 -0700
+@@ -19309,6 +19309,8 @@
+ fi
+ 
+ fi
++	$as_echo "#define HAVE_GCC_SYNC_BUILTINS 1" >>confdefs.h
++  rb_cv_gcc_sync_builtins=yes
+ 
+     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for __builtin_unreachable" >&5
+ $as_echo_n "checking for __builtin_unreachable... " >&6; }

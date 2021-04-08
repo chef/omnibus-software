@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: no version pinning
+
 name "chef"
 default_version "master"
 
