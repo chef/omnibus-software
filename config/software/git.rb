@@ -15,7 +15,11 @@
 #
 
 name "git"
+<<<<<<< HEAD
 default_version "2.9.5"
+=======
+default_version "2.29.2"
+>>>>>>> b1981f046267dd5f116dbe68fe83500df9635414
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
