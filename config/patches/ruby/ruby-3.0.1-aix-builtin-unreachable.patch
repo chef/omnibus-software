@@ -1,0 +1,30 @@
+diff -ur a/internal/bits.h b/internal/bits.h
+--- a/internal/bits.h	2021-04-07 19:52:48.073947883 -0700
++++ b/internal/bits.h	2021-04-07 19:53:29.582436747 -0700
+@@ -284,7 +284,7 @@
+     }
+     else {
+         /* :FIXME: Is there a way to make this branch a compile-time error? */
+-        __builtin_unreachable();
++      ;
+     }
+ 
+ #else
+@@ -419,7 +419,7 @@
+     }
+     else {
+         /* :FIXME: Is there a way to make this branch a compile-time error? */
+-        __builtin_unreachable();
++      ;
+     }
+ 
+ #else
+@@ -492,7 +492,7 @@
+     }
+     else {
+         /* :FIXME: Is there a way to make this branch a compile-time error? */
+-        __builtin_unreachable();
++      ;
+     }
+ 
+ #else

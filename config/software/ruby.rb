@@ -111,16 +111,36 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
-  if !windows? && version.satisfies?("~> 3.0")
-    # this one is only on master unlcear if it will be in 3.0.1
+  if !windows? && !aix? && version.satisfies?("~> 3.0")
+    # this one is only on master unclear if it will be backported to 3.0.x
     patch source: "ruby-3.0.0-fdeclspec.patch", plevel: 1, env: patch_env
   end
 
+  if aix? && version.satisfies?("~> 3.0")
+
+    # somehow configure identifies AIX as supporting -fdeclspec which it certainly doesn't.
+    # this patch may be pretty brittle, but the idea is to just nuke the fdeclspec detection.
+    patch source: "ruby-3.0.1-aix-nofdeclspec.patch", plevel: 1, env: patch_env
+
+    # another horrible patch, the xlc compiler (but not xlclang according to the IBM specs
+    # supports gcc's sync builtins for atomic operations, but ruby doesn't check for them if
+    # you're not running on intel, so I just brute force the thing to on here)
+    # See:
+    # https://www.ibm.com/docs/en/SSGH3R_16.1.0/com.ibm.compilers.aix.doc/compiler.pdf#BIFS_GCC_ATOMIC
+    patch source: "ruby-3.0.1-aix-force-gcc-sync-builtins.patch", plevel: 1, env: patch_env
+
+    # this is some gcc-specific code that xlc doesn't support, it is just to document an unreachable
+    # codepath to suppress warnings.  more of these may be in the pipeline for ruby-3.1.0/ruby-head
+    patch source: "ruby-3.0.1-aix-builtin-unreachable.patch", plevel: 1, env:patch_env
+
+    # ruby's build system assumes CPPOUTFLAGS == COUTFLAGS which is wrong for xlc, we need ">"
+    patch source: "ruby-3.0.1-aix-cppoutflag.patch", plevel: 1, env:patch_env
+
+  end
+
   # remove the warning that the win32 api is going away.
-  if windows?
-    if version.satisfies?("< 3.0")
-      patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
-    end
+  if windows? && version.satisfies?("< 3.0")
+    patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
   end
 
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
@@ -247,6 +267,7 @@ build do
   env["PKG_CONFIG"] = "/bin/true" if aix?
 
   configure(*configure_command, env: env)
+
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 
