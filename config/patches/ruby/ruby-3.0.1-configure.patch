@@ -1,4 +1,95 @@
-Only in ruby-3.0.1-patched: autom4te.cache
+diff -ur ruby-3.0.1/configure.ac ruby-3.0.1-patched/configure.ac
+--- ruby-3.0.1/configure.ac	2021-04-05 05:33:42.000000000 -0700
++++ ruby-3.0.1-patched/configure.ac	2021-04-09 12:42:35.578174106 -0700
+@@ -544,11 +544,16 @@
+     rpathflag=`echo "$RPATHFLAG" | sed 's/%.*//'`
+ ])
+ 
+-RUBY_TRY_CFLAGS(-fdeclspec, [
+-  RUBY_APPEND_OPTIONS(CC, -fdeclspec)
+-  RUBY_APPEND_OPTIONS(MJIT_CC, -fdeclspec)
++RUBY_TRY_LDFLAGS(-fdeclspec, [fdeclspec=yes], [fdeclspec=no])
++AS_IF([test "$fdeclspec" = yes], [
++    RUBY_APPEND_OPTIONS(CFLAGS, -fdeclspec)
++    RUBY_APPEND_OPTIONS(cflags, -fdeclspec)
++    RUBY_APPEND_OPTIONS(orig_cflags, -fdeclspec)
++])
++RUBY_TRY_CXXFLAGS(-fdeclspec, [fdeclspec=yes], [fdeclspec=no])
++AS_IF([test "$fdeclspec" = yes], [
++    RUBY_APPEND_OPTIONS(CXXFLAGS, -fdeclspec)
+ ])
+-RUBY_TRY_CXXFLAGS(-fdeclspec, [RUBY_APPEND_OPTIONS(CXX, -fdeclspec)])
+ 
+ AS_CASE([$RUBY_PATCHLEVEL], [-*],
+ 	[RUBY_DEVEL=yes], [RUBY_DEVEL=no])
+@@ -1494,7 +1499,9 @@
+ 	AC_DEFINE_UNQUOTED([RUBY_ALIAS_FUNCTION_VOID(prot, name, args)],
+ 			   [RUBY_ALIAS_FUNCTION_TYPE(void, prot, name, args)])
+     ])
++])
+ 
++{
+     AC_CACHE_CHECK([for __atomic builtins], [rb_cv_gcc_atomic_builtins], [
+ 	AC_TRY_LINK([unsigned int atomic_var;],
+ 		    [
+@@ -1525,7 +1532,6 @@
+     AS_IF([test "$rb_cv_gcc_sync_builtins" = yes], [
+ 	AC_DEFINE(HAVE_GCC_SYNC_BUILTINS)
+     ])
+-])
+ 
+     AC_CACHE_CHECK(for __builtin_unreachable, rb_cv_func___builtin_unreachable,
+     [RUBY_WERROR_FLAG(
+@@ -1538,6 +1544,7 @@
+     AS_IF([test "$rb_cv_func___builtin_unreachable" = yes], [
+ 	AC_DEFINE_UNQUOTED(UNREACHABLE, [__builtin_unreachable()])
+     ])
++}
+ 
+ AC_CACHE_CHECK(for exported function attribute, rb_cv_func_exported, [
+ rb_cv_func_exported=no
+diff -ur ruby-3.0.1/internal/bits.h ruby-3.0.1-patched/internal/bits.h
+--- ruby-3.0.1/internal/bits.h	2021-04-05 05:33:42.000000000 -0700
++++ ruby-3.0.1-patched/internal/bits.h	2021-04-09 12:42:35.578845209 -0700
+@@ -284,7 +284,7 @@
+     }
+     else {
+         /* :FIXME: Is there a way to make this branch a compile-time error? */
+-        __builtin_unreachable();
++        UNREACHABLE_RETURN(~0);
+     }
+ 
+ #else
+@@ -419,7 +419,7 @@
+     }
+     else {
+         /* :FIXME: Is there a way to make this branch a compile-time error? */
+-        __builtin_unreachable();
++        UNREACHABLE_RETURN(~0);
+     }
+ 
+ #else
+@@ -492,7 +492,7 @@
+     }
+     else {
+         /* :FIXME: Is there a way to make this branch a compile-time error? */
+-        __builtin_unreachable();
++        UNREACHABLE_RETURN(~0);
+     }
+ 
+ #else
+diff -ur ruby-3.0.1/template/Makefile.in ruby-3.0.1-patched/template/Makefile.in
+--- ruby-3.0.1/template/Makefile.in	2021-04-05 05:33:42.000000000 -0700
++++ ruby-3.0.1-patched/template/Makefile.in	2021-04-09 12:42:35.579834751 -0700
+@@ -75,7 +75,7 @@
+ CC_VERSION = @CC_VERSION@
+ OUTFLAG = @OUTFLAG@$(empty)
+ COUTFLAG = @COUTFLAG@$(empty)
+-CPPOUTFLAG = $(COUTFLAG)
++CPPOUTFLAG = >
+ ARCH_FLAG = @ARCH_FLAG@
+ CFLAGS_NO_ARCH = @CFLAGS@
+ CFLAGS = $(CFLAGS_NO_ARCH) $(ARCH_FLAG)
 diff -ur ruby-3.0.1/configure ruby-3.0.1-patched/configure
 --- ruby-3.0.1/configure	2021-04-05 05:33:44.000000000 -0700
 +++ ruby-3.0.1-patched/configure	2021-04-09 13:21:37.087380251 -0700
@@ -188,97 +279,3 @@ diff -ur ruby-3.0.1/configure ruby-3.0.1-patched/configure
  
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for exported function attribute" >&5
  $as_echo_n "checking for exported function attribute... " >&6; }
-diff -ur ruby-3.0.1/configure.ac ruby-3.0.1-patched/configure.ac
---- ruby-3.0.1/configure.ac	2021-04-05 05:33:42.000000000 -0700
-+++ ruby-3.0.1-patched/configure.ac	2021-04-09 12:42:35.578174106 -0700
-@@ -544,11 +544,16 @@
-     rpathflag=`echo "$RPATHFLAG" | sed 's/%.*//'`
- ])
- 
--RUBY_TRY_CFLAGS(-fdeclspec, [
--  RUBY_APPEND_OPTIONS(CC, -fdeclspec)
--  RUBY_APPEND_OPTIONS(MJIT_CC, -fdeclspec)
-+RUBY_TRY_LDFLAGS(-fdeclspec, [fdeclspec=yes], [fdeclspec=no])
-+AS_IF([test "$fdeclspec" = yes], [
-+    RUBY_APPEND_OPTIONS(CFLAGS, -fdeclspec)
-+    RUBY_APPEND_OPTIONS(cflags, -fdeclspec)
-+    RUBY_APPEND_OPTIONS(orig_cflags, -fdeclspec)
-+])
-+RUBY_TRY_CXXFLAGS(-fdeclspec, [fdeclspec=yes], [fdeclspec=no])
-+AS_IF([test "$fdeclspec" = yes], [
-+    RUBY_APPEND_OPTIONS(CXXFLAGS, -fdeclspec)
- ])
--RUBY_TRY_CXXFLAGS(-fdeclspec, [RUBY_APPEND_OPTIONS(CXX, -fdeclspec)])
- 
- AS_CASE([$RUBY_PATCHLEVEL], [-*],
- 	[RUBY_DEVEL=yes], [RUBY_DEVEL=no])
-@@ -1494,7 +1499,9 @@
- 	AC_DEFINE_UNQUOTED([RUBY_ALIAS_FUNCTION_VOID(prot, name, args)],
- 			   [RUBY_ALIAS_FUNCTION_TYPE(void, prot, name, args)])
-     ])
-+])
- 
-+{
-     AC_CACHE_CHECK([for __atomic builtins], [rb_cv_gcc_atomic_builtins], [
- 	AC_TRY_LINK([unsigned int atomic_var;],
- 		    [
-@@ -1525,7 +1532,6 @@
-     AS_IF([test "$rb_cv_gcc_sync_builtins" = yes], [
- 	AC_DEFINE(HAVE_GCC_SYNC_BUILTINS)
-     ])
--])
- 
-     AC_CACHE_CHECK(for __builtin_unreachable, rb_cv_func___builtin_unreachable,
-     [RUBY_WERROR_FLAG(
-@@ -1538,6 +1544,7 @@
-     AS_IF([test "$rb_cv_func___builtin_unreachable" = yes], [
- 	AC_DEFINE_UNQUOTED(UNREACHABLE, [__builtin_unreachable()])
-     ])
-+}
- 
- AC_CACHE_CHECK(for exported function attribute, rb_cv_func_exported, [
- rb_cv_func_exported=no
-Only in ruby-3.0.1-patched: configure~
-diff -ur ruby-3.0.1/internal/bits.h ruby-3.0.1-patched/internal/bits.h
---- ruby-3.0.1/internal/bits.h	2021-04-05 05:33:42.000000000 -0700
-+++ ruby-3.0.1-patched/internal/bits.h	2021-04-09 12:42:35.578845209 -0700
-@@ -284,7 +284,7 @@
-     }
-     else {
-         /* :FIXME: Is there a way to make this branch a compile-time error? */
--        __builtin_unreachable();
-+        UNREACHABLE_RETURN(~0);
-     }
- 
- #else
-@@ -419,7 +419,7 @@
-     }
-     else {
-         /* :FIXME: Is there a way to make this branch a compile-time error? */
--        __builtin_unreachable();
-+        UNREACHABLE_RETURN(~0);
-     }
- 
- #else
-@@ -492,7 +492,7 @@
-     }
-     else {
-         /* :FIXME: Is there a way to make this branch a compile-time error? */
--        __builtin_unreachable();
-+        UNREACHABLE_RETURN(~0);
-     }
- 
- #else
-diff -ur ruby-3.0.1/template/Makefile.in ruby-3.0.1-patched/template/Makefile.in
---- ruby-3.0.1/template/Makefile.in	2021-04-05 05:33:42.000000000 -0700
-+++ ruby-3.0.1-patched/template/Makefile.in	2021-04-09 12:42:35.579834751 -0700
-@@ -75,7 +75,7 @@
- CC_VERSION = @CC_VERSION@
- OUTFLAG = @OUTFLAG@$(empty)
- COUTFLAG = @COUTFLAG@$(empty)
--CPPOUTFLAG = $(COUTFLAG)
-+CPPOUTFLAG = >
- ARCH_FLAG = @ARCH_FLAG@
- CFLAGS_NO_ARCH = @CFLAGS@
- CFLAGS = $(CFLAGS_NO_ARCH) $(ARCH_FLAG)
-Only in ruby-3.0.1-patched: tmp
