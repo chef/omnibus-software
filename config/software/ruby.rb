@@ -131,10 +131,10 @@ build do
 
     # this is some gcc-specific code that xlc doesn't support, it is just to document an unreachable
     # codepath to suppress warnings.  more of these may be in the pipeline for ruby-3.1.0/ruby-head
-    patch source: "ruby-3.0.1-aix-builtin-unreachable.patch", plevel: 1, env:patch_env
+    patch source: "ruby-3.0.1-aix-builtin-unreachable.patch", plevel: 1, env: patch_env
 
     # ruby's build system assumes CPPOUTFLAGS == COUTFLAGS which is wrong for xlc, we need ">"
-    patch source: "ruby-3.0.1-aix-cppoutflag.patch", plevel: 1, env:patch_env
+    patch source: "ruby-3.0.1-aix-cppoutflag.patch", plevel: 1, env: patch_env
 
   end
 
