@@ -113,7 +113,7 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
-  if version.satisfies("~> 3.0")
+  if version.satisfies?("~> 3.0")
     patch source: "ruby-3.0.1-configure.patch", plevel: 1, env: patch_env
   end
 
