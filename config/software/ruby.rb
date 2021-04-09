@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# do_not_auto_update
 
 name "ruby"
 
@@ -32,6 +33,7 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+# version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
 version("3.0.1")      { source sha256: "369825db2199f6aeef16b408df6a04ebaddb664fb9af0ec8c686b0ce7ab77727" }
 version("3.0.0")      { source sha256: "a13ed141a1c18eb967aac1e33f4d6ad5f21be1ac543c344e0d6feeee54af8e28" }
 
