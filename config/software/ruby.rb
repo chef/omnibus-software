@@ -32,6 +32,7 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+# version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
 version("3.0.1")      { source sha256: "369825db2199f6aeef16b408df6a04ebaddb664fb9af0ec8c686b0ce7ab77727" }
 version("3.0.0")      { source sha256: "a13ed141a1c18eb967aac1e33f4d6ad5f21be1ac543c344e0d6feeee54af8e28" }
 
@@ -131,10 +132,10 @@ build do
 
     # this is some gcc-specific code that xlc doesn't support, it is just to document an unreachable
     # codepath to suppress warnings.  more of these may be in the pipeline for ruby-3.1.0/ruby-head
-    patch source: "ruby-3.0.1-aix-builtin-unreachable.patch", plevel: 1, env:patch_env
+    patch source: "ruby-3.0.1-aix-builtin-unreachable.patch", plevel: 1, env: patch_env
 
     # ruby's build system assumes CPPOUTFLAGS == COUTFLAGS which is wrong for xlc, we need ">"
-    patch source: "ruby-3.0.1-aix-cppoutflag.patch", plevel: 1, env:patch_env
+    patch source: "ruby-3.0.1-aix-cppoutflag.patch", plevel: 1, env: patch_env
 
   end
 
