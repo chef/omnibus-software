@@ -12,3 +12,15 @@ pipelines:
   - verify:
       description: Pull Request validation tests
       public: true
+
+subscriptions:
+  - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
+    actions:
+      - bash:.expeditor/determine_version.sh:
+          ignore_labels:
+            - "Expeditor: Skip Version Bump"
+            - "Expeditor: Skip All"
+      # The git commit happens here
+      - bash:.expeditor/push_git_tag.sh:
+          only_if: bash:.expeditor/determine_version.sh
+          post_commit: true

@@ -22,6 +22,10 @@ This repository is the collection of Chef Software's software definitions. We li
 
 For more information on writing your own software definitions, please see [the Omnibus README](https://github.com/chef/omnibus#sharing-software-definitions).
 
+## Versioning
+
+This repository is versioned and tagged using the `YY.MM.BUILD` to allow folks to be able to access the state of the software definition at a specific point in time. We do however encourage folks to pull in the latest whenever possible.
+
 ## Contributing
 
 For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/master/CONTRIBUTING.md)
