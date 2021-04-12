@@ -15,7 +15,7 @@
 #
 
 name "expat"
-default_version "2.1.0"
+default_version "2.3.0"
 
 relative_path "expat-#{version}"
 dependency "config_guess"
@@ -24,8 +24,12 @@ license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
+# version_list: url=https://sourceforge.net/projects/expat/files/expat/#{version}/ filter=*.tar.gz
 source url: "http://downloads.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz",
-       md5: "dd7dab7a5fea97d2a6a43f511449b7cd"
+
+version("2.3.0")  { source md5: "fb89c9a3dcc1e00e0fe0d0200af692dc" }
+version("2.2.10") { source md5: "bbd8baaf328fc8e906fbb0efc3a5be1e" }
+version("2.1.0")  { source md5: "dd7dab7a5fea97d2a6a43f511449b7cd" }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
