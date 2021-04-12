@@ -25,7 +25,7 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://sourceforge.net/projects/expat/files/expat/#{version}/ filter=*.tar.gz
-source url: "http://downloads.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz",
+source url: "http://downloads.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz"
 
 version("2.3.0") { source md5: "fb89c9a3dcc1e00e0fe0d0200af692dc" }
 version("2.2.10") { source md5: "bbd8baaf328fc8e906fbb0efc3a5be1e" }
