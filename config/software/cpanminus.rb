@@ -17,7 +17,7 @@
 #
 
 name "cpanminus"
-default_version "1.7004"
+default_version "1.9019"
 
 license "Artistic-2.0"
 license_file "http://dev.perl.org/licenses/artistic.html"
@@ -28,8 +28,6 @@ dependency "perl"
 # version_list: url=https://github.com/miyagawa/cpanminus/releases filter=*.tar.gz
 
 version("1.9019") { source md5: "478b2c21f52145d21405c30fc58759ca" }
-version("1.7902") { source md5: "9fd13c87265b8cd51103c195e326930d" }
-version("1.7044") { source md5: "b70502277dbff656956592d022ccbd13" }
 version("1.7004") { source md5: "02fe90392f33a12979e188ea110dae67" }
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
