@@ -16,11 +16,12 @@
 
 name "cacerts"
 
-# We always pull the latest version,
-# so the hashsum check will break every time the file is updated on the remote
-default_version "latest"
-
-source url: "https://curl.haxx.se/ca/cacert.pem",
+# We have a synthetic monitor on the latest cacerts file to warn us when the latest
+# cacerts bundle changes.
+# This allows us to always use up-to-date cacerts, without breaking all builds
+# when they change.
+default_version "2021-04-13"
+source url: "https://curl.se/ca/cacert-#{version}.pem",
        sha256: "533610ad2b004c1622a40622f86ced5e89762e1c0e4b3ae08b31b240d863e91f",
        target_filename: "cacert.pem"
 
