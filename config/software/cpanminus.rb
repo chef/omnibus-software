@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# do_not_auto_update
-#
+
 
 name "cpanminus"
 default_version "1.9019"
