@@ -27,8 +27,8 @@ skip_transitive_dependency_licensing true
 # version_list: url=https://github.com/libexpat/libexpat/releases filter=*.tar.gz
 source url: "http://downloads.sourceforge.net/project/expat/expat/#{version}/expat-#{version}.tar.gz"
 
-version("2.3.0") { source md5: "fb89c9a3dcc1e00e0fe0d0200af692dc" }
-version("2.1.0") { source md5: "dd7dab7a5fea97d2a6a43f511449b7cd" }
+version("2.3.0") { source sha256: "89df123c62f2c2e2b235692d9fe76def6a9ab03dbe95835345bf412726eb1987" }
+version("2.1.0") { source sha256: "823705472f816df21c8f6aa026dd162b280806838bb55b3432b0fb1fcca7eb86" }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
