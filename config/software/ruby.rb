@@ -44,10 +44,6 @@ version("2.7.1")      { source sha256: "d418483bdd0000576c1370571121a6eb24582116
 version("2.6.7")      { source sha256: "e4227e8b7f65485ecb73397a83e0d09dcd39f25efd411c782b69424e55c7a99e" }
 version("2.6.6")      { source sha256: "364b143def360bac1b74eb56ed60b1a0dca6439b00157ae11ff77d5cd2e92291" }
 version("2.6.5")      { source sha256: "66976b716ecc1fd34f9b7c3c2b07bbd37631815377a2e3e85a5b194cfdcbed7d" }
-version("2.6.4")      { source sha256: "4fc1d8ba75505b3797020a6ffc85a8bcff6adc4dabae343b6572bf281ee17937" }
-version("2.6.3")      { source sha256: "577fd3795f22b8d91c1d4e6733637b0394d4082db659fccf224c774a2b1c82fb" }
-version("2.6.2")      { source sha256: "a0405d2bf2c2d2f332033b70dff354d224a864ab0edd462b7a413420453b49ab" }
-version("2.6.1")      { source sha256: "17024fb7bb203d9cf7a5a42c78ff6ce77140f9d083676044a7db67f1e5191cb8" }
 
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
@@ -192,6 +188,9 @@ build do
                        "--disable-dtrace",
                        "--disable-jit-support"]
   configure_command << "--with-bundled-md5" if fips_mode?
+
+  # resolve C99 code accidentally introduced in Ruby 2.6.7
+  patch source: "ruby-2.6.7_c99.patch", plevel: 1, env: patch_env if version == "2.6.7"
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
