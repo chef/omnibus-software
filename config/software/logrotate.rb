@@ -15,7 +15,7 @@
 #
 
 name "logrotate"
-default_version "3.9.2"
+default_version "3.18.0"
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -25,6 +25,10 @@ dependency "popt"
 
 source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"
 
+# versions_list: https://github.com/logrotate/logrotate/releases/ filter=*.tar.gz
+version("3.18.0") { source md5: "045f5a135dfd5f22082e3209639eead9" }
+version("3.17.0") { source md5: "256dab944e989134781104bf52193385" }
+version("3.16.0") { source md5: "68e074e957119b73bc730074c1c8446d" }
 version("3.9.2") { source md5: "584bca013dcceeb23b06b27d6d0342fb" }
 version("3.8.9") { source md5: "e6da1f1b91d1f202d26caaf864aa0d71" }
 
