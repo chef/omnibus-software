@@ -17,6 +17,9 @@
 name "gmp"
 default_version "6.0.0a"
 
+# version_list: url=https://ftp.gnu.org/gnu/gmp/ filter=*.tar.bz2
+
+version("6.2.1")  { source md5: "28971fc21cf028042d4897f02fd355ea" }
 version("6.1.0")  { source md5: "86ee6e54ebfc4a90b643a65e402c4048" }
 version("6.0.0a") { source md5: "b7ff2d88cae7f8085bd5006096eed470" }
 
