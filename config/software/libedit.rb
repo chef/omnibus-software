@@ -24,6 +24,9 @@ skip_transitive_dependency_licensing true
 dependency "ncurses"
 dependency "config_guess"
 
+#version_list: url=http://thrysoee.dk/editline/ filter=*.tar.gz
+
+version("20210419-3.1") { source md5: "e288b8fe53bf0d096fb13847d4e0f640" }
 version("20150325-3.1") { source md5: "43cdb5df3061d78b5e9d59109871b4f6" }
 version("20141030-3.1") { source md5: "5f18e63346d31b877cdf36b5c59b810b" }
 version("20130712-3.1") { source md5: "0891336c697362727a1fa7e60c5cb96c" }
