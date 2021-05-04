@@ -26,11 +26,11 @@ dependency "popt"
 source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"
 
 # versions_list: https://github.com/logrotate/logrotate/releases/ filter=*.tar.gz
-version("3.18.0") { source md5: "045f5a135dfd5f22082e3209639eead9" }
-version("3.17.0") { source md5: "256dab944e989134781104bf52193385" }
-version("3.16.0") { source md5: "68e074e957119b73bc730074c1c8446d" }
-version("3.9.2") { source md5: "584bca013dcceeb23b06b27d6d0342fb" }
-version("3.8.9") { source md5: "e6da1f1b91d1f202d26caaf864aa0d71" }
+version("3.18.0") { source sha256: "ceddb34dd2f33c324413e6eacb548cc5b873276709154895a44cf6259d2d37b6" }
+version("3.17.0") { source sha256: "5db8cf4786e0abeeec64f852d605ef702bfcf18f4d7938dce7d7a00ad4de787c" }
+version("3.16.0") { source sha256: "e1bae2c72115cf16007bb98ea38752d1120010cfb70addd9867d952c7529de3b" }
+version("3.9.2") { source sha256: "2de00c65e23fa9d7909cae6594e550b9abe9a7eb1553669ddeaca92d30f97009" }
+version("3.8.9") { source sha256: "be4df08cd09271b065f02c79a165cad247acc0506cd7f6cb80f5b5a4e0f8d517" }
 
 relative_path "logrotate-#{version}"
 
