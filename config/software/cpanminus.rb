@@ -25,8 +25,8 @@ dependency "perl"
 
 # version_list: url=https://github.com/miyagawa/cpanminus/releases filter=*.tar.gz
 
-version("1.9019") { source md5: "478b2c21f52145d21405c30fc58759ca" }
-version("1.7004") { source md5: "02fe90392f33a12979e188ea110dae67" }
+version("1.9019") { source sha256: "d0a37547a3c4b6dbd3806e194cd6cf4632158ebed44d740ac023e0739538fb46" }
+version("1.7004") { source sha256: "5cef499d12418a877c68070fc14193bd700d47a286d95e16c517f9673493af79" }
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
 
