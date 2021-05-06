@@ -69,7 +69,7 @@ build do
 
   block "Remove leftovers from compiling gems" do
     # find the embedded ruby gems dir and clean it up for globbing
-    target_dir = "#{install_dir}/embedded/lib/ruby/gems/*/".tr('\\', "/")
+    target_dir = "#{install_dir}/embedded/lib/ruby/gems/*/".tr("\\", "/")
 
     # find gem_make.out and mkmf.log files
     Dir.glob(Dir.glob("#{target_dir}/**/{gem_make.out,mkmf.log}")).each do |f|
@@ -243,7 +243,7 @@ build do
   end
 
   block "Remove empty gem dirs from Ruby's built-in gems" do
-    Dir.glob("#{install_dir}/embedded/lib/ruby/gems/*/gems/*".tr('\\', "/")).each do |d|
+    Dir.glob("#{install_dir}/embedded/lib/ruby/gems/*/gems/*".tr("\\", "/")).each do |d|
       # skip unless the dir is empty
       next unless Dir.children(d).empty?
 
