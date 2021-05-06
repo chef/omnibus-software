@@ -37,7 +37,7 @@ build do
                        require "rubygems/format"
                        Gem::Format.method(:from_file_by_path)
                      end
-      Dir["#{install_dir.tr('\\', "/")}/embedded/lib/ruby/gems/**/cache/*.gem"].each do |gem_file|
+      Dir["#{install_dir.tr("\\", "/")}/embedded/lib/ruby/gems/**/cache/*.gem"].each do |gem_file|
         load_gemspec.call(gem_file).spec.executables.each do |bin|
           if File.exist?("#{install_dir}/bin/#{bin}")
             File.open("#{install_dir}/bin/#{bin}.bat", "w") do |f|
