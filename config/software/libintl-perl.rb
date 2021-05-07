@@ -48,6 +48,7 @@ source url: "http://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-#{ve
 relative_path "libintl-perl-#{version}"
 
 # See https://github.com/theory/sqitch for more
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
