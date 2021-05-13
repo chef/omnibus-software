@@ -41,17 +41,17 @@ end
 # versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz
 version("23.3.3")    { source sha256: "839d74e71a457295d95b8674f1848a5d7d9c4c274a041ef8026d035da88858ae" }
 version("23.3.2")    { source sha256: "02443dd42023d0eb73f73dc05f4d3ded7bc4ab59d348041a37a045ba1581b48b" }
-version("18.1")      { source md5:    "fa64015fdd133e155b5b19bf90ac8678" }
-version("18.2")      { source md5:    "b336d2a8ccfbe60266f71d102e99f7ed" }
-version("18.3")      { source md5:    "7e4ff32f97c36fb3dab736f8d481830b" }
-version("20.0")      { source md5:    "2faed2c3519353e6bc2501ed4d8e6ae7" }
-version("18.3.4.9")  { source sha256: "25ef8ba3824cb726c4830abf32c2a2967925b1e33a8e8851dba596e933e2689a" }
-version("19.3.6.11") { source sha256: "c857ea6d2c901bfb633d9ceeb5e05332475357f185dd5112b7b6e4db80072827" }
-version("20.3.8.9")  { source sha256: "897dd8b66c901bfbce09ed64e0245256aca9e6e9bdf78c36954b9b7117192519" }
-version("21.1")      { source sha256: "7212f895ae317fa7a086fa2946070de5b910df5d41263e357d44b0f1f410af0f" }
-version("21.3.8.11") { source sha256: "aab77124285820608cd7a90f6b882e42bb5739283e10a8593d7f5bce9b30b16a" }
-version("22.1.8")    { source sha256: "7302be70cee2c33689bf2c2a3e7cfee597415d0fb3e4e71bd3e86bd1eff9cfdc" }
 version("22.2")      { source sha256: "232c37a502c7e491a9cbf86acb7af64fbc1a793fcbcbd0093cb029cf1c3830a7" }
+version("22.1.8")    { source sha256: "7302be70cee2c33689bf2c2a3e7cfee597415d0fb3e4e71bd3e86bd1eff9cfdc" }
+version("21.3.8.11") { source sha256: "aab77124285820608cd7a90f6b882e42bb5739283e10a8593d7f5bce9b30b16a" }
+version("21.1")      { source sha256: "7212f895ae317fa7a086fa2946070de5b910df5d41263e357d44b0f1f410af0f" }
+version("20.3.8.9")  { source sha256: "897dd8b66c901bfbce09ed64e0245256aca9e6e9bdf78c36954b9b7117192519" }
+version("20.0")      { source md5:    "2faed2c3519353e6bc2501ed4d8e6ae7" }
+version("19.3.6.11") { source sha256: "c857ea6d2c901bfb633d9ceeb5e05332475357f185dd5112b7b6e4db80072827" }
+version("18.3.4.9")  { source sha256: "25ef8ba3824cb726c4830abf32c2a2967925b1e33a8e8851dba596e933e2689a" }
+version("18.3")      { source md5:    "7e4ff32f97c36fb3dab736f8d481830b" }
+version("18.2")      { source md5:    "b336d2a8ccfbe60266f71d102e99f7ed" }
+version("18.1")      { source md5:    "fa64015fdd133e155b5b19bf90ac8678" }
 
 build do
   if version.satisfies?(">= 18.3")
