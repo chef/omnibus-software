@@ -63,6 +63,8 @@
 #    wrapper to link the code against the embedded musl libraries.
 #
 #####################################################################
+#
+# expeditor/ignore: deprecated 2021-04
 
 name "musl"
 default_version "1.2.2"
