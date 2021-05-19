@@ -21,22 +21,19 @@ license "MIT"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
-version "3.7.3" do
-  source md5: "7a5cb9945e0bb48f222992f2106130ac"
-end
+# version_list: url=https://github.com/Gecode/gecode/releases/ filter=gecode-release-*.tar.gz
 
-version "3.7.1" do
-  source md5: "b4191d8cfafa18bd9b78594544be2a04"
-end
+version("3.7.3") { source sha256: "75faaaa025a154ec0aef8b3b6ed9e78113efb543a92b8f4b2b971a0b0e898108" }
+version("3.7.1") { source sha256: "e8d1404929a707efe39d3e93403ef9019e416d90841f76d73fb4466095922c48" }
 
 # Major version, have not tried yet
-version "4.4.0" do
-  source md5: "a892852927b12ed291b435c72c085834"
-end
+version("6.2.0") { source sha256: "27d91721a690db1e96fa9bb97cec0d73a937e9dc8062c3327f8a4ccb08e951fd" }
+version("5.1.0") { source sha256: "77863f4638c6b77d24a29bf6aeac370c56cd808fe9aabc1fca96655581f6c83d" }
+version("4.4.0") { source sha256: "ca261c6c876950191d4ec2f277e5bfee1c3eae8a81af9b5c970d9b0c2930db37" }
 
-source url: "http://www.gecode.org/download/gecode-#{version}.tar.gz"
+source url: "https://github.com/Gecode/gecode/archive/refs/tags/release-#{version}.tar.gz"
 
-relative_path "gecode-#{version}"
+relative_path "gecode-release-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

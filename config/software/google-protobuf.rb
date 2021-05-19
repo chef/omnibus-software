@@ -27,6 +27,8 @@ dependency "ruby"
 
 source git: "https://github.com/google/protobuf.git"
 
+# versions_list: https://github.com/protocolbuffers/protobuf/tags filter=*.tar.gz
+
 license :project_license
 
 build do
