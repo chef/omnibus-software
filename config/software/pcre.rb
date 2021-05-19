@@ -25,6 +25,8 @@ dependency "libedit"
 dependency "ncurses"
 dependency "config_guess"
 
+# version_list: url=https://sourceforge.net/projects/pcre/files/pcre/ filter=*.tar.gz
+
 version("8.44") { source sha256: "aecafd4af3bd0f3935721af77b889d9024b2e01d96b58471bd91a3063fb47728" }
 version("8.38") { source sha256: "9883e419c336c63b0cb5202b09537c140966d585e4d0da66147dc513da13e629" }
 
