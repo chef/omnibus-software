@@ -24,10 +24,14 @@ skip_transitive_dependency_licensing true
 
 default_version "2.7.6"
 
+# version_list: url=https://ftp.gnu.org/gnu/patch/ filter=*.tar.gz
+
 version("2.7.6") { source sha256: "8cf86e00ad3aaa6d26aca30640e86b0e3e1f395ed99f189b06d4c9f74bc58a4e" }
 version("2.7.5") { source sha256: "7436f5a19f93c3ca83153ce9c5cbe4847e97c5d956e57a220121e741f6e7968f" }
 version("2.7") { source sha256: "59c29f56faa0a924827e6a60c6accd6e2900eae5c6aaa922268c717f06a62048" }
+
 source url: "https://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
+
 relative_path "patch-#{version}"
 
 env = with_standard_compiler_flags(with_embedded_path)
