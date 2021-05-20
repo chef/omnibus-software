@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.9.12"
+default_version "2.9.10" # 2.9.12 is not properly building as of 5.20.21
 
 license "MIT"
 license_file "COPYING"
