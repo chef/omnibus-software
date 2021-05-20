@@ -19,6 +19,7 @@ default_version "1.19.9"
 
 dependency "pcre"
 dependency "openssl"
+dependency "zlib"
 
 license "BSD-2-Clause"
 license_file "LICENSE"
