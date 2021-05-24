@@ -38,27 +38,6 @@ version("1.11.2.2") { source sha256: "7f9ca62cfa1e4aedf29df9169aed0395fd1b90de25
 version("1.11.2.1") { source md5: "f26d152f40c5263b383a5b7c826a6c7e" }
 version("1.9.7.3") { source md5: "33579b96a8c22bedee97eadfc99d9564" }
 
-version("1.9.7.2") do
-  source md5: "78a263de11ff43c95e847f208cce0899"
-  source_package_name = "ngx_openresty"
-end
-version("1.9.3.1") do
-  source md5: "cde1f7127f6ba413ee257003e49d6d0a"
-  source_package_name = "ngx_openresty"
-end
-version("1.7.10.2") do
-  source md5: "bca1744196acfb9e986f1fdbee92641e"
-  source_package_name = "ngx_openresty"
-end
-version("1.7.10.1") do
-  source md5: "1093b89459922634a818e05f80c1e18a"
-  source_package_name = "ngx_openresty"
-end
-version("1.4.3.6") do
-  source md5: "5e5359ae3f1b8db4046b358d84fabbc8"
-  source_package_name = "ngx_openresty"
-end
-
 source url: "https://openresty.org/download/#{source_package_name}-#{version}.tar.gz"
 
 relative_path "#{source_package_name}-#{version}"
