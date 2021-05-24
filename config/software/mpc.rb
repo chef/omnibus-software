@@ -15,7 +15,7 @@
 #
 
 name "mpc"
-default_version "1.0.2"
+default_version "1.2.1"
 
 dependency "gmp"
 dependency "mpfr"
@@ -23,8 +23,9 @@ dependency "mpfr"
 license "LGPL-3.0-or-later"
 license_file "COPYING.LESSER"
 
-version("1.0.2") { source sha256: "b561f54d8a479cee3bc891ee52735f18ff86712ba30f036f8b8537bae380c488" }
-version("1.0.3") { source sha256: "617decc6ea09889fb08ede330917a00b16809b8db88c29c31bfbb49cbf88ecc3" }
+# version_list: url=https://ftp.gnu.org/gnu/mpc/ filter=*.tar.gz
+
+version("1.2.1") { source sha256: "17503d2c395dfcf106b622dc142683c1199431d095367c6aacba6eec30340459" }
 version("1.1.0") { source sha256: "6985c538143c1208dcb1ac42cedad6ff52e267b47e5f970183a3e75125b43c2e" }
 
 source url: "https://ftp.gnu.org/gnu/mpc/mpc-#{version}.tar.gz"
