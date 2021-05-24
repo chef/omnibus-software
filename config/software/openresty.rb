@@ -35,8 +35,8 @@ version("1.15.8.1") { source sha256: "89a1238ca177692d6903c0adbea5bdf2a0b82c3836
 version("1.13.6.2") { source sha256: "946e1958273032db43833982e2cec0766154a9b5cb8e67868944113208ff2942" }
 version("1.11.2.5") { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f57820aa8e92d7888d8ad657b9" }
 version("1.11.2.2") { source sha256: "7f9ca62cfa1e4aedf29df9169aed0395fd1b90de254139996e554367db4d5a01" }
-version("1.11.2.1") { source md5: "f26d152f40c5263b383a5b7c826a6c7e" }
-version("1.9.7.3") { source md5: "33579b96a8c22bedee97eadfc99d9564" }
+version("1.11.2.1") { source sha256: "0e55b52bf6d77ac2d499ae2b05055f421acde6bb937e650ed8f482d11cbeeb5c" }
+version("1.9.7.3")  { source sha256: "3e4422576d11773a03264021ff7985cd2eeac3382b511ae3052e835210a9a69a" }
 
 source url: "https://openresty.org/download/#{source_package_name}-#{version}.tar.gz"
 
