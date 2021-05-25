@@ -15,18 +15,16 @@
 #
 
 name "pkg-config"
-default_version "0.28"
+default_version "0.29.2"
 
 dependency "libiconv"
 dependency "config_guess"
 
-version "0.29" do
-  source md5: "77f27dce7ef88d0634d0d6f90e03a77f"
-end
+# version_list: url=https://pkgconfig.freedesktop.org/releases/ filter=*.tar.gz
 
-version "0.28" do
-  source md5: "aa3c86e67551adc3ac865160e34a2a0d"
-end
+version("0.29.2") { source sha256: "6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591" }
+version("0.29")   { source sha256: "c8507705d2a10c67f385d66ca2aae31e81770cc0734b4191eb8c489e864a006b" }
+version("0.28")   { source sha256: "6b6eb31c6ec4421174578652c7e141fdaae2dabad1021f420d8713206ac1f845" }
 
 source url: "https://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
 
