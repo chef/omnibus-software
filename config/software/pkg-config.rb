@@ -13,12 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-05
 
 name "pkg-config"
 default_version "0.28"
 
 dependency "libiconv"
 dependency "config_guess"
+
+# version_list: url=https://pkgconfig.freedesktop.org/releases/ filter=*.tar.gz
 
 version "0.29" do
   source md5: "77f27dce7ef88d0634d0d6f90e03a77f"
