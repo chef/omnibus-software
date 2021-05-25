@@ -15,7 +15,7 @@
 #
 
 name "perl_pg_driver"
-default_version "3.3.0"
+default_version "3.14.2"
 
 dependency "perl"
 dependency "cpanminus"
@@ -25,12 +25,11 @@ license "Artistic"
 license_file "README"
 license_file "LICENSES/artistic.txt"
 
-version "3.5.3" do
-  source md5: "21cdf31a8d1f77466920375aa766c164"
-end
-version "3.3.0" do
-  source md5: "547de1382a47d66872912fe64282ff55"
-end
+# version_list: url=https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/ filter=*.tar.gz
+
+version("3.14.2") { source md5: "6b8fe657f8cc0be8cc2c178f42c1d4ed" }
+version("3.5.3")  { source md5: "21cdf31a8d1f77466920375aa766c164" }
+version("3.3.0")  { source md5: "547de1382a47d66872912fe64282ff55" }
 
 source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz"
 
