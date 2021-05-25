@@ -20,8 +20,11 @@ license "Artistic-2.0"
 license_file "Artistic"
 skip_transitive_dependency_licensing true
 
-default_version "5.30.0"
+default_version "5.34.0"
 
+# versions_list: http://www.cpan.org/src/ filter=*.tar.gz
+version("5.34.0") { source sha256: "551efc818b968b05216024fb0b727ef2ad4c100f8cb6b43fab615fa78ae5be9a" }
+version("5.32.1") { source sha256: "03b693901cd8ae807231b1787798cf1f2e0b8a56218d07b7da44f784a7caeb2c" }
 version("5.30.0") { source sha256: "851213c754d98ccff042caa40ba7a796b2cee88c5325f121be5cbb61bbf975f2" }
 version("5.22.1") { source sha256: "2b475d0849d54c4250e9cba4241b7b7291cffb45dfd083b677ca7b5d38118f27" }
 version("5.18.1") { source sha256: "655e11a8ffba8853efcdce568a142c232600ed120ac24aaebb4e6efe74e85b2b" }
