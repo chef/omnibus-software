@@ -15,8 +15,9 @@
 #
 
 name "pg-gem"
-default_version "0.17.1"
+default_version "1.2.3"
 
+# versions_list: https://rubygems.org/gems/pg/
 license "BSD-2-Clause"
 license_file "https://raw.githubusercontent.com/ged/ruby-pg/master/LICENSE"
 license_file "https://raw.githubusercontent.com/ged/ruby-pg/master/BSDL"
