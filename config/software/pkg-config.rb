@@ -23,7 +23,6 @@ dependency "config_guess"
 
 # version_list: url=https://pkgconfig.freedesktop.org/releases/ filter=*.tar.gz
 
-version("0.29") { source sha256: "c8507705d2a10c67f385d66ca2aae31e81770cc0734b4191eb8c489e864a006b" }
 version("0.28") { source sha256: "6b6eb31c6ec4421174578652c7e141fdaae2dabad1021f420d8713206ac1f845" }
 
 source url: "https://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
