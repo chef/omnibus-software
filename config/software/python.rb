@@ -26,7 +26,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 
-#version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
+# version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
 
 version("3.9.5")  { source sha256: "e0fbd5b6e1ee242524430dee3c91baf4cbbaba4a72dd1674b90fda87b713c7ab" }
 version("2.7.14") { source sha256: "304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8" }
