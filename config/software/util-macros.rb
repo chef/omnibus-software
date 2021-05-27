@@ -15,15 +15,13 @@
 #
 
 name "util-macros"
-default_version "1.18.0"
+default_version "1.19.3"
 
-version "1.19.0" do
-  source md5: "40e1caa49a71a26e0aa68ddd00203717"
-end
+# version_list: url=https://www.x.org/releases/individual/util/ filter=util-macros-*.tar.gz
 
-version "1.18.0" do
-  source md5: "fd0ba21b3179703c071bbb4c3e5fb0f4"
-end
+version("1.19.3") { source sha256: "624bb6c3a4613d18114a7e3849a3d70f2d7af9dc6eabeaba98060d87e3aef35b" }
+version("1.19.0") { source sha256: "0d4df51b29023daf2f63aebf3ebc638ea88efedfd560ab5866741ab3f92acaa1" }
+version("1.18.0") { source sha256: "cf4ab0e17bfee0f7689cdcff8c7d7f164c9a710f851f91c488f5cd81fac9c0aa" }
 
 source url: "https://www.x.org/releases/individual/util/util-macros-#{version}.tar.gz"
 
