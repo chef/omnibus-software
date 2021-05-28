@@ -25,7 +25,14 @@ dependency "config_guess"
 
 # versions_list: https://github.com/rpm-software-management/popt/releases filter=*.tar.gz
 version("1.18") { source sha256: "5159bc03a20b28ce363aa96765f37df99ea4d8850b1ece17d1e6ad5c24fdc5d1" }
-source url: "http://ftp.rpm.org/popt/releases/popt-1.x/popt-#{version}.tar.gz"
+version("1.16") { source sha256: "e728ed296fe9f069a0e005003c3d6b2dde3d9cad453422a10d6558616d304cc8" }
+
+if version == "1.16"
+  source url: "ftp://anduin.linuxfromscratch.org/BLFS/popt/popt-#{version}.tar.gz"
+else
+  source url: "http://ftp.rpm.org/popt/releases/popt-1.x/popt-#{version}.tar.gz"
+end
+
 relative_path "popt-#{version}"
 
 build do
