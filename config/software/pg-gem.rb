@@ -15,7 +15,8 @@
 #
 
 name "pg-gem"
-default_version "1.2.3"
+# do_not_auto_update
+default_version "0.17.1"
 
 # versions_list: https://rubygems.org/gems/pg/
 license "BSD-2-Clause"
