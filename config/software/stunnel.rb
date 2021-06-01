@@ -30,8 +30,6 @@ source url:
 relative_path "stunnel-#{version}"
 
 version("5.59") { source sha256: "137776df6be8f1701f1cd590b7779932e123479fb91e5192171c16798815ce9f" }  
-version("5.39") { source sha256: "288c087a50465390d05508068ac76c8418a21fae7275febcc63f041ec5b04dee" }
-version("5.38") { source sha256: "09ada29ba1683ab1fd1f31d7bed8305127a0876537e836a40cb83851da034fd5" }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
