@@ -29,7 +29,7 @@ source url:
 "https://www.stunnel.org/downloads/stunnel-#{version}.tar.gz"
 relative_path "stunnel-#{version}"
 
-version("5.59") { source sha256: "137776df6be8f1701f1cd590b7779932e123479fb91e5192171c16798815ce9f" }  
+version("5.59") { source sha256: "137776df6be8f1701f1cd590b7779932e123479fb91e5192171c16798815ce9f" }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
