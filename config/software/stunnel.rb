@@ -23,6 +23,8 @@ skip_transitive_dependency_licensing true
 
 dependency "openssl"
 
+# version_list: url=https://www.stunnel.org/downloads/ filter=*.tar.gz
+
 source url:
 "https://www.stunnel.org/downloads/stunnel-#{version}.tar.gz"
 relative_path "stunnel-#{version}"
