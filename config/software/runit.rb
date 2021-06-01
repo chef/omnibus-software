@@ -15,12 +15,13 @@
 #
 
 name "runit"
-default_version "2.1.1"
+default_version "2.1.2"
 
 license "BSD-3-Clause"
 license_file "../package/COPYING"
 skip_transitive_dependency_licensing true
 
+# versions_list: http://smarden.org/runit/ filter=*.tar.gz
 version "2.1.2" do
   source md5: "6c985fbfe3a34608eb3c53dc719172c4"
 end
