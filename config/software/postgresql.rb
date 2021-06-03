@@ -30,10 +30,10 @@ dependency "config_guess"
 
 # version_list: url=https://ftp.postgresql.org/pub/source/v#{version}/ filter=*.tar.bz2
 
-version("13.3") { source sha256: "3cd9454fa8c7a6255b6743b767700925ead1b9ab0d7a0f9dcb1151010f8eb4a1" }
+version("13.3")   { source sha256: "3cd9454fa8c7a6255b6743b767700925ead1b9ab0d7a0f9dcb1151010f8eb4a1" }
 
 # Version 12.x will EoL November 14, 2024
-version("12.5") { source sha256: "bd0d25341d9578b5473c9506300022de26370879581f5fddd243a886ce79ff95" }
+version("12.5")   { source sha256: "bd0d25341d9578b5473c9506300022de26370879581f5fddd243a886ce79ff95" }
 
 # Version 9.6 will EoL November 11, 2021
 version("9.6.10") { source sha256: "8615acc56646401f0ede97a767dfd27ce07a8ae9c952afdb57163b7234fe8426" }
@@ -52,9 +52,9 @@ version("9.3.18") { source sha256: "ad60d12a5a3dd0f6f5904c41b87e43eff49d3f74e451
 
 # Version 9.2 was EoL November 9, 2017
 version("9.2.24") { source sha256: "a754c02f7051c2f21e52f8669a421b50485afcde9a581674d6106326b189d126" }
-  
+
 # This is left here for reporting as of 3.2021
-version("9.2.10") { source md5: "7b81646e2eaf67598d719353bf6ee936" }
+version("9.2.10") { source sha256: "35545bbfead46f70936a7f3f39ccef13e02cdb79c2b3ef3688888df5b18d73ad" }
 
 source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
 
