@@ -92,6 +92,10 @@ elsif aix?
 elsif solaris2?
   env["CXXFLAGS"] = "#{env["CXXFLAGS"]} -std=c++0x"
 elsif windows?
+  # this forces ruby >= 3.0 to pick up the gcc in the devkit rather than the cc in /opt/omnibus-toolchain
+  # which is necessary for mkmf.rb to be able to correctly build native gems.  in an ideal world the compilation
+  # environment in omnibus-toolchain would probably need to look a little more identical to the devkit.
+  env["CC"] = "gcc"
   env["CFLAGS"] = "-I#{install_dir}/embedded/include -DFD_SETSIZE=2048"
   if windows_arch_i386?
     env["CFLAGS"] << " -m32 -march=i686 -O3"
