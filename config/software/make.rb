@@ -23,8 +23,6 @@ license_file "COPYING"
 # version_list: url=https://ftp.gnu.org/gnu/make/ filter=*.tar.gz
 
 version("4.3")   { source sha256: "e05fdde47c5f7ca45cb697e973894ff4f5d79e13b750ed57d7b66d8defc78e19" }
-version("4.2.1") { source sha256: "e40b8f018c1da64edd1cc9a6fce5fa63b2e707e404e20cad91fbae337c98a5b7" }
-version("4.1")   { source sha256: "9fc7a9783d3d2ea002aa1348f851875a2636116c433677453cc1d1acc3fc4d55" }
 
 source url: "https://ftp.gnu.org/gnu/make/make-#{version}.tar.gz"
 
@@ -36,7 +34,7 @@ build do
   # Work around an error caused by Glibc 2.27
   # Thanks to: http://www.linuxfromscratch.org/lfs/view/8.2/chapter05/make.html
   if (debian? &&  platform_version.satisfies?(">= 10")) || (ubuntu? && platform_version.satisfies?(">= 18.04")) || raspbian?
-    patch -p1 < deb-make-glob.patch
+    patch source: "deb-make-glob.patch", plevel: 1, env: env
   end
 
   command "./configure" \
