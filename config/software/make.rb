@@ -36,7 +36,7 @@ build do
   # Work around an error caused by Glibc 2.27
   # Thanks to: http://www.linuxfromscratch.org/lfs/view/8.2/chapter05/make.html
   if (debian? &&  platform_version.satisfies?(">= 10")) || (ubuntu? && platform_version.satisfies?(">= 18.04")) || raspbian?
-    patch -p1, source: "deb-make-glob.patch", plevel: 1, env: env
+    patch -p, source: "deb-make-glob.patch", plevel: 1, env: env
   end
 
   command "./configure" \
