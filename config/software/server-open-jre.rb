@@ -17,7 +17,7 @@ dependency "zlib"
 dependency "patchelf"
 
 name "server-open-jre"
-default_version "11.0.10+9"
+default_version "11.0.11+9"
 
 unless _64_bit?
   raise "Server-open-jre can only be installed on x86_64 systems."
@@ -35,6 +35,13 @@ whitelist_file "jre/plugin"
 whitelist_file "jre/bin/appletviewer"
 
 license_warning = "By including the JRE, you accept the terms of AdoptOpenJRE."
+
+version "11.0.11+9" do
+  source url: "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.11%2B9/OpenJDK11U-jre_x64_linux_hotspot_11.0.11_9.tar.gz",
+  sha256: "144f2c6bcf64faa32016f2474b6c01031be75d25325e9c3097aed6589bc5d548",
+  warning: license_warning,
+  unsafe: true
+end
 
 version "11.0.10+9" do
   source url: "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jre_x64_linux_hotspot_11.0.10_9.tar.gz",
