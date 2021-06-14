@@ -137,10 +137,10 @@ build do
     patch source: "openssl-1.0.2x-darwin-arm64.patch"
   end
 
-  if windows?
+  # if windows?
     # Patch Makefile.org to update the compiler flags/options table for mingw.
-    patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
-  end
+    # patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
+  # end
 
   # Out of abundance of caution, we put the feature flags first and then
   # the crazy platform specific compiler flags at the end.
