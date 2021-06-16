@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,17 +26,9 @@ dependency "openssl"
 dependency "ncurses"
 dependency "config_guess"
 
-#
-# OTP only puts minor version updates in the downloads page. E.g. 18.3 is present, but 18.3.4.9 wouldn't be
-# It's nice to be able to have those updates, so we're moving to using the github releases instead
-# However for backcompat leave the prior stuff alone.
-if version.satisfies?("<= 18.3") || version.satisfies?("=20.0")
-  source url: "http://www.erlang.org/download/otp_src_#{version}.tar.gz"
-  relative_path "otp_src_#{version}"
-else
-  source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
-  relative_path "otp-OTP-#{version}"
-end
+# grab from github so we can get patch releases if we need to
+source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
+relative_path "otp-OTP-#{version}"
 
 # versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz
 version("23.3.3")    { source sha256: "839d74e71a457295d95b8674f1848a5d7d9c4c274a041ef8026d035da88858ae" }
@@ -49,9 +41,9 @@ version("20.3.8.9")  { source sha256: "897dd8b66c901bfbce09ed64e0245256aca9e6e9b
 version("20.0")      { source sha256: "22710927ad2e48a0964997bf5becb24abb1f4fed86f5f05af22a9e1df636b787" }
 version("19.3.6.11") { source sha256: "c857ea6d2c901bfb633d9ceeb5e05332475357f185dd5112b7b6e4db80072827" }
 version("18.3.4.9")  { source sha256: "25ef8ba3824cb726c4830abf32c2a2967925b1e33a8e8851dba596e933e2689a" }
-version("18.3")      { source sha256: "fdab8129a1cb935db09f1832e3a7d511a4aeb2b9bb3602ca6a7ccb9730d5c9c3" }
-version("18.2")      { source sha256: "43de28ac307d2ecf26b6134647f8de1cdf7b419517514a7d5c2af04284fb3fd0" }
-version("18.1")      { source sha256: "e4a147228a6b7fa60dce05c8adfb3cbc254d97cf6e45456d93d93adbde8b0f11" }
+version("18.3")      { source sha256: "a6d08eb7df06e749ccaf3049b33ceae617a3c466c6a640ee8d248c2372d48f4e" }
+version("18.2")      { source sha256: "3944ce41d13fbef1e1e80d7335b2167849e8566581513d5d9226cd211d3d58f9" }
+version("18.1")      { source sha256: "6b956dda690d3f3bf244249e8d422dd606231cc7229675bf5e34b5ba2ae83e9b" }
 
 build do
   if version.satisfies?(">= 18.3")
