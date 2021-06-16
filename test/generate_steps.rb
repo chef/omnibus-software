@@ -42,6 +42,7 @@ files.each do |file|
     puts <<~EOH
       - label: "test-build (#{software} #{version})"
         command: docker build --build-arg SOFTWARE=#{software} --build-arg VERSION=#{version} .
+        timeout_in_minutes: 30
         expeditor:
           executor:
             linux:
