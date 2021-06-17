@@ -1,5 +1,5 @@
 #
-# Copyright 2016 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "stunnel"
-default_version "5.59"
+default_version "5.39"
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -30,6 +30,7 @@ source url:
 relative_path "stunnel-#{version}"
 
 version("5.59") { source sha256: "137776df6be8f1701f1cd590b7779932e123479fb91e5192171c16798815ce9f" }
+version("5.39") { source sha256: "288c087a50465390d05508068ac76c8418a21fae7275febcc63f041ec5b04dee" }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
