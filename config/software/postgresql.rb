@@ -38,6 +38,9 @@ version("12.7")   { source sha256: "8490741f47c88edc8b6624af009ce19fda4dc9b31c44
 # Version 9.6 will EoL November 11, 2021
 version("9.6.22") { source sha256: "3d32cd101025a0556813397c69feff3df3d63736adb8adeaf365c522f39f2930" }
 
+# Version 9.3 was EoL November 8, 2018 (but used in Supermarket as of 6.2021)
+version("9.3.25") { source sha256: "e4953e80415d039ccd33d34be74526a090fd585cf93f296cd9c593972504b6db" }
+
 source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
 
 relative_path "postgresql-#{version}"
