@@ -26,6 +26,10 @@ skip_transitive_dependency_licensing true
 
 dependency "ruby"
 
+version "0.18.4" do
+  source sha256: "62f0dce2fd0b3b0f684b2d60e09b3f515e7eb30f8f736bf5ede5b49e5425bb1d"
+end
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
