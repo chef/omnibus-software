@@ -23,23 +23,19 @@ skip_transitive_dependency_licensing true
 if ppc64? || ppc64le? || s390x?
   default_version "0.10.38-release-ppc"
 else
-  default_version "0.10.35"
+  default_version "0.10.48"
 end
 
 dependency "python"
 
 default_src_url = "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
-version "0.10.10" do
-  source url: default_src_url, md5: "a47a9141567dd591eec486db05b09e1c"
-end
-
-version "0.10.26" do
-  source url: default_src_url, md5: "15e9018dadc63a2046f61eb13dfd7bd6"
+version "0.10.48" do
+  source url: default_src_url, sha256: "27a1765b86bf4ec9833e2f89e8421ba4bc01a326b883f125de2f0b3494bd5549"
 end
 
 version "0.10.35" do
-  source url: default_src_url, md5: "2c00d8cf243753996eecdc4f6e2a2d11"
+  source url: default_src_url, sha256: "0043656bb1724cb09dbdc960a2fd6ee37d3badb2f9c75562b2d11235daa40a03"
 end
 
 version "0.10.38-release-ppc" do
