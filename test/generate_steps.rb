@@ -46,6 +46,7 @@ files.each do |file|
         expeditor:
           executor:
             linux:
+              privileged: true
     EOH
   end
 end
