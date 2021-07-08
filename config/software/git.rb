@@ -39,6 +39,9 @@ version("2.29.2") { source sha256: "869a121e1d75e4c28213df03d204156a17f02fce2dc7
 version("2.28.0") { source sha256: "f914c60a874d466c1e18467c864a910dd4ea22281ba6d4d58077cb0c3f115170" }
 version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
 
+# we need to keep 2.24.1 until we can remove the version pin in omnibus-toolchain Solaris builds
+version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
+
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 
 # git builds git-core as binaries into a special directory. We need to include
