@@ -15,7 +15,7 @@
 #
 
 name "stunnel"
-default_version "5.39"
+default_version "5.49" # Pin stunnel to 5.49 as it's the last version that supports FIPS with standard builds.
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -25,11 +25,15 @@ dependency "openssl"
 
 # version_list: url=https://www.stunnel.org/downloads/ filter=*.tar.gz
 
-source url:
-"https://www.stunnel.org/downloads/stunnel-#{version}.tar.gz"
+if version <= "5.58"
+  source url: "ftp://ftp.stunnel.org/stunnel/archive/5.x/stunnel-#{version}.tar.gz"
+else
+  source url: "https://www.stunnel.org/downloads/stunnel-#{version}.tar.gz"
+end
 relative_path "stunnel-#{version}"
 
 version("5.59") { source sha256: "137776df6be8f1701f1cd590b7779932e123479fb91e5192171c16798815ce9f" }
+version("5.49") { source sha256: "3d6641213a82175c19f23fde1c3d1c841738385289eb7ca1554f4a58b96d955e" }
 version("5.39") { source sha256: "288c087a50465390d05508068ac76c8418a21fae7275febcc63f041ec5b04dee" }
 
 build do
