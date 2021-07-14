@@ -39,6 +39,10 @@ relative_path "bash-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Fix bash race condition
+  # https://lists.gnu.org/archive/html/bug-bash/2020-12/msg00051.html
+  patch source: "race-condition.patch", plevel: 1, env: env
+
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
 

@@ -27,3 +27,16 @@ steps:
     executor:
       docker:
         image: ruby:2.7-buster
+
+- label: ":pipeline: generate-test-build-steps"
+  command: expeditor buildkite trigger-pipeline test/generate_steps.rb
+  agents:
+    queue: pipeline-trigger
+  plugins:
+    - docker#v3.5.0:
+        image: "$EXPEDITOR_TRIGGER_IMAGE_NAME:$EXPEDITOR_TRIGGER_IMAGE_VERSION"
+        propagate-environment: true
+        network: host
+        environment:
+        - AWS_ACCOUNT_ID
+        - AWS_REGION

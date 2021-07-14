@@ -24,6 +24,7 @@ license "BSD-2-Clause"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
+# versions_list: https://github.com/libarchive/libarchive/releases/ filter=*.tar.gz
 version("3.5.1") { source sha256: "9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a" }
 version("3.5.0") { source sha256: "fc4bc301188376adc18780d35602454cc8df6396e1b040fbcbb0d4c0469faf54" }
 version("3.4.3") { source sha256: "ee1e749213c108cb60d53147f18c31a73d6717d7e3d2481c157e1b34c881ea39" }

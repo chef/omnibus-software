@@ -15,12 +15,13 @@
 #
 
 name "libffi"
-
 default_version "3.3"
 
 license "MIT"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
+
+# version_list: url=ftp://sourceware.org/pub/libffi/ filter=*.tar.gz
 
 version("3.2.1") { source sha256: "d06ebb8e1d9a22d19e38d63fdb83954253f39bedc5d46232a05645685722ca37" }
 version("3.3") { source sha256: "72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056" }

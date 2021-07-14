@@ -63,16 +63,21 @@
 #    wrapper to link the code against the embedded musl libraries.
 #
 #####################################################################
+#
+# expeditor/ignore: deprecated 2021-04
 
 name "musl"
-default_version "1.1.22"
+default_version "1.2.2"
 
 license "MIT"
 license_file "COPYRIGHT"
 
-version("1.1.19") { source sha256: "db59a8578226b98373f5b27e61f0dd29ad2456f4aa9cec587ba8c24508e4c1d9" }
-version("1.1.20") { source sha256: "44be8771d0e6c6b5f82dd15662eb2957c9a3173a19a8b49966ac0542bbd40d61" }
+# versions_list: https://www.musl-libc.org/releases/ filter=*.tar.gz
+version("1.2.2") { source sha256: "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd" }
+version("1.2.1") { source sha256: "68af6e18539f646f9c41a3a2bb25be4a5cfa5a8f65f0bb647fd2bbfdf877e84b" }
 version("1.1.22") { source sha256: "8b0941a48d2f980fd7036cfbd24aa1d414f03d9a0652ecbd5ec5c7ff1bee29e3" }
+version("1.1.20") { source sha256: "44be8771d0e6c6b5f82dd15662eb2957c9a3173a19a8b49966ac0542bbd40d61" }
+version("1.1.19") { source sha256: "db59a8578226b98373f5b27e61f0dd29ad2456f4aa9cec587ba8c24508e4c1d9" }
 
 source url: "https://www.musl-libc.org/releases/musl-#{version}.tar.gz"
 

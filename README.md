@@ -30,6 +30,14 @@ This repository is versioned and tagged using the `YY.MM.BUILD` to allow folks t
 
 For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/master/CONTRIBUTING.md)
 
+### Testing via Docker
+
+We provide a sample Dockerfile you can use to ensure that your software definitions are able to compile on Ubuntu 18.04.
+
+```
+bundle exec rake test_build <SOFTWARE> (<VERSION>)
+```
+
 ## License & Copyright
 
 - Copyright:: Copyright (c) 2012-2021 Chef Software, Inc.

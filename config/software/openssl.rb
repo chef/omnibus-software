@@ -23,7 +23,7 @@ skip_transitive_dependency_licensing true
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2y"
+default_version "1.0.2y" # do_not_auto_update
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
@@ -98,7 +98,11 @@ build do
       "/bin/bash ./Configure solaris-x86-gcc"
     elsif solaris2?
       platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
-      "/bin/bash ./Configure #{platform} -static-libgcc"
+      if version.satisfies?("< 1.1.0")
+        "/bin/bash ./Configure #{platform} -static-libgcc"
+      else
+        "./Configure #{platform} -static-libgcc"
+      end
     elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
@@ -137,7 +141,7 @@ build do
     patch source: "openssl-1.0.2x-darwin-arm64.patch"
   end
 
-  if windows?
+  if version.start_with?("1.0.2") && windows?
     # Patch Makefile.org to update the compiler flags/options table for mingw.
     patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
   end
@@ -150,7 +154,7 @@ build do
 
   command configure_command, env: env, in_msys_bash: true
 
-  if windows?
+  if version.start_with?("1.0.2") && windows?
     patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
   end
 

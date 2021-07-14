@@ -19,17 +19,25 @@
 
 name "patchelf"
 
-default_version "0.10"
+default_version "0.11"
 
 license :project_license
 
 skip_transitive_dependency_licensing true
 
-version("0.10") { source md5: "228ade8c1b4033670bcf7f77c0ea1fb7" }
+# version_list: url=https://releases.nixos.org/?prefix=patchelf/patchelf-#{version}/ filter=*.tar.gz
+
+version "0.11" do
+  source sha256: "e52378cc2f9379c6e84a04ac100a3589145533a7b0cd26ef23c79dfd8a9038f9"
+  relative_path "patchelf-0.11.20200609.d6b2a72"
+end
+
+version "0.10" do
+  source sha256: "b2deabce05c34ce98558c0efb965f209de592197b2c88e930298d740ead09019"
+  relative_path "patchelf-0.10"
+end
 
 source url: "https://nixos.org/releases/patchelf/patchelf-#{version}/patchelf-#{version}.tar.gz"
-
-relative_path "patchelf-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

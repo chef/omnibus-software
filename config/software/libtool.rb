@@ -23,9 +23,11 @@ skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 
-version("2.4.6") { source md5: "addf44b646ddb4e3919805aa88fa7c5e" }
-version("2.4.2") { source md5: "d2f3b7d4627e69e13514a40e72a24d50" }
-version("2.4")   { source md5: "b32b04148ecdd7344abc6fe8bd1bb021" }
+# version_list: url=https://ftp.gnu.org/gnu/libtool/ filter=*.tar.gz
+
+version("2.4.6") { source sha256: "e3bd4d5d3d025a36c21dd6af7ea818a2afcd4dfc1ea5a17b39d7854bcd0c06e3" }
+version("2.4.2") { source sha256: "b38de44862a987293cd3d8dfae1c409d514b6c4e794ebc93648febf9afc38918" }
+version("2.4")   { source sha256: "13df57ab63a94e196c5d6e95d64e53262834fe780d5e82c28f177f9f71ddf62e" }
 
 source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 

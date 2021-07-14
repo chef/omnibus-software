@@ -38,12 +38,17 @@ license_file "https://raw.githubusercontent.com/theory/libintl-perl/a92bda4e01cd
 dependency "perl"
 dependency "cpanminus"
 
-source url: "http://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-1.23.tar.gz",
-       md5: "2e79dc842af1c9efc14fbe6664dc89bf"
+# version_list: url=https://cpan.metacpan.org/authors/id/G/GU/GUIDO/ filter=libintl-perl-*.tar.gz
+
+version("1.32") { source sha256: "80108298f2564ecbfc7110a3042008e665ed00c2e155b36b0188e6c1135ceba5" }
+version("1.23") { source sha256: "60da16356c2fa89a0c542c825d626c8c2811202b6002b56d8574b928a1379ffa" }
+
+source url: "http://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-#{version}.tar.gz"
 
 relative_path "libintl-perl-#{version}"
 
 # See https://github.com/theory/sqitch for more
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

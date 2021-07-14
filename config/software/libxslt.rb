@@ -25,13 +25,9 @@ dependency "libxml2"
 dependency "liblzma"
 dependency "config_guess"
 
-version "1.1.34" do
-  source sha256: "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f"
-end
-
-version "1.1.30" do
-  source sha256: "ba65236116de8326d83378b2bd929879fa185195bc530b9d1aba72107910b6b3"
-end
+# versions_list: ftp://xmlsoft.org/libxml2/ filter=*.tar.gz
+version("1.1.34") { source sha256: "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f" }
+version("1.1.30") { source sha256: "ba65236116de8326d83378b2bd929879fa185195bc530b9d1aba72107910b6b3" }
 
 source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
 
