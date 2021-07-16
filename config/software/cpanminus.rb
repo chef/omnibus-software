@@ -23,13 +23,11 @@ skip_transitive_dependency_licensing true
 
 dependency "perl"
 
-version "1.7040" do
-  source md5: "4fabebffe22eaaf584b345b082a8a9c1"
-end
+# version_list: url=https://github.com/miyagawa/cpanminus/releases filter=*.tar.gz
 
-version "1.7004" do
-  source md5: "02fe90392f33a12979e188ea110dae67"
-end
+version("1.9019") { source sha256: "d0a37547a3c4b6dbd3806e194cd6cf4632158ebed44d740ac023e0739538fb46" }
+version("1.7040") { source sha256: "48a747c040689445f7db0edd169da0abd709a37cfece3ceecff0816c09beab0e" }
+version("1.7004") { source sha256: "5cef499d12418a877c68070fc14193bd700d47a286d95e16c517f9673493af79" }
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
 
@@ -47,4 +45,3 @@ build do
 
   command "cpanm Module::Build", env: env
 end
-
