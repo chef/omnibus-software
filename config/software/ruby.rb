@@ -201,8 +201,8 @@ build do
                        "--disable-jit-support"]
   configure_command << "--with-bundled-md5" if fips_mode?
 
-  # resolve C99 code accidentally introduced in Ruby 2.6.7
-  patch source: "ruby-2.6.7_c99.patch", plevel: 1, env: patch_env if version == "2.6.7"
+  # resolve C99 code accidentally introduced in Ruby 2.6.7 and it's still in 2.6.8 :(
+  patch source: "ruby-2.6.7_c99.patch", plevel: 1, env: patch_env if version >= "2.6.7"
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
