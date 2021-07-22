@@ -41,7 +41,7 @@ build do
 
   # Windows had worse automake/libtool version issues.
   # Just patch the output instead.
-  if windows?
+  if windows? && version.satisfies?("< 0.2.5")
     patch source: "windows-configure.patch", plevel: 1, env: env
   end
 
