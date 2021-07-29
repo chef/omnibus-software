@@ -23,6 +23,8 @@ skip_transitive_dependency_licensing true
 default_version "0.10.48"
 
 dependency "python"
+dependency "zlib" # for 12
+dependency "openssl" # for 12
 
 default_src_url = "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
@@ -45,9 +47,13 @@ build do
   ]
 
   if version.satisfies?(">= 12")
-    config_command << "--without-node-snapshot"
+    config_command << "--without-etw"
     config_command << "--without-inspector"
     config_command << "--without-intl"
+    config_command << "--openssl-use-sys"
+    config_command << "--shared-openssl-includes=#{install_dir}/embedded/include"
+    config_command << "--shared-openssl-libpath=#{install_dir}/embedded/lib"
+    config_command << "--shared-zlib-includes=#{install_dir}/embedded/include"
   end
 
   configure(*config_command, env: env)
