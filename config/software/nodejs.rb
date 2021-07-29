@@ -39,8 +39,18 @@ relative_path "node-v#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "#{install_dir}/embedded/bin/python ./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+  config_command = [
+    "--prefix=#{install_dir}/embedded",
+    "--without-dtrace",
+  ]
+
+  if version.satisfies?(">= 12")
+    config_command << "--without-node-snapshot"
+    config_command << "--without-inspector"
+    config_command << "--without-intl"
+  end
+
+  configure(*config_command, env: env)
 
   make "-j #{workers}", env: env
   make "install", env: env
