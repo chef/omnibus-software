@@ -36,7 +36,18 @@ build do
 
   update_config_guess(target: "conftools")
 
+  # AIX needs two fixes to compile the latest version.
+  #  1. We need to add -lm to link in the proper math declarations
+  #  2. Since we are using xlc to compile, we need to use qvisibility instead of fvisibility
+  #     Refer to https://www.ibm.com/docs/en/xl-c-and-cpp-aix/16.1?topic=descriptions-qvisibility-fvisibility
+  if aix?
+    env["LDFLAGS"] << " -lm"
+    patch source: "configure_xlc_visibility.patch", plevel: 1, env: env
+  end
+
   command "./configure" \
+          " --without-examples" \
+          " --without-tests" \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
