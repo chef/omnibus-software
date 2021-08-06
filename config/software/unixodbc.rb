@@ -25,4 +25,23 @@ build do
   command configure_command, env: env, in_msys_bash: true
   make env: env
   make "install", env: env
+
+  # Remove the sample (empty) files unixodbc adds, otherwise they will replace
+  # any user-added configuration on upgrade.
+  delete "#{install_dir}/embedded/etc/odbc.ini"
+  delete "#{install_dir}/embedded/etc/odbcinst.ini"
+
+  # Add a section to the README
+  block do
+    File.open(File.expand_path(File.join(install_dir, "/embedded/etc/README.md")), "a") do |f|
+      f.puts <<~EOF
+          ## unixODBC
+
+          To add unixODBC data sources that can be used by the Agent embedded environment,
+          add `odbc.ini` and `odbcinst.ini` files to this folder, containing the data sources'
+          configuration.
+
+      EOF
+    end
+  end
 end
