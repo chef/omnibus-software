@@ -30,9 +30,6 @@ source url: "https://nginx.org/download/nginx-#{version}.tar.gz"
 version("1.20.1") { source sha256: "e462e11533d5c30baa05df7652160ff5979591d291736cfa5edb9fd2edb48c49" }
 version("1.19.9") { source sha256: "2e35dff06a9826e8aca940e9e8be46b7e4b12c19a48d55bfc2dc28fc9cc7d841" }
 version("1.19.8") { source sha256: "308919b1a1359315a8066578472f998f14cb32af8de605a3743acca834348b05" }
-version("1.18.0") { source sha256: "4c373e7ab5bf91d34a4f11a0c9496561061ba5eee6020db272a17a7228d35f99" }
-version("1.14.2") { source sha256: "002d9f6154e331886a2dd4e6065863c9c1cf8291ae97a1255308572c02be9797" }
-version("1.14.0") { source sha256: "5d15becbf69aba1fe33f8d416d97edd95ea8919ea9ac519eff9bafebb6022cb5" }
 
 relative_path "nginx-#{version}"
 
