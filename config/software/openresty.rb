@@ -18,37 +18,29 @@ name "openresty"
 license "BSD-2-Clause"
 license_file "README.markdown"
 skip_transitive_dependency_licensing true
-default_version "1.19.3.2"
+default_version "1.19.9.1"
 
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 dependency "lua" if ppc64? || ppc64le? || s390x?
 
-source_package_name = "openresty"
-
-# Versions above 1.11.2.2 require SSE4.2 CPU support
 # versions_list: https://openresty.org/download/ filter=*.tar.gz
+version("1.19.9.1") { source sha256: "576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6" }
 version("1.19.3.2") { source sha256: "ce40e764990fbbeb782e496eb63e214bf19b6f301a453d13f70c4f363d1e5bb9" }
 version("1.19.3.1") { source sha256: "f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d" }
 version("1.17.8.2") { source sha256: "2f321ab11cb228117c840168f37094ee97f8f0316eac413766305409c7e023a0" }
 version("1.15.8.1") { source sha256: "89a1238ca177692d6903c0adbea5bdf2a0b82c383662a73c03ebf5ef9f570842" }
 version("1.13.6.2") { source sha256: "946e1958273032db43833982e2cec0766154a9b5cb8e67868944113208ff2942" }
 version("1.11.2.5") { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f57820aa8e92d7888d8ad657b9" }
-version("1.11.2.2") { source sha256: "7f9ca62cfa1e4aedf29df9169aed0395fd1b90de254139996e554367db4d5a01" }
-version("1.11.2.1") { source sha256: "0e55b52bf6d77ac2d499ae2b05055f421acde6bb937e650ed8f482d11cbeeb5c" }
 
-source url: "https://openresty.org/download/#{source_package_name}-#{version}.tar.gz"
+source url: "https://openresty.org/download/openresty-#{version}.tar.gz"
 
-relative_path "#{source_package_name}-#{version}"
+relative_path "openresty-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   env["PATH"] += "#{env["PATH"]}:/usr/sbin:/sbin"
-
-  if version == "1.7.10.1" && (ppc64? || ppc64le? || s390x?)
-    patch source: "v1.7.10.1.ppc64le-configure.patch", plevel: 1
-  end
 
   configure = [
     "./configure",
@@ -70,6 +62,7 @@ build do
     "--without-mail_smtp_module",
     "--without-mail_imap_module",
     "--without-mail_pop3_module",
+    "--with-http_v2_module",
     "--with-ipv6",
     # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
     # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
@@ -77,11 +70,6 @@ build do
     # '--with-file-aio',
     # '--with-libatomic'
   ]
-
-  # HTTP/2 was introduced with nginx 1.9.5
-  if version.satisfies?(">= 1.9.5")
-    configure << "--with-http_v2_module"
-  end
 
   # Currently LuaJIT doesn't support POWER correctly so use Lua51 there instead
   if ppc64? || ppc64le? || s390x?
