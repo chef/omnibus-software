@@ -14,6 +14,15 @@
 # limitations under the License.
 #
 
+# Note: we need to bundle recent cacerts to make the Agent trust our backend.
+# Not shipping the cacerts causes the following error in the Docker Agent:
+#   Error while processing transaction: error while sending transaction, rescheduling it:
+#   Post "https://7-31-0-app.agent.datadoghq.com/intake/?api_key=********************************":
+#   x509: certificate signed by unknown authority
+# because the Docker Agent image doesn't have other system SSL certificates.
+# Even though these cacerts might become outdated in the future, some python
+# dependencies we ship also bundle cacerts so we aren't making things worse by
+# doing this.
 name "cacerts"
 
 # We have a synthetic monitor on the latest cacerts file to warn us when the latest
