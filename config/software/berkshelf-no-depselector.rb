@@ -36,9 +36,9 @@ dependency "nokogiri"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install" \
-         " --jobs #{workers}" \
-         " --without guard changelog development test", env: env
+  bundle "config set --local without guard changelog"
+  bundle "install development test" \
+         " --jobs #{workers}", env: env
 
   bundle "exec thor gem:build", env: env
 
