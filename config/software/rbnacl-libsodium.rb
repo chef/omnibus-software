@@ -28,8 +28,9 @@ dependency "ruby"
 
 build do
   env = with_embedded_path
-
-  bundle "install --without development_extras", env: env
+    
+  bundle "config set --local without development_extras", env: env
+  bundle "install", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"

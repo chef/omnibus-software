@@ -32,7 +32,8 @@ dependency "rb-readline"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install --without test integration tools maintenance", env: env
+  bundle "config set --local without test integration tools maintenance", env: env
+  bundle "install", env: env
 
   gem "build inspec.gemspec", env: env
   gem "install inspec-*.gem" \
