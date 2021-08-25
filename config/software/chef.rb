@@ -16,7 +16,7 @@
 # expeditor/ignore: no version pinning
 
 name "chef"
-default_version "master"
+default_version "main"
 
 license "Apache-2.0"
 license_file "LICENSE"
@@ -55,7 +55,7 @@ dependency "libarchive" # for archive resource
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # The --without groups here MUST match groups in https://github.com/chef/chef/blob/master/Gemfile
+  # The --without groups here MUST match groups in https://github.com/chef/chef/blob/main/Gemfile
   excluded_groups = %w{docgen chefstyle}
   excluded_groups << "ruby_prof" if aix?
   excluded_groups << "ruby_shadow" if aix?
