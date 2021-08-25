@@ -6,7 +6,7 @@ require "open3"
 $VERBOSE = nil
 
 # Get the branch to compare against (rename default to 'main' once migration occurs)
-BRANCH = ENV["BUILDKITE_PULL_REQUEST_BASE_BRANCH"] || "master"
+BRANCH = ENV["BUILDKITE_PULL_REQUEST_BASE_BRANCH"] || "main"
 
 # Read in all the versions that are specified by SOFTWARE
 def version(version = nil, &block)

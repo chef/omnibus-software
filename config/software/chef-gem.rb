@@ -19,7 +19,7 @@ name "chef-gem"
 default_version "11.12.2"
 
 license "Apache-2.0"
-license_file "https://raw.githubusercontent.com/chef/chef/master/LICENSE"
+license_file "https://raw.githubusercontent.com/chef/chef/main/LICENSE"
 
 dependency "ruby"
 dependency "libffi"

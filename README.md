@@ -1,20 +1,20 @@
 # Omnibus Software
 
-[![Build Status](https://badge.buildkite.com/e07e55eb2f281ec50dbd0f2bdbf8da4a2f246b864bffd17dfb.svg)](https://buildkite.com/chef-oss/chef-omnibus-software-master-verify)
+[![Build Status](https://badge.buildkite.com/e07e55eb2f281ec50dbd0f2bdbf8da4a2f246b864bffd17dfb.svg)](https://buildkite.com/chef-oss/chef-omnibus-software-main-verify)
 
-**Umbrella Project**: [Chef Foundation](https://github.com/chef/chef-oss-practices/blob/master/projects/chef-foundation.md)
+**Umbrella Project**: [Chef Foundation](https://github.com/chef/chef-oss-practices/blob/main/projects/chef-foundation.md)
 
-**Project State**: [Active](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md#active)
+**Project State**: [Active](https://github.com/chef/chef-oss-practices/blob/main/repo-management/repo-states.md#active)
 
-**Issues [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md)**: 14 days
+**Issues [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/main/repo-management/repo-states.md)**: 14 days
 
-**Pull Request [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md)**: 14 days
+**Pull Request [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/main/repo-management/repo-states.md)**: 14 days
 
 This repository contains shared software descriptions, for use by any [Omnibus](https://github.com/chef/omnibus) project that needs them.
 
 This project is managed by the CHEF Release Engineering team. For more information on the Release Engineering team's contribution, triage, and release process, please consult the [CHEF Release Engineering OSS Management Guide](https://docs.google.com/a/opscode.com/document/d/1oJB0vZb_3bl7_ZU2YMDBkMFdL-EWplW1BJv_FXTUOzg/edit).
 
-**The master branch of this project corresponds to the master branch of omnibus!**
+**The main branch of this project corresponds to the main branch of omnibus!**
 
 ## Using Your Own Software Definitions
 
@@ -28,7 +28,7 @@ This repository is versioned and tagged using the `YY.MM.BUILD` to allow folks t
 
 ## Contributing
 
-For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/master/CONTRIBUTING.md)
+For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/main/CONTRIBUTING.md)
 
 ### Testing via Docker
 
