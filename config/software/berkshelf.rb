@@ -18,7 +18,7 @@
 name "berkshelf"
 
 license "Apache-2.0"
-license_file "https://raw.githubusercontent.com/berkshelf/berkshelf/master/LICENSE"
+license_file "https://raw.githubusercontent.com/berkshelf/berkshelf/main/LICENSE"
 # berkshelf does not have any dependencies. We only install it from
 # rubygems here.
 skip_transitive_dependency_licensing true

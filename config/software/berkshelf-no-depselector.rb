@@ -16,7 +16,7 @@
 # expeditor/ignore: deprecated 2021-04
 
 name "berkshelf-no-depselector"
-default_version "master"
+default_version "main"
 
 license "Apache-2.0"
 license_file "LICENSE"
