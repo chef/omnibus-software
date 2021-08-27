@@ -16,7 +16,7 @@
 # expeditor/ignore: deprecated 2021-04
 
 name "ffi-yajl"
-default_version "master"
+default_version "main"
 relative_path "ffi-yajl"
 
 source git: "https://github.com/chef/ffi-yajl.git"

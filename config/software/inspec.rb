@@ -16,7 +16,7 @@
 # expeditor/ignore: no version pinning
 
 name "inspec"
-default_version "master"
+default_version "main"
 
 license "Apache-2.0"
 license_file "LICENSE"
