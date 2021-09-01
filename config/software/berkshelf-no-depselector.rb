@@ -36,7 +36,7 @@ dependency "nokogiri"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "config set --local without guard changelog"
+  bundle "config set --local without guard changelog", env: env
   bundle "install development test" \
          " --jobs #{workers}", env: env
 
