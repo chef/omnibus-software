@@ -32,7 +32,7 @@ build do
   command "git submodule init", env: env
   command "git submodule update", env: env
 
-  bundle "config set --local development_extras", env: env
+  bundle "config set --local without development_extras", env: env
   bundle "install", env: env
   bundle "exec rake prep", env: env
   bundle "exec rake gem", env: env
