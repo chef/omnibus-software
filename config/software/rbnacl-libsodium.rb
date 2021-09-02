@@ -19,7 +19,7 @@ name "rbnacl-libsodium"
 default_version "1.0.11"
 relative_path "rbnacl-libsodium-1.0.11"
 
-source git: "https://github.com/RubyCrypto/rbnacl-libsodium/archive/refs/tags/v1.0.11.tar.gz"
+source git: "https://github.com/RubyCrypto/rbnacl-libsodium.git"
 version("1.0.11") { source sha256: "9b8643dfbf0e68edcb2730b87cf04b2581c1c2411645a2aa457ac0f4f55f3218" }
 
 license "MIT"
