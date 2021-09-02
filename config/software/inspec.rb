@@ -36,6 +36,7 @@ build do
   bundle "install", env: env
 
   gem "build inspec.gemspec", env: env
+  gem "build inspec.gemspec", env: env
   gem "install inspec-*.gem" \
       "  --no-document", env: env
 
