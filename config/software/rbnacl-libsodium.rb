@@ -17,7 +17,9 @@
 
 name "rbnacl-libsodium"
 default_version "1.0.11"
-relative_path "rbnacl-libsodium-1.0.11"
+relative_path "rbnacl-libsodium"
+
+# versions_list: https://github.com/cryptosphere/rbnacl-libsodium/tags filter=*.tar.gz
 
 source git: "https://github.com/cryptosphere/rbnacl-libsodium.git"
 
