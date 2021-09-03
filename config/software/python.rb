@@ -15,7 +15,7 @@
 #
 
 name "python"
-default_version "2.7.14"
+default_version "2.7.18"
 
 license "Python-2.0"
 license_file "LICENSE"
@@ -28,6 +28,7 @@ dependency "bzip2"
 
 # version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
 
+version("2.7.18") { source sha256: "da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814" }
 version("2.7.14") { source sha256: "304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8" }
 version("2.7.9")  { source sha256: "c8bba33e66ac3201dabdc556f0ea7cfe6ac11946ec32d357c4c6f9b018c12c5b" }
 version("2.7.5")  { source sha256: "8e1b5fa87b91835afb376a9c0d319d41feca07ffebc0288d97ab08d64f48afbf" }
