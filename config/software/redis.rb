@@ -22,10 +22,10 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
-default_version "5.0.7"
+default_version "6.2.5"
 
-version "5.0.7" do
-  source sha256: "61db74eabf6801f057fd24b590232f2f337d422280fd19486eca03be87d3a82b"
+version "6.2.5" do
+  source sha256: "4b9a75709a1b74b3785e20a6c158cab94cf52298aa381eea947a678a60d551ae"
 end
 
 version "3.0.7" do
@@ -42,10 +42,6 @@ end
 
 version "2.8.2" do
   source md5: "ee527b0c37e1e2cbceb497f5f6b8112b"
-end
-
-version "2.4.7" do
-  source md5: "6afffb6120724183e40f1cac324ac71c"
 end
 
 source url: "http://download.redis.io/releases/redis-#{version}.tar.gz"

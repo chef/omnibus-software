@@ -18,7 +18,7 @@ name "omnibus-ctl"
 default_version "v0.6.0"
 
 license "Apache-2.0"
-license_file "https://raw.githubusercontent.com/chef/omnibus-ctl/master/LICENSE"
+license_file "https://raw.githubusercontent.com/chef/omnibus-ctl/main/LICENSE"
 # Even though omnibus-ctl is a gem, it does not have any dependencies.
 skip_transitive_dependency_licensing true
 

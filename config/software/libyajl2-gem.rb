@@ -16,7 +16,7 @@
 # expeditor/ignore: deprecated 2021-04
 
 name "libyajl2-gem"
-default_version "master"
+default_version "main"
 relative_path "libyajl2-gem"
 
 source git: "https://github.com/chef/libyajl2-gem.git"

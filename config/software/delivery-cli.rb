@@ -16,10 +16,10 @@
 # expeditor/ignore: no version pinning
 
 name "delivery-cli"
-# Delivery CLI is only pushed to the master branch of Github after it
-# is successfully Delivered. So pulling in the "master" version
+# Delivery CLI is only pushed to the main branch of Github after it
+# is successfully Delivered. So pulling in the "main" version
 # will always give you the latest Delivered version.
-default_version "master"
+default_version "main"
 
 license "Apache-2.0"
 license_file "LICENSE"
