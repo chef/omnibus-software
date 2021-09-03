@@ -19,6 +19,8 @@ name "rbnacl-libsodium"
 default_version "1.0.11"
 relative_path "rbnacl-libsodium"
 
+# versions_list: https://github.com/cryptosphere/rbnacl-libsodium/tags filter=*.tar.gz
+
 source git: "https://github.com/cryptosphere/rbnacl-libsodium.git"
 
 license "MIT"
@@ -29,7 +31,8 @@ dependency "ruby"
 build do
   env = with_embedded_path
 
-  bundle "install --without development_extras", env: env
+  bundle "config set --local without development_extras", env: env
+  bundle "install", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"
