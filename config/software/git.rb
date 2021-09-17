@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.31.1"
+default_version "2.33.0"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -32,6 +32,7 @@ relative_path "git-#{version}"
 
 # version_list: url=https://www.kernel.org/pub/software/scm/git/ filter=*.tar.gz
 
+version("2.33.0") { source sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" }
 version("2.31.1") { source sha256: "46d37c229e9d786510e0c53b60065704ce92d5aedc16f2c5111e3ed35093bfa7" }
 version("2.30.2") { source sha256: "9ddea08fc7c38f1823a54a014ae2e9ecd45e1b4a06e919025f4c41f2c6a8061b" }
 version("2.29.3") { source sha256: "dfaa7608c67fa84483c09fdbea1367848d56b050ed200e541a9829701d45ccad" }
