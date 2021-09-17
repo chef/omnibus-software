@@ -1,5 +1,5 @@
 #
-# Copyright 2019 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "go"
-default_version "1.17"
+default_version "1.17.1"
 license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/golang/go/master/LICENSE"
 
@@ -29,6 +29,7 @@ if windows?
   ext = "zip"
 
   # version_list: url=https://golang.org/dl/ filter=*.windows-amd64.zip
+  version("1.17.1")  { source sha256: "2f2d0a5d7c59fb38fcacaf1e272cf701bb8c050300ba8b609fc30d2c5800f02e" }
   version("1.17")    { source sha256: "2a18bd65583e221be8b9b7c2fbe3696c40f6e27c2df689bbdcc939d49651d151" }
   version("1.16.3")  { source sha256: "a4400345135b36cb7942e52bbaf978b66814738b855eeff8de879a09fd99de7f" }
   version("1.15.11") { source sha256: "56f63de17cd739287de6d9f3cfdad3b781ad3e4a18aae20ece994ee97c1819fd" }
@@ -39,6 +40,7 @@ elsif mac_os_x?
   platform = "darwin"
 
   # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
+  version("1.17.1")  { source sha256: "b1cb56123f0d9542d82194eae392f94a5712dacfcac46be87d6a9dd79ee8b1df" }
   version("1.17")    { source sha256: "355bd544ce08d7d484d9d7de05a71b5c6f5bc10aa4b316688c2192aeb3dacfd1" }
   version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
   version("1.15.11") { source sha256: "651c78408b2c047b7ccccb6b244c5de9eab927c87594ff6bd9540d43c9706671" }
@@ -47,6 +49,7 @@ elsif mac_os_x?
   version("1.13.1")  { source sha256: "f3985fced3adecb62dd1e636cfa5eb9fea8f3e98101d9fcc4964d8f1ec255b7f" }
 else
   # version_list: url=https://golang.org/dl/ filter=*.linux-amd64.tar.gz
+  version("1.17.1")  { source sha256: "dab7d9c34361dc21ec237d584590d72500652e7c909bf082758fb63064fca0ef" }
   version("1.17")    { source sha256: "6bf89fc4f5ad763871cf7eac80a2d594492de7a818303283f1366a7f6a30372d" }
   version("1.16.3")  { source sha256: "951a3c7c6ce4e56ad883f97d9db74d3d6d80d5fec77455c6ada6c1f7ac4776d2" }
   version("1.15.11") { source sha256: "8825b72d74b14e82b54ba3697813772eb94add3abf70f021b6bdebe193ed01ec" }
