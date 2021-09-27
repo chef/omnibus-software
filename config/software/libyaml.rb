@@ -29,7 +29,7 @@ env = with_embedded_path
 env = with_standard_compiler_flags(env)
 
 build do
-  ship_license "https://raw.githubusercontent.com/yaml/libyaml/master/LICENSE"
+  ship_license "https://raw.githubusercontent.com/yaml/libyaml/master/License"
 
   update_config_guess(target: "config")
 
