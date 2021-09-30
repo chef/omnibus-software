@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@ skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 
+version("0.2.5") { source sha256: "c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4" }
 version("0.1.7") { source sha256: "8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729" }
-version("0.1.6") { source sha256: "7da6971b4bd08a986dd2a61353bc422362bd0edcc67d7ebaac68c95f74182749" }
 
-source url: "http://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz"
+source url: "https://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz"
 
 relative_path "yaml-#{version}"
 
@@ -39,8 +39,8 @@ build do
 
   # Windows had worse automake/libtool version issues.
   # Just patch the output instead.
-  if version >= "0.1.6" && windows?
-    patch source: "v0.1.6.windows-configure.patch", plevel: 1, env: env
+  if windows?
+    patch source: "windows-configure.patch", plevel: 1, env: env
   end
 
   make "-j #{workers}", env: env

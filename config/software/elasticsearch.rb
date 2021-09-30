@@ -1,5 +1,5 @@
 #
-# Copyright 2016 Chef Software, Inc.
+# Copyright 2020 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,28 +17,30 @@
 name "elasticsearch"
 default_version "5.4.1"
 
-dependency "server-jre"
+dependency "server-open-jre"
 
 license "Apache-2.0"
 license_file "LICENSE.txt"
 skip_transitive_dependency_licensing true
 
-source url: "https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/#{version}/elasticsearch-#{version}.tar.gz"
+source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}.tar.gz"
 relative_path "elasticsearch-#{version}"
 
-version "2.3.1" do
-  source sha256: "f0092e73038e0472fcdd923e5f2792e13692ea0f09ca034a54dd49b217110ebb"
-end
-
-version "2.4.1" do
-  source sha256: "23a369ef42955c19aaaf9e34891eea3a055ed217d7fbe76da0998a7a54bbe167"
-end
-
 version "5.4.1" do
-  # Newer versions appear to live in an alternative location that does
-  # not also contain the older versions. We can make this default when we drop 2.x.
-  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}.tar.gz",
-         sha256: "09d6422bd33b82f065760cd49a31f2fec504f2a5255e497c81050fd3dceec485"
+  source sha256: "09d6422bd33b82f065760cd49a31f2fec504f2a5255e497c81050fd3dceec485"
+end
+
+version "5.6.16" do
+  source sha256: "6b035a59337d571ab70cea72cc55225c027ad142fbb07fd8984e54261657c77f"
+end
+
+version "6.8.1" do
+  source sha512: "1d484287e9b67b16c28f1a4d2267e7ceb5a4438a18b26b3a46d4a176bb3f2f6fcadcbda617a7a91418293880d38c027266cb81a4e8893a28adee9fa693b2318b"
+end
+
+version "7.9.1" do
+  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}-linux-x86_64.tar.gz",
+         sha512: "e24aab0fbeb0b53cc386bb0ca1fc84c457851c5d80d147324bf97ff42f063332a93dec3c693550662393a72c7a0522a100181dd9a7d50b3e487a0f2a2a9bbcc0"
 end
 
 target_path = "#{install_dir}/embedded/elasticsearch"

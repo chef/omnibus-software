@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2016 Chef Software, Inc.
+# Copyright:: Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,42 +21,45 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "cacerts"
-dependency "makedepend" unless aix? || windows?
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2p"
+default_version "1.0.2za" # do_not_auto_update
+
+# Openssl builds engines as libraries into a special directory. We need to include
+# that directory in lib_dirs so omnibus can sign them during macOS deep signing.
+lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
+lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"]) if version.start_with?("1.1")
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
-# Skip error checking.
-source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
+# So skip error checking with `extract: :lax_tar`
+if version.satisfies?("> 1.0.2u") && version.satisfies?("< 1.1.0")
+  # 1.0.2u was the last public release of 1.0.2. Subsequent releases come from a support contract with OpenSSL Software Services
+  source url: "https://s3.amazonaws.com/chef-releng/openssl/openssl-#{version}.tar.gz", extract: :lax_tar
+else
+  # As of 2020-09-09 even openssl-1.0.0.tar.gz can be downloaded from /source/openssl-VERSION.tar.gz
+  # However, the latest releases are not in /source/old/VERSION/openssl-VERSION.tar.gz.
+  # Let's stick with the simpler one for now.
+  source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
+end
 
-version("1.1.1") { source sha256: "2836875a0f89c03d0fdf483941512613a50cfb421d6fd94b9f41d7279d586a3d" }
-version("1.1.0i") { source sha256: "ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08c17b2cdadc118253cf99" }
-version("1.1.0h") { source sha256: "5835626cde9e99656585fc7aaa2302a73a7e1340bf8c14fd635a62c66802a517" }
-version("1.1.0g") { source sha256: "de4d501267da39310905cb6dc8c6121f7a2cad45a7707f76df828fe1b85073af" }
-version("1.1.0f") { source sha256: "12f746f3f2493b2f39da7ecf63d7ee19c6ac9ec6a4fcd8c229da8a522cb12765" }
-version("1.0.2p") { source sha256: "50a98e07b1a89eb8f6a99477f262df71c6fa7bef77df4dc83025a2845c827d00" }
-version("1.0.2o") { source sha256: "ec3f5c9714ba0fd45cb4e087301eb1336c317e0d20b575a125050470e8089e4d" }
-version("1.0.2n") { source sha256: "370babb75f278c39e0c50e8c4e7493bc0f18db6867478341a832a982fd15a8fe" }
-version("1.0.2m") { source sha256: "8c6ff15ec6b319b50788f42c7abc2890c08ba5a1cdcd3810eb9092deada37b0f" }
-version("1.0.2l") { source sha256: "ce07195b659e75f4e1db43552860070061f156a98bb37b672b101ba6e3ddf30c" }
-version("1.0.2k") { source sha256: "6b3977c61f2aedf0f96367dcfb5c6e578cf37e7b8d913b4ecb6643c3cb88d8c0" }
-version("1.0.2j") { source sha256: "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431" }
-version("1.0.2i") { source sha256: "9287487d11c9545b6efb287cdb70535d4e9b284dd10d51441d9b9963d000de6f" }
-version("1.0.2h") { source sha256: "1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919" }
-version("1.0.2g") { source sha256: "b784b1b3907ce39abf4098702dade6365522a253ad1552e267a9a0e89594aa33" }
-version("1.0.1u") { source sha256: "4312b4ca1215b6f2c97007503d80db80d5157f76f8f7d3febbe6b4c56ff26739" }
-version("1.0.1t") { source sha256: "4a6ee491a2fdb22e519c76fdc2a628bb3cec12762cd456861d207996c8a07088" }
-version("1.0.1s") { source sha256: "e7e81d82f3cd538ab0cdba494006d44aab9dd96b7f6233ce9971fb7c7916d511" }
-version("1.0.1r") { source sha256: "784bd8d355ed01ce98b812f873f8b2313da61df7c7b5677fcf2e57b0863a3346" }
+version("1.1.1l") { source sha256: "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1" }
+version("1.1.1k") { source sha256: "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5" }
+version("1.1.1j") { source sha256: "aaf2fcb575cdf6491b98ab4829abf78a3dec8402b8b81efc8f23c00d443981bf" }
+version("1.1.1i") { source sha256: "e8be6a35fe41d10603c3cc635e93289ed00bf34b79671a3a4de64fcee00d5242" }
+
+version("1.0.2za") { source sha256: "86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1d8688ef25280fbeee2ff8" }
+version("1.0.2y") { source sha256: "4882ec99f8e147ab26375da8a6af92efae69b6aef505234764f8cd00a1b81ffc" }
+version("1.0.2x") { source sha256: "79cb4e20004a0d1301210aee7e154ddfba3d6a33d0df1f6c5d3257cb915a59c9" }
+version("1.0.2w") { source sha256: "a675ad1a9df59015cebcdf713de76a422347c5d99f11232fe75758143defd680" }
 
 relative_path "openssl-#{version}"
 
 build do
-
   env = with_standard_compiler_flags(with_embedded_path)
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
+  elsif mac_os_x? && arm?
+    env["CFLAGS"] << " -Qunused-arguments"
   elsif freebsd?
     # Should this just be in standard_compiler_flags?
     env["LDFLAGS"] += " -Wl,-rpath,#{install_dir}/embedded/lib"
@@ -73,6 +76,7 @@ build do
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
+    "no-unit-test",
     "no-comp",
     "no-idea",
     "no-mdc2",
@@ -89,19 +93,18 @@ build do
     if aix?
       "perl ./Configure aix64-cc"
     elsif mac_os_x?
-      "./Configure darwin64-x86_64-cc"
+      intel? ? "./Configure darwin64-x86_64-cc" : "./Configure darwin64-arm64-cc no-asm"
     elsif smartos?
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
     elsif omnios?
       "/bin/bash ./Configure solaris-x86-gcc"
-    elsif solaris_10?
-      # This should not require a /bin/sh, but without it we get
-      # Errno::ENOEXEC: Exec format error
-      platform = sparc? ? "solaris-sparcv9-gcc" : "solaris-x86-gcc"
-      "/bin/sh ./Configure #{platform} -static-libgcc"
-    elsif solaris_11?
+    elsif solaris2?
       platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
-      "/bin/bash ./Configure #{platform} -static-libgcc"
+      if version.satisfies?("< 1.1.0")
+        "/bin/bash ./Configure #{platform} -static-libgcc"
+      else
+        "./Configure #{platform} -static-libgcc"
+      end
     elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
@@ -124,7 +127,7 @@ build do
                 # from fileset 'X11.adt.imake' (AIX install media)
                 env["PATH"] = "/usr/lpp/X11/bin:#{ENV["PATH"]}"
                 penv = env.dup
-                penv["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+                penv["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
                 penv
               else
                 env
@@ -136,11 +139,11 @@ build do
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
   end
 
-  if version == "1.0.2k"
-    patch source: "openssl-1.0.2k-no-bang.patch", env: patch_env, plevel: 1
+  if version.start_with?("1.0.2") && mac_os_x? && arm?
+    patch source: "openssl-1.0.2x-darwin-arm64.patch"
   end
 
-  if windows?
+  if version.start_with?("1.0.2") && windows?
     # Patch Makefile.org to update the compiler flags/options table for mingw.
     patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
   end
@@ -153,7 +156,7 @@ build do
 
   command configure_command, env: env, in_msys_bash: true
 
-  if windows?
+  if version.start_with?("1.0.2") && windows?
     patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
   end
 

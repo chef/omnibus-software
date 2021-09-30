@@ -48,4 +48,5 @@ build do
 
   make "-j #{workers}", env: env
   make "install", env: env
+  make "install-compat", env: env
 end

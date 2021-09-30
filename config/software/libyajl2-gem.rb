@@ -13,9 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "libyajl2-gem"
-default_version "master"
+default_version "main"
 relative_path "libyajl2-gem"
 
 source git: "https://github.com/chef/libyajl2-gem.git"
@@ -24,21 +25,20 @@ license "Apache-2.0"
 license_file "LICENSE"
 
 dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
 
 build do
-  env = with_embedded_path()
+  env = with_embedded_path
 
   command "git submodule init", env: env
   command "git submodule update", env: env
 
-  bundle "install --without development_extras", env: env
+  bundle "config set --local without development_extras", env: env
+  bundle "install", env: env
   bundle "exec rake prep", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"
 
   gem "install pkg/libyajl2-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

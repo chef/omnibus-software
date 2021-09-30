@@ -17,6 +17,7 @@
 #
 # Use this software definition to fix the gem-permissions on * nix builds.
 #
+# expeditor/ignore: logic only
 
 name "gem-permissions"
 
@@ -28,7 +29,15 @@ skip_transitive_dependency_licensing true
 build do
   unless windows?
     block "Fix gem permissions" do
-      FileUtils.chmod_R "a+rX", "#{install_dir}/embedded/lib/ruby/gems/"
+      FileUtils.chmod_R("a+rX", "#{install_dir}/embedded/lib/ruby/gems/")
+    rescue Errno::ENOENT
+      # It is possible that the above method will fail for a variety of reasons, including:
+      #   * there is a symlink to a file that does not exist.
+      #
+      # If that happens we "retry" with a slower, but safer approach.
+      Dir["#{install_dir}/embedded/lib/ruby/gems/**/**"].each do |entry|
+        FileUtils.chmod("a+rX", entry) if File.exist?(entry)
+      end
     end
   end
 end

@@ -18,6 +18,9 @@
 # builds. Since we do no want to ship a larger package with a
 # different layout, we just pick the 'jre' folder inside the jdk.
 # This allows us to get as close as an ARM JRE package as we can.
+#
+# expeditor/ignore: deprecated 2021-04
+
 name "jre-from-jdk"
 default_version "8u91"
 

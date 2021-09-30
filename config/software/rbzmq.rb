@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "rbzmq"
 default_version "master"
@@ -25,7 +26,6 @@ skip_transitive_dependency_licensing true
 dependency "libzmq"
 dependency "libsodium"
 dependency "ruby"
-dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)

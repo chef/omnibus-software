@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2012-2020, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 # Use this software definition to fix the shebangs of binaries under embedded/bin
 # to point to the embedded ruby.
 #
+# expeditor/ignore: logic only
 
 name "shebang-cleanup"
 
@@ -36,21 +37,21 @@ build do
                        require "rubygems/format"
                        Gem::Format.method(:from_file_by_path)
                      end
-      Dir["#{install_dir.tr('\\', '/')}/embedded/lib/ruby/gems/**/cache/*.gem"].each do |gem_file|
+      Dir["#{install_dir.tr("\\", "/")}/embedded/lib/ruby/gems/**/cache/*.gem"].each do |gem_file|
         load_gemspec.call(gem_file).spec.executables.each do |bin|
           if File.exist?("#{install_dir}/bin/#{bin}")
             File.open("#{install_dir}/bin/#{bin}.bat", "w") do |f|
-              f.puts <<-EOF
-@ECHO OFF
-"%~dp0..\\embedded\\bin\\ruby.exe" "%~dpn0" %*
+              f.puts <<~EOF
+                @ECHO OFF
+                "%~dp0..\\embedded\\bin\\ruby.exe" "%~dpn0" %*
               EOF
             end
           end
           if File.exist?("#{install_dir}/embedded/bin/#{bin}")
             File.open("#{install_dir}/embedded/bin/#{bin}.bat", "w") do |f|
-              f.puts <<-EOF
-@ECHO OFF
-"%~dp0ruby.exe" "%~dpn0" %*
+              f.puts <<~EOF
+                @ECHO OFF
+                "%~dp0ruby.exe" "%~dpn0" %*
               EOF
             end
           end
@@ -60,12 +61,14 @@ build do
         end
       end
 
-      # Fix gem.bat
-      File.open("#{install_dir}/embedded/bin/gem.bat", "w") do |f|
-        f.puts <<-EOF
-@ECHO OFF
-"%~dp0ruby.exe" "%~dpn0" %*
-        EOF
+      # Fix gem.bat and bundle.bat
+      %w{gem bundle}.each do |binstub|
+        File.open("#{install_dir}/embedded/bin/#{binstub}.bat", "w") do |f|
+          f.puts <<~EOF
+          @ECHO OFF
+          "%~dp0ruby.exe" "%~dpn0" %*
+          EOF
+        end
       end
     end
   else

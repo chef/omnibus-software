@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "curl"
-default_version "7.59.0"
+default_version "7.79.0"
 
 dependency "zlib"
 dependency "openssl"
@@ -24,12 +24,12 @@ dependency "cacerts"
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
-version("7.59.0") { source sha256: "099d9c32dc7b8958ca592597c9fabccdf4c08cfb7c114ff1afbbc4c6f13c9e9e" }
-version("7.56.0") { source sha256: "f1bc17a7e5662dbd8d4029750a6dbdb72a55cf95826a270ab388b05075526104" }
-version("7.53.1") { source sha256: "64f9b7ec82372edb8eaeded0a9cfa62334d8f98abc65487da01188259392911d" }
-version("7.51.0") { source sha256: "65b5216a6fbfa72f547eb7706ca5902d7400db9868269017a8888aa91d87977c" }
-version("7.47.1") { source md5: "3f9d1be7bf33ca4b8c8602820525302b" }
-version("7.36.0") { source md5: "643a7030b27449e76413d501d4b8eb57" }
+
+# version_list: url=https://curl.se/download/ filter=*.tar.gz
+version("7.79.0") { source sha256: "aff0c7c4a526d7ecc429d2f96263a85fa73e709877054d593d8af3d136858074" }
+version("7.78.0") { source sha256: "ed936c0b02c06d42cf84b39dd12bb14b62d77c7c4e875ade022280df5dcc81d7" }
+version("7.77.0") { source sha256: "b0a3428acb60fa59044c4d0baae4e4fc09ae9af1d8a3aa84b2e3fbcd99841f77" }
+version("7.76.1") { source sha256: "5f85c4d891ccb14d6c3c701da3010c91c6570c3419391d485d95235253d837d7" }
 
 source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz"
 
@@ -53,16 +53,20 @@ build do
     # which is not really what we want in a http/2 world, but we're not there
     # yet.
     patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}" if aix?
+    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
     patch source: "curl-aix-disable-alpn.patch", plevel: 0, env: patch_env
 
     # otherwise gawk will die during ./configure with variations on the theme of:
     # "/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded"
     env["LIBPATH"] = "/usr/lib:/lib"
+  elsif solaris2?
+    # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
+    env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
   end
 
   configure_options = [
     "--prefix=#{install_dir}/embedded",
+    "--disable-option-checking",
     "--disable-manual",
     "--disable-debug",
     "--enable-optimize",
@@ -70,14 +74,22 @@ build do
     "--disable-ldaps",
     "--disable-rtsp",
     "--enable-proxy",
+    "--disable-pop3",
+    "--disable-imap",
+    "--disable-smtp",
+    "--disable-gopher",
     "--disable-dependency-tracking",
     "--enable-ipv6",
-    "--without-libidn",
+    "--without-libidn2",
     "--without-gnutls",
     "--without-librtmp",
+    "--without-zsh-functions-dir",
+    "--without-fish-functions-dir",
+    "--disable-mqtt",
     "--with-ssl=#{install_dir}/embedded",
     "--with-zlib=#{install_dir}/embedded",
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
+    "--without-zstd",
   ]
 
   configure(*configure_options, env: env)

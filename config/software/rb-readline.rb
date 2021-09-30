@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "rb-readline"
 default_version "master"
@@ -22,7 +23,6 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "ruby"
-dependency "rubygems"
 
 source git: "https://github.com/ConnorAtherton/rb-readline.git"
 

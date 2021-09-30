@@ -27,6 +27,7 @@
 #   "Please do not use the libgcc dependency, it will be removed in the " \
 #   "future. Compile with `--static-libgcc' instead!"
 # end
+# expeditor/ignore: logic only
 
 name "libgcc"
 description "On UNIX systems where we bootstrap a compiler, copy the libgcc"

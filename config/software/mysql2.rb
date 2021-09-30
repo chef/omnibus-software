@@ -31,7 +31,6 @@ name "mysql2"
 default_version versions_to_install.join("-")
 
 dependency "ruby"
-dependency "bundler"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -40,7 +39,7 @@ build do
 
   gem "install rake-compiler" \
       " --version '0.8.3'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 
   mkdir cache_path
 

@@ -24,10 +24,13 @@ skip_transitive_dependency_licensing true
 dependency "ncurses"
 dependency "config_guess"
 
-version("20150325-3.1") { source md5: "43cdb5df3061d78b5e9d59109871b4f6" }
-version("20141030-3.1") { source md5: "5f18e63346d31b877cdf36b5c59b810b" }
-version("20130712-3.1") { source md5: "0891336c697362727a1fa7e60c5cb96c" }
-version("20120601-3.0") { source md5: "e50f6a7afb4de00c81650f7b1a0f5aea" }
+# version_list: url=http://thrysoee.dk/editline/ filter=*.tar.gz
+
+version("20210419-3.1") { source sha256: "571ebe44b74860823e24a08cf04086ff104fd7dfa1020abf26c52543134f5602" }
+version("20150325-3.1") { source sha256: "c88a5e4af83c5f40dda8455886ac98923a9c33125699742603a88a0253fcc8c5" }
+version("20141030-3.1") { source sha256: "9701e16570fb8f7fa407b506986652221b701a9dd61defc05bb7d1c61cdf5a40" }
+version("20130712-3.1") { source sha256: "5d9b1a9dd66f1fe28bbd98e4d8ed1a22d8da0d08d902407dcc4a0702c8d88a37" }
+version("20120601-3.0") { source sha256: "51f0f4b4a97b7ebab26e7b5c2564c47628cdb3042fd8ba8d0605c719d2541918" }
 
 source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
 

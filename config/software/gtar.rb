@@ -1,5 +1,5 @@
 #
-# Copyright 2016 Chef Software, Inc.
+# Copyright 2016-2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,14 @@
 #
 
 name "gtar"
-default_version "1.30"
+default_version "1.34"
 
-version("1.30") { source md5: "e0c5ed59e4dd33d765d6c90caadd3c73" }
-version("1.29") { source md5: "c57bd3e50e43151442c1995f6236b6e9" }
-version("1.28") { source md5: "6ea3dbea1f2b0409b234048e021a9fd7" }
+# version_list: url=https://ftp.gnu.org/gnu/tar/  filter=*.tar.gz
+version("1.34") { source sha256: "03d908cf5768cfe6b7ad588c921c6ed21acabfb2b79b788d1330453507647aed" }
+version("1.33") { source sha256: "7c77c427e8cce274d46a6325d45a55b08e13e2d2d0c9e6c0860a6d2b9589ff0e" }
+version("1.32") { source sha256: "b59549594d91d84ee00c99cf2541a3330fed3a42c440503326dab767f2fbb96c" }
+version("1.30") { source sha256: "4725cc2c2f5a274b12b39d1f78b3545ec9ebb06a6e48e8845e1995ac8513b088" }
+version("1.29") { source sha256: "cae466e6e58c7292355e7080248f244db3a4cf755f33f4fa25ca7f9a7ed09af0" }
 
 license "GPL-3.0"
 license_file "COPYING"
@@ -37,31 +40,19 @@ build do
   ]
 
   # First off let's disable selinux support, as it causes issues on some platforms
-  # We're not doing it on every platform because this breaks on OSX
+  # We're not doing it on every platform because this breaks on macOS
   unless osx?
     configure_command << " --without-selinux"
   end
 
-  if nexus? || ios_xr? || s390x?
-    # ios_xr and nexus don't support posix acls
+  if s390x?
+    # s390x doesn't support posix acls
     configure_command << " --without-posix-acls"
-  elsif osx?
-    # lovingly borrowed from the awesome Homebrew project, thank you!
-    # https://github.com/Homebrew/homebrew-core/blob/de3b1aeec9cc8d36f849b0ae959ee4b7f6610c1f/Formula/gnu-tar.rb
-    patch source: "gnutar-configure-xattrs.patch", env: env
-    env["gl_cv_func_getcwd_abort_bug"] = "no"
-  elsif aix?
-    if version.satisfies?("<= 1.28")
-      # AIX has a gross patch that is required since xlc gets confused by too many #ifndefs
-      patch_env = env.dup
-      patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
-      patch source: "aix_ifndef.patch", plevel: 0, env: patch_env
-    elsif version.satisfies?("> 1.28")
-      # xlc doesn't allow duplicate entries in case statements
-      patch_env = env.dup
-      patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
-      patch source: "aix_extra_case.patch", plevel: 0, env: patch_env
-    end
+  elsif aix? && version.satisfies?("< 1.32")
+    # xlc doesn't allow duplicate entries in case statements
+    patch_env = env.dup
+    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
+    patch source: "aix_extra_case.patch", plevel: 0, env: patch_env
   end
 
   command configure_command.join(" "), env: env

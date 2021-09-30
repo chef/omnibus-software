@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright 2014-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,37 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "berkshelf"
-default_version "master"
 
 license "Apache-2.0"
-license_file "LICENSE"
-
-source git: "https://github.com/berkshelf/berkshelf.git"
-
-relative_path "berkshelf"
-
-dependency "ruby"
-dependency "rubygems"
-
-unless windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
-  dependency "libarchive"
-end
+license_file "https://raw.githubusercontent.com/berkshelf/berkshelf/main/LICENSE"
+# berkshelf does not have any dependencies. We only install it from
+# rubygems here.
+skip_transitive_dependency_licensing true
 
 dependency "nokogiri"
-dependency "bundler"
 dependency "dep-selector-libgecode"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  bundle "install" \
-         " --jobs #{workers}" \
-         " --without guard", env: env
-
-  bundle "exec thor gem:build", env: env
-
-  gem "install pkg/berkshelf-*.gem" \
-      " --no-ri --no-rdoc", env: env
+  gem "install berkshelf" \
+      "  --no-document", env: env
 end

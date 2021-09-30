@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "figlet"
 default_version "2.2.5"
@@ -30,7 +31,7 @@ build do
 
   if aix?
     # give us /opt/freeware/bin/patch
-    env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
     env["CC"] = "cc_r -q64"
     env["LD"] = "cc_r -q64"
     patch source: "aix-figlet-cdefs.patch", plevel: 0, env: env

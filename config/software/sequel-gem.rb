@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "sequel-gem"
 default_version "4.47.0"
@@ -24,7 +25,6 @@ license_file "https://raw.githubusercontent.com/jeremyevans/sequel/master/MIT-LI
 skip_transitive_dependency_licensing true
 
 dependency "ruby"
-dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -32,5 +32,5 @@ build do
   gem "install sequel" \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

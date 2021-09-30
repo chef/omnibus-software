@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "erlang"
-default_version "18.3"
+default_version "23.3.3"
 
 license "Apache-2.0"
 license_file "LICENSE.txt"
@@ -26,13 +26,24 @@ dependency "openssl"
 dependency "ncurses"
 dependency "config_guess"
 
-source url: "http://www.erlang.org/download/otp_src_#{version}.tar.gz"
-relative_path "otp_src_#{version}"
+# grab from github so we can get patch releases if we need to
+source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
+relative_path "otp-OTP-#{version}"
 
-version("18.1") { source md5: "fa64015fdd133e155b5b19bf90ac8678" }
-version("18.2") { source md5: "b336d2a8ccfbe60266f71d102e99f7ed" }
-version("18.3") { source md5: "7e4ff32f97c36fb3dab736f8d481830b" }
-version("20.0") { source md5: "2faed2c3519353e6bc2501ed4d8e6ae7" }
+# versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz
+version("23.3.3")    { source sha256: "839d74e71a457295d95b8674f1848a5d7d9c4c274a041ef8026d035da88858ae" }
+version("23.3.2")    { source sha256: "02443dd42023d0eb73f73dc05f4d3ded7bc4ab59d348041a37a045ba1581b48b" }
+version("22.2")      { source sha256: "232c37a502c7e491a9cbf86acb7af64fbc1a793fcbcbd0093cb029cf1c3830a7" }
+version("22.1.8")    { source sha256: "7302be70cee2c33689bf2c2a3e7cfee597415d0fb3e4e71bd3e86bd1eff9cfdc" }
+version("21.3.8.11") { source sha256: "aab77124285820608cd7a90f6b882e42bb5739283e10a8593d7f5bce9b30b16a" }
+version("21.1")      { source sha256: "7212f895ae317fa7a086fa2946070de5b910df5d41263e357d44b0f1f410af0f" }
+version("20.3.8.9")  { source sha256: "897dd8b66c901bfbce09ed64e0245256aca9e6e9bdf78c36954b9b7117192519" }
+version("20.0")      { source sha256: "22710927ad2e48a0964997bf5becb24abb1f4fed86f5f05af22a9e1df636b787" }
+version("19.3.6.11") { source sha256: "c857ea6d2c901bfb633d9ceeb5e05332475357f185dd5112b7b6e4db80072827" }
+version("18.3.4.9")  { source sha256: "25ef8ba3824cb726c4830abf32c2a2967925b1e33a8e8851dba596e933e2689a" }
+version("18.3")      { source sha256: "a6d08eb7df06e749ccaf3049b33ceae617a3c466c6a640ee8d248c2372d48f4e" }
+version("18.2")      { source sha256: "3944ce41d13fbef1e1e80d7335b2167849e8566581513d5d9226cd211d3d58f9" }
+version("18.1")      { source sha256: "6b956dda690d3f3bf244249e8d422dd606231cc7229675bf5e34b5ba2ae83e9b" }
 
 build do
   if version.satisfies?(">= 18.3")
@@ -46,6 +57,11 @@ build do
     "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include"
   )
   env.delete("CPPFLAGS")
+
+  # The TYPE env var sets the type of emulator you want
+  # We want the default so we give TYPE and empty value
+  # in case it was set by CI.
+  env["TYPE"] = ""
 
   update_config_guess(target: "erts/autoconf")
   update_config_guess(target: "lib/common_test/priv/auxdir")
@@ -84,6 +100,17 @@ build do
   # See also https://sourceware.org/ml/binutils/2015-05/msg00148.html
   hipe = ppc64le? ? "disable" : "enable"
 
+  unless File.exist?("./configure")
+    # Building from github source requires this step
+    command "./otp_build autoconf"
+  end
+  # Note: et, debugger and observer applications require wx to
+  # build. The tarballs from the downloads site has prebuilt the beam
+  # files, so we were able to get away without disabling them and
+  # still build. When building from raw source we must disable them
+  # explicitly.
+  wx = "without"
+
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
           " --enable-threads" \
@@ -91,8 +118,12 @@ build do
           " --enable-kernel-poll" \
           " --enable-dynamic-ssl-lib" \
           " --enable-shared-zlib" \
+          " --enable-fips" \
           " --#{hipe}-hipe" \
-          " --without-wx" \
+          " --#{wx}-wx" \
+          " --#{wx}-et" \
+          " --#{wx}-debugger" \
+          " --#{wx}-observer" \
           " --without-megaco" \
           " --without-javac" \
           " --with-ssl=#{install_dir}/embedded" \

@@ -13,10 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "rbnacl-libsodium"
 default_version "1.0.11"
 relative_path "rbnacl-libsodium"
+
+# versions_list: https://github.com/cryptosphere/rbnacl-libsodium/tags filter=*.tar.gz
 
 source git: "https://github.com/cryptosphere/rbnacl-libsodium.git"
 
@@ -24,17 +27,16 @@ license "MIT"
 license_file "LICENSE"
 
 dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
 
 build do
-  env = with_embedded_path()
+  env = with_embedded_path
 
-  bundle "install --without development_extras", env: env
+  bundle "config set --local without development_extras", env: env
+  bundle "install", env: env
   bundle "exec rake gem", env: env
 
   delete "pkg/*java*"
 
   gem "install pkg/rbnacl-libsodium-*.gem" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

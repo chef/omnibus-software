@@ -13,9 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "server-jre"
-default_version "8u162"
+default_version "8u202"
 
 unless _64_bit?
   raise "Server-jre can only be installed on x86_64 systems."
@@ -40,6 +41,17 @@ whitelist_file "jre/bin/appletviewer"
 
 license_warning = "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
 license_cookie = "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
+
+# This is the final release of the Oracle Java under the 'Oracle Binary Code License Agreement'
+version "8u202" do
+  source url: "https://download.oracle.com/otn/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/server-jre-8u202-linux-x64.tar.gz",
+         sha256: "61292e9d9ef84d9702f0e30f57b208e8fbd9a272d87cd530aece4f5213c98e4e",
+         cookie: license_cookie,
+         warning: license_warning,
+         unsafe:  true
+
+  relative_path "jdk1.8.0_202"
+end
 
 version "8u162" do
   # https://www.oracle.com/webfolder/s/digest/8u162checksum.html

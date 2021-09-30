@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "pcre"
-default_version "8.38"
+default_version "8.44"
 
 license "BSD-2-Clause"
 license_file "LICENCE"
@@ -25,13 +25,10 @@ dependency "libedit"
 dependency "ncurses"
 dependency "config_guess"
 
-version "8.38" do
-  source md5: "8a353fe1450216b6655dfcf3561716d9"
-end
+# version_list: url=https://sourceforge.net/projects/pcre/files/pcre/ filter=*.tar.gz
 
-version "8.31" do
-  source md5: "fab1bb3b91a4c35398263a5c1e0858c1"
-end
+version("8.44") { source sha256: "aecafd4af3bd0f3935721af77b889d9024b2e01d96b58471bd91a3063fb47728" }
+version("8.38") { source sha256: "9883e419c336c63b0cb5202b09537c140966d585e4d0da66147dc513da13e629" }
 
 source url: "http://downloads.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
 
@@ -47,7 +44,8 @@ build do
           " --disable-cpp" \
           " --enable-utf" \
           " --enable-unicode-properties" \
-          " --enable-pcretest-libedit", env: env
+          " --enable-pcretest-libedit" \
+          "--disable-pcregrep-jit", env: env
 
   make "-j #{workers}", env: env
   make "install", env: env

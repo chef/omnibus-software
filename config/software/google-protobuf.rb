@@ -24,9 +24,10 @@ name "google-protobuf"
 default_version "v3.5.2"
 
 dependency "ruby"
-dependency "rubygems"
 
 source git: "https://github.com/google/protobuf.git"
+
+# versions_list: https://github.com/protocolbuffers/protobuf/tags filter=*.tar.gz
 
 license :project_license
 

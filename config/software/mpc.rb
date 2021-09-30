@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014-2019 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,13 +15,18 @@
 #
 
 name "mpc"
-default_version "1.0.2"
+default_version "1.2.1"
 
 dependency "gmp"
 dependency "mpfr"
 
-version("1.0.2") { source md5: "68fadff3358fb3e7976c7a398a0af4c3" }
-version("1.0.3") { source md5: "d6a1d5f8ddea3abd2cc3e98f58352d26" }
+license "LGPL-3.0-or-later"
+license_file "COPYING.LESSER"
+
+# version_list: url=https://ftp.gnu.org/gnu/mpc/ filter=*.tar.gz
+
+version("1.2.1") { source sha256: "17503d2c395dfcf106b622dc142683c1199431d095367c6aacba6eec30340459" }
+version("1.1.0") { source sha256: "6985c538143c1208dcb1ac42cedad6ff52e267b47e5f970183a3e75125b43c2e" }
 
 source url: "https://ftp.gnu.org/gnu/mpc/mpc-#{version}.tar.gz"
 

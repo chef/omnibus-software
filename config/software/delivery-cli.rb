@@ -13,12 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: no version pinning
 
 name "delivery-cli"
-# Delivery CLI is only pushed to the master branch of Github after it
-# is successfully Delivered. So pulling in the "master" version
+# Delivery CLI is only pushed to the main branch of Github after it
+# is successfully Delivered. So pulling in the "main" version
 # will always give you the latest Delivered version.
-default_version "master"
+default_version "main"
 
 license "Apache-2.0"
 license_file "LICENSE"
@@ -35,7 +36,8 @@ build do
   # The rust core libraries are dynamicaly linked
   if linux?
     env["LD_LIBRARY_PATH"] = "#{install_dir}/embedded/lib"
-  elsif mac_os_x?
+  elsif mac_os_x? &&
+      platform_version.satisfies?("< 10.13") # Setting DYLD PATH fails builds with library conflicts in 10.13
     env["DYLD_FALLBACK_LIBRARY_PATH"] = "#{install_dir}/embedded/lib:"
   end
 
@@ -60,7 +62,7 @@ build do
     copy "#{install_dir}/embedded/bin/libeay32.dll", "#{install_dir}/bin/libeay32.dll"
     copy "#{install_dir}/embedded/bin/zlib1.dll", "#{install_dir}/bin/zlib1.dll"
 
-    # Needed now that we switched to msys2 and have not figured out how to tell
+    # Needed now that we switched to installed version of msys2 and have not figured out how to tell
     # it how to statically link yet
     dlls = ["libwinpthread-1"]
     if windows_arch_i386?
@@ -70,7 +72,9 @@ build do
     end
     dlls.each do |dll|
       mingw = ENV["MSYSTEM"].downcase
-      msys_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] ? "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin" : "C:/msys2"
+      # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
+      # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
+      msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
       windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
       if File.exist?(windows_path)
         copy windows_path, "#{install_dir}/bin/#{dll}.dll"

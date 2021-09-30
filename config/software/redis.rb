@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "redis"
 
@@ -21,7 +22,15 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
-default_version "3.0.7"
+default_version "6.2.5"
+
+version "6.2.5" do
+  source sha256: "4b9a75709a1b74b3785e20a6c158cab94cf52298aa381eea947a678a60d551ae"
+end
+
+version "5.0.7" do
+  source sha256: "61db74eabf6801f057fd24b590232f2f337d422280fd19486eca03be87d3a82b"
+end
 
 version "3.0.7" do
   source md5: "84ed3f486e7a6f0ebada6917370f3532"
@@ -39,10 +48,6 @@ version "2.8.2" do
   source md5: "ee527b0c37e1e2cbceb497f5f6b8112b"
 end
 
-version "2.4.7" do
-  source md5: "6afffb6120724183e40f1cac324ac71c"
-end
-
 source url: "http://download.redis.io/releases/redis-#{version}.tar.gz"
 
 relative_path "redis-#{version}"
@@ -54,10 +59,10 @@ build do
 
   update_config_guess
 
-  # This patch was written against 3.0.7.  A slightly different patch
-  # will be needed if we upgrade to 3.2 or unstable.
   if version.satisfies?(">= 3.0.7", "< 3.1")
     patch source: "password-from-environment.patch", plevel: 1, env: env
+  elsif version.satisfies?(">= 5.0", "< 6.0")
+    patch source: "password-from-environment-5.patch", plevel: 1, env: env
   end
 
   make "-j #{workers}", env: env

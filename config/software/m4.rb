@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +13,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "m4"
-default_version "1.4.17"
+default_version "1.4.18"
 
 license "GPL-3.0"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
-source url: "https://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz",
-       md5: "a5e9954b1dae036762f7b13673a2cf76"
+version("1.4.18") { source sha256: "ab2633921a5cd38e48797bf5521ad259bdc4b979078034a3b790d7fec5493fab" }
+
+source url: "https://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz"
 
 relative_path "m4-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  patch source: "m4-1.4.18-glibc-change-work-around.patch", plevel: 1, env: env if version == "1.4.18"
 
   command "./configure --prefix=#{install_dir}/embedded", env: env
 

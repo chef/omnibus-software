@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.17.1"
+default_version "2.33.0"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -25,60 +25,29 @@ dependency "curl"
 dependency "zlib"
 dependency "openssl"
 dependency "pcre"
-dependency "libiconv"
+dependency "libiconv" # FIXME: can we figure out how to remove this?
 dependency "expat"
 
 relative_path "git-#{version}"
 
-version "2.17.1" do
-  source sha256: "ec6452f0c8d5c1f3bcceabd7070b8a8a5eea11d4e2a04955c139b5065fd7d09a"
-end
+# version_list: url=https://www.kernel.org/pub/software/scm/git/ filter=*.tar.gz
 
-version "2.15.1" do
-  source sha256: "85fca8781a83c96ba6db384cc1aa6a5ee1e344746bafac1cbe1f0fe6d1109c84"
-end
+version("2.33.0") { source sha256: "02d909d0bba560d3a1008bd00dd577621ffb57401b09175fab2bf6da0e9704ae" }
+version("2.31.1") { source sha256: "46d37c229e9d786510e0c53b60065704ce92d5aedc16f2c5111e3ed35093bfa7" }
+version("2.30.2") { source sha256: "9ddea08fc7c38f1823a54a014ae2e9ecd45e1b4a06e919025f4c41f2c6a8061b" }
+version("2.29.3") { source sha256: "dfaa7608c67fa84483c09fdbea1367848d56b050ed200e541a9829701d45ccad" }
+version("2.29.2") { source sha256: "869a121e1d75e4c28213df03d204156a17f02fce2dc77be9795b327830f54195" }
+version("2.28.0") { source sha256: "f914c60a874d466c1e18467c864a910dd4ea22281ba6d4d58077cb0c3f115170" }
+version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
 
-version "2.14.1" do
-  source sha256: "01925349b9683940e53a621ee48dd9d9ac3f9e59c079806b58321c2cf85a4464"
-end
-
-version "2.10.2" do
-  source md5: "45e8b30a9e7c1b734128cc0fc6663619"
-end
-
-version "2.8.2" do
-  source md5: "3022d8ebf64b35b9704d5adf54b256f9"
-end
-
-version "2.7.4" do
-  source md5: "c64012d491e24c7d65cd389f75383d91"
-end
-
-version "2.7.3" do
-  source md5: "cf6ed3510f0d7784da5e9f4e64c6a43e"
-end
-
-version "2.7.1" do
-  source md5: "846ac45a1638e9a6ff3a9b790f6c8d99"
-end
-
-version "2.6.2" do
-  source md5: "da293290da69f45a86a311ad3cd43dc8"
-end
-
-version "2.2.1" do
-  source md5: "ff41fdb094eed1ec430aed8ee9b9849c"
-end
-
-version "1.9.5" do
-  source md5: "e9c82e71bec550e856cccd9548902885"
-end
-
-version "1.9.0" do
-  source md5: "0e00839539fc43cd2c350589744f254a"
-end
+# we need to keep 2.24.1 until we can remove the version pin in omnibus-toolchain Solaris builds
+version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
 
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
+
+# git builds git-core as binaries into a special directory. We need to include
+# that directory in bin_dirs so omnibus can sign them during macOS deep signing.
+bin_dirs bin_dirs.concat ["#{install_dir}/embedded/libexec/git-core"]
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -87,21 +56,13 @@ build do
   # clever.
   make "distclean"
 
-  # AIX needs /opt/freeware/bin only for patch
+  # In 2.13.1 they introduced some sha code that wasn't super good at endianness
   if aix?
+    # AIX needs /opt/freeware/bin only for patch
     patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
 
-    # But only needs the below for 1.9.5
-    if version == "1.9.5"
-      patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env
-    end
-
-    # In 2.13.1 they introduced some sha code that wasn't super good at
-    # endianness. https://github.com/git/git/commit/6b851e536b05e0c8c61f77b9e4c3e7cedea39ff8
-    if version.satisfies?(">2.10.2")
-      patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
-    end
+    patch source: "aix-endian-fix.patch", plevel: 0, env: patch_env
   end
 
   config_hash = {
@@ -126,27 +87,32 @@ build do
     config_hash["USE_ST_TIMESPEC"] = "YesPlease"
     config_hash["HAVE_BSD_SYSCTL"] = "YesPlease"
     config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
-  elsif solaris_10?
-    env["CC"] = "gcc"
-    env["SHELL_PATH"] = "#{install_dir}/embedded/bin/bash"
-    config_hash["NEEDS_SOCKET"] = "YesPlease"
-    config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   elsif aix?
     env["CC"] = "xlc_r"
     env["INSTALL"] = "/opt/freeware/bin/install"
+    env["CFLAGS"] = "-q64 -qmaxmem=-1 -I#{install_dir}/embedded/include -D_LARGE_FILES -O2"
+    env["CPPFLAGS"] = "-q64 -qmaxmem=-1 -I#{install_dir}/embedded/include -D_LARGE_FILES -O2"
+    env["LDFLAGS"] = "-q64 -L#{install_dir}/embedded/lib -lcurl -lssl -lcrypto -lz -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib"
     # xlc doesn't understand the '-Wl,-rpath' syntax at all so... we don't enable
     # the NO_R_TO_GCC_LINKER flag. This means that it will try to use the
     # old style -R for libraries and as a result, xlc will ignore it. In this case, we
     # we want that to happen because we explicitly set the libpath with the correct
     # command line argument in omnibus itself.
-    if version.satisfies?(">=2.10.2")
-      config_hash["NO_REGEX"] = "NeedsStartEnd"
-    end
+    config_hash["CC_LD_DYNPATH"] = "-R"
+    config_hash["AR"] = "ar -X64"
+    config_hash["NO_REGEX"] = "YesPlease"
   else
     # Linux things!
     config_hash["HAVE_PATHS_H"] = "YesPlease"
     config_hash["NO_R_TO_GCC_LINKER"] = "YesPlease"
   end
+
+  # ensure that header files in git's source code are found first before looking in other directories
+  # this solves an issue that occurs when libarchive has been built and installed and its archive.h header
+  # file in #{install_dir}/embedded/include is accidentally picked up when compiling git
+  env["CFLAGS"] = "-I. #{env["CFLAGS"]}"
+  env["CPPFLAGS"] = "-I. #{env["CPPFLAGS"]}"
+  env["CXXFLAGS"] = "-I. #{env["CXXFLAGS"]}"
 
   erb source: "config.mak.erb",
       dest: "#{project_dir}/config.mak",

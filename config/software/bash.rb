@@ -15,22 +15,37 @@
 #
 
 name "bash"
-default_version "4.3.30"
+default_version "5.1"
 
 dependency "libiconv"
 dependency "ncurses"
 
-version("4.3.30") { source md5: "a27b3ee9be83bd3ba448c0ff52b28447" }
+# version_list: url=https://ftp.gnu.org/gnu/bash/ filter=*.tar.gz
+
+version("5.0") { source sha256: "b4a80f2ac66170b2913efbfb9f2594f1f76c7b1afd11f799e22035d63077fb4d" }
+version("5.1") { source sha256: "cc012bc860406dcf42f64431bcd3d2fa7560c02915a601aba9cd597a39329baa" }
 
 license "GPL-3.0"
 license_file "COPYING"
 
 source url: "https://ftp.gnu.org/gnu/bash/bash-#{version}.tar.gz"
 
+# bash builds bash as libraries into a special directory. We need to include
+# that directory in lib_dirs so omnibus can sign them during macOS deep signing.
+lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/bash"]
+
 relative_path "bash-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  # FreeBSD can build bash with this patch but it doesn't work properly
+  # Things like command substitution will throw syntax errors even though the syntax is correct
+  unless freebsd?
+    # Fix bash race condition
+    # https://lists.gnu.org/archive/html/bug-bash/2020-12/msg00051.html
+    patch source: "race-condition.patch", plevel: 1, env: env
+  end
 
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
@@ -44,4 +59,7 @@ build do
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+  # We do not install bashbug in macos as it fails Notarization
+  delete "#{install_dir}/embedded/bin/bashbug"
 end

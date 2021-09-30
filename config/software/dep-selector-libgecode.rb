@@ -1,5 +1,5 @@
 #
-# Copyright 2014 Chef Software, Inc.
+# Copyright 2014-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,17 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "dep-selector-libgecode"
 default_version "1.3.1"
 
 license "Apache-2.0"
-license_file "https://raw.githubusercontent.com/chef/dep-selector-libgecode/master/LICENSE.txt"
+license_file "https://raw.githubusercontent.com/chef/dep-selector-libgecode/master/LICENSE"
 # dep-selector-libgecode does not have any dependencies. We only install it from
 # rubygems here.
 skip_transitive_dependency_licensing true
 
-dependency "rubygems"
+dependency "ruby"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -43,5 +44,5 @@ build do
 
   gem "install dep-selector-libgecode" \
       " --version '#{version}'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end

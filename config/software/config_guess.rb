@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: no version pinning
 
 name "config_guess"
 default_version "master"

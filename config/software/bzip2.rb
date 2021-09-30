@@ -18,7 +18,7 @@
 # and should be picked up automatically when building Python.
 
 name "bzip2"
-default_version "1.0.6"
+default_version "1.0.8"
 
 license "BSD-2-Clause"
 license_file "LICENSE"
@@ -27,7 +27,8 @@ skip_transitive_dependency_licensing true
 dependency "zlib"
 dependency "openssl"
 
-version("1.0.6") { source sha256: "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd" }
+# version_list: url=https://sourceware.org/pub/bzip2/ filter=*.tar.gz
+version("1.0.8") { source sha256: "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269" }
 
 source url: "https://fossies.org/linux/misc/#{name}-#{version}.tar.gz"
 
@@ -43,7 +44,8 @@ build do
   args = "PREFIX='#{install_dir}/embedded' VERSION='#{version}'"
   args << " CFLAGS='-qpic=small -qpic=large -O2 -g -D_ALL_SOURCE -D_LARGE_FILES'" if aix?
 
-  patch source: "makefile_take_env_vars.patch", env: env
+  patch source: "makefile_take_env_vars.patch", plevel: 1, env: env
+  patch source: "makefile_no_bins.patch", plevel: 1, env: env # removes various binaries we don't want to ship
   patch source: "soname_install_dir.patch", env: env if mac_os_x?
   patch source: "aix_makefile.patch", env: env if aix?
 

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: logic only
 
 name "rust-uninstall"
 default_version "0.0.1"

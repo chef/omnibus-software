@@ -11,4 +11,3 @@
                     case ENOTEMPTY:
                       /* Keep the record in list, in the hope we'll
                          be able to remove it later */
---- 124,129 ----

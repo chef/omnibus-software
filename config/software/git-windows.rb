@@ -1,5 +1,5 @@
 #
-# Copyright 2016-2017, Chef Software Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 
 name "git-windows"
-default_version "2.18.0"
+default_version "2.31.1"
 
 license "LGPL-2.1"
 # the license file does not ship in the portable git package so pull from the source repo
@@ -34,17 +34,19 @@ arch_suffix = windows_arch_i386? ? "32" : "64"
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
 
 if windows_arch_i386?
-  version("2.18.0") { source sha256: "28e68a781a78009913fef3d6c1074a6c91b05e4010bfd9efaff7b8398c87e017" }
-  version("2.14.1") { source sha256: "df3f9b6c2dd2b12e5cb7035b9ca48d13b973d054a35b0939953aa6e7a00a0659" }
-  version("2.12.0") { source sha256: "0375ba0a05f9cd501cc8089b9af6f2adf8904a5efb1e5b9421e6561bd9f8c817" }
-  version("2.8.1") { source sha256: "0b6efaaeb4b127edb3a534261b2c9175bd86ee8683dff6e12ccb194e6abb990e" }
-  version("2.8.2") { source sha256: "da25bc12efa864cda53dc6485c84dd8b0d41883dd360db505c026c284ef58d8e" }
+  # version_list: url=https://github.com/git-for-windows/git/releases filter=PortableGit-*-32-bit.7z.exe
+  version("2.31.1") { source sha256: "d6d48e16e3f0ecbc0a45d410ad3ebae15e5618202855ebe72cd9757e4d35b880" }
+  version("2.30.2") { source sha256: "8b203531c91d3f9075aa3ef1e89b0d6e5d18aa289c3bc485e093c9bfb860a116" }
+  version("2.29.2") { source sha256: "5e4dc60d3ee143585da03843613bc4d9032b1b6f4d3a2473ef6d9adc8e4c71c0" }
+  version("2.28.0") { source sha256: "11b854e9246057a22014dbf349adfc160ffa740dba7af0dbd42d642661b2cc7f" }
+  version("2.27.0") { source sha256: "8cbe1e3b57eb9d02e92cff12089454f2cf090c02958080d62e199ef8764542d3" }
 else
-  version("2.18.0") { source sha256: "cd84a13b6c7aac0e924cb4db2476e2f4379aab4b8e60246992a6c5eebeac360c" }
-  version("2.14.1") { source sha256: "3c3270a9df5f3db1f7637d86b94fb54a96e9145ba43c98a3e993cdffb1a1842e" }
-  version("2.12.0") { source sha256: "5bebd0ee21e5cf3976bc71826a28b2663c7a0c9b5c98f4ab46ff03c3c0d3556f" }
-  version("2.8.1") { source sha256: "dc9d971156cf3b6853bc0c1ad0ca76f1d2c24478cca80036919f12fe46acd64e" }
-  version("2.8.2") { source sha256: "553acbf46bacc67c73b954689ad3d9ac294bf9cbe249a5b78159a1f92f37105b" }
+  # version_list: url=https://github.com/git-for-windows/git/releases filter=PortableGit-*-64-bit.7z.exe
+  version("2.31.1") { source sha256: "fce2161a8891c4deefdb8d215ab76498c245072f269843ef1a489c4312baef52" }
+  version("2.30.2") { source sha256: "f719f248de3dd7ef234331f8da95762594a388f6aa62f4c0260df18068e5a447" }
+  version("2.29.2") { source sha256: "7d114e81a541536b025313efcdf6feea1e973323f2b8f53995721bfd511139bd" }
+  version("2.28.0") { source sha256: "0cd682188b76eeb3a5da3a466d4095d2ccd892e07aae5871c45bf8c43cdb3b13" }
+  version("2.27.0") { source sha256: "0fd2218ba73e07e5a664d06e0ce514edcd241a2de0ba29ceca123e7d36aa8f58" }
 end
 
 # The git portable archives come with their own copy of posix related tools
@@ -82,7 +84,7 @@ build do
       base = File.basename(git_bin, ext)
       File.open("#{install_dir}/embedded/bin/#{base}.bat", "w") do |f|
         f.puts "@ECHO OFF"
-        f.print "START \"\" " if ["gitk", "git-gui"].include?(base.downcase)
+        f.print "START \"\" " if %w{gitk git-gui}.include?(base.downcase)
         f.puts "\"%~dp0..\\git\\cmd\\#{base}#{ext}\" %*"
       end
     end

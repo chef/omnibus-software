@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-require "pathname"
+require "pathname" unless defined?(Pathname)
 require "omnibus"
 require "highline"
 
@@ -26,7 +26,7 @@ module OmnibusSoftware
     # @return [Pathname]
     #
     def root
-      @root ||= Pathname.new(File.expand_path("../../", __FILE__))
+      @root ||= Pathname.new(File.expand_path("..", __dir__))
     end
 
     #
@@ -50,6 +50,7 @@ module OmnibusSoftware
       for_each_software do |software|
         # only fetch net_fetcher sources for now
         next if software.source.nil? || software.source[:url].nil?
+
         fetch_software(software, path)
       end
     end

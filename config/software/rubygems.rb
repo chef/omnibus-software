@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "rubygems"
 
@@ -23,16 +24,7 @@ skip_transitive_dependency_licensing true
 dependency "ruby"
 
 if version && !source
-  # NOTE: 2.1.11 is the last version of rubygems before the 2.2.x change to native gem install location
-  #
-  #  https://github.com/rubygems/rubygems/issues/874
-  #
-  # This is a breaking change for omnibus clients.  Chef-11 needs to be pinned to 2.1.11 for eternity.
-  # We have switched from tarballs to just `gem update --system`, but for backcompat
-  # we pin the previously known tarballs.
   known_tarballs = {
-    "2.1.11" => "b561b7aaa70d387e230688066e46e448",
-    "2.2.1" => "1f0017af0ad3d3ed52665132f80e7443",
     "2.4.1" => "7e39c31806bbf9268296d03bd97ce718",
     "2.4.4" => "440a89ad6a3b1b7a69b034233cc4658e",
     "2.4.5" => "5918319a439c33ac75fbbad7fd60749d",
@@ -42,17 +34,10 @@ if version && !source
   }
   known_tarballs.each do |vsn, md5|
     version vsn do
-      source md5: md5, url: "http://production.cf.rubygems.org/rubygems/rubygems-#{vsn}.tgz"
+      source md5: md5, url: "https://rubygems.org/rubygems/rubygems-#{vsn}.tgz"
       relative_path "rubygems-#{vsn}"
     end
   end
-
-  version("v2.4.4_plus_debug") { source git: "https://github.com/danielsdeleo/rubygems.git" }
-  version("2.4.4.debug.1")     { source git: "https://github.com/danielsdeleo/rubygems.git" }
-  # This is the 2.4.8 release with a fix for
-  # windows so things like `gem install "pry"` still
-  # work
-  version("jdm/2.4.8-patched") { source git: "https://github.com/jaym/rubygems.git" }
 end
 
 # If we still don't have a source (if it's a tarball) grab from ruby ...
@@ -76,10 +61,13 @@ build do
 
   if source
     # Building from source:
-    ruby "setup.rb --no-ri --no-rdoc", env: env
+    command "git submodule init", env: env
+    command "git submodule update", env: env
+    ruby "setup.rb  --no-document", env: env
   else
     # Installing direct from rubygems:
     # If there is no version, this will get latest.
     gem "update --no-document --system #{version}", env: env
+    gem "uninstall rubygems-update -ax"
   end
 end

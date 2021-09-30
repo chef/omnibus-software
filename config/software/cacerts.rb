@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2018 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,26 +20,16 @@ license "MPL-2.0"
 license_file "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
 skip_transitive_dependency_licensing true
 
-default_version "2018-06-20"
+default_version "2021-01-19"
 
 source url: "https://curl.haxx.se/ca/cacert-#{version}.pem"
 
-version("2018-06-20") { source sha256: "238823cd92d3bcdd67c1c278536d6c282dd6b526ee6ee97efbf00ef31d8c5d79" }
-
-version("2018-03-07") { source sha256: "79ea479e9f329de7075c40154c591b51eb056d458bc4dff76d9a4b9c6c4f6d0b" }
-
-version("2018-01-17") { source sha256: "defe310a0184a12e4b1b3d147f1d77395dd7a09e3428373d019bef5d542ceba3" }
-
-version("2017-06-07") { source sha256: "e78c8ab7b4432bd466e64bb942d988f6c0ac91cd785017e465bdc96d42fe9dd0" }
-
-version("2017-01-18") { source sha256: "e62a07e61e5870effa81b430e1900778943c228bd7da1259dd6a955ee2262b47" }
-
-version("2016-04-20") { source sha256: "2c6d4960579b0d4fd46c6cbf135545116e76f2dbb7490e24cf330f2565770362" }
-
-version "2016.01.20" do
-  source sha256: "674f211b2a5898f2740ea62f3003ce817cdbf5f00325ab3169b7bb9922fc7808"
-  source url: "https://curl.haxx.se/ca/cacert-2016-01-20.pem"
-end
+# versions_list: https://curl.se/docs/caextract.html
+version("2021-01-19") { source sha256: "e010c0c071a2c79a76aa3c289dc7e4ac4ed38492bfda06d766a80b707ebd2f29" }
+version("2020-12-08") { source sha256: "313d562594ebd07846ad6b840dd18993f22e0f8b3f275d9aacfae118f4f00fb7" }
+version("2020-10-14") { source sha256: "bb28d145ed1a4ee67253d8ddb11268069c9dafe3db25a9eee654974c4e43eee5" }
+version("2020-07-22") { source sha256: "2782f0f8e89c786f40240fc1916677be660fb8d8e25dede50c9f6f7b0c2c2178" }
+version("2020-06-24") { source sha256: "726889705b00f736200ed7999f7a50021b8735d53228d679c4e6665aa3b44987" }
 
 relative_path "cacerts-#{version}"
 

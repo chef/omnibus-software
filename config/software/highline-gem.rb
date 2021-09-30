@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2021-04
 
 name "highline-gem"
 default_version "1.6.21"
@@ -25,7 +26,6 @@ license_file "http://www.ruby-lang.org/en/LICENSE.txt"
 skip_transitive_dependency_licensing true
 
 dependency "ruby"
-dependency "rubygems"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -33,5 +33,5 @@ build do
   gem "install highline" \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
-      " --no-ri --no-rdoc", env: env
+      "  --no-document", env: env
 end
