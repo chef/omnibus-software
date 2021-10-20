@@ -81,6 +81,7 @@ build do
     "--disable-gopher",
     "--disable-dependency-tracking",
     "--enable-ipv6",
+    "--without-brotli",
     "--without-libidn2",
     "--without-gnutls",
     "--without-librtmp",
