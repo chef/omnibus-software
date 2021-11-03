@@ -16,10 +16,12 @@
 # expeditor/ignore: deprecated 2021-04
 
 name "binutils"
-default_version "2.26"
+default_version "2.37"
 
+# version_list: url:https://ftp.gnu.org/gnu/binutils/ filter:*.tar.gz
+
+version("2.37") { source sha256: "c44968b97cd86499efbc4b4ab7d98471f673e5414c554ef54afa930062dbbfcb" }
 version("2.35") { source sha256: "a3ac62bae4f339855b5449cfa9b49df90c635adbd67ecb8a0e7f3ae86a058da6" }
-version("2.26") { source sha256: "9615feddaeedc214d1a1ecd77b6697449c952eab69d79ab2125ea050e944bcc1" }
 
 license "GPL-3.0"
 license_file "COPYING"
