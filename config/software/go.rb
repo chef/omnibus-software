@@ -62,7 +62,10 @@ source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" %
 
 build do
   # We do not use 'sync' since we've found multiple errors with other software definitions
-  copy "#{project_dir}/go", "#{install_dir}/embedded/go"
+  mkdir "#{install_dir}/embedded/go"
+  copy "#{project_dir}/go/*", "#{install_dir}/embedded/go"
+
+  mkdir "#{install_dir}/embedded/bin"
   %w{go gofmt}.each do |bin|
     link "#{install_dir}/embedded/go/bin/#{bin}", "#{install_dir}/embedded/bin/#{bin}"
   end
