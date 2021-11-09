@@ -22,7 +22,11 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
-default_version "6.2.5"
+default_version "6.2.6"
+
+version "6.2.6" do
+  source sha256: "5b2b8b7a50111ef395bf1c1d5be11e6e167ac018125055daa8b5c2317ae131ab"
+end
 
 version "6.2.5" do
   source sha256: "4b9a75709a1b74b3785e20a6c158cab94cf52298aa381eea947a678a60d551ae"
