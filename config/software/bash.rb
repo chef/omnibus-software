@@ -15,15 +15,16 @@
 #
 
 name "bash"
-default_version "5.1"
+default_version "5.1.8"
 
 dependency "libiconv"
 dependency "ncurses"
 
 # version_list: url=https://ftp.gnu.org/gnu/bash/ filter=*.tar.gz
 
-version("5.0") { source sha256: "b4a80f2ac66170b2913efbfb9f2594f1f76c7b1afd11f799e22035d63077fb4d" }
-version("5.1") { source sha256: "cc012bc860406dcf42f64431bcd3d2fa7560c02915a601aba9cd597a39329baa" }
+version("5.0")   { source sha256: "b4a80f2ac66170b2913efbfb9f2594f1f76c7b1afd11f799e22035d63077fb4d" }
+version("5.1")   { source sha256: "cc012bc860406dcf42f64431bcd3d2fa7560c02915a601aba9cd597a39329baa" }
+version("5.1.8") { source sha256: "0cfb5c9bb1a29f800a97bd242d19511c997a1013815b805e0fdd32214113d6be" }
 
 license "GPL-3.0"
 license_file "COPYING"
