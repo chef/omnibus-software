@@ -6,4 +6,5 @@ group :development, :test do
   gem "highline"
   gem "rake"
   gem "chefstyle"
+  gem "ohai", "~> 16.17"    # pin until we support ruby version 2.6
 end
