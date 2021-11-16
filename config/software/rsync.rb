@@ -22,8 +22,8 @@ dependency "popt"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-version "3.2.2" do
-  source md5: "b82416e81dacc2065b0c7f48f73417dd"
+version "3.1.2" do
+  source md5: "0f758d7e000c0f7f7d3792610fad70cb"
   license "GPL-3.0"
   license_file "COPYING"
 end
