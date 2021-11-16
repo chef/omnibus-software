@@ -15,15 +15,15 @@
 #
 
 name "rsync"
-default_version "3.2.3"
+default_version "3.2.2"
 
 dependency "popt"
 
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-version "3.2.3" do
-  source md5: "209f8326f5137d8817a6276d9577a2f1"
+version "3.2.2" do
+  source md5: "b82416e81dacc2065b0c7f48f73417dd"
   license "GPL-3.0"
   license_file "COPYING"
 end
