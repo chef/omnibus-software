@@ -23,7 +23,7 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 version "3.2.3" do
-  source sha256: "becc3c504ceea499f4167a260040ccf4d9f2ef9499ad5683c179a697146ce50e"
+  source md5: "209f8326f5137d8817a6276d9577a2f1"
   license "GPL-3.0"
   license_file "COPYING"
 end
