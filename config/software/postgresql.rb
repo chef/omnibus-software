@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "13.3"
+default_version "14.1"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
@@ -30,6 +30,7 @@ dependency "config_guess"
 
 # version_list: url=https://ftp.postgresql.org/pub/source/v#{version}/ filter=*.tar.bz2
 
+version("14.1")   { source sha256: "b29030525e1314d676f41e6007a96d4489ba0d03fa93e67b477c1d5386790c8f" }
 version("13.3")   { source sha256: "3cd9454fa8c7a6255b6743b767700925ead1b9ab0d7a0f9dcb1151010f8eb4a1" }
 
 # Version 12.x will EoL November 14, 2024
