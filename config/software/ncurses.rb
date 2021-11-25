@@ -15,7 +15,7 @@
 #
 
 name "ncurses"
-default_version "6.2"
+default_version "6.3"
 
 license "MIT"
 license_file "http://invisible-island.net/ncurses/ncurses-license.html"
@@ -25,6 +25,7 @@ skip_transitive_dependency_licensing true
 dependency "config_guess"
 
 # versions_list: https://ftp.gnu.org/gnu/ncurses/ filter=*.tar.gz
+version("6.3") { source sha256: "97fc51ac2b085d4cde31ef4d2c3122c21abc217e9090a43a30fc5ec21684e059" }
 version("6.2") { source sha256: "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d" }
 version("6.1") { source sha256: "aa057eeeb4a14d470101eff4597d5833dcef5965331be3528c08d99cebaa0d17" }
 version("5.9") { source sha256: "9046298fb440324c9d4135ecea7879ffed8546dd1b58e59430ea07a4633f563b" }
