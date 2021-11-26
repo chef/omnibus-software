@@ -15,7 +15,7 @@
 #
 
 name "libedit"
-default_version "20210910-3.1"
+default_version "20210419-3.1"
 
 license "BSD-3-Clause"
 license_file "COPYING"
