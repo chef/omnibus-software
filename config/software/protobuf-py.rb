@@ -22,7 +22,8 @@ if ohai["platform_family"] == "mac_os_x"
 end
 
 build do
-  ship_license "https://raw.githubusercontent.com/google/protobuf/3.5.x/LICENSE"
+  license "BSD-3-Clause"
+  license_file "https://raw.githubusercontent.com/google/protobuf/3.5.x/LICENSE"
 
   unless linux?
     pip "install protobuf==#{version}"

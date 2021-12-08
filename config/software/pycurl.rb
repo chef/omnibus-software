@@ -13,7 +13,8 @@ if ohai["platform"] != "windows"
   dependency "libgcc" if ohai["platform"] == "solaris2" && Omnibus.config.solaris_compiler == "gcc"
 
   build do
-    ship_license "https://raw.githubusercontent.com/pycurl/pycurl/master/COPYING-MIT"
+    license "MIT"
+    license_file "https://raw.githubusercontent.com/pycurl/pycurl/master/COPYING-MIT"
     build_env = {
       "PATH" => "/#{install_dir}/embedded/bin:#{ENV["PATH"]}",
       "ARCHFLAGS" => "-arch x86_64",

@@ -47,7 +47,9 @@ env = with_standard_compiler_flags(env, aix: { use_gcc: true })
 ########################################################################
 
 build do
-  ship_license "https://gist.githubusercontent.com/remh/41a4f7433c77841c302c/raw/d15db09a192ca0e51022005bfb4c3a414a996896/ncurse.LICENSE"
+  license "MIT"
+  license_file "https://gist.githubusercontent.com/remh/41a4f7433c77841c302c/raw/d15db09a192ca0e51022005bfb4c3a414a996896/ncurse.LICENSE"
+
   env.delete("CPPFLAGS")
 
   update_config_guess

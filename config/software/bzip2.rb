@@ -41,7 +41,8 @@ env = {
 }
 
 build do
-  ship_license "https://sourceware.org/git/?p=bzip2.git;a=blob_plain;f=LICENSE;h=81a37eab7a5be1a34456f38adb74928cc9073e9b;hb=HEAD"
+  license "BSD-style"
+  license_file "https://sourceware.org/git/?p=bzip2.git;a=blob_plain;f=LICENSE;h=81a37eab7a5be1a34456f38adb74928cc9073e9b;hb=HEAD"
   patch source: "makefile_take_env_vars.patch"
   patch source: "soname_install_dir.patch" if ohai["platform_family"] == "mac_os_x"
   command "make PREFIX=#{prefix} VERSION=#{version}", env: env

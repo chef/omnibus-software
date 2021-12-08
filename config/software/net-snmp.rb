@@ -33,7 +33,8 @@ net_snmp_configure = ["./configure",
                       "--enable-shared",
                       "--disable-static"]
 build do
-  ship_license "https://gist.githubusercontent.com/truthbk/219266c31f7d664c749dba525eb8a7b0/raw/82539d51d5b1e545e1ceb241b25f476956b636f9/net-snmp.license"
+  license "BSD-style"
+  license_file "https://gist.githubusercontent.com/truthbk/219266c31f7d664c749dba525eb8a7b0/raw/82539d51d5b1e545e1ceb241b25f476956b636f9/net-snmp.license"
 
   if mac_os_x?
     copy "include/net-snmp/system/darwin13.h", "include/net-snmp/system/darwin14.h"

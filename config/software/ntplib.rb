@@ -5,7 +5,7 @@ dependency "python"
 dependency "pip"
 
 build do
-  ship_license "MIT"
+  license "MIT"
   if ohai["platform"] == "windows"
     pip "install "\
         "#{name}==#{version}"

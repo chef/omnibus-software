@@ -15,7 +15,8 @@ env = {
 }
 
 build do
-  ship_license "https://raw.githubusercontent.com/sysstat/sysstat/master/COPYING"
+  license "GPL-2.0"
+  license_file "https://raw.githubusercontent.com/sysstat/sysstat/master/COPYING"
   command(["./configure",
        "--prefix=#{install_dir}/embedded",
        "--disable-nls", "--disable-sensors"].join(" "),

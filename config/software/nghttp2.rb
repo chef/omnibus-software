@@ -16,6 +16,9 @@ env = {
 }
 
 build do
+  license "MIT"
+  license_file "./COPYING"
+
   command [
     "./configure",
     "--disable-app",

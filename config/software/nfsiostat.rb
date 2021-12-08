@@ -23,6 +23,8 @@ source git: "git://git.linux-nfs.org/projects/steved/nfs-utils.git"
 relative_path "nfs-utils"
 
 build do
+  license "GPL-2.0"
+
   mkdir "#{install_dir}/embedded/sbin/"
   command "sed -i 's:#!/usr/bin/python:#!/opt/datadog-agent/embedded/bin/python:' ./tools/nfs-iostat/nfs-iostat.py"
   command "cp ./tools/nfs-iostat/nfs-iostat.py #{install_dir}/embedded/sbin/nfsiostat"

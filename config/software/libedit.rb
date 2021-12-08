@@ -57,7 +57,8 @@ env = case ohai["platform"]
       end
 
 build do
-  ship_license "https://gist.githubusercontent.com/remh/d001e1be55cd07a88550/raw/742f005f8f9c744a4c7c8b2a0e6c3018546d6d0c/libedit.LICENSE"
+  license "BSD-3-Clause"
+  license_file "https://gist.githubusercontent.com/remh/d001e1be55cd07a88550/raw/742f005f8f9c744a4c7c8b2a0e6c3018546d6d0c/libedit.LICENSE"
   # The patch is from the FreeBSD ports tree and is for GCC compatibility.
   # http://svnweb.freebsd.org/ports/head/devel/libedit/files/patch-vi.c?annotate=300896
   if ohai["platform"] == "freebsd"

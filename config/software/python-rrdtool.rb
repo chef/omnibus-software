@@ -3,7 +3,8 @@ default_version "1.3.8"
 dependency "python"
 
 build do
-  ship_license "https://raw.githubusercontent.com/oetiker/rrdtool-1.x/master/COPYRIGHT"
+  license "GPL-2.0 (with exception)"
+  license_file "https://raw.githubusercontent.com/oetiker/rrdtool-1.x/master/COPYRIGHT"
 
   if ohai["platform_family"] == "debian"
     command "curl -O http://dd-agent.s3.amazonaws.com/python-rrdtool/deb/#{ohai["kernel"]["machine"]}/rrdtool.so", cwd: "#{install_dir}/embedded/lib/python2.7/"

@@ -27,8 +27,9 @@ else
 end
 
 build do
-  ship_license "https://raw.githubusercontent.com/DataDog/go-metro/master/LICENSE"
-  ship_license "https://raw.githubusercontent.com/DataDog/go-metro/master/THIRD_PARTY_LICENSES.md"
+  license "MIT"
+  license_file "https://raw.githubusercontent.com/DataDog/go-metro/master/LICENSE"
+  license_file "https://raw.githubusercontent.com/DataDog/go-metro/master/THIRD_PARTY_LICENSES.md"
 
   if ohai["platform_family"] == "rhel"
     command "mv gometro-centos6-#{version} #{install_dir}/bin/go-metro.bin"

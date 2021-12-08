@@ -10,7 +10,9 @@ source url: "http://www.unixodbc.org/unixODBC-#{version}.tar.gz"
 relative_path "unixODBC-#{version}"
 
 build do
-  ship_license "./COPYING"
+  license "LGPL-2.1"
+  license_file "./COPYING"
+
   env = with_standard_compiler_flags(with_embedded_path)
 
   configure_args = [

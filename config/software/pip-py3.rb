@@ -28,7 +28,8 @@ source url: "https://github.com/pypa/pip/archive/#{version}.tar.gz",
 relative_path "pip-#{version}"
 
 build do
-  ship_license "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
+  license "MIT"
+  license_file "https://raw.githubusercontent.com/pypa/pip/develop/LICENSE.txt"
   if ohai["platform"] == "windows"
     command "\"#{windows_safe_path(python_3_embedded)}\\python.exe\" setup.py install "\
             "--prefix=\"#{windows_safe_path(python_3_embedded)}\""

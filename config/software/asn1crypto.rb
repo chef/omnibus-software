@@ -5,6 +5,7 @@ dependency "python"
 dependency "pip"
 
 build do
-  ship_license "https://github.com/wbond/asn1crypto/blob/master/LICENSE"
+  license "MIT"
+  license_file "https://github.com/wbond/asn1crypto/blob/master/LICENSE"
   pip "install asn1crypto==#{version}"
 end

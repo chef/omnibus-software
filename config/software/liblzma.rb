@@ -24,6 +24,8 @@ source url: "http://tukaani.org/xz/xz-#{version}.tar.gz",
 relative_path "xz-#{version}"
 
 build do
+  license "Public-Domain"
+
   cmd = [ "./configure",
           "--prefix=#{install_dir}/embedded",
           "--disable-debug",

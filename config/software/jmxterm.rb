@@ -11,7 +11,8 @@ source url: "https://dd-jmxfetch.s3.amazonaws.com/jmxterm-#{version}-DATADOG-ube
 relative_path "jmxterm"
 
 build do
-  ship_license "https://raw.githubusercontent.com/DataDog/jmxfetch/master/LICENSE"
+  license "BSD-3-Clause"
+  license_file "https://raw.githubusercontent.com/DataDog/jmxfetch/master/LICENSE"
   mkdir "#{install_dir}/agent/checks/libs"
   copy "jmxterm-*-DATADOG-uber.jar", "#{install_dir}/agent/checks/libs"
 end

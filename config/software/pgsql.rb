@@ -8,7 +8,8 @@ source url: "http://get.enterprisedb.com/postgresql/postgresql-9.4.4-3-windows-x
        md5: "094d18f3534d1a6c1cab17d37fb88319"
 
 build do
-  ship_license "https://raw.githubusercontent.com/lpsmith/postgresql-libpq/master/LICENSE"
+  license "BSD-3-Clause"
+  license_file "https://raw.githubusercontent.com/lpsmith/postgresql-libpq/master/LICENSE"
 
   # After trying to compile unsuccessfully with VisualC++ and MinGW let's stick to the
   # standard windows "solutions" : download the binaries and making a nice copy of it :)

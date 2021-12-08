@@ -38,6 +38,8 @@ libgcc_file =
   end
 
 build do
+  license "GPL-3.0"
+
   if libgcc_file
     if File.exist?(libgcc_file)
       copy "#{libgcc_file}", "#{install_dir}/embedded/lib/"

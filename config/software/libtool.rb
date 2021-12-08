@@ -17,8 +17,6 @@
 name "libtool"
 default_version "2.4"
 
-license "GPL-2.0"
-license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
@@ -33,6 +31,9 @@ source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 relative_path "libtool-#{version}"
 
 build do
+  license "GPL-2.0"
+  license_file "./COPYING"
+
   env = with_standard_compiler_flags(with_embedded_path)
 
   update_config_guess

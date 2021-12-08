@@ -38,7 +38,9 @@ configure_env =
   end
 
 build do
-  ship_license "./COPYING"
+  license "MIT"
+  license_file "./COPYING"
+
   command "./configure --prefix=#{install_dir}/embedded", env: configure_env
   command "make -j #{workers}", env: configure_env
   command "make -j #{workers} install", env: configure_env

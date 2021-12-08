@@ -5,6 +5,7 @@ dependency "python"
 dependency "pip"
 
 build do
-  ship_license "https://raw.githubusercontent.com/Cairnarvon/uptime/master/COPYING.txt"
+  license "BSD-2-Clause"
+  license_file "https://raw.githubusercontent.com/Cairnarvon/uptime/master/COPYING.txt"
   pip "install --install-option=\"--install-scripts=#{install_dir}/bin\" #{name}==#{version}"
 end

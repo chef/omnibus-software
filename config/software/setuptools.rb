@@ -31,7 +31,7 @@ build do
     python_path = "#{windows_safe_path(install_dir)}\\embedded\\python.exe"
   end
 
-  ship_license "PSFL"
+  license "Python-2.0"
   command "#{python_path} bootstrap.py"
   command "#{python_path} setup.py install --prefix=#{windows_safe_path(install_dir)}/embedded"
 end

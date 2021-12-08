@@ -34,7 +34,9 @@ source url: "https://zlib.net/zlib-#{version}.tar.gz",
 relative_path "zlib-#{version}"
 
 build do
-  ship_license "https://gist.githubusercontent.com/remh/77877aa00b45c1ebc152/raw/372a65de9f4c4ed376771b8d2d0943da83064726/zlib.license"
+  license "Zlib"
+  license_file "https://gist.githubusercontent.com/remh/77877aa00b45c1ebc152/raw/372a65de9f4c4ed376771b8d2d0943da83064726/zlib.license"
+
   if windows?
     env = with_standard_compiler_flags(with_embedded_path, bfd_flags: true)
 

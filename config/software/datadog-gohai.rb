@@ -17,8 +17,9 @@ else
 end
 
 build do
-  ship_license "https://raw.githubusercontent.com/DataDog/gohai/#{version}/LICENSE"
-  ship_license "https://raw.githubusercontent.com/DataDog/gohai/#{version}/THIRD_PARTY_LICENSES.md"
+  license "MIT"
+  license_file "https://raw.githubusercontent.com/DataDog/gohai/#{version}/LICENSE"
+  license_file "https://raw.githubusercontent.com/DataDog/gohai/#{version}/THIRD_PARTY_LICENSES.md"
   # Checkout gohai's deps
   command "#{gobin} get -u github.com/shirou/gopsutil", env: env
   command "git checkout v2.0.0", env: env, cwd: "#{Omnibus::Config.cache_dir}/src/datadog-gohai/src/github.com/shirou/gopsutil"

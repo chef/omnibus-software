@@ -51,7 +51,7 @@ if ohai["platform"] != "windows"
   end
 
   build do
-    ship_license "PSFL"
+    license "Python-2.0"
     patch source: "python-2.7.11-avoid-allocating-thunks-in-ctypes.patch" if linux?
     patch source: "python-2.7.11-fix-platform-ubuntu.diff" if linux?
 

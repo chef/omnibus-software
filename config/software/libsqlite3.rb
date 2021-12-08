@@ -15,6 +15,8 @@ env = {
 }
 
 build do
+  license "Public-Domain"
+
   update_config_guess
   command(["./configure",
        "--prefix=#{install_dir}/embedded",

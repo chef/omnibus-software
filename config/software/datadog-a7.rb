@@ -4,7 +4,8 @@ default_version "0.0.5"
 dependency "pip"
 
 build do
-  ship_license "https://raw.githubusercontent.com/DataDog/datadog-checks-shared/master/LICENSE"
+  license "BSD-3-Clause"
+  license_file "https://raw.githubusercontent.com/DataDog/datadog-checks-shared/master/LICENSE"
   pip "install --install-option=\"--install-scripts="\
       "#{windows_safe_path(install_dir)}/bin\" "\
       "#{name}==#{version} "\

@@ -37,7 +37,8 @@ source url: "https://curl.se/ca/cacert-#{version}.pem",
 relative_path "cacerts-#{version}"
 
 build do
-  ship_license "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
+  license "MPL-2.0"
+  license_file "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
 
   if windows?
     if with_python_runtime? "2"

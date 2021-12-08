@@ -9,6 +9,7 @@ dependency "openssl"
 dependency "asn1crypto"
 
 build do
-  ship_license "https://github.com/pyca/cryptography/blob/master/LICENSE.APACHE"
+  license "Apache-2.0"
+  license_file "https://github.com/pyca/cryptography/blob/master/LICENSE.APACHE"
   pip "install cryptography==#{version}"
 end
