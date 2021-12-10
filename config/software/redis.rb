@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2014 Chef Software, Inc.
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# expeditor/ignore: deprecated 2021-04
 
 name "redis"
 
@@ -32,24 +31,12 @@ version "6.2.5" do
   source sha256: "4b9a75709a1b74b3785e20a6c158cab94cf52298aa381eea947a678a60d551ae"
 end
 
+version "5.0.14" do
+  source sha256: "3ea5024766d983249e80d4aa9457c897a9f079957d0fb1f35682df233f997f32"
+end
+
 version "5.0.7" do
   source sha256: "61db74eabf6801f057fd24b590232f2f337d422280fd19486eca03be87d3a82b"
-end
-
-version "3.0.7" do
-  source md5: "84ed3f486e7a6f0ebada6917370f3532"
-end
-
-version "3.0.4" do
-  source md5: "9e535dea3dc5301de012047bf3cca952"
-end
-
-version "2.8.21" do
-  source md5: "d059e2bf5315e2488ab679e09e55a9e7"
-end
-
-version "2.8.2" do
-  source md5: "ee527b0c37e1e2cbceb497f5f6b8112b"
 end
 
 source url: "http://download.redis.io/releases/redis-#{version}.tar.gz"
@@ -63,10 +50,8 @@ build do
 
   update_config_guess
 
-  if version.satisfies?(">= 3.0.7", "< 3.1")
+  if version.satisfies?("< 6.0")
     patch source: "password-from-environment.patch", plevel: 1, env: env
-  elsif version.satisfies?(">= 5.0", "< 6.0")
-    patch source: "password-from-environment-5.patch", plevel: 1, env: env
   end
 
   make "-j #{workers}", env: env
