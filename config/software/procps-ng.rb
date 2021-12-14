@@ -17,7 +17,7 @@ env = {
 build do
   license "GPL-2.0"
   license_file "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
-  license_file "https://gitlab.com/procps-ng/procps/raw/master/COPYING.lib"
+  license_file "https://gitlab.com/procps-ng/procps/raw/master/COPYING.LIB"
 
   # By default procps-ng will build with the 'UNKNOWN' version if not built
   # from a git repository and the '.tarball-version' file doesn't exist.
