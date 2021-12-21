@@ -34,15 +34,6 @@ version "5.6.16" do
   source sha256: "6b035a59337d571ab70cea72cc55225c027ad142fbb07fd8984e54261657c77f"
 end
 
-version "6.8.1" do
-  source sha512: "1d484287e9b67b16c28f1a4d2267e7ceb5a4438a18b26b3a46d4a176bb3f2f6fcadcbda617a7a91418293880d38c027266cb81a4e8893a28adee9fa693b2318b"
-end
-
-version "7.9.1" do
-  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}-linux-x86_64.tar.gz",
-         sha512: "e24aab0fbeb0b53cc386bb0ca1fc84c457851c5d80d147324bf97ff42f063332a93dec3c693550662393a72c7a0522a100181dd9a7d50b3e487a0f2a2a9bbcc0"
-end
-
 version "6.8.22" do
   source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-#{version}.tar.gz",
          sha256: "836a50df324a98837dcadbc7d55782cc9525f15cc6a8aa0c657e199667ebb996"
