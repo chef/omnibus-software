@@ -43,6 +43,11 @@ version "7.9.1" do
          sha512: "e24aab0fbeb0b53cc386bb0ca1fc84c457851c5d80d147324bf97ff42f063332a93dec3c693550662393a72c7a0522a100181dd9a7d50b3e487a0f2a2a9bbcc0"
 end
 
+version "6.8.22" do
+  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-#{version}.tar.gz",
+         sha256: "836a50df324a98837dcadbc7d55782cc9525f15cc6a8aa0c657e199667ebb996"
+end
+
 target_path = "#{install_dir}/embedded/elasticsearch"
 
 build do
