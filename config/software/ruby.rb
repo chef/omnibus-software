@@ -33,6 +33,14 @@ dependency "openssl"
 dependency "libffi"
 dependency "libyaml"
 
+# we build omnibus packages on freebsd 11 and use the packages on freebsd 11, 12 and 13.
+# the ruby executable has been linking to freebsds system's ncurses library files.
+# freebsd 13 system's ncurses library files have a different name than freebsd 11 and 12
+# which causes the ruby executable to fail.
+# adding ncurses as a dependency for freebsd prevents the ruby executable from linking to the
+# system's ncurses library files thereby allowing the package built on freebsd 11 to work on freebsd 13.
+dependency "ncurses" if freebsd?
+
 # version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
 version("3.0.3")      { source sha256: "3586861cb2df56970287f0fd83f274bd92058872d830d15570b36def7f1a92ac" }
 version("3.0.2")      { source sha256: "5085dee0ad9f06996a8acec7ebea4a8735e6fac22f22e2d98c3f2bc3bef7e6f1" }
