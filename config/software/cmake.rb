@@ -16,7 +16,7 @@
 # expeditor/ignore: deprecated 2021-11
 
 name "cmake"
-default_version "3.19.7"
+default_version "3.22.1"
 
 dependency "cacerts"
 
@@ -25,7 +25,8 @@ skip_transitive_dependency_licensing true
 
 if windows?
   if windows_arch_i386?
-    # version_list: url=https://cmake.org/files/v3.20/ filter=*-windows-i386.zip
+    # version_list: url=https://cmake.org/files/v3.22/ filter=*-windows-i386.zip
+    version("3.22.1") { source sha256: "f53494e3b35e5a1177ad55c28763eb5bb45772c1d80778c0f96c45ce4376b6e8" }
     version("3.20.0") { source sha256: "6df4c34f7d2735100ebae91e6d2d37b3c3c7b81e93decce9f4926a4e505affbc" }
 
     # version_list: url=https://cmake.org/files/v3.19/ filter=*-win32-x86.zip
@@ -35,7 +36,8 @@ if windows?
     version("3.18.6") { source sha256: "f6531568def18afecf3d54abd7ccf1f9cf092c683b14fde36b47910c7f822e8d" }
     version("3.18.1") { source sha256: "1a20c049e094d9ad49caca4b4d713c75c924a3885ecec4ed3986344aab05b6eb" }
   else
-    # version_list: url=https://cmake.org/files/v3.20/ filter=*-windows-x86_64.zip
+    # version_list: url=https://cmake.org/files/v3.22/ filter=*-windows-x86_64.zip
+    version("3.22.1") { source sha256: "35fbbb7d9ffa491834bbc79cdfefc6c360088a3c9bf55c29d111a5afa04cdca3" }
     version("3.20.0") { source sha256: "056378cb599353479c3a8aa2654454b8a3eaa3c8c0872928ba7e09c3ec50774c" }
 
     # version_list: url=https://cmake.org/files/v3.19/ filter=*-win64-x64.zip
@@ -46,6 +48,9 @@ if windows?
     version("3.18.1") { source sha256: "2c6c06da43c1088fc3a673e4440c8ebb1531bb6511134892c0589aa0b94f11ad" }
   end
 else
+  # version_list: url=https://cmake.org/files/v3.22/ filter=*.tar.gz
+  version("3.22.1") { source sha256: "0e998229549d7b3f368703d20e248e7ee1f853910d42704aa87918c213ea82c0" }
+
   # version_list: url=https://cmake.org/files/v3.20/ filter=*.tar.gz
   version("3.20.0") { source sha256: "9c06b2ddf7c337e31d8201f6ebcd3bba86a9a033976a9aee207fe0c6971f4755" }
 
