@@ -19,10 +19,10 @@ default_version "0.973"
 
 license "MIT"
 
-license_filename, appname =
+license_filename, appname, apprelname =
   case version
-      when "0.973"
-        ["README",  "app-sqitch-"]
+      when "0.973", "0.9999"
+        ["README", "App-Sqitch-"]
       else
         ["LICENSE", "App-Sqitch-v"]
   end
