@@ -19,7 +19,7 @@ default_version "0.973"
 
 license "MIT"
 
-license_filename, appname, apprelname =
+license_filename, appname =
   case version
       when "0.973", "0.9999"
         ["README", "App-Sqitch-"]
