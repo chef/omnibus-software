@@ -27,6 +27,7 @@ if windows?
   if windows_arch_i386?
     # version_list: url=https://cmake.org/files/v3.22/ filter=*-windows-i386.zip
     version("3.22.1") { source sha256: "f53494e3b35e5a1177ad55c28763eb5bb45772c1d80778c0f96c45ce4376b6e8" }
+    
     # version_list: url=https://cmake.org/files/v3.20/ filter=*-windows-i386.zip
     version("3.20.0") { source sha256: "6df4c34f7d2735100ebae91e6d2d37b3c3c7b81e93decce9f4926a4e505affbc" }
 
@@ -39,6 +40,7 @@ if windows?
   else
     # version_list: url=https://cmake.org/files/v3.22/ filter=*-windows-x86_64.zip
     version("3.22.1") { source sha256: "35fbbb7d9ffa491834bbc79cdfefc6c360088a3c9bf55c29d111a5afa04cdca3" }
+    
     # version_list: url=https://cmake.org/files/v3.20/ filter=*-windows-x86_64.zip
     version("3.20.0") { source sha256: "056378cb599353479c3a8aa2654454b8a3eaa3c8c0872928ba7e09c3ec50774c" }
 
