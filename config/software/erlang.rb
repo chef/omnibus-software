@@ -34,14 +34,13 @@ relative_path "otp-OTP-#{version}"
 
 version("24.1.7")    { source sha256: "a1dd1a238f1f3e79784b902f3cd00e06f35a630191eaf73324a07a26a2c93af3" }
 version("24.1.3")    { source sha256: "7ccfa8372995fc7895baeb3729f679aff87781d1b7c734acd22740bc41ee2eed" }
+version("22.2.8")    { source sha256: "71f73ddd59db521928a0f6c8d4354d6f4e9f4bfbd0b40d321cd5253a6c79b095" }
 version("22.2")      { source sha256: "232c37a502c7e491a9cbf86acb7af64fbc1a793fcbcbd0093cb029cf1c3830a7" }
 version("18.3")      { source sha256: "a6d08eb7df06e749ccaf3049b33ceae617a3c466c6a640ee8d248c2372d48f4e" }
 
 build do
-  if version.satisfies?(">= 18.3")
-    # Don't listen on 127.0.0.1/::1 implicitly whenever ERL_EPMD_ADDRESS is given
-    patch source: "epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
-  end
+  # Don't listen on 127.0.0.1/::1 implicitly whenever ERL_EPMD_ADDRESS is given
+  patch source: "epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
 
   env = with_standard_compiler_flags(with_embedded_path).merge(
     # WARNING!
