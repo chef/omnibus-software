@@ -68,4 +68,6 @@ build do
   # library from python, which links incorrectly to a system library. Adding
   # your own sqlite definition will fix this.
   delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_sqlite3.*"
+  delete "#{install_dir}/embedded/lib/python3.9/lib-dynload/readline.*"
+  delete "#{install_dir}/embedded/lib/python3.9/lib-dynload/_ctypes.*"
 end
