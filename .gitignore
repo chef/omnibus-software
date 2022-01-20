@@ -2,6 +2,7 @@
 .bundle
 Gemfile.lock
 pkg/*
+test/pkg/*
 /binstubs
 /bin
 

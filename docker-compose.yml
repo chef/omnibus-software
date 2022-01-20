@@ -1,0 +1,15 @@
+services:
+  builder:
+    build: .
+    volumes:
+      - ./:/omnibus-software
+      - ./test:/test
+    working_dir: /test
+    command: bash --init-file omnibus-build.sh
+
+    # Multiple concurrent "docker-compose run" commands on the same system in the CI pipeline caused intermittent failures
+    # while creating the network.
+    # Using "network_mode: bridge" forces compose to use docker's legacy default bridge network instead.
+    # We considered namespacing the network using COMPOSE_PROJECT_NAME=$BUILDKITE_JOB_ID but using the legacy bridge network
+    # means we can avoid worrying about any impact and management overhead that multiple networks might create.
+    network_mode: bridge
