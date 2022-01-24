@@ -30,13 +30,35 @@ This repository is versioned and tagged using the `YY.MM.BUILD` to allow folks t
 
 For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/main/CONTRIBUTING.md)
 
-### Testing via Docker
+### Testing On Ubuntu 18.04 via Docker
 
-We provide a sample Dockerfile you can use to ensure that your software definitions are able to compile on Ubuntu 18.04.
+#### Interactive Testing
+
+If you want to enter an interactive shell in a dockerized omnibus build environment on Ubuntu 18.04 you can run the following command.
 
 ```
-bundle exec rake test_build <SOFTWARE> (<VERSION>)
+docker-compose run --rm -e SOFTWARE=<SOFTWARE> -e VERSION=<VERSION> builder
 ```
+
+Now you should be in a shell in the container ready to explore, modify or build.
+
+You can start the build by running the following command in your shell.
+
+```
+bundle exec omnibus build test
+```
+
+The container will automatically be destroyed when you exit it without requiring any further cleanup.
+
+#### Non-Interactive Testing
+
+If you only want to run a build without an interactive shell you can set the `CI` environment variable as you see in the following command.
+
+```
+docker-compose run --rm -e SOFTWARE=<SOFTWARE> -e VERSION=<VERSION> -e CI=true builder
+```
+
+The container will automatically be destroyed when you exit it without requiring any further cleanup.
 
 ## License & Copyright
 

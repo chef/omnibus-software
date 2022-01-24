@@ -41,7 +41,7 @@ files.each do |file|
   $versions.compact.uniq.each do |version|
     puts <<~EOH
       - label: "test-build (#{software} #{version})"
-        command: docker build --build-arg SOFTWARE=#{software} --build-arg VERSION=#{version} .
+        command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} -e CI builder
         timeout_in_minutes: 30
         expeditor:
           executor:
