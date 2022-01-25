@@ -1,5 +1,5 @@
 #
-# Copyright:: Chef Software Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,17 +23,15 @@ skip_transitive_dependency_licensing true
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2za" # do_not_auto_update
+default_version "1.0.2zb" # do_not_auto_update
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
 lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
 lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"]) if version.start_with?("1.1")
 
-# OpenSSL source ships with broken symlinks which windows doesn't allow.
-# So skip error checking with `extract: :lax_tar`
-if version.satisfies?("> 1.0.2u") && version.satisfies?("< 1.1.0")
-  # 1.0.2u was the last public release of 1.0.2. Subsequent releases come from a support contract with OpenSSL Software Services
+# 1.0.2u was the last public release of 1.0.2. Subsequent releases come from a support contract with OpenSSL Software Services
+if version.satisfies?("< 1.1.0")
   source url: "https://s3.amazonaws.com/chef-releng/openssl/openssl-#{version}.tar.gz", extract: :lax_tar
 else
   # As of 2020-09-09 even openssl-1.0.0.tar.gz can be downloaded from /source/openssl-VERSION.tar.gz
@@ -43,14 +41,9 @@ else
 end
 
 version("1.1.1l") { source sha256: "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1" }
-version("1.1.1k") { source sha256: "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5" }
-version("1.1.1j") { source sha256: "aaf2fcb575cdf6491b98ab4829abf78a3dec8402b8b81efc8f23c00d443981bf" }
-version("1.1.1i") { source sha256: "e8be6a35fe41d10603c3cc635e93289ed00bf34b79671a3a4de64fcee00d5242" }
 
+version("1.0.2zb") { source sha256: "b7d8f8c895279caa651e7f3de9a7b87b8dd01a452ca3d9327f45a9ef31d0c518" }
 version("1.0.2za") { source sha256: "86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1d8688ef25280fbeee2ff8" }
-version("1.0.2y") { source sha256: "4882ec99f8e147ab26375da8a6af92efae69b6aef505234764f8cd00a1b81ffc" }
-version("1.0.2x") { source sha256: "79cb4e20004a0d1301210aee7e154ddfba3d6a33d0df1f6c5d3257cb915a59c9" }
-version("1.0.2w") { source sha256: "a675ad1a9df59015cebcdf713de76a422347c5d99f11232fe75758143defd680" }
 
 relative_path "openssl-#{version}"
 
@@ -86,6 +79,9 @@ build do
     "no-zlib",
     "shared",
   ]
+
+  # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
+  configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ] if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
 
   configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
 

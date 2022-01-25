@@ -27,9 +27,9 @@ task :test_build do
 
   raise "\nERROR: You must specify a software name\n\n" if software.nil?
 
-  command = "docker build --build-arg SOFTWARE=#{software}"
-  command += " --build-arg VERSION=#{version}" unless version == "default"
-  command += " --tag localhost:5000/omnibus-#{software}:#{version} ."
+  command = "docker-compose run --rm -e CI=true -e SOFTWARE=#{software}"
+  command += " -e VERSION=#{version}" unless version == "default"
+  command += " builder"
 
   sh command
 end
