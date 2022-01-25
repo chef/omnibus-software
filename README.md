@@ -38,14 +38,25 @@ If you want to enter an interactive shell in a dockerized omnibus build environm
 
 ```
 docker-compose run --rm -e SOFTWARE=<SOFTWARE> -e VERSION=<VERSION> builder
+
+# Example
+docker-compose run --rm -e SOFTWARE=go -e VERSION=1.17.6 builder
 ```
 
-Now you should be in a shell in the container ready to explore, modify or build.
+Now you should be in a shell in the container ready to explore, modify or build. The omnibus-software repository will be mounted inside the container which makes it easy to edit code with your editor and test it in the container.
 
 You can start the build by running the following command in your shell.
 
 ```
 bundle exec omnibus build test
+```
+
+Omnibus git caching is enabled for the build so you can rerun the build command and it will use the cache for any software that was already successfully built. This can save a lot of time when troubleshooting software that has dependencies on other software that builds fine.
+
+The following command will clean the omnibus project and purge the packages and caches.
+
+```
+bundle exec omnibus clean test --purge
 ```
 
 The container will automatically be destroyed when you exit it without requiring any further cleanup.
