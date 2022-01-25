@@ -15,7 +15,7 @@
 #
 
 name "cpanminus"
-default_version "1.9011"
+default_version "1.7040"
 
 license "Artistic-2.0"
 license_file "http://dev.perl.org/licenses/artistic.html"
