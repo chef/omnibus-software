@@ -2,4 +2,10 @@ source "https://rubygems.org"
 
 gem "omnibus", github: "chef/omnibus", branch: "main"
 gem "omnibus-software", path: "/omnibus-software"
-gem "cpanminus", "~> 1.7040"
+
+group :development do
+  gem "pry"
+  gem "pry-byebug"
+  gem "pry-stack_explorer"
+  gem "cpanminus", "~> 1.7040"
+end
