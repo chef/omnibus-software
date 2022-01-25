@@ -15,7 +15,7 @@
 #
 
 name "xproto"
-default_version "7.0.25"
+default_version "7.0.31"
 
 # version_list: url=https://www.x.org/releases/individual/proto/ filter=xproto-*.tar.gz
 
