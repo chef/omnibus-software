@@ -7,5 +7,5 @@ group :development do
   gem "pry"
   gem "pry-byebug"
   gem "pry-stack_explorer"
-  gem "cpanminus", "~> 1.7040"
+  gem "cpanminus", "1.7040"
 end
