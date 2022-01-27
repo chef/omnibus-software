@@ -1,0 +1,66 @@
+{
+	"cacerts": {
+		"url": "https://curl.se/ca/"
+	},
+	"cpanminus": {
+		"url": "https://github.com/miyagawa/cpanminus/"
+	},
+	"cmake": {
+		"url": "https://cmake.org/files/"
+	},
+	"elasticsearch": {
+		"url": "https://www.elastic.co/downloads/"
+	},
+	"elixir": {
+		"url": "https://github.com/elixir-lang/elixir/"
+
+	},
+	"fakeroot": {
+		"url": "ftp://ftp.debian.org/debian/pool/main/f/fakeroot/"
+	},
+
+	"figlet": {
+
+		"url": "https://github.com/cmatsuoka/figlet/"
+	},
+	"keepalived": {
+
+		"url": "https://www.keepalived.org/"
+	},
+
+	"libxml2": {
+
+		"url": "ftp://xmlsoft.org/libxml2/"
+	},
+	"libxslt": {
+
+		"url": "ftp://xmlsoft.org/libxml2/"
+	},
+
+	"patchelf": {
+
+		"url": "https://nixos.org/releases/patchelf"
+	},
+
+	"ruby-windows-devkit": {
+
+		"url": "https://dl.bintray.com/oneclick/rubyinstaller/"
+	},
+	"runit": {
+
+		"url": "http://smarden.org/runit/"
+
+	},
+	"rust": {
+
+		"url": "https://static.rust-lang.org/dist/"
+	},
+	"setuptools": {
+
+		"url": "https://pypi.python.org/packages/source/s/setuptools"
+	},
+	"sqitch": {
+
+		"url": "https://github.com/sqitchers/sqitch"
+	}
+}
