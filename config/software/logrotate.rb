@@ -15,7 +15,7 @@
 #
 
 name "logrotate"
-default_version "3.9.2"
+default_version "3.19.0"
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -27,7 +27,9 @@ source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"
 
 # versions_list: https://github.com/logrotate/logrotate/tags filter=*.tar.gz
 
-version("3.9.2") { source sha256: "2de00c65e23fa9d7909cae6594e550b9abe9a7eb1553669ddeaca92d30f97009" }
+version("3.19.0") { source sha256: "7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930" }
+version("3.18.1") { source sha256: "18e9c9b85dd185e79f097f4e7982bc5b8c137300756a7878e8fa24731f2f8e21" }
+version("3.9.2")  { source sha256: "2de00c65e23fa9d7909cae6594e550b9abe9a7eb1553669ddeaca92d30f97009" }
 
 relative_path "logrotate-#{version}"
 
@@ -42,7 +44,12 @@ build do
   env["EXTRA_LDFLAGS"] = env["LDFLAGS"]
   env["EXTRA_CFLAGS"]  = env["CFLAGS"]
 
-  patch source: "logrotate_basedir_override.patch", plevel: 0, env: env
+  if version == "3.9.2"
+    patch source: "logrotate_basedir_override.patch", plevel: 0, env: env
+  else
+    command   "autoreconf -fiv", env: env
+    command   "./configure --prefix=#{install_dir}/embedded", env: env
+  end
 
   make "-j #{workers}", env: env
 
