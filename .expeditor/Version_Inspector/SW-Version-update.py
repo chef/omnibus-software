@@ -154,7 +154,7 @@ elif(choice == 2 ):
             print("======================================================")
             print("Default version :",default_version)
             print("Latest software version available :",highest_version)
-            ticket_title = product+" version update from "+default_version+" to "+highest_version
+            #ticket_title = product+" version update from "+default_version+" to "+highest_version
             print("======================================================")
             if(default_version==highest_version):
                 print("No version updates on the product")
