@@ -36,7 +36,12 @@ files.each do |file|
   software = File.basename(file, ".rb")
   $versions = []
 
-  load file
+  begin
+    load file
+  rescue => e
+    # Ignore errors from methods such as `_64_bit?` and `armhf?` returning `nil` to conditional logic
+    raise unless e.message.match?(/ can only be installed on /)
+  end
 
   $versions.compact.uniq.each do |version|
     puts <<~EOH
