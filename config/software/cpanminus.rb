@@ -15,7 +15,7 @@
 #
 
 name "cpanminus"
-default_version "1.7040"
+default_version "1.7045"
 
 license "Artistic-2.0"
 license_file "http://dev.perl.org/licenses/artistic.html"
@@ -24,13 +24,21 @@ skip_transitive_dependency_licensing true
 dependency "perl"
 
 # version_list: url=https://github.com/miyagawa/cpanminus/releases filter=*.tar.gz
-
+version("1.7045") { source sha256: "f2ab7e18a695960ac07f072b369c1bf113ae278bf81aa807b3f4bdaf098df34d" }
+version("1.7907") { source sha256: "be297134dc4ee9d6f443673c89d0e30324fe7c342750d1a0e03f09f2c8ef4d00" }
+version("1.9018") { source sha256: "2604020c020412637bdb852bc2a927885ef6362fc5bfa04c68c09e681cabe046" }
 version("1.9011") { source sha256: "d708ef86a23b6bc4f3f961513e1eb3827e6e75f390849b1d5bc777d79bfb4a74" }
 version("1.7040") { source sha256: "48a747c040689445f7db0edd169da0abd709a37cfece3ceecff0816c09beab0e" }
 
-source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
+if version.satisfies?("< 1.7900")
+  source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
 
-relative_path "cpanminus-#{version}"
+  relative_path "cpanminus-#{version}"
+else
+  source url: "https://github.com/miyagawa/cpanminus/archive/App-cpanminus-#{version}.tar.gz"
+
+  relative_path "cpanminus-App-cpanminus-#{version}/App-cpanminus"
+end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
