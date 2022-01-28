@@ -15,7 +15,7 @@
 #
 
 name "python"
-default_version "3.9.9"
+default_version "3.10.2"
 
 license "Python-2.0"
 license_file "LICENSE"
@@ -28,6 +28,7 @@ dependency "bzip2"
 
 # version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
 
+version("3.10.2") { source sha256: "3c0ede893011319f9b0a56b44953a3d52c7abf9657c23fb4bc9ced93b86e9c97" }
 version("3.9.9")  { source sha256: "2cc7b67c1f3f66c571acc42479cdf691d8ed6b47bee12c9b68430413a17a44ea" }
 version("2.7.18") { source sha256: "da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814" }
 version("2.7.14") { source sha256: "304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8" }
