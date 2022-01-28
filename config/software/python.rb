@@ -26,6 +26,10 @@ dependency "zlib"
 dependency "openssl"
 dependency "bzip2"
 
+if version >= "3.9.0"
+  dependency "libffi"
+end
+
 # version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
 
 version("3.10.2") { source sha256: "3c0ede893011319f9b0a56b44953a3d52c7abf9657c23fb4bc9ced93b86e9c97" }
@@ -38,6 +42,7 @@ version("2.7.5")  { source sha256: "8e1b5fa87b91835afb376a9c0d319d41feca07ffebc0
 source url: "https://python.org/ftp/python/#{version}/Python-#{version}.tgz"
 
 relative_path "Python-#{version}"
+major_version, minor_version = version.split(".")
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -56,20 +61,18 @@ build do
   make "install", env: env
 
   # There exists no configure flag to tell Python to not compile readline
-  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/readline.*"
+  delete "#{install_dir}/embedded/lib/python#{major_version}.#{minor_version}/lib-dynload/readline.*"
 
   # Ditto for sqlite3
-  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_sqlite3.*"
-  delete "#{install_dir}/embedded/lib/python2.7/sqlite3/"
+  delete "#{install_dir}/embedded/lib/python#{major_version}.#{minor_version}/lib-dynload/_sqlite3.*"
+  delete "#{install_dir}/embedded/lib/python#{major_version}.#{minor_version}/sqlite3/"
 
   # Remove unused extension which is known to make healthchecks fail on CentOS 6
-  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_bsddb.*"
+  delete "#{install_dir}/embedded/lib/python#{major_version}.#{minor_version}/lib-dynload/_bsddb.*"
 
   # Remove sqlite3 libraries, if you want to include sqlite, create a new def
   # in your software project and build it explicitly. This removes the adapter
   # library from python, which links incorrectly to a system library. Adding
   # your own sqlite definition will fix this.
-  delete "#{install_dir}/embedded/lib/python2.7/lib-dynload/_sqlite3.*"
-  delete "#{install_dir}/embedded/lib/python3.9/lib-dynload/readline.*"
-  delete "#{install_dir}/embedded/lib/python3.9/lib-dynload/_ctypes.*"
+  delete "#{install_dir}/embedded/lib/python#{major_version}.#{minor_version}/lib-dynload/_sqlite3.*"
 end
