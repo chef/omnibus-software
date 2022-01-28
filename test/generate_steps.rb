@@ -25,7 +25,7 @@ end
 # Get a list of all the config/software definitions that have been added or modified
 _, status = Open3.capture2e("git fetch origin #{BRANCH}")
 exit 1 if status != 0
-stdout, status = Open3.capture2("git diff --name-status HEAD origin/#{BRANCH} config/software | awk 'match($1, \"A\"){print $2; next} match($1, \"M\"){print $2}'")
+stdout, status = Open3.capture2("git diff --name-status origin/#{BRANCH}...HEAD config/software | awk 'match($1, \"A\"){print $2; next} match($1, \"M\"){print $2}'")
 exit 1 if status != 0
 
 files = stdout.lines.compact.uniq.map(&:chomp)
@@ -36,7 +36,12 @@ files.each do |file|
   software = File.basename(file, ".rb")
   $versions = []
 
-  load file
+  begin
+    load file
+  rescue => e
+    # Ignore errors from methods such as `_64_bit?` and `armhf?` returning `nil` to conditional logic
+    raise unless e.message.match?(/ can only be installed on /)
+  end
 
   $versions.compact.uniq.each do |version|
     puts <<~EOH
