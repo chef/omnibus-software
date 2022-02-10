@@ -1,0 +1,23 @@
+diff -ur ruby-3.1.0/load.c ruby-3.1.0-patched/load.c
+--- ruby-3.1.0/load.c	2021-04-05 05:33:44.000000000 -0700
++++ ruby-3.1.0-patched/load.c	2021-04-09 13:21:37.087380251 -0700
+
+@@ -20,15 +20,15 @@
+
+static VALUE ruby_dln_librefs;
+
+#define IS_RBEXT(e) (strcmp((e), ".rb") == 0)
+#define IS_SOEXT(e) (strcmp((e), ".so") == 0 || strcmp((e), ".o") == 0)
+-#define IS_DLEXT(e) (strcmp((e), DLEXT) == 0)
++#ifdef DLEXT2
++#define IS_DLEXT(e) (strcmp((e), DLEXT) == 0 || strcmp((e), DLEXT2) == 0)
++#else
++#define IS_DLEXT(e) (strcmp((e), DLEXT) == 0)
++#endif
+static const char *const loadable_ext[] = {
+    ".rb", DLEXT,
++    #ifdef DLEXT2
++        DLEXT2,
++    #endif
+    0
+};

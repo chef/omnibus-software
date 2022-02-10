@@ -123,7 +123,11 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
-  if version.satisfies?("~> 3.0")
+  if version.satisfies?("= 3.1")
+    patch source: "ruby-3.1.0-configure.patch", plevel: 1, env: patch_env
+  end
+
+  if version.satisfies?("= 3.2")
     case version
     when "3.0.1"
       patch source: "ruby-3.0.1-configure.patch", plevel: 1, env: patch_env
@@ -253,7 +257,6 @@ build do
   env["PKG_CONFIG"] = "/bin/true" if aix?
 
   configure(*configure_command, env: env)
-
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 
