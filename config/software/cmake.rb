@@ -39,7 +39,6 @@ if windows?
   else
     # version_list: url=https://cmake.org/files/v3.22/ filter=*-windows-x86_64.zip
     version("3.22.2") { source sha256: "192d62eaecb0600e743f01058dfbd5b6bed91504fe8f56416febf54c38ce096e" }
-    
     # version_list: url=https://cmake.org/files/v3.20/ filter=*-windows-x86_64.zip
     version("3.20.0") { source sha256: "056378cb599353479c3a8aa2654454b8a3eaa3c8c0872928ba7e09c3ec50774c" }
 
@@ -53,7 +52,6 @@ if windows?
 else
   # version_list: url=https://cmake.org/files/v3.22/ filter=*.tar.gz
   version("3.22.2") { source sha256: "3c1c478b9650b107d452c5bd545c72e2fad4e37c09b89a1984b9a2f46df6aced" }
-  
   # version_list: url=https://cmake.org/files/v3.20/ filter=*.tar.gz
   version("3.20.0") { source sha256: "9c06b2ddf7c337e31d8201f6ebcd3bba86a9a033976a9aee207fe0c6971f4755" }
 
