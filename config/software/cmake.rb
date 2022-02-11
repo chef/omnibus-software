@@ -16,7 +16,7 @@
 # expeditor/ignore: deprecated 2021-11
 
 name "cmake"
-default_version "3.23.0"
+default_version "3.22.2"
 
 dependency "cacerts"
 
@@ -25,8 +25,8 @@ skip_transitive_dependency_licensing true
 
 if windows?
   if windows_arch_i386?
-    # version_list: url=https://cmake.org/files/v3.23/ filter=*-windows-i386.zip
-    version("3.23.0") { source sha256: "4db9e7560d4a5a46303247d8da8024fd799bf40ce0e2b15b315478e83aa29a16" }
+    # version_list: url=https://cmake.org/files/v3.22/ filter=*-windows-i386.zip
+    version("3.22.2") { source sha256: "c2b32d2b150ea70e353b658fefe5018c486e17a11e95d2e4e4b46dd6f87cea35" }
     
     # version_list: url=https://cmake.org/files/v3.20/ filter=*-windows-i386.zip
     version("3.20.0") { source sha256: "6df4c34f7d2735100ebae91e6d2d37b3c3c7b81e93decce9f4926a4e505affbc" }
@@ -38,8 +38,8 @@ if windows?
     version("3.18.6") { source sha256: "f6531568def18afecf3d54abd7ccf1f9cf092c683b14fde36b47910c7f822e8d" }
     version("3.18.1") { source sha256: "1a20c049e094d9ad49caca4b4d713c75c924a3885ecec4ed3986344aab05b6eb" }
   else
-    # version_list: url=https://cmake.org/files/v3.23/ filter=*-windows-x86_64.zip
-    version("3.23.0") { source sha256: "26dde032fb1a0fd414e4e3f8a7db4bae3e25bf154b0c6f99e82f21a48f459bbd" }
+    # version_list: url=https://cmake.org/files/v3.22/ filter=*-windows-x86_64.zip
+    version("3.22.2") { source sha256: "192d62eaecb0600e743f01058dfbd5b6bed91504fe8f56416febf54c38ce096e" }
   
     # version_list: url=https://cmake.org/files/v3.20/ filter=*-windows-x86_64.zip
     version("3.20.0") { source sha256: "056378cb599353479c3a8aa2654454b8a3eaa3c8c0872928ba7e09c3ec50774c" }
@@ -52,8 +52,8 @@ if windows?
     version("3.18.1") { source sha256: "2c6c06da43c1088fc3a673e4440c8ebb1531bb6511134892c0589aa0b94f11ad" }
   end
 else
-  # version_list: url=https://cmake.org/files/v3.23/ filter=*.tar.gz
-  version("3.23.0") { source sha256: "49ce8923bd356d014db43112ced27113e08d4f36276beb2c7c12fb55bfce2bbb" }
+  # version_list: url=https://cmake.org/files/v3.22/ filter=*.tar.gz
+  version("3.22.2") { source sha256: "5963a46b52da6eac19dfb2ed560b6588606f20e2bb2c4c05fbea8f5176f71abc" }
 
   # version_list: url=https://cmake.org/files/v3.20/ filter=*.tar.gz
   version("3.20.0") { source sha256: "9c06b2ddf7c337e31d8201f6ebcd3bba86a9a033976a9aee207fe0c6971f4755" }
