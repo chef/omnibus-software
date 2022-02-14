@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "omnibus", github: "chef/omnibus", branch: "main"
+gem "omnibus", github: "chef/omnibus", branch: "poorndm/add_tinfo_whitelst"
 gem "omnibus-software", path: "/omnibus-software"
 
 group :development do
