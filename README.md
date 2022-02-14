@@ -30,6 +30,14 @@ This repository is versioned and tagged using the `YY.MM.BUILD` to allow folks t
 
 For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/main/CONTRIBUTING.md)
 
+### Run Linux Tests in Docker
+
+Run `.expeditor/run_linux_tests.sh rake` in the ruby image of your choice.
+
+```
+docker run -it --rm -v $PWD:/src -w /src ruby:2.7-buster .expeditor/run_linux_tests.sh rake
+```
+
 ### Testing On Ubuntu 18.04 via Docker
 
 #### Interactive Testing
