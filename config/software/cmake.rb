@@ -19,15 +19,10 @@ name "cmake"
 default_version "3.22.2"
 
 dependency "cacerts"
-dependency "ncurses"
 dependency "openssl"
 
 license "BSD-3-Clause"
 skip_transitive_dependency_licensing true
-
-if version > "3.20.0"
-  dependency "libffi"
-end
 
 if windows?
   if windows_arch_i386?
@@ -96,9 +91,9 @@ build do
     copy "share/cmake-3.18", "#{install_dir}/embedded/share/"
     copy "share/aclocal/cmake.m4", "#{install_dir}/embedded/share/aclocal/"
   else
-    env = with_standard_compiler_flags(with_embedded_path)
 
-    command "./bootstrap --prefix=#{install_dir}/embedded", env: env
+    env = with_standard_compiler_flags(with_embedded_path)
+    command "./bootstrap --prefix=#{install_dir}/embedded" --without-ncurses, env: env
 
     make "-j #{workers}", env: env
     make "install", env: env
