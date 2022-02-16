@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "13.5"
+default_version "13.6"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
@@ -31,6 +31,7 @@ dependency "config_guess"
 # version_list: url=https://ftp.postgresql.org/pub/source/v#{version}/ filter=*.tar.bz2
 
 version("14.1")   { source sha256: "4d3c101ea7ae38982f06bdc73758b53727fb6402ecd9382006fa5ecc7c2ca41f" }
+version("13.6")   { source sha256: "bafc7fa3d9d4da8fe71b84c63ba8bdfe8092935c30c0aa85c24b2c08508f67fc" }
 version("13.5")   { source sha256: "9b81067a55edbaabc418aacef457dd8477642827499560b00615a6ea6c13f6b3" }
 version("13.3")   { source sha256: "3cd9454fa8c7a6255b6743b767700925ead1b9ab0d7a0f9dcb1151010f8eb4a1" }
 
