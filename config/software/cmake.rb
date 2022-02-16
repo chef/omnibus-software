@@ -93,7 +93,7 @@ build do
   else
 
     env = with_standard_compiler_flags(with_embedded_path)
-    command "./bootstrap --prefix=#{install_dir}/embedded --without-ncurses", env: env
+    command "./bootstrap --prefix=#{install_dir}/embedded", env: env
 
     make "-j #{workers}", env: env
     make "install", env: env
