@@ -127,6 +127,7 @@ build do
                config_hash: config_hash,
              }
 
+  #
   # NOTE - If you run ./configure the environment variables set above will not be
   # used and only the command line args will be used. The issue with this is you
   # cannot specify everything on the command line that you can with the env vars.
