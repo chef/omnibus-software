@@ -29,7 +29,7 @@ if windows?
   ext = "zip"
 
   # version_list: url=https://golang.org/dl/ filter=*.windows-amd64.zip
-  version("1.17.7")  { source sha256:  "1b648165d62a2f5399f3c42c7e59de9f4aa457212c4ea763e1b650546fac72e2" }
+  version("1.17.7")  { source sha256: "1b648165d62a2f5399f3c42c7e59de9f4aa457212c4ea763e1b650546fac72e2" }
   version("1.17.6")  { source sha256: "5bf8f87aec7edfc08e6bc845f1c30dba6de32b863f89ae46553ff4bbcc1d4954" }
   version("1.17.5")  { source sha256: "671faf99cd5d81cd7e40936c0a94363c64d654faa0148d2af4bbc262555620b9" }
   version("1.17.2")  { source sha256: "fa6da0b829a66f5fab7e4e312fd6aa1b2d8f045c7ecee83b3d00f6fe5306759a" }
