@@ -21,7 +21,7 @@ default_version "0.28"
 dependency "libiconv"
 
 version "0.28" do
-  source md5: "aa3c86e67551adc3ac865160e34a2a0d"
+  source sha256: "6b6eb31c6ec4421174578652c7e141fdaae2dabad1021f420d8713206ac1f845"
 end
 
 ship_source true

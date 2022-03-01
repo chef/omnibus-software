@@ -5,8 +5,7 @@ dependency "openssl"
 
 source url: "https://github.com/nghttp2/nghttp2/releases/download/v#{version}/nghttp2-#{version}.tar.gz"
 
-version("1.12.0") { source md5: "04235f1d7170a2efce535068319180a1" }
-version("1.41.0") { source md5: "bd9a2745f5bbc13f8c8f0c151e1fc557" }
+version("1.41.0") { source sha256: "eacc6f0f8543583ecd659faf0a3f906ed03826f1d4157b536b4b385fe47c5bb8" }
 
 relative_path "nghttp2-#{version}"
 

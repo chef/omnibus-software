@@ -10,6 +10,6 @@ dependency "asn1crypto"
 
 build do
   license "Apache-2.0"
-  license_file "https://github.com/pyca/cryptography/blob/master/LICENSE.APACHE"
+  license_file "https://github.com/pyca/cryptography/blob/#{version}/LICENSE.APACHE"
   pip "install cryptography==#{version}"
 end

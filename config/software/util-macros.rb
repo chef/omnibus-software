@@ -2,8 +2,8 @@
 name "util-macros"
 default_version "1.19.0"
 
-source url: "http://xorg.freedesktop.org/releases/individual/util/util-macros-#{version}.tar.gz",
-       md5: "40e1caa49a71a26e0aa68ddd00203717",
+source url: "https://xorg.freedesktop.org/releases/individual/util/util-macros-#{version}.tar.gz",
+       sha256: "0d4df51b29023daf2f63aebf3ebc638ea88efedfd560ab5866741ab3f92acaa1",
        extract: :seven_zip
 
 relative_path "util-macros-#{version}"

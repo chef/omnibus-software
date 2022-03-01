@@ -12,7 +12,7 @@ end
 
 build do
   license "MIT"
-  license_file "http://dd-agent-omnibus.s3.amazonaws.com/pyyaml-LICENSE"
+  license_file "https://raw.githubusercontent.com/yaml/pyyaml/#{version}/LICENSE"
   pip "install --install-option=\"--install-scripts="\
       "#{windows_safe_path(install_dir)}/bin\" "\
       "#{name}==#{version}"
