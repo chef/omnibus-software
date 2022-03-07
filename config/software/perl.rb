@@ -28,7 +28,7 @@ version("5.32.1") { source sha256: "03b693901cd8ae807231b1787798cf1f2e0b8a56218d
 version("5.30.0") { source sha256: "851213c754d98ccff042caa40ba7a796b2cee88c5325f121be5cbb61bbf975f2" }
 version("5.22.1") { source sha256: "2b475d0849d54c4250e9cba4241b7b7291cffb45dfd083b677ca7b5d38118f27" }
 version("5.18.1") { source sha256: "655e11a8ffba8853efcdce568a142c232600ed120ac24aaebb4e6efe74e85b2b" }
-source url: "http://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
+source url: "https://www.cpan.org/src/5.0/perl-#{version}.tar.gz"
 
 # perl builds perl as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
