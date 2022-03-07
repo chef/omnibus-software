@@ -16,7 +16,7 @@
 
 # do_not_auto_update
 name "gcc"
-default_version "4.9.2"
+default_version "4.9.4"
 
 dependency "gmp"
 dependency "mpfr"
@@ -24,6 +24,7 @@ dependency "mpc"
 dependency "libiconv"
 
 # version_list: url=https://ftp.gnu.org/gnu/gcc/ filter=*.tar.gz
+version("4.9.4") { source sha256: "1680f92781b92cbdb57d7e4f647c650678c594154cb0d707fd9a994424a9860d" }
 version("4.9.2") { source sha256: "3e573826ec8b0d62d47821408fbc58721cd020df3e594cd492508de487a43b5e" }
 version("4.9.3") { source sha256: "e6c63b40877bc756cc7cfe6ca98013eb15f02ec6c8c2cf68e24533ad1203aaba" }
 version("4.9.4") { source sha256: "1680f92781b92cbdb57d7e4f647c650678c594154cb0d707fd9a994424a9860d" }
