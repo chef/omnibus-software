@@ -24,11 +24,11 @@ dependency "liblzma"
 dependency "config_guess"
 
 version "1.1.26" do
-  source md5: "e61d0364a30146aaa3001296f853b2b9"
+  source sha256: "55dd52b42861f8a02989d701ef716d6280bfa02971e967c285016f99c66e3db1"
 end
 
 version "1.1.28" do
-  source md5: "9667bf6f9310b957254fdcf6596600b7"
+  source sha256: "5fc7151a57b89c03d7b825df5a0fae0a8d5f05674c0e7cf2937ecec4d54a028c"
 end
 
 source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"

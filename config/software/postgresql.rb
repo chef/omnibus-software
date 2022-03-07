@@ -24,24 +24,24 @@ dependency "libedit"
 dependency "ncurses"
 
 version "9.1.9" do
-  source md5: "6b5ea53dde48fcd79acfc8c196b83535"
+  source sha256: "28a533e181009308722e8b3c51f1ea7224ab910c380ac1a86f07118667602dd8"
 end
 
 version "9.2.8" do
-  source md5: "c5c65a9b45ee53ead0b659be21ca1b97"
+  source sha256: "568ba482340219097475cce9ab744766889692ee7c9df886563e8292d66ed87c"
 end
 
 version "9.3.4" do
-  source md5: "d0a41f54c377b2d2fab4a003b0dac762"
+  source sha256: "9ee819574dfc8798a448dc23a99510d2d8924c2f8b49f8228cd77e4efc8a6621"
 end
 
 # Version lower than 9.4 aren't compatible with openssl 1.1
 # (9.4.12 for openssl 1.1.0 and 9.4.24 for visual studio)
 version "9.4.25" do
-  source md5: "5b8270dfd9a074088d3508836584260e"
+  source sha256: "cb98afaef4748de76c13202c14198e3e4717adde49fd9c90fdc81da877520928"
 end
 
-source url: "http://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
+source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
 relative_path "postgresql-#{version}"
 
 configure_env = {

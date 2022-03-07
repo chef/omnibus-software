@@ -22,11 +22,11 @@ dependency "ncurses"
 dependency "libgcc"
 
 version "20120601-3.0" do
-  source md5: "e50f6a7afb4de00c81650f7b1a0f5aea"
+  source sha256: "51f0f4b4a97b7ebab26e7b5c2564c47628cdb3042fd8ba8d0605c719d2541918"
 end
 
 version "20130712-3.1" do
-  source md5: "0891336c697362727a1fa7e60c5cb96c"
+  source sha256: "5d9b1a9dd66f1fe28bbd98e4d8ed1a22d8da0d08d902407dcc4a0702c8d88a37"
 end
 
 source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz",
