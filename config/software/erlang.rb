@@ -64,7 +64,6 @@ build do
 
   update_config_guess(target: "erts/autoconf")
   update_config_guess(target: "lib/common_test/priv/auxdir")
-  update_config_guess(target: "lib/erl_interface/src/auxdir")
   update_config_guess(target: "lib/wx/autoconf")
 
   if version.satisfies?(">= 19.0")
