@@ -23,7 +23,7 @@ license "Apache-2.0"
 license_file "LICENSE.txt"
 skip_transitive_dependency_licensing true
 
-source url: ""https://artifacts.opensearch.org/releases/bundle/opensearch/#{version}/opensearch-#{version}-linux-x64.tar.gz""
+source url: "https://artifacts.opensearch.org/releases/bundle/opensearch/#{version}/opensearch-#{version}-linux-x64.tar.gz"
 
 # versions_list:https://opensearch.org/docs/latest/version-history/
 version "1.2.4" do
