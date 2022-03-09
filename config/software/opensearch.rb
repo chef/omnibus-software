@@ -23,11 +23,11 @@ license "Apache-2.0"
 license_file "LICENSE.txt"
 skip_transitive_dependency_licensing true
 
-source url: "https://opensearch.org/source.html"
+source url: ""https://artifacts.opensearch.org/releases/bundle/opensearch/#{version}/opensearch-#{version}-linux-x64.tar.gz""
 
-# versions_list:https://opensearch.org/downloads.html
+# versions_list:https://opensearch.org/docs/latest/version-history/
 version "1.2.4" do
-  source sha256: "cefeb8eb1a11cffbc78847e029588392b856915ccc521cbaea96544bff5e61a0"
+  source sha256: "d40f2696623b6766aa235997e2847a6c661a226815d4ba173292a219754bd8a8"
 end
 
 target_path = "#{install_dir}/embedded/opensearch"
