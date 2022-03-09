@@ -18,7 +18,7 @@ name "opensearch"
 default_version "1.2.4"
 
 dependency "server-open-jre"
-
+dependency "zlib"
 license "Apache-2.0"
 license_file "LICENSE.txt"
 skip_transitive_dependency_licensing true
