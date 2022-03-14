@@ -96,7 +96,7 @@ build do
     if aix?
       "perl ./Configure aix64-cc"
     elsif mac_os_x?
-      intel? ? "./Configure darwin64-x86_64-cc" : "./Configure darwin64-arm64-cc no-asm"
+      intel? ? "./Configure darwin64-x86_64-cc" : "./Configure shared enable-rc5 zlib darwin64-arm64-cc"
     elsif smartos?
       "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
     elsif omnios?
