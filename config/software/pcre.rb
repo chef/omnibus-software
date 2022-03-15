@@ -31,7 +31,7 @@ version("8.45") { source sha256: "4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186
 version("8.44") { source sha256: "aecafd4af3bd0f3935721af77b889d9024b2e01d96b58471bd91a3063fb47728" }
 version("8.38") { source sha256: "9883e419c336c63b0cb5202b09537c140966d585e4d0da66147dc513da13e629" }
 
-source url: "https://downloads.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
+source url: "http://downloads.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
 
 relative_path "pcre-#{version}"
 
