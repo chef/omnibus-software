@@ -19,6 +19,7 @@ name "cmake"
 default_version "3.22.2"
 
 dependency "cacerts"
+dependency "openssl"
 
 license "BSD-3-Clause"
 skip_transitive_dependency_licensing true
