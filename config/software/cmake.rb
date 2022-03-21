@@ -19,7 +19,6 @@ name "cmake"
 default_version "3.22.2"
 
 dependency "cacerts"
-dependency "openssl"
 
 license "BSD-3-Clause"
 skip_transitive_dependency_licensing true
@@ -93,8 +92,7 @@ build do
   else
 
     env = with_standard_compiler_flags(with_embedded_path)
-    command "./configure" \
-          " --prefix=#{install_dir}/embedded -- -DBUILD_CursesDialog=OFF ", env: env
+    command "./bootstrap --prefix=#{install_dir}/embedded -- -DBUILD_CursesDialog=OFF ", env: env
 
     make "-j #{workers}", env: env
     make "install", env: env
