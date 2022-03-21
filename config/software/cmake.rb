@@ -92,7 +92,8 @@ build do
   else
 
     env = with_standard_compiler_flags(with_embedded_path)
-    command "./bootstrap --prefix=#{install_dir}/embedded -- -DBUILD_CursesDialog=OFF ", env: env
+    command "./configure" \
+    " --prefix=#{install_dir}/embedded -- -DBUILD_CursesDialog=OFF ", env: env
 
     make "-j #{workers}", env: env
     make "install", env: env
