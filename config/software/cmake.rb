@@ -19,7 +19,6 @@ name "cmake"
 default_version "3.22.2"
 
 dependency "cacerts"
-dependency "ncurses"
 dependency "openssl"
 
 license "BSD-3-Clause"
@@ -95,7 +94,7 @@ build do
 
     env = with_standard_compiler_flags(with_embedded_path)
     command "./configure" \
-          " --prefix=#{install_dir}/embedded", env: env
+          " --prefix=#{install_dir}/embedded -- -DCMAKE_USE_OPENSSL=OFF ", env: env
 
     make "-j #{workers}", env: env
     make "install", env: env
