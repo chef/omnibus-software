@@ -37,9 +37,9 @@ if windows?
   version("1.17")    { source sha256: "2a18bd65583e221be8b9b7c2fbe3696c40f6e27c2df689bbdcc939d49651d151" }
   version("1.16.3")  { source sha256: "a4400345135b36cb7942e52bbaf978b66814738b855eeff8de879a09fd99de7f" }
 elsif mac_os_x?
-    platform = "darwin"
+  platform = "darwin"
 
-    # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
+  # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
   version("1.18")    { source sha256: "dbfabbbb6377c225ccf28393ecc7aed55564870fcfb39d797411d6b8693013c6" }
   version("1.17.7")  { source sha256: "7c3d9cc70ee592515d92a44385c0cba5503fd0a9950f78d76a4587916c67a84d" }
   version("1.17.6")  { source sha256: "874bc6f95e07697380069a394a21e05576a18d60f4ba178646e1ebed8f8b1f89" }
