@@ -15,7 +15,7 @@
 #
 
 name "go"
-default_version "1.17.7"
+default_version "1.18"
 license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/golang/go/master/LICENSE"
 
@@ -29,16 +29,18 @@ if windows?
   ext = "zip"
 
   # version_list: url=https://golang.org/dl/ filter=*.windows-amd64.zip
+  version("1.18")    { source sha256: "65c5c0c709a7ca1b357091b10b795b439d8b50e579d3893edab4c7e9b384f435" }
   version("1.17.7")  { source sha256: "1b648165d62a2f5399f3c42c7e59de9f4aa457212c4ea763e1b650546fac72e2" }
   version("1.17.6")  { source sha256: "5bf8f87aec7edfc08e6bc845f1c30dba6de32b863f89ae46553ff4bbcc1d4954" }
   version("1.17.5")  { source sha256: "671faf99cd5d81cd7e40936c0a94363c64d654faa0148d2af4bbc262555620b9" }
   version("1.17.2")  { source sha256: "fa6da0b829a66f5fab7e4e312fd6aa1b2d8f045c7ecee83b3d00f6fe5306759a" }
   version("1.17")    { source sha256: "2a18bd65583e221be8b9b7c2fbe3696c40f6e27c2df689bbdcc939d49651d151" }
   version("1.16.3")  { source sha256: "a4400345135b36cb7942e52bbaf978b66814738b855eeff8de879a09fd99de7f" }
-elsif mac_os_x?
-  platform = "darwin"
+  elsif mac_os_x?
+    platform = "darwin"
 
-  # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
+    # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
+  version("1.18")    { source sha256: "dbfabbbb6377c225ccf28393ecc7aed55564870fcfb39d797411d6b8693013c6" }
   version("1.17.7")  { source sha256: "7c3d9cc70ee592515d92a44385c0cba5503fd0a9950f78d76a4587916c67a84d" }
   version("1.17.6")  { source sha256: "874bc6f95e07697380069a394a21e05576a18d60f4ba178646e1ebed8f8b1f89" }
   version("1.17.5")  { source sha256: "2db6a5d25815b56072465a2cacc8ed426c18f1d5fc26c1fc8c4f5a7188658264" }
@@ -47,6 +49,7 @@ elsif mac_os_x?
   version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
 else
   # version_list: url=https://golang.org/dl/ filter=*.linux-amd64.tar.gz
+  version("1.18")    { source sha256: "e85278e98f57cdb150fe8409e6e5df5343ecb13cebf03a5d5ff12bd55a80264f" }
   version("1.17.7")  { source sha256: "02b111284bedbfa35a7e5b74a06082d18632eff824fd144312f6063943d49259" }
   version("1.17.6")  { source sha256: "231654bbf2dab3d86c1619ce799e77b03d96f9b50770297c8f4dff8836fc8ca2" }
   version("1.17.5")  { source sha256: "bd78114b0d441b029c8fe0341f4910370925a4d270a6a590668840675b0c653e" }
