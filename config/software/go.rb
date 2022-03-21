@@ -36,7 +36,7 @@ if windows?
   version("1.17.2")  { source sha256: "fa6da0b829a66f5fab7e4e312fd6aa1b2d8f045c7ecee83b3d00f6fe5306759a" }
   version("1.17")    { source sha256: "2a18bd65583e221be8b9b7c2fbe3696c40f6e27c2df689bbdcc939d49651d151" }
   version("1.16.3")  { source sha256: "a4400345135b36cb7942e52bbaf978b66814738b855eeff8de879a09fd99de7f" }
-  elsif mac_os_x?
+elsif mac_os_x?
     platform = "darwin"
 
     # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
