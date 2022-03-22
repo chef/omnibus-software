@@ -15,7 +15,7 @@
 #
 
 name "libxslt"
-default_version "1.1.34"
+default_version "1.1.35"
 
 license "MIT"
 license_file "COPYING"
@@ -25,11 +25,17 @@ dependency "libxml2"
 dependency "liblzma"
 dependency "config_guess"
 
-# versions_list: ftp://xmlsoft.org/libxml2/ filter=*.tar.gz
+# versions_list: url=https://download.gnome.org/sources/libxslt/1.1/ filter=*.tar.gz
+
+version("1.1.35") { source sha256: "8247f33e9a872c6ac859aa45018bc4c4d00b97e2feac9eebc10c93ce1f34dd79" }
 version("1.1.34") { source sha256: "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f" }
 version("1.1.30") { source sha256: "ba65236116de8326d83378b2bd929879fa185195bc530b9d1aba72107910b6b3" }
 
-source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
+if version.satisfies?(">= 1.1.35")
+  source url: "https://download.gnome.org/sources/libxslt/1.1/libxslt-#{version}.tar.xz"
+else
+  source url: "ftp://xmlsoft.org/libxslt/libxslt-#{version}.tar.gz"
+end
 
 relative_path "libxslt-#{version}"
 
@@ -49,7 +55,7 @@ build do
   # iteration treats colons as a delimiter so we are using a cygwin
   # style path to accomodate
   configure_commands = [
-    "--with-libxml-prefix=#{install_dir.sub("C:", "/C")}/embedded",
+    "--with-libxml-lib-prefix=#{install_dir.sub("C:", "/C")}/embedded/lib/pkg-config",
     "--without-python",
     "--without-crypto",
     "--without-profiler",
