@@ -45,7 +45,7 @@ build do
   delete "#{project_dir}/plugins/opensearch-knn"
 
   sync "#{project_dir}/", "#{target_path}"
- # Dropping a VERSION file here allows additional software definitions
+  # Dropping a VERSION file here allows additional software definitions
   # to read it to determine ES plugin compatibility.
   command "echo #{version} > #{target_path}/VERSION"
 end
