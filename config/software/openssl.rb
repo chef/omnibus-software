@@ -167,9 +167,8 @@ build do
     end
   end
 
-  make "depend", env: env
-  # make -j N on openssl is not reliable
-  make env: env
+  command "make depend", env: env
+  command "make -j #{workers}", env: env
   if aix?
     # We have to sudo this because you can't actually run slibclean without being root.
     # Something in openssl changed in the build process so now it loads the libcrypto
@@ -180,5 +179,5 @@ build do
     # Bug Ref: http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
     command "sudo /usr/sbin/slibclean", env: env
   end
-  make "install", env: env
+  command "make install", env: env
 end

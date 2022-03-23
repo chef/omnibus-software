@@ -25,8 +25,8 @@ build do
   configure_command = configure_args.unshift("./configure").join(" ")
 
   command configure_command, env: env, in_msys_bash: true
-  make env: env
-  make "install", env: env
+  command "make -j #{workers}", env: env
+  command "make install", env: env
 
   # Remove the sample (empty) files unixodbc adds, otherwise they will replace
   # any user-added configuration on upgrade.

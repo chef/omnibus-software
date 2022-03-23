@@ -44,6 +44,6 @@ build do
   command "./configure" \
           " --prefix=/tmp/build/embedded", env: env
 
-  make env: env
-  make "install", env: env
+  command "make -j #{workers}", env: env
+  command "make install", env: env
 end
