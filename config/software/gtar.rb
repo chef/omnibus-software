@@ -27,7 +27,7 @@ version("1.29") { source sha256: "cae466e6e58c7292355e7080248f244db3a4cf755f33f4
 license "GPL-3.0"
 license_file "COPYING"
 
-source url: "http://ftp.gnu.org/gnu/tar/tar-#{version}.tar.gz"
+source url: "https://ftp.gnu.org/gnu/tar/tar-#{version}.tar.gz"
 
 relative_path "tar-#{version}"
 
@@ -36,6 +36,7 @@ build do
 
   configure_command = [
     "./configure",
+    "FORCE_UNSAFE_CONFIGURE=1",
     "--prefix=#{install_dir}/embedded",
   ]
 

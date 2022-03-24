@@ -32,7 +32,7 @@ version("3.14.2") { source sha256: "c973e98458960a78ec54032a71b3840f178418dd7e69
 version("3.5.3")  { source sha256: "7e98a9b975256a4733db1c0e974cad5ad5cb821489323e395ed97bd058e0a90e" }
 version("3.3.0")  { source sha256: "52f43de5b2d916d447d7ed252b127f728b226dc88db57d4fe9712e21d3586ffe" }
 
-source url: "http://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz"
+source url: "https://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz"
 
 relative_path "DBD-Pg-#{version}"
 
