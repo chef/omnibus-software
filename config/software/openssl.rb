@@ -29,6 +29,10 @@ default_version "1.0.2zb" # do_not_auto_update
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
 lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
 lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"]) if version.start_with?("1.1")
+if version.start_with?("3.")
+  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-3"])
+  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/ossl-modules"])
+end
 
 # 1.0.2u was the last public release of 1.0.2. Subsequent releases come from a support contract with OpenSSL Software Services
 if version.satisfies?("< 1.1.0")
@@ -40,7 +44,7 @@ else
   source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 end
 
-version("3.0.1")   { source sha256: "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1" }
+version("3.0.1")   { source sha256: "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1" } # only ruby 3.1 supports openssl-3.0.1
 version("1.1.1m")  { source sha256: "f89199be8b23ca45fc7cb9f1d8d3ee67312318286ad030f5316aca6462db6c96" }
 version("1.1.1l")  { source sha256: "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1" }
 version("1.0.2zb") { source sha256: "b7d8f8c895279caa651e7f3de9a7b87b8dd01a452ca3d9327f45a9ef31d0c518" }
