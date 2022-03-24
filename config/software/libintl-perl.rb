@@ -43,7 +43,7 @@ dependency "cpanminus"
 version("1.32") { source sha256: "80108298f2564ecbfc7110a3042008e665ed00c2e155b36b0188e6c1135ceba5" }
 version("1.23") { source sha256: "60da16356c2fa89a0c542c825d626c8c2811202b6002b56d8574b928a1379ffa" }
 
-source url: "https://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-#{version}.tar.gz"
+source url: "http://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-#{version}.tar.gz"
 
 relative_path "libintl-perl-#{version}"
 

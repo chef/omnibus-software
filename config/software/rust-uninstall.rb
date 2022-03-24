@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# expeditor/ignore: deprecated 2022-02
+# expeditor/ignore: logic only
 
 name "rust-uninstall"
 default_version "0.0.1"

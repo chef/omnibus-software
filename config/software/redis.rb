@@ -39,7 +39,7 @@ version "5.0.7" do
   source sha256: "61db74eabf6801f057fd24b590232f2f337d422280fd19486eca03be87d3a82b"
 end
 
-source url: "https://download.redis.io/releases/redis-#{version}.tar.gz"
+source url: "http://download.redis.io/releases/redis-#{version}.tar.gz"
 
 relative_path "redis-#{version}"
 

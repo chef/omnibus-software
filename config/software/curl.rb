@@ -15,7 +15,7 @@
 #
 
 name "curl"
-default_version "7.82.0"
+default_version "7.81.0"
 
 dependency "zlib"
 dependency "openssl"
@@ -26,10 +26,13 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://curl.se/download/ filter=*.tar.gz
-version("7.82.0") { source sha256: "910cc5fe279dc36e2cca534172c94364cf3fcf7d6494ba56e6c61a390881ddce" }
 version("7.81.0") { source sha256: "ac8e1087711084548d788ef18b9b732c8de887457b81f616fc681d1044b32f98" }
 version("7.80.0") { source sha256: "dab997c9b08cb4a636a03f2f7f985eaba33279c1c52692430018fae4a4878dc7" }
 version("7.79.1") { source sha256: "370b11201349816287fb0ccc995e420277fbfcaf76206e309b3f60f0eda090c2" }
+version("7.79.0") { source sha256: "aff0c7c4a526d7ecc429d2f96263a85fa73e709877054d593d8af3d136858074" }
+version("7.78.0") { source sha256: "ed936c0b02c06d42cf84b39dd12bb14b62d77c7c4e875ade022280df5dcc81d7" }
+version("7.77.0") { source sha256: "b0a3428acb60fa59044c4d0baae4e4fc09ae9af1d8a3aa84b2e3fbcd99841f77" }
+version("7.76.1") { source sha256: "5f85c4d891ccb14d6c3c701da3010c91c6570c3419391d485d95235253d837d7" }
 
 source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz"
 
