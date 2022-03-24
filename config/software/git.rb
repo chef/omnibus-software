@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.34.1"
+default_version "2.35.1"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -31,15 +31,11 @@ dependency "expat"
 relative_path "git-#{version}"
 
 # version_list: url=https://www.kernel.org/pub/software/scm/git/ filter=*.tar.gz
+version("2.35.1") { source sha256: "9845a37dd01f9faaa7d8aa2078399d3aea91b43819a5efea6e2877b0af09bd43" }
 version("2.34.1") { source sha256: "fc4eb5ecb9299db91cdd156c06cdeb41833f53adc5631ddf8c0cb13eaa2911c1" }
 version("2.34.0") { source sha256: "0ce6222bfd31938b29360150286b51c77c643fa97740b1d35b6d1ceef8b0ecd7" }
 version("2.33.0") { source sha256: "02d909d0bba560d3a1008bd00dd577621ffb57401b09175fab2bf6da0e9704ae" }
 version("2.31.1") { source sha256: "46d37c229e9d786510e0c53b60065704ce92d5aedc16f2c5111e3ed35093bfa7" }
-version("2.30.2") { source sha256: "9ddea08fc7c38f1823a54a014ae2e9ecd45e1b4a06e919025f4c41f2c6a8061b" }
-version("2.29.3") { source sha256: "dfaa7608c67fa84483c09fdbea1367848d56b050ed200e541a9829701d45ccad" }
-version("2.29.2") { source sha256: "869a121e1d75e4c28213df03d204156a17f02fce2dc77be9795b327830f54195" }
-version("2.28.0") { source sha256: "f914c60a874d466c1e18467c864a910dd4ea22281ba6d4d58077cb0c3f115170" }
-version("2.26.2") { source sha256: "e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121" }
 
 # we need to keep 2.24.1 until we can remove the version pin in omnibus-toolchain Solaris builds
 version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
@@ -114,6 +110,7 @@ build do
   env["CFLAGS"] = "-I. #{env["CFLAGS"]}"
   env["CPPFLAGS"] = "-I. #{env["CPPFLAGS"]}"
   env["CXXFLAGS"] = "-I. #{env["CXXFLAGS"]}"
+  env["CFLAGS"] = "-std=c99 #{env["CFLAGS"]}"
 
   erb source: "config.mak.erb",
       dest: "#{project_dir}/config.mak",
@@ -130,6 +127,7 @@ build do
                config_hash: config_hash,
              }
 
+  #
   # NOTE - If you run ./configure the environment variables set above will not be
   # used and only the command line args will be used. The issue with this is you
   # cannot specify everything on the command line that you can with the env vars.

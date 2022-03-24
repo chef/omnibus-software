@@ -2,24 +2,16 @@
 
 require "open3"
 
-# Disable the warning about redefining Object#method_missing
-$VERBOSE = nil
-
 # Get the branch to compare against (rename default to 'main' once migration occurs)
 BRANCH = ENV["BUILDKITE_PULL_REQUEST_BASE_BRANCH"] || "main"
 
 # Read in all the versions that are specified by SOFTWARE
-def version(version = nil, &block)
+def version(version = nil)
   $versions << version
 end
 
 def default_version(version = nil)
   $versions << version
-end
-
-# Ignore all the other DSL methods in the file, we don't care about them now
-def method_missing(m, *args, &block)
-  # ignore
 end
 
 # Get a list of all the config/software definitions that have been added or modified
@@ -36,11 +28,15 @@ files.each do |file|
   software = File.basename(file, ".rb")
   $versions = []
 
-  begin
-    load file
-  rescue => e
-    # Ignore errors from methods such as `_64_bit?` and `armhf?` returning `nil` to conditional logic
-    raise unless e.message.match?(/ can only be installed on /)
+  File.readlines(file).each do |line|
+    # match if line starts with "default_version" or "version"
+    if line.match(/^\s*(default_)?version/)
+      # remove the beginning of any ruby block if it exists
+      line.sub!(/\s*(do|{).*/, "")
+
+      # rubocop:disable Security/Eval
+      eval(line)
+    end
   end
 
   $versions.compact.uniq.each do |version|

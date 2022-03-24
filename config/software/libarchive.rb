@@ -18,23 +18,20 @@
 # https://github.com/berkshelf/api.berkshelf.com
 
 name "libarchive"
-default_version "3.5.2"
+default_version "3.6.0"
 
 license "BSD-2-Clause"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # versions_list: https://github.com/libarchive/libarchive/releases/ filter=*.tar.gz
+
+version("3.6.0") { source sha256: "a36613695ffa2905fdedc997b6df04a3006ccfd71d747a339b78aa8412c3d852" }
 version("3.5.2") { source sha256: "5f245bd5176bc5f67428eb0aa497e09979264a153a074d35416521a5b8e86189" }
 version("3.5.1") { source sha256: "9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a" }
 version("3.5.0") { source sha256: "fc4bc301188376adc18780d35602454cc8df6396e1b040fbcbb0d4c0469faf54" }
 
-# 3.5.1 did not include the "v" in the path
-if version.satisfies?("= 3.5.1")
-  source url: "https://github.com/libarchive/libarchive/releases/download/#{version}/libarchive-#{version}.tar.gz"
-else
-  source url: "https://github.com/libarchive/libarchive/releases/download/v#{version}/libarchive-#{version}.tar.gz"
-end
+source url: "https://github.com/libarchive/libarchive/releases/download/v#{version}/libarchive-#{version}.tar.gz"
 
 relative_path "libarchive-#{version}"
 
