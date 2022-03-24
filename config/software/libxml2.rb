@@ -15,7 +15,8 @@
 #
 
 name "libxml2"
-default_version "2.9.13"
+default_version "2.9.10" # 2.9.12 is not properly building as of 5.20.21
+
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
@@ -24,18 +25,12 @@ dependency "zlib"
 dependency "liblzma"
 dependency "config_guess"
 
-# version_list: url=https://download.gnome.org/sources/libxml2 filter=libxml2-*.tar.+z
-
-version("2.9.13") { source sha256: "276130602d12fe484ecc03447ee5e759d0465558fbc9d6bd144e3745306ebf0e" }
+# version_list: url=ftp://xmlsoft.org/libxml2/ filter=libxml2-*.tar.gz
 version("2.9.12") { source sha256: "c8d6681e38c56f172892c85ddc0852e1fd4b53b4209e7f4ebf17f7e2eae71d92" }
 version("2.9.10") { source sha256: "aafee193ffb8fe0c82d4afef6ef91972cbaf5feea100edc2f262750611b4be1f" }
 version("2.9.9")  { source sha256: "94fb70890143e3c6549f265cee93ec064c80a84c42ad0f23e85ee1fd6540a871" }
 
-if version.satisfies?("= 2.9.13")
-  source url: "https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz"
-else
-  source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
-end
+source url: "ftp://xmlsoft.org/libxml2/libxml2-#{version}.tar.gz"
 
 relative_path "libxml2-#{version}"
 
