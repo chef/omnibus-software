@@ -15,7 +15,7 @@
 #
 
 name "expat"
-default_version "2.4.1"
+default_version "2.4.7"
 
 relative_path "expat-#{version}"
 dependency "config_guess"
@@ -27,6 +27,8 @@ skip_transitive_dependency_licensing true
 # version_list: url=https://github.com/libexpat/libexpat/releases filter=*.tar.gz
 source url: "https://github.com/libexpat/libexpat/releases/download/R_#{version.gsub(".", "_")}/expat-#{version}.tar.gz"
 
+version("2.4.7") { source sha256: "72644d5f0f313e2a5cf81275b09b9770c866dd87a2b62ab19981657ac0d4af5f" }
+version("2.4.6") { source sha256: "a0eb5af56b1c2ba812051c49bf3b4e5763293fe5394a0219df7208845c3efb8c" }
 version("2.4.1") { source sha256: "a00ae8a6b96b63a3910ddc1100b1a7ef50dc26dceb65ced18ded31ab392f132b" }
 version("2.3.0") { source sha256: "89df123c62f2c2e2b235692d9fe76def6a9ab03dbe95835345bf412726eb1987" }
 version("2.1.0") { source sha256: "823705472f816df21c8f6aa026dd162b280806838bb55b3432b0fb1fcca7eb86" }
@@ -42,7 +44,11 @@ build do
   #     Refer to https://www.ibm.com/docs/en/xl-c-and-cpp-aix/16.1?topic=descriptions-qvisibility-fvisibility
   if aix?
     env["LDFLAGS"] << " -lm"
-    patch source: "configure_xlc_visibility.patch", plevel: 1, env: env
+    if version <= "2.4.1"
+      patch source: "configure_xlc_visibility.patch", plevel: 1, env: env
+    else
+      patch source: "configure_xlc_visibility_2.4.7.patch", plevel: 1, env: env
+    end
   end
 
   command "./configure" \
