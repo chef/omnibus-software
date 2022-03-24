@@ -136,6 +136,8 @@ build do
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
   elsif version.start_with? "1.1"
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
+  elsif version.start_with? "3.0"
+    patch source: "openssl-3.0.1-do-not-install-docs.patch", env: patch_env
   end
 
   if version.start_with?("1.0.2") && mac_os_x? && arm?
