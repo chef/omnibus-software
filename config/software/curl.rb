@@ -62,6 +62,10 @@ build do
   elsif solaris2?
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
+
+  elsif mac_os_x? && arm?
+    env["CMAKE_FIND_ROOT_PATH_MODE_INCLUDE"] = "ONLY"
+    env["CMAKE_FIND_ROOT_PATH"] = "#{install_dir}/embedded"
   end
 
   configure_options = [
