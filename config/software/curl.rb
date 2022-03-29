@@ -64,8 +64,9 @@ build do
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
 
   elsif mac_os_x? && arm?
-    env["CMAKE_FIND_ROOT_PATH_MODE_INCLUDE"] = "ONLY"
-    env["CMAKE_FIND_ROOT_PATH"] = "#{install_dir}/embedded"
+    #env["CMAKE_FIND_ROOT_PATH_MODE_INCLUDE"] = "ONLY"
+    #env["CMAKE_FIND_ROOT_PATH"] = "#{install_dir}/embedded"
+    env["CMAKE_IGNORE_PREFIX_PATH"] = "/usr/local"
   end
 
   configure_options = [
