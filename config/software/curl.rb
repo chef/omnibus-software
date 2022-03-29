@@ -94,9 +94,8 @@ build do
   ]
 
   if mac_os_x? && arm?
-    configure_options << "-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE:STRING=ONLY"
-    configure_options << "-DCMAKE_FIND_ROOT_PATH:STRING=#{install_dir}/embedded"
-    configure_options << "-DCMAKE_IGNORE_PREFIX_PATH:STRING=/usr/local"
+    configure_options << "PKG_CONFIG_PATH=#{install_dir}/embedded"
+    configure_options << "LT_SYS_LIBRARY_PATH=#{install_dir}/embedded/lib"
   end
 
   configure(*configure_options, env: env)
