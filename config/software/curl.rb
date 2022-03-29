@@ -94,9 +94,9 @@ build do
   ]
 
   if mac_os_x? && arm?
-    configure_options << "CMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY"
-    configure_options << "CMAKE_FIND_ROOT_PATH=#{install_dir}/embedded"
-    configure_options << "CMAKE_IGNORE_PREFIX_PATH=/usr/local"
+    configure_options << "-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE:STRING=ONLY"
+    configure_options << "-DCMAKE_FIND_ROOT_PATH:STRING=#{install_dir}/embedded"
+    configure_options << "-DCMAKE_IGNORE_PREFIX_PATH:STRING=/usr/local"
   end
 
   configure(*configure_options, env: env)
