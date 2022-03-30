@@ -96,8 +96,8 @@ build do
   ]
 
   if mac_os_x? && arm?
-    configure_options << "PKG_CONFIG_PATH=#{install_dir}/embedded"
     configure_options << "LT_SYS_LIBRARY_PATH=#{install_dir}/embedded/lib"
+    configure_options << "CMAKE_FIND_DEBUG_MODE=TRUE"
   end
 
   configure(*configure_options, env: env)
