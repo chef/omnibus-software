@@ -62,6 +62,8 @@ build do
   elsif solaris2?
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
+  elsif mac_os_x? && arm?
+    env["OPENSSL_VERSION_MAJOR"] = "1"
   end
 
   configure_options = [
