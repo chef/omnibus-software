@@ -15,9 +15,10 @@
 #
 
 name "lua"
-default_version "5.4.3"
+default_version "5.4.4"
 
 # versions_list: https://www.lua.org/ftp/ filter=*.tar.gz
+version("5.4.4") { source sha256: "164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61" }
 version("5.4.3") { source sha256: "f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb" }
 version("5.4.2") { source sha256: "11570d97e9d7303c0a59567ed1ac7c648340cd0db10d5fd594c09223ef2f524f" }
 version("5.3.3") { source sha256: "5113c06884f7de453ce57702abaac1d618307f33f6789fa870e87a59d772aca2" }
