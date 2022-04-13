@@ -70,9 +70,10 @@ build do
     # configure script cannot handle.
     # TODO: Do other OSes need this?  Is this strictly a mac thing?
     env = with_standard_compiler_flags
-    if freebsd?
+    if freebsd? || solaris2?
       # FreeBSD 10+ gets cranky if zlib is not compiled in a
       # position-independent way.
+      # zlib 1.2.12 introduced the same problem on Solaris.
       env["CFLAGS"] << " -fPIC"
     end
 
