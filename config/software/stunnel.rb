@@ -15,7 +15,8 @@
 #
 
 name "stunnel"
-default_version "5.49" # Pin stunnel to 5.49 as it's the last version that supports FIPS with standard builds.
+default_version "5.49"
+# Pin stunnel to 5.49 as it's the last version that supports FIPS with standard builds.
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -32,6 +33,7 @@ else
 end
 relative_path "stunnel-#{version}"
 
+version("5.63") { source sha256: "c74c4e15144a3ae34b8b890bb31c909207301490bd1e51bfaaa5ffeb0a994617" }
 version("5.59") { source sha256: "137776df6be8f1701f1cd590b7779932e123479fb91e5192171c16798815ce9f" }
 version("5.49") { source sha256: "3d6641213a82175c19f23fde1c3d1c841738385289eb7ca1554f4a58b96d955e" }
 version("5.39") { source sha256: "288c087a50465390d05508068ac76c8418a21fae7275febcc63f041ec5b04dee" }
