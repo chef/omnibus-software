@@ -15,10 +15,11 @@
 #
 
 name "zlib"
-default_version "1.2.11"
+default_version "1.2.12"
 
 # version_list: url=https://zlib.net/fossils/ filter=*.tar.gz
 
+version("1.2.12") { source sha256: "91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9" }
 version("1.2.11") { source sha256: "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1" }
 version("1.2.8")  { source sha256: "36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d" }
 version("1.2.6")  { source sha256: "21235e08552e6feba09ea5e8d750805b3391c62fb81c71a235c0044dc7a8a61b" }
@@ -69,9 +70,10 @@ build do
     # configure script cannot handle.
     # TODO: Do other OSes need this?  Is this strictly a mac thing?
     env = with_standard_compiler_flags
-    if freebsd?
+    if freebsd? || solaris2?
       # FreeBSD 10+ gets cranky if zlib is not compiled in a
       # position-independent way.
+      # zlib 1.2.12 introduced the same problem on Solaris.
       env["CFLAGS"] << " -fPIC"
     end
 
