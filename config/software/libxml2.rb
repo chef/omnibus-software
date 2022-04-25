@@ -28,7 +28,7 @@ dependency "config_guess"
 # version_list: url=https://download.gnome.org/sources/libxml2/2.9/ filter=*.tar.xz
 version("2.9.13") do
   if windows?
-    source url: "https://github.com/kiyolee/libxml2-win-build/archive/refs/tags/v2.9.13.tar.gz"  else
+    source url: "https://github.com/kiyolee/libxml2-win-build/archive/refs/tags/v2.9.13.tar.gz"
     source sha256: "fc4d1259584530d25521f2dd4c5a0da79bb612cc821bf637accc97c18fd1c537"
     relative_path "libxml2-win-build-#{version}"
   end
