@@ -40,7 +40,7 @@ relative_path "perl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  #patch source: "perl-#{version}-remove_lnsl.patch", plevel: 1, env: env
+  # patch source: "perl-#{version}-remove_lnsl.patch", plevel: 1, env: env
 
   if solaris2?
     cc_command = "-Dcc='gcc -m64 -static-libgcc'"
