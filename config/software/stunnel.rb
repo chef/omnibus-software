@@ -26,7 +26,7 @@ dependency "openssl"
 
 # version_list: url=https://www.stunnel.org/downloads/ filter=*.tar.gz
 
-if version <= "5.58"
+if version <= "5.59"
   source url: "ftp://ftp.stunnel.org/stunnel/archive/5.x/stunnel-#{version}.tar.gz"
 else
   source url: "https://www.stunnel.org/downloads/stunnel-#{version}.tar.gz"
