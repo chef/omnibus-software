@@ -5,8 +5,7 @@
 
 
 Prod_file="../../.expeditor/Version_Inspector/product_default_version.json"
-"
-cd ../config/software/
+cd ../../config/software/
 rm -rf $Prod_file 
 echo "{" >> $Prod_file 
 for FILE in *.rb; do 
@@ -21,4 +20,4 @@ for FILE in *.rb; do
 	fi
 done;
 $(printf '%s\n' '$' 's/.$//' wq | ex $Prod_file)
-echo "}" >>$Prod_file 
+echo "}" >> $Prod_file 
