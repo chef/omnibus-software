@@ -29,16 +29,16 @@ dependency "config_guess"
 version("2.9.13") do
   if windows?
     source url: "https://github.com/kiyolee/libxml2-win-build/archive/refs/tags/v2.9.13.tar.gz",
-    source sha256: "fc4d1259584530d25521f2dd4c5a0da79bb612cc821bf637accc97c18fd1c537",
+           sha256: "fc4d1259584530d25521f2dd4c5a0da79bb612cc821bf637accc97c18fd1c537",
     relative_path "libxml2-win-build-#{version}"
   end
   source url: "https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz",
-  source sha256: "276130602d12fe484ecc03447ee5e759d0465558fbc9d6bd144e3745306ebf0e",
+         sha256: "276130602d12fe484ecc03447ee5e759d0465558fbc9d6bd144e3745306ebf0e",
   relative_path "libxml2-#{version}"
 end
 version("2.9.12") do
-  source sha256: "28a92f6ab1f311acf5e478564c49088ef0ac77090d9c719bbc5d518f1fe62eb9",
   source url: "https://download.gnome.org/sources/libxml2/2.9/libxml2-#{version}.tar.xz",
+         sha256: "28a92f6ab1f311acf5e478564c49088ef0ac77090d9c719bbc5d518f1fe62eb9",
   relative_path "libxml2-#{version}"
 end
 version("2.9.10") do
