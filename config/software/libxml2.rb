@@ -46,13 +46,13 @@ version("2.9.12") do
 end
 version("2.9.10") do
   source sha256: "593b7b751dd18c2d6abcd0c4bcb29efc203d0b4373a6df98e3a455ea74ae2813",
-  source url: "https://download.gnome.org/sources/libxml2/2.9/libxml2-#{version}.tar.xz"
+         url: "https://download.gnome.org/sources/libxml2/2.9/libxml2-#{version}.tar.xz"
 
   relative_path "libxml2-#{version}"
 end
 version("2.9.9")  do
   source sha256: "58a5c05a2951f8b47656b676ce1017921a29f6b1419c45e3baed0d6435ba03f5",
-  source url: "https://download.gnome.org/sources/libxml2/2.9/libxml2-#{version}.tar.xz"
+         url: "https://download.gnome.org/sources/libxml2/2.9/libxml2-#{version}.tar.xz"
 
   relative_path "libxml2-#{version}"
 end
