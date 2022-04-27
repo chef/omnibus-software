@@ -23,6 +23,10 @@ skip_transitive_dependency_licensing true
 dependency "config_guess"
 default_version "6.2.6"
 
+version "6.2.7" do
+  source sha256: "b7a79cc3b46d3c6eb52fa37dde34a4a60824079ebdfb3abfbbfa035947c55319"
+end
+
 version "6.2.6" do
   source sha256: "5b2b8b7a50111ef395bf1c1d5be11e6e167ac018125055daa8b5c2317ae131ab"
 end
