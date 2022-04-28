@@ -2,8 +2,11 @@
 #cd omnibus-software/config/software
 set -x 
 prod_file="prod_list.json"
+cd ../../config/software/
+rm $prod_file
 echo "{" >>$prod_file
 for FILE in *.rb; do 
+    if ! grep -q deprecated $FILE  ; then
 	echo "File name is :$FILE"
 	prod=$(echo "$FILE" |cut -d "." -f1); 
         dv=$( grep "default_version" $FILE|  cut -d " " -f2) 
@@ -14,7 +17,7 @@ for FILE in *.rb; do
 			echo "\"default_version\": $dv ,">> $prod_file; 
 			url1=$(dirname $url)
 			echo "\"url\": $url1\"," >> $prod_file ; 
-			if [ $prod == "cmake" ] || [ $prod == "nodejs" ] || [ $prod == "openssl-fips" ] || [ $prod == "postgresql" ] ;then
+			if [ $prod == "openssl-fips" ] || [ $prod == "postgresql" ] ;then
 				expr1="^v\\\\\d[\\\\\.\\\\\d]*\\\\\d"
 				echo $expr1
 			else
@@ -24,9 +27,9 @@ for FILE in *.rb; do
  			echo "\"expr1\": \"$expr1\"">>$prod_file 
 			echo "},">>$prod_file		
 		fi
-
 	fi
+    fi
  done;
 $(printf '%s\n' '$' 's/.$//' wq | ex $prod_file)
  echo "}" >>$prod_file 
-
+mv $prod_file ../../.expeditor/Version_Inspector/
