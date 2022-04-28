@@ -1,0 +1,25 @@
+{
+	"cacerts": {
+		"url": "https://curl.se/ca/"
+	},
+	"cpanminus": {
+		"url": "https://metacpan.org/pod/App::cpanminus#Downloading-the-standalone-executable"
+	},
+	"elasticsearch": {
+		"url": "https://www.elastic.co/downloads/"
+	},
+	"go": {
+		"url": "https://go.dev/dl/"
+	},
+	"ruby": {
+                "url": "https://cache.ruby-lang.org/pub/ruby/"
+        },
+	"opensearch": {
+
+                "url": "https://opensearch.org/docs/latest/version-history/"
+	},
+	"sqitch": {
+
+		"url": "https://github.com/sqitchers/sqitch"
+	}
+}
