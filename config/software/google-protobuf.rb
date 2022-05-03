@@ -32,6 +32,13 @@ source git: "https://github.com/google/protobuf.git"
 license :project_license
 
 build do
+  mkdir "#{project_dir}/ruby/ext/google/protobuf_c/third_party/utf8_range"
+  copy "#{project_dir}/third_party/utf8_range/utf8_range.h",  "#{project_dir}/ruby/ext/google/protobuf_c/third_party/utf8_range"
+  copy "#{project_dir}/third_party/utf8_range/naive.c",       "#{project_dir}/ruby/ext/google/protobuf_c/third_party/utf8_range"
+  copy "#{project_dir}/third_party/utf8_range/range2-neon.c", "#{project_dir}/ruby/ext/google/protobuf_c/third_party/utf8_range"
+  copy "#{project_dir}/third_party/utf8_range/range2-sse.c",  "#{project_dir}/ruby/ext/google/protobuf_c/third_party/utf8_range"
+  copy "#{project_dir}/third_party/utf8_range/LICENSE",       "#{project_dir}/ruby/ext/google/protobuf_c/third_party/utf8_range"
+
   env = with_standard_compiler_flags(with_embedded_path)
   gem "build google-protobuf.gemspec", env: env, cwd: "#{project_dir}/ruby"
   gem "install google-protobuf-*.gem", env: env, cwd: "#{project_dir}/ruby"
