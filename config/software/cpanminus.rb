@@ -15,7 +15,7 @@
 #
 
 name "cpanminus"
-default_version "1.7045"
+default_version "1.7046"
 
 license "Artistic-2.0"
 license_file "http://dev.perl.org/licenses/artistic.html"
@@ -25,6 +25,7 @@ dependency "perl"
 
 # version_list: url=https://metacpan.org/pod/App::cpanminus filter=*.tar.gz
 
+version("1.7046") { source sha256: "3e8c9d9b44a7348f9acc917163dbfc15bd5ea72501492cea3a35b346440ff862" }
 version("1.7045") { source sha256: "f2ab7e18a695960ac07f072b369c1bf113ae278bf81aa807b3f4bdaf098df34d" }
 version("1.7040") { source sha256: "48a747c040689445f7db0edd169da0abd709a37cfece3ceecff0816c09beab0e" }
 version("1.7004") { source sha256: "5cef499d12418a877c68070fc14193bd700d47a286d95e16c517f9673493af79" }
