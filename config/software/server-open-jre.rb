@@ -17,7 +17,7 @@ dependency "zlib"
 dependency "patchelf"
 
 name "server-open-jre"
-default_version "11.0.14.1+1"
+default_version "11.0.15+10"
 
 unless _64_bit?
   raise "Server-open-jre can only be installed on x86_64 systems."
@@ -38,12 +38,20 @@ license_warning = "By including the JRE, you accept the terms of AdoptOpenJRE."
 
 # version_list: url=https://github.com/adoptium/temurin11-binaries/releases filter=*.tar.gz
 
+version "11.0.15+10" do
+  source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.15%2B10/OpenJDK11U-jre_x64_linux_hotspot_11.0.15_10.tar.gz",
+  sha256: "22831fd097dfb39e844cb34f42064ff26a0ada9cd13621d7b8bca8e9b9d3a5ee",
+  warning: license_warning,
+  unsafe: true
+end
+
 version "11.0.14.1+1" do
   source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.14.1%2B1/OpenJDK11U-jre_x64_linux_hotspot_11.0.14.1_1.tar.gz",
   sha256: "b5a6960bc6bb0b1a967e307f908ea9b06ad7adbbd9df0b8954ab51374faa8a98",
   warning: license_warning,
   unsafe: true
 end
+
 version "11.0.13+8" do
   source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jre_x64_linux_hotspot_11.0.13_8.tar.gz",
   sha256: "fb0a27e6e1f26a1ee79daa92e4cfe3ec0d676acfe114d99dd84b3414f056e8a0",
