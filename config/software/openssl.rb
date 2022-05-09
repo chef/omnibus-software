@@ -58,9 +58,6 @@ build do
     env["M4"] = "/opt/freeware/bin/m4"
   elsif mac_os_x? && arm?
     env["CFLAGS"] << " -Qunused-arguments"
-  elsif freebsd?
-    # Should this just be in standard_compiler_flags?
-    env["LDFLAGS"] += " -Wl,-rpath,#{install_dir}/embedded/lib"
   elsif windows?
     # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
     # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
@@ -155,7 +152,7 @@ build do
 
   # Out of abundance of caution, we put the feature flags first and then
   # the crazy platform specific compiler flags at the end.
-  configure_args << env["CFLAGS"] << env["LDFLAGS"]
+  configure_args << env["CFLAGS"]
 
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
