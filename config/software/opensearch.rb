@@ -15,7 +15,7 @@
 #
 
 name "opensearch"
-default_version "1.2.4"
+default_version "1.3.2"
 
 dependency "server-open-jre"
 license "Apache-2.0"
@@ -26,9 +26,9 @@ source url: "https://artifacts.opensearch.org/releases/bundle/opensearch/#{versi
 relative_path "opensearch-#{version}"
 
 # versions_list:https://opensearch.org/docs/latest/version-history/
-version "1.2.4" do
-  source sha256: "d40f2696623b6766aa235997e2847a6c661a226815d4ba173292a219754bd8a8"
-end
+
+version("1.3.2") { source sha256: "14199251a8aae2068fd54aa39c778ff29dcc8be33d57f36a8cc2d19e07ff4149" }
+version("1.2.4") { source sha256: "d40f2696623b6766aa235997e2847a6c661a226815d4ba173292a219754bd8a8" }
 
 target_path = "#{install_dir}/embedded/opensearch"
 
