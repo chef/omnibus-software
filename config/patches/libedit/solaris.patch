@@ -1,0 +1,36 @@
+diff -ur libedit-20120601-3.0.orig/src/sys.h libedit-20120601-3.0/src/sys.h
+--- libedit-20120601-3.0.orig/src/sys.h      2022-05-18 07:01:46.000000000 -0400
++++ libedit-20120601-3.0/src/sys-new.h       2022-05-18 07:01:30.000000000 -0400
+@@ -132,11 +132,11 @@
+ 
+ #if defined(__sun)
+ extern int tgetent(char *, const char *);
+-extern int tgetflag(char *);
+-extern int tgetnum(char *);
++extern int tgetflag(const char *);
++extern int tgetnum(const char *);
+ extern int tputs(const char *, int, int (*)(int));
+ extern char* tgoto(const char*, int, int);
+-extern char* tgetstr(char*, char**);
++extern char* tgetstr(const char*, char**);
+ #endif
+ 
+ #endif /* _h_sys */
+diff -ur libedit-20120601-3.0.orig/src/terminal.h libedit-20120601-3.0/src/terminal.h
+--- libedit-20120601-3.0.orig/src/terminal.h      2022-05-18 07:02:46.000000000 -0400
++++ libedit-20120601-3.0/src/terminal.h           2022-05-18 07:02:30.000000000 -0400
+@@ -84,11 +84,11 @@
+ 
+ #ifdef __sun
+ extern int tgetent(char *, const char *);
+-extern int tgetflag(char *);
+-extern int tgetnum(char *);
++extern int tgetflag(const char *);
++extern int tgetnum(const char *);
+ extern int tputs(const char *, int, int (*)(int));
+ extern char* tgoto(const char*, int, int);
+-extern char* tgetstr(char*, char**);
++extern char* tgetstr(const char*, char**);
+ #endif
+ 
+ protected void	terminal_move_to_line(EditLine *, int);
