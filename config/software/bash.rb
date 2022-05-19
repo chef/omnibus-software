@@ -52,10 +52,15 @@ build do
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
 
-  # On freebsd, you have to force static linking, otherwise the executable
-  # will link against the system ncurses instead of ours.
   if freebsd?
+    # On freebsd, you have to force static linking, otherwise the executable
+    # will link against the system ncurses instead of ours.
     configure_command << "--enable-static-link"
+
+    # FreeBSD 12 system files come with mktime but for some reason running "configure"
+    # doesn't detect this which results in a build failure. Setting this environment variable
+    # corrects that.
+    env["ac_cv_func_working_mktime"] = "yes"
   end
 
   command configure_command.join(" "), env: env
