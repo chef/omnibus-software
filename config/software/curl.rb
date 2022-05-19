@@ -15,7 +15,7 @@
 #
 
 name "curl"
-default_version "7.83.0"
+default_version "7.83.1"
 
 dependency "zlib"
 dependency "openssl"
@@ -26,7 +26,7 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://curl.se/download/ filter=*.tar.gz
-version("7.83.0") { source sha256: "c0e64302a33d2fb79e0fc4e674260a22941e92ee2f11b894bf94d32b8f5531af" }
+version("7.83.1") { source sha256: "93fb2cd4b880656b4e8589c912a9fd092750166d555166370247f09d18f5d0c0" }
 version("7.82.0") { source sha256: "910cc5fe279dc36e2cca534172c94364cf3fcf7d6494ba56e6c61a390881ddce" }
 version("7.81.0") { source sha256: "ac8e1087711084548d788ef18b9b732c8de887457b81f616fc681d1044b32f98" }
 version("7.80.0") { source sha256: "dab997c9b08cb4a636a03f2f7f985eaba33279c1c52692430018fae4a4878dc7" }
