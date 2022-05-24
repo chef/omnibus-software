@@ -39,7 +39,7 @@ relative_path "curl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if freebsd?
+  if freebsd? && version.satisfies?("< 7.82.0")
     # from freebsd ports - IPv6 Hostcheck patch
     patch source: "curl-freebsd-hostcheck.patch", plevel: 1, env: env
   end
