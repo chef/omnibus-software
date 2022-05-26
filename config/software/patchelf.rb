@@ -19,13 +19,18 @@
 
 name "patchelf"
 
-default_version "0.13.1"
+default_version "0.14.5"
 
 license :project_license
 
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://github.com/NixOS/patchelf/releases filter=*.tar.gz
+
+version "0.14.5" do
+  source sha256: "113ada3f1ace08f0a7224aa8500f1fa6b08320d8f7df05ff58585286ec5faa6f"
+  relative_path "patchelf-#{version}""
+end
 
 version "0.13.1" do
   source sha256: "08c0237e89be74d61ddf8f6ff218439cdd62af572d568fb38913b53e222831de"
