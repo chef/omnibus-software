@@ -29,7 +29,7 @@ skip_transitive_dependency_licensing true
 
 version "0.14.5" do
   source sha256: "113ada3f1ace08f0a7224aa8500f1fa6b08320d8f7df05ff58585286ec5faa6f"
-  relative_path "patchelf-#{version}""
+  relative_path "patchelf-#{version}"
 end
 
 version "0.13.1" do
