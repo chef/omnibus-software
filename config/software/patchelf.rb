@@ -48,7 +48,6 @@ else
   source url: "https://nixos.org/releases/patchelf/patchelf-#{version}/patchelf-#{version}.tar.gz"
 end
 
-
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   configure "--prefix #{install_dir}/embedded"
