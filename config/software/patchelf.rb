@@ -27,9 +27,19 @@ skip_transitive_dependency_licensing true
 
 # version_list: url=https://github.com/NixOS/patchelf/releases filter=*.tar.gz
 
+relative_path "patchelf-#{version}"
 version("0.14.5") { source sha256: "113ada3f1ace08f0a7224aa8500f1fa6b08320d8f7df05ff58585286ec5faa6f" }
-version("0.13.1") { source sha256: "08c0237e89be74d61ddf8f6ff218439cdd62af572d568fb38913b53e222831de" }
-version("0.11") { source sha256: "e52378cc2f9379c6e84a04ac100a3589145533a7b0cd26ef23c79dfd8a9038f9" }
+
+version "0.13.1" do
+  source sha256: "08c0237e89be74d61ddf8f6ff218439cdd62af572d568fb38913b53e222831de"
+  relative_path "patchelf-0.13.1.20211127.72b6d44"
+end
+
+version "0.11" do
+  source sha256: "e52378cc2f9379c6e84a04ac100a3589145533a7b0cd26ef23c79dfd8a9038f9"
+  relative_path "patchelf-0.11.20200609.d6b2a72"
+end
+
 version("0.10") { source sha256: "b2deabce05c34ce98558c0efb965f209de592197b2c88e930298d740ead09019" }
 
 if version.satisfies?(">= 0.12")
@@ -38,7 +48,6 @@ else
   source url: "https://nixos.org/releases/patchelf/patchelf-#{version}/patchelf-#{version}.tar.gz"
 end
 
-relative_path "patchelf-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
