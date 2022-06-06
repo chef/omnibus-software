@@ -15,7 +15,7 @@
 #
 
 name "erlang"
-default_version "24.3.3"
+default_version "25.0"
 
 license "Apache-2.0"
 license_file "LICENSE.txt"
@@ -32,6 +32,8 @@ relative_path "otp-OTP-#{version}"
 
 # versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz
 
+version("25.0")      { source sha256: "5988e3bca208486494446e885ca2149fe487ee115cbc3770535fd22a795af5d2" }
+version("24.3.4")    { source sha256: "e59bedbb871af52244ca5284fd0a572d52128abd4decf4347fe2aef047b65c58" }
 version("24.3.3")    { source sha256: "a5f4d83426fd3dc2f08c0c823ae29bcf72b69008a2baee66d27ad614ec7ab607" }
 version("24.2")      { source sha256: "0b9c9ba7d8b40f6c77d529e07561b10f0914d2bfe9023294d7eda85b62936792" }
 version("24.1.7")    { source sha256: "a1dd1a238f1f3e79784b902f3cd00e06f35a630191eaf73324a07a26a2c93af3" }
@@ -42,11 +44,15 @@ version("18.3")      { source sha256: "a6d08eb7df06e749ccaf3049b33ceae617a3c466c
 
 build do
   # Don't listen on 127.0.0.1/::1 implicitly whenever ERL_EPMD_ADDRESS is given
-  patch source: "epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
+  if version.satisfies?("<= 24.3.3")
+    patch source: "epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
+  else
+    patch source: "updated-epmd-require-explicitly-adding-loopback-address.patch", plevel: 1
+  end
 
   env = with_standard_compiler_flags(with_embedded_path).merge(
     # WARNING!
-    "CFLAGS"  => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include",
+    "CFLAGS"  => "-L#{install_dir}/embedded/lib -O3 -I#{install_dir}/embedded/erlang/include",
     "LDFLAGS" => "-Wl,-rpath #{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/erlang/include"
   )
   env.delete("CPPFLAGS")

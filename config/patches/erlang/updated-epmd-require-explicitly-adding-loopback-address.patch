@@ -1,0 +1,75 @@
+Based on the following PR:
+
+   https://github.com/erlang/otp/pull/1075/commits/0800214dc6aec5327f4e984047dd05a8829ae5e4
+---
+ erts/epmd/src/epmd_srv.c | 31 ++++++++++++-------------------
+ 1 file changed, 12 insertions(+), 19 deletions(-)
+
+diff --git a/erts/epmd/src/epmd_srv.c b/erts/epmd/src/epmd_srv.c
+index 52fb9e4..efdcd00 100644
+--- a/erts/epmd/src/epmd_srv.c
++++ b/erts/epmd/src/epmd_srv.c
+@@ -295,14 +295,6 @@ void run(EpmdVars *g)
+       char *tmp = NULL;
+       char *token = NULL;
+
+-      /* Always listen on the loopback. */
+-      SET_ADDR(iserv_addr[num_sockets],htonl(INADDR_LOOPBACK),sport);
+-      num_sockets++;
+-#if defined(EPMD6)
+-      SET_ADDR6(iserv_addr[num_sockets],in6addr_loopback,sport);
+-      num_sockets++;
+-#endif
+-
+       /* IPv4 and/or IPv6 loopback may not be present, for example if
+        * the protocol stack is explicitly disabled in the kernel.  If
+        * any sockets to this point fail, log the error but do not exit
+@@ -324,7 +316,6 @@ void run(EpmdVars *g)
+ 	  struct in_addr addr;
+ #if defined(EPMD6)
+ 	  struct in6_addr addr6;
+-	  struct sockaddr_storage *sa = &iserv_addr[num_sockets];
+
+ 	  if (inet_pton(AF_INET6,token,&addr6) == 1)
+ 	    {
+@@ -347,15 +338,6 @@ void run(EpmdVars *g)
+ 	      epmd_cleanup_exit(g,1);
+ 	    }
+
+-#if defined(EPMD6)
+-	  if (sa->ss_family == AF_INET6 && IN6_IS_ADDR_LOOPBACK(&addr6))
+-	      continue;
+-
+-	  if (sa->ss_family == AF_INET)
+-#endif
+-	  if (IS_ADDR_LOOPBACK(addr))
+-	    continue;
+-
+ 	  num_sockets++;
+
+ 	  if (num_sockets >= MAX_LISTEN_SOCKETS)
+@@ -420,12 +402,24 @@ void run(EpmdVars *g)
+ 	  switch (errno) {
+ 	      case EAFNOSUPPORT:
+ 	      case EPROTONOSUPPORT:
++	          /*
++	           * Log error but continue. We can get here for
++	           * in6addr_any on machines that don't have IPv6
++	           * support. If we can't bind any addresses, we'll
++	           * exit further down
++	           *
++	           */
++	          dbg_perror(g,"error opening stream socket");
+ 	          continue;
+ 	      default:
+ 	          dbg_perror(g,"error opening stream socket");
+ 	          epmd_cleanup_exit(g,1);
+ 	  }
+ 	}
++	else
++	{
++	  g->listenfd[bound++] = listensock[i];
++	}
+
+ #if HAVE_DECL_IPV6_V6ONLY
+       opt = 1;
