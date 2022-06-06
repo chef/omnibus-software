@@ -15,7 +15,7 @@
 #
 
 name "libtool"
-default_version "2.4.6"
+default_version "2.4.7"
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -25,6 +25,7 @@ dependency "config_guess"
 
 # version_list: url=https://ftp.gnu.org/gnu/libtool/ filter=*.tar.gz
 
+version("2.4.7") { source sha256: "04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8" }
 version("2.4.6") { source sha256: "e3bd4d5d3d025a36c21dd6af7ea818a2afcd4dfc1ea5a17b39d7854bcd0c06e3" }
 version("2.4.2") { source sha256: "b38de44862a987293cd3d8dfae1c409d514b6c4e794ebc93648febf9afc38918" }
 version("2.4")   { source sha256: "13df57ab63a94e196c5d6e95d64e53262834fe780d5e82c28f177f9f71ddf62e" }
