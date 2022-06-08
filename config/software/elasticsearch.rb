@@ -40,6 +40,21 @@ version "6.8.23" do
          sha256: "60e77b5ca3ce11771469bcc2e009c49c8aadb831faebd170e7abcedc16b3e36d"
 end
 
+version "7.10.0" do
+  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}-linux-x86_64.tar.gz",
+          sha256: "e8848e18969823c146211caabb502892c82823fecac796b39cdef7f4574e96b9"
+end
+
+version "8.1.3" do
+  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}-linux-x86_64.tar.gz",
+          sha256: "df610b0bfe357d751e79e4f173f860558753bfc6f860135fd126ecaf50162b86"
+end
+
+version "8.2.0" do
+  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}-linux-x86_64.tar.gz",
+         sha256: "fecd3ff749cb481209b253aaa8ac93f4f70f5da79fef7d659d3eec5e349f35d8"
+end
+
 target_path = "#{install_dir}/embedded/elasticsearch"
 
 build do
