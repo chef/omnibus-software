@@ -15,7 +15,7 @@
 #
 
 name "erlang"
-default_version "24.3.2"
+default_version "24.3.3"
 
 license "Apache-2.0"
 license_file "LICENSE.txt"
