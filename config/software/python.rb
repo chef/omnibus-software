@@ -15,7 +15,7 @@
 #
 
 name "python"
-default_version "3.10.4"
+default_version "3.10.5"
 
 license "Python-2.0"
 license_file "LICENSE"
@@ -32,13 +32,13 @@ end
 
 # version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
 
+version("3.10.5") { source sha256: "18f57182a2de3b0be76dfc39fdcfd28156bb6dd23e5f08696f7492e9e3d0bf2d" }
 version("3.10.4") { source sha256: "f3bcc65b1d5f1dc78675c746c98fcee823c038168fc629c5935b044d0911ad28" }
 version("3.10.2") { source sha256: "3c0ede893011319f9b0a56b44953a3d52c7abf9657c23fb4bc9ced93b86e9c97" }
 version("3.9.9")  { source sha256: "2cc7b67c1f3f66c571acc42479cdf691d8ed6b47bee12c9b68430413a17a44ea" }
 version("2.7.18") { source sha256: "da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814" }
 version("2.7.14") { source sha256: "304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8" }
 version("2.7.9")  { source sha256: "c8bba33e66ac3201dabdc556f0ea7cfe6ac11946ec32d357c4c6f9b018c12c5b" }
-version("2.7.5")  { source sha256: "8e1b5fa87b91835afb376a9c0d319d41feca07ffebc0288d97ab08d64f48afbf" }
 
 source url: "https://python.org/ftp/python/#{version}/Python-#{version}.tgz"
 
