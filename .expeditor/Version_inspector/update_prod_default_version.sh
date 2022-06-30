@@ -2,6 +2,7 @@
 
 #To update the product_default_version
 #cd omnibus-software/config/software
+#sh update_prod_default_version.sh 
 
 Prod_file="prod_default_version.json"
 cd ../../config/software/
