@@ -191,5 +191,4 @@
 		"url": "https://zlib.net/fossils",
 		"expr": "^(zlib-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
 	}
-
 }
