@@ -49,7 +49,6 @@ def get_latest_version(url,expr,product):
         extracted_versions = re.findall(r"\d+-[\.\d]*\d", versions_string)
     else:
         extracted_versions = re.findall(r"\d[\.\d]*\d", versions_string)
-    #print(extracted_versions)
     
     highest_version = extracted_versions[0]
     for i in range(1,len(extracted_versions)):
