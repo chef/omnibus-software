@@ -1,0 +1,4 @@
+requests
+bs4 
+packaging 
+email
