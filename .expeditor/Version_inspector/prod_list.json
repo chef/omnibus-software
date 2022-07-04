@@ -1,0 +1,194 @@
+{
+	"bash": {
+		"url": "https://ftp.gnu.org/gnu/bash",
+		"expr": "^(bash-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"bzip2": {
+		"url": "https://sourceware.org/pub/bzip2/",
+		"expr": "^(bzip2-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"curl": {
+		"url": "https://curl.se/download/",
+		"expr": "\\d[\\.\\d]*\\d$"
+	},
+	"erlang": {
+		"url": "https://github.com/erlang/otp/tags",
+		"expr": "^(OTP-)\\d[\\.\\d]*\\d$"
+	},
+	"expat": {
+		"url": "https://github.com/libexpat/libexpat/releases/",
+		"expr": "^(expat-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"git": {
+		"url": "https://www.kernel.org/pub/software/scm/git",
+		"expr": "^(git-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"gmp": {
+		"url": "https://ftp.gnu.org/gnu/gmp",
+		"expr": "^(gmp-)\\d[\\.\\d]*\\d(\\.tar\\.bz2)$"
+	},
+	"gtar": {
+		"default_version": "1.34",
+		"url": "https://ftp.gnu.org/gnu/tar",
+		"expr": "^(tar-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"google-protobuf": {
+		"url": "https://github.com/protocolbuffers/protobuf/tags",
+		"expr": "^(v)\\d[\\.\\d]*\\d$"
+	},
+	"libarchive": {
+		"url": "https://github.com/libarchive/libarchive/releases/",
+		"expr": "^(libarchive-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libiconv": {
+		"url": "https://ftp.gnu.org/pub/gnu/libiconv",
+		"expr": "^(libiconv-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libedit": {
+		"url": "http://thrysoee.dk/editline/",
+		"expr": "(libedit-)\\d*-[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libffi": {
+		"url": "https://github.com/libffi/libffi/releases/",
+		"expr": "^(libffi-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libintl-perl": {
+		"url": "https://cpan.metacpan.org/authors/id/G/GU/GUIDO/",
+		"expr": "^(libintl-perl-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libsodium": {
+		"url": "https://download.libsodium.org/libsodium/releases",
+		"expr": "^(libsodium-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libtool": {
+		"url": "https://ftp.gnu.org/gnu/libtool",
+		"expr": "^(libtool-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libxml2": {
+                "url": "https://download.gnome.org/sources/libxml2/2.9/",
+                "expr": "^(libxml2-)\\d[\\.\\d]*\\d(\\.tar\\.xz)$"
+        },
+	"libxslt": {
+                "url": "https://download.gnome.org/sources/libxslt/1.1/",
+                "expr": "^(libxslt-)\\d[\\.\\d]*\\d(\\.tar\\.xz)$"
+        },
+	"libyaml": {
+		"url": "https://pyyaml.org/download/libyaml",
+		"expr": "^(yaml-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"liblzma": {
+		"url": "http://tukaani.org/xz/",
+		"expr": "^(xz-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"libossp-uuid": {
+		"url": "https://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid",
+		"expr": "^(uuid-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"logrotate": {
+		"url": "https://github.com/logrotate/logrotate",
+		"expr": "^(logrotate-)\\d[\\.\\d]*\\d$"
+	},
+	"lua": {
+		"url": "https://www.lua.org/ftp",
+		"expr": "^(lua-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"makedepend": {
+		"url": "https://www.x.org/releases/individual/util",
+		"expr": "^(makedepend-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"make": {
+
+		"url": "https://ftp.gnu.org/gnu/make",
+		"expr": "^(make-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"mpc": {
+
+		"url": "https://ftp.gnu.org/gnu/mpc",
+		"expr": "^(mpc-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"mpfr": {
+
+		"url": "https://ftp.gnu.org/gnu/mpfr",
+		"expr": "^(mpfr-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"ncurses": {
+
+		"url": "https://ftp.gnu.org/gnu/ncurses",
+		"expr": "^(ncurses-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"openresty": {
+
+		"url": "https://openresty.org/en/download.html",
+		"expr": "^(openresty-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"openssl-fips": {
+
+		"url": "https://www.openssl.org/docs/fips.html",
+		"expr": "^v\\d[\\.\\d]*\\d"
+	},
+	"patch": {
+
+		"url": "https://ftp.gnu.org/gnu/patch",
+		"expr": "^(patch-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"patchelf": {
+
+                "url": "https://github.com/NixOS/patchelf/releases/",
+                "expr": "^(patchelf-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+        },
+	"pcre": {
+
+		"url": "https://sourceforge.net/projects/pcre/files/pcre",
+		"expr": "^\\d\\.[\\.\\d]*\\d$"
+	},
+	"perl": {
+
+		"url": "http://www.cpan.org/src/",
+		"expr": "^(perl-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"perl_pg_driver": {
+
+		"url": "https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/",
+		"expr": "^(DBD-Pg-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"postgresql": {
+
+		"url": "https://ftp.postgresql.org/pub/source/",
+		"expr": "^v\\d[\\.\\d]*\\d"
+	},
+	"python": {
+
+		"url": "https://www.python.org/ftp/python/",
+		"expr": "\\d[\\.\\d]*\\d\/"
+	},
+	"redis": {
+
+		"url": "http://download.redis.io/releases/",
+		"expr": "^(redis-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"runit": {
+
+		"url": "http://smarden.org/runit/install.html",
+		"expr": "^(runit-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"server-open-jre": {
+		"url": "https://github.com/adoptium/temurin11-binaries/releases/",
+		"expr": ".*(jdk).*\\d[\\.\\d]*_\\d*(\\.tar\\.gz)$"
+	},
+	"stunnel": {
+		"url": "https://www.stunnel.org/downloads.html",
+		"expr": "^(stunnel-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"xproto": {
+		"url": "https://www.x.org/releases/individual/proto/",
+		"expr": "^(xproto-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"util-macros": {
+		"url": "https://www.x.org/releases/individual/util",
+		"expr": "^(util-macros-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	},
+	"zlib": {
+		"url": "https://zlib.net/fossils",
+		"expr": "^(zlib-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
+	}
+}
