@@ -24,7 +24,7 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless aix? || windows?
 
-default_version "1.1.1p"
+default_version "1.1.1q"
 
 # OpenSSL source ships with broken symlinks which windows doesn't allow.
 # Skip error checking.
@@ -37,6 +37,7 @@ default_version "1.1.1p"
 # https://www.openssl.org/source/old/<bugfix_version>/openssl-<full_version>.tar.gz
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
+version("1.1.1q") { source sha256: "d7939ce614029cdff0b6c20f0e2e5703158a489a72b2507b8bd51bf8c8fd10ca" }
 version("1.1.1p") { source sha256: "bf61b62aaa66c7c7639942a94de4c9ae8280c08f17d4eac2e44644d9fc8ace6f" }
 version("1.1.1o") { source sha256: "9384a2b0570dd80358841464677115df785edb941c71211f75076d72fe6b438f" }
 version("1.1.1n") { source sha256: "40dceb51a4f6a5275bde0e6bf20ef4b91bfc32ed57c0552e2e8e15463372b17a" }
