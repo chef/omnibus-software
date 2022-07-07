@@ -35,6 +35,11 @@ else
     source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
            sha256: "be05e2de16d75088613cc998beb2938aa2946384884ed7f9142daec9a848d08c"
   end
+
+  version "3.1.2-1" do
+    source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
+           sha256: "5f0fd4a206b164a627c46e619d2babbcafb0ed4bc3e409267b9a73b6c58bdec1"
+  end
 end
 build do
   if windows?
