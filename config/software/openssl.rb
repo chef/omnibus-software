@@ -23,7 +23,7 @@ skip_transitive_dependency_licensing true
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode?
 
-default_version "1.0.2zb" # do_not_auto_update
+default_version "1.1.1q" # do_not_auto_update
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
@@ -34,23 +34,17 @@ if version.start_with?("3.")
   lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/ossl-modules"])
 end
 
-# 1.0.2u was the last public release of 1.0.2. Subsequent releases come from a support contract with OpenSSL Software Services
-if version.satisfies?("< 1.1.0")
-  source url: "https://s3.amazonaws.com/chef-releng/openssl/openssl-#{version}.tar.gz", extract: :lax_tar
-else
-  # As of 2020-09-09 even openssl-1.0.0.tar.gz can be downloaded from /source/openssl-VERSION.tar.gz
-  # However, the latest releases are not in /source/old/VERSION/openssl-VERSION.tar.gz.
-  # Let's stick with the simpler one for now.
-  source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
-end
+# As of 2020-09-09 even openssl-1.0.0.tar.gz can be downloaded from /source/openssl-VERSION.tar.gz
+# However, the latest releases are not in /source/old/VERSION/openssl-VERSION.tar.gz.
+# Let's stick with the simpler one for now.
+source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
 version("3.0.3")   { source sha256: "ee0078adcef1de5f003c62c80cc96527721609c6f3bb42b7795df31f8b558c0b" }
 version("3.0.1")   { source sha256: "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1" } # only ruby 3.1 supports openssl-3.0.1
+version("1.1.1q")  { source sha256: "d7939ce614029cdff0b6c20f0e2e5703158a489a72b2507b8bd51bf8c8fd10ca" }
 version("1.1.1o")  { source sha256: "9384a2b0570dd80358841464677115df785edb941c71211f75076d72fe6b438f" }
 version("1.1.1m")  { source sha256: "f89199be8b23ca45fc7cb9f1d8d3ee67312318286ad030f5316aca6462db6c96" }
 version("1.1.1l")  { source sha256: "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1" }
-version("1.0.2zb") { source sha256: "b7d8f8c895279caa651e7f3de9a7b87b8dd01a452ca3d9327f45a9ef31d0c518" }
-version("1.0.2za") { source sha256: "86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1d8688ef25280fbeee2ff8" }
 
 relative_path "openssl-#{version}"
 
@@ -85,9 +79,6 @@ build do
   ]
 
   configure_args += ["--libdir=#{install_dir}/embedded/lib"] if version.satisfies?(">=3.0.1")
-
-  # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
-  configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ] if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
 
   configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
 
@@ -135,21 +126,10 @@ build do
                 env
               end
 
-  if version.start_with? "1.0"
-    patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
-  elsif version.start_with? "1.1"
+  if version.start_with? "1.1"
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
   elsif version.start_with? "3.0"
     patch source: "openssl-3.0.1-do-not-install-docs.patch", env: patch_env
-  end
-
-  if version.start_with?("1.0.2") && mac_os_x? && arm?
-    patch source: "openssl-1.0.2x-darwin-arm64.patch"
-  end
-
-  if version.start_with?("1.0.2") && windows?
-    # Patch Makefile.org to update the compiler flags/options table for mingw.
-    patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
   end
 
   # Out of abundance of caution, we put the feature flags first and then
@@ -159,10 +139,6 @@ build do
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
   command configure_command, env: env, in_msys_bash: true
-
-  if version.start_with?("1.0.2") && windows?
-    patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
-  end
 
   make "depend", env: env
   # make -j N on openssl is not reliable
