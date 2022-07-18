@@ -37,7 +37,7 @@ end
 # As of 2020-09-09 even openssl-1.0.0.tar.gz can be downloaded from /source/openssl-VERSION.tar.gz
 # However, the latest releases are not in /source/old/VERSION/openssl-VERSION.tar.gz.
 # Let's stick with the simpler one for now.
-source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar:w
+source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
 version("3.0.3")   { source sha256: "ee0078adcef1de5f003c62c80cc96527721609c6f3bb42b7795df31f8b558c0b" }
 version("3.0.1")   { source sha256: "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1" } # only ruby 3.1 supports openssl-3.0.1
