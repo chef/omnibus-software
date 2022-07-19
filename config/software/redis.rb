@@ -21,8 +21,9 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 dependency "config_guess"
-default_version "7.0.2"
+default_version "7.0.4"
 
+version("7.0.4") { source sha256: "f0e65fda74c44a3dd4fa9d512d4d4d833dd0939c934e946a5c622a630d057f2f" }
 version("7.0.2") { source sha256: "5e57eafe7d4ac5ecb6a7d64d6b61db775616dbf903293b3fcc660716dbda5eeb" }
 version("7.0.0") { source sha256: "284d8bd1fd85d6a55a05ee4e7c31c31977ad56cbf344ed83790beeb148baa720" }
 version("6.2.7") { source sha256: "b7a79cc3b46d3c6eb52fa37dde34a4a60824079ebdfb3abfbbfa035947c55319" }
