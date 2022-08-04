@@ -57,7 +57,7 @@ elsif mac_os_x?
   version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
 
 elsif armhf?
-  arch = "armv6l"
+  platform = "armv6l"
   # version_list: url=https://golang.org/dl/ filter=*.linux-armv6l.tar.gz
   version("1.19")    { source sha256: "25197c7d70c6bf2b34d7d7c29a2ff92ba1c393f0fb395218f1147aac2948fb93" }
   version("1.18.5")  { source sha256: "d5ac34ac5f060a5274319aa04b7b11e41b123bd7887d64efb5f44ead236957af" }
@@ -70,9 +70,9 @@ elsif armhf?
   version("1.17")    { source sha256: "ae89d33f4e4acc222bdb04331933d5ece4ae71039812f6ccd7493cb3e8ddfb4e" }
   version("1.16.3")  { source sha256: "0dae30385e3564a557dac7f12a63eedc73543e6da0f6017990e214ce8cc8797c" }
 elsif arm?
-  arch = "arm64"
+  platform = "arm64"
   # version_list: url=https://golang.org/dl/ filter=*.linux-arm64.tar.gz
-  version("1.19")  { source sha256: "efa97fac9574fc6ef6c9ff3e3758fb85f1439b046573bf434cccb5e012bd00c8" }
+  version("1.19") { source sha256: "efa97fac9574fc6ef6c9ff3e3758fb85f1439b046573bf434cccb5e012bd00c8" }
   version("1.18.5")  { source sha256: "006f6622718212363fa1ff004a6ab4d87bbbe772ec5631bab7cac10be346e4f1" }
   version("1.18.3")  { source sha256: "beacbe1441bee4d7978b900136d1d6a71d150f0a9bb77e9d50c822065623a35a" }
   version("1.18.2")  { source sha256: "fc4ad28d0501eaa9c9d6190de3888c9d44d8b5fb02183ce4ae93713f67b8a35b" }
@@ -84,8 +84,8 @@ elsif arm?
   version("1.16.3")  { source sha256: "566b1d6f17d2bc4ad5f81486f0df44f3088c3ed47a3bec4099d8ed9939e90d5d" }
 else
   # version_list: url=https://golang.org/dl/ filter=*.linux-amd64.tar.gz
-  version("1.19")  { source sha256: "464b6b66591f6cf055bc5df90a9750bf5fbc9d038722bb84a9d56a2bea974be6" }
-  version("1.18.5")  { source sha256: "9e5de37f9c49942c601b191ac5fba404b868bfc21d446d6960acc12283d6e5f2"}
+  version("1.19") { source sha256: "464b6b66591f6cf055bc5df90a9750bf5fbc9d038722bb84a9d56a2bea974be6" }
+  version("1.18.5")  { source sha256: "9e5de37f9c49942c601b191ac5fba404b868bfc21d446d6960acc12283d6e5f2" }
   version("1.18.3")  { source sha256: "956f8507b302ab0bb747613695cdae10af99bbd39a90cae522b7c0302cc27245" }
   version("1.18.2")  { source sha256: "e54bec97a1a5d230fc2f9ad0880fcbabb5888f30ed9666eca4a91c5a32e86cbc" }
   version("1.18")    { source sha256: "e85278e98f57cdb150fe8409e6e5df5343ecb13cebf03a5d5ff12bd55a80264f" }
