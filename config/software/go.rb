@@ -84,8 +84,8 @@ elsif arm?
   version("1.16.3")  { source sha256: "566b1d6f17d2bc4ad5f81486f0df44f3088c3ed47a3bec4099d8ed9939e90d5d" }
 else
   # version_list: url=https://golang.org/dl/ filter=*.linux-amd64.tar.gz
-  version("1.19")  { source sha256: "464b6b66591f6cf055bc5df90a9750bf5fbc9d038722bb84a9d56a2bea974be6 " }
-  version("1.18.5")  { source sha256: "9e5de37f9c49942c601b191ac5fba404b868bfc21d446d6960acc12283d6e5f2 "}
+  version("1.19")  { source sha256: "464b6b66591f6cf055bc5df90a9750bf5fbc9d038722bb84a9d56a2bea974be6" }
+  version("1.18.5")  { source sha256: "9e5de37f9c49942c601b191ac5fba404b868bfc21d446d6960acc12283d6e5f2"}
   version("1.18.3")  { source sha256: "956f8507b302ab0bb747613695cdae10af99bbd39a90cae522b7c0302cc27245" }
   version("1.18.2")  { source sha256: "e54bec97a1a5d230fc2f9ad0880fcbabb5888f30ed9666eca4a91c5a32e86cbc" }
   version("1.18")    { source sha256: "e85278e98f57cdb150fe8409e6e5df5343ecb13cebf03a5d5ff12bd55a80264f" }
