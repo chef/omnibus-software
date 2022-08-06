@@ -15,7 +15,7 @@
 #
 
 name "ruby-windows-devkit"
-default_version "4.7.2-20130224"
+default_version "20220603"
 
 license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/oneclick/rubyinstaller/master/LICENSE.txt"
@@ -32,10 +32,14 @@ if windows_arch_i386?
            sha256: "61a06b5da06dd94343e591163ac0d43c544e9cd4df770f01275645b268b44dc7"
   end
 else
-  version "4.7.2-20130224" do
-    source url: "https://github.com/oneclick/rubyinstaller/releases/download/devkit-4.7.2/DevKit-mingw64-64-#{version}-1432-sfx.exe",
-           sha256: "2ada04c7234199126c0f34f6ea7163a8f8dccb1e15814af175a189f6ac48b8ac"
+  version "20220603" do
+    source url: "https://github.com/msys2/msys2-installer/releases/download/2022-06-03/msys2-x86_64-#{version}.exe"
+           sha256: "6e5a76e36a651542e6b907a39776effb7670a139d6a017c3808fdcfaca84ee83"
   end
+  # version "4.7.2-20130224" do
+  #   source url: "https://github.com/oneclick/rubyinstaller/releases/download/devkit-4.7.2/DevKit-mingw64-64-#{version}-1432-sfx.exe",
+  #          sha256: "2ada04c7234199126c0f34f6ea7163a8f8dccb1e15814af175a189f6ac48b8ac"
+  # end
 end
 build do
   env = with_standard_compiler_flags(with_embedded_path)
