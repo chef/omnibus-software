@@ -45,6 +45,7 @@ DEBUG=1 bundle install
 
 if [[ $CI == true ]]; then
   echo "--- Building"
+  echo "--- My Ruby Platform " Gem::Platform.local.os
   git config --global --add safe.directory /omnibus-software
   bundle exec omnibus build test
   exit $?
