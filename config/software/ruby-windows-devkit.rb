@@ -32,8 +32,8 @@ if windows_arch_i386?
            sha256: "61a06b5da06dd94343e591163ac0d43c544e9cd4df770f01275645b268b44dc7"
   end
 else
+  date_stamp = "2022-06-03"
   version "20220603" do
-    date_stamp = "2022-06-03",
     source url: "https://github.com/msys2/msys2-installer/releases/download/#{date_stamp}/msys2-x86_64-#{version}.exe",
            sha256: "6e5a76e36a651542e6b907a39776effb7670a139d6a017c3808fdcfaca84ee83"
   end
