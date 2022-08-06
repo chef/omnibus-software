@@ -33,7 +33,8 @@ if windows_arch_i386?
   end
 else
   version "20220603" do
-    source url: "https://github.com/msys2/msys2-installer/releases/download/2022-06-03/msys2-x86_64-#{version}.exe"
+    date_stamp = "2022-06-03",
+    source url: "https://github.com/msys2/msys2-installer/releases/download/#{date_stamp}/msys2-x86_64-#{version}.exe",
            sha256: "6e5a76e36a651542e6b907a39776effb7670a139d6a017c3808fdcfaca84ee83"
   end
   # version "4.7.2-20130224" do
