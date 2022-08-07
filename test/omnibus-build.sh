@@ -45,8 +45,7 @@ DEBUG=1 bundle install
 
 if [[ $CI == true ]]; then
   echo "--- Building"
-  gem environment
-  gem install "omnibus"
+  bundle exec gem install "omnibus"
   git config --global --add safe.directory /omnibus-software
   bundle exec omnibus build test
   exit $?

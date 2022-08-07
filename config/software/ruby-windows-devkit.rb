@@ -22,6 +22,7 @@ license_file "https://raw.githubusercontent.com/oneclick/rubyinstaller/master/LI
 skip_transitive_dependency_licensing true
 
 if windows_arch_i386?
+  puts "I am trying to load the WRONG version of the devkit"
   version "4.5.2-20111229-1559" do
     source url: "https://github.com/oneclick/rubyinstaller/releases/download/DevKit-tdm-32-4.5.2/DevKit-tdm-32-#{version}-sfx.exe",
            sha256: "6c3af5487dafda56808baf76edd262b2020b1b25ab86aabf972629f4a6a54491"
@@ -32,6 +33,7 @@ if windows_arch_i386?
            sha256: "61a06b5da06dd94343e591163ac0d43c544e9cd4df770f01275645b268b44dc7"
   end
 else
+  puts "I am trying to load the correct version of the devkit"
   date_stamp = "2022-06-03"
   version "20220603" do
     source url: "https://github.com/msys2/msys2-installer/releases/download/#{date_stamp}/msys2-x86_64-#{version}.exe",
