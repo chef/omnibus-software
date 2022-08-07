@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
-gem "omnibus", github: "chef/omnibus", branch: "main"
+# gem "omnibus", github: "chef/omnibus", branch: "main"
+gem "omnibus", github: "chef/omnibus", branch: "jfm/ucrt_update"
 gem "omnibus-software", path: "/omnibus-software"
 
 group :development do
