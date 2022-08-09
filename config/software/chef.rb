@@ -71,7 +71,8 @@ build do
   # use the rake install task to build/install chef-config/chef-utils
   command "rake install:local", env: env
 
-  gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
+  # gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
+  gemspec_name = "chef.gemspec"
 
   # This step will build native components as needed - the event log dll is
   # generated as part of this step.  This is why we need devkit.
