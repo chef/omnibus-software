@@ -21,7 +21,7 @@
 # with the gem.
 
 name "google-protobuf"
-default_version "v3.21.2"
+default_version "v3.21.4"
 
 dependency "ruby"
 
