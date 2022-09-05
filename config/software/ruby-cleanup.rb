@@ -230,17 +230,17 @@ build do
     end
   end
 
-  # Check for multiple versions of the `bundler` gem and fail the build if we find more than 1.
-  # Having multiple versions has burned us too many times in the past - causes warnings when
-  # invoking binaries.
-  block "Ensure only 1 copy of bundler is installed" do
-    # The bundler regex must be surrounded by double-quotes (not single) for Windows
-    # Under powershell, it would have to be escaped with a ` character, i.e. `"^bundler$`"
-    bundler = shellout!("#{install_dir}/embedded/bin/gem list \"^bundler$\"", env: env).stdout.chomp
-    if bundler.include?(",")
-      raise "Multiple copies of bundler installed, ensure only 1 remains. Output:\n" + bundler
-    end
-  end
+  # # Check for multiple versions of the `bundler` gem and fail the build if we find more than 1.
+  # # Having multiple versions has burned us too many times in the past - causes warnings when
+  # # invoking binaries.
+  # block "Ensure only 1 copy of bundler is installed" do
+  #   # The bundler regex must be surrounded by double-quotes (not single) for Windows
+  #   # Under powershell, it would have to be escaped with a ` character, i.e. `"^bundler$`"
+  #   bundler = shellout!("#{install_dir}/embedded/bin/gem list \"^bundler$\"", env: env).stdout.chomp
+  #   if bundler.include?(",")
+  #     raise "Multiple copies of bundler installed, ensure only 1 remains. Output:\n" + bundler
+  #   end
+  # end
 
   block "Remove empty gem dirs from Ruby's built-in gems" do
     Dir.glob("#{install_dir}/embedded/lib/ruby/gems/*/gems/*".tr("\\", "/")).each do |d|
