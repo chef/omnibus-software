@@ -15,7 +15,7 @@
 #
 
 name "git"
-default_version "2.37.2"
+default_version "2.37.3"
 
 license "LGPL-2.1"
 license_file "LGPL-2.1"
@@ -31,17 +31,13 @@ dependency "expat"
 relative_path "git-#{version}"
 
 # version_list: url=https://www.kernel.org/pub/software/scm/git/ filter=*.tar.gz
+version("2.37.3") { source sha256: "814641d7f61659cfbc17825d0462499ca1403e39ff53d76a8512050e6483e87a" }
 version("2.37.2") { source sha256: "4c428908e3a2dca4174df6ef49acc995a4fdb1b45205a2c79794487a33bc06e5" }
 version("2.37.1") { source sha256: "7dded96a52e7996ce90dd74a187aec175737f680dc063f3f33c8932cf5c8d809" }
 version("2.37.0") { source sha256: "fc3ffe6c65c1f7c681a1ce6bb91703866e432c762731d4b57c566d696f6d62c3" }
 version("2.36.1") { source sha256: "37d936fd17c81aa9ddd3dba4e56e88a45fa534ad0ba946454e8ce818760c6a2c" }
 version("2.36.0") { source sha256: "9785f8c99daea037b8443d2f7397ac6aafbf8d5ff21fbfe2e5c0d443d126e211" }
 version("2.35.3") { source sha256: "cad708072d5c0b390c71651f5edb44143f00b357766973470bf9adebc0944c03" }
-version("2.35.1") { source sha256: "9845a37dd01f9faaa7d8aa2078399d3aea91b43819a5efea6e2877b0af09bd43" }
-version("2.34.1") { source sha256: "fc4eb5ecb9299db91cdd156c06cdeb41833f53adc5631ddf8c0cb13eaa2911c1" }
-version("2.34.0") { source sha256: "0ce6222bfd31938b29360150286b51c77c643fa97740b1d35b6d1ceef8b0ecd7" }
-version("2.33.0") { source sha256: "02d909d0bba560d3a1008bd00dd577621ffb57401b09175fab2bf6da0e9704ae" }
-version("2.31.1") { source sha256: "46d37c229e9d786510e0c53b60065704ce92d5aedc16f2c5111e3ed35093bfa7" }
 
 # we need to keep 2.24.1 until we can remove the version pin in omnibus-toolchain Solaris builds
 version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
