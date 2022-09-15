@@ -35,7 +35,13 @@ else
     source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
            sha256: "be05e2de16d75088613cc998beb2938aa2946384884ed7f9142daec9a848d08c"
   end
+
+  version "3.1.2-1" do
+    source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
+           sha256: "5f0fd4a206b164a627c46e619d2babbcafb0ed4bc3e409267b9a73b6c58bdec1"
+  end
 end
+
 build do
   if windows?
     embedded_dir = "#{install_dir}/embedded"
@@ -43,10 +49,17 @@ build do
     Dir.mktmpdir do |tmpdir|
       command "#{project_dir}/rubyinstaller-devkit-#{version}-#{arch}.exe /SP- /NORESTART /VERYSILENT /SUPPRESSMSGBOXES /NOPATH /DIR=#{tmpdir}"
       copy "#{tmpdir}/#{msys_dir}", embedded_dir
-      copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
-      copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
-      copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
-      copy "#{tmpdir}/lib/ruby/3.0.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.0.0/rubygems/defaults"
+      if version == "3.0.3-1"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
+        copy "#{tmpdir}/lib/ruby/3.0.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.0.0/rubygems/defaults"
+      elsif version == "3.1.2-1"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
+        copy "#{tmpdir}/lib/ruby/3.1.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.1.0/rubygems/defaults"
+      end
 
       # Normally we would symlink the required unix tools.
       # However with the introduction of git-cache to speed up omnibus builds,
