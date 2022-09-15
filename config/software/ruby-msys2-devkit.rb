@@ -45,22 +45,15 @@ end
 build do
   if windows?
     embedded_dir = "#{install_dir}/embedded"
-    normalized_ruby_version = version.gsub(/^(\d+\.\d+).*$/,'\1.0')
+    normalized_ruby_version = version.gsub(/^(\d+\.\d+).*$/, '\1.0')
 
     Dir.mktmpdir do |tmpdir|
       command "#{project_dir}/rubyinstaller-devkit-#{version}-#{arch}.exe /SP- /NORESTART /VERYSILENT /SUPPRESSMSGBOXES /NOPATH /DIR=#{tmpdir}"
       copy "#{tmpdir}/#{msys_dir}", embedded_dir
-      # if version == "3.0.3-1"
-      #   copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
-      #   copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
-      #   copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
-      #   copy "#{tmpdir}/lib/ruby/3.0.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.0.0/rubygems/defaults"
-      # elsif version == "3.1.2-1"
-        copy "#{tmpdir}/lib/ruby/site_ruby/#{normalized_ruby_version}/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/#{normalized_ruby_version}"
-        copy "#{tmpdir}/lib/ruby/site_ruby/#{normalized_ruby_version}/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/#{normalized_ruby_version}"
-        copy "#{tmpdir}/lib/ruby/site_ruby/#{normalized_ruby_version}/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/#{normalized_ruby_version}"
-        copy "#{tmpdir}/lib/ruby/#{normalized_ruby_version}/rubygems/defaults", "#{embedded_dir}/lib/ruby/#{normalized_ruby_version}/rubygems/defaults"
-      # end
+      copy "#{tmpdir}/lib/ruby/site_ruby/#{normalized_ruby_version}/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/#{normalized_ruby_version}"
+      copy "#{tmpdir}/lib/ruby/site_ruby/#{normalized_ruby_version}/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/#{normalized_ruby_version}"
+      copy "#{tmpdir}/lib/ruby/site_ruby/#{normalized_ruby_version}/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/#{normalized_ruby_version}"
+      copy "#{tmpdir}/lib/ruby/#{normalized_ruby_version}/rubygems/defaults", "#{embedded_dir}/lib/ruby/#{normalized_ruby_version}/rubygems/defaults"
 
       # Normally we would symlink the required unix tools.
       # However with the introduction of git-cache to speed up omnibus builds,
