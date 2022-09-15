@@ -72,10 +72,10 @@ build do
   command "rake install:local", env: env
 
   gemspec_name = if windows?
-                    #Chef18 is built with ruby3.1 so platform name is changed.
-                    RUBY_PLATFORM == "x64-mingw-ucrt" ? "chef-universal-mingw-ucrt.gemspec" : "chef-universal-mingw32.gemspec"
+                   # Chef18 is built with ruby3.1 so platform name is changed.
+                   RUBY_PLATFORM == "x64-mingw-ucrt" ? "chef-universal-mingw-ucrt.gemspec" : "chef-universal-mingw32.gemspec"
                  else
-                    "chef.gemspec"
+                   "chef.gemspec"
                  end
 
   # This step will build native components as needed - the event log dll is
