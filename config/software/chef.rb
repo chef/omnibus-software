@@ -71,7 +71,12 @@ build do
   # use the rake install task to build/install chef-config/chef-utils
   command "rake install:local", env: env
 
-  gemspec_name = windows? ? "chef-universal-mingw32.gemspec" : "chef.gemspec"
+  gemspec_name = if windows?
+                   # Chef18 is built with ruby3.1 so platform name is changed.
+                   RUBY_PLATFORM == "x64-mingw-ucrt" ? "chef-universal-mingw-ucrt.gemspec" : "chef-universal-mingw32.gemspec"
+                 else
+                   "chef.gemspec"
+                 end
 
   # This step will build native components as needed - the event log dll is
   # generated as part of this step.  This is why we need devkit.
