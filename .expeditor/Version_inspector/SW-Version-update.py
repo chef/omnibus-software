@@ -50,11 +50,7 @@ def get_latest_version(url,expr,product):
         extracted_versions = re.findall(r"\d+-[\.\d]*\d", versions_string)
     else:
         extracted_versions = re.findall(r"\d[\.\d]*\d", versions_string)
-    # print(product)
-    # print(extracted_versions)
-    # print(list_of_contents)
-    # print(expr)
-    # print(url)
+
     product_error = []
     try:
         highest_version = extracted_versions[0]
