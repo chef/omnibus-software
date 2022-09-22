@@ -37,6 +37,7 @@ def get_latest_version(url,expr,product):
         data.decompose()
 
     list_of_contents = ' '.join(soup.stripped_strings).split(" ")
+
     
     r = re.compile(expr)
     filtered_list = list(filter(r.match, list_of_contents)) # Read Note
@@ -49,13 +50,23 @@ def get_latest_version(url,expr,product):
         extracted_versions = re.findall(r"\d+-[\.\d]*\d", versions_string)
     else:
         extracted_versions = re.findall(r"\d[\.\d]*\d", versions_string)
+    # print(product)
+    # print(extracted_versions)
+    # print(list_of_contents)
+    # print(expr)
+    # print(url)
+    product_error = []
+    try:
+        highest_version = extracted_versions[0]
+        for i in range(1,len(extracted_versions)):
+        #print("Comparing ",extracted_versions[i]," and ",highest_version)
+            if(version.parse(extracted_versions[i]) > version.parse(highest_version)):
+                highest_version = extracted_versions[i]
+        return highest_version
+    except:
+        product_error.append(prod)
     
-    highest_version = extracted_versions[0]
-    for i in range(1,len(extracted_versions)):
-    #print("Comparing ",extracted_versions[i]," and ",highest_version)
-        if(version.parse(extracted_versions[i]) > version.parse(highest_version)):
-            highest_version = extracted_versions[i]
-    return highest_version
+    print(product_error)
 
 def mail_sender(mail_content):
     sender_address = 'poorndm@progress.com'
