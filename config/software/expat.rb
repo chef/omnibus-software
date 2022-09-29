@@ -15,7 +15,7 @@
 #
 
 name "expat"
-default_version "2.4.8"
+default_version "2.4.9"
 
 relative_path "expat-#{version}"
 dependency "config_guess"
@@ -27,6 +27,7 @@ skip_transitive_dependency_licensing true
 # version_list: url=https://github.com/libexpat/libexpat/releases filter=*.tar.gz
 source url: "https://github.com/libexpat/libexpat/releases/download/R_#{version.gsub(".", "_")}/expat-#{version}.tar.gz"
 
+version("2.4.9") { source sha256:4415710268555b32c4e5ab06a583bea9fec8ff89333b218b70b43d4ca10e38fa" }
 version("2.4.8") { source sha256: "398f6d95bf808d3108e27547b372cb4ac8dc2298a3c4251eb7aa3d4c6d4bb3e2" }
 version("2.4.7") { source sha256: "72644d5f0f313e2a5cf81275b09b9770c866dd87a2b62ab19981657ac0d4af5f" }
 version("2.4.6") { source sha256: "a0eb5af56b1c2ba812051c49bf3b4e5763293fe5394a0219df7208845c3efb8c" }
