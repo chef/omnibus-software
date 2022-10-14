@@ -18,6 +18,9 @@
 
                 "url": "https://opensearch.org/docs/latest/version-history/"
 	},
+	"popt": {
+		"url": "https://github.com/rpm-software-management/popt/releases/"
+	},
 	"sqitch": {
 
 		"url": "https://github.com/sqitchers/sqitch"
