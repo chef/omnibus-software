@@ -23,7 +23,7 @@
 	},
 	"sqitch": {
 
-		"url": "https://github.com/sqitchers/sqitch"
+		"url": "https://github.com/sqitchers/sqitch/releases"
 	}
 }
 
