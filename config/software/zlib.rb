@@ -15,10 +15,10 @@
 #
 
 name "zlib"
-default_version "1.2.12"
+default_version "1.2.13"
 
-version "1.2.12" do
-  source sha256: "91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9"
+version "1.2.13" do
+  source sha256: "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 end
 
 source url: "https://zlib.net/fossils/zlib-#{version}.tar.gz",
