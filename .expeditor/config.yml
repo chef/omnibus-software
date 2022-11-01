@@ -24,3 +24,10 @@ subscriptions:
       - bash:.expeditor/push_git_tag.sh:
           only_if: bash:.expeditor/determine_version.sh
           post_commit: true
+      - built_in:build_gem:
+          only_if: "bash:.expeditor/push_git_tag.sh"
+
+  - workload: project_promoted:{{agent_id}}:*
+    actions:
+      - built_in:rollover_changelog
+      - built_in:publish_rubygems
