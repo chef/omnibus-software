@@ -15,7 +15,7 @@
 #
 
 name "curl"
-default_version "7.85.0"
+default_version "7.84.0"
 
 dependency "zlib"
 dependency "openssl"
