@@ -37,6 +37,7 @@ version("2.0.10") { source sha256: "a42ccf5f08a8b510c0c78da1ba889532a0ce24e772b5
 version("2.0.9") { source md5: "c8256051d7a76471c6ad4fb771404e60" }
 
 relative_path "openssl-fips-#{version}"
+puts "DEBUG>>> relative_path \"openssl-fips-#{version}\""
 
 build do
   # According to the FIPS manual, this is the only environment you are allowed
@@ -44,8 +45,11 @@ build do
   env = {}
   env["FIPSDIR"] = "#{install_dir}/embedded"
 
+  puts "DEBUG>>> env[\"FIPSDIR\"] \"#{env["FIPSDIR"]}\""
   if windows?
     default_env = with_standard_compiler_flags(with_embedded_path)
+
+    puts "default_env #{default_env.inspect}"
 
     if windows_arch_i386?
       # Patch Makefile.org to update the compiler flags/options table for mingw.
@@ -55,6 +59,8 @@ build do
     else
       platform = "mingw64"
     end
+
+    puts "platform #{platform}"
 
     configure_command = ["perl.exe ./Configure #{platform}"]
     configure_command << "--prefix=#{install_dir}/embedded"
@@ -74,6 +80,7 @@ build do
   end
 
   command configure_command.join(" "), env: env, in_msys_bash: true
+  puts "DEBUG: command #{configure_command.join(" ")}, env: #{env}"
 
   # Cannot use -j with openssl :(.
   make env: env
