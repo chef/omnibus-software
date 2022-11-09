@@ -15,7 +15,7 @@
 #
 
 name "python"
-default_version "3.10.5"
+default_version "3.11.0"
 
 license "Python-2.0"
 license_file "LICENSE"
@@ -32,6 +32,7 @@ end
 
 # version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
 
+version("3.11.0") { source sha256: "64424e96e2457abbac899b90f9530985b51eef2905951febd935f0e73414caeb" }
 version("3.10.5") { source sha256: "18f57182a2de3b0be76dfc39fdcfd28156bb6dd23e5f08696f7492e9e3d0bf2d" }
 version("3.10.4") { source sha256: "f3bcc65b1d5f1dc78675c746c98fcee823c038168fc629c5935b044d0911ad28" }
 version("3.10.2") { source sha256: "3c0ede893011319f9b0a56b44953a3d52c7abf9657c23fb4bc9ced93b86e9c97" }
