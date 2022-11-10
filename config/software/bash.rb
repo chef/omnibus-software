@@ -46,10 +46,14 @@ build do
 
   # FreeBSD can build bash with this patch but it doesn't work properly
   # Things like command substitution will throw syntax errors even though the syntax is correct
-  unless freebsd?
-    # Fix bash race condition
-    # https://lists.gnu.org/archive/html/bug-bash/2020-12/msg00051.html
-    patch source: "race-condition.patch", plevel: 1, env: env
+  if version.satisfies?("< 5.2")
+    unless freebsd?
+      # Fix bash race condition
+      # https://lists.gnu.org/archive/html/bug-bash/2020-12/msg00051.html
+      patch source: "race-condition.patch", plevel: 1, env: env
+    end
+  else
+    patch source: "updated_race-condition.patch", plevel: 0, env: env
   end
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
@@ -64,6 +68,7 @@ build do
     # corrects that.
     env["ac_cv_func_working_mktime"] = "yes"
   end
+
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
