@@ -19,6 +19,7 @@ default_version "5.2"
 
 dependency "libiconv"
 dependency "ncurses"
+skip_transitive_dependency_licensing true
 
 # version_list: url=https://ftp.gnu.org/gnu/bash/ filter=*.tar.gz
 
