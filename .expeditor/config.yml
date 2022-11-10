@@ -37,4 +37,4 @@ subscriptions:
   - workload: project_promoted:{{agent_id}}:*
     actions:
       - built_in:rollover_changelog
-      #- built_in:publish_rubygems
+      - built_in:publish_rubygems
