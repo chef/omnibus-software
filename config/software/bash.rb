@@ -27,7 +27,7 @@ version("5.1")    { source sha256: "cc012bc860406dcf42f64431bcd3d2fa7560c02915a6
 version("5.1.8")  { source sha256: "0cfb5c9bb1a29f800a97bd242d19511c997a1013815b805e0fdd32214113d6be" }
 version("5.1.16") { source sha256: "5bac17218d3911834520dad13cd1f85ab944e1c09ae1aba55906be1f8192f558" }
 version("5.2")    { source sha256: "a139c166df7ff4471c5e0733051642ee5556c1cc8a4a78f145583c5c81ab32fb" }
-
+version("5.2.9")  { source sha256: "68d978264253bc933d692f1de195e2e5b463a3984dfb4e5504b076865f16b6dd" }
 license "GPL-3.0"
 license_file "COPYING"
 
@@ -50,6 +50,8 @@ build do
       # https://lists.gnu.org/archive/html/bug-bash/2020-12/msg00051.html
       patch source: "race-condition.patch", plevel: 1, env: env
     end
+  else 
+    patch source: "updated_race-condition.patch", plevel: 0, env: env
   end
   configure_command = ["./configure",
                        "--prefix=#{install_dir}/embedded"]
