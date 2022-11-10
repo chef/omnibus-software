@@ -42,7 +42,7 @@ relative_path "bash-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-
+  puts "skip_transitive_dependency_licensing is SET TO :  #{skip_transitive_dependency_licensing} "
   # FreeBSD can build bash with this patch but it doesn't work properly
   # Things like command substitution will throw syntax errors even though the syntax is correct
   if version.satisfies?("< 5.2")
