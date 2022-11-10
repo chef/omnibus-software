@@ -50,7 +50,7 @@ build do
       # https://lists.gnu.org/archive/html/bug-bash/2020-12/msg00051.html
       patch source: "race-condition.patch", plevel: 1, env: env
     end
-  else 
+  else
     patch source: "updated_race-condition.patch", plevel: 0, env: env
   end
   configure_command = ["./configure",
