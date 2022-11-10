@@ -165,7 +165,8 @@ build do
   command configure_command, env: env, in_msys_bash: true
 
   if version.start_with?("1.0.2") && windows?
-    #patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
+    # [Relocating Windows OpenSSL DLLs](https://github.com/chef/omnibus-software/pull/823/files)
+    patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
   end
 
   make "depend", env: env
