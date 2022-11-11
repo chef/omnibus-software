@@ -8,8 +8,8 @@ index e8d222a..02ec85b 100644
  		case $(LIBNAME) in \
 -			crypto) SHLIB=libeay;; \
 -			ssl) SHLIB=ssleay;; \
-+			crypto) SHLIB=libeay; base=-Wl,-Bstatic;; \
-+			ssl) SHLIB=ssleay; base=-Wl,-Bstatic;; \
++			crypto) SHLIB=libeay; base=-Wl,--dynamicbase,--image-base,0x66000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--dynamicbase,--image-base,0x64000000;; \
  		esac; \
  		SHLIB_SOVER=32; \
  		extras="$(LIBNAME).def"; \
