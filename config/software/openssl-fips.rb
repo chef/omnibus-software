@@ -26,7 +26,7 @@ skip_transitive_dependency_licensing true
 # You are then supposed to manually verify the PGP signatures.
 # When making an "official" build - make sure you go do that...
 source url: "https://www.openssl.org/source/old/fips/openssl-fips-#{version}.tar.gz", extract: :lax_tar
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz", :extract :lax_tar
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz", extract: :lax_tar
 
 version("2.0.16") {
   source sha256: "a3cd13d0521d22dd939063d3b4a0d4ce24494374b91408a05bdaca8b681c63d4", \

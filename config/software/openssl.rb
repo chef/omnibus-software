@@ -43,7 +43,7 @@ else
   # However, the latest releases are not in /source/old/VERSION/openssl-VERSION.tar.gz.
   # Let's stick with the simpler one for now.
   source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
-  internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz", :extract :lax_tar
+  internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz", extract: :lax_tar
 end
 
 version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a" }
