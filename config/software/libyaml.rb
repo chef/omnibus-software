@@ -29,7 +29,7 @@ version("0.2.4") { source sha256: "d80aeda8747b7c26fbbfd87ab687786e58394a8435ae3
 version("0.1.7") { source sha256: "8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729" }
 
 source url: "https://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/yaml-#{version}.tar.gz"
 
 relative_path "yaml-#{version}"
 

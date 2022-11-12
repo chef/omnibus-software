@@ -23,7 +23,7 @@ skip_transitive_dependency_licensing true
 default_version "2022-10-11"
 
 source url: "https://curl.se/ca/cacert-#{version}.pem"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.pem"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/cacert-#{version}.pem"
 
 # versions_list: https://curl.se/docs/caextract.html
 version("2022-10-11") { source sha256: "2cff03f9efdaf52626bd1b451d700605dc1ea000c5da56bd0fc59f8f43071040" }

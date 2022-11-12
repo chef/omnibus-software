@@ -31,7 +31,7 @@ version("5.2.3") { source sha256: "71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8eb
 version("5.2.2") { source sha256: "73df4d5d34f0468bd57d09f2d8af363e95ed6cc3a4a86129d2f2c366259902a2" }
 
 source url: "https://tukaani.org/xz/xz-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/xz-#{version}.tar.gz"
 
 relative_path "xz-#{version}"
 
