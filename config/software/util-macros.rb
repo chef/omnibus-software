@@ -24,7 +24,7 @@ version("1.19.0") { source sha256: "0d4df51b29023daf2f63aebf3ebc638ea88efedfd560
 version("1.18.0") { source sha256: "cf4ab0e17bfee0f7689cdcff8c7d7f164c9a710f851f91c488f5cd81fac9c0aa" }
 
 source url: "https://www.x.org/releases/individual/util/util-macros-#{version}.tar.gz"
-internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 license "MIT"
 license_file "COPYING"

@@ -34,7 +34,7 @@ arch_suffix = windows_arch_i386? ? "32" : "64"
 # builds, set the `source url:` again explicitly to the one appropriate for
 # that version's release.
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
-internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}-#{arch_suffix}-bit.7z.exe"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}-#{arch_suffix}-bit.7z.exe"
 
 if windows_arch_i386?
   # version_list: url=https://github.com/git-for-windows/git/releases filter=PortableGit-*-32-bit.7z.exe

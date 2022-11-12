@@ -63,19 +63,19 @@ if windows?
   if windows_arch_i386?
     suffix = version.satisfies?(">= 3.20") ? "windows-i386" : "win32-x86"
     source url: "https://cmake.org/files/v#{minor_version}/cmake-#{version}-#{suffix}.zip"
-    internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}-#{suffix}.zip"
+    internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}-#{suffix}.zip"
     relative_path "cmake-#{version}-win32-x86"
     license_file "doc/cmake/Copyright.txt"
   else
     suffix = version.satisfies?(">= 3.20") ? "windows-x86_64" : "win32-x64"
     source url: "https://cmake.org/files/v#{minor_version}/cmake-#{version}-#{suffix}.zip"
-    internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}-#{suffix}.zip"
+    internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}-#{suffix}.zip"
     relative_path "cmake-#{version}-win64-x64"
     license_file "doc/cmake/Copyright.txt"
   end
 else
   source url: "https://cmake.org/files/v#{minor_version}/cmake-#{version}.tar.gz"
-  internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+  internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
   relative_path "cmake-#{version}"
   license_file "Copyright.txt"
 end

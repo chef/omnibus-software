@@ -31,7 +31,7 @@ version("6.1") { source sha256: "aa057eeeb4a14d470101eff4597d5833dcef5965331be35
 version("5.9") { source sha256: "9046298fb440324c9d4135ecea7879ffed8546dd1b58e59430ea07a4633f563b" }
 
 source url: "https://ftp.gnu.org/gnu/ncurses/ncurses-#{version}.tar.gz"
-internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 relative_path "ncurses-#{version}"
 

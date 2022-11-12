@@ -27,7 +27,7 @@ version("3.4.2") { source sha256: "540fb721619a6aba3bdeef7d940d8e9e0e6d2c193595b
 version("3.3")   { source sha256: "72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056" }
 
 source url: "https://github.com/libffi/libffi/releases/download/v#{version}/libffi-#{version}.tar.gz"
-internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 relative_path "libffi-#{version}"
 

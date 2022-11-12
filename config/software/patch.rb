@@ -31,7 +31,7 @@ version("2.7.5") { source sha256: "7436f5a19f93c3ca83153ce9c5cbe4847e97c5d956e57
 version("2.7") { source sha256: "59c29f56faa0a924827e6a60c6accd6e2900eae5c6aaa922268c717f06a62048" }
 
 source url: "https://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
-internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 relative_path "patch-#{version}"
 
