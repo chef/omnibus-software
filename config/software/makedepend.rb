@@ -27,6 +27,7 @@ version("1.0.6") { source sha256: "845f6708fc850bf53f5b1d0fb4352c4feab3949f140b2
 version("1.0.5") { source sha256: "503903d41fb5badb73cb70d7b3740c8b30fe1cc68c504d3b6a85e6644c4e5004" }
 
 source url: "https://www.x.org/releases/individual/util/makedepend-#{version}.tar.gz"
+internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 relative_path "makedepend-#{version}"
 

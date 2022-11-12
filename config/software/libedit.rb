@@ -34,6 +34,7 @@ version("20130712-3.1") { source sha256: "5d9b1a9dd66f1fe28bbd98e4d8ed1a22d8da0d
 version("20120601-3.0") { source sha256: "51f0f4b4a97b7ebab26e7b5c2564c47628cdb3042fd8ba8d0605c719d2541918" }
 
 source url: "https://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
+internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 if version == "20141030-3.1"
   # released tar file has name discrepency in folder name for this version

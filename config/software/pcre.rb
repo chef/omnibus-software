@@ -32,6 +32,7 @@ version("8.44") { source sha256: "aecafd4af3bd0f3935721af77b889d9024b2e01d96b584
 version("8.38") { source sha256: "9883e419c336c63b0cb5202b09537c140966d585e4d0da66147dc513da13e629" }
 
 source url: "https://downloads.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
+internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 relative_path "pcre-#{version}"
 

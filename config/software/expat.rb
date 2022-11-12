@@ -26,6 +26,7 @@ skip_transitive_dependency_licensing true
 
 # version_list: url=https://github.com/libexpat/libexpat/releases filter=*.tar.gz
 source url: "https://github.com/libexpat/libexpat/releases/download/R_#{version.gsub(".", "_")}/expat-#{version}.tar.gz"
+internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 version("2.4.9") { source sha256: "4415710268555b32c4e5ab06a583bea9fec8ff89333b218b70b43d4ca10e38fa" }
 version("2.4.8") { source sha256: "398f6d95bf808d3108e27547b372cb4ac8dc2298a3c4251eb7aa3d4c6d4bb3e2" }

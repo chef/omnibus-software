@@ -28,6 +28,7 @@ license "GPL-3.0"
 license_file "COPYING"
 
 source url: "https://ftp.gnu.org/gnu/tar/tar-#{version}.tar.gz"
+internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 relative_path "tar-#{version}"
 

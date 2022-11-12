@@ -24,6 +24,7 @@ version("7.0.28") { source sha256: "6cabc8ce3fa2b1a2427871167b62c24d5b08a58bd3e8
 version("7.0.25") { source sha256: "e3dc634103f923a2276289745eb7b702b18cfc885ea4b2382bd35a8cc3d935cb" }
 
 source url: "https://www.x.org/releases/individual/proto/xproto-#{version}.tar.gz"
+internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 license "MIT"
 license_file "COPYING"

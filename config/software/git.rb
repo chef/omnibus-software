@@ -43,6 +43,7 @@ version("2.35.3") { source sha256: "cad708072d5c0b390c71651f5edb44143f00b3577669
 version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6762c958220c7cf64da02" }
 
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
+internal_source url: "http://localhost:8081/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
 
 # git builds git-core as binaries into a special directory. We need to include
 # that directory in bin_dirs so omnibus can sign them during macOS deep signing.
