@@ -2,7 +2,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
-  gem "omnibus", git: "https://github.com/chef/omnibus", branch: "main"
+  gem "omnibus", git: "https://github.com/gscho/omnibus", branch: "BS-94/use-internal-sources"
   gem "highline"
   gem "rake"
   gem "chefstyle"
