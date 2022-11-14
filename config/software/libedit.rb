@@ -26,6 +26,7 @@ dependency "config_guess"
 
 # version_list: url=http://thrysoee.dk/editline/ filter=*.tar.gz
 
+version("20221030-3.1") { source sha256: "f0925a5adf4b1bf116ee19766b7daa766917aec198747943b1c4edf67a4be2bb" }
 version("20210910-3.1") { source sha256: "6792a6a992050762edcca28ff3318cdb7de37dccf7bc30db59fcd7017eed13c5" }
 version("20210419-3.1") { source sha256: "571ebe44b74860823e24a08cf04086ff104fd7dfa1020abf26c52543134f5602" }
 version("20150325-3.1") { source sha256: "c88a5e4af83c5f40dda8455886ac98923a9c33125699742603a88a0253fcc8c5" }
