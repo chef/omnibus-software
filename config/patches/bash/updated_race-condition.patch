@@ -1,0 +1,15 @@
+bashline.c:65:10: fatal error: builtins/builtext.h: No such file or directory
+   65 | #include "builtins/builtext.h"  /* for read_builtin */
+      |          ^~~~~~~~~~~~~~~~~~~~~
+
+--- Makefile.in.org	2022-11-10 11:15:31.000000000 +0530
++++ Makefile.in	2022-11-10 13:31:23.000000000 +0530
+@@ -596,6 +596,8 @@
+ 	ls -l $(Program)
+ 	-$(SIZE) $(Program)
+ 
++$(CSOURCES): $(DEFDIR)/builtext.h
++
+ .build:	$(SOURCES) config.h Makefile $(DEFDIR)/builtext.h version.h $(VERSPROG)
+ 	@echo
+ 	@echo "	  ***********************************************************"
