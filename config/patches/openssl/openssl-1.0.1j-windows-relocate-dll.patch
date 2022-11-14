@@ -1,5 +1,5 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e753f44..6e4d7b3 100644
+index e753f44..ce16c44 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
 @@ -261,7 +261,7 @@ link_o.cygwin:
@@ -11,6 +11,15 @@ index e753f44..6e4d7b3 100644
  		SHLIB=$(LIBNAME)eay32; base=; \
  		if test -f $(LIBNAME)eay32.def; then \
  			deffile=$(LIBNAME)eay32.def; \
+@@ -272,7 +272,7 @@ link_o.cygwin:
+ 	SHLIB_SOVER=${LIBVERSION:+"-$(LIBVERSION)"}; \
+ 	ALLSYMSFLAGS='-Wl,--whole-archive'; \
+ 	NOALLSYMSFLAGS='-Wl,--no-whole-archive'; \
+-	SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -shared $$base $$deffile -Wl,-s,-Bsymbolic"; \
++	SHAREDFLAGS="$(CFLAGS) -DOPENSSL_FIPS_DEBUGGER $(SHARED_LDFLAGS) -shared $$base $$deffile -Wl,-s,-Bsymbolic"; \
+ 	$(LINK_SO_O)
+ #for mingw target if def-file is in use dll-name should match library-name
+ link_a.cygwin:
 @@ -280,11 +280,24 @@ link_a.cygwin:
  	INHIBIT_SYMLINKS=yes; \
  	SHLIB=cyg$(LIBNAME); SHLIB_SOVER=-$(LIBVERSION); SHLIB_SUFFIX=.dll; \
