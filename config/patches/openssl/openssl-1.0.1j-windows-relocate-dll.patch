@@ -1,5 +1,5 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e8d222a..db52adb 100644
+index e8d222a..a15e9d9 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
 @@ -267,12 +267,18 @@ link_o.cygwin:
@@ -28,10 +28,8 @@ index e8d222a..db52adb 100644
  	base=-Wl,--enable-auto-image-base; \
 +	echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"; \
  	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
- 		case $(LIBNAME) in \
--			crypto) SHLIB=libeay;; \
--			ssl) SHLIB=ssleay;; \
-+			echo "DEBUG <><><><> IN MINGW <><><><> "; \
++		echo "DEBUG <><><><> IN MINGW <><><><> "; \
++		case $(LIBNAME) in \
 +			crypto) SHLIB=libeay; base=-Wl,--image-base,0x64000000;; \
 +			ssl) SHLIB=ssleay; base=-Wl,--image-base,0x65000000;; \
 +		esac; \
@@ -41,8 +39,10 @@ index e8d222a..db52adb 100644
 +		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--image-base,0x63000000; \
 +	fi; \
 +	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
-+		case $(LIBNAME) in \
-+			echo "DEBUG <><><><> IN MINGW64 <><><><> "; \
++		echo "DEBUG <><><><> IN MINGW64 <><><><> "; \
+ 		case $(LIBNAME) in \
+-			crypto) SHLIB=libeay;; \
+-			ssl) SHLIB=ssleay;; \
 +			crypto) SHLIB=libeay; base=-Wl,--image-base,0x64000000;; \
 +			ssl) SHLIB=ssleay; base=-Wl,--image-base,0x65000000;; \
  		esac; \
