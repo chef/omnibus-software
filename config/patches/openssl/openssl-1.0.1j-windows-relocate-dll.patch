@@ -1,5 +1,5 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e753f44..fb88110 100644
+index e753f44..9221aa1 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
 @@ -261,7 +261,7 @@ link_o.cygwin:
@@ -11,17 +11,28 @@ index e753f44..fb88110 100644
  		SHLIB=$(LIBNAME)eay32; base=; \
  		if test -f $(LIBNAME)eay32.def; then \
  			deffile=$(LIBNAME)eay32.def; \
-@@ -281,10 +281,10 @@ link_a.cygwin:
+@@ -281,10 +281,22 @@ link_a.cygwin:
  	SHLIB=cyg$(LIBNAME); SHLIB_SOVER=-$(LIBVERSION); SHLIB_SUFFIX=.dll; \
  	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; extras=; \
  	base=-Wl,--enable-auto-image-base; \
--	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
 +	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
++		echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"
++		case $(LIBNAME) in \
++			crypto) SHLIB=libeay; base=-Wl,--image-base,0x64000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--image-base,0x65000000;; \
++		esac; \
++		SHLIB_SOVER=32; \
++		extras="$(LIBNAME).def"; \
++		$(PERL) util/mkdef.pl 32 $$SHLIB > $$extras; \
++		base=; [ $(LIBNAME) = "crypto" ] && base=-Wl,--image-base,0x63000000; \
++	fi; \
+ 	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
++		echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"
  		case $(LIBNAME) in \
 -			crypto) SHLIB=libeay;; \
 -			ssl) SHLIB=ssleay;; \
-+			crypto) SHLIB=libeay; base=-Wl,--dynamicbase,--image-base,0x64000000;; \
-+			ssl) SHLIB=ssleay; base=-Wl,--dynamicbase,--image-base,0x65000000;; \
++			crypto) SHLIB=libeay; base=-Wl,--image-base,0x64000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--image-base,0x65000000;; \
  		esac; \
  		SHLIB_SOVER=32; \
  		extras="$(LIBNAME).def"; \
