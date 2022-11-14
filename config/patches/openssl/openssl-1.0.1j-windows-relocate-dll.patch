@@ -1,5 +1,5 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e753f44..197ac13 100644
+index e753f44..6e4d7b3 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
 @@ -261,7 +261,7 @@ link_o.cygwin:
@@ -15,10 +15,10 @@ index e753f44..197ac13 100644
  	INHIBIT_SYMLINKS=yes; \
  	SHLIB=cyg$(LIBNAME); SHLIB_SOVER=-$(LIBVERSION); SHLIB_SUFFIX=.dll; \
  	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; extras=; \
-+	echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>" \
++	echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"; \
  	base=-Wl,--enable-auto-image-base; \
 +	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
-+		echo "DEBUG <><><><> IN MINGW64 <><><><> "\
++		echo "DEBUG <><><><> IN MINGW64 <><><><> " \
 +		case $(LIBNAME) in \
 +			crypto) SHLIB=libeay; base=-Wl,--image-base,0x64000000;; \
 +			ssl) SHLIB=ssleay; base=-Wl,--image-base,0x65000000;; \
@@ -29,7 +29,7 @@ index e753f44..197ac13 100644
 +		base=; [ $(LIBNAME) = "crypto" ] && base=-Wl,--image-base,0x63000000; \
 +	fi; \
  	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
-+		echo "DEBUG <><><><> IN MINGW <><><><> "\
++		echo "DEBUG <><><><> IN MINGW <><><><> "; \
  		case $(LIBNAME) in \
 -			crypto) SHLIB=libeay;; \
 -			ssl) SHLIB=ssleay;; \
