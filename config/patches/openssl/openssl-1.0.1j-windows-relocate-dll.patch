@@ -20,8 +20,8 @@ index e753f44..fb88110 100644
  		case $(LIBNAME) in \
 -			crypto) SHLIB=libeay;; \
 -			ssl) SHLIB=ssleay;; \
-+			crypto) SHLIB=libeay; base=-Wl,--disable-dynamicbase,--image-base,0x64000000;; \
-+			ssl) SHLIB=ssleay; base=-Wl,--disable-dynamicbase,--image-base,0x65000000;; \
++			crypto) SHLIB=libeay; base=-Wl,--dynamicbase,--image-base,0x64000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--dynamicbase,--image-base,0x65000000;; \
  		esac; \
  		SHLIB_SOVER=32; \
  		extras="$(LIBNAME).def"; \
