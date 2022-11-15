@@ -1,47 +1,44 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e8d222a..7705dfc 100644
+index e753f44..176864f 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
-@@ -7,7 +7,7 @@
- 
- # CC contains the current compiler.  This one MUST be defined
- CC=cc
--CFLAGS=$(CFLAG)
-+CFLAGS=$(CFLAG) -DOPENSSL_FIPS_DEBUGGER
- # LDFLAGS contains flags to be used when temporary object files (when building
- # shared libraries) are created, or when an application is linked.
- # SHARED_LDFLAGS contains flags to be used when the shared library is created.
-@@ -267,6 +267,12 @@ link_o.cygwin:
- 			deffile=$(LIBNAME)eay32.def; \
- 		fi; \
- 	fi; \
+@@ -261,7 +261,7 @@ link_o.cygwin:
+ 	SHLIB=cyg$(LIBNAME); \
+ 	base=-Wl,--enable-auto-image-base; \
+ 	deffile=; \
+-	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
 +	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
-+		SHLIB=$(LIBNAME)eay32; base=; \
-+		if test -f $(LIBNAME)eay32.def; then \
-+			deffile=$(LIBNAME)eay32.def; \
-+		fi; \
-+	fi; \
- 	SHLIB_SUFFIX=.dll; \
- 	LIBVERSION="$(LIBVERSION)"; \
+ 		SHLIB=$(LIBNAME)eay32; base=; \
+ 		if test -f $(LIBNAME)eay32.def; then \
+ 			deffile=$(LIBNAME)eay32.def; \
+@@ -272,7 +272,7 @@ link_o.cygwin:
  	SHLIB_SOVER=${LIBVERSION:+"-$(LIBVERSION)"}; \
-@@ -281,10 +287,23 @@ link_a.cygwin:
+ 	ALLSYMSFLAGS='-Wl,--whole-archive'; \
+ 	NOALLSYMSFLAGS='-Wl,--no-whole-archive'; \
+-	SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -shared $$base $$deffile -Wl,-s,-Bsymbolic"; \
++	SHAREDFLAGS="$(CFLAGS) -DOPENSSL_FIPS_DEBUGGER $(SHARED_LDFLAGS) -shared $$base $$deffile -Wl,-s,-Bsymbolic"; \
+ 	$(LINK_SO_O)
+ #for mingw target if def-file is in use dll-name should match library-name
+ link_a.cygwin:
+@@ -280,11 +280,24 @@ link_a.cygwin:
+ 	INHIBIT_SYMLINKS=yes; \
  	SHLIB=cyg$(LIBNAME); SHLIB_SOVER=-$(LIBVERSION); SHLIB_SUFFIX=.dll; \
  	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; extras=; \
- 	base=-Wl,--enable-auto-image-base; \
 +	echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"; \
- 	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
-+		echo "DEBUG <><><><> IN MINGW <><><><> "; \
+ 	base=-Wl,--enable-auto-image-base; \
++	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
++		echo "DEBUG <><><><> IN MINGW64 <><><><> "; \
 +		case $(LIBNAME) in \
-+			crypto) SHLIB=libeay; base=-Wl,--image-base,0x64000000;; \
-+			ssl) SHLIB=ssleay; base=-Wl,--image-base,0x65000000;; \
++			crypto) SHLIB=libeay; base=-Wl,--disable-dynamicbase,--image-base,0x64000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--disable-dynamicbase,--image-base,0x65000000;; \
 +		esac; \
 +		SHLIB_SOVER=32; \
 +		extras="$(LIBNAME).def"; \
 +		$(PERL) util/mkdef.pl 32 $$SHLIB > $$extras; \
-+		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--image-base,0x63000000; \
++		base=; [ $(LIBNAME) = "crypto" ] && base=-Wl,--disable-dynamicbase,--image-base,0x63000000; \
 +	fi; \
-+	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
-+		echo "DEBUG <><><><> IN MINGW64 <><><><> "; \
+ 	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
++		echo "DEBUG <><><><> IN MINGW <><><><> "; \
  		case $(LIBNAME) in \
 -			crypto) SHLIB=libeay;; \
 -			ssl) SHLIB=ssleay;; \
