@@ -1,5 +1,5 @@
 diff --git a/fips/fips.c b/fips/fips.c
-index 0269609..4d3ab0b 100644
+index 0269609..3ed1bc9 100644
 --- a/fips/fips.c
 +++ b/fips/fips.c
 @@ -6,7 +6,7 @@
@@ -11,7 +11,17 @@ index 0269609..4d3ab0b 100644
   *
   * 2. Redistributions in binary form must reproduce the above copyright
   *    notice, this list of conditions and the following disclaimer in
-@@ -228,8 +228,16 @@ int FIPS_check_incore_fingerprint(void)
+@@ -217,6 +217,9 @@ int FIPS_check_incore_fingerprint(void)
+ 
+     len=FIPS_incore_fingerprint(sig,sizeof(sig));
+ 
++    printf("FIPS_rodata_start %lx\n", (unsigned long) FIPS_rodata_start);
++    printf("FIPS_rodata_end %lx\n", (unsigned long) FIPS_rodata_end);
++    printf("FIPS_signature %lx\n", (unsigned long) FIPS_signature);
+     if (len!=sizeof(FIPS_signature) ||
+ 	memcmp(FIPS_signature,sig,sizeof(FIPS_signature)))
+ 	{
+@@ -228,8 +231,16 @@ int FIPS_check_incore_fingerprint(void)
  	else if (OPENSSL_NONPIC_relocated)
  #endif
  	    FIPSerr(FIPS_F_FIPS_CHECK_INCORE_FINGERPRINT,FIPS_R_FINGERPRINT_DOES_NOT_MATCH_NONPIC_RELOCATED);
@@ -30,7 +40,7 @@ index 0269609..4d3ab0b 100644
  #ifdef OPENSSL_FIPS_DEBUGGER
      	rv = 1;
  #endif
-@@ -281,8 +289,8 @@ static int fips_check_auth(const char *auth)
+@@ -281,8 +292,8 @@ static int fips_check_auth(const char *auth)
  
      return 0;
      }
