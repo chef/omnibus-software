@@ -59,6 +59,7 @@ build do
     else
       platform = "mingw64"
     end
+    patch source: "openssl-fips-debug-fingerprint.patch", env: default_env
 
     puts "platform #{platform}"
 

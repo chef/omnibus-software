@@ -1,0 +1,43 @@
+diff --git a/fips/fips.c b/fips/fips.c
+index 0269609..4d3ab0b 100644
+--- a/fips/fips.c
++++ b/fips/fips.c
+@@ -6,7 +6,7 @@
+  * are met:
+  *
+  * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer. 
++ *    notice, this list of conditions and the following disclaimer.
+  *
+  * 2. Redistributions in binary form must reproduce the above copyright
+  *    notice, this list of conditions and the following disclaimer in
+@@ -228,8 +228,16 @@ int FIPS_check_incore_fingerprint(void)
+ 	else if (OPENSSL_NONPIC_relocated)
+ #endif
+ 	    FIPSerr(FIPS_F_FIPS_CHECK_INCORE_FINGERPRINT,FIPS_R_FINGERPRINT_DOES_NOT_MATCH_NONPIC_RELOCATED);
+-	else
+-	    FIPSerr(FIPS_F_FIPS_CHECK_INCORE_FINGERPRINT,FIPS_R_FINGERPRINT_DOES_NOT_MATCH);
++	else {
++        printf("FIPS_Signature size %lu\n",sizeof(FIPS_signature));
++        printf("fingerprint len %u\n",len);
++        printf("%20s | %20s\n","FIPS_Signature size", "sig");
++        printf("%20s | %20s\n","--------------------", "--------------------");
++        for(int idx=0; idx<sizeof(FIPS_signature); idx++) {
++          printf("%20x | %20x\n", FIPS_signature[idx], sig[idx]);
++        }
++        FIPSerr(FIPS_F_FIPS_CHECK_INCORE_FINGERPRINT,FIPS_R_FINGERPRINT_DOES_NOT_MATCH);
++    }
+ #ifdef OPENSSL_FIPS_DEBUGGER
+     	rv = 1;
+ #endif
+@@ -281,8 +289,8 @@ static int fips_check_auth(const char *auth)
+ 
+     return 0;
+     }
+-	
+-    
++
++
+ 
+ int FIPS_module_mode_set(int onoff, const char *auth)
+     {
