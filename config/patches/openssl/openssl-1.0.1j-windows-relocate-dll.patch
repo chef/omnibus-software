@@ -1,15 +1,17 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e8d222a..6c704dd 100644
+index e8d222a..38e2df6 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
-@@ -7,6 +7,7 @@
+@@ -7,7 +7,8 @@
  
  # CC contains the current compiler.  This one MUST be defined
  CC=cc
-+# CFLAGS=$(CFLAG) -DOPENSSL_FIPS_DEBUGGER
- CFLAGS=$(CFLAG)
+-CFLAGS=$(CFLAG)
++CFLAGS=$(CFLAG) -DOPENSSL_FIPS_DEBUGGER
++#CFLAGS=$(CFLAG)
  # LDFLAGS contains flags to be used when temporary object files (when building
  # shared libraries) are created, or when an application is linked.
+ # SHARED_LDFLAGS contains flags to be used when the shared library is created.
 @@ -267,6 +268,12 @@ link_o.cygwin:
  			deffile=$(LIBNAME)eay32.def; \
  		fi; \
