@@ -56,8 +56,6 @@ build do
       platform = "mingw64"
     end
 
-    puts "platform #{platform}"
-
     configure_command = ["perl.exe ./Configure #{platform}"]
     configure_command << "--prefix=#{install_dir}/embedded"
   elsif ppc64? && rhel?
