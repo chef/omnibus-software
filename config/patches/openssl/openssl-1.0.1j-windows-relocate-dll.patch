@@ -1,64 +1,57 @@
-diff --git a/config/patches/openssl/openssl-1.0.1j-windows-relocate-dll.patch b/config/patches/openssl/openssl-1.0.1j-windows-relocate-dll.patch
-index d6a85673..e69de29b 100644
---- a/config/patches/openssl/openssl-1.0.1j-windows-relocate-dll.patch
-+++ b/config/patches/openssl/openssl-1.0.1j-windows-relocate-dll.patch
-@@ -1,59 +0,0 @@
--diff --git a/Makefile.shared b/Makefile.shared
--index e8d222a..be36e84 100644
----- a/Makefile.shared
--+++ b/Makefile.shared
--@@ -7,7 +7,8 @@
-- 
-- # CC contains the current compiler.  This one MUST be defined
-- CC=cc
---CFLAGS=$(CFLAG)
--+CFLAGS=$(CFLAG) -DOPENSSL_FIPS_DEBUGGER
--+#CFLAGS=$(CFLAG)
-- # LDFLAGS contains flags to be used when temporary object files (when building
-- # shared libraries) are created, or when an application is linked.
-- # SHARED_LDFLAGS contains flags to be used when the shared library is created.
--@@ -267,6 +268,12 @@ link_o.cygwin:
-- 			deffile=$(LIBNAME)eay32.def; \
-- 		fi; \
-- 	fi; \
--+	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
--+		SHLIB=$(LIBNAME)eay32; base=; \
--+		if test -f $(LIBNAME)eay32.def; then \
--+			deffile=$(LIBNAME)eay32.def; \
--+		fi; \
--+	fi; \
-- 	SHLIB_SUFFIX=.dll; \
-- 	LIBVERSION="$(LIBVERSION)"; \
-- 	SHLIB_SOVER=${LIBVERSION:+"-$(LIBVERSION)"}; \
--@@ -281,15 +288,28 @@ link_a.cygwin:
-- 	SHLIB=cyg$(LIBNAME); SHLIB_SOVER=-$(LIBVERSION); SHLIB_SUFFIX=.dll; \
-- 	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; extras=; \
-- 	base=-Wl,--enable-auto-image-base; \
--+	echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"; \
-- 	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
--+		echo "DEBUG <><><><> IN MINGW <><><><> "; \
--+		case $(LIBNAME) in \
--+			crypto) SHLIB=libeay; base=-Wl,--disable-dynamicbase,--image-base,0x64000000;; \
--+			ssl) SHLIB=ssleay; base=-Wl,--disable-dynamicbase,--image-base,0x65000000;; \
--+		esac; \
--+		SHLIB_SOVER=32; \
--+		extras="$(LIBNAME).def"; \
--+		$(PERL) util/mkdef.pl 32 $$SHLIB > $$extras; \
--+		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--disable-dynamicbase,--image-base,0x63000000; \
--+	fi; \
--+	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
--+		echo "DEBUG <><><><> IN MINGW <><><><> "; \
-- 		case $(LIBNAME) in \
---			crypto) SHLIB=libeay;; \
---			ssl) SHLIB=ssleay;; \
--+			crypto) SHLIB=libeay; base=-Wl,--disable-dynamicbase,--image-base,0x64000000;; \
--+			ssl) SHLIB=ssleay; base=-Wl,--disable-dynamicbase,--image-base,0x65000000;; \
-- 		esac; \
-- 		SHLIB_SOVER=32; \
-- 		extras="$(LIBNAME).def"; \
-- 		$(PERL) util/mkdef.pl 32 $$SHLIB > $$extras; \
---		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--image-base,0x63000000; \
--+		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--disable-dynamicbase,--image-base,0x63000000; \
-- 	fi; \
-- 	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; \
-- 	$(PERL) util/mkrc.pl $$dll_name | \
+diff --git a/Makefile.shared b/Makefile.shared
+index e8d222a..03df31a 100644
+--- a/Makefile.shared
++++ b/Makefile.shared
+@@ -7,6 +7,7 @@
+ 
+ # CC contains the current compiler.  This one MUST be defined
+ CC=cc
++#CFLAGS=$(CFLAG) -DOPENSSL_FIPS_DEBUGGER
+ CFLAGS=$(CFLAG)
+ # LDFLAGS contains flags to be used when temporary object files (when building
+ # shared libraries) are created, or when an application is linked.
+@@ -267,6 +268,12 @@ link_o.cygwin:
+ 			deffile=$(LIBNAME)eay32.def; \
+ 		fi; \
+ 	fi; \
++	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
++		SHLIB=$(LIBNAME)eay32; base=; \
++		if test -f $(LIBNAME)eay32.def; then \
++			deffile=$(LIBNAME)eay32.def; \
++		fi; \
++	fi; \
+ 	SHLIB_SUFFIX=.dll; \
+ 	LIBVERSION="$(LIBVERSION)"; \
+ 	SHLIB_SOVER=${LIBVERSION:+"-$(LIBVERSION)"}; \
+@@ -281,15 +288,28 @@ link_a.cygwin:
+ 	SHLIB=cyg$(LIBNAME); SHLIB_SOVER=-$(LIBVERSION); SHLIB_SUFFIX=.dll; \
+ 	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; extras=; \
+ 	base=-Wl,--enable-auto-image-base; \
++	echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"; \
+ 	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
++		echo "DEBUG <><><><> IN MINGW <><><><> "; \
++		case $(LIBNAME) in \
++			crypto) SHLIB=libeay; base=-Wl,--disable-dynamicbase,--image-base,0x64000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--disable-dynamicbase,--image-base,0x65000000;; \
++		esac; \
++		SHLIB_SOVER=32; \
++		extras="$(LIBNAME).def"; \
++		$(PERL) util/mkdef.pl 32 $$SHLIB > $$extras; \
++		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--disable-dynamicbase,--image-base,0x63000000; \
++	fi; \
++	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
++		echo "DEBUG <><><><> IN MINGW <><><><> "; \
+ 		case $(LIBNAME) in \
+-			crypto) SHLIB=libeay;; \
+-			ssl) SHLIB=ssleay;; \
++			crypto) SHLIB=libeay; base=-Wl,--disable-dynamicbase,--image-base,0x64000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--disable-dynamicbase,--image-base,0x65000000;; \
+ 		esac; \
+ 		SHLIB_SOVER=32; \
+ 		extras="$(LIBNAME).def"; \
+ 		$(PERL) util/mkdef.pl 32 $$SHLIB > $$extras; \
+-		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--image-base,0x63000000; \
++		base=; [ $(LIBNAME) = "crypto" -a -n "$(FIPSCANLIB)" ] && base=-Wl,--disable-dynamicbase,--image-base,0x63000000; \
+ 	fi; \
+ 	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; \
+ 	$(PERL) util/mkrc.pl $$dll_name | \
