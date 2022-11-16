@@ -15,10 +15,11 @@
 #
 
 name "zlib"
-default_version "1.2.12"
+default_version "1.2.13"
 
 # version_list: url=https://zlib.net/fossils/ filter=*.tar.gz
 
+version("1.2.13") { source sha256: "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30" }
 version("1.2.12") { source sha256: "91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9" }
 version("1.2.11") { source sha256: "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1" }
 version("1.2.8")  { source sha256: "36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d" }
