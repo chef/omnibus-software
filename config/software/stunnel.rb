@@ -26,11 +26,11 @@ dependency "openssl"
 
 # version_list: url=https://www.stunnel.org/downloads/ filter=*.tar.gz
 
-#if version < "5.67"
+# if version < "5.67"
 source url: "https://www.stunnel.org/archive/5.x/stunnel-#{version}.tar.gz"
 #else
 #  source url: "https://www.stunnel.org/downloads/stunnel-#{version}.tar.gz"
-#end
+# end
 relative_path "stunnel-#{version}"
 version("5.67") { source sha256: "3086939ee6407516c59b0ba3fbf555338f9d52f459bcab6337c0f00e91ea8456" }
 version("5.65") { source sha256: "60c500063bd1feff2877f5726e38278c086f96c178f03f09d264a2012d6bf7fc" }
