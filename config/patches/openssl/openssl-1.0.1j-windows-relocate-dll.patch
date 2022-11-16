@@ -1,5 +1,5 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e8d222a..ff854bf 100644
+index e8d222a..6c704dd 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
 @@ -7,6 +7,7 @@
@@ -23,12 +23,22 @@ index e8d222a..ff854bf 100644
  	SHLIB_SUFFIX=.dll; \
  	LIBVERSION="$(LIBVERSION)"; \
  	SHLIB_SOVER=${LIBVERSION:+"-$(LIBVERSION)"}; \
-@@ -281,15 +288,16 @@ link_a.cygwin:
+@@ -281,15 +288,26 @@ link_a.cygwin:
  	SHLIB=cyg$(LIBNAME); SHLIB_SOVER=-$(LIBVERSION); SHLIB_SUFFIX=.dll; \
  	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; extras=; \
  	base=-Wl,--enable-auto-image-base; \
 +	echo "DEBUG <><><><> $(PLATFORM) $(LIBNAME) <><><><>"; \
  	if expr $(PLATFORM) : 'mingw' > /dev/null; then \
++		echo "DEBUG <><><><> IN MINGW <><><><> "; \
++		case $(LIBNAME) in \
++			crypto) SHLIB=libeay; base=-Wl,--image-base,0x64000000;; \
++			ssl) SHLIB=ssleay; base=-Wl,--image-base,0x65000000;; \
++		esac; \
++		SHLIB_SOVER=32; \
++		extras="$(LIBNAME).def"; \
++		$(PERL) util/mkdef.pl 32 $$SHLIB > $$extras; \
++	fi; \
++	if expr $(PLATFORM) : 'mingw64' > /dev/null; then \
 +		echo "DEBUG <><><><> IN MINGW <><><><> "; \
  		case $(LIBNAME) in \
 -			crypto) SHLIB=libeay;; \
