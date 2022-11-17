@@ -6,5 +6,5 @@ group :development, :test do
   gem "highline"
   gem "rake"
   gem "chefstyle"
-  gem "ohai" 
+  gem "ohai"
 end
