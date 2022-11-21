@@ -47,7 +47,7 @@ files.each do |file|
 
   $versions.compact.uniq.each do |version|
     next if deprecated_skip_list.include?(software)
-    
+
     skip_health_check = ""
     if health_check_skip_list.include?(software)
       skip_health_check = "-e SKIP_HEALTH_CHECK=1"
