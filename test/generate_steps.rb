@@ -43,12 +43,18 @@ files.each do |file|
 
   # Skip health check when it is not relevant
   health_check_skip_list = %w{ cacerts xproto util-macros }
+  deprecated_skip_list = %w{ git-windows cmake }
 
   $versions.compact.uniq.each do |version|
-    health_check = !health_check_skip_list.include?(software)
+    next if deprecated_skip_list.include?(software)
+    
+    skip_health_check = ""
+    if health_check_skip_list.include?(software)
+      skip_health_check = "-e SKIP_HEALTH_CHECK=1"
+    end
     puts <<~EOH
       - label: "test-build (#{software} #{version})"
-        command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} -e HEALTH_CHECK=#{health_check} -e CI builder
+        command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} #{skip_health_check} -e CI builder
         timeout_in_minutes: 30
         expeditor:
           executor:
