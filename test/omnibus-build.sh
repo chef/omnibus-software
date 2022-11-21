@@ -14,8 +14,8 @@ if [[ -f "/opt/omnibus-toolchain/embedded/ssl/certs/cacert.pem" ]]; then
 fi
 
 if [[ $SOFTWARE == "libxslt" ]]; then
-  echo "--- Installing libxml2 for libxslt"
-  apt-get install -y libxml2
+  echo "--- Installing libxml2-dev for libxslt"
+  apt-get install -y libxml2-dev
 fi
 
 ###################################################################
