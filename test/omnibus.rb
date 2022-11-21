@@ -48,6 +48,7 @@ use_s3_caching false
 # Do not retry builds
 # ------------------------------
 build_retries 0
+health_check ENV.fetch("HEALTH_CHECK", true)
 
 # Load additional software
 # ------------------------------
