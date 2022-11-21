@@ -43,7 +43,7 @@ files.each do |file|
 
   # Skip health check when it is not relevant
   health_check_skip_list = %w{ cacerts xproto util-macros }
-  deprecated_skip_list = %w{ git-windows cmake }
+  deprecated_skip_list = %w{ git-windows cmake ruby-msys2-devkit }
 
   $versions.compact.uniq.each do |version|
     next if deprecated_skip_list.include?(software)
