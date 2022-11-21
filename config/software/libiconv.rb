@@ -33,7 +33,8 @@ version("1.16") { source sha256: "e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee
 version("1.15") { source sha256: "ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178" }
 
 source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libiconv-#{version}"
 

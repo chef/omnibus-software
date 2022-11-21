@@ -35,7 +35,8 @@ version("7.80.0") { source sha256: "dab997c9b08cb4a636a03f2f7f985eaba33279c1c526
 version("7.79.1") { source sha256: "370b11201349816287fb0ccc995e420277fbfcaf76206e309b3f60f0eda090c2" }
 
 source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "curl-#{version}"
 

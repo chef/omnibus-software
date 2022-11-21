@@ -28,7 +28,8 @@ dependency "config_guess"
 version("0.28-1") { source sha256: "21b76ec4e115ee30f9b3077a2506e48e8b837332ed4d30c9776502e69c6a29e5" }
 
 source url: "https://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "pkg-config-lite-#{version}"
 

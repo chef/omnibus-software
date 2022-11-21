@@ -28,7 +28,8 @@ license "GPL-3.0"
 license_file "COPYING"
 
 source url: "https://ftp.gnu.org/gnu/tar/tar-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/tar-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "tar-#{version}"
 

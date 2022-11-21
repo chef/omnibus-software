@@ -31,7 +31,8 @@ version("2.4.2") { source sha256: "b38de44862a987293cd3d8dfae1c409d514b6c4e794eb
 version("2.4")   { source sha256: "13df57ab63a94e196c5d6e95d64e53262834fe780d5e82c28f177f9f71ddf62e" }
 
 source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libtool-#{version}"
 

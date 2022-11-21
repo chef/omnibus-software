@@ -27,7 +27,8 @@ version("1.0.6") { source sha256: "845f6708fc850bf53f5b1d0fb4352c4feab3949f140b2
 version("1.0.5") { source sha256: "503903d41fb5badb73cb70d7b3740c8b30fe1cc68c504d3b6a85e6644c4e5004" }
 
 source url: "https://www.x.org/releases/individual/util/makedepend-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "makedepend-#{version}"
 

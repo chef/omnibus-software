@@ -32,7 +32,8 @@ version("1.1.34") { source sha256: "28c47db33ab4daefa6232f31ccb3c65260c825151ec8
 version("1.1.30") { source sha256: "db1e4e26eaec47d00f885bad19a8749eb1008909b817d650101365f068ee3b24" }
 
 source url: "https://download.gnome.org/sources/libxslt/1.1/libxslt-#{version}.tar.xz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.xz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libxslt-#{version}"
 

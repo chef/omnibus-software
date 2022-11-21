@@ -25,7 +25,8 @@ version("1.2.8")  { source sha256: "36658cb768a54c1d4dec43c3116c27ed893e88b02ecf
 version("1.2.6")  { source sha256: "21235e08552e6feba09ea5e8d750805b3391c62fb81c71a235c0044dc7a8a61b" }
 
 source url: "https://zlib.net/fossils/zlib-#{version}.tar.gz"
-internal_source url: "https://0049-99-211-134-163.ngrok.io/artifactory/generic-local/#{name}/#{name}-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 license "Zlib"
 license_file "README"
