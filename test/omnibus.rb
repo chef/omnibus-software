@@ -49,6 +49,10 @@ use_s3_caching false
 # ------------------------------
 build_retries 0
 
+if ENV["SKIP_HEALTH_CHECK"]
+  health_check false
+end
+
 # Load additional software
 # ------------------------------
 # software_gems ['omnibus-software', 'my-company-software']

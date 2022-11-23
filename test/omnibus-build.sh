@@ -13,6 +13,11 @@ if [[ -f "/opt/omnibus-toolchain/embedded/ssl/certs/cacert.pem" ]]; then
   echo "SSL_CERT_FILE=${SSL_CERT_FILE}"
 fi
 
+if [[ $SOFTWARE == "libxslt" ]]; then
+  echo "--- Installing libxml2-dev for libxslt"
+  apt-get install -y libxml2-dev
+fi
+
 ###################################################################
 # Query tool versions
 ###################################################################
