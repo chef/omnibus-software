@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require "net/http"
-require "net/https"
+require "openssl"
 require "tmpdir"
 require "yaml"
 
@@ -17,13 +17,13 @@ end
 
 def validate_checksum!(response, source)
   if source.key?("sha256")
-   response.header["x-checksum-sha256"]  == source["sha256"]
+    response.header["x-checksum-sha256"] == source["sha256"]
   elsif source.key?("md5")
-   response.header["x-checksum-md5"]  == source["shamd51"]
+    response.header["x-checksum-md5"]  == source["shamd51"]
   elsif source.key?("sha1")
-   response.header["x-checksum-sha1"] == source["sha1"]
+    response.header["x-checksum-sha1"] == source["sha1"]
   else
-   raise "Unknown checksum format supplied for '#{source["url"]}'"
+    raise "Unknown checksum format supplied for '#{source["url"]}'"
   end
 end
 
@@ -43,12 +43,13 @@ def maybe_upload(name, source)
     Dir.mktmpdir do |dir|
       puts "Downloading #{name} from #{source["url"]}"
       raise "Failed to download" unless system("wget -q -P #{dir} #{source["url"]}")
-      
+
       file_name = File.basename(source["url"])
       downloaded_file = File.join(dir, file_name)
       repo_url = File.join(ARTIFACTORY_REPO_URL, name, file_name)
       puts "Uploading #{downloaded_file} to #{repo_url}"
       raise "Failed to upload" unless system("curl -s -H 'X-JFrog-Art-Api:#{ARTIFACTORY_TOKEN}' -T '#{downloaded_file}' #{repo_url}")
+
       puts ""
     end
   else
@@ -73,5 +74,5 @@ yaml["software"].each do |software|
   next if only && software["name"] != only
 
   name = software["name"]
-  software["sources"].each {|source| maybe_upload(name, source)}
+  software["sources"].each { |source| maybe_upload(name, source) }
 end
