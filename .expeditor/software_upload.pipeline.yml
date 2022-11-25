@@ -5,6 +5,7 @@ steps:
   expeditor:
     executor:
       docker:
+        image: ruby:3.1-buster
     secrets:
       ARTIFACTORY_TOKEN:
         path: account/static/artifactory/buildkite
