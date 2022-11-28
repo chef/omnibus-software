@@ -69,11 +69,6 @@ build do
     # doesn't detect this which results in a build failure. Setting this environment variable
     # corrects that.
     env["ac_cv_func_working_mktime"] = "yes"
-    if version >= "5.2"
-      command configure_command.join(" "), env: env
-      make "-j -V #{workers}", env: env
-      make "-j #{workers} install", env: env
-    end
   end
 
   command configure_command.join(" "), env: env
