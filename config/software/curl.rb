@@ -66,6 +66,12 @@ build do
   elsif solaris2?
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
+    if version.satisfies?(">7.83.1")
+      env["LDFLAGS"] = "-static"
+      env["CPPFLAGS"]="-DNGHTTP2_STATICLIB"
+      env["PKG_CONFIG"]="pkg-config --static"
+      configure_options << "--enable-static-link"
+    end
   end
 
   configure_options = [
