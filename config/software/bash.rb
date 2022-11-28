@@ -71,8 +71,7 @@ build do
     env["ac_cv_func_working_mktime"] = "yes"
     if version >= "5.2"
       command configure_command.join(" "), env: env
-      make "-j #{workers}", env: env
-      make -V #{workers}", env: env
+      make "-jV #{workers}", env: env
       make "-j #{workers} install", env: env
     end
   end
