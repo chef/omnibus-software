@@ -68,9 +68,8 @@ build do
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
     if version.satisfies?(">7.83.1")
       env["LDFLAGS"] = "-static"
-      env["CPPFLAGS"]="-DNGHTTP2_STATICLIB"
-      env["PKG_CONFIG"]="pkg-config --static"
-      configure_options << "--enable-static-link"
+      env["CPPFLAGS"] = "-DNGHTTP2_STATICLIB"
+      env["PKG_CONFIG"] = "pkg-config --static"
     end
   end
 
@@ -102,6 +101,11 @@ build do
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
     "--without-zstd",
   ]
+  if solaris2?
+    if version.satisfies?(">7.83.1")
+      configure_options << "--enable-static-link"
+    end
+  end
 
   configure(*configure_options, env: env)
 
