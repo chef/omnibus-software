@@ -15,7 +15,7 @@
 #
 
 name "erlang"
-default_version "24.3.2"
+default_version "25.1.2"
 
 license "Apache-2.0"
 license_file "LICENSE.txt"
@@ -31,6 +31,7 @@ source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
 relative_path "otp-OTP-#{version}"
 
 # versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz
+version("25.1.2")    { source sha256: "b9ae7becd3499aeac9f94f9379e2b1b4dced4855454fe7f200a6e3e1cf4fbc53" }
 version("25.0.4")    { source sha256: "05878cb51a64b33c86836b12a21903075c300409b609ad5e941ddb0feb8c2120" }
 version("25.0.2")    { source sha256: "f78764c6fd504f7b264c47e469c0fcb86a01c92344dc9d625dfd42f6c3ed8224" }
 version("25.0")      { source sha256: "5988e3bca208486494446e885ca2149fe487ee115cbc3770535fd22a795af5d2" }
