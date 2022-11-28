@@ -15,7 +15,7 @@
 #
 
 name "bash"
-default_version "5.1.16"
+default_version "5.2.9"
 
 dependency "libiconv"
 dependency "ncurses"
