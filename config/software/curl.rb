@@ -67,8 +67,7 @@ build do
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
     if version.satisfies?(">7.83.1")
-      env["LDFLAGS"] = "-static"
-      env["CPPFLAGS"] = "-I#{install_dir} -O2 -DNGHTTP2_STATICLIB"
+      env["LDFLAGS"] = "-static -DNGHTTP2_STATICLIB"
       env["PKG_CONFIG"] = "pkg-config --static"
     end
   end
