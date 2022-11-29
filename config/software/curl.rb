@@ -68,7 +68,7 @@ build do
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
     if version.satisfies?(">7.83.1")
       env["LDFLAGS"] = "-static"
-      env["CPPFLAGS"] = "-DNGHTTP2_STATICLIB"
+      env["CPPFLAGS"] = "#{install_dir} -DNGHTTP2_STATICLIB"
       env["PKG_CONFIG"] = "pkg-config --static"
     end
   end
