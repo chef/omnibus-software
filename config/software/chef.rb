@@ -71,9 +71,10 @@ build do
   # use the rake install task to build/install chef-config/chef-utils
   command "rake install:local", env: env
 
+  # NOTE: Chef18 is packaged and built with ruby31 whereas previous versions of Chef are ONLY built
+  # with ruby31,the packaged versions differ. So we use Chef's own version to determine the windows gemspec.
   gemspec_name = if windows?
-                   # Chef18 is built with ruby3.1 so platform name is changed.
-                   RUBY_PLATFORM == "x64-mingw-ucrt" ? "chef-universal-mingw-ucrt.gemspec" : "chef-universal-mingw32.gemspec"
+                   project.build_version.partition(".")[0].to_i < 18 ? "chef-universal-mingw32.gemspec" : "chef-universal-mingw-ucrt.gemspec"
                  else
                    "chef.gemspec"
                  end
