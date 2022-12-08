@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2022-12
 
 name "mpc"
 default_version "1.2.1"

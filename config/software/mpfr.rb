@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# expeditor/ignore: deprecated 2022-12
 
 name "mpfr"
 default_version "4.1.0"
