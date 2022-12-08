@@ -16,6 +16,9 @@ pipelines:
   - verify:
       description: Pull Request validation tests
       public: true
+  - software_upload:
+      description: Uploads omnibus-software defined in scripts/internal_sources.yml to artifactory
+      definition: .expeditor/software_upload.pipeline.yml
 
 rubygems:
   - omnibus-software
@@ -31,6 +34,7 @@ subscriptions:
       - bash:.expeditor/push_git_tag.sh:
           only_if: bash:.expeditor/determine_version.sh
           post_commit: true
+      - trigger_pipeline:software_upload
       - built_in:build_gem:
           only_if: "bash:.expeditor/push_git_tag.sh"
 
