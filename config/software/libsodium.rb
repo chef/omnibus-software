@@ -29,6 +29,8 @@ version("1.0.17") { source sha256: "0cc3dae33e642cc187b5ceb467e0ad0e1b51dcba577d
 version("1.0.18") { source sha256: "6f504490b342a4f8a4c4a02fc9b866cbef8622d5df4e5452b46be121e46636c1" }
 
 source url: "https://download.libsodium.org/libsodium/releases/libsodium-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libsodium-#{version}"
 

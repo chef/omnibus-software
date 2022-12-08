@@ -40,6 +40,8 @@ version "2.6.9" do
 end
 
 source url: "https://rsync.samba.org/ftp/rsync/src/rsync-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "rsync-#{version}"
 

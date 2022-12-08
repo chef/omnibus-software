@@ -31,7 +31,8 @@ version("1.7040") { source sha256: "48a747c040689445f7db0edd169da0abd709a37cfece
 version("1.7004") { source sha256: "5cef499d12418a877c68070fc14193bd700d47a286d95e16c517f9673493af79" }
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
-
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "cpanminus-#{version}"
 
 build do

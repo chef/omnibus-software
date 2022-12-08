@@ -80,6 +80,8 @@ version("1.1.20") { source sha256: "44be8771d0e6c6b5f82dd15662eb2957c9a3173a19a8
 version("1.1.19") { source sha256: "db59a8578226b98373f5b27e61f0dd29ad2456f4aa9cec587ba8c24508e4c1d9" }
 
 source url: "https://www.musl-libc.org/releases/musl-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "musl-#{version}"
 

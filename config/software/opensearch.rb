@@ -23,6 +23,8 @@ license_file "LICENSE.txt"
 skip_transitive_dependency_licensing true
 
 source url: "https://artifacts.opensearch.org/releases/bundle/opensearch/#{version}/opensearch-#{version}-linux-x64.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "opensearch-#{version}"
 
 # versions_list:https://opensearch.org/docs/latest/version-history/

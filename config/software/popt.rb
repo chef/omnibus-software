@@ -30,8 +30,12 @@ version("1.16") { source sha256: "e728ed296fe9f069a0e005003c3d6b2dde3d9cad453422
 
 if version == "1.16"
   source url: "ftp://anduin.linuxfromscratch.org/BLFS/popt/popt-#{version}.tar.gz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 else
   source url: "http://ftp.rpm.org/popt/releases/popt-1.x/popt-#{version}.tar.gz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 relative_path "popt-#{version}"

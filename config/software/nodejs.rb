@@ -26,6 +26,8 @@ default_version "0.10.48"
 dependency "python"
 
 default_src_url = "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 version "12.22.3" do
   source url: default_src_url, sha256: "30acec454f26a168afe6d1c55307c5186ef23dba66527cc34e4497d01f91bda4"

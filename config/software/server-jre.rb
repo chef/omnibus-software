@@ -49,7 +49,8 @@ version "8u202" do
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
-
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_202"
 end
 
@@ -60,7 +61,8 @@ version "8u162" do
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
-
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_162"
 end
 
@@ -71,7 +73,8 @@ version "8u151" do
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
-
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_151"
 end
 
@@ -82,7 +85,8 @@ version "8u144" do
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
-
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_144"
 end
 
@@ -93,7 +97,8 @@ version "8u121" do
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
-
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_121"
 end
 
@@ -104,7 +109,8 @@ version "8u111" do
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
-
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_111"
 end
 
@@ -115,7 +121,8 @@ version "8u91" do
          cookie: license_cookie,
          warning: license_warning,
          unsafe:  true
-
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_91"
 end
 

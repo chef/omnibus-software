@@ -42,6 +42,8 @@ version("2.7.14") { source sha256: "304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a
 version("2.7.9")  { source sha256: "c8bba33e66ac3201dabdc556f0ea7cfe6ac11946ec32d357c4c6f9b018c12c5b" }
 
 source url: "https://python.org/ftp/python/#{version}/Python-#{version}.tgz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "Python-#{version}"
 major_version, minor_version = version.split(".")

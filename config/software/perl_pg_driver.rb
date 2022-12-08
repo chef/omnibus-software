@@ -35,7 +35,8 @@ version("3.5.3")  { source sha256: "7e98a9b975256a4733db1c0e974cad5ad5cb82148932
 version("3.3.0")  { source sha256: "52f43de5b2d916d447d7ed252b127f728b226dc88db57d4fe9712e21d3586ffe" }
 
 source url: "https://search.cpan.org/CPAN/authors/id/T/TU/TURNSTEP/DBD-Pg-#{version}.tar.gz"
-
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "DBD-Pg-#{version}"
 
 build do
