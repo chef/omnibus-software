@@ -38,8 +38,6 @@ else
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
-
-
 relative_path "popt-#{version}"
 
 build do
