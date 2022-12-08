@@ -30,8 +30,9 @@ skip_transitive_dependency_licensing true
 # dependency "ruby-windows-devkit"
 source url: "https://github.com/chef/msys-bash/releases/download/bash-#{version}/bash-#{version}-bin.tar.lzma",
        md5: "22d5dbbd9bd0b3e0380d7a0e79c3108e"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}-bin.tar.lzma",
        authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+
 relative_path "bin"
 
 build do
