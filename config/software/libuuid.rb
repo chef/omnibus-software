@@ -23,9 +23,6 @@ license "LGPL-2.1"
 license_file "COPYING"
 
 source url: "https://www.kernel.org/pub/linux/utils/util-linux/v#{version}/util-linux-#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-
 # We use the version in util-linux, and only build the libuuid subdirectory
 version "2.27.1" do
   source md5: "e9c73747eadf5201b2a198530add4f87",

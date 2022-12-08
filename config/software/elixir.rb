@@ -25,8 +25,6 @@ dependency "erlang"
 
 version("1.4.2") { source sha256: "cb4e2ec4d68b3c8b800179b7ae5779e2999aa3375f74bd188d7d6703497f553f" }
 source url: "https://github.com/elixir-lang/elixir/archive/v#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "elixir-#{version}"
 
 build do
