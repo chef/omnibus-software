@@ -37,6 +37,7 @@ version "20.0" do
 end
 
 source url: "https://pypi.python.org/packages/source/s/setuptools/setuptools-#{version}.tar.gz"
+
 relative_path "setuptools-#{version}"
 
 build do
