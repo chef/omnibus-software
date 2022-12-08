@@ -19,7 +19,7 @@ def validate_checksum!(response, source)
   if source.key?("sha256")
     response.header["x-checksum-sha256"] == source["sha256"]
   elsif source.key?("md5")
-    response.header["x-checksum-md5"]  == source["shamd51"]
+    response.header["x-checksum-md5"]  == source["md5"]
   elsif source.key?("sha1")
     response.header["x-checksum-sha1"] == source["sha1"]
   else
