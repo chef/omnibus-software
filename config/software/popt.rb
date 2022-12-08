@@ -28,9 +28,17 @@ version("1.19") { source sha256: "c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987f
 version("1.18") { source sha256: "5159bc03a20b28ce363aa96765f37df99ea4d8850b1ece17d1e6ad5c24fdc5d1" }
 version("1.16") { source sha256: "e728ed296fe9f069a0e005003c3d6b2dde3d9cad453422a10d6558616d304cc8" }
 
-source url: "https://src.fedoraproject.org/repo/pkgs/popt/popt-#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+if version == "1.16"
+  source url: "https://src.fedoraproject.org/repo/pkgs/popt/popt-#{version}.tar.gz/3743beefa3dd6247a73f8f7a32c14c33/popt-#{version}.tar.gz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+else
+  source url: "http://ftp.rpm.org/popt/releases/popt-1.x/popt-#{version}.tar.gz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end
+
+
 
 relative_path "popt-#{version}"
 
