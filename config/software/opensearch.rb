@@ -26,8 +26,8 @@ source url: "https://artifacts.opensearch.org/releases/bundle/opensearch/#{versi
 relative_path "opensearch-#{version}"
 
 # versions_list:https://opensearch.org/docs/latest/version-history/
-version("2.4.0") { source sha256: "4480c15682ddcd10cebb8a1103f4efafa789d7aee9d4c8c9201cd9864d5ed58c" }
-version("2.3.0") { source sha256: "4480c15682ddcd10cebb8a1103f4efafa789d7aee9d4c8c9201cd9864d5ed58c" }
+version("2.4.0") { source sha256: "82bee5f68ea3d74a7d835d35f1479509b8497d01c1ae758a4737f5ea799e38e8" }
+version("2.3.0") { source sha256: "696500b3126d2f2ad7216456cff1c58e8ea89402d76e0544a2e547549cf910ca" }
 version("2.2.0") { source sha256: "4480c15682ddcd10cebb8a1103f4efafa789d7aee9d4c8c9201cd9864d5ed58c" }
 version("2.1.0") { source sha256: "bccd737e0f4e4554d3918f011a1e379ebda9e53473c70b4264aa28ce719611e3" }
 version("2.0.1") { source sha256: "8366dc71c839935330dbe841b415b37f28573de5ae7718e75f2e1c50756e0d99" }
