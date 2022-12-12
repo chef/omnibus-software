@@ -15,7 +15,7 @@
 #
 
 name "expat"
-default_version "2.4.9"
+default_version "2.5.0"
 
 relative_path "expat-#{version}"
 dependency "config_guess"
@@ -29,6 +29,7 @@ source url: "https://github.com/libexpat/libexpat/releases/download/R_#{version.
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
+version("2.5.0") { source sha256: "6b902ab103843592be5e99504f846ec109c1abb692e85347587f237a4ffa1033" }
 version("2.4.9") { source sha256: "4415710268555b32c4e5ab06a583bea9fec8ff89333b218b70b43d4ca10e38fa" }
 version("2.4.8") { source sha256: "398f6d95bf808d3108e27547b372cb4ac8dc2298a3c4251eb7aa3d4c6d4bb3e2" }
 version("2.4.7") { source sha256: "72644d5f0f313e2a5cf81275b09b9770c866dd87a2b62ab19981657ac0d4af5f" }
