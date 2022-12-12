@@ -25,22 +25,16 @@ if windows_arch_i386?
   version "4.5.2-20111229-1559" do
     source url: "https://github.com/oneclick/rubyinstaller/releases/download/DevKit-tdm-32-4.5.2/DevKit-tdm-32-#{version}-sfx.exe",
            sha256: "6c3af5487dafda56808baf76edd262b2020b1b25ab86aabf972629f4a6a54491"
-    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}-sfx.exe",
-           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   end
 
   version "4.7.2-20130224" do
     source url: "https://github.com/oneclick/rubyinstaller/releases/download/devkit-4.7.2/DevKit-mingw64-32-#{version}-1151-sfx.exe",
            sha256: "61a06b5da06dd94343e591163ac0d43c544e9cd4df770f01275645b268b44dc7"
-    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}-sfx.exe",
-           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   end
 else
   version "4.7.2-20130224" do
     source url: "https://github.com/oneclick/rubyinstaller/releases/download/devkit-4.7.2/DevKit-mingw64-64-#{version}-1432-sfx.exe",
            sha256: "2ada04c7234199126c0f34f6ea7163a8f8dccb1e15814af175a189f6ac48b8ac"
-    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}-sfx.exe",
-           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   end
 end
 build do
