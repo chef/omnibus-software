@@ -169,7 +169,10 @@ build do
   command configure_command, env: env, in_msys_bash: true
 
   if version.start_with?("1.0.2") && windows?
-    patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
+    # i386 doesn't support the --disable-dynamicbase flag, causing errors for pre Chef 18 builds
+    # that still support i386/32-bit
+    source = windows_arch_i386? ? "openssl-1.0.1j-windows-relocate-dll.patch" : "openssl-1.0.1j-windows-relocate-dll-ucrt.patch"
+    patch source: source, env: env
   end
 
   make "depend", env: env
