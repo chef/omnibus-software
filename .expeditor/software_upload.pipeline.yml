@@ -5,7 +5,7 @@ steps:
   expeditor:
     executor:
       docker:
-        image: chefes/omnibus-toolchain:3.0.0
+        image: chefes/omnibus-toolchain-ubuntu-2204-x86
     secrets:
       ARTIFACTORY_TOKEN:
         path: account/static/artifactory/buildkite
