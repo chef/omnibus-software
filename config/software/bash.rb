@@ -15,7 +15,7 @@
 #
 
 name "bash"
-default_version "5.2.9"
+default_version "5.2.15"
 
 dependency "libiconv"
 dependency "ncurses"
@@ -29,6 +29,7 @@ version("5.1.8")  { source sha256: "0cfb5c9bb1a29f800a97bd242d19511c997a1013815b
 version("5.1.16") { source sha256: "5bac17218d3911834520dad13cd1f85ab944e1c09ae1aba55906be1f8192f558" }
 version("5.2")    { source sha256: "a139c166df7ff4471c5e0733051642ee5556c1cc8a4a78f145583c5c81ab32fb" }
 version("5.2.9")  { source sha256: "68d978264253bc933d692f1de195e2e5b463a3984dfb4e5504b076865f16b6dd" }
+version("5.2.15")  { source sha256: "13720965b5f4fc3a0d4b61dd37e7565c741da9a5be24edc2ae00182fc1b3588c" }
 
 license "GPL-3.0"
 license_file "COPYING"
