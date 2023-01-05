@@ -33,7 +33,6 @@ version("7.84.0") { source sha256: "3c6893d38d054d4e378267166858698899e9d87258e8
 version("7.83.1") { source sha256: "93fb2cd4b880656b4e8589c912a9fd092750166d555166370247f09d18f5d0c0" }
 version("7.82.0") { source sha256: "910cc5fe279dc36e2cca534172c94364cf3fcf7d6494ba56e6c61a390881ddce" }
 
-
 source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
