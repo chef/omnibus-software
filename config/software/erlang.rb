@@ -31,7 +31,7 @@ source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
 relative_path "otp-OTP-#{version}"
 
 # versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz
-version("25.2") { source sha256: "aee1ef294ee048c976d6a126a430367076354f484f557eacaf08bf086cb1314d" }
+version("25.2") { source sha256: "d33a988f39e534aff67799c5b9635612858459c9d8890772546d71ea38de897a" }
 version("25.1.2")    { source sha256: "b9ae7becd3499aeac9f94f9379e2b1b4dced4855454fe7f200a6e3e1cf4fbc53" }
 version("25.0.4")    { source sha256: "05878cb51a64b33c86836b12a21903075c300409b609ad5e941ddb0feb8c2120" }
 version("25.0.2")    { source sha256: "f78764c6fd504f7b264c47e469c0fcb86a01c92344dc9d625dfd42f6c3ed8224" }
