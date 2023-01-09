@@ -40,6 +40,7 @@ dependency "cpanminus"
 
 # version_list: url=https://cpan.metacpan.org/authors/id/G/GU/GUIDO/ filter=libintl-perl-*.tar.gz
 
+version("1.33") { source sha256: "5126eda9ccd0eeb10db82ddef63cbcaf7dbd771e78cc0fb110cc3b5a6b8679e7" }
 version("1.32") { source sha256: "80108298f2564ecbfc7110a3042008e665ed00c2e155b36b0188e6c1135ceba5" }
 version("1.23") { source sha256: "60da16356c2fa89a0c542c825d626c8c2811202b6002b56d8574b928a1379ffa" }
 
