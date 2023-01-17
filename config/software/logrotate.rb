@@ -15,7 +15,7 @@
 #
 
 name "logrotate"
-default_version "3.20.1"
+default_version "3.21.0"
 
 license "GPL-2.0"
 license_file "COPYING"
@@ -27,6 +27,7 @@ source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"
 
 # versions_list: https://github.com/logrotate/logrotate/tags filter=*.tar.gz
 
+version("3.21.0") { source sha256: "7f58d6ab7e4eab3403528a88d3747a91b03e83e866a8fb966551016e0df527bb" }
 version("3.20.1") { source sha256: "f37458dee3b4adab6719767ad4b93ff9ec8948755d1148b76f7f4c2c68d3e457" }
 version("3.19.0") { source sha256: "7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930" }
 version("3.18.1") { source sha256: "18e9c9b85dd185e79f097f4e7982bc5b8c137300756a7878e8fa24731f2f8e21" }
