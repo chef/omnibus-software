@@ -32,7 +32,7 @@ end
 
 # version_list: url=https://www.python.org/ftp/python/#{version}/ filter=*.tgz
 
-version("3.11.1") { source sha256: "baed518e26b337d4d8105679caf68c5c32630d702614fc174e98cb95c46bdfa4 " }
+version("3.11.1") { source sha256: "baed518e26b337d4d8105679caf68c5c32630d702614fc174e98cb95c46bdfa4" }
 version("3.11.0") { source sha256: "64424e96e2457abbac899b90f9530985b51eef2905951febd935f0e73414caeb" }
 version("3.10.5") { source sha256: "18f57182a2de3b0be76dfc39fdcfd28156bb6dd23e5f08696f7492e9e3d0bf2d" }
 version("3.10.4") { source sha256: "f3bcc65b1d5f1dc78675c746c98fcee823c038168fc629c5935b044d0911ad28" }
