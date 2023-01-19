@@ -40,6 +40,11 @@ version "6.8.23" do
          sha256: "60e77b5ca3ce11771469bcc2e009c49c8aadb831faebd170e7abcedc16b3e36d"
 end
 
+version "8.6.0" do
+  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-#{version}.tar.gz",
+         sha256: "afc24fe42bc60318dac6067831dcfe1495276a99dbf87ff52d09b4af722eb96c"
+end
+
 target_path = "#{install_dir}/embedded/elasticsearch"
 
 build do
