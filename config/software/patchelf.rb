@@ -27,11 +27,6 @@ skip_transitive_dependency_licensing true
 
 # version_list: url=https://github.com/NixOS/patchelf/releases filter=*.tar.gz
 
-version "0.17.2" do
-  source sha256: "20427b718dd130e4b66d95072c2a2bd5e17232e20dad58c1bea9da81fae330e0"
-  relative_path "patchelf-#{version}"
-end
-
 version "0.15.0" do
   source sha256: "53a8d58ed4e060412b8fdcb6489562b3c62be6f65cee5af30eba60f4423bfa0f"
   relative_path "patchelf-#{version}"
