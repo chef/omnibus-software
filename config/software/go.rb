@@ -46,7 +46,7 @@ elsif mac_os_x?
   platform = "darwin"
 
   # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
-  version("1.19.5")  { source sha256: "4a67f2bf0601afe2177eb58f825adf83509511d77ab79174db0712dc9efa16c8" }
+  version("1.19.5")  { source sha256: "23d22bb6571bbd60197bee8aaa10e702f9802786c2e2ddce5c84527e86b66aa0" }
   version("1.19.1")  { source sha256: "b2828a2b05f0d2169afc74c11ed010775bf7cf0061822b275697b2f470495fb7" }
   version("1.19")    { source sha256: "df6509885f65f0d7a4eaf3dfbe7dda327569787e8a0a31cbf99ae3a6e23e9ea8" }
   version("1.18.5")  { source sha256: "828eeca8b5abea3e56921df8fa4b1101380a5ebcfee10acbc8ffe7ec0bf5876b" }
