@@ -26,18 +26,32 @@ skip_transitive_dependency_licensing true
 source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}.tar.gz"
 relative_path "elasticsearch-#{version}"
 
-version "5.6.16" do
-  source sha256: "6b035a59337d571ab70cea72cc55225c027ad142fbb07fd8984e54261657c77f"
-end
+if linux?
+  platform = "linux-x86_64"
+  version "8.6.0" do
+    source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}-#{platform}.tar.gz",
+           sha256: "afc24fe42bc60318dac6067831dcfe1495276a99dbf87ff52d09b4af722eb96c"
+  end
+elsif mac_os_x?
+  platform = "darwin-x86_64"
+  version "8.6.0" do
+    source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}-#{platform}.tar.gz",
+           sha256: "0c8331a82bbf299b74a62cde9346e2c57438350efdd136179852e72d86042541"
+  end
+else
+  version "5.6.16" do
+    source sha256: "6b035a59337d571ab70cea72cc55225c027ad142fbb07fd8984e54261657c77f"
+  end
 
-version "6.8.22" do
-  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-#{version}.tar.gz",
-         sha256: "836a50df324a98837dcadbc7d55782cc9525f15cc6a8aa0c657e199667ebb996"
-end
+  version "6.8.22" do
+    source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-#{version}.tar.gz",
+           sha256: "836a50df324a98837dcadbc7d55782cc9525f15cc6a8aa0c657e199667ebb996"
+  end
 
-version "6.8.23" do
-  source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-#{version}.tar.gz",
-         sha256: "60e77b5ca3ce11771469bcc2e009c49c8aadb831faebd170e7abcedc16b3e36d"
+  version "6.8.23" do
+    source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-#{version}.tar.gz",
+           sha256: "60e77b5ca3ce11771469bcc2e009c49c8aadb831faebd170e7abcedc16b3e36d"
+  end
 end
 
 target_path = "#{install_dir}/embedded/elasticsearch"
