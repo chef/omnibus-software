@@ -66,7 +66,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
-elsif freebsd?
+  elsif freebsd?
     patch source: "openssl-1.0.2zb-freebsd.patch"
   elsif mac_os_x? && arm?
     env["CFLAGS"] << " -Qunused-arguments"
