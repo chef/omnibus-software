@@ -15,7 +15,7 @@
 #
 
 name "stunnel"
-default_version "5.63"
+default_version "5.66"
 # Pin stunnel to 5.49 as it's the last version that supports FIPS with standard builds.
 
 license "GPL-2.0"
