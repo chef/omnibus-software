@@ -31,6 +31,7 @@ source url: "https://www.stunnel.org/archive/5.x/stunnel-#{version}.tar.gz"
 relative_path "stunnel-#{version}"
 version("5.67") { source sha256: "3086939ee6407516c59b0ba3fbf555338f9d52f459bcab6337c0f00e91ea8456" }
 version("5.65") { source sha256: "60c500063bd1feff2877f5726e38278c086f96c178f03f09d264a2012d6bf7fc" }
+version("5.66") { source sha256: "558178704d1aa5f6883aac6cc5d6bbf2a5714c8a0d2e91da0392468cee9f579c" }
 version("5.64") { source sha256: "eebe53ed116ba43b2e786762b0c2b91511e7b74857ad4765824e7199e6faf883" }
 version("5.63") { source sha256: "c74c4e15144a3ae34b8b890bb31c909207301490bd1e51bfaaa5ffeb0a994617" }
 version("5.59") { source sha256: "137776df6be8f1701f1cd590b7779932e123479fb91e5192171c16798815ce9f" }
