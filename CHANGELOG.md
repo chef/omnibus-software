@@ -3,8 +3,11 @@
 <!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=23.2.281 -->
+### Changes since 23.2.281 release
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [23.2.281](https://github.com/chef/omnibus-software/tree/23.2.281) (2023-02-06)
 <!-- latest_stable_release -->
+
