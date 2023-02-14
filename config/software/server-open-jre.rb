@@ -43,6 +43,8 @@ version "11.0.17+8" do
   sha256: "752616097e09d7f60a3ad8bd312f90eaf50ac72577e55df229fe6e8091148f79",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "11.0.16.1+1" do
@@ -50,6 +52,8 @@ version "11.0.16.1+1" do
   sha256: "1ffe1a682e8179e35238bf3f93aba0cb185850e202c676f41d38cb0561883eda",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "11.0.15+10" do
@@ -57,6 +61,8 @@ version "11.0.15+10" do
   sha256: "22831fd097dfb39e844cb34f42064ff26a0ada9cd13621d7b8bca8e9b9d3a5ee",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "11.0.14.1+1" do
@@ -64,6 +70,8 @@ version "11.0.14.1+1" do
   sha256: "b5a6960bc6bb0b1a967e307f908ea9b06ad7adbbd9df0b8954ab51374faa8a98",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "11.0.13+8" do
@@ -71,6 +79,8 @@ version "11.0.13+8" do
   sha256: "fb0a27e6e1f26a1ee79daa92e4cfe3ec0d676acfe114d99dd84b3414f056e8a0",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "11.0.12+7" do
@@ -78,6 +88,8 @@ version "11.0.12+7" do
   sha256: "e813e270b7ea0a13f9c400ce5abd4cb811aacbd536b8909e6c7f0e346f78348c",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "11.0.11+9" do
@@ -85,6 +97,8 @@ version "11.0.11+9" do
   sha256: "144f2c6bcf64faa32016f2474b6c01031be75d25325e9c3097aed6589bc5d548",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "11.0.10+9" do
@@ -92,6 +106,8 @@ version "11.0.10+9" do
   sha256: "25fdcf9427095ac27c8bdfc82096ad2e615693a3f6ea06c700fca7ffb271131a",
   warning: license_warning,
   unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 relative_path "jdk-#{version}-jre"

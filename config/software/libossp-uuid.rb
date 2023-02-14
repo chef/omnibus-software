@@ -29,6 +29,8 @@ version("1.6.2") { source sha256: "11a615225baa5f8bb686824423f50e4427acd3f70d394
 
 # ftp on ftp.ossp.org is unavaiable so we must use another mirror site.
 source url: "https://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "uuid-#{version}"
 

@@ -27,7 +27,8 @@ version("2.1.2") { source sha256: "6fd0160cb0cf1207de4e66754b6d39750cff14bb0aa66
 version("2.1.1") { source sha256: "ffcf2d27b32f59ac14f2d4b0772a3eb80d9342685a2042b7fbbc472c07cf2a2c" }
 
 source url: "http://smarden.org/runit/runit-#{version}.tar.gz"
-
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "admin/runit-#{version}/src"
 
 build do

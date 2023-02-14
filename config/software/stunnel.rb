@@ -27,6 +27,8 @@ dependency "openssl"
 # version_list: url=https://www.stunnel.org/downloads/ filter=*.tar.gz
 
 source url: "https://www.stunnel.org/archive/5.x/stunnel-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "stunnel-#{version}"
 

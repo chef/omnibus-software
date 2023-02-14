@@ -37,9 +37,13 @@ version("0.973")  { source sha256: "95fc7f18fff786c5d2579133e2e3ac56779e54bb3a06
 
 if version >= "1.1.0"
   source url: "https://github.com/theory/#{name}/releases/download/v#{version}/app-sqitch-v#{version}.tar.gz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "App-Sqitch-v#{version}"
 else
   source url: "https://github.com/theory/#{name}/releases/download/v#{version}/app-sqitch-#{version}.tar.gz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "App-Sqitch-#{version}"
 end
 

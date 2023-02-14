@@ -82,6 +82,9 @@ arch_ext = if ppc64le?
            end
 
 source url: "https://nodejs.org/dist/v#{version}/node-v#{version}-linux-#{arch_ext}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+
 relative_path "node-v#{version}-linux-#{arch_ext}"
 
 build do

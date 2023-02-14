@@ -31,6 +31,8 @@ version("1.2.1") { source sha256: "17503d2c395dfcf106b622dc142683c1199431d095367
 version("1.1.0") { source sha256: "6985c538143c1208dcb1ac42cedad6ff52e267b47e5f970183a3e75125b43c2e" }
 
 source url: "https://ftp.gnu.org/gnu/mpc/mpc-#{version}.tar.gz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "mpc-#{version}"
 
