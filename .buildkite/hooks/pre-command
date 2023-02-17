@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -eu
+
+if [[ $BUILDKITE_ORGANIZATION_SLUG != "chef-oss" ]]; then
+  export VAULT_ADDR="https://vault.ps.chef.co"
+  export VAULT_TOKEN=$(vault login -method=aws -path=aws/private-cd -token-only header_value=vault.ps.chef.co role=ci)
+  export ARTIFACTORY_PASSWORD=$(vault kv get -field password account/static/artifactory/buildkite)
+fi
