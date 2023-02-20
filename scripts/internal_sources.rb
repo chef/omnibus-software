@@ -5,7 +5,7 @@ require "tmpdir"
 require "yaml"
 
 ARTIFACTORY_REPO_URL = ENV["ARTIFACTORY_REPO_URL"] || "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local"
-ARTIFACTORY_TOKEN = ENV["ARTIFACTORY_TOKEN"]
+ARTIFACTORY_PASSWORD = ENV["ARTIFACTORY_PASSWORD"]
 
 def print_usage
   puts "Must provide path to internal_sources.yml file."
@@ -48,7 +48,7 @@ def maybe_upload(name, source)
       downloaded_file = File.join(dir, file_name)
       repo_url = File.join(ARTIFACTORY_REPO_URL, name, file_name)
       puts "Uploading #{downloaded_file} to #{repo_url}"
-      raise "Failed to upload" unless system("curl -s -H 'X-JFrog-Art-Api:#{ARTIFACTORY_TOKEN}' -T '#{downloaded_file}' #{repo_url}")
+      raise "Failed to upload" unless system("curl -s -H 'X-JFrog-Art-Api:#{ARTIFACTORY_PASSWORD}' -T '#{downloaded_file}' #{repo_url}")
 
       puts ""
     end
