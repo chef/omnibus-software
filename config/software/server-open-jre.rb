@@ -17,7 +17,7 @@ dependency "zlib"
 dependency "patchelf"
 
 name "server-open-jre"
-default_version "11.0.17+8"
+default_version "11.0.18+10"
 
 unless _64_bit?
   raise "Server-open-jre can only be installed on x86_64 systems."
