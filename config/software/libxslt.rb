@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2012-2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,42 +15,48 @@
 #
 
 name "libxslt"
-default_version "1.1.28"
+default_version "1.1.37"
+
+license "MIT"
+license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 dependency "libxml2"
-dependency "libtool" if ohai["platform"] == "solaris2"
 dependency "liblzma"
 dependency "config_guess"
 
-version "1.1.26" do
-  source sha256: "55dd52b42861f8a02989d701ef716d6280bfa02971e967c285016f99c66e3db1"
-end
+# versions_list: url=https://download.gnome.org/sources/libxslt/1.1/ filter=*.tar.xz
+version("1.1.37") { source sha256: "3a4b27dc8027ccd6146725950336f1ec520928f320f144eb5fa7990ae6123ab4" }
 
-version "1.1.28" do
-  source sha256: "5fc7151a57b89c03d7b825df5a0fae0a8d5f05674c0e7cf2937ecec4d54a028c"
-end
-
-source url: "ftp://xmlsoft.org/libxml2/libxslt-#{version}.tar.gz"
+source url: "https://download.gnome.org/sources/libxslt/1.1/libxslt-#{version}.tar.xz"
 
 relative_path "libxslt-#{version}"
 
 build do
-  env = {
-    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-  }
-
   update_config_guess
 
-  command(["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-libxml-prefix=#{install_dir}/embedded",
-           "--with-libxml-include-prefix=#{install_dir}/embedded/include",
-           "--with-libxml-libs-prefix=#{install_dir}/embedded/lib",
-           "--without-python",
-           "--without-crypto"].join(" "),
-    env: env)
-  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/bin" }
-  command "make install", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/bin" }
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  patch source: "libxslt-solaris-configure.patch", env: env if solaris2? || omnios? || smartos?
+
+  if windows?
+    patch source: "libxslt-windows-relocate.patch", env: env
+  end
+
+  # the libxslt configure script iterates directories specified in
+  # --with-libxml-prefix looking for the libxml2 config script. That
+  # iteration treats colons as a delimiter so we are using a cygwin
+  # style path to accomodate
+  configure_commands = [
+    "--with-libxml-prefix=#{install_dir.sub("C:", "/C")}/embedded",
+    "--without-python",
+    "--without-crypto",
+    "--without-profiler",
+    "--without-debugger",
+  ]
+
+  configure(*configure_commands, env: env)
+
+  make "-j #{workers}", env: env
+  make "install", env: env
 end
