@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,27 +15,39 @@
 #
 
 name "pcre"
-default_version "8.31"
+default_version "8.45"
+
+license "BSD-2-Clause"
+license_file "LICENCE"
+skip_transitive_dependency_licensing true
 
 dependency "libedit"
 dependency "ncurses"
+dependency "config_guess"
 
-source url: "http://iweb.dl.sourceforge.net/project/pcre/pcre/8.31/pcre-8.31.tar.gz",
-       md5: "fab1bb3b91a4c35398263a5c1e0858c1"
+# version_list: url=https://sourceforge.net/projects/pcre/files/pcre/ filter=*.tar.gz
 
-relative_path "pcre-8.31"
+version("8.45") { source sha256: "4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09" }
 
-configure_env = {
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-}
+source url: "https://downloads.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
+
+relative_path "pcre-#{version}"
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--enable-pcretest-libedit"].join(" "), env: configure_env
-  command("make -j #{workers}",
-    env: {
-      "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}",
-    })
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  env["CFLAGS"] << " -fPIC"
+
+  update_config_guess
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-cpp" \
+          " --enable-utf" \
+          " --enable-unicode-properties" \
+          " --enable-pcretest-libedit" \
+          "--disable-pcregrep-jit", env: env
+
+  make "-j #{workers}", env: env
+  make "install", env: env
 end
