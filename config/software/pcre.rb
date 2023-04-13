@@ -47,7 +47,7 @@ build do
           " --enable-unicode-properties" \
           " --enable-pcretest-libedit" \
           " --disable-pcregrep-jit" \
-          " --disable-static" env: env
+          " --disable-static", env: env
 
   make "-j #{workers}", env: env
   make "install", env: env
