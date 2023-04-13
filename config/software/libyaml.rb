@@ -34,7 +34,10 @@ build do
 
   update_config_guess(target: "config")
 
-  command "./configure --enable-shared --prefix=#{install_dir}/embedded", env: env
+  command "./configure " \
+          " --enable-shared" \
+          " --disable-static" \
+          " --prefix=#{install_dir}/embedded", env: env
   command "make -j #{workers}", env: env
   command "make -j #{workers} install", env: env
 end

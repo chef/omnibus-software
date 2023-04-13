@@ -53,6 +53,7 @@ build do
     "--without-crypto",
     "--without-profiler",
     "--without-debugger",
+    "--disable-static",
   ]
 
   configure(*configure_commands, env: env)

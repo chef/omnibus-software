@@ -48,6 +48,7 @@ build do
     "--without-legacy", # we don't need legacy interfaces
     "--without-catalog",
     "--without-docbook",
+    "--disable-static",
   ]
 
   update_config_guess

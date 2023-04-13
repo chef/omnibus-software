@@ -58,6 +58,7 @@ build do
   cmd_array = ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
+           "--disable-static",
            "--with-termlib",
            "--without-debug",
            "--without-normal", # AIX doesn't like building static libs
@@ -76,6 +77,7 @@ build do
   cmd_array = ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-shared",
+           "--disable-static",
            "--with-termlib",
            "--without-debug",
            "--without-normal",

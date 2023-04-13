@@ -40,6 +40,7 @@ build do
            "--disable-manual",
            "--disable-debug",
            "--enable-optimize",
+           "--disable-static",
            "--disable-ldap",
            "--disable-ldaps",
            "--disable-rtsp",

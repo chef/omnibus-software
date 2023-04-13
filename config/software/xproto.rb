@@ -41,7 +41,9 @@ build do
   license "MIT"
   license_file "./COPYING"
 
-  command "./configure --prefix=#{install_dir}/embedded", env: configure_env
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-static", env: configure_env
   command "make -j #{workers}", env: configure_env
   command "make -j #{workers} install", env: configure_env
 end

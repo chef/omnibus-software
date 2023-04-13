@@ -66,6 +66,7 @@ build do
   end
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
+           "--disable-static",
            ].join(" "), env: env
   command "make -j #{workers}", env: env
   command "make -j #{workers} install"
