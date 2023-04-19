@@ -27,7 +27,7 @@ license :project_license
 skip_transitive_dependency_licensing true
 
 dependency "ruby"
-
+# check ruby dependency is required
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
