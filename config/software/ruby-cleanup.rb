@@ -26,7 +26,6 @@ default_version "1.0.0"
 license :project_license
 skip_transitive_dependency_licensing true
 
-dependency "ruby"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
