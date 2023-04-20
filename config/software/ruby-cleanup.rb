@@ -41,6 +41,7 @@ build do
     block "Remove static libraries" do
       gemfile = "#{install_dir}/embedded/bin/gem"
       next unless File.exist?(gemfile)
+
       gemdir = shellout!("#{gemfile} environment gemdir", env: env).stdout.chomp
 
       # find all the static *.a files and delete them
@@ -55,6 +56,7 @@ build do
   block "Delete bundler git cache, docs, and build info" do
     gemfile = "#{install_dir}/embedded/bin/gem"
     next unless File.exist?(gemfile)
+
     gemdir = shellout!("#{gemfile} environment gemdir", env: env).stdout.chomp
 
     remove_directory "#{gemdir}/cache"
@@ -65,6 +67,7 @@ build do
   block "Remove bundler gem caches" do
     gemfile = "#{install_dir}/embedded/bin/gem"
     next unless File.exist?(gemfile)
+
     gemdir = shellout!("#{gemfile} environment gemdir", env: env).stdout.chomp
 
     Dir.glob("#{gemdir}/bundler/gems/**").each do |f|
@@ -76,6 +79,7 @@ build do
   block "Remove leftovers from compiling gems" do
     # find the embedded ruby gems dir and clean it up for globbing
     next unless File.directory?("#{install_dir}/embedded/lib/ruby/gems")
+
     target_dir = "#{install_dir}/embedded/lib/ruby/gems/*/".tr("\\", "/")
 
     # find gem_make.out and mkmf.log files
@@ -98,6 +102,7 @@ build do
   block "Remove leftovers from compiling gems" do
     gemfile = "#{install_dir}/embedded/bin/gem"
     next unless File.exist?(gemfile)
+
     gemdir = shellout!("#{gemfile} environment gemdir", env: env).stdout.chomp
 
     # find gem_make.out and mkmf.log files
@@ -110,6 +115,7 @@ build do
   block "Removing random non-code files from installed gems" do
     gemfile = "#{install_dir}/embedded/bin/gem"
     next unless File.exist?(gemfile)
+
     gemdir = shellout!("#{gemfile} environment gemdir", env: env).stdout.chomp
 
     # find the embedded ruby gems dir and clean it up for globbing
