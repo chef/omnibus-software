@@ -26,7 +26,7 @@ skip_transitive_dependency_licensing true
 # the default versions should always be the latest release of ruby
 # if you consume this definition it is your responsibility to pin
 # to the desired version of ruby. don't count on this not changing.
-default_version "3.1.3"
+default_version "3.2.2"
 
 dependency "zlib"
 dependency "openssl"
@@ -42,15 +42,23 @@ dependency "libyaml"
 dependency "ncurses" if freebsd?
 
 # version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
+version("3.2.2")      { source sha256: "96c57558871a6748de5bc9f274e93f4b5aad06cd8f37befa0e8d94e7b8a423bc" }
+version("3.2.1")      { source sha256: "13d67901660ee3217dbd9dd56059346bd4212ce64a69c306ef52df64935f8dbd" }
+version("3.2.0")      { source sha256: "daaa78e1360b2783f98deeceb677ad900f3a36c0ffa6e2b6b19090be77abc272" }
+
+version("3.1.4")      { source sha256: "a3d55879a0dfab1d7141fdf10d22a07dbf8e5cdc4415da1bde06127d5cc3c7b6" }
 version("3.1.3")      { source sha256: "5ea498a35f4cd15875200a52dde42b6eb179e1264e17d78732c3a57cd1c6ab9e" }
 version("3.1.2")      { source sha256: "61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e" }
 version("3.1.1")      { source sha256: "fe6e4782de97443978ddba8ba4be38d222aa24dc3e3f02a6a8e7701c0eeb619d" }
+
+version("3.0.6")      { source sha256: "6e6cbd490030d7910c0ff20edefab4294dfcd1046f0f8f47f78b597987ac683e" }
 version("3.0.5")      { source sha256: "9afc6380a027a4fe1ae1a3e2eccb6b497b9c5ac0631c12ca56f9b7beb4848776" }
 version("3.0.4")      { source sha256: "70b47c207af04bce9acea262308fb42893d3e244f39a4abc586920a1c723722b" }
 version("3.0.3")      { source sha256: "3586861cb2df56970287f0fd83f274bd92058872d830d15570b36def7f1a92ac" }
 version("3.0.2")      { source sha256: "5085dee0ad9f06996a8acec7ebea4a8735e6fac22f22e2d98c3f2bc3bef7e6f1" }
 version("3.0.1")      { source sha256: "369825db2199f6aeef16b408df6a04ebaddb664fb9af0ec8c686b0ce7ab77727" }
 
+version("2.7.8")      { source sha256: "c2dab63cbc8f2a05526108ad419efa63a67ed4074dbbcf9fc2b1ca664cb45ba0" }
 version("2.7.7")      { source sha256: "e10127db691d7ff36402cfe88f418c8d025a3f1eea92044b162dd72f0b8c7b90" }
 version("2.7.6")      { source sha256: "e7203b0cc09442ed2c08936d483f8ac140ec1c72e37bb5c401646b7866cb5d10" }
 version("2.7.5")      { source sha256: "2755b900a21235b443bb16dadd9032f784d4a88f143d852bc5d154f22b8781f1" }
@@ -137,6 +145,8 @@ build do
     when "3.0.1"
       patch source: "ruby-3.0.1-configure.patch", plevel: 1, env: patch_env
     when "3.0.5"
+      patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env
+    when "3.0.6"
       patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env
     else
       patch source: "ruby-3.0.2-configure.patch", plevel: 1, env: patch_env
