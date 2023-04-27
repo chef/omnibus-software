@@ -42,9 +42,13 @@ build do
   update_config_guess
 
   env = with_standard_compiler_flags(with_embedded_path)
-
-  patch source: "libxslt-solaris-configure.patch", env: env if solaris2? || omnios? || smartos?
-
+  
+  if version.satisfies?(">= 1.1.37")
+    patch source: "libxslt-solaris-configure-1.1.37.patch", env: env if solaris2? || omnios? || smartos?
+  else
+    patch source: "libxslt-solaris-configure.patch", env: env if solaris2? || omnios? || smartos?
+  end
+  
   if windows?
     patch source: "libxslt-windows-relocate.patch", env: env
   end
