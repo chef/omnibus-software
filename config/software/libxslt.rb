@@ -15,7 +15,7 @@
 #
 
 name "libxslt"
-default_version "1.1.37"
+default_version "1.1.35"
 
 license "MIT"
 license_file "COPYING"
