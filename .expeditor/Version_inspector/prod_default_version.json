@@ -91,7 +91,7 @@
 "rust-uninstall": "0.0.1" ,
 "rust": "1.37.0" ,
 "sequel-gem": "4.47.0" ,
-"server-open-jre": "11.0.18+10" ,
+"server-open-jre": "11.0.19+7" ,
 "setuptools": "0.7.7" ,
 "shebang-cleanup": "0.0.2" ,
 "sqitch": "1.3.0" ,
