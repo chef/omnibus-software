@@ -83,7 +83,7 @@
 "redis": "7.0.4" ,
 "rsync": "3.1.1" ,
 "ruby-cleanup": "1.0.0" ,
-"ruby-msys2-devkit": "3.0.3-1" ,
+"ruby-msys2-devkit": "3.0.6-1" ,
 "ruby-windows-devkit-bash": "3.1.23-4-msys-1.0.18" ,
 "ruby-windows-devkit": "4.7.2-20130224" ,
 "ruby": "3.1.2" ,

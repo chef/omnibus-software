@@ -15,7 +15,7 @@
 #
 
 name "ruby-msys2-devkit"
-default_version "3.0.3-1"
+default_version "3.0.6-1"
 
 license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/oneclick/rubyinstaller2/master/LICENSE.txt"
@@ -33,9 +33,9 @@ if windows_arch_i386?
                     authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   end
 else
-  version "3.0.3-1" do
+  version "3.0.6-1" do
     source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-           sha256: "be05e2de16d75088613cc998beb2938aa2946384884ed7f9142daec9a848d08c"
+           sha256: "c44256eae6a934db39e4f3a56d39178ac87b8b754e9b66221910417adb59a3a1"
     internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
                     authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   end
@@ -55,7 +55,7 @@ build do
     Dir.mktmpdir do |tmpdir|
       command "#{project_dir}/rubyinstaller-devkit-#{version}-#{arch}.exe /SP- /NORESTART /VERYSILENT /SUPPRESSMSGBOXES /NOPATH /DIR=#{tmpdir}"
       copy "#{tmpdir}/#{msys_dir}", embedded_dir
-      if version == "3.0.3-1"
+      if version == "3.0.6-1"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
