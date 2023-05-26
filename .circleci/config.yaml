@@ -1,0 +1,6 @@
+orbs:
+  ruby: circleci/ruby@2.3
+jobs:
+  hello:
+    steps:
+      run: echo "Hello"
