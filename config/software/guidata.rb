@@ -5,7 +5,7 @@ default_version "1.6.1"
 dependency "pyside"
 
 source url: "https://github.com/PierreRaybaut/guidata/archive/v#{version}.zip",
-       md5: "6827b98db4aca3ca50a7efa419367633"
+       sha256: "9537f78359251814cb85f8610bbd7f3d2aa1050348c0c9d4cdc34ad2dedfdea4"
 
 relative_path "guidata-#{version}"
 

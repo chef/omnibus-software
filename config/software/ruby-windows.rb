@@ -20,15 +20,16 @@ default_version "1.9.3-p484"
 
 relative_path "ruby-#{version}-i386-mingw32"
 
-version "1.9.3-p484" do
-  source md5: "a0665113aaeea83f1c4bea02fcf16694"
-end
+# FIXME: Could not find the hash since the download URI is not working
+# version "1.9.3-p484" do
+#   source md5: "a0665113aaeea83f1c4bea02fcf16694"
+# end
 
-version "2.0.0-p451" do
-  source md5: "37feadb0230e7f475a8591d1807ecfec"
-end
+# version "2.0.0-p451" do
+#   source md5: "37feadb0230e7f475a8591d1807ecfec"
+# end
 
-source url: "http://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
+source url: "https://dl.bintray.com/oneclick/rubyinstaller/ruby-#{version}-i386-mingw32.7z?direct"
 
 build do
   # Robocopy's return code is 1 if it succesfully copies over the

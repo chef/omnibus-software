@@ -21,14 +21,14 @@ default_version "1.5.17"
 dependency "zlib"
 
 version "1.5.17" do
-  source md5: "d2e27dbd8c6579d1582b3f128fd284b4"
+  source sha256: "f37ea62cb79713ac327c0f2555160dddc547afdf1fd052e7f648f1bac0819470"
 end
 
 version "1.5.13" do
-  source md5: "9c5a584d4eb5fe40d0f1bc2090112c65"
+  source sha256: "0d4c82717aef11510902908d86d78b75ad76661e87295291baa34289c5187035"
 end
 
-source url: "http://downloads.sourceforge.net/libpng/libpng-#{version}.tar.gz"
+source url: "https://downloads.sourceforge.net/libpng/libpng-#{version}.tar.gz"
 relative_path "libpng-#{version}"
 
 configure_env = {

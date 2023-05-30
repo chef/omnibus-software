@@ -24,7 +24,6 @@ source url: "https://xorg.freedesktop.org/releases/individual/util/makedepend-1.
 
 relative_path "makedepend-1.0.5"
 
-
 dependency "xproto"
 dependency "util-macros"
 dependency "pkg-config"

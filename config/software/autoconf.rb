@@ -20,8 +20,8 @@ default_version "2.69"
 
 dependency "config_guess"
 
-source url: "http://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
-       md5: "82d05e03b93e45f5a39b828dc9c6c29b"
+source url: "https://ftp.gnu.org/gnu/autoconf/autoconf-#{version}.tar.gz",
+       sha256: "954bd69b391edc12d6a4a51a2dd1476543da5c6bbf05a95b59dc0dd6fd4c2969"
 
 relative_path "autoconf-2.69"
 

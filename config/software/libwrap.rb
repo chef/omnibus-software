@@ -18,8 +18,9 @@
 name "libwrap"
 default_version "7.6"
 
-source url: "ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.tar.gz",
-       md5: "e6fa25f71226d090f34de3f6b122fb5a"
+source url: "ftp://ftp.porcupine.org/pub/security/tcp_wrappers_7.6.tar.gz"
+    # FIXME: Find the correct hash for this archive
+    #  md5: "e6fa25f71226d090f34de3f6b122fb5a"
 
 relative_path "tcp_wrappers_7.6"
 

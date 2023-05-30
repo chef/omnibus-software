@@ -21,8 +21,8 @@ default_version "1.6.3"
 dependency "fcgi"
 dependency "fcgiwrap"
 
-source url: "http://www.lighttpd.net/download/spawn-fcgi-1.6.3.tar.gz",
-       md5: "6d75f9e9435056fa1e574d836d823cd0"
+source url: "https://www.lighttpd.net/download/spawn-fcgi-1.6.3.tar.gz",
+       sha256: "7507a822995731629149040ee5686279b7582ae46f0296efd64b542ef052a90e"
 
 relative_path "spawn-fcgi-1.6.3"
 

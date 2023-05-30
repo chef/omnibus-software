@@ -20,11 +20,11 @@ default_version "1.8.24"
 dependency "ruby"
 
 version "1.8.29" do
-  source md5: "a57fec0af33e2e2e1dbb3a68f6cc7269"
+  source sha256: "a6369a13e32b550b1bc1b17126ad729e9e542326696d9f872486eae78dfd4e63"
 end
 
 version "1.8.24" do
-  source md5: "3a555b9d579f6a1a1e110628f5110c6b"
+  source sha256: "4b61fa51869b3027bcfe67184b42d2e8c23fa6ab17d47c5c438484b9be2821dd"
 end
 
 # NOTE: this is the last version of rubygems before the 2.2.x change to native gem install location
@@ -33,22 +33,22 @@ end
 #
 # This is a breaking change for omnibus clients.  Chef-11 needs to be pinned to 2.1.11 for eternity.
 version "2.1.11" do
-  source md5: "b561b7aaa70d387e230688066e46e448"
+  source sha256: "75b841bfbbafe1cfc556630d2368e654dd2f5aec457d12d1a3ae69d2e487a2b7"
 end
 
 version "2.2.1" do
-  source md5: "1f0017af0ad3d3ed52665132f80e7443"
+  source sha256: "7f1de72e965583fb41048ae80f7b7c628f51a126a665bbcccf8da99c4784556b"
 end
 
 version "2.4.1" do
-  source md5: "7e39c31806bbf9268296d03bd97ce718"
+  source sha256: "8e40e23fa995d064b00c474c3d3e5c4022755e27975c06d69d9e1c383a33f932"
 end
 
 version "2.4.4" do
-  source md5: "440a89ad6a3b1b7a69b034233cc4658e"
+  source sha256: "c2658ffc6f9c75b34fea5498defa003f6e4e5df79eeeca84a1d57614ade5d2ab"
 end
 
-source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
+source url: "https://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
 
 relative_path "rubygems-#{version}"
 

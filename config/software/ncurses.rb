@@ -22,7 +22,7 @@ dependency "libgcc"
 dependency "libtool" if ohai["platform"] == "aix"
 dependency "config_guess"
 
-source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz",
+source url: "https://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz",
        sha256: "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d",
        extract: :seven_zip
 

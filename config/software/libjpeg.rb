@@ -18,8 +18,8 @@
 name "libjpeg"
 default_version "8d"
 
-source url: "http://www.ijg.org/files/jpegsrc.v8d.tar.gz",
-       md5: "52654eb3b2e60c35731ea8fc87f1bd29"
+source url: "https://www.ijg.org/files/jpegsrc.v8d.tar.gz",
+       sha256: "fdc4d4c11338ad028a7d23fb53f5bb9354671392a67fb1b52e0c32a7121891f8"
 
 relative_path "jpeg-8d"
 

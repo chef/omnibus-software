@@ -1,0 +1,16 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: ruby:2.3.1
+    steps:
+      - checkout
+      - run: gem install bundler -v 1.17.3 --no-document
+      - run: bundle install --jobs 7
+      - run: bundle exec rake
+
+workflows:
+  test:
+    jobs:
+      - test

@@ -26,7 +26,7 @@ end
 
 ship_source true
 
-source url: "http://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz",
+source url: "https://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz",
        extract: :seven_zip
 
 relative_path "pkg-config-0.28"

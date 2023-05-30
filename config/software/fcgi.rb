@@ -22,8 +22,9 @@ dependency "autoconf"
 dependency "automake"
 dependency "libtool"
 
-source url: "http://fastcgi.com/dist/fcgi-2.4.0.tar.gz",
-       md5: "d15060a813b91383a9f3c66faf84867e"
+source url: "https://fastcgi.com/dist/fcgi-2.4.0.tar.gz"
+# FIXME: Add the sha256 of the archive, download link not responding
+      #  md5: "d15060a813b91383a9f3c66faf84867e"
 
 relative_path "fcgi-2.4.0"
 

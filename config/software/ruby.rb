@@ -28,15 +28,15 @@ dependency "libffi"
 dependency "gdbm"
 dependency "libgcc" if ohai["platform"] == "solaris2"
 
-version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
-version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
-version("1.9.3-p550") { source md5: "e05135be8f109b2845229c4f47f980fd" }
-version("2.1.1")      { source md5: "e57fdbb8ed56e70c43f39c79da1654b2" }
-version("2.1.2")      { source md5: "a5b5c83565f8bd954ee522bd287d2ca1" }
-version("2.1.3")      { source md5: "74a37b9ad90e4ea63c0eed32b9d5b18f" }
-version("2.1.4")      { source md5: "89b2f4a197621346f6724a3c35535b19" }
+version("1.9.3-p484") { source sha256: "d684bc3a5ba72cda9ef30039f783c0f8cdc325bae5c8738c7bf05577cbe8f31d" }
+version("1.9.3-p547") { source sha256: "9ba118e4aba04c430bc4d5efb09b31a0277e101c9fd2ef3b80b9c684d7ae57a1" }
+version("1.9.3-p550") { source sha256: "d6cf008d9f3a9aeed2ef04428f19d66e28aed8a71456f7edba68627d3302cd6b" }
+version("2.1.1")      { source sha256: "c843df31ae88ed49f5393142b02b9a9f5a6557453805fd489a76fbafeae88941" }
+version("2.1.2")      { source sha256: "f22a6447811a81f3c808d1c2a5ce3b5f5f0955c68c9a749182feb425589e6635" }
+version("2.1.3")      { source sha256: "0818beb7b10ce9a058cd21d85cfe1dcd233e98b7342d32e9a5d4bebe98347f01" }
+version("2.1.4")      { source sha256: "bf9952cdeb3a0c6a5a27745c9b4c0e5e264e92b669b2b08efb363f5156549204" }
 
-source url: "http://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
+source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 
 relative_path "ruby-#{version}"
 

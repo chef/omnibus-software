@@ -20,8 +20,7 @@ default_version "4.5.2-20111229-1559"
 
 dependency "ruby-windows"
 
-source url: "http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe",
-       md5: "4bf8f2dd1d582c8733a67027583e19a6"
+source url: "https://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-#{version}-sfx.exe"
 
 build do
   command "DevKit-tdm-32-#{version}-sfx.exe -y -o#{windows_safe_path(install_dir, "embedded")}"

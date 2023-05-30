@@ -29,7 +29,7 @@ version "20130712-3.1" do
   source sha256: "5d9b1a9dd66f1fe28bbd98e4d8ed1a22d8da0d08d902407dcc4a0702c8d88a37"
 end
 
-source url: "http://www.thrysoee.dk/editline/libedit-#{version}.tar.gz",
+source url: "https://www.thrysoee.dk/editline/libedit-#{version}.tar.gz",
        extract: :seven_zip
 
 relative_path "libedit-#{version}"

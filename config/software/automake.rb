@@ -21,8 +21,8 @@ default_version "1.11.2"
 dependency "autoconf"
 dependency "config_guess"
 
-source url: "http://ftp.gnu.org/gnu/automake/automake-1.11.2.tar.gz",
-       md5: "79ad64a9f6e83ea98d6964cef8d8a0bc"
+source url: "https://ftp.gnu.org/gnu/automake/automake-1.11.2.tar.gz",
+       sha256: "c339e3871d6595620760725da61de02cf1c293af8a05b14592d6587ac39ce546"
 
 relative_path "automake-1.11.2"
 

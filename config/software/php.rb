@@ -9,8 +9,9 @@ dependency "libiconv"
 dependency "openssl"
 dependency "gd"
 
-source url: "http://us.php.net/distributions/php-5.3.10.tar.gz",
-       md5: "2b3d2d0ff22175685978fb6a5cbcdc13"
+source url: "https://us.php.net/distributions/php-5.3.10.tar.gz"
+# FIXME: Find the correct hash for the archive, download link is not working anymore
+      #  md5: "2b3d2d0ff22175685978fb6a5cbcdc13"
 
 relative_path "php-5.3.10"
 

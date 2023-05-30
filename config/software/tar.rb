@@ -5,7 +5,7 @@ default_version "1.28"
 ### It won't be bundled in the omnibus project
 
 source  url: "http://ftp.gnu.org/gnu/tar/tar-#{version}.tar.gz",
-        md5: "6ea3dbea1f2b0409b234048e021a9fd7"
+        sha256: "6a6b65bac00a127a508533c604d5bf1a3d40f82707d56f20cefd38a05e8237de"
 
 relative_path "#{name}-#{version}"
 build do

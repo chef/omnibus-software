@@ -24,8 +24,9 @@ dependency "postgresql"
 dependency "libiconv"
 
 # the url is the location of a redirect from sourceforge
-source url: "http://downloads.sourceforge.net/project/nagiosplug/nagiosplug/1.4.15/nagios-plugins-1.4.15.tar.gz",
-       md5: "56abd6ade8aa860b38c4ca4a6ac5ab0d"
+source url: "https://downloads.sourceforge.net/project/nagiosplug/nagiosplug/1.4.15/nagios-plugins-1.4.15.tar.gz"
+    # FIXME: Find the correct hash for this archive
+      #  md5: "56abd6ade8aa860b38c4ca4a6ac5ab0d"
 
 relative_path "nagios-plugins-1.4.15"
 

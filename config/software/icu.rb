@@ -18,8 +18,9 @@
 name "icu"
 default_version "4.8.1.1"
 
-source url: "http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.tgz",
-       md5: "ea93970a0275be6b42f56953cd332c17"
+source url: "https://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.tgz"
+      # FIXME: Add the sha256 hash of the file, could not download the file from the download link
+      #  md5: "ea93970a0275be6b42f56953cd332c17"
 
 relative_path "icu"
 

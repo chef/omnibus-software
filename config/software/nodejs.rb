@@ -21,14 +21,14 @@ default_version "0.10.10"
 dependency "python"
 
 version "0.10.10" do
-  source md5: "a47a9141567dd591eec486db05b09e1c"
+  source sha256: "a54de71d2c3ac7ae864ab9640b6eecb27d7d49c190ac1ca6526243fd7a8ad15c"
 end
 
 version "0.10.26" do
-  source md5: "15e9018dadc63a2046f61eb13dfd7bd6"
+  source sha256: "ef5e4ea6f2689ed7f781355012b942a2347e0299da0804a58de8e6281c4b1daa"
 end
 
-source url: "http://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
+source url: "https://nodejs.org/dist/v#{version}/node-v#{version}.tar.gz"
 
 relative_path "node-v#{version}"
 

@@ -3,7 +3,7 @@ name "jmxterm"
 default_version "1.0"
 
 version "1.0" do
-  source md5: "f7fcba346072f88632bb7db798a21dd2"
+  source sha256: "bc8de7f529ccafa42d566dc5348c0783e2995bc6aa56d8eb6c8a4ef17a776558"
 end
 
 source url: "https://dd-jmxfetch.s3.amazonaws.com/jmxterm-#{version}-DATADOG-uber.jar"

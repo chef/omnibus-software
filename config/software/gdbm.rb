@@ -20,8 +20,8 @@ default_version "1.11"
 
 dependency "libgcc"
 
-source url: "http://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
-       md5: "72c832680cf0999caedbe5b265c8c1bd"
+source url: "https://ftp.gnu.org/gnu/gdbm/gdbm-#{version}.tar.gz",
+       sha256: "8d912f44f05d0b15a4a5d96a76f852e905d051bb88022fcdfd98b43be093e3c3"
 
 relative_path "gdbm-#{version}"
 

@@ -5,7 +5,7 @@ default_version "2.3.2"
 dependency "guidata"
 
 source url: "https://github.com/spyder-ide/spyder/archive/v#{version}.tar.gz",
-       md5: "a67dfcc612b95ca9a627e30a28aebd37",
+       sha256: "a7fb7ba3fc3e0b9ddeb09d91a250d8e303f6f0438101db09b025133fe2dc267d",
        extract: :seven_zip
 
 relative_path "spyder-#{version}"

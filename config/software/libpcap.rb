@@ -19,10 +19,10 @@ name "libpcap"
 default_version "1.7.4"
 
 version "1.7.4" do
-  source md5: "b2e13142bbaba857ab1c6894aedaf547"
+  source sha256: "7ad3112187e88328b85e46dce7a9b949632af18ee74d97ffc3f2b41fe7f448b0"
 end
 
-source url: "http://www.tcpdump.org/release/libpcap-#{version}.tar.gz"
+source url: "https://www.tcpdump.org/release/libpcap-#{version}.tar.gz"
 
 relative_path "libpcap-#{version}"
 

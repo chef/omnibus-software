@@ -18,8 +18,8 @@
 name "help2man"
 default_version "1.40.5"
 
-source url: "http://ftp.gnu.org/gnu/help2man/help2man-1.40.5.tar.gz",
-       md5: "75a7d2f93765cd367aab98986a75f88c"
+source url: "https://ftp.gnu.org/gnu/help2man/help2man-1.40.5.tar.gz",
+       sha256: "13599a89080628617f31ca1e7eee38d0b11b2c088708c14eba35b99d67b23cb4"
 
 relative_path "help2man-1.40.5"
 

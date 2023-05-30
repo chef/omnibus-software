@@ -10,7 +10,7 @@ if ohai["platform"] == "mac_os_x"
   dependency "qt"
 
   source url: "https://pypi.python.org/packages/source/P/PySide/PySide-#{version}.tar.gz",
-         md5: "c45bc400c8a86d6b35f34c29e379e44d"
+         sha256: "53129fd85e133ef630144c0598d25c451eab72019cdcb1012f2aec773a3f25be"
 
   relative_path "PySide-#{version}"
 

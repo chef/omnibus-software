@@ -19,14 +19,14 @@ name "redis"
 default_version "2.8.2"
 
 version "2.8.2" do
-  source md5: "ee527b0c37e1e2cbceb497f5f6b8112b"
+  source sha256: "8e46ab9916e308210255e33465f8021c6ebb1ff3f545cff141e36a9a10edaec7"
 end
 
 version "2.4.7" do
-  source md5: "6afffb6120724183e40f1cac324ac71c"
+  source sha256: "f91956377b7ff23cc23e0c8758e0b873032f36545c61d88436ebb741bf4dd5e1"
 end
 
-source url: "http://download.redis.io/releases/redis-#{version}.tar.gz"
+source url: "https://download.redis.io/releases/redis-#{version}.tar.gz"
 relative_path "redis-#{version}"
 
 make_args = ["PREFIX=#{install_dir}/embedded",

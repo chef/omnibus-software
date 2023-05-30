@@ -22,8 +22,8 @@ dependency "gd"
 dependency "php"
 dependency "spawn-fcgi"
 
-source url: "http://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-3.3.1/nagios-3.3.1.tar.gz",
-       md5: "c935354ce0d78a63bfabc3055fa77ad5"
+source url: "https://downloads.sourceforge.net/project/nagios/nagios-3.x/nagios-3.3.1/nagios-3.3.1.tar.gz",
+       sha256: "c4e39cd31a8a9ee814df848fd933b8611465f749b48432672aef4ae5849d9652"
 
 relative_path "nagios"
 

@@ -26,7 +26,7 @@ if ohai["platform"] != "windows"
   dependency "bzip2"
   dependency "libsqlite3"
 
-  source url: "http://python.org/ftp/python/#{version}/Python-#{version}.tgz",
+  source url: "https://python.org/ftp/python/#{version}/Python-#{version}.tgz",
          sha256: "da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814"
 
   relative_path "Python-#{version}"

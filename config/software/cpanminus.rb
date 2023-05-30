@@ -21,7 +21,7 @@ default_version "1.7004"
 dependency "perl"
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz",
-       md5: "02fe90392f33a12979e188ea110dae67"
+       sha256: "5cef499d12418a877c68070fc14193bd700d47a286d95e16c517f9673493af79"
 
 relative_path "cpanminus-#{version}"
 

@@ -25,7 +25,7 @@ dependency "libpng"
 
 # TODO: make sure that this is where we want to download libgd from
 source url: "https://bitbucket.org/libgd/gd-libgd/get/GD_2_0_33.tar.gz",
-       md5: "a028f1642586e611fa39c39175478721"
+       sha256: "7cadca0bf389c38d90795516a7995473b749bb4138d00feaf7d3df242bea2b7b"
 
 relative_path "libgd-gd-libgd-486e81dea984"
 

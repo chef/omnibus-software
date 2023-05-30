@@ -13,7 +13,7 @@ name "vc_python"
 default_version "2.7"
 
 source url: "https://s3.amazonaws.com/dd-agent-omnibus/vc_for_python_27.msi",
-       md5: "4e6342923a8153a94d44ff7307fcdd1f"
+       sha256: "070474db76a2e625513a5835df4595df9324d820f9cc97eab2a596dcbc2f5cbf"
 
 build do
   command "start /wait msiexec /x vc_for_python_27.msi /qn"
