@@ -79,7 +79,6 @@ build do
     env["CFLAGS"] = "-I#{install_dir}/embedded/include"
     env["CPPFLAGS"] = env["CFLAGS"]
     env["CXXFLAGS"] = env["CFLAGS"]
-    env["LDFLAGS"] << " -shared"
   end
 
   configure_args = [
