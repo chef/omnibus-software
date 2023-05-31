@@ -79,6 +79,7 @@ build do
     env["CFLAGS"] = "-I#{install_dir}/embedded/include"
     env["CPPFLAGS"] = env["CFLAGS"]
     env["CXXFLAGS"] = env["CFLAGS"]
+    env["LDFLAGS"] << " -shared"
   end
 
   configure_args = [
@@ -94,7 +95,7 @@ build do
     "shared",
   ]
 
-  configure_args += ["--libdir=#{install_dir}/embedded/lib"] if version.satisfies?(">= 3.0.1")
+  configure_args += ["--libdir=#{install_dir}/embedded/lib"]
 
   # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
   configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ] if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
@@ -164,7 +165,7 @@ build do
 
   # Out of abundance of caution, we put the feature flags first and then
   # the crazy platform specific compiler flags at the end.
-  configure_args << env["CFLAGS"] << env["LDFLAGS"]
+  configure_args << env["CFLAGS"]
 
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
