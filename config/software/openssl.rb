@@ -189,4 +189,5 @@ build do
     command "sudo /usr/sbin/slibclean", env: env
   end
   make "install", env: env
+  command "cd #{install_dir}\embedded | del /S /Q openssl.so", env: env if windows?
 end
