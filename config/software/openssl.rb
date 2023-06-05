@@ -92,6 +92,7 @@ build do
     "no-ssl3",
     "no-zlib",
     "shared",
+    "V=1",
   ]
 
   configure_args += ["--libdir=#{install_dir}/embedded/lib"] if version.satisfies?(">= 3.0.1")
