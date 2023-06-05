@@ -99,7 +99,11 @@ build do
   # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
   configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ] if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
 
-  configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
+  if version.satisfies?("< 3.0.0")
+    configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
+  else
+    configure_args += ["-enable-fips"] if fips_mode?
+  end
 
   configure_cmd =
     if aix?
