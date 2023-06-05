@@ -256,7 +256,7 @@ build do
     # force that API off.
     configure_command << "ac_cv_func_arc4random_buf=no"
   elsif windows?
-    configure_command << "debugflags=-g"
+    configure_command << "debugflags=-g3"
     configure_command << "--with-winnt-ver=0x0602" # the default is 0x0600 which is Vista. 602 is Windows 8 (2012)
   else
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
