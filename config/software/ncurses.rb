@@ -16,17 +16,19 @@
 #
 
 name "ncurses"
-default_version "6.2"
+default_version "6.4-20230527"
 
 dependency "libgcc"
 dependency "libtool" if ohai["platform"] == "aix"
 dependency "config_guess"
 
-source url: "http://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz",
-       sha256: "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d",
+# Original binaries at https://invisible-island.net/archives/ncurses/current/
+# Cached on S3 as invisible-island.net blocks default Ruby http User-Agent request header
+source url: "https://s3.amazonaws.com/dd-agent-omnibus/ncurses-#{version}.tgz",
+       sha256: "ded8c3b05c3af64b11b019fb2e07f41150a604208e0b6f07cce9ca7ebba54931",
        extract: :seven_zip
 
-relative_path "ncurses-6.2"
+relative_path "ncurses-#{version}"
 
 env = with_embedded_path
 env = with_standard_compiler_flags(env, aix: { use_gcc: true })
