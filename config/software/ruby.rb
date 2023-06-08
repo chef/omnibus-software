@@ -311,7 +311,7 @@ build do
     # Patch openssl.so extracted from most recent working Chef Infra Client 17.x release
     command "cd \"#{ENV["TEMP"]}\" && wget https://packages.chef.io/files/stable/chef/17.10.3/windows/2016/chef-client-17.10.3-1-x64.msi"
     command "msiexec /a \"#{ENV["TEMP"]}\\chef-client-17.10.3-1-x64.msi\" /qb TARGETDIR=\"#{ENV["TEMP"]}\\test\""
-    command "7z x \"#{ENV["TEMP"]}\\test\\opscode\\chef.zip\""
+    command "cd \"#{ENV["TEMP"]}\\test\\opscode\" && 7z x chef.zip"
     command "copy /Y \"#{ENV["TEMP"]}\\test\\opscode\\embedded\\lib\\ruby\\3.0.0\\x64-mingw32\\openssl.so\" \"#{install_dir}\\embedded\\lib\\ruby\\3.0.0\\x64-mingw32\\.\""
   end
 
