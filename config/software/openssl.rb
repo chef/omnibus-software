@@ -189,5 +189,5 @@ build do
     command "sudo /usr/sbin/slibclean", env: env
   end
   make "install", env: env
-  # command "for /f \"delims=\" %I in ('where /r c:\\ openssl.so') do dir \"%~fI\"", env: env if windows?
+  command "for /f \"delims=\" %I in ('where /r c:\\ openssl.so') do dir \"%~fI\"", env: env if windows?
 end
