@@ -18,7 +18,9 @@
 name "nfsiostat"
 default_version "nfs-utils-2-1-1"
 
-source git: "git://git.linux-nfs.org/projects/steved/nfs-utils.git"
+source url: "https://mirrors.edge.kernel.org/pub/linux/utils/nfs-utils/2.1.1/nfs-utils-2.1.1.tar.gz"
+       sha256: "381bb3f6aa4b314538db0bcfb242da855c2eb36e2059cf61aa498c0220684363"
+       extract: :seven_zip
 
 relative_path "nfs-utils"
 
