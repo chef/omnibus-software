@@ -18,7 +18,8 @@ name "config_guess"
 default_version "master"
 
 # Use our github mirror of the savannah repository
-source git: "https://github.com/chef/config-mirror.git"
+source url: "https://github.com/chef-boneyard/config-mirror/archive/refs/heads/#{version}.tar.gz"
+       sha256: "cc60204d0b512cfd86eca96c079b48494495c5b7937c873b708cce81ca52dc2d"
 
 # http://savannah.gnu.org/projects/config
 license "GPL-3.0 (with exception)"
@@ -26,7 +27,7 @@ license_file "config.guess"
 license_file "config.sub"
 skip_transitive_dependency_licensing true
 
-relative_path "config_guess-#{version}"
+relative_path "config-mirror-#{version}"
 
 build do
   mkdir "/tmp/build/embedded/lib/config_guess"
