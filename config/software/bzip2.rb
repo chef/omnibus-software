@@ -25,7 +25,6 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "zlib"
-dependency "openssl"
 
 # version_list: url=https://sourceware.org/pub/bzip2/ filter=*.tar.gz
 version("1.0.8") { source sha256: "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269" }
