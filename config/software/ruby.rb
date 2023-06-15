@@ -142,7 +142,7 @@ build do
     case version
     when "3.0.1"
       patch source: "ruby-3.0.1-configure.patch", plevel: 1, env: patch_env
-    when "3.0.5"
+    when "3.0.5","3.0.6"
       patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env
     else
       patch source: "ruby-3.0.2-configure.patch", plevel: 1, env: patch_env
