@@ -76,8 +76,17 @@ build do
       # many gems that ship with native extensions assume tar will be available
       # in the PATH.
       copy "#{tmpdir}/#{msys_dir}/usr/bin/bsdtar.exe", "#{install_dir}/bin/tar.exe"
-    end
+      {
+        "libarchive-2.dll" => "libarchive-2.dll",
+        "libexpat-1.dll" => "libexpat-1.dll",
+        "liblzma-1.dll" => "liblzma-1.dll",
+        "libbz2-2.dll" => "libbz2-2.dll",
+        "libz-1.dll" => "libz-1.dll",
+      }.each do |target, to|
+        copy "#{tmpdir}/#{msys_dir}/ucrt64/bin/#{to}", "#{install_dir}/bin/#{target}"
+      end
 
+    end
     command "#{embedded_dir}/#{msys_dir}/msys2_shell.cmd -defterm -no-start -c exit", env: { "CONFIG" => "" }
   end
 end
