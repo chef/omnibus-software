@@ -24,9 +24,10 @@ license_file "LEGAL"
 skip_transitive_dependency_licensing true
 
 # the default versions should always be the latest release of ruby
+# Some validation has to be done before switching major or minor versions here
 # if you consume this definition it is your responsibility to pin
 # to the desired version of ruby. don't count on this not changing.
-default_version "3.2.2"
+default_version "3.1.4"
 
 dependency "zlib"
 dependency "openssl"
@@ -144,9 +145,7 @@ build do
     case version
     when "3.0.1"
       patch source: "ruby-3.0.1-configure.patch", plevel: 1, env: patch_env
-    when "3.0.5"
-      patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env
-    when "3.0.6"
+    when "3.0.5", "3.0.6"
       patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env
     else
       patch source: "ruby-3.0.2-configure.patch", plevel: 1, env: patch_env
