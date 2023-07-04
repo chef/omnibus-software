@@ -15,7 +15,7 @@
 #
 
 name "make"
-default_version "4.4"
+default_version "4.3"
 
 license "GPL-3.0"
 license_file "COPYING"
