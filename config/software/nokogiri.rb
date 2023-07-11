@@ -64,9 +64,9 @@ build do
     if arch == "i686"
       patch source: "nokogiri-on-el6.patch", plevel: 1, env: patch_env
     end
-  end
   else
     gem_command = [ "NON RHEL" ]
+  end
   # windows uses the 'fat' precompiled binaries'
   unless using_prebuilt_ruby
     # Tell nokogiri to use the system libraries instead of compiling its own
