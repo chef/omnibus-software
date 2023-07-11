@@ -59,7 +59,7 @@ build do
 
   gem_command = [ "install nokogiri" ]
   gem_command << "--version '#{version}'" unless version.nil?
-  if rhel? && platform_version.satisfies?("=6")
+  if platform_version.satisfies?("<=6")
     gem_command = [ "RHEL6" ]
     if arch == "i686"
       patch source: "nokogiri-on-el6.patch", plevel: 1, env: patch_env
