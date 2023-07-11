@@ -60,9 +60,13 @@ build do
   gem_command = [ "install nokogiri" ]
   gem_command << "--version '#{version}'" unless version.nil?
   if rhel? && platform_version.satisfies?("=6")
-    patch source: "nokogiri-on-el6.patch", plevel: 1, env: patch_env
+    gem_command = [ "RHEL6" ]
+    if arch == "i686"
+      patch source: "nokogiri-on-el6.patch", plevel: 1, env: patch_env
+    end
   end
-
+  else
+    gem_command = [ "NON RHEL" ]
   # windows uses the 'fat' precompiled binaries'
   unless using_prebuilt_ruby
     # Tell nokogiri to use the system libraries instead of compiling its own
