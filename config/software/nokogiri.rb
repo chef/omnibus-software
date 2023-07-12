@@ -58,10 +58,6 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   gem_command = [ "install nokogiri" ]
   gem_command << "--version '#{version}'" unless version.nil?
-  if rhel? && platform_version.satisfies?("< 7")
-    patch source: "nokogiri-on-el6.patch", plevel: 0
-  end
-
   # windows uses the 'fat' precompiled binaries'
   unless using_prebuilt_ruby
     # Tell nokogiri to use the system libraries instead of compiling its own
@@ -81,9 +77,10 @@ build do
       "--with-zlib-dir=#{install_dir}/embedded",
     ]
   end
-
   gem gem_command.join(" "), env: env
-
+  if rhel? && platform_version.satisfies?("< 7")
+    patch source: "nokogiri-on-el6.patch", plevel: 0
+  end
   # The mini-portile2 gem ships with some test fixture data compressed in a format Apple's notarization
   # service cannot understand. We need to delete that archive to pass notarization.
   block "Delete test folder of mini-portile2 gem so downstream projects pass notarization" do
