@@ -78,14 +78,14 @@ build do
     ]
   end
   gem gem_command.join(" "), env: env
-  if rhel? && platform_version.satisfies?("< 7")
-    patch source: "nokogiri-on-el6.patch", plevel: 0
-  end
   # The mini-portile2 gem ships with some test fixture data compressed in a format Apple's notarization
   # service cannot understand. We need to delete that archive to pass notarization.
   block "Delete test folder of mini-portile2 gem so downstream projects pass notarization" do
     env["VISUAL"] = "echo"
     gem_install_dir = shellout!("#{install_dir}/embedded/bin/gem open mini_portile2", env: env).stdout.chomp
+    if rhel? && platform_version.satisfies?("< 7")
+      patch source: "nokogiri-on-el6.patch", plevel: 0
+    end
     remove_directory "#{gem_install_dir}/test"
   end
 end
