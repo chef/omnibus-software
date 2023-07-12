@@ -59,9 +59,7 @@ build do
   gem_command = [ "install nokogiri" ]
   gem_command << "--version '#{version}'" unless version.nil?
   if rhel? && platform_version.satisfies?("< 7")
-    patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}"
-    patch source: "nokogiri-on-el6.patch", plevel: 0, env: patch_env
+    patch source: "nokogiri-on-el6.patch", plevel: 0
   end
 
   # windows uses the 'fat' precompiled binaries'
