@@ -1,53 +1,53 @@
---- ext/nokogiri/xml_document.c	2023-07-11 22:36:07
-+++ ext/nokogiri/xml_document.c.org	2023-07-11 22:21:33
-@@ -60,10 +60,7 @@
+--- xml_document.c.org	2023-07-11 22:21:33
++++ xml_document.c	2023-07-11 22:36:07
+@@ -60,7 +60,10 @@
      rb_gc_mark(tuple->node_cache);
    }
  }
--#if defined(__GNUC__) && __GNUC__ >= 5
--#pragma GCC diagnostic push
--#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // xmlDeregisterNodeDefault is deprecated as of libxml2 2.11.0
--#endif
-+
+-
++#if defined(__GNUC__) && __GNUC__ >= 5
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // xmlDeregisterNodeDefault is deprecated as of libxml2 2.11.0
++#endif
  static void
  dealloc(void *data)
  {
-@@ -77,6 +74,8 @@
+@@ -74,8 +77,6 @@
  
    ruby_xfree(doc->_private);
  
-+#pragma GCC diagnostic push
-+#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // xmlDeregisterNodeDefault is deprecated as of libxml2 2.11.0
+-#pragma GCC diagnostic push
+-#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // xmlDeregisterNodeDefault is deprecated as of libxml2 2.11.0
    /*
     * libxml-ruby < 3.0.0 uses xmlDeregisterNodeDefault. If the user is using one of those older
     * versions, the registered callback from libxml-ruby will access the _private pointers set by
-@@ -91,9 +90,8 @@
+@@ -90,8 +91,9 @@
    if (xmlDeregisterNodeDefaultValue) {
      remove_private((xmlNodePtr)doc);
    }
--  #if defined(__GNUC__) && __GNUC__ >= 5
--  #pragma GCC diagnostic pop
--  #endif
-+#pragma GCC diagnostic pop
-+
+-#pragma GCC diagnostic pop
+-
++  #if defined(__GNUC__) && __GNUC__ >= 5
++  #pragma GCC diagnostic pop
++  #endif
    xmlFreeDoc(doc);
  }
  
-@@ -102,11 +100,15 @@
+@@ -100,15 +102,11 @@
  {
    /* note we don't count namespace definitions, just going for a good-enough number here */
    xmlNodePtr child;
-+  xmlAttrPtr property;
+-  xmlAttrPtr property;
    size_t memsize = 0;
  
    memsize += xmlStrlen(node->name);
--  for (child = (xmlNodePtr)node->properties; child; child = child->next) {
--    memsize += sizeof(xmlAttr) + memsize_node(child);
-+
-+  if (node->type == XML_ELEMENT_NODE) {
-+    for (property = node->properties; property; property = property->next) {
-+      memsize += sizeof(xmlAttr) + memsize_node((xmlNodePtr)property);
-+    }
+-
+-  if (node->type == XML_ELEMENT_NODE) {
+-    for (property = node->properties; property; property = property->next) {
+-      memsize += sizeof(xmlAttr) + memsize_node((xmlNodePtr)property);
+-    }
++  for (child = (xmlNodePtr)node->properties; child; child = child->next) {
++    memsize += sizeof(xmlAttr) + memsize_node(child);
    }
    if (node->type == XML_TEXT_NODE) {
      memsize += xmlStrlen(node->content);
