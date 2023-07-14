@@ -68,8 +68,7 @@ build do
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
     env["LDFLAGS"] << "-L/usr/lib/"
-    env["LIBS"] = "-lnghttp2"
-    env["CFLAGS"] = "-l/usr/include/nghttp2/"
+    env["LIBS"] = "-l/usr/include/nghttp2/"
   end
 
   configure_options = [
