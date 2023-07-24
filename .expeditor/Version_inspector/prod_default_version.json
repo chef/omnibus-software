@@ -61,7 +61,7 @@
 "openresty": "1.21.4.1" ,
 "opensearch": "2.2.0" ,
 "openssl-fips": "2.0.16" ,
-"openssl": "1.0.2zb" ,
+"openssl": "1.0.2zf" ,
 "patch": "2.7.6" ,
 "patchelf": "0.13.1" ,
 "pcre": "8.45" ,
