@@ -176,6 +176,15 @@ build do
 
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
+  puts "********************************************************************************"
+  puts "This is the the list of configured arguments (command plus args) for the build"
+  puts "#{configure_command}"
+  puts "********************************************************************************"
+
+  puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+  puts "This is the the list of environment settings for the build"
+  puts "#{env}"
+  puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
   command configure_command, env: env, in_msys_bash: true
 
   if version.start_with?("1.0.2") && windows?
