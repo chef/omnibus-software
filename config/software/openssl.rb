@@ -52,15 +52,19 @@ version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9
 version("3.0.4")   { source sha256: "2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f" }
 version("3.0.3")   { source sha256: "ee0078adcef1de5f003c62c80cc96527721609c6f3bb42b7795df31f8b558c0b" }
 version("3.0.1")   { source sha256: "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1" } # only ruby 3.1 supports openssl-3.0.1
+
 version("1.1.1t")  { source sha256: "8dee9b24bdb1dcbf0c3d1e9b02fb8f6bf22165e807f45adeb7c9677536859d3b" }
 version("1.1.1q")  { source sha256: "d7939ce614029cdff0b6c20f0e2e5703158a489a72b2507b8bd51bf8c8fd10ca" }
 version("1.1.1p")  { source sha256: "bf61b62aaa66c7c7639942a94de4c9ae8280c08f17d4eac2e44644d9fc8ace6f" }
 version("1.1.1o")  { source sha256: "9384a2b0570dd80358841464677115df785edb941c71211f75076d72fe6b438f" }
 version("1.1.1m")  { source sha256: "f89199be8b23ca45fc7cb9f1d8d3ee67312318286ad030f5316aca6462db6c96" }
 version("1.1.1l")  { source sha256: "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1" }
+
 version("1.0.2zg") { source sha256: "09f8372eaede77ec8e6945e2d2d8eeb1b91662980cf23fe95f627b377162296c" }
 version("1.0.2zb") { source sha256: "b7d8f8c895279caa651e7f3de9a7b87b8dd01a452ca3d9327f45a9ef31d0c518" }
 version("1.0.2za") { source sha256: "86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1d8688ef25280fbeee2ff8" }
+version("1.0.2ze") { source sha256: "796624c593c361c695bd16314bc6f944184f5d2ff87efcf0bfa0545aa84c4d88" }
+version("1.0.2zf") { source sha256: "85d2242b7d11a33d5f239f1f34a1ff7eb37431a554b7df99c52c646b70b14b2e" }
 
 relative_path "openssl-#{version}"
 
@@ -99,7 +103,11 @@ build do
   # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
   configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ] if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
 
-  configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
+  if version.satisfies?("< 3.0.0")
+    configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
+  else
+    configure_args += ["-enable-fips"] if fips_mode?
+  end
 
   configure_cmd =
     if aix?

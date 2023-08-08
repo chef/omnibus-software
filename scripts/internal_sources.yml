@@ -14,6 +14,8 @@ software:
 
 - name: ruby-msys2-devkit
   sources:
+  - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.0.6-1/rubyinstaller-devkit-3.0.6-1-x64.exe
+    sha256: c44256eae6a934db39e4f3a56d39178ac87b8b754e9b66221910417adb59a3a1
   - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.0.3-1/rubyinstaller-devkit-3.0.3-1-x86.exe
     sha256: 4cf4d3522c33472354f3c1af998f1cff8371d4a9a5958067efaa04bb9147b2be
   - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.0.3-1/rubyinstaller-devkit-3.0.3-1-x64.exe
@@ -27,6 +29,8 @@ software:
     sha256: 61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.1.tar.gz
     sha256: fe6e4782de97443978ddba8ba4be38d222aa24dc3e3f02a6a8e7701c0eeb619d
+  - url: https://cache.ruby-lang.org/pub/ruby/3.0/ruby-3.0.6.tar.gz
+    sha256: 6e6cbd490030d7910c0ff20edefab4294dfcd1046f0f8f47f78b597987ac683e
   - url: https://cache.ruby-lang.org/pub/ruby/3.0/ruby-3.0.4.tar.gz
     sha256: 70b47c207af04bce9acea262308fb42893d3e244f39a4abc586920a1c723722b
   - url: https://cache.ruby-lang.org/pub/ruby/3.0/ruby-3.0.3.tar.gz
@@ -136,6 +140,8 @@ software:
     sha256: b7d8f8c895279caa651e7f3de9a7b87b8dd01a452ca3d9327f45a9ef31d0c518
   - url: https://s3.amazonaws.com/chef-releng/openssl/openssl-1.0.2za.tar.gz
     sha256: 86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1d8688ef25280fbeee2ff8
+  - url: https://s3.amazonaws.com/chef-releng/openssl/openssl-1.0.2zf.tar.gz
+    sha256: 85d2242b7d11a33d5f239f1f34a1ff7eb37431a554b7df99c52c646b70b14b2e
 
 - name: openssl-fips
   sources:
