@@ -177,6 +177,16 @@ build do
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
   puts "********************************************************************************"
+  puts "Ruby Version at play"
+       Ruby -v
+  puts "********************************************************************************"
+
+  puts "********************************************************************************"
+  puts "Present Working Directory is"
+  windows? $PWD : PWD
+  puts "********************************************************************************"
+
+  puts "********************************************************************************"
   puts "This is the the list of configured arguments (command plus args) for the build"
   puts "#{configure_command}"
   puts "********************************************************************************"
