@@ -79,6 +79,34 @@ build do
                    "chef.gemspec"
                  end
 
+
+puts "********************************************************************************"
+puts "                                CHEF"
+puts "********************************************************************************"
+
+version = RUBY_VERSION
+puts "********************************************************************************"
+puts "Ruby Version at play in Chef Building process"
+puts "#{version}"
+puts "********************************************************************************"
+
+mydir = File.expand_path(File.dirname(File.dirname(__FILE__)))
+puts "********************************************************************************"
+puts "Present Working Directory is"
+puts "#{mydir}"
+puts "********************************************************************************"
+
+puts "********************************************************************************"
+puts "This is the Gemspec in play"
+puts "#{gemspec_name}"
+puts "********************************************************************************"
+
+puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+puts "This is the the list of environment settings for the Ruby build"
+puts "#{env}"
+puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+
+
   # This step will build native components as needed - the event log dll is
   # generated as part of this step.  This is why we need devkit.
   gem "build #{gemspec_name}", env: env

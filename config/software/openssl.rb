@@ -184,13 +184,17 @@ build do
   end
 
   puts "********************************************************************************"
+  puts "                             OPENSSL"
+  puts "********************************************************************************"
+
+  puts "********************************************************************************"
   puts "Where are the compiler files? Looking for 'Configure' "
   puts "#{cnf_file_paths}"
   puts "********************************************************************************"
 
   version = RUBY_VERSION
   puts "********************************************************************************"
-  puts "Ruby Version at play"
+  puts "Ruby Version at play in Openssl Compilation"
   puts "#{version}"
   puts "********************************************************************************"
 
@@ -201,12 +205,12 @@ build do
   puts "********************************************************************************"
 
   puts "********************************************************************************"
-  puts "This is the the list of configured arguments (command plus args) for the build"
+  puts "This is the the list of configured arguments (command plus args) for the Openssl build"
   puts "#{configure_command}"
   puts "********************************************************************************"
 
   puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
-  puts "This is the the list of environment settings for the build"
+  puts "This is the the list of environment settings for the Openssl build"
   puts "#{env}"
   puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
   command configure_command, env: env, in_msys_bash: true

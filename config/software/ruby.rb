@@ -269,6 +269,38 @@ build do
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
   env["PKG_CONFIG"] = "/bin/true" if aix?
 
+  puts "********************************************************************************"
+  puts "                                    RUBY"
+  puts "********************************************************************************"
+
+  version = RUBY_VERSION
+  puts "********************************************************************************"
+  puts "Ruby Version at play in Ruby Compilation"
+  puts "#{version}"
+  puts "********************************************************************************"
+
+  mydir = File.expand_path(File.dirname(File.dirname(__FILE__)))
+  puts "********************************************************************************"
+  puts "Present Working Directory is"
+  puts "#{mydir}"
+  puts "********************************************************************************"
+
+  puts "********************************************************************************"
+  puts "This is the the list of configured arguments (command plus args) for the Ruby build"
+  puts "#{configure_command}"
+  puts "********************************************************************************"
+
+  puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+  puts "This is the the list of environment settings for the Ruby build"
+  puts "#{env}"
+  puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+
+
+
+
+
+
+
   configure(*configure_command, env: env)
 
   make "-j #{workers}", env: env
