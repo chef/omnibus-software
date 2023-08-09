@@ -176,6 +176,18 @@ build do
 
   configure_command = configure_args.unshift(configure_cmd).join(" ")
 
+  require 'find'
+
+  cnf_file_paths = []
+  Find.find('/') do |path|
+    cnf_file_paths << path if path =~ /[Cc]onfigure$/
+  end
+
+  puts "********************************************************************************"
+  puts "Where are the compiler files? Looking for 'Configure' "
+  puts "#{cnf_file_paths}"
+  puts "********************************************************************************"
+
   puts "********************************************************************************"
   puts "Ruby Version at play"
        command "Ruby -v"
