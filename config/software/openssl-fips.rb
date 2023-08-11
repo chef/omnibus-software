@@ -77,6 +77,33 @@ build do
     configure_command = ["./config"]
   end
 
+
+  puts "********************************************************************************"
+  puts "                             OPENSSL-FIPS"
+  puts "********************************************************************************"
+
+  puts "********************************************************************************"
+  puts "What are the compiler flags? In the default_env"
+  puts "#{default_env}"
+  puts "********************************************************************************"
+
+  mydir = File.expand_path(File.dirname(File.dirname(__FILE__)))
+  puts "********************************************************************************"
+  puts "Present Working Directory is"
+  puts "#{mydir}"
+  puts "********************************************************************************"
+
+  puts "********************************************************************************"
+  puts "This is the the list of configured arguments (command plus args) for the Openssl build"
+  puts "#{configure_command}"
+  puts "********************************************************************************"
+
+  puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+  puts "This is the the list of environment settings for the Openssl build"
+  puts "#{env}"
+  puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+
+
   command configure_command.join(" "), env: env, in_msys_bash: true
 
   # Cannot use -j with openssl :(.
