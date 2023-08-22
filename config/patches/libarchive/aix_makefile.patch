@@ -1,0 +1,12 @@
+diff --git a/Makefile b/Makefile
+index 73de5eb..4326035 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4001,6 +4001,7 @@ install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+          echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 '$(DESTDIR)$(libdir)'"; \
+          $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 "$(DESTDIR)$(libdir)"; \
+        }
++       $(LN_S) -f $(libdir)/libarchive.so.13 $(libdir)/libarchive.so
+
+ uninstall-libLTLIBRARIES:
+        @$(NORMAL_UNINSTALL)

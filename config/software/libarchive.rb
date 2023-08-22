@@ -69,6 +69,8 @@ build do
 
   configure configure_args.join(" "), env: env
 
+  # force libarchive.so link to be created
+  patch source: "aix_makefile.patch", env: env if aix?
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end
