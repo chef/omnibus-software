@@ -1,2 +1,10 @@
-4003a4004
-> 	$(LN_S) -f $(libdir)/libarchive.so.13 $(lib)/libarchive.so
+--- 	1949-04-17 15:07:12.000000000 +0000
++++ 	1949-04-17 15:07:12.000000000 +0000
+@@ -4001,6 +4001,7 @@
+  	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 '$(DESTDIR)$(libdir)'"; \
+  	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 "$(DESTDIR)$(libdir)"; \
+  	}
++ 	$(LN_S) -f $(libdir)/libarchive.so.13 $(libdir)/libarchive.so
+  
+  uninstall-libLTLIBRARIES:
+  	@$(NORMAL_UNINSTALL)
