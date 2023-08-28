@@ -61,6 +61,11 @@ build do
         copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
         copy "#{tmpdir}/lib/ruby/3.1.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.1.0/rubygems/defaults"
+      elsif version == "3.2.2-1"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
+        copy "#{tmpdir}/lib/ruby/3.2.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.2.0/rubygems/defaults"
       end
 
       # Normally we would symlink the required unix tools.
