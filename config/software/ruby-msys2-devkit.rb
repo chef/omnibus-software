@@ -37,6 +37,13 @@ version "3.1.2-1" do
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
+version "3.2.2-1" do
+  source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
+          sha256: "62abc1f520bd986bfff2090c4df2c77fe8bb6e21fbd02076d1ebb36662ddfd91"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end
+
 build do
   if windows?
     embedded_dir = "#{install_dir}/embedded"
