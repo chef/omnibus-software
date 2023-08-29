@@ -1,5 +1,5 @@
---- 	1949-04-17 15:07:12.000000000 +0000
-+++ 	1949-04-17 15:07:12.000000000 +0000
+--- libarchive-3.6.2/Makefile.orig 2023-08-29 15:07:12.000000000 +0000
++++ libarchive-3.6.2/Makefile 2023-08-29 15:07:12.000000000 +0000
 @@ -4001,6 +4001,7 @@
   	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 '$(DESTDIR)$(libdir)'"; \
   	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 "$(DESTDIR)$(libdir)"; \
