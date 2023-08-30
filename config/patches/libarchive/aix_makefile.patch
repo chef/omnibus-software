@@ -1,10 +1,10 @@
 --- libarchive-3.6.2/Makefile	2023-08-30 11:54:54
-+++ libarchive-3.6.2/Makefile.new	2023-08-30 11:54:12
++++ libarchive-3.6.2/Makefile.new	2023-08-30 14:26:14
 @@ -4001,6 +4001,7 @@
  	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 '$(DESTDIR)$(libdir)'"; \
  	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 "$(DESTDIR)$(libdir)"; \
  	}
-+	$(LN_S) -f $(libdir)/libarchive.so.13 $(libdir)/libarchive.so
++	cp -f $(libdir)/libarchive.so.13 $(libdir)/libarchive.so
  
  uninstall-libLTLIBRARIES:
  	@$(NORMAL_UNINSTALL)
