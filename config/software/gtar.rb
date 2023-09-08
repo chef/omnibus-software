@@ -15,9 +15,10 @@
 #
 
 name "gtar"
-default_version "1.34"
+default_version "1.35"
 
 # version_list: url=https://ftp.gnu.org/gnu/tar/  filter=*.tar.gz
+version("1.35") { source sha256: "14d55e32063ea9526e057fbf35fcabd53378e769787eff7919c3755b02d2b57e" }
 version("1.34") { source sha256: "03d908cf5768cfe6b7ad588c921c6ed21acabfb2b79b788d1330453507647aed" }
 version("1.33") { source sha256: "7c77c427e8cce274d46a6325d45a55b08e13e2d2d0c9e6c0860a6d2b9589ff0e" }
 version("1.32") { source sha256: "b59549594d91d84ee00c99cf2541a3330fed3a42c440503326dab767f2fbb96c" }
