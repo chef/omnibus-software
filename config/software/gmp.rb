@@ -15,13 +15,14 @@
 #
 
 name "gmp"
-default_version "6.0.0a"
+default_version "6.3.0"
 
 # version_list: url=https://ftp.gnu.org/gnu/gmp/ filter=*.tar.bz2
 
 version("6.2.1")  { source sha256: "eae9326beb4158c386e39a356818031bd28f3124cf915f8c5b1dc4c7a36b4d7c" }
 version("6.1.0")  { source sha256: "498449a994efeba527885c10405993427995d3f86b8768d8cdf8d9dd7c6b73e8" }
 version("6.0.0a") { source sha256: "7f8e9a804b9c6d07164cf754207be838ece1219425d64e28cfa3e70d5c759aaf" }
+version("6.3.0")  { source sha256: "ac28211a7cfb609bae2e2c8d6058d66c8fe96434f740cf6fe2e47b000d1c20cb" }
 
 source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.bz2"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.bz2",
