@@ -47,6 +47,8 @@ dependency "liblzma"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  env.merge!("LDFLAGS" => "-brtl") if aix?
+
   update_config_guess(target: "build/autoconf/")
 
   configure_args = [
