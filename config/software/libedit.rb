@@ -15,7 +15,7 @@
 #
 
 name "libedit"
-default_version "20120601-3.0"
+default_version "20230828-3.1"
 
 license "BSD-3-Clause"
 license_file "COPYING"
@@ -26,6 +26,7 @@ dependency "config_guess"
 
 # version_list: url=http://thrysoee.dk/editline/ filter=*.tar.gz
 
+version("20230828-3.1") { source sha256: "4ee8182b6e569290e7d1f44f0f78dac8716b35f656b76528f699c69c98814dad" }
 version("20221030-3.1") { source sha256: "f0925a5adf4b1bf116ee19766b7daa766917aec198747943b1c4edf67a4be2bb" }
 version("20210910-3.1") { source sha256: "6792a6a992050762edcca28ff3318cdb7de37dccf7bc30db59fcd7017eed13c5" }
 version("20210419-3.1") { source sha256: "571ebe44b74860823e24a08cf04086ff104fd7dfa1020abf26c52543134f5602" }
