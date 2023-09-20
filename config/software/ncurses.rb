@@ -66,7 +66,9 @@ build do
            "--without-normal", # AIX doesn't like building static libs
            "--without-cxx-binding",
            "--enable-overwrite",
-           "--enable-widec"]
+           "--enable-widec",
+           "--without-manpages",
+           "--without-tests"]
 
   cmd_array << "--with-libtool" if ohai["platform"] == "aix"
   command(cmd_array.join(" "),
