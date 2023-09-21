@@ -30,8 +30,8 @@ skip_transitive_dependency_licensing true
 relative_path "config-mirror-#{version}"
 
 build do
-  mkdir "/tmp/build/embedded/lib/config_guess"
+  mkdir "#{install_dir}/embedded/lib/config_guess"
 
-  copy "#{project_dir}/config.guess", "/tmp/build/embedded/lib/config_guess/config.guess"
-  copy "#{project_dir}/config.sub", "/tmp/build/embedded/lib/config_guess/config.sub"
+  copy "#{project_dir}/config.guess", "#{install_dir}/embedded/lib/config_guess/config.guess"
+  copy "#{project_dir}/config.sub", "#{install_dir}/embedded/lib/config_guess/config.sub"
 end
