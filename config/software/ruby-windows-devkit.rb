@@ -67,7 +67,7 @@ build do
     copy "#{install_dir}/embedded/mingw/bin/#{to}", "#{install_dir}/bin/#{target}"
 
     copy "#{install_dir}/embedded/mingw/bin/x64-msvcrt-ruby300.dll", "#{install_dir}/bin/x64-msvcrt-ruby300.dll"
-    copy "#{install_dir}/embedded/mingw/include/ansidecl.h", "#{install_dir}/embedded/mingw/x86_64-w64-mingw32\includeansidecl.h"
+    copy "#{install_dir}/embedded/mingw/include/ansidecl.h", "#{install_dir}/embedded/mingw/x86_64-w64-mingw32/include/ansidecl.h"
   end
 
   # IIS 8.5 Server STIG finding V-76717 warns on this file because it ends with
