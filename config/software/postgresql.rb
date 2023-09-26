@@ -61,4 +61,13 @@ build do
   command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
   delete "#{install_dir}/embedded/lib/postgresql/pgxs/src/test/"
+  delete "#{install_dir}/embedded/lib/libecpg.a"
+  delete "#{install_dir}/embedded/lib/libecpg_compat.a"
+  delete "#{install_dir}/embedded/lib/libltdl.a"
+  delete "#{install_dir}/embedded/lib/liblua.a"
+  delete "#{install_dir}/embedded/lib/libpgcommon.a"
+  delete "#{install_dir}/embedded/lib/libpgfeutils.a"
+  delete "#{install_dir}/embedded/lib/libpgport.a"
+  delete "#{install_dir}/embedded/lib/libpgtypes.a"
+  delete "#{install_dir}/embedded/lib/libpq.a"
 end

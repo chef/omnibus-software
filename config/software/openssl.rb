@@ -185,4 +185,10 @@ build do
     command "sudo /usr/sbin/slibclean", env: env
   end
   command "make install", env: env
+
+  unless windows?
+    # Remove openssl static libraries here as we can't disable those at build time
+    delete "#{install_dir}/embedded/lib/libcrypto.a"
+    delete "#{install_dir}/embedded/lib/libssl.a"
+  end
 end

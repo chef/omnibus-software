@@ -36,7 +36,7 @@ build do
 
   env["INSTALL"] = "/opt/freeware/bin/install" if aix?
 
-  configure_command = []
+  configure_command = ["--disable-static", "--disable-docs"]
 
   # AIX's old version of patch doesn't like the patch here
   unless aix?

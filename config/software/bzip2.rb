@@ -52,4 +52,5 @@ build do
   make "#{args}", env: env
   make "#{args} -f Makefile-libbz2_so", env: env
   make "#{args} install", env: env
+  delete "#{install_dir}/embedded/lib/libbz2.a"
 end

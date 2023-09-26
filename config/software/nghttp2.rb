@@ -19,6 +19,8 @@ build do
 
   command [
     "./configure",
+    "--disable-static",
+    "--enable-shared",
     "--disable-app",
     "--disable-examples",
     "--disable-hpack-tools",

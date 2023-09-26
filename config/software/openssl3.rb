@@ -91,4 +91,10 @@ build do
   command "make depend", env: env
   command "make -j #{workers}", env: env
   command "make install", env: env
+
+  unless windows?
+    # Remove openssl static libraries here as we can't disable those at build time
+    delete "#{install_dir}/embedded/lib/libcrypto.a"
+    delete "#{install_dir}/embedded/lib/libssl.a"
+  end
 end

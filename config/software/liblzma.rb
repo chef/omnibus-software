@@ -47,6 +47,7 @@ build do
     "--disable-lzmadec",
     "--disable-xzdec",
     "--disable-xz",
+    "--disable-static",
   ]
   config_command << "--disable-nls" if windows?
 
