@@ -59,12 +59,14 @@ version("1.1.1p")  { source sha256: "bf61b62aaa66c7c7639942a94de4c9ae8280c08f17d
 version("1.1.1o")  { source sha256: "9384a2b0570dd80358841464677115df785edb941c71211f75076d72fe6b438f" }
 version("1.1.1m")  { source sha256: "f89199be8b23ca45fc7cb9f1d8d3ee67312318286ad030f5316aca6462db6c96" }
 version("1.1.1l")  { source sha256: "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1" }
+version("1.1.1w")  { source sha256: "cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8" }
 
 version("1.0.2zg") { source sha256: "09f8372eaede77ec8e6945e2d2d8eeb1b91662980cf23fe95f627b377162296c" }
 version("1.0.2zb") { source sha256: "b7d8f8c895279caa651e7f3de9a7b87b8dd01a452ca3d9327f45a9ef31d0c518" }
 version("1.0.2za") { source sha256: "86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1d8688ef25280fbeee2ff8" }
 version("1.0.2ze") { source sha256: "796624c593c361c695bd16314bc6f944184f5d2ff87efcf0bfa0545aa84c4d88" }
 version("1.0.2zf") { source sha256: "85d2242b7d11a33d5f239f1f34a1ff7eb37431a554b7df99c52c646b70b14b2e" }
+version("1.0.2zi") { source sha256: "80b6c07995fc92456e31c61cf1b2a18f75e314063189bb183af6ae66d0261d84" }
 
 relative_path "openssl-#{version}"
 
