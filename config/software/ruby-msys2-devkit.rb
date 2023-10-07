@@ -37,6 +37,13 @@ version "3.1.2-1" do
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
+version "3.1.4-1" do
+  source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
+          sha256: "d3dd7451bdae502894925a90c9e87685ec18fd3f73a6ca50e4282b8879d385e2"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end
+
 version "3.2.2-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
           sha256: "678619631c7e0e9b06bd53fd50689b47770fb577a8e49a35f615d2c8691aa6b7"
@@ -51,17 +58,17 @@ build do
     Dir.mktmpdir do |tmpdir|
       command "#{project_dir}/rubyinstaller-devkit-#{version}-#{arch}.exe /SP- /NORESTART /VERYSILENT /SUPPRESSMSGBOXES /NOPATH /DIR=#{tmpdir}"
       copy "#{tmpdir}/#{msys_dir}", embedded_dir
-      if version == "3.0.6-1"
+      if version.start_with?("3.0")
         copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.0.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.0.0"
         copy "#{tmpdir}/lib/ruby/3.0.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.0.0/rubygems/defaults"
-      elsif version == "3.1.2-1"
+      elsif version.start_with?("3.1")
         copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.1.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.1.0"
         copy "#{tmpdir}/lib/ruby/3.1.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.1.0/rubygems/defaults"
-      elsif version == "3.2.2-1"
+      elsif version.start_with?("3.2")
         copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
