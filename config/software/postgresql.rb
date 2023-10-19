@@ -60,7 +60,9 @@ build do
            "--with-libraries=#{install_dir}/embedded/lib"].join(" "), env: configure_env
   command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
+
   delete "#{install_dir}/embedded/lib/postgresql/pgxs/src/test/"
+
   delete "#{install_dir}/embedded/lib/libecpg.a"
   delete "#{install_dir}/embedded/lib/libecpg_compat.a"
   delete "#{install_dir}/embedded/lib/libltdl.a"
@@ -70,4 +72,35 @@ build do
   delete "#{install_dir}/embedded/lib/libpgport.a"
   delete "#{install_dir}/embedded/lib/libpgtypes.a"
   delete "#{install_dir}/embedded/lib/libpq.a"
+
+  # Delete postgres' binaries, except for pg_config which is required by psycopg's build
+  delete "#{install_dir}/embedded/bin/clusterdb"
+  delete "#{install_dir}/embedded/bin/createdb"
+  delete "#{install_dir}/embedded/bin/createuser"
+  delete "#{install_dir}/embedded/bin/dropdb"
+  delete "#{install_dir}/embedded/bin/dropuser"
+  delete "#{install_dir}/embedded/bin/ecpg"
+  delete "#{install_dir}/embedded/bin/initdb"
+  delete "#{install_dir}/embedded/bin/pg_archivecleanup"
+  delete "#{install_dir}/embedded/bin/pg_basebackup"
+  delete "#{install_dir}/embedded/bin/pg_controldata"
+  delete "#{install_dir}/embedded/bin/pg_ctl"
+  delete "#{install_dir}/embedded/bin/pg_dump"
+  delete "#{install_dir}/embedded/bin/pg_dumpall"
+  delete "#{install_dir}/embedded/bin/pg_isready"
+  delete "#{install_dir}/embedded/bin/pg_receivewal"
+  delete "#{install_dir}/embedded/bin/pg_recvlogical"
+  delete "#{install_dir}/embedded/bin/pg_resetwal"
+  delete "#{install_dir}/embedded/bin/pg_restore"
+  delete "#{install_dir}/embedded/bin/pg_rewind"
+  delete "#{install_dir}/embedded/bin/pg_test_fsync"
+  delete "#{install_dir}/embedded/bin/pg_test_timing"
+  delete "#{install_dir}/embedded/bin/pg_upgrade"
+  delete "#{install_dir}/embedded/bin/pg_waldump"
+  delete "#{install_dir}/embedded/bin/pgbench"
+  delete "#{install_dir}/embedded/bin/postgres"
+  delete "#{install_dir}/embedded/bin/postmaster"
+  delete "#{install_dir}/embedded/bin/psql"
+  delete "#{install_dir}/embedded/bin/reindexdb"
+  delete "#{install_dir}/embedded/bin/vacuumdb"
 end
