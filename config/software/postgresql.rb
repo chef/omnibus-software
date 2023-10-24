@@ -61,6 +61,7 @@ build do
            "--prefix=#{install_dir}/embedded",
            "--without-readline",
            "--with-openssl --with-includes=#{install_dir}/embedded/include",
+           "--without-icu",
            "--with-libraries=#{install_dir}/embedded/lib"].join(" "), env: configure_env
   command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
