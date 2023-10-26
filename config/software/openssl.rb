@@ -48,7 +48,7 @@ else
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
-version("3.1.4")   { source sha256: "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3"}
+version("3.1.4")   { source sha256: "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3" }
 
 version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a" }
 version("3.0.4")   { source sha256: "2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f" }
