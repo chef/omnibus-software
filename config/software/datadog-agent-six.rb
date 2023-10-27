@@ -20,9 +20,10 @@ if ohai["platform"] != "windows"
         "LDFLAGS" => "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib",
     }
 
-    command "cmake -DCMAKE_FIND_FRAMEWORK:STRING=NEVER -DCMAKE_INSTALL_PREFIX:PATH=#{install_dir}/embedded .", env: env
-    command "make -j #{workers}"
-    command "make install"
+    cmake_options = [
+      "-DCMAKE_FIND_FRAMEWORK:STRING=NEVER",
+    ]
+    cmake(*cmake_options, env: env)
   end
 else
   build do
@@ -30,9 +31,6 @@ else
         "Python2_ROOT_DIR" => "#{windows_safe_path(python_2_embedded)}",
         "Python3_ROOT_DIR" => "#{windows_safe_path(python_3_embedded)}",
     }
-
-    command "cmake -G \"Unix Makefiles\" .", env: env
-    command "make -j #{workers}"
-    command "make install"
+    cmake env: env
   end
 end
