@@ -26,7 +26,6 @@ relative_path "makedepend-1.0.5"
 
 dependency "xproto"
 dependency "util-macros"
-dependency "pkg-config"
 
 configure_env =
   case ohai["platform"]
@@ -57,12 +56,9 @@ configure_env =
     }
   end
 
-configure_env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig" +
+configure_env["PKG_CONFIG_LIBDIR"] = "#{install_dir}/embedded/lib/pkgconfig" +
   File::PATH_SEPARATOR +
   "#{install_dir}/embedded/share/pkgconfig"
-
-# For pkg-config
-configure_env["PATH"] = "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"]
 
 build do
   license "BSD-3-Clause"

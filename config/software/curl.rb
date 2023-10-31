@@ -33,8 +33,6 @@ build do
     FileUtils.rm_rf(File.join(project_dir, "src/tool_hugehelp.c"))
   end
 
-  # curl requires pkg-config that is shipped with the agent
-  env = { "PATH" => "#{install_dir}/embedded/bin" + File::PATH_SEPARATOR + ENV["PATH"] }
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--disable-manual",
@@ -53,7 +51,7 @@ build do
            "--without-libssh2",
            "--with-ssl=#{install_dir}/embedded",
            "--with-zlib=#{install_dir}/embedded",
-           "--with-nghttp2=#{install_dir}/embedded"].join(" "), env: env
+           "--with-nghttp2=#{install_dir}/embedded"].join(" ")
 
   command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
