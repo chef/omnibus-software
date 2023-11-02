@@ -69,7 +69,7 @@ build do
     configure_args << "--disable-xattr --disable-acl"
   end
 
-  configure configure_args.join(" "), env: env
+  configure configure_args.join(" ") + "; cat config.log", env: env
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
