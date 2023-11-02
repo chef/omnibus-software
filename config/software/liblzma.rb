@@ -39,6 +39,7 @@ relative_path "xz-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
   # liblzma properly uses CFLAGS for C compilation and CPPFLAGS for common
   # flags used across tools such as windres.  Don't put anything in it
   # that can be misinterpreted by windres.
@@ -56,7 +57,7 @@ build do
     "--disable-xz",
   ]
   config_command << "--disable-nls" if windows?
-
+  config_command << "; echo __CONFIGURE__; cat ./configure; echo __LIBTOOL__; cat ./libtool"  if aix?
   configure(*config_command, env: env)
 
   make "install", env: env
