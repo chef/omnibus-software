@@ -47,7 +47,7 @@ else
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz", extract: :lax_tar,
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
-
+version("3.1.4")   { source sha256: "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3" }
 version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a" }
 version("3.0.4")   { source sha256: "2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f" }
 version("3.0.3")   { source sha256: "ee0078adcef1de5f003c62c80cc96527721609c6f3bb42b7795df31f8b558c0b" }
