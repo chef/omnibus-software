@@ -32,6 +32,7 @@ internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.
 
 relative_path "stunnel-#{version}"
 
+version("5.71") { source sha256: "f023aae837c2d32deb920831a5ee1081e11c78a5d57340f8e6f0829f031017f5" }
 version("5.67") { source sha256: "3086939ee6407516c59b0ba3fbf555338f9d52f459bcab6337c0f00e91ea8456" }
 version("5.66") { source sha256: "558178704d1aa5f6883aac6cc5d6bbf2a5714c8a0d2e91da0392468cee9f579c" }
 version("5.65") { source sha256: "60c500063bd1feff2877f5726e38278c086f96c178f03f09d264a2012d6bf7fc" }
