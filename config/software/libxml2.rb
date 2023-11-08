@@ -55,7 +55,9 @@ build do
     "--without-catalog",
     "--without-docbook",
   ]
-
+  
+  if windows?
+    env["CFLAGS"] << "-DIN_LIBXML"
   update_config_guess
 
   configure(*configure_command, env: env)
