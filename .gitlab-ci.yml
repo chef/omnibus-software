@@ -1,0 +1,35 @@
+include: "https://gitlab-templates.ddbuild.io/slack-notifier/sdm/template.yml"
+
+stages:
+  - test
+  - wait-and-notify
+
+.skip_stable_branches: &skip_stable_branches
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCHCI_DEFAULT_BRANCH
+      when: never
+    - if: $CI_COMMIT_BRANCH =~ /^7.[0-9]{2}.x/
+      when: never
+    - when: always
+
+trigger-agent-build:
+  <<: *skip_stable_branches
+  stage: test
+  trigger:
+    project: datadog/datadog-agent
+    strategy: depend
+  variables:
+    OMNIBUS_SOFTWARE_VERSION: $CI_COMMIT_BRANCH
+    RUN_ALL_BUILDS: "true"
+    RUN_KITCHEN_TESTS: "true"
+
+# This job is mostly here to have a non trigger based job, as they
+# don't trigger webhooks, and won't appear in github without this
+wait-and-notify:
+  extends: .slack-notifier-base
+  stage: wait-and-notify
+  <<: *skip_stable_branches
+  script: |
+    export MESSAGE="Your omnibus-software test pipeline (${CI_PIPELINE_URL}) completed"
+    /usr/local/bin/notify.sh
+
