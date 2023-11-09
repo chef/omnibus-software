@@ -6,7 +6,7 @@ stages:
 
 .skip_stable_branches: &skip_stable_branches
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCHCI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: never
     - if: $CI_COMMIT_BRANCH =~ /^7.[0-9]{2}.x/
       when: never
