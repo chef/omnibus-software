@@ -57,7 +57,7 @@ build do
   ]
   
   if windows?
-    env["CFLAGS"] << " -DIN_LIBXML"
+    configure_command << "--disable-shared"
   end
   update_config_guess
 
