@@ -57,7 +57,7 @@ build do
   ]
   
   if windows?
-    env["CFLAGS"] << "-DIN_LIBXML"
+    env["CFLAGS"] << " -DIN_LIBXML"
   end
   update_config_guess
 
