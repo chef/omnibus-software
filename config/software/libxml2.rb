@@ -57,7 +57,7 @@ build do
   ]
   
   if windows?
-    configure_command << "--disable-shared -DIN_LIBXML "
+    configure_command << " -DIN_LIBXML --disable-shared  "
   end
   update_config_guess
 
