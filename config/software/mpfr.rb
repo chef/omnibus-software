@@ -16,7 +16,7 @@
 # expeditor/ignore: deprecated 2022-12
 
 name "mpfr"
-default_version "4.1.0"
+default_version "4.2.1"
 
 dependency "gmp"
 
@@ -25,6 +25,7 @@ license_file "COPYING.LESSER"
 
 # version_list: url=https://ftp.gnu.org/gnu/mpfr/ filter=*.tar.gz
 
+version("4.2.1") { source sha256: "116715552bd966c85b417c424db1bbdf639f53836eb361549d1f8d6ded5cb4c6" }
 version("4.1.0") { source sha256: "3127fe813218f3a1f0adf4e8899de23df33b4cf4b4b3831a5314f78e65ffa2d6" }
 version("3.1.6") { source sha256: "569ceb418aa935317a79e93b87eeb3f956cab1a97dfb2f3b5fd8ac2501011d62" }
 version("3.1.3") { source sha256: "b87feae279e6da95a0b45eabdb04f3a35422dab0d30113d58a7803c0d73a79dc" }
