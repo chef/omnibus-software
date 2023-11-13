@@ -45,7 +45,13 @@ version("5.39") { source sha256: "288c087a50465390d05508068ac76c8418a21fae7275fe
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  patch source: "stunnel-on-windows.patch", plevel: 1, env: env if windows?
+  # Across different versions the files have been changed and a single patch cannot be applied successfully
+  # We have two different patches:
+  #  * stunnel-on-windows.patch working from 5.39 to 5.60
+  #  * stunnel-on-windows-new.patch working from 5.61 to the latest for the time being.
+  #
+  # TODO: Find a way to patch by version
+  patch source: "stunnel-on-windows#{'-new' if version.satisfies?("> 5.60")}.patch", plevel: 1, env: env if windows?
 
   configure_args = [
     "--with-ssl=#{install_dir}/embedded",
