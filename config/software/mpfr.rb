@@ -25,7 +25,6 @@ license_file "COPYING.LESSER"
 
 # version_list: url=https://ftp.gnu.org/gnu/mpfr/ filter=*.tar.gz
 
-
 version("4.2.1") { source sha256: "116715552bd966c85b417c424db1bbdf639f53836eb361549d1f8d6ded5cb4c6" }
 version("4.1.0") { source sha256: "3127fe813218f3a1f0adf4e8899de23df33b4cf4b4b3831a5314f78e65ffa2d6" }
 version("3.1.6") { source sha256: "569ceb418aa935317a79e93b87eeb3f956cab1a97dfb2f3b5fd8ac2501011d62" }
