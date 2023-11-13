@@ -2,7 +2,9 @@ include: "https://gitlab-templates.ddbuild.io/slack-notifier/sdm/template.yml"
 
 stages:
   - test
-  - wait-and-notify
+  - after-test
+  - check-downstream
+  - notify
 
 .skip_stable_branches: &skip_stable_branches
   rules:
@@ -23,13 +25,35 @@ trigger-agent-build:
     RUN_ALL_BUILDS: "true"
     RUN_KITCHEN_TESTS: "true"
 
-# This job is mostly here to have a non trigger based job, as they
-# don't trigger webhooks, and won't appear in github without this
-wait-and-notify:
+on_success:
+  <<: *skip_stable_branches
+  stage: after-test
+  needs: ["trigger-agent-build"]
+  tags: ["arch:amd64"]
+  image: 486234852809.dkr.ecr.us-east-1.amazonaws.com/ci/datadog-agent-buildimages/deb_x64:v19805261-b468a29
+  when: on_success
+  script:
+    - echo success > output.pipeline
+  artifacts:
+    paths:
+      - output.pipeline
+    expire_in: 1 week
+
+check-downstream-pipeline:
+  <<: *skip_stable_branches
+  stage: check-downstream
+  tags: ["arch:amd64"]
+  image: 486234852809.dkr.ecr.us-east-1.amazonaws.com/ci/datadog-agent-buildimages/deb_x64:v19805261-b468a29
+  when: always
+  script:
+    - cat output.pipeline
+
+notify:
   extends: .slack-notifier-base
-  stage: wait-and-notify
+  stage: notify
+  dependencies: []
   <<: *skip_stable_branches
   script: |
-    export MESSAGE="Your omnibus-software test pipeline (${CI_PIPELINE_URL}) completed"
+    export MESSAGE="Your omnibus-software test pipeline completed"
     /usr/local/bin/notify.sh
 
