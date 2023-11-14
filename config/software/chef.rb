@@ -99,6 +99,7 @@ build do
     appbundle "chef", lockdir: project_dir, gem: "chef-bin", without: excluded_groups, env: env
     appbundle "chef", lockdir: project_dir, gem: "chef", without: excluded_groups, env: env
     appbundle "chef", lockdir: project_dir, gem: "ohai", without: excluded_groups, env: env
+    appbundle "chef", lockdir: project_dir, gem: "knife", without: excluded_groups, env: env
   end
 
   # The rubyzip gem ships with some test fixture data compressed in a format Apple's notarization service
