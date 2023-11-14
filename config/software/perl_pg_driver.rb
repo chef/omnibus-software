@@ -15,7 +15,7 @@
 #
 
 name "perl_pg_driver"
-default_version "3.16.0"
+default_version "3.17.0"
 
 dependency "perl"
 dependency "cpanminus"
@@ -27,6 +27,7 @@ license_file "LICENSES/artistic.txt"
 
 # version_list: url=https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/ filter=*.tar.gz
 
+version("3.17.0") { source sha256: "8d900d4c0e749f37218752a6661fb0d3557ab1fccc8dea384cb587c382de219b" }
 version("3.16.0") { source sha256: "2c31163d8bdaaf8beaef9c97b8f260432d67a534bc7b69e7265c21cb841432b8" }
 version("3.15.1") { source sha256: "13c7543b545c9a5253c86550ccd9204d06fe5f34a7dc51769d3dd665563fc17e" }
 version("3.15.0") { source sha256: "69cc19870f9d935f16530be39d0ed60afadc5e560e29c3a17af4498e7e3082d9" }
