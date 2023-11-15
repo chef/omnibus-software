@@ -58,6 +58,7 @@ build do
 
   if windows?
     configure_command << "--disable-shared"
+    CFLAGS="$CFLAGS -DIN_LIBXML"
   end
   update_config_guess
 

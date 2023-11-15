@@ -61,9 +61,6 @@ build do
     "--without-debugger",
   ]
 
-  if windows?
-    configure_commands << "--disable-shared"
-  end
   configure(*configure_commands, env: env)
 
   make "-j #{workers}", env: env
