@@ -55,7 +55,7 @@ build do
     "--without-catalog",
     "--without-docbook",
   ]
-  
+
   if windows?
     configure_command << "--disable-shared"
   end
