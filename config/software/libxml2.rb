@@ -57,8 +57,7 @@ build do
   ]
   
   if windows?
-    env["CXXFLAGS"] << "-DIN_LIBXML"
-    configure_command << "  --prefix=/mingw --disable-shared  "
+    configure_command << "--disable-shared"
   end
   update_config_guess
 
