@@ -62,7 +62,7 @@ build do
   ]
 
   if windows?
-    configure_command << "--disable-shared"
+    configure_commands << "--disable-shared"
   end
   configure(*configure_commands, env: env)
 
