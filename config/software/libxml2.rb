@@ -57,7 +57,8 @@ build do
   ]
   
   if windows?
-    configure_command << " -DIN_LIBXML --disable-shared  "
+    env["CXXFLAGS"] << "-DIN_LIBXML"
+    configure_command << "  --disable-shared  "
   end
   update_config_guess
 
