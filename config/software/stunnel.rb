@@ -68,6 +68,15 @@ build do
 
     mingw = ENV["MSYSTEM"].downcase
     target = (mingw == "mingw32" ? "mingw" : "mingw64")
+
+    # Setting the binary directory as target
+    bin_dir = target
+    # After v5.50, the binaries are created on different directory based on arch
+    # eg: from stunnel-5.50/src/mingw.mk
+    # win32_arch=win64
+    # bindir = ../bin/$(win32_arch)
+    bin_dir = (mingw == "mingw32" ? "win32" : "win64") if version.satisfies?(">= 5.50")
+
     # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
     # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
@@ -75,11 +84,11 @@ build do
     make target, env: env, cwd: "#{project_dir}/src"
 
     block "copy required windows files" do
-      copy_files = [
-        "#{project_dir}/bin/#{target}/stunnel.exe",
-        "#{project_dir}/bin/#{target}/tstunnel.exe",
-        "#{msys_path}/#{mingw}/bin/libssp-0.dll",
-      ]
+      copy_files = %W[
+        #{project_dir}/bin/#{bin_dir}/stunnel.exe
+        #{project_dir}/bin/#{bin_dir}/tstunnel.exe
+        #{msys_path}/#{mingw}/bin/libssp-0.dll]
+
       copy_files.each do |file|
         if File.exist?(file)
           copy file, "#{install_dir}/embedded/bin/#{File.basename(file)}"
