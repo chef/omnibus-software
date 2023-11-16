@@ -57,7 +57,7 @@ build do
   ]
 
   if windows?
-    # configure_command << "--disable-shared"
+    configure_command << "--disable-shared"
     env["CFLAGS"] << " -DIN_LIBXML"
     env["CPPFLAGS"] = "-DLIBXML_STATIC"
   end
