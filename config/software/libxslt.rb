@@ -61,6 +61,11 @@ build do
     "--without-debugger",
   ]
 
+  if windows?
+    puts "OMNIBUS_INSTALL_DIR"
+    puts %(OMNIBUS_INSTALL_DIR)
+  end
+
   configure(*configure_commands, env: env)
   make "clean", env: env
   make "-j #{workers}", env: env
