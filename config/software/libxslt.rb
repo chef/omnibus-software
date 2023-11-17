@@ -54,17 +54,14 @@ build do
   # iteration treats colons as a delimiter so we are using a cygwin
   # style path to accomodate
   configure_commands = [
-    "--with-libxml-prefix=#{install_dir.sub("C:", "/C")}/embedded",
+    "--with-libxml-prefix=#{install_dir.sub("C:", "/C")}/embedded/",
+    "--with-xml2-lib=#{install_dir.sub("C:", "/C")}/embedded/lib",
+    "--with-xml2-include=#{install_dir.sub("C:", "/C")}/embedded/include/libxml2",
     "--without-python",
     "--without-crypto",
     "--without-profiler",
     "--without-debugger",
   ]
-
-  if windows?
-    puts "OMNIBUS_INSTALL_DIR"
-    puts %(OMNIBUS_INSTALL_DIR)
-  end
 
   configure(*configure_commands, env: env)
   make "clean", env: env
