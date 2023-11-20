@@ -84,10 +84,10 @@ build do
     make target, env: env, cwd: "#{project_dir}/src"
 
     block "copy required windows files" do
-      copy_files = %W[
+      copy_files = %W{
         #{project_dir}/bin/#{bin_dir}/stunnel.exe
         #{project_dir}/bin/#{bin_dir}/tstunnel.exe
-        #{msys_path}/#{mingw}/bin/libssp-0.dll]
+        #{msys_path}/#{mingw}/bin/libssp-0.dll}
 
       copy_files.each do |file|
         if File.exist?(file)
