@@ -61,7 +61,7 @@ build do
       # Unfortunately there is no patch on windows, but luckily we only need to append a line to the openssl.rb
       # to pick up our script which find the CA bundle in omnibus installations and points SSL_CERT_FILE to it
       # if it's not already set
-      source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
+      source_openssl_rb = Dir["#{install_dir}/**/openssl-*/lib/openssl.rb"].last
       File.open(source_openssl_rb, "r+") do |f|
         unpatched_openssl_rb = f.read
         f.rewind
@@ -70,7 +70,7 @@ build do
       end
     else
       embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
-      source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
+      source_openssl_rb = Dir["#{install_dir}/**/openssl-*/lib/openssl.rb"].last
       File.open(source_openssl_rb, "r+") do |f|
         unpatched_openssl_rb = f.read
         f.rewind
