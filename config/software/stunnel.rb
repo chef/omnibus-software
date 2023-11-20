@@ -51,7 +51,7 @@ build do
   #  * stunnel-on-windows-new.patch working from 5.61 to the latest for the time being.
   #
   # TODO: Find a way to patch by version
-  patch source: "stunnel-on-windows#{'-new' if version.satisfies?("> 5.60")}.patch", plevel: 1, env: env if windows?
+  patch source: "stunnel-on-windows#{"-new" if version.satisfies?("> 5.60")}.patch", plevel: 1, env: env if windows?
 
   configure_args = [
     "--with-ssl=#{install_dir}/embedded",
