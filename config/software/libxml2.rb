@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.9.14"
+default_version "2.10.4"
 
 license "MIT"
 license_file "COPYING"
@@ -24,6 +24,9 @@ skip_transitive_dependency_licensing true
 dependency "zlib"
 dependency "liblzma"
 dependency "config_guess"
+
+# version_list: url=https://download.gnome.org/sources/libxml2/2.10/ filter=*.tar.xz
+version("2.10.4") { source sha256: "ed0c91c5845008f1936739e4eee2035531c1c94742c6541f44ee66d885948d45" }
 
 # version_list: url=https://download.gnome.org/sources/libxml2/2.9/ filter=*.tar.xz
 version("2.9.14") { source sha256: "60d74a257d1ccec0475e749cba2f21559e48139efba6ff28224357c7c798dfee" }
@@ -56,11 +59,11 @@ build do
     "--without-docbook",
   ]
 
-  if windows?
-    configure_command << "--disable-shared"
-    env["CFLAGS"] << " -DIN_LIBXML"
-    env["CPPFLAGS"] = "-DLIBXML_STATIC"
-  end
+  # if windows?
+  #   configure_command << "--disable-shared"
+  #   env["CFLAGS"] << " -DIN_LIBXML"
+  #   env["CPPFLAGS"] = "-DLIBXML_STATIC"
+  # end
   update_config_guess
 
   configure(*configure_command, env: env)
