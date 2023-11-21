@@ -46,6 +46,8 @@ build do
 
   if version.satisfies?("< 1.1.39")
     patch source: "libxslt-solaris-configure.patch", env: env if solaris2? || omnios? || smartos?
+  else
+    patch source: "update-libxslt-solaris-configure.patch", env: env if solaris2? || omnios? || smartos?
   end
 
   if windows?
