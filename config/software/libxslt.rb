@@ -50,7 +50,6 @@ build do
     patch source: "update-libxslt-solaris-configure.patch", env: env if solaris2? || omnios? || smartos?
   end
 
-
   if windows?
     patch source: "libxslt-windows-relocate.patch", env: env
   end
