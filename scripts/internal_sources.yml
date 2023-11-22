@@ -142,6 +142,8 @@ software:
     sha256: 86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1d8688ef25280fbeee2ff8
   - url: https://s3.amazonaws.com/chef-releng/openssl/openssl-1.0.2zf.tar.gz
     sha256: 85d2242b7d11a33d5f239f1f34a1ff7eb37431a554b7df99c52c646b70b14b2e
+  - url: https://s3.amazonaws.com/chef-releng/openssl/openssl-1.0.2zi.tar.gz
+    sha256: 80b6c07995fc92456e31c61cf1b2a18f75e314063189bb183af6ae66d0261d84
 
 - name: openssl-fips
   sources:
