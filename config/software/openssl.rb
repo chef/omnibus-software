@@ -101,7 +101,7 @@ build do
     "shared",
   ]
 
-  configure_args += ["--libdir=#{install_dir}/embedded/lib", "enable-md4"] if version.satisfies?(">=3.0.1")
+  configure_args += ["--libdir=#{install_dir}/embedded/lib", "enable-legacy"] if version.satisfies?(">=3.0.1")
 
   # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
   configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ] if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
