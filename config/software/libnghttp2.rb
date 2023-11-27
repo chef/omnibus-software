@@ -17,11 +17,13 @@
 name "libnghttp2"
 default_version "1.58.0"
 
+dependency "openssl"
+
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-version("1.58.0")  { source sha256: "9ebdfbfbca164ef72bdf5fd2a94a4e6dfb54ec39d2ef249aeb750a91ae361dfb" }
+version("1.58.0") { source sha256: "9ebdfbfbca164ef72bdf5fd2a94a4e6dfb54ec39d2ef249aeb750a91ae361dfb" }
 
 source url: "https://github.com/nghttp2/nghttp2/releases/download/v#{version}/nghttp2-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
