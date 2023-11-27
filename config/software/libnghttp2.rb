@@ -29,14 +29,14 @@ source url: "https://github.com/nghttp2/nghttp2/releases/download/v#{version}/ng
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
-relative_path "libnghttp2-#{version}"
+relative_path "nghttp2-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   configure_options = [
     "--prefix=#{install_dir}/embedded",
-    "--openssldir=#{install_dir}/embedded",
+    "--with-openssl"
   ]
 
   configure(*configure_options, env: env)
