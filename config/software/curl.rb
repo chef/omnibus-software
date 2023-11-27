@@ -20,6 +20,7 @@ default_version "7.85.0"
 dependency "zlib"
 dependency "openssl"
 dependency "cacerts"
+dependency "libnghttp2" if version.satisfies?(">= 8.0")
 
 license "MIT"
 license_file "COPYING"
