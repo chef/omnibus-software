@@ -101,7 +101,7 @@ build do
     "shared",
   ]
 
-  configure_args += ["--libdir=#{install_dir}/embedded/lib", "enable-legacy"] if version.satisfies?(">=3.0.1")
+  configure_args += ["--libdir=#{install_dir}/embedded/lib"] if version.satisfies?(">=3.0.1")
 
   # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
   configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ] if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
@@ -162,6 +162,12 @@ build do
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
   elsif version.start_with? "3.0"
     patch source: "openssl-3.0.1-do-not-install-docs.patch", env: patch_env
+
+    # Some of the algorithms are deprecated in OpenSSL3 and moved to legacy provider
+    # We need those algorithms for the working of chef-workstation
+    # This patch will enable the legacy providers
+    configure_args << "enable-legacy"
+    patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
   end
 
   if version.start_with?("1.0.2") && mac_os_x? && arm?
