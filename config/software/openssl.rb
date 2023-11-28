@@ -166,8 +166,8 @@ build do
     # Some of the algorithms are deprecated in OpenSSL3 and moved to legacy provider
     # We need those algorithms for the working of chef-workstation
     # This patch will enable the legacy providers
-    configure_args << "enable-legacy"
-    patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
+    # configure_args << "enable-legacy"
+    # patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
   end
 
   if version.start_with?("1.0.2") && mac_os_x? && arm?
