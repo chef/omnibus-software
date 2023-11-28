@@ -1,4 +1,3 @@
-@@ -0,0 +1,48 @@
 diff --git a/apps/openssl-vms.cnf b/apps/openssl-vms.cnf
 index ac858d6..d1cb967 100644
 --- a/apps/openssl-vms.cnf
