@@ -164,6 +164,14 @@ build do
     patch source: "openssl-3.0.1-do-not-install-docs.patch", env: patch_env
   end
 
+
+    # Some of the algorithms which are being used are deprecated in OpenSSL3 and moved to legacy provider.
+    # We need those algorithms for the working of chef-workstation and other packages.
+    # This patch will enable the legacy providers!
+    configure_args << "enable-legacy"
+    patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
+  end
+
   if version.start_with?("1.0.2") && mac_os_x? && arm?
     patch source: "openssl-1.0.2x-darwin-arm64.patch"
   end
