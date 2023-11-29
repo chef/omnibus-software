@@ -15,17 +15,19 @@
 #
 
 name "curl"
-default_version "7.85.0"
+default_version "8.4.0"
 
 dependency "zlib"
 dependency "openssl"
 dependency "cacerts"
+dependency "libnghttp2" if version.satisfies?(">= 8.0")
 
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://curl.se/download/ filter=*.tar.gz
+version("8.4.0")  { source sha256: "816e41809c043ff285e8c0f06a75a1fa250211bbfb2dc0a037eeef39f1a9e427" }
 version("7.85.0") { source sha256: "78a06f918bd5fde3c4573ef4f9806f56372b32ec1829c9ec474799eeee641c27" }
 version("7.84.0") { source sha256: "3c6893d38d054d4e378267166858698899e9d87258e8ff1419d020c395384535" }
 version("7.83.1") { source sha256: "93fb2cd4b880656b4e8589c912a9fd092750166d555166370247f09d18f5d0c0" }
@@ -50,21 +52,7 @@ build do
 
   delete "#{project_dir}/src/tool_hugehelp.c"
 
-  if aix?
-    # alpn doesn't appear to work on AIX when connecting to certain sites, most
-    # importantly for us https://www.github.com Since git uses libcurl under
-    # the covers, this functionality breaks the handshake on connection, giving
-    # a cryptic error. This patch essentially forces disabling of ALPN on AIX,
-    # which is not really what we want in a http/2 world, but we're not there
-    # yet.
-    patch_env = env.dup
-    patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
-    patch source: "curl-aix-disable-alpn.patch", plevel: 0, env: patch_env
-
-    # otherwise gawk will die during ./configure with variations on the theme of:
-    # "/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded"
-    env["LIBPATH"] = "/usr/lib:/lib"
-  elsif solaris2?
+  if solaris2?
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
   end
