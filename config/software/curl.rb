@@ -52,19 +52,6 @@ build do
 
   delete "#{project_dir}/src/tool_hugehelp.c"
 
-  # if aix?
-  # alpn doesn't appear to work on AIX when connecting to certain sites, most
-  # importantly for us https://www.github.com Since git uses libcurl under
-  # the covers, this functionality breaks the handshake on connection, giving
-  # a cryptic error. This patch essentially forces disabling of ALPN on AIX,
-  # which is not really what we want in a http/2 world, but we're not there
-  # yet.
-  # patch_env = env.dup
-  # patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
-  # patch source: "curl-aix-disable-alpn.patch", plevel: 0, env: patch_env
-  # otherwise gawk will die during ./configure with variations on the theme of:
-  # "/opt/omnibus-toolchain/embedded/lib/libiconv.a(shr4.o) could not be loaded"
-  # env["LIBPATH"] = "/usr/lib:/lib"
   if solaris2?
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
