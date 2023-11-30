@@ -68,7 +68,7 @@ version("1.0.2za") { source sha256: "86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1
 version("1.0.2ze") { source sha256: "796624c593c361c695bd16314bc6f944184f5d2ff87efcf0bfa0545aa84c4d88" }
 version("1.0.2zf") { source sha256: "85d2242b7d11a33d5f239f1f34a1ff7eb37431a554b7df99c52c646b70b14b2e" }
 version("1.0.2zi") { source sha256: "ac0654128bdbf1853c6fbdbe5596ea7c4846e5d3b7a32d6caa5d658ba2f63a2d" }
-
+# update cksum
 relative_path "openssl-#{version}"
 
 build do
