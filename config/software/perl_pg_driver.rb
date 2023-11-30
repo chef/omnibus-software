@@ -15,7 +15,7 @@
 #
 
 name "perl_pg_driver"
-default_version "3.17.0"
+default_version "3.16.0"
 
 dependency "perl"
 dependency "cpanminus"
