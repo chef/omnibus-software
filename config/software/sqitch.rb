@@ -15,7 +15,7 @@
 #
 
 name "sqitch"
-default_version "1.4.0"
+default_version "1.3.1"
 
 license "MIT"
 license_file "https://raw.githubusercontent.com/theory/sqitch/master/README.md"
