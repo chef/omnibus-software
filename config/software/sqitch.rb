@@ -28,6 +28,7 @@ dependency "libintl-perl"
 
 # version_list: url=https://github.com/theory/#{name}/releases/download/v#{version}/ filter=app-sqitch-*.tar.gz
 
+version("1.4.0")  { source sha256: "b0db387031f77562662e003bc55d7a102a26380b4ad7fdb9a8a3bad5769e501c" }
 version("1.3.1")  { source sha256: "f5e768d298cd4047ee2ae42319782e8c2cda312737bcbdbfaf580bd47efe8b94" }
 version("1.3.0")  { source sha256: "7d07635ec77a7faf3c50281c76ec833c68702f14470996cb2203a8bc6abc5bf2" }
 version("1.2.1")  { source sha256: "020835a13429effd8fda12d5627604ecf99293775918f4f8ba9ccc5ed796e5e7" }
