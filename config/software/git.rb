@@ -32,6 +32,7 @@ relative_path "git-#{version}"
 
 # version_list: url=https://www.kernel.org/pub/software/scm/git/ filter=*.tar.gz
 
+version("2.43.0") { source sha256: "ed238f5c72a014f238cc49fe7df4c6883732a3881111b381c105e2c5be77302f" }
 version("2.39.3") { source sha256: "2f9aa93c548941cc5aff641cedc24add15b912ad8c9b36ff5a41b1a9dcad783e" }
 version("2.39.0") { source sha256: "d929fe67cef7ac3ca709d2b56a9920f17112d5a524bf8112af37ec045a7a5109" }
 version("2.37.3") { source sha256: "181f65587155ea48c682f63135678ec53055adf1532428752912d356e46b64a8" }
