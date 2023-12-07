@@ -1,15 +1,17 @@
-# name: Open datadog-agent PR
-# run-name:
-# on:
-#   pull_request:
-#     types:
-#       - closed
-#
-# jobs:
-#   open_pr:
-#     if: github.event.pull_request.merged == true
-#     runs-on: ubuntu-latest
-#     steps:
+name: Open datadog-agent PR
+run-name:
+on:
+  pull_request:
+    #    types:
+    #      - closed
+
+jobs:
+  open_pr:
+    # if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Empty dummy workflow
+        run: echo "nothing to do yet"
 #       - name: Clone datadog-agent repo
 #         uses: actions/checkout@v3
 #         with:
