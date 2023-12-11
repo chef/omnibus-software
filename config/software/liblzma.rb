@@ -44,8 +44,7 @@ build do
   # flags used across tools such as windres.  Don't put anything in it
   # that can be misinterpreted by windres.
   env["CPPFLAGS"] = "-I#{install_dir}/embedded/include" if windows?
-  env["ARFLAGS"] = "-X64" if aix?
-
+  env.delete("ARFLAGS") if aix? # Avoids "-X64 cru" flag to ar which breaks the build
 
   config_command = [
     "--disable-debug",
