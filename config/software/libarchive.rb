@@ -47,12 +47,15 @@ dependency "liblzma"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  env.merge!("LDFLAGS" => "-brtl", "LIBS" => "-llzma") if aix?
+  env.merge!("LDFLAGS" => "-brtl") if aix?
+  #  env.merge!("LDFLAGS" => "-brtl", "LIBS" => "-llzma") if aix?
 
   update_config_guess(target: "build/autoconf/")
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
+    "--with-zlib=#{install_dir}/embedded",
+    "--with-lzma=#{install_dir}/embedded",
     "--without-lzo2",
     "--without-nettle",
     "--without-expat",
