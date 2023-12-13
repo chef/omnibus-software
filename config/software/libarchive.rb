@@ -18,7 +18,7 @@
 # https://github.com/berkshelf/api.berkshelf.com
 
 name "libarchive"
-default_version "3.7.2"
+default_version "3.6.2"
 
 license "BSD-2-Clause"
 license_file "COPYING"
