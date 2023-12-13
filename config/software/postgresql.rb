@@ -30,7 +30,7 @@ dependency "config_guess"
 
 # version_list: url=https://ftp.postgresql.org/pub/source/v#{version}/ filter=*.tar.bz2
 
-version("16.0")   { source sha256: "df9e823eb22330444e1d48e52cc65135a652a6fdb3ce325e3f08549339f51b99" }
+version("16.1")   { source sha256: "bf0564725613f7c57f1c3ebf5c909b3ec58b9cfb3d81b4bb1209d88767065a87" }
 version("15.1")   { source sha256: "64fdf23d734afad0dfe4077daca96ac51dcd697e68ae2d3d4ca6c45cb14e21ae" }
 version("15.0")   { source sha256: "72ec74f4a7c16e684f43ea42e215497fcd4c55d028a68fb72e99e61ff40da4d6" }
 version("14.5")   { source sha256: "d4f72cb5fb857c9a9f75ec8cf091a1771272802f2178f0b2e65b7b6ff64f4a30" }
