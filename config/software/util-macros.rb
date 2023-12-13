@@ -15,7 +15,7 @@
 #
 
 name "util-macros"
-default_version "1.20.0"
+default_version "1.19.3"
 
 # version_list: url=https://www.x.org/releases/individual/util/ filter=util-macros-*.tar.gz
 
