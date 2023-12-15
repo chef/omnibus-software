@@ -47,11 +47,12 @@ build do
     end
   end
 
-  command "./configure" \
-          " --disable-static" \
-          " --without-examples" \
-          " --without-tests" \
-          " --prefix=#{install_dir}/embedded", env: env
+  configure_options = [
+    "--disable-static",
+    " --without-examples",
+    " --without-tests",
+  ]
+  configure(*configure_options, env: env)
 
   make "-j #{workers}", env: env
   make "install", env: env

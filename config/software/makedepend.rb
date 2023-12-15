@@ -27,34 +27,7 @@ relative_path "makedepend-1.0.5"
 dependency "xproto"
 dependency "util-macros"
 
-configure_env =
-  case ohai["platform"]
-  when "aix"
-    {
-      "CC" => "xlc -q64",
-      "CXX" => "xlC -q64",
-      "LD" => "ld -b64",
-      "CFLAGS" => "-q64 -I#{install_dir}/embedded/include -O",
-      "LDFLAGS" => "-q64 -Wl,-blibpath:/usr/lib:/lib",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru",
-    }
-  when "mac_os_x"
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib",
-    }
-  when "solaris2"
-    {
-      "LDFLAGS" => "-R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -static-libgcc",
-      "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    }
-  else
-    {
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-      "CFLAGS" => "-I#{install_dir}/embedded/include -L#{install_dir}/embedded/lib",
-    }
-  end
+configure_env = with_standard_compiler_flags(with_embedded_path)
 
 configure_env["PKG_CONFIG_LIBDIR"] = "#{install_dir}/embedded/lib/pkgconfig" +
   File::PATH_SEPARATOR +
@@ -64,7 +37,7 @@ build do
   license "BSD-3-Clause"
   license_file "https://raw.githubusercontent.com/ioerror/makedepend/master/LICENSE"
 
-  command "./configure --prefix=#{install_dir}/embedded", env: configure_env
+  configure env: configure_env
   command "make -j #{workers}", env: configure_env
   command "make -j #{workers} install", env: configure_env
 end

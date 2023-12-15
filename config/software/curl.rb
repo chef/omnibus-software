@@ -33,8 +33,7 @@ build do
     FileUtils.rm_rf(File.join(project_dir, "src/tool_hugehelp.c"))
   end
 
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
+  configure_options = [
            "--disable-manual",
            "--disable-debug",
            "--enable-optimize",
@@ -51,7 +50,9 @@ build do
            "--without-libssh2",
            "--with-ssl=#{install_dir}/embedded",
            "--with-zlib=#{install_dir}/embedded",
-           "--with-nghttp2=#{install_dir}/embedded"].join(" ")
+           "--with-nghttp2=#{install_dir}/embedded",
+  ]
+  configure(*configure_options)
 
   command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"

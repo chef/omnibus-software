@@ -18,15 +18,16 @@ build do
   license "MIT"
   license_file "./COPYING"
 
-  command [
-    "./configure",
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  configure_options = [
     "--disable-static",
     "--enable-shared",
     "--disable-app",
     "--disable-examples",
     "--disable-hpack-tools",
-    "--prefix=#{install_dir}/embedded",
-  ].join(" ")
-  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  ]
+  configure(*configure_options, env: env)
+  command "make -j #{workers}", env: env
   command "make install"
 end

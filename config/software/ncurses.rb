@@ -57,39 +57,37 @@ build do
   update_config_guess
 
   # build wide-character libraries
-  cmd_array = ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-shared",
-           "--disable-static",
-           "--with-termlib",
-           "--without-debug",
-           "--without-normal", # AIX doesn't like building static libs
-           "--without-cxx-binding",
-           "--enable-overwrite",
-           "--enable-widec",
-           "--without-manpages",
-           "--without-tests"]
+  configure_options = [
+    "--with-shared",
+    "--disable-static",
+    "--with-termlib",
+    "--without-debug",
+    "--without-normal", # AIX doesn't like building static libs
+    "--without-cxx-binding",
+    "--enable-overwrite",
+    "--enable-widec",
+    "--without-manpages",
+    "--without-tests",
+  ]
 
-  cmd_array << "--with-libtool" if ohai["platform"] == "aix"
-  command(cmd_array.join(" "),
-    env: env)
+  configure_options << "--with-libtool" if ohai["platform"] == "aix"
+  configure(*configure_options, env: env)
   command "make -j #{workers}", env: env
   command "make -j #{workers} install", env: env
 
   # build non-wide-character libraries
   command "make distclean"
-  cmd_array = ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--with-shared",
-           "--disable-static",
-           "--with-termlib",
-           "--without-debug",
-           "--without-normal",
-           "--without-cxx-binding",
-           "--enable-overwrite"]
-  cmd_array << "--with-libtool" if ohai["platform"] == "aix"
-  command(cmd_array.join(" "),
-    env: env)
+  configure_options = [
+    "--with-shared",
+    "--disable-static",
+    "--with-termlib",
+    "--without-debug",
+    "--without-normal",
+    "--without-cxx-binding",
+    "--enable-overwrite",
+  ]
+  configure_options << "--with-libtool" if ohai["platform"] == "aix"
+  configure(*configure_options, env: env)
   command "make -j #{workers}", env: env
 
   # installing the non-wide libraries will also install the non-wide

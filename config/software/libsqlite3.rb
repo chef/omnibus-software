@@ -9,12 +9,11 @@ source url: "https://www.sqlite.org/2023/sqlite-autoconf-3430101.tar.gz",
 
 relative_path "sqlite-autoconf-3430100"
 
-env = with_standard_compiler_flags(with_embedded_path)
-
 build do
   license "Public-Domain"
 
   update_config_guess
+  env = with_standard_compiler_flags(with_embedded_path)
   configure_options = [
     "--disable-nls",
     "--disable-static",

@@ -68,11 +68,7 @@ build do
     end
 
     env["CFLAGS"] << " -fPIC"
-
-    configure env: env
-
-    make "-j #{workers}", env: env
-    make "-j #{workers} install", env: env
+    cmake env: env
 
     delete "#{install_dir}/embedded/lib/libz.a"
     delete "#{install_dir}/embedded/share/man/man3/zlib.3"

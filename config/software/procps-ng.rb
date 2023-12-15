@@ -8,12 +8,6 @@ source url:    "https://gitlab.com/procps-ng/procps/-/archive/v3.3.16/procps-v#{
 
 relative_path "procps-v#{version}"
 
-env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-}
-
 build do
   license "GPL-2.0"
   license_file "https://gitlab.com/procps-ng/procps/raw/master/COPYING"
@@ -27,13 +21,13 @@ build do
     f.puts "#{version}"
   end
 
+  env = with_standard_compiler_flags(with_embedded_path)
   command("./autogen.sh", env: env)
-  command(["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--without-ncurses",
-           "--disable-nls",
-           ""].join(" "),
-    env: env)
+  configure_options = [
+    "--without-ncurses",
+    "--disable-nls",
+  ]
+  configure(*configure_options, env: env)
   command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
   command "make install"
 

@@ -50,20 +50,17 @@ end
 source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
 relative_path "postgresql-#{version}"
 
-configure_env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "LD_RUN_PATH" => "#{install_dir}/embedded/lib",
-}
-
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
+  env = with_standard_compiler_flags(with_embedded_path)
+  configure_options = [
            "--without-readline",
-           "--with-openssl --with-includes=#{install_dir}/embedded/include",
+           "--with-openssl",
+           "--with-includes=#{install_dir}/embedded/include",
            "--without-icu",
-           "--with-libraries=#{install_dir}/embedded/lib"].join(" "), env: configure_env
-  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+           "--with-libraries=#{install_dir}/embedded/lib",
+  ]
+  configure(*configure_options, env: env)
+  command "make -j #{workers}"
   command "make install"
 
   delete "#{install_dir}/embedded/lib/postgresql/pgxs/src/test/"

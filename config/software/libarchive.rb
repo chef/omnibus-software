@@ -26,25 +26,23 @@ source url: "https://www.libarchive.org/downloads/libarchive-#{version}.tar.gz",
 
 relative_path "libarchive-#{version}"
 
-env = {
-  "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include ",
-}
-
 build do
-  command "./configure --prefix=#{install_dir}/embedded \
-    --without-lzma \
-    --without-lzo2 \
-    --without-nettle \
-    --without-xml2 \
-    --without-expat \
-    --without-bz2lib \
-    --without-iconv \
-    --without-zlib \
-    --disable-bsdtar \
-    --disable-bsdcpio \
-    --without-lzmadec \
-    --without-openssl", env: env
+  env = with_standard_compiler_flags(with_embedded_path)
+  configure_options = [
+    "--without-lzma",
+    "--without-lzo2",
+    "--without-nettle",
+    "--without-xml2",
+    "--without-expat",
+    "--without-bz2lib",
+    "--without-iconv",
+    "--without-zlib",
+    "--disable-bsdtar",
+    "--disable-bsdcpio",
+    "--without-lzmadec",
+    "--without-openssl",
+  ]
+  configure(*configure_options, env: env)
   command "make -j #{workers}", env: env
   command "make install", env: env
 end
