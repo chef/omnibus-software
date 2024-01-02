@@ -118,13 +118,13 @@ build do
     elsif mac_os_x?
       intel? ? "./Configure darwin64-x86_64-cc" : "./Configure darwin64-arm64-cc no-asm"
     elsif smartos?
-      "/bin/bash ./Configure solaris64-x86_64-gcc -static-libgcc"
+      "./Configure solaris64-x86_64-gcc -static-libgcc"
     elsif omnios?
-      "/bin/bash ./Configure solaris-x86-gcc"
+      "./Configure solaris-x86-gcc"
     elsif solaris2?
       platform = sparc? ? "solaris64-sparcv9-gcc" : "solaris64-x86_64-gcc"
       if version.satisfies?("< 1.1.0")
-        "/bin/bash ./Configure #{platform} -static-libgcc"
+        "./Configure #{platform} -static-libgcc"
       else
         "./Configure #{platform} -static-libgcc"
       end
