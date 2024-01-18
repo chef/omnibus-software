@@ -44,6 +44,10 @@ if windows?
   version("1.17")    { source sha256: "2a18bd65583e221be8b9b7c2fbe3696c40f6e27c2df689bbdcc939d49651d151" }
   version("1.16.3")  { source sha256: "a4400345135b36cb7942e52bbaf978b66814738b855eeff8de879a09fd99de7f" }
 
+  source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+
 elsif mac_os_x?
   platform = "darwin"
 
@@ -64,8 +68,12 @@ elsif mac_os_x?
   version("1.17")    { source sha256: "355bd544ce08d7d484d9d7de05a71b5c6f5bc10aa4b316688c2192aeb3dacfd1" }
   version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
 
+  source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+
 elsif armhf?
-  platform = "armv6l"
+  arch = "armv6l"
   # version_list: url=https://golang.org/dl/ filter=*.linux-armv6l.tar.gz
   version("1.21.4")  { source sha256: "6c62e89113750cc77c498194d13a03fadfda22bd2c7d44e8a826fd354db60252" }
   version("1.21.3")  { source sha256: "a1ddcaaf0821a12a800884c14cb4268ce1c1f5a0301e9060646f1e15e611c6c7" }
@@ -81,8 +89,13 @@ elsif armhf?
   version("1.17.2")  { source sha256: "04d16105008230a9763005be05606f7eb1c683a3dbf0fbfed4034b23889cb7f2" }
   version("1.17")    { source sha256: "ae89d33f4e4acc222bdb04331933d5ece4ae71039812f6ccd7493cb3e8ddfb4e" }
   version("1.16.3")  { source sha256: "0dae30385e3564a557dac7f12a63eedc73543e6da0f6017990e214ce8cc8797c" }
+
+  source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+
 elsif arm?
-  platform = "arm64"
+  arch = "arm64"
   # version_list: url=https://golang.org/dl/ filter=*.linux-arm64.tar.gz
   version("1.21.4")  { source sha256: "ce1983a7289856c3a918e1fd26d41e072cc39f928adfb11ba1896440849b95da" }
   version("1.21.3")  { source sha256: "fc90fa48ae97ba6368eecb914343590bbb61b388089510d0c56c2dde52987ef3" }
@@ -98,6 +111,11 @@ elsif arm?
   version("1.17.2")  { source sha256: "a5a43c9cdabdb9f371d56951b14290eba8ce2f9b0db48fb5fc657943984fd4fc" }
   version("1.17")    { source sha256: "01a9af009ada22122d3fcb9816049c1d21842524b38ef5d5a0e2ee4b26d7c3e7" }
   version("1.16.3")  { source sha256: "566b1d6f17d2bc4ad5f81486f0df44f3088c3ed47a3bec4099d8ed9939e90d5d" }
+
+  source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+
 else
   # version_list: url=https://golang.org/dl/ filter=*.linux-amd64.tar.gz
   version("1.21.4")  { source sha256: "73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af" }
