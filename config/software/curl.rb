@@ -32,6 +32,7 @@ build do
   block do
     FileUtils.rm_rf(File.join(project_dir, "src/tool_hugehelp.c"))
   end
+  env = with_standard_compiler_flags(with_embedded_path)
 
   configure_options = [
            "--disable-manual",
@@ -52,8 +53,8 @@ build do
            "--with-zlib=#{install_dir}/embedded",
            "--with-nghttp2=#{install_dir}/embedded",
   ]
-  configure(*configure_options)
+  configure(*configure_options, env: env)
 
-  command "make -j #{workers}", env: { "LD_RUN_PATH" => "#{install_dir}/embedded/lib" }
+  command "make -j #{workers}", env: env
   command "make install"
 end
