@@ -50,6 +50,7 @@ if windows?
 
 elsif mac_os_x?
   platform = "darwin"
+  arch = intel? ? "amd64" : "arm64"
 
   # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
   version("1.21.4")  { source sha256: "cd3bdcc802b759b70e8418bc7afbc4a65ca73a3fe576060af9fc8a2a5e71c3b8" }
