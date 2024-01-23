@@ -1,0 +1,93 @@
+name: Open datadog-agent PR
+run-name:
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  open_bump_pr:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.DATADOG_APP_ID }}
+          private-key: ${{ secrets.DATADOG_APP_PRIVATE_KEY }}
+          repositories: datadog-agent
+
+      - name: Clone datadog-agent repo
+        uses: actions/checkout@v4
+        with:
+          repository: datadog/datadog-agent
+          persist-credentials: false
+          path: datadog-agent
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Clone omnibus-software repo
+        uses: actions/checkout@v4
+        with:
+          repository: datadog/omnibus-software
+          persist-credentials: false
+          path: omnibus-software
+          token: ${{ steps.app-token.outputs.token }}
+          ref: master
+          fetch-depth: 0
+
+      - name: Setup Python3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.5"
+          cache: "pip"
+
+      - name: Install python deps
+        working-directory: datadog-agent
+        run: |
+          pip3 install -r requirements.txt
+          pip3 install -r tasks/libs/requirements-github.txt
+
+      - name: Get new commit sha1
+        working-directory: omnibus-software
+        id: new_sha
+        run: |
+          git fetch
+          NEW_SHA=$(git rev-parse origin/master)
+          echo NEW_SHA=${NEW_SHA} >> "${GITHUB_OUTPUT}"
+
+      - name: Update release.json
+        working-directory: datadog-agent
+        env:
+          OMNIBUS_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          inv -e release.set-release-json 'nightly::OMNIBUS_SOFTWARE_VERSION' ${{ steps.new_sha.outputs.NEW_SHA }}
+          inv -e release.set-release-json 'nightly-a7::OMNIBUS_SOFTWARE_VERSION' ${{ steps.new_sha.outputs.NEW_SHA }}
+
+      - name: Compute milestone
+        working-directory: datadog-agent
+        env:
+          GITHUB_TOKEN: '${{ steps.app-token.outputs.token }}'
+        id: milestone
+        run: |
+          MILESTONE_NAME=$(inv agent.version --no-include-git --no-include-pre)
+          MILESTONE_ID=$(inv github.get-milestone-id ${MILESTONE_NAME})
+          echo MILESTONE_ID=${MILESTONE_ID} >> "$GITHUB_OUTPUT"
+
+      - name: create datadog-agent PR
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          base: main
+          delete-branch: true
+          path: datadog-agent
+          add-paths: release.json
+          commit-message: 'omnibus: bump OMNIBUS_SOFTWARE_VERSION'
+          title: '[omnibus][automated] Bump OMNIBUS_SOFTWARE_VERSION'
+          branch: 'automated/omnibus-software/${{ github.event.number }}'
+          labels: 'team/agent-platform,changelog/no-changelog,qa/no-code-change'
+          milestone: ${{ steps.milestone.outputs.MILESTONE_ID }}
+          body: 'Automatically created by merging ${{ github.event.pull_request.html_url }}'
+
