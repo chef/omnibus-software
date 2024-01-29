@@ -29,6 +29,7 @@ if windows?
   ext = "zip"
 
   # version_list: url=https://golang.org/dl/ filter=*.windows-amd64.zip
+  version("1.21.5")  { source sha256: "bbe603cde7c9dee658f45164b4d06de1eff6e6e6b800100824e7c00d56a9a92f" }
   version("1.21.4")  { source sha256: "79e5428e068c912d9cfa6cd115c13549856ec689c1332eac17f5d6122e19d595" }
   version("1.21.3")  { source sha256: "27c8daf157493f288d42a6f38debc6a2cb391f6543139eba9152fceca0be2a10" }
   version("1.19.5")  { source sha256: "167db91a2e40aeb453d3e59d213ecab06f62e1c4a84d13a06ccda1d999961caa" }
@@ -53,6 +54,7 @@ elsif mac_os_x?
   arch = intel? ? "amd64" : "arm64"
 
   # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
+  version("1.21.5")  { source sha256: "a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923" }
   version("1.21.4")  { source sha256: "cd3bdcc802b759b70e8418bc7afbc4a65ca73a3fe576060af9fc8a2a5e71c3b8" }
   version("1.21.3")  { source sha256: "27014fc69e301d7588a169ca239b3cc609f0aa1abf38528bf0d20d3b259211eb" }
   version("1.19.5")  { source sha256: "23d22bb6571bbd60197bee8aaa10e702f9802786c2e2ddce5c84527e86b66aa0" }
@@ -76,6 +78,7 @@ elsif mac_os_x?
 elsif armhf?
   arch = "armv6l"
   # version_list: url=https://golang.org/dl/ filter=*.linux-armv6l.tar.gz
+  version("1.21.5")  { source sha256: "837f4bf4e22fcdf920ffeaa4abf3d02d1314e03725431065f4d44c46a01b42fe" }
   version("1.21.4")  { source sha256: "6c62e89113750cc77c498194d13a03fadfda22bd2c7d44e8a826fd354db60252" }
   version("1.21.3")  { source sha256: "a1ddcaaf0821a12a800884c14cb4268ce1c1f5a0301e9060646f1e15e611c6c7" }
   version("1.19.5")  { source sha256: "ec14f04bdaf4a62bdcf8b55b9b6434cc27c2df7d214d0bb7076a7597283b026a" }
@@ -98,6 +101,7 @@ elsif armhf?
 elsif arm?
   arch = "arm64"
   # version_list: url=https://golang.org/dl/ filter=*.linux-arm64.tar.gz
+  version("1.21.5")  { source sha256: "841cced7ecda9b2014f139f5bab5ae31785f35399f236b8b3e75dff2a2978d96" }
   version("1.21.4")  { source sha256: "ce1983a7289856c3a918e1fd26d41e072cc39f928adfb11ba1896440849b95da" }
   version("1.21.3")  { source sha256: "fc90fa48ae97ba6368eecb914343590bbb61b388089510d0c56c2dde52987ef3" }
   version("1.19.5")  { source sha256: "fc0aa29c933cec8d76f5435d859aaf42249aa08c74eb2d154689ae44c08d23b3" }
@@ -119,6 +123,7 @@ elsif arm?
 
 else
   # version_list: url=https://golang.org/dl/ filter=*.linux-amd64.tar.gz
+  version("1.21.5")  { source sha256: "e2bc0b3e4b64111ec117295c088bde5f00eeed1567999ff77bc859d7df70078e" }
   version("1.21.4")  { source sha256: "73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af" }
   version("1.21.3")  { source sha256: "1241381b2843fae5a9707eec1f8fb2ef94d827990582c7c7c32f5bdfbfd420c8" }
   version("1.19.5")  { source sha256: "36519702ae2fd573c9869461990ae550c8c0d955cd28d2827a6b159fda81ff95" }
