@@ -1,4 +1,4 @@
-include: "https://gitlab-templates.ddbuild.io/slack-notifier/sdm/template.yml"
+include: "https://gitlab-templates.ddbuild.io/slack-notifier/v3-sdm/template.yml"
 
 stages:
   - test
@@ -58,4 +58,3 @@ notify:
   script: |
     export MESSAGE="Your omnibus-software test pipeline completed"
     /usr/local/bin/notify.sh
-
