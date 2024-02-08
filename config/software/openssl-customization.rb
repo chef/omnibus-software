@@ -47,9 +47,10 @@ build do
       config_dir
     end
 
+    embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
     source_openssl_rb = if version.satisfies?("< 3.1") &&
-                            project.overrides[:openssl] &&
-                            project.overrides[:openssl][:version].satisfies?(">= 3.0")
+      project.overrides[:openssl] &&
+      project.overrides[:openssl][:version].satisfies?(">= 3.0")
                           # ruby 3.0 by default is built with < OpenSSL 3.0, and we'll
                           # have an openssl gem separately installed as part of this
                           Dir["#{install_dir}/**/openssl-*/lib/openssl.rb"].last
@@ -59,9 +60,7 @@ build do
 
     if windows?
       embedded_ruby_site_dir = get_sanitized_rbconfig("sitelibdir")
-      embedded_ruby_lib_dir  = get_sanitized_rbconfig("rubylibdir")
-
-      source_ssl_env_hack      = File.join(project_dir, "windows", "ssl_env_hack.rb")
+      source_ssl_env_hack = File.join(project_dir, "windows", "ssl_env_hack.rb")
       destination_ssl_env_hack = File.join(embedded_ruby_site_dir, "ssl_env_hack.rb")
 
       create_directory(embedded_ruby_site_dir)
@@ -78,7 +77,6 @@ build do
         f.write(unpatched_openssl_rb)
       end
     else
-      embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
       File.open(source_openssl_rb, "r+") do |f|
         unpatched_openssl_rb = f.read
         f.rewind
