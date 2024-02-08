@@ -267,7 +267,6 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
-
   if version.satisfies?("< 3.1") &&
       project.overrides[:openssl] &&
       project.overrides[:openssl][:version].satisfies?(">= 3.0")
