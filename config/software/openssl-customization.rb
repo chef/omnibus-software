@@ -49,8 +49,8 @@ build do
 
     embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
     source_openssl_rb = if version.satisfies?("< 3.1") &&
-      project.overrides[:openssl] &&
-      project.overrides[:openssl][:version].satisfies?(">= 3.0")
+        project.overrides[:openssl] &&
+        project.overrides[:openssl][:version].satisfies?(">= 3.0")
                           # ruby 3.0 by default is built with < OpenSSL 3.0, and we'll
                           # have an openssl gem separately installed as part of this
                           Dir["#{install_dir}/**/openssl-*/lib/openssl.rb"].last
