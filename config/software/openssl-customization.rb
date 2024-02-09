@@ -49,7 +49,7 @@ build do
 
     embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
     source_openssl_rb = if project.overrides[:openssl] && project.overrides[:ruby] &&
-        ChefUtils::VersionString.new(project.overrides[:ruby][:version].satisfies?("< 3.1")) &&
+        ChefUtils::VersionString.new(project.overrides[:ruby][:version]).satisfies?("< 3.1") &&
         ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
                           # ruby 3.0 by default is built with < OpenSSL 3.0, and we'll
                           # have an openssl gem separately installed as part of this
