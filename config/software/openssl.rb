@@ -169,7 +169,7 @@ build do
     if widows?
 	if version.satisfies?("= 3.0.11")
         	configure_args << "enable-legacy"
-               patch source: openssl-3.0.11-enable-legacy-provider.patch 
+               patch source: openssl-3-0-11-enable-legacy-provider.patch 
         end
     else
 	configure_args << "enable-legacy"
