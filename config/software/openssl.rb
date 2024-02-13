@@ -167,9 +167,9 @@ build do
     # We need those algorithms for the working of chef-workstation and other packages.
     # This patch will enable the legacy providers!
     if widows?
-	    if version.satisfies?("= 3.0.11")
+	    if version.start_with? "= 3.0.11"
         configure_args << "enable-legacy"
-        patch source: openssl-3-0-11-enable-legacy-provider.patch 
+        patch source: "openssl-3-0-11-enable-legacy-provider.patch", env: patch_env
       end
     else
 	    configure_args << "enable-legacy"
