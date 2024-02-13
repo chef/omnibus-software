@@ -166,7 +166,7 @@ build do
     # Some of the algorithms which are being used are deprecated in OpenSSL3 and moved to legacy provider.
     # We need those algorithms for the working of chef-workstation and other packages.
     # This patch will enable the legacy providers!
-    if widows?
+    if windows?
       if version.start_with? "= 3.0.11"
         configure_args << "enable-legacy"
         patch source: "openssl-3-0-11-enable-legacy-provider.patch", env: patch_env
