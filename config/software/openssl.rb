@@ -172,7 +172,7 @@ build do
         patch source: "openssl-3-0-11-enable-legacy-provider.patch", env: patch_env
       end
     else
-	    configure_args << "enable-legacy"
+      configure_args << "enable-legacy"
       patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
     end
   end
