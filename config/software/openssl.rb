@@ -48,6 +48,7 @@ else
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
+version("3.0.12")  { source sha256: "f93c9e8edde5e9166119de31755fc87b4aa34863662f67ddfcba14d0b6b69b61" }
 version("3.0.11")  { source sha256: "b3425d3bb4a2218d0697eb41f7fc0cdede016ed19ca49d168b78e8d947887f55" }
 version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a" }
 version("3.0.4")   { source sha256: "2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f" }
@@ -68,7 +69,7 @@ version("1.0.2za") { source sha256: "86ec5d2ecb53839e9ec999db7f8715d0eb7e534d8a1
 version("1.0.2ze") { source sha256: "796624c593c361c695bd16314bc6f944184f5d2ff87efcf0bfa0545aa84c4d88" }
 version("1.0.2zf") { source sha256: "85d2242b7d11a33d5f239f1f34a1ff7eb37431a554b7df99c52c646b70b14b2e" }
 version("1.0.2zi") { source sha256: "80b6c07995fc92456e31c61cf1b2a18f75e314063189bb183af6ae66d0261d84" }
-
+# update cksum
 relative_path "openssl-#{version}"
 
 build do
