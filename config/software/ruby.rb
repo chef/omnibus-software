@@ -267,6 +267,12 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
+  if version.satisfies?("< 3.1") &&
+      project.overrides[:openssl] &&
+      ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+    configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
+  end
+
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
@@ -276,6 +282,13 @@ build do
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+  if version.satisfies?("< 3.1") &&
+      project.overrides[:openssl] &&
+      ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+    command "curl https://rubygems.org/downloads/openssl-3.2.0.gem --output openssl-3.2.0.gem"
+    command "#{install_dir}/embedded/bin/gem install openssl-3.2.0.gem --no-document"
+  end
 
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell

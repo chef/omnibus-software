@@ -47,10 +47,19 @@ build do
       config_dir
     end
 
+    embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
+    source_openssl_rb = if project.overrides[:openssl] && project.overrides[:ruby] &&
+        ChefUtils::VersionString.new(project.overrides[:ruby][:version]).satisfies?("< 3.1") &&
+        ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+                          # ruby 3.0 by default is built with < OpenSSL 3.0, and we'll
+                          # have an openssl gem separately installed as part of this
+                          Dir["#{install_dir}/**/openssl-*/lib/openssl.rb"].last
+                        else
+                          File.join(embedded_ruby_lib_dir, "openssl.rb")
+                        end
+
     if windows?
       embedded_ruby_site_dir = get_sanitized_rbconfig("sitelibdir")
-      embedded_ruby_lib_dir  = get_sanitized_rbconfig("rubylibdir")
-
       source_ssl_env_hack      = File.join(project_dir, "windows", "ssl_env_hack.rb")
       destination_ssl_env_hack = File.join(embedded_ruby_site_dir, "ssl_env_hack.rb")
 
@@ -61,7 +70,6 @@ build do
       # Unfortunately there is no patch on windows, but luckily we only need to append a line to the openssl.rb
       # to pick up our script which find the CA bundle in omnibus installations and points SSL_CERT_FILE to it
       # if it's not already set
-      source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
       File.open(source_openssl_rb, "r+") do |f|
         unpatched_openssl_rb = f.read
         f.rewind
@@ -69,8 +77,6 @@ build do
         f.write(unpatched_openssl_rb)
       end
     else
-      embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
-      source_openssl_rb = File.join(embedded_ruby_lib_dir, "openssl.rb")
       File.open(source_openssl_rb, "r+") do |f|
         unpatched_openssl_rb = f.read
         f.rewind
