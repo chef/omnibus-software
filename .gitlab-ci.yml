@@ -42,6 +42,16 @@ on_success:
       - output.pipeline
     expire_in: 1 week
 
+# This job is monitored on github and acts as a required check.
+# A few details on the setup:
+# We can't monitor a trigger job from github, it has to have a script section.
+# We need the monitored job to fail if the downstream pipeline failed, and succeed if
+# the downstream pipeline succeeded. If the job is skipped, it isn't taken into account
+# on github.
+# This is where the on_success job kicks in. It run only if the previous job completes
+# and writes `success` in a file that's fetched by the `check-downstream-pipeline` job.
+# This allows us to have the check-downstream-pipeline to always run while replicating
+# the status of the downstream pipeline.
 check-downstream-pipeline:
   rules:
     - *skip_stable_branches
