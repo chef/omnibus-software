@@ -186,6 +186,7 @@ build do
   end
   command "make install", env: env
 
+  delete "#{install_dir}/embedded/bin/c_rehash"
   unless windows?
     # Remove openssl static libraries here as we can't disable those at build time
     delete "#{install_dir}/embedded/lib/libcrypto.a"
