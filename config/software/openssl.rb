@@ -167,9 +167,9 @@ build do
     # We need those algorithms for the working of chef-workstation and other packages.
     # This patch will enable the legacy providers!
     if windows?
-      if version.start_with? "= 3.0.11"
+      if version.start_with? "= 3.0.9"
         configure_args << "enable-legacy"
-        patch source: "openssl-3-0-11-enable-legacy-provider.patch", env: patch_env
+        patch source: "openssl-3-0-9-enable-legacy-provider.patch", env: patch_env
       end
     else
       configure_args << "enable-legacy"
@@ -196,6 +196,8 @@ build do
 
   if version.start_with?("1.0.2") && windows?
     patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
+  elsif version.start_with?("3.0.9") && windows?
+    patch source: "openssl-3-0-9-enable-legacy-provider.patch", env: env  
   end
 
   make "depend", env: env
