@@ -197,6 +197,7 @@ build do
   if version.start_with?("1.0.2") && windows?
     patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
   elsif version.start_with?("3.0.9") && windows?
+    configure_args << "enable-legacy"
     patch source: "openssl-3-0-9-enable-legacy-provider.patch", env: env  
   end
 
