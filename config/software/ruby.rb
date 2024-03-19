@@ -286,8 +286,9 @@ build do
   if version.satisfies?("< 3.1") &&
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
-    command "curl https://rubygems.org/downloads/openssl-3.2.0.gem --output openssl-3.2.0.gem"
-    command "#{install_dir}/embedded/bin/gem install openssl-3.2.0.gem --no-document"
+    # use the same version as ruby 3.1.3 version has as default, so that the chef gemfile is just redundant
+    command "curl https://rubygems.org/downloads/openssl-3.0.1.gem --output openssl-3.0.1.gem"
+    command "#{install_dir}/embedded/bin/gem install openssl-3.0.1.gem --no-document"
   end
 
   if windows?
