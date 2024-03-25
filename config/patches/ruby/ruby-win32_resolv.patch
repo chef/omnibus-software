@@ -1,5 +1,5 @@
---- C:\Ruby30-x64\lib\ruby\3.0.0\win32\resolv-orig.rb	2021-11-27 14:46:20 -0800
-+++ c:\Ruby30-x64\lib\ruby\3.0.0\win32\resolv.rb	2024-03-24 19:33:40 -0700
+--- ext/win32/lib/win32/resolv.rb.org 2024-03-25 19:48:15
++++ ext/win32/lib/win32/resolv.rb 2024-03-25 19:49:01
 @@ -4,7 +4,7 @@
  
  =end
