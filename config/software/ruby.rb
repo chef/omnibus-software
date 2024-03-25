@@ -267,6 +267,8 @@ build do
     configure_command << "--with-opt-dir=#{install_dir}/embedded"
   end
 
+  # Remove this if clause once Ruby < 3.1 is not supported in combination with
+  # OpenSSL >= 3.0
   if version.satisfies?("< 3.1") &&
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
@@ -283,11 +285,17 @@ build do
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 
+  # Remove this if clause once Ruby < 3.1 is not supported in combination with
+  # OpenSSL >= 3.0
   if version.satisfies?("< 3.1") &&
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
-    command "curl https://rubygems.org/downloads/openssl-3.2.0.gem --output openssl-3.2.0.gem"
-    command "#{install_dir}/embedded/bin/gem install openssl-3.2.0.gem --no-document"
+
+    # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
+    # same openssl gem version is redundant for ruby 3.1[.2] projects
+    openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
+    command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
+    command "#{install_dir}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document"
   end
 
   if windows?
