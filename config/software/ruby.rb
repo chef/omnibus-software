@@ -153,19 +153,6 @@ build do
     patch source: "ruby-win32_warning_removal.patch", plevel: 1, env: patch_env
   end
 
-  # We fixed a bug regarding Windows fqdn resolution in Ohai on the 17-stable branch.
-  # That Ohai update requires the Resolv class. The 'resolv' class unconditionally
-  # loads the Win32::Registry class as a dependency.
-  # Chef Infra already loads Win32::Registry and has a monkeypatch for the export_string method.
-  # When the Resolv class loads again in Ohai, it overwrites the monkeypatch and that
-  # leads to registry encoding/decoding errors - Base Ruby classes return text encoded in
-  # UTF-16LE format and we need UTF-8.
-  # Here we patch the Ruby Win32/Reolv.rb file to make reloading the Win32::Registry class
-  # conditional and therefore prevent the monkeypatch from being overwritten.
-  if windows? && version.satisfies?("~> 3.0.0")
-    patch source: "ruby-win32_resolv.patch", plevel: 1, env: patch_env
-  end
-
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
   # cannot build modern ruby on the RHEL6 base compiler, and the configure script
   # determines that it supports that flag and so includes it and then ultimately
