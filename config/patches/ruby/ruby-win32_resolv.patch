@@ -1,0 +1,11 @@
+--- C:\Ruby30-x64\lib\ruby\3.0.0\win32\resolv-orig.rb	2021-11-27 14:46:20 -0800
++++ c:\Ruby30-x64\lib\ruby\3.0.0\win32\resolv.rb	2024-03-24 19:33:40 -0700
+@@ -4,7 +4,7 @@
+ 
+ =end
+ 
+-require 'win32/registry'
++require 'win32/registry' unless defined?(Win32::Registry)
+ 
+ module Win32
+   module Resolv
