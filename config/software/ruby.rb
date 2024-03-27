@@ -162,11 +162,13 @@ build do
   # UTF-16LE format and we need UTF-8.
   # Here we patch the Ruby Win32/Reolv.rb file to make reloading the Win32::Registry class
   # conditional and therefore prevent the monkeypatch from being overwritten.
+
+  puts "************************ PATCH ENV ***************************"
+  puts patch_env
+  puts "********************** END PATCH ENV ************************"
+
   if windows? && version.satisfies?("~> 3.0.0")
-    puts "************************ PATCH ENV ***************************"
-    puts patch_env
-    puts "********************** END PATCH ENV ************************"
-    patch source: "ruby-win32_resolv.patch", plevel: 1, env: patch_env
+    patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
 
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
