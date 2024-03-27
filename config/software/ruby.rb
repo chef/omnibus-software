@@ -163,10 +163,6 @@ build do
   # Here we patch the Ruby Win32/Reolv.rb file to make reloading the Win32::Registry class
   # conditional and therefore prevent the monkeypatch from being overwritten.
 
-  puts "************************ PATCH ENV ***************************"
-  puts patch_env
-  puts "********************** END PATCH ENV ************************"
-
   if windows? && version.satisfies?("~> 3.0.0")
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
