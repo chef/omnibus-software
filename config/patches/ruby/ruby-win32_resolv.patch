@@ -1,5 +1,5 @@
---- ext/lib/ruby/3.0.0/win32/resolv.rb.org 2024-03-25 19:48:15
-+++ ext/lib/ruby/3.0.0/win32/resolv.rb 2024-03-25 19:49:01
+--- ext\win32\lib\win32\resolv.rb.org 2024-03-25 19:48:15
++++ ext\win32\lib\win32\resolv.rb 2024-03-25 19:49:01
 @@ -4,7 +4,7 @@
 
  =end
