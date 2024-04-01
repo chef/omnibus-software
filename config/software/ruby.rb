@@ -90,11 +90,9 @@ if mac_os_x?
   # link to anything in a path given with -Lextra-libs. Normally these
   # would be harmless, except that autoconf treats any output to stderr as
   # a failure when it makes a test program to check your CFLAGS (regardless
-  # of the actual exit code from the compiler).
-  export CONFIGURE_ARGS=""                                                   
-  for ext in openssl readline libyaml zlib; do
-    CONFIGURE_ARGS="${CONFIGURE_ARGS} --with-$ext-dir=$(brew --prefix $ext)"
-  done
+  # of the actual exit code from the compiler).   
+  brew install openssl@3 readline libyaml gmp
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
   arch = intel? ? "x86_64" : "arm64"
   env["CFLAGS"] << " -I#{install_dir}/embedded/include/ncurses -arch #{arch} -m64 -O3 -g -pipe -Qunused-arguments"
   env["LDFLAGS"] << " -arch #{arch}"
