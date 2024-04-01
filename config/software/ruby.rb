@@ -91,7 +91,7 @@ if mac_os_x?
   # would be harmless, except that autoconf treats any output to stderr as
   # a failure when it makes a test program to check your CFLAGS (regardless
   # of the actual exit code from the compiler).   
-  brew install openssl@3 readline libyaml gmp
+  brew install openssl@3
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
   arch = intel? ? "x86_64" : "arm64"
   env["CFLAGS"] << " -I#{install_dir}/embedded/include/ncurses -arch #{arch} -m64 -O3 -g -pipe -Qunused-arguments"
@@ -288,6 +288,9 @@ build do
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
     configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
+    if RUBY_PLATFORM.include?("darwin")
+      configure_command << "--without-openssl --with-openssl-dir=$(brew --prefix openssl@3)"
+    end
   end
 
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
