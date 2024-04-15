@@ -58,6 +58,12 @@ software:
 
 - name: libxml2
   sources:
+  - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.5.tar.xz
+    sha256: a972796696afd38073e0f59c283c3a2f5a560b5268b4babc391b286166526b21
+  - url: https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.7.tar.xz
+    sha256: fb27720e25eaf457f94fd3d7189bcf2626c6dccf4201553bc8874d50e3560162
+  - url: https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz
+    sha256: ed0c91c5845008f1936739e4eee2035531c1c94742c6541f44ee66d885948d45
   - url: https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.14.tar.xz
     sha256: 60d74a257d1ccec0475e749cba2f21559e48139efba6ff28224357c7c798dfee
   - url: https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz
@@ -118,6 +124,10 @@ software:
 
 - name: openssl
   sources:
+  - url: https://openssl.org/source/openssl-3.0.11.tar.gz
+    sha256: b3425d3bb4a2218d0697eb41f7fc0cdede016ed19ca49d168b78e8d947887f55
+  - url: https://openssl.org/source/openssl-3.0.9.tar.gz
+    sha256: eb1ab04781474360f77c318ab89d8c5a03abc38e63d65a603cabbf1b00a1dc90
   - url: https://openssl.org/source/openssl-3.0.5.tar.gz
     sha256: aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a
   - url: https://openssl.org/source/openssl-3.0.4.tar.gz
