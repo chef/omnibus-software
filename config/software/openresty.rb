@@ -26,6 +26,7 @@ dependency "zlib"
 dependency "lua" if ppc64? || ppc64le? || s390x?
 
 # versions_list: https://openresty.org/download/ filter=*.tar.gz
+version("1.25.3.1")    { source sha256: "32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a57cd79df" }
 version("1.21.4.1")    { source sha256: "0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d87a2af99" }
 version("1.21.4.1rc1") { source sha256: "1cb216bc57a253149cb5c4b815bfe00e1c0713e7355774bbc26cf306d2ff632f" }
 version("1.19.9.1")    { source sha256: "576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6" }
