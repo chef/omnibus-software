@@ -21,6 +21,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "cacerts"
 dependency "libnghttp2" if version.satisfies?(">= 8.0")
+dependency "libpsl" if version.satisfies?(">= 8.6")
 
 license "MIT"
 license_file "COPYING"
