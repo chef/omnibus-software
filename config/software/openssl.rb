@@ -146,6 +146,11 @@ build do
       "#{prefix} disable-gost"
     end
 
+    puts "***********************************"
+    puts "The environment is : #{env}"
+    puts "***********************************"
+
+
   patch_env = if aix?
                 # This enables omnibus to use 'makedepend'
                 # from fileset 'X11.adt.imake' (AIX install media)
