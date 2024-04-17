@@ -34,8 +34,8 @@ build do
 
   configure_options = [
     "--prefix=#{install_dir}/embedded",
-    "--without-libidn2",
-    "--without-libunistring",
+    "--with-libidn2",
+    "--with-libunistring",
   ]
 
   configure(*configure_options, env: env)
