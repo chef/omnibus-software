@@ -72,6 +72,7 @@ build do
     "--disable-imap",
     "--disable-smtp",
     "--disable-gopher",
+    "--with-libintl-prefix",
     "--disable-dependency-tracking",
     "--enable-ipv6",
     "--without-brotli",
@@ -87,6 +88,8 @@ build do
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
     "--without-zstd",
   ]
+
+  configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
 
   configure(*configure_options, env: env)
 
