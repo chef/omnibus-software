@@ -14,31 +14,27 @@
 # limitations under the License.
 #
 
-name "libpsl"
-default_version "0.21.5"
-
-dependency "libidn2"
-dependency "libunistring"
+name "libunistring"
+default_version "1.2"
 
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-version("0.21.5") { source sha256: "1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208" }
+version("1.2") { source sha256: "632bd65ed74a881ca8a0309a1001c428bd1cbd5cd7ddbf8cedcd2e65f4dcdc44" }
 
-source url: "https://github.com/rockdaboot/libpsl/releases/download/#{version}/libpsl-#{version}.tar.gz"
+source url: "https://ftp.gnu.org/gnu/libunistring/libunistring--#{version}.tar.xz"
+
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
-relative_path "libpsl-#{version}"
+relative_path "libunistring-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   configure_options = [
     "--prefix=#{install_dir}/embedded",
-    "--with-libidn2",
-    "--with-libunistring",
   ]
 
   configure(*configure_options, env: env)
