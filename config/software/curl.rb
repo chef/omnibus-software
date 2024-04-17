@@ -73,6 +73,7 @@ build do
     "--disable-imap",
     "--disable-smtp",
     "--disable-gopher",
+    "--with-libintl-prefix",
     "--disable-dependency-tracking",
     "--enable-ipv6",
     "--without-brotli",
