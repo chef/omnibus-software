@@ -23,7 +23,7 @@ skip_transitive_dependency_licensing true
 
 version("1.2") { source sha256: "632bd65ed74a881ca8a0309a1001c428bd1cbd5cd7ddbf8cedcd2e65f4dcdc44" }
 
-source url: "https://ftp.gnu.org/gnu/libunistring/libunistring--#{version}.tar.xz"
+source url: "https://ftp.gnu.org/gnu/libunistring/libunistring-#{version}.tar.xz"
 
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
