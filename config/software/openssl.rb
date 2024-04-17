@@ -74,6 +74,7 @@ relative_path "openssl-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
   elsif mac_os_x? && arm?
@@ -110,7 +111,7 @@ build do
   if version.satisfies?("< 3.0.0")
     configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
   else
-    configure_args += ["-enable-fips"] if fips_mode?
+    configure_args += ["enable-fips"] if fips_mode?
   end
 
   configure_cmd =
