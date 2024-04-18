@@ -87,7 +87,7 @@ build do
     "--without-zstd",
   ]
 
-  configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
+  # configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
 
   configure(*configure_options, env: env)
 
