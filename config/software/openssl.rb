@@ -132,6 +132,10 @@ build do
     elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
+      # FIPS support is now built into v3 and later of openssl so we don't need the whole openssl-fips.rb file, we just need to enable it in the build
+      if (version.satisfies?(">= 3") && fips_mode?)
+        "perl.exe ./Configure fips enable-fips"
+      end
     else
       prefix =
         if linux? && ppc64?
@@ -145,11 +149,6 @@ build do
         end
       "#{prefix} disable-gost"
     end
-
-    puts "***********************************"
-    puts "The environment is : #{env}"
-    puts "***********************************"
-
 
   patch_env = if aix?
                 # This enables omnibus to use 'makedepend'
