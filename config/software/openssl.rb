@@ -21,7 +21,7 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "cacerts"
-dependency "openssl-fips" if fips_mode?
+dependency "openssl-fips" if (fips_mode? && version.satisfies?("< 3"))
 
 default_version "1.0.2zg" # do_not_auto_update
 
@@ -110,7 +110,7 @@ build do
   if version.satisfies?("< 3.0.0")
     configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
   else
-    configure_args += ["-enable-fips"] if fips_mode?
+    configure_args += ["enable-fips"] if fips_mode?
   end
 
   configure_cmd =
