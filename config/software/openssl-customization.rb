@@ -48,9 +48,6 @@ build do
     end
 
     embedded_ruby_lib_dir = get_sanitized_rbconfig("rubylibdir")
-    puts "***********************************"
-    puts "The embedded ruby lib directory is : #{embedded_ruby_lib_dir}"
-    puts "***********************************"
 
     # use the value from the else clause here and remove the if/else once Ruby < 3.1
     # is not supported in combination with OpenSSL >= 3.0
@@ -64,17 +61,10 @@ build do
                           File.join(embedded_ruby_lib_dir, "openssl.rb")
                         end
 
-    puts "***********************************"
-    puts "The Source Openssl RB is : #{source_openssl_rb}"
-    puts "***********************************"
     if windows?
       embedded_ruby_site_dir = get_sanitized_rbconfig("sitelibdir")
       source_ssl_env_hack      = File.join(project_dir, "windows", "ssl_env_hack.rb")
       destination_ssl_env_hack = File.join(embedded_ruby_site_dir, "ssl_env_hack.rb")
-
-    puts "***********************************"
-    puts "The Embedded Ruby Site Dir : #{embedded_ruby_site_dir}"
-    puts "***********************************"
 
       create_directory(embedded_ruby_site_dir)
 

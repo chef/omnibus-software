@@ -79,7 +79,17 @@ build do
 
   command configure_command.join(" "), env: env, in_msys_bash: true
 
+  # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
+  if version.satisfies?(">= 3") 
+    command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
+  end
+
   # Cannot use -j with openssl :(.
   make env: env
-  make "install", env: env
+
+  if version.satisfies?(">= 3") 
+    make "install openssl fipsinstal", env: env
+  else
+    make "install", env: env
+  end
 end

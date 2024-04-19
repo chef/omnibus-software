@@ -21,7 +21,7 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "cacerts"
-dependency "openssl-fips" if (fips_mode? && version.satisfies?("< 3"))
+dependency "openssl-fips" if fips_mode?
 
 default_version "1.0.2zg" # do_not_auto_update
 
@@ -132,10 +132,6 @@ build do
     elsif windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       "perl.exe ./Configure #{platform}"
-      # FIPS support is now built into v3 and later of openssl so we don't need the whole openssl-fips.rb file, we just need to enable it in the build
-      if (version.satisfies?(">= 3") && fips_mode?)
-        "perl.exe ./Configure fips enable-fips"
-      end
     else
       prefix =
         if linux? && ppc64?
