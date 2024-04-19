@@ -36,7 +36,7 @@ build do
 
   configure_options = [
     "--prefix=#{install_dir}/embedded",
-    "--with-openssl-quic",
+    "--with-openssl",
   ]
 
   configure(*configure_options, env: env)

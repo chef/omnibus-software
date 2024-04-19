@@ -27,7 +27,7 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://curl.se/download/ filter=*.tar.gz
-version("8.7.1")  { source sha256: "f91249c87f68ea00cf27c44fdfa5a78423e41e71b7d408e5901a9896d905c495" }
+version("8.6.0")  { source sha256: "9c6db808160015f30f3c656c0dec125feb9dc00753596bf858a272b5dd8dc398" }
 version("8.4.0")  { source sha256: "816e41809c043ff285e8c0f06a75a1fa250211bbfb2dc0a037eeef39f1a9e427" }
 version("7.85.0") { source sha256: "78a06f918bd5fde3c4573ef4f9806f56372b32ec1829c9ec474799eeee641c27" }
 version("7.84.0") { source sha256: "3c6893d38d054d4e378267166858698899e9d87258e8ff1419d020c395384535" }
@@ -90,7 +90,7 @@ build do
     "--without-zstd",
   ]
 
-  # configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
+  configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
 
   configure(*configure_options, env: env)
 
