@@ -211,7 +211,7 @@ build do
   end
 
   if version.start_with?("3") && fips_mode?
-    make "install openssl fipsinstall", env: env
+    make "install install_fips", env: env
   else
     make "install", env: env
   end
