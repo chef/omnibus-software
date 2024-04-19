@@ -21,7 +21,8 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "cacerts"
-dependency "openssl-fips" if fips_mode?
+# For OpenSSL versions < 3, we have to compile FIPS separately
+dependency "openssl-fips" if (fips_mode? && version.satisfies?("< 3")
 
 default_version "1.0.2zg" # do_not_auto_update
 
@@ -96,7 +97,6 @@ build do
     "no-idea",
     "no-mdc2",
     "no-rc5",
-    "no-ssl2",
     "no-ssl3",
     "no-zlib",
     "shared",
@@ -187,6 +187,11 @@ build do
 
   command configure_command, env: env, in_msys_bash: true
 
+  # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
+  if version.satisfies?(">= 3") 
+    command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
+  end
+
   if version.start_with?("1.0.2") && windows?
     patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
   end
@@ -204,5 +209,10 @@ build do
     # Bug Ref: http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
     command "sudo /usr/sbin/slibclean", env: env
   end
-  make "install", env: env
+
+  if version.start_with?("3") && fips_mode?
+    make "install openssl fipsinstall", env: env
+  else
+    make "install", env: env
+  end
 end
