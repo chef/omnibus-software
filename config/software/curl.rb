@@ -58,9 +58,6 @@ build do
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
   end
 
-  command "echo version---------openssl"
-  command "openssl version"
-
   configure_options = [
     "--prefix=#{install_dir}/embedded",
     "--disable-option-checking",
