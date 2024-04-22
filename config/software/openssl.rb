@@ -188,7 +188,7 @@ build do
   command configure_command, env: env, in_msys_bash: true
 
   # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
-  if version.satisfies?(">= 3") 
+  if version.satisfies?(">= 3") && windows? && fips_mode?
     command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
   end
 
