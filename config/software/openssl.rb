@@ -221,5 +221,5 @@ build do
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
   end
 
-  command "#{install_dir}/embedded/bin/openssl list -providers"
+  # command "#{install_dir}/embedded/bin/openssl list -providers"
 end
