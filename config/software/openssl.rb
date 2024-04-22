@@ -21,7 +21,7 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "cacerts"
-dependency "openssl-fips" if fips_mode?
+#dependency "openssl-fips" if fips_mode?
 
 default_version "1.0.2zg" # do_not_auto_update
 
