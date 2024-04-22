@@ -210,13 +210,17 @@ build do
     command "sudo /usr/sbin/slibclean", env: env
   end
 
-  # if version.start_with?("3") && fips_mode?
-  #   make "install_sw install_ssldirs install_fips", env: env
-  # else
-  #   make "install", env: env
-  # end
+  if version.start_with?("3") && fips_mode?
+    make "install_sw install_ssldirs install_fips", env: env
+  else
+    make "install", env: env
+  end
 
-  make "install", env: env
+  if windows?
+    command "find / -name openssl.exe"
+  end
+
+  # make "install", env: env
   
   if version.start_with?("3") && fips_mode?
     # running the make install_fips step to install the FIPS provider
