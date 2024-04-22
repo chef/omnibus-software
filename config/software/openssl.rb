@@ -210,9 +210,27 @@ build do
     command "sudo /usr/sbin/slibclean", env: env
   end
 
+  # if version.start_with?("3") && fips_mode?
+  #   make "install_sw install_ssldirs install_fips", env: env
+  # else
+  #   make "install", env: env
+  # end
+
+  make "install", env: env
+  
   if version.start_with?("3") && fips_mode?
-    make "install_sw install_ssldirs install_fips", env: env
-  else
-    make "install", env: env
+    # running the make install_fips step to install the FIPS provider
+    # make "install_fips", env: env
+
+    fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
+    fips_module_file = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+
+    # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
+    command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
+
+    # Updating the openssl.cnf file to enable the fips provider
+    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
   end
+
 end
