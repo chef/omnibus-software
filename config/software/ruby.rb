@@ -289,6 +289,8 @@ build do
   #   configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
   # end
 
+  configure_command << "--with-openssl-dir=#{install_dir}/embedded"
+
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
   # The alternative would be to patch configure to remove all the pkg-config garbage entirely
