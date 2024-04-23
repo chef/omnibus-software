@@ -211,19 +211,6 @@ build do
   end
 
   if version.start_with?("3") && fips_mode?
-    make "install_sw install_ssldirs install_fips", env: env
-  else
-    make "install", env: env
-  end
-
-  # if windows?
-  #   command "find / -name openssl.exe"
-  #   command "find / -name libcrypto-3-x64.dll"
-  # end
-
-  # make "install", env: env
-  
-  if version.start_with?("3") && fips_mode?
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
@@ -239,5 +226,21 @@ build do
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' /usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' /usr/local/ssl/openssl.cnf"
   end
+
+
+  if version.start_with?("3") && fips_mode?
+    make "install_sw install_ssldirs install_fips", env: env
+  else
+    make "install", env: env
+  end
+
+  # if windows?
+  #   command "find / -name openssl.exe"
+  #   command "find / -name libcrypto-3-x64.dll"
+  # end
+
+  # make "install", env: env
+  
+
 
 end
