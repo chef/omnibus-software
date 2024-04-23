@@ -214,10 +214,10 @@ build do
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
-  if windows?
-    command "find / -name openssl.cnf"
-    # command "find / -name libcrypto-3-x64.dll"
-  end
+  # if windows?
+  #   command "find / -name openssl.cnf"
+  #   # command "find / -name libcrypto-3-x64.dll"
+  # end
 
     fips_cnf_file = "/usr/local/ssl/fipsmodule.cnf"
     fips_module_file = "/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
