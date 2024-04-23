@@ -228,8 +228,8 @@ build do
     # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
 
     # Updating the openssl.cnf file to enable the fips provider
-    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' /usr/local/ssl/openssl.cnf"
-    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' /usr/local/ssl/openssl.cnf"
+    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' /usr/ssl/openssl.cnf"
+    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' /usr/ssl/openssl.cnf"
   end
 
 
