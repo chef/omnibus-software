@@ -216,10 +216,10 @@ build do
     make "install", env: env
   end
 
-  if windows?
-    command "find / -name openssl.exe"
-    command "find / -name libcrypto-3-x64.dll"
-  end
+  # if windows?
+  #   command "find / -name openssl.exe"
+  #   command "find / -name libcrypto-3-x64.dll"
+  # end
 
   # make "install", env: env
   
@@ -227,15 +227,17 @@ build do
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
-    fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
-    fips_module_file = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+    fips_cnf_file = "/usr/local/ssl/fipsmodule.cnf"
+    fips_module_file = "/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
-    command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
+    # not needed since previous commands already created those files
+
+    # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
 
     # Updating the openssl.cnf file to enable the fips provider
-    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
-    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' /usr/local/ssl/openssl.cnf"
+    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' /usr/local/ssl/openssl.cnf"
   end
 
 end
