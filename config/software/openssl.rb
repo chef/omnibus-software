@@ -216,9 +216,10 @@ build do
     make "install", env: env
   end
 
-  # if windows?
-  #   command "find / -name openssl.exe"
-  # end
+  if windows?
+    command "find / -name openssl.exe"
+    command "find / -name libcrypto-3-x64.dll"
+  end
 
   # make "install", env: env
   
