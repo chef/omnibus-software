@@ -216,9 +216,9 @@ build do
     make "install", env: env
   end
 
-  if windows?
-    command "find / -name openssl.exe"
-  end
+  # if windows?
+  #   command "find / -name openssl.exe"
+  # end
 
   # make "install", env: env
   
