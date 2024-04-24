@@ -163,56 +163,20 @@ build do
   # Here we patch the Ruby Win32/Reolv.rb file to make reloading the Win32::Registry class
   # conditional and therefore prevent the monkeypatch from being overwritten.
   if windows? && version.satisfies?("~> 3.0.0")
-    puts "Where is libcrypto-3-x64.dll?"
-    def find_files(pwd = "C:\\msys64")
-      files = []
-      begin
-        Find.find(pwd) do |path|
-          Find.prune if path.include? '.git'
-          next if !path.include? 'libcrypto-3-x64.dll'
-          next unless File.file?(path)
-          files << path
-        end
-      rescue
-        puts "Error reading files."
-      end
-      puts files
-    end
-    find_files
+  
+    # We just finished openssl but need to move the files around so they get pulled into the Ruby/Chef package
 
-    puts "Where is Openssl.exe?"
-    def find_files(pwd = "C:\\msys64")
-      files = []
-      begin
-        Find.find(pwd) do |path|
-          Find.prune if path.include? '.git'
-          next if !path.include? 'openssl.exe'
-          next unless File.file?(path)
-          files << path
-        end
-      rescue
-        puts "Error reading files."
-      end
-      puts files
+    mingw = ENV["MSYSTEM"].downcase
+    # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
+    # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
+    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+    windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
+    if File.exist?(windows_path)
+      copy windows_path, "#{install_dir}/bin/#{dll}.dll"
+    else
+      raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
     end
-    find_files
 
-    puts "Where is libssl-3-x64.dll?"
-    def find_files(pwd = "C:\\msys64")
-      files = []
-      begin
-        Find.find(pwd) do |path|
-          Find.prune if path.include? '.git'
-          next if !path.include? 'libssl-3-x64.dll'
-          next unless File.file?(path)
-          files << path
-        end
-      rescue
-        puts "Error reading files."
-      end
-      puts files
-    end
-    find_files
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
 
@@ -367,27 +331,19 @@ build do
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
-    dlls = [
-      "libwinpthread-1",
-      "libstdc++-6",
+    files = [
+      "libcrypto-3-x64.dll",
+      "libssl-3-x64.dll",
+      "openssl.exe",
     ]
 
-    if windows_arch_i386?
-      dlls << "libgcc_s_dw2-1"
-    else
-      dlls << "libgcc_s_seh-1"
-    end
-
-    dlls.each do |dll|
-      mingw = ENV["MSYSTEM"].downcase
-      # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
-      # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
+    files.each do |file|
+      # mingw = ENV["MSYSTEM"].downcase
       msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-      windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
+      windows_path = "#{msys_path}/usr/local/bin/#{file}"
       if File.exist?(windows_path)
-        copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
-      else
-        raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
+        puts "writing openssl file #{file} to the /embedded directory"
+        copy windows_path, "#{install_dir}/embedded/bin/#{file}"
       end
     end
 
