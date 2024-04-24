@@ -322,9 +322,9 @@ build do
       "libstdc++-6",
     ]
 
-    if version.satisfies?("~> 3.0.0")
-      dlls += ["libcrypto-3-x64", "libssl-3-x64"]
-    end
+    # if version.satisfies?("~> 3.0.0")
+    #   dlls += ["libcrypto-3-x64", "libssl-3-x64"]
+    # end
 
     if windows_arch_i386?
       dlls << "libgcc_s_dw2-1"
@@ -344,16 +344,10 @@ build do
         raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
       end
     end
-
-    # starting with Openssl 3.0.9, we compile it differently and need to include it here to get installed on the local machine
-    if version.satisfies?("~> 3.0.0")
-      %w{ erb gem irb rdoc ri bundle openssl }.each do |cmd|
-        copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
-      end
-    else     
-      %w{ erb gem irb rdoc ri bundle }.each do |cmd|
-        copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
-      end
+ 
+    %w{ erb gem irb rdoc ri bundle }.each do |cmd|
+      copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+    end
   end
 
     # Ruby seems to mark rake.bat as read-only.
