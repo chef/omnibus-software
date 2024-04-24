@@ -322,10 +322,6 @@ build do
       "libstdc++-6",
     ]
 
-    # if version.satisfies?("~> 3.0.0")
-    #   dlls += ["libcrypto-3-x64", "libssl-3-x64"]
-    # end
-
     if windows_arch_i386?
       dlls << "libgcc_s_dw2-1"
     else
@@ -344,11 +340,10 @@ build do
         raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
       end
     end
- 
+
     %w{ erb gem irb rdoc ri bundle }.each do |cmd|
       copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
     end
-  end
 
     # Ruby seems to mark rake.bat as read-only.
     # Mark it as writable so that we can install other version of rake without
