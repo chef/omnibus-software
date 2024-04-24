@@ -244,8 +244,9 @@ build do
         "libssl-3-x64",
       ]
   
-      puts "My Msys install dir is: #{ENV["MSYS2_INSTALL_DIR"]} "
-      puts "My Msys path is : #{msys_path}"
+      puts "******************************************************"
+      puts "** My Msys install dir is: #{ENV["MSYS2_INSTALL_DIR"]} **"
+      puts "******************************************************"
 
       dlls.each do |dll|
         mingw = ENV["MSYSTEM"].downcase
