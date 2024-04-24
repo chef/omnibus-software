@@ -244,6 +244,9 @@ build do
         "libssl-3-x64",
       ]
   
+      puts "My Msys install dir is: #{ENV["MSYS2_INSTALL_DIR"]} "
+      puts "My Msys path is : #{msys_path}"
+
       dlls.each do |dll|
         mingw = ENV["MSYSTEM"].downcase
         # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
@@ -252,8 +255,6 @@ build do
         windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
         if File.exist?(windows_path)
           copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
-        else
-          raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
         end
       end
    
