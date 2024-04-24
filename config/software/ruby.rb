@@ -163,20 +163,6 @@ build do
   # Here we patch the Ruby Win32/Reolv.rb file to make reloading the Win32::Registry class
   # conditional and therefore prevent the monkeypatch from being overwritten.
   if windows? && version.satisfies?("~> 3.0.0")
-  
-    # We just finished openssl but need to move the files around so they get pulled into the Ruby/Chef package
-
-    mingw = ENV["MSYSTEM"].downcase
-    # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
-    # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
-    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-    windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
-    if File.exist?(windows_path)
-      copy windows_path, "#{install_dir}/bin/#{dll}.dll"
-    else
-      raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
-    end
-
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
 
