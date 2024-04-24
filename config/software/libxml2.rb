@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.10.3"
+default_version "2.12.6"
 
 license "MIT"
 license_file "COPYING"
@@ -26,9 +26,9 @@ dependency "liblzma"
 dependency "config_guess"
 
 # version_list: url=https://download.gnome.org/sources/libxml2/2.9/ filter=*.tar.xz
-version("2.10.3") { source sha256: "5d2cc3d78bec3dbe212a9d7fa629ada25a7da928af432c93060ff5c17ee28a9c" }
+version("2.12.6") { source sha256: "889c593a881a3db5fdd96cc9318c87df34eb648edfc458272ad46fd607353fbb" }
 
-source url: "https://download.gnome.org/sources/libxml2/2.10/libxml2-#{version}.tar.xz"
+source url: "https://download.gnome.org/sources/libxml2/2.12/libxml2-#{version}.tar.xz"
 
 relative_path "libxml2-#{version}"
 
