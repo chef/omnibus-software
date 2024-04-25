@@ -317,6 +317,13 @@ build do
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
+    require 'find'
+    puts "***************************"
+    puts "** Searching for Openssl **"
+    puts "***************************"
+    Find.find('openssl.exe') { |f| puts f }
+
+
     files = [
       "libcrypto-3-x64.dll",
       "libssl-3-x64.dll",
@@ -328,8 +335,7 @@ build do
       msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
       windows_path = "#{msys_path}/usr/local/bin/#{file}"
       puts "checking for this file: #{windows_path}"
-      require 'find'
-      Find.find('openssl.exe') { |f| puts f }
+
       if File.exist?(windows_path)
         puts "writing openssl file #{file} to the /embedded directory"
         copy windows_path, "#{install_dir}/embedded/bin/#{file}"
