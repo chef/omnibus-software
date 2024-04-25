@@ -317,7 +317,7 @@ build do
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
-    if version..satisfies?("~> 3.0.0") && fips_mode?
+    if version.satisfies?("~> 3.0.0") && fips_mode?
       require 'find'
       puts "***************************"
       puts "** Searching for Openssl **"
