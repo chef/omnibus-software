@@ -327,6 +327,7 @@ build do
       # mingw = ENV["MSYSTEM"].downcase
       msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
       windows_path = "#{msys_path}/usr/local/bin/#{file}"
+      puts "checking for this file: #{windows_path}"
       if File.exist?(windows_path)
         puts "writing openssl file #{file} to the /embedded directory"
         copy windows_path, "#{install_dir}/embedded/bin/#{file}"
