@@ -236,7 +236,12 @@ build do
   if version.start_with?("3") && fips_mode?
     make "install_sw install_ssldirs install_fips", env: env
 
-    # if windows?
+    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+
+    if windows?
+      %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
+        copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+      end
     #   # Needed now that we switched to msys2 and have not figured out how to tell
     #   # it how to statically link yet
     #   dlls = [
@@ -258,7 +263,7 @@ build do
     #   %w{ openssl }.each do |cmd|
     #     copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
     #   end
-    # end
+    end
   else
     make "install", env: env
   end

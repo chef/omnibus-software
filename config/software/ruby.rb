@@ -121,11 +121,7 @@ elsif windows?
   # environment in omnibus-toolchain would probably need to look a little more identical to the devkit.
   env["CC"] = "gcc"
   env["CFLAGS"] = "-I#{install_dir}/embedded/include -DFD_SETSIZE=2048"
-  if windows_arch_i386?
-    env["CFLAGS"] << " -m32 -march=i686 -O3"
-  else
-    env["CFLAGS"] << " -m64 -march=x86-64 -O3"
-  end
+  env["CFLAGS"] << " -m64 -march=x86-64 -O3"
   env["CPPFLAGS"] = env["CFLAGS"]
   env["CXXFLAGS"] = env["CFLAGS"]
 else # including linux
@@ -317,36 +313,7 @@ build do
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
-    # build do
-    #   if version.satisfies?("~> 3.0.0") && fips_mode?
-    #     require 'find'
-    #     puts "***************************"
-    #     puts "** Searching for Openssl **"
-    #     puts "***************************"
-    #     Find.find('openssl.exe') { |f| puts f }
-
-
-    #     files = [
-    #       "libcrypto-3-x64.dll",
-    #       "libssl-3-x64.dll",
-    #       "openssl.exe",
-    #     ]
-
-    #     files.each do |file|
-    #       # mingw = ENV["MSYSTEM"].downcase
-    #       msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-    #       windows_path = "#{msys_path}/usr/local/bin/#{file}"
-    #       puts "checking for this file: #{windows_path}"
-
-    #       if File.exist?(windows_path)
-    #         puts "writing openssl file #{file} to the /embedded directory"
-    #         copy windows_path, "#{install_dir}/embedded/bin/#{file}"
-    #       end
-    #     end
-    #   end
-    # end
-
-    %w{ erb gem irb rdoc ri bundle libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |cmd|
+    %w{ erb gem irb rdoc ri bundle }.each do |cmd|
       copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
     end
 
