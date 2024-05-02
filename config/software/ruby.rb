@@ -277,15 +277,15 @@ build do
   end
 
   # Remove this if clause once Ruby < 3.1 is not supported in combination with
-  # OpenSSL >= 3.0
-  # if version.satisfies?("< 3.1") &&
-  #     project.overrides[:openssl] &&
-  #     ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
-  #   # configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
-  #   configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
-  # end
+  OpenSSL >= 3.0
+  if version.satisfies?("< 3.1") &&
+      project.overrides[:openssl] &&
+      ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+    # configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
+    configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
+  end
 
-  configure_command << "--with-openssl-dir=#{install_dir}/embedded"
+  # configure_command << "--with-openssl-dir=#{install_dir}/embedded"
 
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
