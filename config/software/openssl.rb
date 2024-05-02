@@ -239,9 +239,14 @@ build do
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
 
     if windows?
-      %w{ fips.dll openssl.so libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
+      %w{ openssl.so libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
         copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
+
+      %w{ fips.dll }.each do |file|
+        copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+      end
+
     #   # Needed now that we switched to msys2 and have not figured out how to tell
     #   # it how to statically link yet
     #   dlls = [
