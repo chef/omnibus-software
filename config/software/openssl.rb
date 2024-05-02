@@ -243,7 +243,7 @@ build do
         copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
-      %w{ fips.dll }.each do |file|
+      %w{ legacy.dll fips.dll }.each do |file|
         copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
