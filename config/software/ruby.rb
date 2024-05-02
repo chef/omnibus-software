@@ -277,7 +277,7 @@ build do
   end
 
   # Remove this if clause once Ruby < 3.1 is not supported in combination with
-  OpenSSL >= 3.0
+  # OpenSSL >= 3.0
   if version.satisfies?("< 3.1") &&
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
