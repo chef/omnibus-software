@@ -247,10 +247,7 @@ build do
         copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
-      command "require 'base64'
-      cmd = %{Get-ChildItem -path c:\\ -file openssl.so -recurse}
-      encoded_cmd = Base64.strict_encode64(cmd.encode('utf-16le'))
-      find = `powershell.exe -encodedCommand #{encoded_cmd}`"
+      command "find / -name openssl.so"
 
     #   # Needed now that we switched to msys2 and have not figured out how to tell
     #   # it how to statically link yet
