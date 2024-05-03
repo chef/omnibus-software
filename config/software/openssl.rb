@@ -247,8 +247,6 @@ build do
         copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
-      command "/c/omnibus-ruby/chef/src/openssl/openssl-3.0.9/util/wrap.pl -fips apps/openssl list -provider-path providers -provider fips -providers"
-
     #   # Needed now that we switched to msys2 and have not figured out how to tell
     #   # it how to statically link yet
     #   dlls = [
