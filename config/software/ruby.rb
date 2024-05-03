@@ -305,7 +305,7 @@ build do
 
     # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
     # same openssl gem version is redundant for ruby 3.1[.2] projects
-    openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.1.0"
+    openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
     command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
     command "#{install_dir}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document"
   end
