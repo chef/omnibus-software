@@ -51,6 +51,20 @@ version "3.2.2-1" do
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
+version "3.3.0-1" do
+  source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
+          sha256: "01fc7d7889f161e94ae515c15fc1c22b7db506ab91af891cf7e1a764e96d8298"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end
+
+version "3.3.1-1" do
+  source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
+          sha256: "dc590fb3d1c4254e7d33179bb84df378ead943fece2159eada5f3582bf643cc3"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end
+
 build do
   if windows?
     embedded_dir = "#{install_dir}/embedded"
@@ -73,6 +87,11 @@ build do
         copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
         copy "#{tmpdir}/lib/ruby/site_ruby/3.2.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.2.0"
         copy "#{tmpdir}/lib/ruby/3.2.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.2.0/rubygems/defaults"
+      elsif version.start_with?("3.3")
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.3.0/devkit.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.3.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.3.0/ruby_installer.rb", "#{embedded_dir}/lib/ruby/site_ruby/3.3.0"
+        copy "#{tmpdir}/lib/ruby/site_ruby/3.3.0/ruby_installer", "#{embedded_dir}/lib/ruby/site_ruby/3.3.0"
+        copy "#{tmpdir}/lib/ruby/3.3.0/rubygems/defaults", "#{embedded_dir}/lib/ruby/3.3.0/rubygems/defaults"
       end
 
       # Normally we would symlink the required unix tools.
