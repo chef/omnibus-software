@@ -247,7 +247,7 @@ build do
         copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
-      command "powershell -command 'Get-ChildItem -path c:\\ -file openssl.so -recurse'"
+      command "powershell.exe -Command {$Foo = Get-Childitem -path c:\\ -file openssl.so -recurse -ErrorAction SilentlyContinue; Write-Output 'Here are the instances of openssl.so:'; Write-Output $Foo}"
 
     #   # Needed now that we switched to msys2 and have not figured out how to tell
     #   # it how to statically link yet
