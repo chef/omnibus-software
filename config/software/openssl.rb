@@ -230,6 +230,12 @@ build do
     # Updating the openssl.cnf file to enable the fips provider
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' /usr/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' /usr/ssl/openssl.cnf"
+
+    # for *nix OS's use the below
+    # command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    # command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
+
+    # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
   end
 
 
@@ -247,7 +253,10 @@ build do
         copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
-      command "powershell.exe -Command {$Foo = Get-Childitem -path c:\\ -file openssl.so -recurse -ErrorAction SilentlyContinue; Write-Output 'Here are the instances of openssl.so:'; Write-Output $Foo}"
+      # command "powershell.exe -Command {New-Item -Directory -Path c:\\hold}"
+      command "powershell.exe -Command {$Foo = Get-Childitem -path c:\\ -file openssl.so -recurse -ErrorAction SilentlyContinue; Write-Host 'Here are the openssl.so files:'; Write-Host $Foo}"
+      # command "puts 'Here is the listing of openssl.so files:'"
+      # command " c:\\hold\\output.txt"
 
     #   # Needed now that we switched to msys2 and have not figured out how to tell
     #   # it how to statically link yet
