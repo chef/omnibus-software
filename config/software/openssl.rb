@@ -49,6 +49,7 @@ else
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
+version("3.0.12")  { source sha256: "f93c9e8edde5e9166119de31755fc87b4aa34863662f67ddfcba14d0b6b69b61" }
 version("3.0.11")  { source sha256: "b3425d3bb4a2218d0697eb41f7fc0cdede016ed19ca49d168b78e8d947887f55" }
 version("3.0.9")   { source sha256: "eb1ab04781474360f77c318ab89d8c5a03abc38e63d65a603cabbf1b00a1dc90" }
 version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a" }
@@ -253,8 +254,9 @@ build do
         copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
+      
       # command "powershell.exe -Command {New-Item -Directory -Path c:\\hold}"
-      command "powershell.exe -Command {$Foo = Get-Childitem -path c:\\ -file openssl.so -recurse -ErrorAction SilentlyContinue; Write-Host 'Here are the openssl.so files:'; Write-Host $Foo}"
+      # command "powershell.exe -Command {$Foo = Get-Childitem -path c:\\ -file openssl.so -recurse -ErrorAction SilentlyContinue; Write-Host 'Here are the openssl.so files:'; Write-Host $Foo}"
       # command "puts 'Here is the listing of openssl.so files:'"
       # command " c:\\hold\\output.txt"
 
