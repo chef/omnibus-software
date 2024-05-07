@@ -212,8 +212,12 @@ build do
   if version.satisfies?("~> 2.6.0")
     patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
   end
-  if version.satisfies?(">= 2.7")
-    patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
+  if version.satisfies?(">=3.3")
+    patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
+  else
+    if version.satisfies?(">= 2.7")
+      patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
+    end
   end
 
   # disable libpath in mkmf across all platforms, it trolls omnibus and
