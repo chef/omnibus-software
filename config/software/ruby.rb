@@ -311,22 +311,14 @@ build do
   end
 
   if windows?
-    def find_files(pwd = "C:\\")
-      files = []
-      begin
-        Find.find(pwd) do |path|
-          Find.prune if path.include? '.git'
-          next if !path.include? 'openssl.so'
-          next unless File.file?(path)
-          files << path
-        end
-      rescue
-        puts "Error reading files."
-      end
-      files
-    end
-
-    command find_files
+    puts "START - searching for openssl.so instances"
+    puts "opscode dir:"
+    Dir["#{install_dir}/**/openssl.so"]
+    puts "install dir:"
+    Dir["#{project_dir}/**/openssl.so"]
+    puts "Msys path:"
+    Dir["#{msys_path}/**/openssl.so"]
+    puts "END - searching for openssl.so instances"
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
     %w{ erb gem irb rdoc ri bundle }.each do |cmd|
