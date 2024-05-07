@@ -246,6 +246,11 @@ build do
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
 
     if windows?
+
+      %w{ openssl.so }.each do |file|
+        delete "#{install_dir}/embedded/bin/#{file}"
+      end
+
       %w{ openssl.so libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
         copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
@@ -254,7 +259,8 @@ build do
         copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
-      
+
+
       # command "powershell.exe -Command {New-Item -Directory -Path c:\\hold}"
       # command "powershell.exe -Command {$Foo = Get-Childitem -path c:\\ -file openssl.so -recurse -ErrorAction SilentlyContinue; Write-Host 'Here are the openssl.so files:'; Write-Host $Foo}"
       # command "puts 'Here is the listing of openssl.so files:'"
