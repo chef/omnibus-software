@@ -317,6 +317,7 @@ build do
     puts "install dir:"
     Dir["#{project_dir}/**/openssl.so"]
     puts "Msys path:"
+    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
     Dir["#{msys_path}/**/openssl.so"]
     puts "END - searching for openssl.so instances"
     # Needed now that we switched to msys2 and have not figured out how to tell
