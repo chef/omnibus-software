@@ -311,17 +311,9 @@ build do
   end
 
   if windows?
-    def find_files
-      puts "START - searching for openssl.so instances"
-      puts "opscode dir:"
-      Dir["#{install_dir}/**/openssl.so"]
-      puts "install dir:"
-      Dir["#{project_dir}/**/openssl.so"]
-      puts "Msys path:"
-      msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-      Dir["#{msys_path}/**/openssl.so"]
-      puts "END - searching for openssl.so instances"
-    end
+    command "puts 'START - looking for openssl.so'"
+    command "find / -name openssl.so"
+    command "puts 'END' - looking for openssl.so"
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
     %w{ erb gem irb rdoc ri bundle }.each do |cmd|
@@ -331,7 +323,6 @@ build do
     # Ruby seems to mark rake.bat as read-only.
     # Mark it as writable so that we can install other version of rake without
     # running into permission errors.
-    find_files
     command "attrib -r #{install_dir}/embedded/bin/rake.bat"
 
   end
