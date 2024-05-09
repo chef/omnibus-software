@@ -311,9 +311,11 @@ build do
   end
 
   if windows?
-    command "puts 'START - looking for openssl.so'"
+    command "echo '******************************'"
+    command "echo 'START - looking for openssl.so'"
     command "find / -name openssl.so"
-    command "puts 'END' - looking for openssl.so"
+    command "echo 'END' - looking for openssl.so"
+    command "echo '******************************'"
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
     %w{ erb gem irb rdoc ri bundle }.each do |cmd|
