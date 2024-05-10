@@ -55,6 +55,7 @@ version("3.0.9")   { source sha256: "eb1ab04781474360f77c318ab89d8c5a03abc38e63d
 version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a" }
 version("3.0.4")   { source sha256: "2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f" }
 version("3.0.3")   { source sha256: "ee0078adcef1de5f003c62c80cc96527721609c6f3bb42b7795df31f8b558c0b" }
+version("3.0.2")   { source sha256: "98e91ccead4d4756ae3c9cde5e09191a8e586d9f4d50838e7ec09d6411dfdb63" }
 version("3.0.1")   { source sha256: "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1" } # only ruby 3.1 supports openssl-3.0.1
 
 version("1.1.1t")  { source sha256: "8dee9b24bdb1dcbf0c3d1e9b02fb8f6bf22165e807f45adeb7c9677536859d3b" }
