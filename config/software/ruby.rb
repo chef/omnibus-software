@@ -313,7 +313,7 @@ build do
   if windows?
     command "echo '******************************'"
     command "echo 'START - looking for openssl.so'"
-    command "powershell -Command 'Get-Childitem c:/ -file openssl.so -recurse'"
+    command "powershell -Command '$foo = Get-Childitem c:/ -file openssl.so -recurse; $Foo | Out-File #{install_dir}/openssl.txt; Get-Content #{install_dir}/openssl.txt'"
     command "echo 'END' - looking for openssl.so"
     command "echo '******************************'"
     # Needed now that we switched to msys2 and have not figured out how to tell
