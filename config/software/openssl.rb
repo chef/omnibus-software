@@ -190,7 +190,7 @@ build do
   command configure_command, env: env, in_msys_bash: true
 
   # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
-  if version.satisfies?(">= 3") && windows? && fips_mode?
+  if version.satisfies?(">= 3.0.0") && windows? && fips_mode?
     command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
   end
 
@@ -212,7 +212,10 @@ build do
     command "sudo /usr/sbin/slibclean", env: env
   end
 
-  if version.start_with?("3") && fips_mode?
+  make "install", env: env 
+
+  if version.satisfies?(">= 3.0.0") && fips_mode?
+    make "install_fips", env: env
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
@@ -221,8 +224,14 @@ build do
   #   # command "find / -name libcrypto-3-x64.dll"
   # end
 
-    fips_cnf_file = "/usr/local/ssl/fipsmodule.cnf"
-    fips_module_file = "/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+    # fips_cnf_file = "/usr/local/ssl/fipsmodule.cnf"
+    # fips_module_file = "/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+
+    fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
+    fips_module_file = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+
+    # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
+    command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
     # not needed since previous commands already created those files
@@ -230,8 +239,10 @@ build do
     # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
 
     # Updating the openssl.cnf file to enable the fips provider
-    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' /usr/ssl/openssl.cnf"
-    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' /usr/ssl/openssl.cnf"
+    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
+    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
 
     # for *nix OS's use the below
     # command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
@@ -240,58 +251,51 @@ build do
     # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
   end
 
+  command "#{install_dir}/embedded/bin/openssl list -providers"
+  # if version.start_with?("3") && fips_mode?
+    
 
-  if version.start_with?("3") && fips_mode?
-    make "install_sw install_ssldirs install_fips", env: env
+  #   msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
 
-    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+  #   if windows?
 
-    if windows?
+  #     # %w{ openssl.so }.each do |file|
+  #     #   delete "#{install_dir}/embedded/bin/#{file}"
+  #     # end
 
-      # %w{ openssl.so }.each do |file|
-      #   delete "#{install_dir}/embedded/bin/#{file}"
-      # end
+  #     %w{ openssl.so libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
+  #       copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+  #     end
 
-      %w{ openssl.so libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
-        copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
-      end
+  #     %w{ legacy.dll fips.dll }.each do |file|
+  #       copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+  #     end
 
-      %w{ legacy.dll fips.dll }.each do |file|
-        copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
-      end
-
-
-
-      # command "powershell.exe -Command {New-Item -Directory -Path c:\\hold}"
-      # command "powershell.exe -Command {$Foo = Get-Childitem -path c:\\ -file openssl.so -recurse -ErrorAction SilentlyContinue; Write-Host 'Here are the openssl.so files:'; Write-Host $Foo}"
-      # command "puts 'Here is the listing of openssl.so files:'"
-      # command " c:\\hold\\output.txt"
-
-    #   # Needed now that we switched to msys2 and have not figured out how to tell
-    #   # it how to statically link yet
-    #   dlls = [
-    #     "libcrypto-3-x64",
-    #     "libssl-3-x64",
-    #   ]
+  #   #   # Needed now that we switched to msys2 and have not figured out how to tell
+  #   #   # it how to statically link yet
+  #   #   dlls = [
+  #   #     "libcrypto-3-x64",
+  #   #     "libssl-3-x64",
+  #   #   ]
   
-    #   dlls.each do |dll|
-    #     mingw = ENV["MSYSTEM"].downcase
-    #     # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
-    #     # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
-    #     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-    #     windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
-    #     if File.exist?(windows_path)
-    #       copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
-    #     end
-    #   end
+  #   #   dlls.each do |dll|
+  #   #     mingw = ENV["MSYSTEM"].downcase
+  #   #     # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
+  #   #     # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
+  #   #     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+  #   #     windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
+  #   #     if File.exist?(windows_path)
+  #   #       copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
+  #   #     end
+  #   #   end
    
-    #   %w{ openssl }.each do |cmd|
-    #     copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
-    #   end
-    end
-  else
-    make "install", env: env
-  end
+  #   #   %w{ openssl }.each do |cmd|
+  #   #     copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+  #   #   end
+  #   end
+  # else
+  #   make "install", env: env
+  # end
 
   # if windows?
   #   # Needed now that we switched to msys2 and have not figured out how to tell
