@@ -215,6 +215,8 @@ build do
   make "install", env: env 
 
   if version.satisfies?(">= 3.0.0") && fips_mode?
+
+    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
@@ -225,8 +227,6 @@ build do
 
     fips_cnf_file = "#{msys_path}/usr/local/ssl/fipsmodule.cnf"
     fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
-
-    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
     # openssl.exe does not exists in /opscode/chef/embedded/bin yet. We call it from where it was built.
