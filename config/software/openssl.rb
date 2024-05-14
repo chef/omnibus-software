@@ -223,8 +223,8 @@ build do
   #   # command "find / -name libcrypto-3-x64.dll"
   # end
 
-    fips_cnf_file = "/usr/local/ssl/fipsmodule.cnf"
-    fips_module_file = "/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+    fips_cnf_file = "#{msys_path}/usr/local/ssl/fipsmodule.cnf"
+    fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
 
