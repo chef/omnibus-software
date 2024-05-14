@@ -215,7 +215,6 @@ build do
   make "install", env: env 
 
   if version.satisfies?(">= 3.0.0") && fips_mode?
-    make "install_fips", env: env
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
@@ -224,13 +223,10 @@ build do
   #   # command "find / -name libcrypto-3-x64.dll"
   # end
 
-    # fips_cnf_file = "/usr/local/ssl/fipsmodule.cnf"
-    # fips_module_file = "/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+    fips_cnf_file = "/usr/local/ssl/fipsmodule.cnf"
+    fips_module_file = "/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-
-    fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
-    fips_module_file = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
     # openssl.exe does not exists in /opscode/chef/embedded/bin yet. We call it from where it was built.
@@ -247,11 +243,17 @@ build do
     command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
     command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
 
+    # 5/14/2024 - at this point in the build process, the chef/embedded/bin folder only has zlib.dll in it. 
+    # Everything else is in an msys folder
+
+
     # for *nix OS's use the below
     # command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
     # command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
 
     # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
+
+    make "install_fips", env: env
   end
 
   command "#{install_dir}/embedded/bin/openssl list -providers"
