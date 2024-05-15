@@ -240,13 +240,12 @@ build do
     # Updating the openssl.cnf file to enable the fips provider
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
-    command "sed -i -f - #{msys_path}/usr/local/ssl/openssl.cnf <<EOF
-        76 i\\
+    command "sed -i '76 i\\ 
         [fips_sect] \\
         activate = 1 \\
         conditional-errors = 1\\
         security-checks = 1 \\
-        EOF"
+        ' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
     command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
 
