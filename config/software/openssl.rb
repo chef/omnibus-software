@@ -218,6 +218,8 @@ build do
 
   if version.satisfies?(">= 3.0.0") && fips_mode?
 
+    make "install_fips", env: env
+
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
@@ -242,15 +244,21 @@ build do
     # Updating the openssl.cnf file to enable the fips provider
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
-    patch_env = env.dup
-    patch_env["PATH"] = "/usr/local/ssl:#{env["PATH"]}" if windows?
-    patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
-    # command "sed -i '76 i\\ 
-    #     \[fips_sect\] \\
-    #     activate = 1 \\
-    #     conditional-errors = 1\\
-    #     security-checks = 1 \\
-    #     ' #{msys_path}/usr/local/ssl/openssl.cnf"
+    # patch_env = env.dup
+    # patch_env["PATH"] = "/usr/local/ssl:#{env["PATH"]}" if windows?
+    command "pwd"
+    # # patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
+
+    # This contains a here string and should be left-justified
+    command "sed -i -f - /usr/local/ssl/openssl.cnf \<\<EOF
+74 i\\
+\[fips_sect\] \\
+activate = 1 \\
+conditional-errors = 1 \\
+security-checks = 1 \\
+
+EOF"
+
     command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
     command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
 
@@ -263,7 +271,6 @@ build do
 
     # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
 
-    make "install_fips", env: env
   end
 
   command "#{msys_path}/usr/local/bin/openssl list -providers"
