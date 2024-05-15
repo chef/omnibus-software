@@ -242,7 +242,9 @@ build do
     # Updating the openssl.cnf file to enable the fips provider
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
-    patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", env: env
+    patch_env = env.dup
+    patch_env["PATH"] = "/c/msys64/usr/local/ssl:#{env["PATH"]}" if windows?
+    patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", env: patch_env
     # command "sed -i '76 i\\ 
     #     \[fips_sect\] \\
     #     activate = 1 \\

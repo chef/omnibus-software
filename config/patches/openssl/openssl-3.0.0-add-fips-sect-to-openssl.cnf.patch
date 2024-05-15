@@ -1,7 +1,7 @@
-diff --git "a/usr/local/ssl/openssl.cnf" "/c/msys64/usr/local/ssl/openssl.cnf"
+diff --git "a/usr/local/ssl/openssl.cnf" "b/usr/local/ssl/openssl.cnf"
 index 5340de2..6daaccc 100644
 --- "a/usr/local/ssl/openssl.cnf"
-+++ "/c/msys64/usr/local/ssl/openssl.cnf"
++++ "b/usr/local/ssl/openssl.cnf"
 @@ -75,6 +75,11 @@ activate = 1
  [legacy_sect]
  activate = 1
