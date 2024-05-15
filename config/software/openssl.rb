@@ -256,7 +256,7 @@ build do
     make "install_fips", env: env
   end
 
-  command "#{install_dir}/embedded/bin/openssl list -providers"
+  command "#{msys_path}/usr/local/bin/openssl list -providers"
   # if version.start_with?("3") && fips_mode?
     
 
