@@ -244,7 +244,7 @@ build do
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     patch_env = env.dup
     patch_env["PATH"] = "#{msys_path}/usr/local/ssl:#{env["PATH"]}" if windows?
-    patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 4, env: patch_env
+    patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 3, env: patch_env
     # command "sed -i '76 i\\ 
     #     \[fips_sect\] \\
     #     activate = 1 \\
