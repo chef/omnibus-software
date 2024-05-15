@@ -250,7 +250,7 @@ build do
     # # patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
 
     # This contains a here string and should be left-justified
-    command "sed -i -f - /usr/local/ssl/openssl.cnf \<\<EOF
+    command "sed -i -f - /usr/local/ssl/openssl.cnf \\<\\<EOF
 74 i\\
 \[fips_sect\] \\
 activate = 1 \\
