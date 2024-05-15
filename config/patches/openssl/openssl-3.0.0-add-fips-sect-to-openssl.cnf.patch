@@ -1,0 +1,16 @@
+diff --git "a/.\\a\\usr\\local\\ssl\\openssl.cnf" "b/.\\b\\usr\\local\\ssl\\openssl.cnf"
+index 5340de2..6daaccc 100644
+--- "a/.\\a\\usr\\local\\ssl\\openssl.cnf"
++++ "b/.\\b\\usr\\local\\ssl\\openssl.cnf"
+@@ -75,6 +75,11 @@ activate = 1
+ [legacy_sect]
+ activate = 1
+ 
++[fips_sect]
++activate = 1
++conditional-errors = 1
++security-checks = 1
++
+ ####################################################################
+ [ ca ]
+ default_ca	= CA_default		# The default ca section
