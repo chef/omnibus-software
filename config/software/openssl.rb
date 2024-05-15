@@ -241,7 +241,7 @@ build do
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i '76 i\\ 
-        [fips_sect] \\
+        \[fips_sect\] \\
         activate = 1 \\
         conditional-errors = 1\\
         security-checks = 1 \\
