@@ -189,13 +189,15 @@ build do
 
   command configure_command, env: env, in_msys_bash: true
 
+  if version.start_with?("1.0.2") && windows?
+    patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
+  end
+
   # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
   if version.satisfies?(">= 3.0.0") && windows? && fips_mode?
     command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
-  end
-
-  if version.start_with?("1.0.2") && windows?
-    patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
+  elsif version.satisfies?(">= 3.0.0") && fips_mode?
+    command "./Configure fips enable-fips", env: env
   end
 
   make "depend", env: env
@@ -240,12 +242,13 @@ build do
     # Updating the openssl.cnf file to enable the fips provider
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
-    command "sed -i '76 i\\ 
-        \[fips_sect\] \\
-        activate = 1 \\
-        conditional-errors = 1\\
-        security-checks = 1 \\
-        ' #{msys_path}/usr/local/ssl/openssl.cnf"
+    patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", env: env
+    # command "sed -i '76 i\\ 
+    #     \[fips_sect\] \\
+    #     activate = 1 \\
+    #     conditional-errors = 1\\
+    #     security-checks = 1 \\
+    #     ' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
     command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
 
