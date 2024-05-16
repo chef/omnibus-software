@@ -222,11 +222,14 @@ build do
 
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
     command "echo '****************************************'"
-    command "echo 'My MSYS path is: #{msys_path}'"
+    command "echo 'My MSYS path was: #{msys_path}'"
     command "echo '****************************************'"
-    if msys_path == "c:msys64"
+    if (msys_path == 'c:msys64') || (msys_path == 'c:\msys64')
       msys_path = "c:/msys64"
     end
+    command "echo '****************************************'"
+    command "echo 'My MSYS path is now: #{msys_path}'"
+    command "echo '****************************************'"
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
@@ -316,17 +319,21 @@ build do
 
   #   if windows?
 
-  #     # %w{ openssl.so }.each do |file|
-  #     #   delete "#{install_dir}/embedded/bin/#{file}"
-  #     # end
+      # %w{ openssl.so }.each do |file|
+      #   delete "#{install_dir}/embedded/bin/#{file}"
+      # end
 
-  #     %w{ openssl.so libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
-  #       copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
-  #     end
+      %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
+        copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+      end
 
-  #     %w{ legacy.dll fips.dll }.each do |file|
-  #       copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
-  #     end
+      %w{ legacy.dll fips.dll }.each do |file|
+        copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+      end
+
+      %w{ openssl.cnf fipsmodule.cnf }.each do |file|
+        copy "#{msys_path}/usr/local/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
+      end
 
   #   #   # Needed now that we switched to msys2 and have not figured out how to tell
   #   #   # it how to statically link yet
