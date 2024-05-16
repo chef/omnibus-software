@@ -221,9 +221,9 @@ build do
     make "install_fips", env: env
 
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-    command "puts '****************************************'\n"
-    command "puts 'My MSYS path is: #{msys_path}'"
-    command "puts '****************************************'\n"
+    command "echo '****************************************'"
+    command "echo 'My MSYS path is: #{msys_path}'"
+    command "echo '****************************************'"
     if msys_path == "c:msys64"
       msys_path = "c:/msys64"
     end
