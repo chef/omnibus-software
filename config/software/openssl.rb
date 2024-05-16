@@ -249,15 +249,15 @@ build do
     command "pwd"
     # # patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
 
-    # This contains a here string and should be left-justified
-    command "sed -i -f - #{msys_path}/usr/local/ssl/openssl.cnf \\<\\<EOF
-74 i\\
-\[fips_sect\] \\
-activate = 1 \\
-conditional-errors = 1 \\
-security-checks = 1 \\
+#     # This contains a here string and should be left-justified
+#     command "sed -i -f - #{msys_path}/usr/local/ssl/openssl.cnf \\<\\<EOF
+# 74 i\\
+# \[fips_sect\] \\
+# activate = 1 \\
+# conditional-errors = 1 \\
+# security-checks = 1 \\
 
-EOF"
+# EOF"
 
     command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
     command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
