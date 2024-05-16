@@ -249,6 +249,30 @@ build do
     command "pwd"
     # # patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
 
+    def update_opensslcnf
+      if File.file?("#{msys_path}/usr/local/ssl/openssl.cnf")
+        require 'fileutils'
+
+        tempfile=File.open("file.tmp", 'w')
+        f=File.new("#{msys_path}/usr/local/ssl/openssl.cnf")
+        f.each do |line|
+          tempfile<<line
+          if line.downcase=~/^line76/
+            tempfile << "[fips_sect]\n"
+            tempfile << "activate = 1\n"
+            tempfile << "conditional-errors = 1\n"
+            tempfile << "security-checks = 1\n"
+          end
+        end
+        f.close
+        tempfile.close
+
+        FileUtils.mv("file.tmp", "#{msys_path}/usr/local/ssl/openssl.cnf")
+      end
+    end
+
+    update_opensslcnf
+
 #     # This contains a here string and should be left-justified
 #     command "sed -i -f - #{msys_path}/usr/local/ssl/openssl.cnf \\<\\<EOF
 # 74 i\\
