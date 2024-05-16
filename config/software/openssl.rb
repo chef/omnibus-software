@@ -224,9 +224,7 @@ build do
     command "echo '****************************************'"
     command "echo 'My MSYS path was: #{msys_path}'"
     command "echo '****************************************'"
-    if (msys_path == "c:msys64") || (msys_path == "c:\\msys64")
-      msys_path = "c:/msys64"
-    end
+    msys_path = msys_path.gsub("\\", "/")
     command "echo '****************************************'"
     command "echo 'My MSYS path is now: #{msys_path}'"
     command "echo '****************************************'"
