@@ -221,6 +221,12 @@ build do
     make "install_fips", env: env
 
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+    command "puts '****************************************'\n"
+    command "puts 'My MSYS path is: #{msys_path}'"
+    command "puts '****************************************'\n"
+    if msys_path == "c:msys64"
+      msys_path = "c:/msys64"
+    end
     # running the make install_fips step to install the FIPS provider
     # make "install_fips", env: env
 
@@ -249,34 +255,34 @@ build do
     command "pwd"
     # # patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
 
-    def update_opensslcnf
-      msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-      file_exist = File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
-      command "puts '****************************************'\n"
-      command "puts 'Does the openssl.cnf file exist? #{file_exist}'"
-      command "puts '****************************************'\n"
-      if File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
-        require 'fileutils'
+    # def update_opensslcnf
+    #   msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+    #   file_exist = File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
+    #   command "puts '****************************************'\n"
+    #   command "puts 'Does the openssl.cnf file exist? #{file_exist}'"
+    #   command "puts '****************************************'\n"
+    #   if File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
+    #     require 'fileutils'
 
-        tempfile=File.open("file.tmp", 'w')
-        f=File.new("#{msys_path}/usr/local/ssl/openssl.cnf")
-        f.each do |line|
-          tempfile<<line
-          if line.downcase=~/^line76/
-            tempfile << "[fips_sect]\n"
-            tempfile << "activate = 1\n"
-            tempfile << "conditional-errors = 1\n"
-            tempfile << "security-checks = 1\n"
-          end
-        end
-        f.close
-        tempfile.close
+    #     tempfile=File.open("file.tmp", 'w')
+    #     f=File.new("#{msys_path}/usr/local/ssl/openssl.cnf")
+    #     f.each do |line|
+    #       tempfile<<line
+    #       if line.downcase=~/^line76/
+    #         tempfile << "[fips_sect]\n"
+    #         tempfile << "activate = 1\n"
+    #         tempfile << "conditional-errors = 1\n"
+    #         tempfile << "security-checks = 1\n"
+    #       end
+    #     end
+    #     f.close
+    #     tempfile.close
 
-        FileUtils.mv("file.tmp", "#{msys_path}/usr/local/ssl/openssl.cnf")
-      end
-    end
+    #     FileUtils.mv("file.tmp", "#{msys_path}/usr/local/ssl/openssl.cnf")
+    #   end
+    # end
 
-    update_opensslcnf
+    # update_opensslcnf
 
 #     # This contains a here string and should be left-justified
 #     command "sed -i -f - #{msys_path}/usr/local/ssl/openssl.cnf \\<\\<EOF
