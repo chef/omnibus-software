@@ -250,6 +250,7 @@ build do
     # # patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
 
     def update_opensslcnf
+      msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
       if File.file?("#{msys_path}/usr/local/ssl/openssl.cnf")
         require 'fileutils'
 
