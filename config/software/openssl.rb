@@ -251,7 +251,11 @@ build do
 
     def update_opensslcnf
       msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-      if File.file?("#{msys_path}/usr/local/ssl/openssl.cnf")
+      file_exist = File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
+      command "puts '****************************************'\n"
+      command "puts 'Does the openssl.cnf file exist? #{file_exist}'"
+      command "puts '****************************************'\n"
+      if File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
         require 'fileutils'
 
         tempfile=File.open("file.tmp", 'w')
