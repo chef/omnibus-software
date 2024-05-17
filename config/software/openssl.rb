@@ -285,6 +285,7 @@ build do
         project.overrides[:openssl] &&
         ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
     
+        openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
         # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
         # same openssl gem version is redundant for ruby 3.1[.2] projects
         command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
