@@ -298,15 +298,16 @@ build do
         ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
     
         openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
+        # omnibus_toolchain = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
         # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
         # same openssl gem version is redundant for ruby 3.1[.2] projects
         command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
     
         # add OPENSSL_FIPS to the environment _if_ fips is active
         fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
-        command "#{install_dir}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded/bin", env: fips_env
+        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded/bin", env: fips_env
     
-        command "#{install_dir}/embedded/bin/gem info openssl"
+        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem info openssl"
         command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
       end
 
