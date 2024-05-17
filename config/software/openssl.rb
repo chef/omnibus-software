@@ -291,7 +291,7 @@ build do
         copy "#{msys_path}/usr/local/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
 
-      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/bin/fips#{windows? ? ".dll", ".so"}"
+      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/bin/fips.#{windows? ? "dll" : "so"}"
 
       if (version.satisfies?("< 3.1") || fips_mode?) &&
         project.overrides[:openssl] &&
