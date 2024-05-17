@@ -223,6 +223,8 @@ build do
 
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
     msys_path = msys_path.gsub("\\", "/")
+
+    # We have to do some voodoo here - We add
    
     fips_cnf_file = "#{install_dir}/embedded/bin/fipsmodule.cnf"
     fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
@@ -235,16 +237,14 @@ build do
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
 
-    command "puts"
 
 # Work items:
-# 1. fix the path for the fipsmodule.cnf - it's pointing to the msys64 folder and when you load the openssl.cnf file, it's pointing to the wrong directory and no FIPS
 # 2. Need to clean up all the code so Linux builds work too.
 # 3. 
 
 
     # command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
-    # command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
+    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
 
     # 5/14/2024 - at this point in the build process, the chef/embedded/bin folder only has zlib.dll in it. 
     # Everything else is in an msys folder
@@ -269,17 +269,29 @@ build do
       #   delete "#{install_dir}/embedded/bin/#{file}"
       # end
 
-      %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
-        copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
-      end
+      if windows?
+        %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
+          copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end
 
-      %w{ legacy.dll fips.dll }.each do |file|
-        copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        %w{ legacy.dll fips.dll }.each do |file|
+          copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end
+      else
+        %w{ libcrypto-3-x64.so libssl-3-x64.so openssl }.each do |file|
+          copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end
+
+        %w{ legacy.so fips.so }.each do |file|
+          copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end        
       end
 
       %w{ openssl.cnf fipsmodule.cnf }.each do |file|
         copy "#{msys_path}/usr/local/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
       end
+
+      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/bin/fips#{windows? ? ".dll", ".so"}"
 
       if (version.satisfies?("< 3.1") || fips_mode?) &&
         project.overrides[:openssl] &&
@@ -292,9 +304,10 @@ build do
     
         # add OPENSSL_FIPS to the environment _if_ fips is active
         fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
-        command "#{install_dir}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
+        command "#{install_dir}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded/bin", env: fips_env
     
         command "#{install_dir}/embedded/bin/gem info openssl"
+        command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
       end
 
   #   #   # Needed now that we switched to msys2 and have not figured out how to tell
