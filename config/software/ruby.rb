@@ -311,18 +311,6 @@ build do
   end
 
   if windows?
-    command "echo '******************************'"
-    command "echo 'START - looking for openssl.so'"
-    command "powershell -Command '$foo = Get-Childitem c:/ -file openssl.so -recurse; $Foo | Out-File #{install_dir}/openssl.txt; Get-Content #{install_dir}/openssl.txt'"
-    command "echo $PATH"
-    command "echo 'END' - looking for openssl.so"
-    command "echo '******************************'"
-    command "echo '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'"
-    command "echo 'START - looking for libssl* files'"
-    command "powershell -Command '$foo = Get-Childitem c:/ -file libssl* -recurse; $Foo | Out-File #{install_dir}/libssl.txt; Get-Content #{install_dir}/libssl.txt'"
-    command "echo $PATH"
-    command "echo 'END' - looking for libssl*"
-    command "echo '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'"
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
     %w{ erb gem irb rdoc ri bundle }.each do |cmd|

@@ -218,85 +218,33 @@ build do
 
   if version.satisfies?(">= 3.0.0") && fips_mode?
 
+    # running the make install_fips step to install the FIPS provider
     make "install_fips", env: env
 
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-    command "echo '****************************************'"
-    command "echo 'My MSYS path was: #{msys_path}'"
-    command "echo '****************************************'"
     msys_path = msys_path.gsub("\\", "/")
-    command "echo '****************************************'"
-    command "echo 'My MSYS path is now: #{msys_path}'"
-    command "echo '****************************************'"
-    # running the make install_fips step to install the FIPS provider
-    # make "install_fips", env: env
-
-  # if windows?
-  #   command "find / -name openssl.cnf"
-  #   # command "find / -name libcrypto-3-x64.dll"
-  # end
-
-    fips_cnf_file = "#{msys_path}/usr/local/ssl/fipsmodule.cnf"
+   
+    fips_cnf_file = "#{install_dir}/embedded/bin/fipsmodule.cnf"
     fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
-    # openssl.exe does not exists in /opscode/chef/embedded/bin yet. We call it from where it was built.
+    # openssl does not exist in /opscode/chef/embedded/bin yet. We call it from where it was built.
     command "#{msys_path}/usr/local/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
-
-    # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
-    # not needed since previous commands already created those files
-
-    # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
 
     # Updating the openssl.cnf file to enable the fips provider
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
-    # patch_env = env.dup
-    # patch_env["PATH"] = "/usr/local/ssl:#{env["PATH"]}" if windows?
-    command "pwd"
-    # # patch source: "openssl-3.0.0-add-fips-sect-to-openssl.cnf.patch", plevel: 0, env: patch_env
 
-    # def update_opensslcnf
-    #   msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-    #   file_exist = File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
-    #   command "puts '****************************************'\n"
-    #   command "puts 'Does the openssl.cnf file exist? #{file_exist}'"
-    #   command "puts '****************************************'\n"
-    #   if File.exist?("#{msys_path}/usr/local/ssl/openssl.cnf")
-    #     require 'fileutils'
+    command "puts"
 
-    #     tempfile=File.open("file.tmp", 'w')
-    #     f=File.new("#{msys_path}/usr/local/ssl/openssl.cnf")
-    #     f.each do |line|
-    #       tempfile<<line
-    #       if line.downcase=~/^line76/
-    #         tempfile << "[fips_sect]\n"
-    #         tempfile << "activate = 1\n"
-    #         tempfile << "conditional-errors = 1\n"
-    #         tempfile << "security-checks = 1\n"
-    #       end
-    #     end
-    #     f.close
-    #     tempfile.close
+# Work items:
+# 1. fix the path for the fipsmodule.cnf - it's pointing to the msys64 folder and when you load the openssl.cnf file, it's pointing to the wrong directory and no FIPS
+# 2. Need to clean up all the code so Linux builds work too.
+# 3. 
 
-    #     FileUtils.mv("file.tmp", "#{msys_path}/usr/local/ssl/openssl.cnf")
-    #   end
-    # end
 
-    # update_opensslcnf
-
-#     # This contains a here string and should be left-justified
-#     command "sed -i -f - #{msys_path}/usr/local/ssl/openssl.cnf \\<\\<EOF
-# 74 i\\
-# \[fips_sect\] \\
-# activate = 1 \\
-# conditional-errors = 1 \\
-# security-checks = 1 \\
-
-# EOF"
-
-    command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
-    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
+    # command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
+    # command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
 
     # 5/14/2024 - at this point in the build process, the chef/embedded/bin folder only has zlib.dll in it. 
     # Everything else is in an msys folder
@@ -309,7 +257,7 @@ build do
 
   end
 
-  command "#{msys_path}/usr/local/bin/openssl list -providers"
+  # command "#{msys_path}/usr/local/bin/openssl list -providers"
   # if version.start_with?("3") && fips_mode?
     
 
@@ -331,6 +279,21 @@ build do
 
       %w{ openssl.cnf fipsmodule.cnf }.each do |file|
         copy "#{msys_path}/usr/local/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
+      end
+
+      if (version.satisfies?("< 3.1") || fips_mode?) &&
+        project.overrides[:openssl] &&
+        ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+    
+        # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
+        # same openssl gem version is redundant for ruby 3.1[.2] projects
+        command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
+    
+        # add OPENSSL_FIPS to the environment _if_ fips is active
+        fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
+        command "#{install_dir}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
+    
+        command "#{install_dir}/embedded/bin/gem info openssl"
       end
 
   #   #   # Needed now that we switched to msys2 and have not figured out how to tell
