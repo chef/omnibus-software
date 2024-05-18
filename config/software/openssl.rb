@@ -226,16 +226,23 @@ build do
 
     # We have to do some voodoo here - We add
    
+    fips_bld_file = "#{msys_path}/usr/local/ssl/fipsmodule.cnf"
     fips_cnf_file = "#{install_dir}/embedded/bin/fipsmodule.cnf"
     fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
     # openssl does not exist in /opscode/chef/embedded/bin yet. We call it from where it was built.
-    command "#{msys_path}/usr/local/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
+    command "#{msys_path}/usr/local/bin/openssl fipsinstall -out #{fips_bld_file} -module #{fips_module_file}"
 
     # Updating the openssl.cnf file to enable the fips provider
-    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_bld_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+
+    # test the configuration to ensure we are properly configuring 
+    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
+
+    # Now that we have tested the openssl/fips combo, we update the file location to where the fipsmodule.cnf will end up once installed with Chef
+    command "sed -i -e 's|.include #{fips_bld_file}|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
 
 
 # Work items:
@@ -244,7 +251,7 @@ build do
 
 
     # command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
-    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
+
 
     # 5/14/2024 - at this point in the build process, the chef/embedded/bin folder only has zlib.dll in it. 
     # Everything else is in an msys folder
