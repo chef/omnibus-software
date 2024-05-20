@@ -24,13 +24,14 @@ dependency "cacerts"
 # For OpenSSL versions < 3, we have to compile FIPS separately
 dependency "openssl-fips" if (fips_mode? && version.satisfies?("< 3"))
 
-default_version "1.0.2zg" # do_not_auto_update
+default_version "3.0.9" # do_not_auto_update
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
-lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
-lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"]) if version.start_with?("1.1")
-if version.start_with?("3.")
+if version.start_with?("1.1")
+  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
+  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"])
+elsif version.start_with?("3.")
   lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-3"])
   lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/ossl-modules"])
 end
@@ -312,7 +313,7 @@ build do
     
         # add OPENSSL_FIPS to the environment _if_ fips is active
         fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
-        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded/bin", env: fips_env
+        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
     
         command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem info openssl"
         command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
