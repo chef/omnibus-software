@@ -15,7 +15,7 @@
 #
 
 name "ruby-msys2-devkit"
-default_version "3.0.7-1"
+default_version "3.0.6-1"
 
 license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/oneclick/rubyinstaller2/master/LICENSE.txt"

@@ -319,7 +319,6 @@ build do
         command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
       end
 
-      command "puts"
 
   #   #   # Needed now that we switched to msys2 and have not figured out how to tell
   #   #   # it how to statically link yet
