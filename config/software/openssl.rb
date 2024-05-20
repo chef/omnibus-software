@@ -21,15 +21,17 @@ license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
 dependency "cacerts"
-dependency "openssl-fips" if fips_mode?
+# For OpenSSL versions < 3, we have to compile FIPS separately
+dependency "openssl-fips" if (fips_mode? && version.satisfies?("< 3"))
 
-default_version "1.0.2zg" # do_not_auto_update
+default_version "3.0.9" # do_not_auto_update
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
-lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
-lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"]) if version.start_with?("1.1")
-if version.start_with?("3.")
+if version.start_with?("1.1")
+  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
+  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"])
+elsif version.start_with?("3.")
   lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-3"])
   lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/ossl-modules"])
 end
@@ -48,11 +50,13 @@ else
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
+version("3.0.12")  { source sha256: "f93c9e8edde5e9166119de31755fc87b4aa34863662f67ddfcba14d0b6b69b61" }
 version("3.0.11")  { source sha256: "b3425d3bb4a2218d0697eb41f7fc0cdede016ed19ca49d168b78e8d947887f55" }
 version("3.0.9")   { source sha256: "eb1ab04781474360f77c318ab89d8c5a03abc38e63d65a603cabbf1b00a1dc90" }
 version("3.0.5")   { source sha256: "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a" }
 version("3.0.4")   { source sha256: "2831843e9a668a0ab478e7020ad63d2d65e51f72977472dc73efcefbafc0c00f" }
 version("3.0.3")   { source sha256: "ee0078adcef1de5f003c62c80cc96527721609c6f3bb42b7795df31f8b558c0b" }
+version("3.0.2")   { source sha256: "98e91ccead4d4756ae3c9cde5e09191a8e586d9f4d50838e7ec09d6411dfdb63" }
 version("3.0.1")   { source sha256: "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1" } # only ruby 3.1 supports openssl-3.0.1
 
 version("1.1.1t")  { source sha256: "8dee9b24bdb1dcbf0c3d1e9b02fb8f6bf22165e807f45adeb7c9677536859d3b" }
@@ -97,7 +101,6 @@ build do
     "no-idea",
     "no-mdc2",
     "no-rc5",
-    "no-ssl2",
     "no-ssl3",
     "no-zlib",
     "shared",
@@ -192,6 +195,13 @@ build do
     patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
   end
 
+  # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
+  if version.satisfies?(">= 3.0.0") && windows? && fips_mode?
+    command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
+  elsif version.satisfies?(">= 3.0.0") && fips_mode?
+    command "./Configure fips enable-fips", env: env
+  end
+
   make "depend", env: env
   # make -j N on openssl is not reliable
   make env: env
@@ -205,5 +215,171 @@ build do
     # Bug Ref: http://rt.openssl.org/Ticket/Display.html?id=2986&user=guest&pass=guest
     command "sudo /usr/sbin/slibclean", env: env
   end
-  make "install", env: env
+
+  make "install", env: env 
+
+  if version.satisfies?(">= 3.0.0") && fips_mode?
+
+    # running the make install_fips step to install the FIPS provider
+    make "install_fips", env: env
+
+    msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+    msys_path = msys_path.gsub("\\", "/")
+
+    # We have to do some voodoo here - We add
+   
+    fips_bld_file = "#{msys_path}/usr/local/ssl/fipsmodule.cnf"
+    fips_cnf_file = "#{install_dir}/embedded/bin/fipsmodule.cnf"
+    fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+
+    # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
+    # openssl does not exist in /opscode/chef/embedded/bin yet. We call it from where it was built.
+    command "#{msys_path}/usr/local/bin/openssl fipsinstall -out #{fips_bld_file} -module #{fips_module_file}"
+
+    # Updating the openssl.cnf file to enable the fips provider
+    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_bld_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+
+    # test the configuration to ensure we are properly configuring 
+    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
+
+    # Now that we have tested the openssl/fips combo, we update the file location to where the fipsmodule.cnf will end up once installed with Chef
+    command "sed -i -e 's|.include #{fips_bld_file}|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+
+
+# Work items:
+# 2. Need to clean up all the code so Linux builds work too.
+# 3. 
+
+
+    # command "echo '>>> fipsmodule.cnf'; cat #{fips_cnf_file}"
+
+
+    # 5/14/2024 - at this point in the build process, the chef/embedded/bin folder only has zlib.dll in it. 
+    # Everything else is in an msys folder
+
+    # for *nix OS's use the below
+    # command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    # command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
+
+    # command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
+
+  end
+
+  # command "#{msys_path}/usr/local/bin/openssl list -providers"
+  # if version.start_with?("3") && fips_mode?
+    
+
+  #   msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+
+  #   if windows?
+
+      # %w{ openssl.so }.each do |file|
+      #   delete "#{install_dir}/embedded/bin/#{file}"
+      # end
+
+      if windows?
+        %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
+          copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end
+
+        %w{ legacy.dll fips.dll }.each do |file|
+          copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end
+      else
+        %w{ libcrypto-3-x64.so libssl-3-x64.so openssl }.each do |file|
+          copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end
+
+        %w{ legacy.so fips.so }.each do |file|
+          copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        end        
+      end
+
+      %w{ openssl.cnf fipsmodule.cnf }.each do |file|
+        copy "#{msys_path}/usr/local/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
+      end
+
+      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/bin/fips.#{windows? ? "dll" : "so"}"
+
+      if (version.satisfies?("< 3.1") || fips_mode?) &&
+        project.overrides[:openssl] &&
+        ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+    
+        openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
+        # omnibus_toolchain = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
+        # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
+        # same openssl gem version is redundant for ruby 3.1[.2] projects
+        command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
+    
+        # add OPENSSL_FIPS to the environment _if_ fips is active
+        fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
+        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
+    
+        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem info openssl"
+        command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
+      end
+
+
+  #   #   # Needed now that we switched to msys2 and have not figured out how to tell
+  #   #   # it how to statically link yet
+  #   #   dlls = [
+  #   #     "libcrypto-3-x64",
+  #   #     "libssl-3-x64",
+  #   #   ]
+  
+  #   #   dlls.each do |dll|
+  #   #     mingw = ENV["MSYSTEM"].downcase
+  #   #     # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
+  #   #     # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
+  #   #     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+  #   #     windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
+  #   #     if File.exist?(windows_path)
+  #   #       copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
+  #   #     end
+  #   #   end
+   
+  #   #   %w{ openssl }.each do |cmd|
+  #   #     copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+  #   #   end
+  #   end
+  # else
+  #   make "install", env: env
+  # end
+
+  # if windows?
+  #   # Needed now that we switched to msys2 and have not figured out how to tell
+  #   # it how to statically link yet
+  #   dlls = [
+  #     "libcrypto-3-x64",
+  #     "libssl-3-x64",
+  #   ]
+
+  #   dlls.each do |dll|
+  #     mingw = ENV["MSYSTEM"].downcase
+  #     # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
+  #     # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
+  #     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
+  #     windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
+  #     if File.exist?(windows_path)
+  #       copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
+  #     else
+  #       raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
+  #     end
+  #   end
+ 
+  #   %w{ openssl }.each do |cmd|
+  #     copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
+  #   end
+  # end
+
+  # if windows?
+  #   command "find / -name openssl.exe"
+  #   command "find / -name libcrypto-3-x64.dll"
+  # end
+
+  # make "install", env: env
+  
+
+
 end

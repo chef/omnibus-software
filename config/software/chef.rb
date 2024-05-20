@@ -65,6 +65,7 @@ build do
   bundle_excludes = excluded_groups + %w{development test}
 
   bundle "install --without #{bundle_excludes.join(" ")}", env: env
+  # bundle "config set --local without #{bundle_excludes.join(" ")}", env: env
 
   ruby "post-bundle-install.rb", env: env
 

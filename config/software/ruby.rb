@@ -52,6 +52,7 @@ version("3.1.3")      { source sha256: "5ea498a35f4cd15875200a52dde42b6eb179e126
 version("3.1.2")      { source sha256: "61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e" }
 version("3.1.1")      { source sha256: "fe6e4782de97443978ddba8ba4be38d222aa24dc3e3f02a6a8e7701c0eeb619d" }
 
+version("3.0.7")      { source sha256: "2a3411977f2850431136b0fab8ad53af09fb74df2ee2f4fb7f11b378fe034388" }
 version("3.0.6")      { source sha256: "6e6cbd490030d7910c0ff20edefab4294dfcd1046f0f8f47f78b597987ac683e" }
 version("3.0.5")      { source sha256: "9afc6380a027a4fe1ae1a3e2eccb6b497b9c5ac0631c12ca56f9b7beb4848776" }
 version("3.0.4")      { source sha256: "70b47c207af04bce9acea262308fb42893d3e244f39a4abc586920a1c723722b" }
@@ -124,11 +125,7 @@ elsif windows?
   # environment in omnibus-toolchain would probably need to look a little more identical to the devkit.
   env["CC"] = "gcc"
   env["CFLAGS"] = "-I#{install_dir}/embedded/include -DFD_SETSIZE=2048"
-  if windows_arch_i386?
-    env["CFLAGS"] << " -m32 -march=i686 -O3"
-  else
-    env["CFLAGS"] << " -m64 -march=x86-64 -O3"
-  end
+  env["CFLAGS"] << " -m64 -march=x86-64 -O3"
   env["CPPFLAGS"] = env["CFLAGS"]
   env["CXXFLAGS"] = env["CFLAGS"]
 else # including linux
@@ -144,7 +141,7 @@ build do
     case version
     when "3.0.1"
       patch source: "ruby-3.0.1-configure.patch", plevel: 1, env: patch_env
-    when "3.0.5", "3.0.6"
+    when "3.0.5", "3.0.6", "3.0.7"
       patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env
     else
       patch source: "ruby-3.0.2-configure.patch", plevel: 1, env: patch_env
@@ -292,8 +289,11 @@ build do
   if version.satisfies?("< 3.1") &&
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
-    configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
+    # configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
+    configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded/bin"
   end
+
+  # configure_command << "--with-openssl-dir=#{install_dir}/embedded"
 
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
   # AFAIK, ruby does not need or use this pkg-config it just causes the build to fail.
@@ -321,30 +321,6 @@ build do
   if windows?
     # Needed now that we switched to msys2 and have not figured out how to tell
     # it how to statically link yet
-    dlls = [
-      "libwinpthread-1",
-      "libstdc++-6",
-    ]
-
-    if windows_arch_i386?
-      dlls << "libgcc_s_dw2-1"
-    else
-      dlls << "libgcc_s_seh-1"
-    end
-
-    dlls.each do |dll|
-      mingw = ENV["MSYSTEM"].downcase
-      # Starting omnibus-toolchain version 1.1.115 we do not build msys2 as a part of omnibus-toolchain anymore, but pre install it in image
-      # so here we set the path to default install of msys2 first and default to OMNIBUS_TOOLCHAIN_INSTALL_DIR for backward compatibility
-      msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
-      windows_path = "#{msys_path}/#{mingw}/bin/#{dll}.dll"
-      if File.exist?(windows_path)
-        copy windows_path, "#{install_dir}/embedded/bin/#{dll}.dll"
-      else
-        raise "Cannot find required DLL needed for dynamic linking: #{windows_path}"
-      end
-    end
-
     %w{ erb gem irb rdoc ri bundle }.each do |cmd|
       copy "#{project_dir}/bin/#{cmd}", "#{install_dir}/embedded/bin/#{cmd}"
     end

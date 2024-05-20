@@ -61,30 +61,30 @@ build do
                           File.join(embedded_ruby_lib_dir, "openssl.rb")
                         end
 
-    if windows?
-      embedded_ruby_site_dir = get_sanitized_rbconfig("sitelibdir")
-      source_ssl_env_hack      = File.join(project_dir, "windows", "ssl_env_hack.rb")
-      destination_ssl_env_hack = File.join(embedded_ruby_site_dir, "ssl_env_hack.rb")
+    # if windows?
+    #   embedded_ruby_site_dir = get_sanitized_rbconfig("sitelibdir")
+    #   source_ssl_env_hack      = File.join(project_dir, "windows", "ssl_env_hack.rb")
+    #   destination_ssl_env_hack = File.join(embedded_ruby_site_dir, "ssl_env_hack.rb")
 
-      create_directory(embedded_ruby_site_dir)
+    #   create_directory(embedded_ruby_site_dir)
 
-      copy(source_ssl_env_hack, destination_ssl_env_hack)
+    #   copy(source_ssl_env_hack, destination_ssl_env_hack)
 
-      # Unfortunately there is no patch on windows, but luckily we only need to append a line to the openssl.rb
-      # to pick up our script which find the CA bundle in omnibus installations and points SSL_CERT_FILE to it
-      # if it's not already set
-      File.open(source_openssl_rb, "r+") do |f|
-        unpatched_openssl_rb = f.read
-        f.rewind
-        f.write("\nrequire 'ssl_env_hack'\n")
-        f.write(unpatched_openssl_rb)
-      end
-    else
-      File.open(source_openssl_rb, "r+") do |f|
-        unpatched_openssl_rb = f.read
-        f.rewind
-        f.write(unpatched_openssl_rb)
-      end
-    end
+    #   # Unfortunately there is no patch on windows, but luckily we only need to append a line to the openssl.rb
+    #   # to pick up our script which find the CA bundle in omnibus installations and points SSL_CERT_FILE to it
+    #   # if it's not already set
+    #   File.open(source_openssl_rb, "r+") do |f|
+    #     unpatched_openssl_rb = f.read
+    #     f.rewind
+    #     f.write("\nrequire 'ssl_env_hack'\n")
+    #     f.write(unpatched_openssl_rb)
+    #   end
+    # else
+    #   File.open(source_openssl_rb, "r+") do |f|
+    #     unpatched_openssl_rb = f.read
+    #     f.rewind
+    #     f.write(unpatched_openssl_rb)
+    #   end
+    # end
   end
 end
