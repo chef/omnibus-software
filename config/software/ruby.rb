@@ -134,6 +134,9 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env["PATH"]}" if aix?
 
+  # allow ruby + openssl to build on systems with FIPS enabled
+  env["OPENSSL_FIPS"] = "1" if fips_mode?
+
   if version.satisfies?("~> 3.0.0")
     case version
     when "3.0.1"
@@ -280,8 +283,8 @@ build do
   # Remove this if clause once Ruby < 3.1 is not supported in combination with
   # OpenSSL >= 3.0
   if version.satisfies?("< 3.1") &&
-      project.overrides[:openssl] &&
-      ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+    project.overrides[:openssl] &&
+    ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
     # configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
     configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded/bin"
   end
@@ -300,15 +303,30 @@ build do
 
   # Remove this if clause once Ruby < 3.1 is not supported in combination with
   # OpenSSL >= 3.0
-  if version.satisfies?("< 3.1") &&
+
+  # set this here because two different clauses might use it
+  openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
+
+  if (version.satisfies?("< 3.1") || fips_mode?) &&
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
 
     # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
     # same openssl gem version is redundant for ruby 3.1[.2] projects
-    openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
     command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
     command "#{install_dir}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document"
+
+    
+    # add OPENSSL_FIPS to the environment _if_ fips is active
+    fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
+
+    if fips_mode?
+      command "git clone https://github.com/ruby/openssl.git", cwd: "#{install_dir}"
+      command "gem build openssl.gemspec", cwd: "#{install_dir}/openssl"
+      command "gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env, cwd: "#{install_dir}/openssl"
+    end
+
+    command "#{install_dir}/embedded/bin/gem info openssl"
   end
 
   if windows?
@@ -323,6 +341,30 @@ build do
     # running into permission errors.
     command "attrib -r #{install_dir}/embedded/bin/rake.bat"
 
+  end
+
+  if fips_mode?
+    puts "Validating FIPS_MODE build"
+    if windows?
+      puts "Finding all the rubies installed and checking their fips_mode status"
+      find_command = %(
+        Get-ChildItem c:/opscode -name 'ruby.exe' -recurse | ForEach-Object {
+          & $_ -e "require 'openssl'; puts OpenSSL::OPENSSL_VERSION_NUMBER.to_s(16); puts OpenSSL::OPENSSL_LIBRARY_VERSION; OpenSSL.fips_mode = 1; puts 'FIPS mode successfully activated for Ruby' + RUBY_VERSION"
+        }
+        Write-Output "done looking at rubies"
+      )
+      command find_command
+    else
+      find_command = %(
+        find /opt -name 'ruby' | grep 'bin/ruby' | while read ruby; do
+          echo "Checking $ruby"
+          sum $ruby
+          $ruby -v -e "require 'openssl'; puts OpenSSL::OPENSSL_VERSION_NUMBER.to_s(16); puts OpenSSL::OPENSSL_LIBRARY_VERSION; OpenSSL.fips_mode = 1; puts 'FIPS mode successfully activated for Ruby '+ RUBY_VERSION"
+        done
+        echo "done looking at rubies"
+      )
+      command find_command
+    end
   end
 
 end

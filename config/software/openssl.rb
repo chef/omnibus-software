@@ -22,7 +22,7 @@ skip_transitive_dependency_licensing true
 
 dependency "cacerts"
 # For OpenSSL versions < 3, we have to compile FIPS separately
-dependency "openssl-fips" if (fips_mode? && version.satisfies?("< 3"))
+dependency "openssl-fips" if (fips_mode? && version.satisfies?(">= 3.0.0")))
 
 default_version "3.0.9" # do_not_auto_update
 
@@ -77,7 +77,14 @@ version("1.0.2zi") { source sha256: "80b6c07995fc92456e31c61cf1b2a18f75e31406318
 relative_path "openssl-#{version}"
 
 build do
+
   env = with_standard_compiler_flags(with_embedded_path)
+
+  if rhel?
+    command "sudo yum -y install perl-CPAN"
+    command "perl -MCPAN -e 'install Digest::SHA'", env: env.merge({"PERL_MM_USE_DEFAULT" => "1"})
+  end
+
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
   elsif mac_os_x? && arm?
@@ -194,12 +201,12 @@ build do
     patch source: "openssl-1.0.1j-windows-relocate-dll.patch", env: env
   end
 
-  # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
-  if version.satisfies?(">= 3.0.0") && windows? && fips_mode?
-    command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
-  elsif version.satisfies?(">= 3.0.0") && fips_mode?
-    command "./Configure fips enable-fips", env: env
-  end
+  # # FIPS support is now built into v3 and later of openssl so it must be explicitly configured
+  # if version.satisfies?(">= 3.0.0") && windows? && fips_mode?
+  #   command "perl.exe ./Configure fips enable-fips", env: env, in_msys_bash: true
+  # elsif version.satisfies?(">= 3.0.0") && fips_mode?
+  #   command "./Configure fips enable-fips", env: env
+  # end
 
   make "depend", env: env
   # make -j N on openssl is not reliable
@@ -222,28 +229,37 @@ build do
     # running the make install_fips step to install the FIPS provider
     make "install_fips", env: env
 
+    # fips_bld_file = "#{msys_path}/usr/local/ssl/fipsmodule.cnf"
+    # fips_cnf_file = "#{install_dir}/embedded/bin/fipsmodule.cnf"
+    # fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+
+    fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
+    fips_module_file = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
+
     msys_path = ENV["MSYS2_INSTALL_DIR"] ? "#{ENV["MSYS2_INSTALL_DIR"]}" : "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin"
     msys_path = msys_path.gsub("\\", "/")
 
     # We have to do some voodoo here - We add
    
-    fips_bld_file = "#{msys_path}/usr/local/ssl/fipsmodule.cnf"
-    fips_cnf_file = "#{install_dir}/embedded/bin/fipsmodule.cnf"
-    fips_module_file = "#{msys_path}/usr/local/lib64/ossl-modules/fips.#{windows? ? "dll" : "so"}"
-
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
     # openssl does not exist in /opscode/chef/embedded/bin yet. We call it from where it was built.
-    command "#{msys_path}/usr/local/bin/openssl fipsinstall -out #{fips_bld_file} -module #{fips_module_file}"
+    # command "#{msys_path}/usr/local/bin/openssl fipsinstall -out #{fips_bld_file} -module #{fips_module_file}"
+    command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
 
     # Updating the openssl.cnf file to enable the fips provider
-    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_bld_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
-    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+    # command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_bld_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+    # command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
 
     # test the configuration to ensure we are properly configuring 
+    command "cat #{install_dir}/embedded/ssl/openssl.cnf"
+    command "cat #{install_dir}/embedded/ssl/fipsmodule.cnf"
     command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
+    command "#{install_dir}/embedded/bin/openssl list -providers"
 
     # Now that we have tested the openssl/fips combo, we update the file location to where the fipsmodule.cnf will end up once installed with Chef
-    command "sed -i -e 's|.include #{fips_bld_file}|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
+    # command "sed -i -e 's|.include #{fips_bld_file}|.include #{fips_cnf_file}|g' #{msys_path}/usr/local/ssl/openssl.cnf"
 
 
 # Work items:
