@@ -255,7 +255,7 @@ build do
     # test the configuration to ensure we are properly configuring 
     command "cat #{install_dir}/embedded/ssl/openssl.cnf"
     command "cat #{install_dir}/embedded/ssl/fipsmodule.cnf"
-    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{msys_path}/usr/local/bin/openssl list -provider-path providers -provider fips -providers"
+    command "#{windows? ? 'Perl.exe' : ''} ./util/wrap.pl -fips #{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
     command "#{install_dir}/embedded/bin/openssl list -providers"
 
     # Now that we have tested the openssl/fips combo, we update the file location to where the fipsmodule.cnf will end up once installed with Chef
@@ -302,6 +302,13 @@ build do
           copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
         end
       else
+
+        command "echo '**********************************************'"
+        command "ls -al  #{install_dir}/embedded/lib/engines-3"
+        command "ls -al #{install_dir}/embedded/lib/ossl-modules"
+        command "echo '**********************************************'"
+
+
         %w{ libcrypto-3-x64.so libssl-3-x64.so openssl }.each do |file|
           copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
         end
