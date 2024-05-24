@@ -22,7 +22,7 @@ skip_transitive_dependency_licensing true
 
 dependency "cacerts"
 # For OpenSSL versions < 3, we have to compile FIPS separately
-dependency "openssl-fips" if (fips_mode? && version.satisfies?(">= 3.0.0")))
+dependency "openssl-fips" if (fips_mode? && version.satisfies?(">= 3.0.0"))
 
 default_version "3.0.9" # do_not_auto_update
 
