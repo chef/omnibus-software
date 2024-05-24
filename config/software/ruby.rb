@@ -165,7 +165,7 @@ build do
   # UTF-16LE format and we need UTF-8.
   # Here we patch the Ruby Win32/Reolv.rb file to make reloading the Win32::Registry class
   # conditional and therefore prevent the monkeypatch from being overwritten.
-  if windows? && version.satisfies?("~> 3.0.0")
+  if windows? && version.satisfies?("~> 3.0")
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
 
