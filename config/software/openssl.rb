@@ -306,6 +306,7 @@ build do
         command "echo '**********************************************'"
         command "ls -al  #{install_dir}/embedded/lib/engines-3"
         command "ls -al #{install_dir}/embedded/lib/ossl-modules"
+        command "find / -type f -name fips.so"
         command "echo '**********************************************'"
 
 
