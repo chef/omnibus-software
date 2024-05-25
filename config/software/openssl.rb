@@ -306,7 +306,7 @@ build do
         command "echo '**********************************************'"
         command "ls -al  #{install_dir}/embedded/lib/engines-3"
         command "ls -al #{install_dir}/embedded/lib/ossl-modules"
-        command "echo "$OMNIBUS_FIPS_MODE""
+        command "printenv | more "
         command "sudo find / -type f -name fips.so > file.txt"
         command "cat ./file.txt"
         command "echo '**********************************************'"
