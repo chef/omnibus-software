@@ -294,6 +294,9 @@ build do
       # end
 
       if windows?
+
+        command "puts"
+
         %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
           copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
         end
@@ -317,9 +320,9 @@ build do
           copy "/opt/chef/embedded/lib/#{file}", "#{install_dir}/embedded/bin/#{file}"
         end
 
-        %w{ openssl }.each do |file|
-          copy "/opt/chef/embedded/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
-        end
+        # %w{ openssl }.each do |file|
+        #   copy "/opt/chef/embedded/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # end
 
         %w{ legacy.so fips.so }.each do |file|
           copy "/opt/chef/embedded/lib/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
