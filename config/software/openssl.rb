@@ -295,8 +295,6 @@ build do
 
       if windows?
 
-        command "puts"
-
         %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
           copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
         end
@@ -304,6 +302,8 @@ build do
         %w{ legacy.dll fips.dll }.each do |file|
           copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
         end
+
+        command "puts"
       else
 
         command "echo '**********************************************'"
