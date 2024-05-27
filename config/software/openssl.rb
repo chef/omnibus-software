@@ -295,42 +295,49 @@ build do
 
       if windows?
 
-        %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
-          copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
-        end
+        # %w{ libcrypto-3-x64.dll libssl-3-x64.dll openssl.exe }.each do |file|
+        #   copy "#{msys_path}/usr/local/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # end
 
-        %w{ legacy.dll fips.dll }.each do |file|
-          copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
-        end
+        # %w{ legacy.dll fips.dll }.each do |file|
+        #   copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # end
+
+        # %w{ openssl.cnf fipsmodule.cnf }.each do |file|
+        #   copy "/opt/chef/embedded/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # end
 
       else
 
-        command "echo '**********************************************'"
-        command "ls -al  #{install_dir}/embedded/lib/engines-3"
-        command "ls -al #{install_dir}/embedded/lib/ossl-modules"
-        command "printenv"
-        command "pwd"
-        command "sudo find / -type f -name libcrypto-3*.so > file.txt"
-        command "cat ./file.txt"
-        command "echo '**********************************************'"
+        # command "echo '**********************************************'"
+        # command "ls -al  #{install_dir}/embedded/lib/engines-3"
+        # command "ls -al #{install_dir}/embedded/lib/ossl-modules"
+        # command "printenv"
+        # command "pwd"
+        # command "sudo find / -type f -name libcrypto-3*.so > file.txt"
+        # command "cat ./file.txt"
+        # command "echo '**********************************************'"
 
 
-        %w{ libcrypto.so libssl.so }.each do |file|
-          copy "/opt/chef/embedded/lib/#{file}", "#{install_dir}/embedded/bin/#{file}"
-        end
-
-        # %w{ openssl }.each do |file|
-        #   copy "/opt/chef/embedded/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # %w{ libcrypto.so libssl.so }.each do |file|
+        #   copy "/opt/chef/embedded/lib/#{file}", "#{install_dir}/embedded/bin/#{file}"
         # end
 
-        %w{ legacy.so fips.so }.each do |file|
-          copy "/opt/chef/embedded/lib/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
-        end        
+        # # %w{ openssl }.each do |file|
+        # #   copy "/opt/chef/embedded/bin/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # # end
+
+        # %w{ legacy.so fips.so }.each do |file|
+        #   copy "/opt/chef/embedded/lib/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # end        
+
+        # %w{ openssl.cnf fipsmodule.cnf }.each do |file|
+        #   copy "/opt/chef/embedded/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
+        # end
+
       end
 
-      %w{ openssl.cnf fipsmodule.cnf }.each do |file|
-        copy "/opt/chef/embedded/ssl/#{file}", "#{install_dir}/embedded/bin/#{file}"
-      end
+
 
       command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/bin/fips.#{windows? ? "dll" : "so"}"
 
