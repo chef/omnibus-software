@@ -303,7 +303,6 @@ build do
           copy "#{msys_path}/usr/local/lib64/ossl-modules/#{file}", "#{install_dir}/embedded/bin/#{file}"
         end
 
-        command "puts"
       else
 
         command "echo '**********************************************'"
