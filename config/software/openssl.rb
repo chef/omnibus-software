@@ -356,7 +356,7 @@ build do
         # h['MY_VAR'].nil? ? 'foobar' : h['MY_VAR']
         fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
         gem_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"].nil? ? '/opt/omnibus-toolchain/bin' : ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
-        command "#{gem_path}/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
+        command "sudo #{gem_path}/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
     
         command "#{gem_path}/gem info openssl"
         command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
