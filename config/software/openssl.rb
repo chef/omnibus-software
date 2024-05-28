@@ -339,7 +339,7 @@ build do
 
 
 
-      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/bin/fips.#{windows? ? "dll" : "so"}"
+      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
       if (version.satisfies?("< 3.1") || fips_mode?) &&
         project.overrides[:openssl] &&
