@@ -145,9 +145,7 @@ build do
     when "3.0.1"
       patch source: "ruby-3.0.1-configure.patch", plevel: 1, env: patch_env
     when "3.0.5", "3.0.6"
-      patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env
-    when "3.1.4"
-      patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env  
+      patch source: "ruby-3.0.5-configure.patch", plevel: 1, env: patch_env  
     else
       patch source: "ruby-3.0.2-configure.patch", plevel: 1, env: patch_env
     end
@@ -191,6 +189,8 @@ build do
   #
   if version.satisfies?("< 3.1")
     patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
+  elsif version == "3.1.4"
+    patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env  
   else
     patch source: "ruby-fast-load_31.patch", plevel: 1, env: patch_env
   end
