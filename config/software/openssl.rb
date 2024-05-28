@@ -354,9 +354,10 @@ build do
     
         # add OPENSSL_FIPS to the environment _if_ fips is active
         fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
-        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
+        gem_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] || '/opt/chef'
+        command "#{gem_path}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
     
-        command "#{ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]}/embedded/bin/gem info openssl"
+        command "#{gem_path}/embedded/bin/gem info openssl"
         command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
       end
 
