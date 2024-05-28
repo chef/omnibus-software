@@ -309,14 +309,15 @@ build do
 
       else
 
-        # command "echo '**********************************************'"
+        command "echo '**********************************************'"
         # command "ls -al  #{install_dir}/embedded/lib/engines-3"
         # command "ls -al #{install_dir}/embedded/lib/ossl-modules"
         # command "printenv"
         # command "pwd"
         # command "sudo find / -type f -name libcrypto-3*.so > file.txt"
         # command "cat ./file.txt"
-        # command "echo '**********************************************'"
+        command "which gem"
+        command "echo '**********************************************'"
 
 
         # %w{ libcrypto.so libssl.so }.each do |file|
