@@ -188,7 +188,7 @@ build do
   # cost of this behavior in core ruby is enormous.
   #
   if version.satisfies?("< 3.1")
-    patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env 
+    patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
   else
     patch source: "ruby-fast-load_31.patch", plevel: 1, env: patch_env
   end
@@ -196,8 +196,6 @@ build do
   if rhel? && platform_version.satisfies?("== 7") && version == "3.1.4"
     patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
   end
-  
-
   # this removes a checks for windows nano in the win32-ole files.
   # windows nano is a dead platform and not supported by chef so we can avoid
   # registry lookups by patching away this code
