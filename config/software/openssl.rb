@@ -342,25 +342,25 @@ build do
 
       command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{install_dir}/embedded/bin/fipsmodule.cnf -module #{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
-      if (version.satisfies?("< 3.1") || fips_mode?) &&
-        project.overrides[:openssl] &&
-        ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
+      # if (version.satisfies?("< 3.1") || fips_mode?) &&
+      #   project.overrides[:openssl] &&
+      #   ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
     
-        openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
-        # omnibus_toolchain = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
-        # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
-        # same openssl gem version is redundant for ruby 3.1[.2] projects
-        command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
+      #   openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
+      #   # omnibus_toolchain = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
+      #   # use the same version as ruby 3.1.2 version has as default, so that the chef gemfile inclusion of the
+      #   # same openssl gem version is redundant for ruby 3.1[.2] projects
+      #   command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
     
-        # add OPENSSL_FIPS to the environment _if_ fips is active
-        # h['MY_VAR'].nil? ? 'foobar' : h['MY_VAR']
-        fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
-        gem_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"].nil? ? '/opt/omnibus-toolchain/bin' : ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
-        command "sudo #{gem_path}/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
+      #   # add OPENSSL_FIPS to the environment _if_ fips is active
+      #   # h['MY_VAR'].nil? ? 'foobar' : h['MY_VAR']
+      #   fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
+      #   gem_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"].nil? ? '/opt/omnibus-toolchain/bin' : ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
+      #   command "sudo #{gem_path}/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
     
-        command "#{gem_path}/gem info openssl"
-        command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
-      end
+      #   command "#{gem_path}/gem info openssl"
+         command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
+      # end
 
 
   #   #   # Needed now that we switched to msys2 and have not figured out how to tell

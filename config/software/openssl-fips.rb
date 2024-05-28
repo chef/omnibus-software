@@ -50,16 +50,7 @@ build do
 
   if windows?
     default_env = with_standard_compiler_flags(with_embedded_path)
-
-    if windows_arch_i386?
-      # Patch Makefile.org to update the compiler flags/options table for mingw.
-      patch source: "openssl-fips-fix-compiler-flags-table-for-msys.patch", env: default_env
-
-      platform = "mingw"
-    else
-      platform = "mingw64"
-    end
-
+    platform = "mingw64"
     configure_command = ["perl.exe ./Configure #{platform}"]
     configure_command << "--prefix=#{install_dir}/embedded"
   elsif ppc64? && rhel?
