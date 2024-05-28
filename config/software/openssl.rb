@@ -353,11 +353,12 @@ build do
         command "curl https://rubygems.org/downloads/openssl-#{openssl_gem_version}.gem --output openssl-#{openssl_gem_version}.gem"
     
         # add OPENSSL_FIPS to the environment _if_ fips is active
+        # h['MY_VAR'].nil? ? 'foobar' : h['MY_VAR']
         fips_env=fips_mode? ? env.merge({"OPENSSL_FIPS" => "1"}) : env
-        gem_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"] || '/opt/chef'
-        command "#{gem_path}/embedded/bin/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
+        gem_path = ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"].nil? ? '/opt/omnibus-toolchain/bin' : ENV["OMNIBUS_TOOLCHAIN_INSTALL_DIR"]
+        command "#{gem_path}/gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env
     
-        command "#{gem_path}/embedded/bin/gem info openssl"
+        command "#{gem_path}/gem info openssl"
         command "#{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
       end
 
