@@ -157,7 +157,9 @@ build do
   if windows? && version.satisfies?("~> 3.0.0")
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
-
+  if suse? && version.satisfies?("= 3.1.4")
+    patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+  end
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
   # cannot build modern ruby on the RHEL6 base compiler, and the configure script
   # determines that it supports that flag and so includes it and then ultimately
