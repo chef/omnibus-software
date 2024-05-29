@@ -179,7 +179,9 @@ build do
   if rhel? && platform_version.satisfies?("< 7")
     patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
   end
-
+  if rhel? && platform_version.satisfies?("== 7") && version == "3.1.4"
+    patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+  end
   # accelerate requires of c-extension.
   #
   # this would break code which did `require "thing"` and loaded thing.so and
@@ -191,11 +193,7 @@ build do
     patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
   else
     patch source: "ruby-fast-load_31.patch", plevel: 1, env: patch_env
-  end
-
-  if ((rhel? && platform_version.satisfies?("== 7")) || (suse? && platform_version.satisfies?("== 12"))) && version == "3.1.4"
-    patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
-  end  
+  end 
   # this removes a checks for windows nano in the win32-ole files.
   # windows nano is a dead platform and not supported by chef so we can avoid
   # registry lookups by patching away this code
