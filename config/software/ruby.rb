@@ -168,7 +168,9 @@ build do
   if windows? && version.satisfies?("~> 3.0.0")
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
-
+  if suse? && version.satisfies?("== 3.1.4")
+    patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+  end
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
   # cannot build modern ruby on the RHEL6 base compiler, and the configure script
   # determines that it supports that flag and so includes it and then ultimately
@@ -178,11 +180,14 @@ build do
   #
   if rhel? && platform_version.satisfies?("< 7")
     patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
+  else
+    if rhel? && platform_version.satisfies?(">=7")
+      if version.satisfies?("= 3.1.4")
+        patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+      end
+    end  
   end
   
-  if rhel? && platform_version.satisfies?("== 7") && version == "3.1.4"
-    patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
-  end
   # accelerate requires of c-extension.
   #
   # this would break code which did `require "thing"` and loaded thing.so and
