@@ -178,6 +178,10 @@ build do
   #
   if rhel? && platform_version.satisfies?("< 7")
     patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
+  else
+    if version.satisfies?("= 3.1.4")
+      patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+    end
   end
 
   # accelerate requires of c-extension.
@@ -191,10 +195,6 @@ build do
     patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
   else
     patch source: "ruby-fast-load_31.patch", plevel: 1, env: patch_env
-
-    if version.satisfies?("= 3.1.4")
-      patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
-    end
   end
 
   # this removes a checks for windows nano in the win32-ole files.
