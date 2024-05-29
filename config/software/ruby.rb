@@ -179,6 +179,7 @@ build do
   if rhel? && platform_version.satisfies?("< 7")
     patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
   end
+  
   if rhel? && platform_version.satisfies?("== 7") && version == "3.1.4"
     patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
   end
