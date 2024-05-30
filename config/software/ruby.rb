@@ -59,17 +59,6 @@ version("3.0.3")      { source sha256: "3586861cb2df56970287f0fd83f274bd92058872
 version("3.0.2")      { source sha256: "5085dee0ad9f06996a8acec7ebea4a8735e6fac22f22e2d98c3f2bc3bef7e6f1" }
 version("3.0.1")      { source sha256: "369825db2199f6aeef16b408df6a04ebaddb664fb9af0ec8c686b0ce7ab77727" }
 
-version("2.7.7")      { source sha256: "e10127db691d7ff36402cfe88f418c8d025a3f1eea92044b162dd72f0b8c7b90" }
-version("2.7.6")      { source sha256: "e7203b0cc09442ed2c08936d483f8ac140ec1c72e37bb5c401646b7866cb5d10" }
-version("2.7.5")      { source sha256: "2755b900a21235b443bb16dadd9032f784d4a88f143d852bc5d154f22b8781f1" }
-version("2.7.4")      { source sha256: "3043099089608859fc8cce7f9fdccaa1f53a462457e3838ec3b25a7d609fbc5b" }
-version("2.7.3")      { source sha256: "8925a95e31d8f2c81749025a52a544ea1d05dad18794e6828709268b92e55338" }
-
-version("2.6.10")     { source sha256: "0dc609f263d49c4176d5725deefc337273676395985b5e017789373e8cadf16e" }
-version("2.6.9")      { source sha256: "eb7bae7aac64bf9eb2153710a4cafae450ccbb62ae6f63d573e1786178b0efbb" }
-version("2.6.8")      { source sha256: "1807b78577bc08596a390e8a41aede37b8512190e05c133b17d0501791a8ca6d" }
-version("2.6.7")      { source sha256: "e4227e8b7f65485ecb73397a83e0d09dcd39f25efd411c782b69424e55c7a99e" }
-
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
@@ -168,7 +157,9 @@ build do
   if windows? && version.satisfies?("~> 3.0.0")
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
-
+  if suse? && version.satisfies?("= 3.1.4")
+    patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+  end
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
   # cannot build modern ruby on the RHEL6 base compiler, and the configure script
   # determines that it supports that flag and so includes it and then ultimately
@@ -178,6 +169,12 @@ build do
   #
   if rhel? && platform_version.satisfies?("< 7")
     patch source: "ruby-no-stack-protector-strong.patch", plevel: 1, env: patch_env
+  else
+    if rhel? && platform_version.satisfies?(">=7")
+      if version.satisfies?("= 3.1.4")
+        patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+      end
+    end
   end
 
   # accelerate requires of c-extension.
