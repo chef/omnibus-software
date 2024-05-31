@@ -374,14 +374,14 @@ build do
         Write-Output "done looking at rubies"
       }
     else
-      find_command = %(
+      find_command = %{
         find /opt -name 'ruby' | grep 'bin/ruby' | while read ruby; do
           echo "Checking $ruby"
           sum $ruby
           $ruby -v -e "require 'openssl'; puts OpenSSL::OPENSSL_VERSION_NUMBER.to_s(16); puts OpenSSL::OPENSSL_LIBRARY_VERSION; OpenSSL.fips_mode = 1; puts 'FIPS mode successfully activated for Ruby '+ RUBY_VERSION"
         done
         echo "done looking at rubies"
-      )
+      }
     end
     command find_command
   end
