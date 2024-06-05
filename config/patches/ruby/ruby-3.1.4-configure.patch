@@ -1,0 +1,26 @@
+--- ruby-3.1.4/configure.ac.org	2024-05-28 14:20:02
++++ ruby-3.1.4/configure.ac	2024-05-28 14:21:35
+@@ -363,6 +363,12 @@
+     icc_version=`echo =__ICC | $CC -E -xc - | sed '/^=/!d;s///;/^__ICC/d'`
+     test -n "$icc_version" || icc_version=0
+     # RUBY_APPEND_OPTIONS(XCFLAGS, ["-include ruby/config.h" "-include ruby/missing.h"])
++    AC_CACHE_CHECK([if thread-local storage is supported], [rb_cv_tls_supported],
++        [AC_LINK_IFELSE([AC_LANG_PROGRAM([[int __thread conftest;]])],
++            [rb_cv_tls_supported=yes],
++            [rb_cv_tls_supported=no])])
++    AS_IF([test x"$rb_cv_tls_supported" != xyes],
++        [AC_DEFINE(RB_THREAD_LOCAL_SPECIFIER_IS_UNSUPPORTED)])
+ ], [
+     linker_flag=
+ ])
+--- ruby-3.1.4/thread_pthread.h.org	2024-05-28 14:27:35
++++ ruby-3.1.4/thread_pthread.h	2024-05-28 14:28:30
+@@ -72,7 +72,7 @@
+ 
+ #if __STDC_VERSION__ >= 201112
+   #define RB_THREAD_LOCAL_SPECIFIER _Thread_local
+-#elif defined(__GNUC__)
++#elif defined(__GNUC__) && !defined(RB_THREAD_LOCAL_SPECIFIER_IS_UNSUPPORTED)
+   /* note that ICC (linux) and Clang are covered by __GNUC__ */
+   #define RB_THREAD_LOCAL_SPECIFIER __thread
+ #else

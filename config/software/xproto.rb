@@ -17,6 +17,8 @@
 name "xproto"
 default_version "7.0.31"
 
+dependency "config_guess"
+
 # version_list: url=https://www.x.org/releases/individual/proto/ filter=xproto-*.tar.gz
 
 version("7.0.31") { source sha256: "6d755eaae27b45c5cc75529a12855fed5de5969b367ed05003944cf901ed43c7" }
@@ -34,6 +36,8 @@ relative_path "xproto-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded", env: env
