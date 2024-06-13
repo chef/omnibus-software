@@ -156,6 +156,14 @@ build do
   if windows? && version.satisfies?("~> 3.0.0")
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
+
+  # Prior to Chef-18, we had been monkeypatching the registry.rb to solve a registry encoding
+  # problem. We had to move that patch here. We also patch the resolv class here as insurance.
+  if windows? && version.satisfies?("~> 3.1")
+    patch source: "ruby-win32_registry.patch", plevel: 1, env: patch_env
+    patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
+  end
+
   if suse? && version.satisfies?("= 3.1.4")
     patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
   end
