@@ -53,23 +53,43 @@ elsif mac_os_x?
   platform = "darwin"
   arch = intel? ? "amd64" : "arm64"
 
-  # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
-  version("1.21.5")  { source sha256: "a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923" }
-  version("1.21.4")  { source sha256: "cd3bdcc802b759b70e8418bc7afbc4a65ca73a3fe576060af9fc8a2a5e71c3b8" }
-  version("1.21.3")  { source sha256: "27014fc69e301d7588a169ca239b3cc609f0aa1abf38528bf0d20d3b259211eb" }
-  version("1.19.5")  { source sha256: "23d22bb6571bbd60197bee8aaa10e702f9802786c2e2ddce5c84527e86b66aa0" }
-  version("1.19.1")  { source sha256: "b2828a2b05f0d2169afc74c11ed010775bf7cf0061822b275697b2f470495fb7" }
-  version("1.19")    { source sha256: "df6509885f65f0d7a4eaf3dfbe7dda327569787e8a0a31cbf99ae3a6e23e9ea8" }
-  version("1.18.5")  { source sha256: "828eeca8b5abea3e56921df8fa4b1101380a5ebcfee10acbc8ffe7ec0bf5876b" }
-  version("1.18.3")  { source sha256: "d9dcf8fc35da54c6f259be41954783a9f4984945a855d03a003a7fd6ea4c5ca1" }
-  version("1.18.2")  { source sha256: "1f5f539ce0baa8b65f196ee219abf73a7d9cf558ba9128cc0fe4833da18b04f2" }
-  version("1.18")    { source sha256: "70bb4a066997535e346c8bfa3e0dfe250d61100b17ccc5676274642447834969" }
-  version("1.17.7")  { source sha256: "7c3d9cc70ee592515d92a44385c0cba5503fd0a9950f78d76a4587916c67a84d" }
-  version("1.17.6")  { source sha256: "874bc6f95e07697380069a394a21e05576a18d60f4ba178646e1ebed8f8b1f89" }
-  version("1.17.5")  { source sha256: "2db6a5d25815b56072465a2cacc8ed426c18f1d5fc26c1fc8c4f5a7188658264" }
-  version("1.17.2")  { source sha256: "7914497a302a132a465d33f5ee044ce05568bacdb390ab805cb75a3435a23f94" }
-  version("1.17")    { source sha256: "355bd544ce08d7d484d9d7de05a71b5c6f5bc10aa4b316688c2192aeb3dacfd1" }
-  version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
+  if intel?
+    # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
+    version("1.21.5")  { source sha256: "a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923" }
+    version("1.21.4")  { source sha256: "cd3bdcc802b759b70e8418bc7afbc4a65ca73a3fe576060af9fc8a2a5e71c3b8" }
+    version("1.21.3")  { source sha256: "27014fc69e301d7588a169ca239b3cc609f0aa1abf38528bf0d20d3b259211eb" }
+    version("1.19.5")  { source sha256: "23d22bb6571bbd60197bee8aaa10e702f9802786c2e2ddce5c84527e86b66aa0" }
+    version("1.19.1")  { source sha256: "b2828a2b05f0d2169afc74c11ed010775bf7cf0061822b275697b2f470495fb7" }
+    version("1.19")    { source sha256: "df6509885f65f0d7a4eaf3dfbe7dda327569787e8a0a31cbf99ae3a6e23e9ea8" }
+    version("1.18.5")  { source sha256: "828eeca8b5abea3e56921df8fa4b1101380a5ebcfee10acbc8ffe7ec0bf5876b" }
+    version("1.18.3")  { source sha256: "d9dcf8fc35da54c6f259be41954783a9f4984945a855d03a003a7fd6ea4c5ca1" }
+    version("1.18.2")  { source sha256: "1f5f539ce0baa8b65f196ee219abf73a7d9cf558ba9128cc0fe4833da18b04f2" }
+    version("1.18")    { source sha256: "70bb4a066997535e346c8bfa3e0dfe250d61100b17ccc5676274642447834969" }
+    version("1.17.7")  { source sha256: "7c3d9cc70ee592515d92a44385c0cba5503fd0a9950f78d76a4587916c67a84d" }
+    version("1.17.6")  { source sha256: "874bc6f95e07697380069a394a21e05576a18d60f4ba178646e1ebed8f8b1f89" }
+    version("1.17.5")  { source sha256: "2db6a5d25815b56072465a2cacc8ed426c18f1d5fc26c1fc8c4f5a7188658264" }
+    version("1.17.2")  { source sha256: "7914497a302a132a465d33f5ee044ce05568bacdb390ab805cb75a3435a23f94" }
+    version("1.17")    { source sha256: "355bd544ce08d7d484d9d7de05a71b5c6f5bc10aa4b316688c2192aeb3dacfd1" }
+    version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
+  else
+    # version_list: url=https://golang.org/dl/ filter=*.darwin-arm64.tar.gz
+    version("1.21.5")  { source sha256: "d0f8ac0c4fb3efc223a833010901d02954e3923cfe2c9a2ff0e4254a777cc9cc" }
+    version("1.21.4")  { source sha256: "8b7caf2ac60bdff457dba7d4ff2a01def889592b834453431ae3caecf884f6a5" }
+    version("1.21.3")  { source sha256: "65302a7a9f7a4834932b3a7a14cb8be51beddda757b567a2f9e0cbd0d7b5a6ab" }
+    version("1.19.5")  { source sha256: "4a67f2bf0601afe2177eb58f825adf83509511d77ab79174db0712dc9efa16c8" }
+    version("1.19.1")  { source sha256: "e46aecce83a9289be16ce4ba9b8478a5b89b8aa0230171d5c6adbc0c66640548" }
+    version("1.19")    { source sha256: "859e0a54b7fcea89d9dd1ec52aab415ac8f169999e5fdfb0f0c15b577c4ead5e" }
+    version("1.18.5")  { source sha256: "923a377c6fc9a2c789f5db61c24b8f64133f7889056897449891f256af34065f" }
+    version("1.18.3")  { source sha256: "40ecd383c941cc9f0682e6a6f2a333539d58c7dea15c842434d03afafe2f7242" }
+    version("1.18.2")  { source sha256: "6c7df9a2405f09aa9bab55c93c9c4ce41d3e58127d626bc1825ba5d0a0045d5c" }
+    version("1.18")    { source sha256: "9cab6123af9ffade905525d79fc9ee76651e716c85f1f215872b5f2976782480" }
+    version("1.17.7")  { source sha256: "e141bd85577b875cc771cfcc18604989c861e93bbef377ba6c80d29e18f9a338" }
+    version("1.17.6")  { source sha256: "dc54f3f4099e2be9e9c33bf926a7dc3ad64f34717142f7abcaff9ae44bc03d0c" }
+    version("1.17.5")  { source sha256: "111f71166de0cb8089bb3e8f9f5b02d76e1bf1309256824d4062a47b0e5f98e0" }
+    version("1.17.2")  { source sha256: "ce8771bd3edfb5b28104084b56bbb532eeb47fbb7769c3e664c6223712c30904" }
+    version("1.17")    { source sha256: "da4e3e3c194bf9eed081de8842a157120ef44a7a8d7c820201adae7b0e28b20b" }
+    version("1.16.3")  { source sha256: "f4e96bbcd5d2d1942f5b55d9e4ab19564da4fad192012f6d7b0b9b055ba4208f" }
+  end
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
