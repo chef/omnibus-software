@@ -104,8 +104,6 @@ build do
     "shared",
   ]
 
-  configure_args += ["no-devcryptoeng"] if freebsd?
-
   configure_args += ["--libdir=#{install_dir}/embedded/lib"] if version.satisfies?(">=3.0.1")
 
   # https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
@@ -165,6 +163,8 @@ build do
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
   elsif version.start_with? "1.1"
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
+  elsif version.start_with? "1.0.2" && freebsd?
+    patch source: "openssl-1.0.2zi-freebsd-nocryptodev.patch", env: patch_env
   elsif version.start_with? "3.0"
     patch source: "openssl-3.0.1-do-not-install-docs.patch", env: patch_env
     # Some of the algorithms which are being used are deprecated in OpenSSL3 and moved to legacy provider.
