@@ -104,7 +104,7 @@ build do
     "shared",
   ]
 
-  configure_args += "no-devcryptoeng" if freebsd?
+  configure_args += ["no-devcryptoeng"] if freebsd?
 
   configure_args += ["--libdir=#{install_dir}/embedded/lib"] if version.satisfies?(">=3.0.1")
 
