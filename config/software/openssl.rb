@@ -161,6 +161,7 @@ build do
 
   if version.start_with? "1.0"
     patch source: "openssl-1.0.1f-do-not-build-docs.patch", env: patch_env
+    patch source: "openssl-1.0.2zi-freebsd-nocryptodev.patch", env: patch_env
   elsif version.start_with? "1.1"
     patch source: "openssl-1.1.0f-do-not-install-docs.patch", env: patch_env
   elsif version.start_with? "3.0"
