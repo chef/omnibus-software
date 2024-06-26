@@ -1,5 +1,5 @@
---- crypto/engine/eng_cryptodev.c.orig	2017-07-06 01:00:00 UTC
-+++ crypto/engine/eng_cryptodev.c
+--- openssl-1.0.2zi/crypto/engine/eng_cryptodev.c.orig	2017-07-06 01:00:00 UTC
++++ openssl-1.0.2zi/crypto/engine/eng_cryptodev.c
 @@ -35,7 +35,7 @@
  #if (defined(__unix__) || defined(unix)) && !defined(USG) && \
          (defined(OpenBSD) || defined(__FreeBSD__))
