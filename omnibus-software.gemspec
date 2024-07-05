@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   elsif Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
     s.add_dependency "ffi", ">= 1.17.0"
   end
-  
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
 end
