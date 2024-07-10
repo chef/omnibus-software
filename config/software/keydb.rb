@@ -23,12 +23,13 @@ skip_transitive_dependency_licensing true
 dependency "config_guess"
 dependency "openssl"
 dependency "libuuid"
+dependency "curl"
 
 default_version "6.3.4"
 
 source url: "https://github.com/Snapchat/KeyDB/archive/refs/tags/v#{version}.tar.gz"
-# internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-#                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "KeyDB-#{version}"
 
 # version_list: url=https://github.com/Snapchat/KeyDB/archive/refs/tags/ filter=*.tar.gz

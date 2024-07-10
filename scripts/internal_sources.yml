@@ -197,6 +197,11 @@ software:
   - url: https://curl.se/ca/cacert-2021-01-19.pem
     sha256: e010c0c071a2c79a76aa3c289dc7e4ac4ed38492bfda06d766a80b707ebd2f29
 
+- name: KeyDB
+  sources:
+  - url: https://github.com/Snapchat/KeyDB/archive/refs/tags/v6.3.4.tar.gz"
+    sha256: 229190b251f921e05aff7b0d2f04b5676c198131e2abbec1e2cfb2e61215e2f3
+
 - name: libxslt
   sources:
   - url: https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.36.tar.xz
