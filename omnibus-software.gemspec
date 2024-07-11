@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   # omnibus because of the dsl methods they are using.
   s.add_dependency "omnibus", ">= 9.0.0"
   s.add_dependency "ffi", "< 1.17.0" # 1.17 requires ruby 3.3
+  s.add_dependency "train-core", "<3.12.5"
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
