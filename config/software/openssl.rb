@@ -19,11 +19,10 @@ name "openssl"
 license "OpenSSL"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
+default_version "1.0.2zg" # do_not_auto_update
 
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode? && !(version.satisfies?(">= 3.0.0"))
-
-default_version "1.0.2zg" # do_not_auto_update
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
