@@ -89,11 +89,9 @@ build do
 
   command configure_command, env: env, in_msys_bash: true
 
-  patch source: "openssl-3.0.9-do-not-build-docs.patch", env: env
-
   command "make depend", env: env
   command "make -j #{workers}", env: env
-  command "make install", env: env
+  command "make install_sw install_ssldirs", env: env
 
   delete "#{install_dir}/embedded/bin/c_rehash"
   unless windows?
