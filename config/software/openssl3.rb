@@ -24,7 +24,7 @@ dependency "zlib"
 dependency "cacerts"
 dependency "makedepend" unless windows?
 
-default_version "3.0.14"
+default_version "3.3.0"
 
 source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
 
@@ -35,6 +35,7 @@ version("3.0.11") { source sha256: "b3425d3bb4a2218d0697eb41f7fc0cdede016ed19ca4
 version("3.0.12") { source sha256: "f93c9e8edde5e9166119de31755fc87b4aa34863662f67ddfcba14d0b6b69b61" }
 version("3.0.13") { source sha256: "88525753f79d3bec27d2fa7c66aa0b92b3aa9498dafd93d7cfa4b3780cdae313" }
 version("3.0.14") { source sha256: "eeca035d4dd4e84fc25846d952da6297484afa0650a6f84c682e39df3a4123ca" }
+version("3.3.0") { source sha256: "53e66b043322a606abf0087e7699a0e033a37fa13feb9742df35c3a33b18fb02" }
 
 relative_path "openssl-#{version}"
 
