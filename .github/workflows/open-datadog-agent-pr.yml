@@ -76,7 +76,7 @@ jobs:
           commit-message: 'omnibus: bump OMNIBUS_SOFTWARE_VERSION'
           title: '[omnibus][automated] Bump OMNIBUS_SOFTWARE_VERSION'
           branch: 'automated/omnibus-software/${{ github.event.number }}'
-          labels: 'team/agent-platform,changelog/no-changelog,qa/no-code-change'
+          labels: 'team/agent-delivery,changelog/no-changelog,qa/no-code-change'
           body: >
             Automatically created by merging ${{ github.event.pull_request.html_url }}
 
