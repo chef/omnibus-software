@@ -16,22 +16,19 @@
 #
 
 name "curl"
-default_version "8.4.0"
+default_version "8.7.1"
 
 dependency "zlib"
 dependency ENV["OMNIBUS_OPENSSL_SOFTWARE"] || "openssl"
 dependency "nghttp2"
 source url:    "https://curl.haxx.se/download/curl-#{version}.tar.gz",
-       sha256: "816e41809c043ff285e8c0f06a75a1fa250211bbfb2dc0a037eeef39f1a9e427"
+       sha256: "f91249c87f68ea00cf27c44fdfa5a78423e41e71b7d408e5901a9896d905c495"
 
 relative_path "curl-#{version}"
 
 build do
   license "Curl"
   license_file "https://raw.githubusercontent.com/bagder/curl/master/COPYING"
-  block do
-    FileUtils.rm_rf(File.join(project_dir, "src/tool_hugehelp.c"))
-  end
   env = with_standard_compiler_flags(with_embedded_path)
 
   configure_options = [
