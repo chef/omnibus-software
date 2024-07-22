@@ -44,7 +44,6 @@ build do
   env["CXXFLAGS"] << "-std=c++17 -I#{install_dir}/embedded/include -O3 -D_FORTIFY_SOURCE=2 -fstack-protector -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << "-Wl,-rpath,#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib"
 
-
   update_config_guess
 
   command "make" , env: env
