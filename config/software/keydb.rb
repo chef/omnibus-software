@@ -44,5 +44,5 @@ build do
   update_config_guess
 
   command "make" , env: env
-  command "make install", env: env
+  #command "make install", env: env
 end
