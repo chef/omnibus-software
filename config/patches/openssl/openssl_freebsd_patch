@@ -1,0 +1,30 @@
+diff --git a/security/openssl-unsafe/Makefile b/security/openssl-unsafe/Makefile
+index 648eb839ef97..ee0d218ae87f 100644
+--- a/security/openssl-unsafe/Makefile
++++ b/security/openssl-unsafe/Makefile
+@@ -26,8 +26,6 @@ USE_GITHUB=	yes
+ GH_ACCOUNT=	PeterMosmans
+ GH_TAGNAME=	c9ba19c
+ 
+-BROKEN_FreeBSD_13=	eng_cryptodev.c:250:19: error: use of undeclared identifier 'CRIOGET'
+-BROKEN_FreeBSD_14=	eng_cryptodev.c:250:19: error: use of undeclared identifier 'CRIOGET'
+ .if ${/usr/bin/ld:L:tA} == /usr/bin/ld.lld
+ BROKEN_i386=	ld: error: unknown argument: -Bforcearchive
+ .endif
+diff --git a/security/openssl-unsafe/files/patch-crypto_engine_eng__cryptodev.c b/security/openssl-unsafe/files/patch-crypto_engine_eng__cryptodev.c
+new file mode 100644
+index 000000000000..72ab455d8817
+--- /dev/null
++++ b/security/openssl-unsafe/files/patch-crypto_engine_eng__cryptodev.c
+@@ -0,0 +1,11 @@
++--- crypto/engine/eng_cryptodev.c.orig	2017-07-06 01:00:00 UTC
+++++ crypto/engine/eng_cryptodev.c
++@@ -35,7 +35,7 @@
++ #if (defined(__unix__) || defined(unix)) && !defined(USG) && \
++         (defined(OpenBSD) || defined(__FreeBSD__))
++ # include <sys/param.h>
++-# if (OpenBSD >= 200112) || ((__FreeBSD_version >= 470101 && __FreeBSD_version < 500000) || __FreeBSD_version >= 500041)
+++# if (OpenBSD >= 200112) || ((__FreeBSD_version >= 470101 && __FreeBSD_version < 500000) || (__FreeBSD_version >= 500041 && __FreeBSD_version < 1300000))
++ #  define HAVE_CRYPTODEV
++ # endif
++ # if (OpenBSD >= 200110)
