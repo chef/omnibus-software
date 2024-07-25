@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.add_dependency "omnibus", ">= 9.0.0"
   if Gem::Version.new(RUBY_VERSION) <= Gem::Version.new("3.1.0")
     s.add_dependency "ffi", "< 1.17.0"
-    s.add_dependency "train-core", "<3.12.5"
   elsif Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
     s.add_dependency "ffi", ">= 1.17.0"
   end
