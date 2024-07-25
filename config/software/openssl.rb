@@ -193,7 +193,7 @@ build do
   end
 
   if freebsd?
-    patch source: "openssl_freebsd_patch", env: env
+    patch source: "openssl_freebsd.patch", env: env
   end  
 
   make "depend", env: env
