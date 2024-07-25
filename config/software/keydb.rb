@@ -43,6 +43,6 @@ build do
 
   update_config_guess
 
-  command "make" , env: env
-  #command "make install", env: env
+  make "-j #{workers}", env: env
+  make "install", env: env
 end
