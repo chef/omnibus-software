@@ -37,7 +37,9 @@ version("6.3.4") { source sha256: "229190b251f921e05aff7b0d2f04b5676c198131e2abb
 version("6.3.1") { source sha256: "851b91e14dc3e9c973a1870acdc5f2938ad51a12877e64e7716d9e9ae91ce389" }
 
 build do
-  env = with_standard_compiler_flags(with_embedded_path)
+  env = with_standard_compiler_flags(with_embedded_path).merge(
+    "PREFIX" => "#{install_dir}/embedded"
+  )
   env["CFLAGS"] << " -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << " -L#{install_dir}/embedded/lib"
 
