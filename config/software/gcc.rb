@@ -17,7 +17,7 @@
 
 # do_not_auto_update
 name "gcc"
-default_version "14.1.0"
+default_version "4.9.2"
 
 dependency "gmp"
 dependency "mpfr"
