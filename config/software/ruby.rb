@@ -223,7 +223,9 @@ build do
       patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
     end
   end
-
+  if freebsd? && version.satisfies?("~> 3.0.3")
+    patch source: "ruby-3.0.3-freebsd_13.patch", plevel: 1, env: patch_env
+  end
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
   # this was a good idea, but it breaks our use case hard.  AIX cannot even
