@@ -52,8 +52,8 @@ if windows?
 
 elsif mac_os_x?
   platform = "darwin"
-  arch = intel? ? "amd64" : "arm64"
-  if arch == "amd64"
+  if intel?
+    arch = "amd64"
     # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
     version("1.22.5")  { source sha256: "3fbaa1b26ebd60324fb2bdc5ba2ec62d6db38f81f6fc7b7655a9e66e7d1dff24" }
     version("1.21.5")  { source sha256: "a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923" }
@@ -74,6 +74,7 @@ elsif mac_os_x?
     version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
 
   else #for arm
+    arch = "arm64"
     # version_list: url=https://golang.org/dl/ filter=*.darwin-arm64.tar.gz
     version("1.22.5")  { source sha256: "4cd1bcb05be03cecb77bccd765785d5ff69d79adf4dd49790471d00c06b41133" }
     version("1.21.5")  { source sha256: "d0f8ac0c4fb3efc223a833010901d02954e3923cfe2c9a2ff0e4254a777cc9cc" }
