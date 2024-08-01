@@ -73,7 +73,7 @@ elsif mac_os_x?
     version("1.17")    { source sha256: "355bd544ce08d7d484d9d7de05a71b5c6f5bc10aa4b316688c2192aeb3dacfd1" }
     version("1.16.3")  { source sha256: "6bb1cf421f8abc2a9a4e39140b7397cdae6aca3e8d36dcff39a1a77f4f1170ac" }
 
-  else #for arm
+  else
     arch = "arm64"
     # version_list: url=https://golang.org/dl/ filter=*.darwin-arm64.tar.gz
     version("1.22.5")  { source sha256: "4cd1bcb05be03cecb77bccd765785d5ff69d79adf4dd49790471d00c06b41133" }
