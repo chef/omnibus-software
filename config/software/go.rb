@@ -56,7 +56,7 @@ elsif mac_os_x?
   puts "*******ARCHITECTURE : #{arch}"
   if arch == "amd64"
     # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
-    version("1.22.5")  { source sha256: "3fbaa1b26ebd60324fb2bdc5ba2ec62d6db38f81f6fc7b7655a9e66e7d1dff24" }
+    version("1.22.5")  { source sha256: "95d9933cdcf45f211243c42c7705c37353cccd99f27eb4d8e2d1bf2f4165cb50" }
     version("1.21.5")  { source sha256: "a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923" }
     version("1.21.4")  { source sha256: "cd3bdcc802b759b70e8418bc7afbc4a65ca73a3fe576060af9fc8a2a5e71c3b8" }
     version("1.21.3")  { source sha256: "27014fc69e301d7588a169ca239b3cc609f0aa1abf38528bf0d20d3b259211eb" }
