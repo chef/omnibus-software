@@ -25,7 +25,7 @@ dependency "openssl"
 dependency "libuuid"
 dependency "curl"
 
-default_version "6.3.1"
+default_version "6.3.4"
 
 source url: "https://github.com/Snapchat/KeyDB/archive/refs/tags/v#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
