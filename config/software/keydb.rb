@@ -42,7 +42,6 @@ build do
   )
   env["CFLAGS"] << " -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << " -L#{install_dir}/embedded/lib"
-  env["LDFLAGS"] << " -latomic"
   update_config_guess
 
   make "-j #{workers}", env: env
