@@ -48,3 +48,5 @@ namespace :travis do
 end
 
 task default: ["travis:ci"]
+
+# run notify
