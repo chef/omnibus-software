@@ -1,0 +1,13 @@
+diff --git a/load.c b/load.c
+index a1729c2ba1..70390fb826 100644
+--- a/load.c
++++ b/load.c
+@@ -770,7 +770,7 @@ load_iseq_eval(rb_execution_context_t *ec, VALUE fname)
+             ast = rb_ruby_ast_data_get(ast_value);
+ 
+             iseq = rb_iseq_new_top(ast_value, rb_fstring_lit("<top (required)>"),
+-                                   fname, realpath_internal_cached(realpath_map, fname), NULL);
++                                   fname, fname, NULL);
+             rb_ast_dispose(ast);
+         }
+ 
