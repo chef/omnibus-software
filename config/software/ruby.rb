@@ -217,9 +217,10 @@ build do
 
   patch_file = "ruby-faster-load_26.patch" if version.satisfies?("~> 2.6.0")
   patch_file = "ruby-faster-load_27.patch" if version.satisfies?(">= 2.7.0", "< 3.3.0")
-  patch_file = "ruby-faster-load_33.patch" if version.satisfies?("~> 3.3")
-  patch_file = "ruby-faster-load_34.patch" if version.satisfies?("~> 3.4")
+  patch_file = "ruby-faster-load_33.patch" if version.satisfies?("~> 3.3.0")
+  patch_file = "ruby-faster-load_34.patch" if version =~ /3.4.0/ # because preview releases!
   patch source: patch_file, plevel: 1, env: patch_env unless patch_file.nil?
+
 
   if freebsd? && version.satisfies?("~> 3.0.3")
     patch source: "ruby-3.0.3-freebsd_13.patch", plevel: 1, env: patch_env
