@@ -37,10 +37,8 @@ relative_path "util-linux-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  command "./configure --prefix=#{install_dir}/embedded --enable-libuuid", env: env
+  command "./configure --prefix=#{install_dir}/embedded", env: env
 
-  command "make clean", cwd: "#{project_dir}/util-linux-#{version}/libuuid"
-
-  make "-j #{workers} V=1", env: env, cwd: "#{project_dir}/util-linux-#{version}/libuuid"
-  make "-j #{workers} install", env: env, cwd: "#{project_dir}/util-linux-#{version}/libuuid"
+  make "-j #{workers}", env: env, cwd: "#{project_dir}/libuuid"
+  make "-j #{workers} install", env: env, cwd: "#{project_dir}/libuuid"
 end
