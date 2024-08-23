@@ -24,6 +24,8 @@ dependency "config_guess"
 dependency "openssl"
 dependency "libuuid"
 dependency "curl"
+dependency "gcc"
+dependency "libatomic"
 
 default_version "6.3.4"
 
