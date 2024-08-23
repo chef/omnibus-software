@@ -56,7 +56,7 @@ build do
   # gcc also has issues on a lot of platforms when running a multithreaded job,
   # so unfortunately we have to build with 1 worker :(
   if version.satisfies?(">= 7.5.0")
-  	 command "cd #{install_dir}/embedded/lib && ln -s libatomic.so.1.2.0 libatomic.so", env: env
+      command "cd #{install_dir}/embedded/lib && ln -s libatomic.so.1.2.0 libatomic.so", env: env
   end
   make env: env, timeout: 14400
   make "install", env: env
