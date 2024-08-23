@@ -22,7 +22,7 @@ skip_transitive_dependency_licensing true
 
 dependency "config_guess"
 dependency "openssl"
-dependency "libuuid"
+#dependency "libuuid"
 dependency "curl"
 
 default_version "6.3.4"
