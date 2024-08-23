@@ -43,6 +43,7 @@ build do
   env["CFLAGS"] << " -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << " -L#{install_dir}/embedded/lib"
 
+  patch source: "remove-libatomic-dep", env: env
   if suse?
     env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
