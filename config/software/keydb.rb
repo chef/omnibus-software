@@ -24,7 +24,6 @@ dependency "config_guess"
 dependency "openssl"
 dependency "libuuid"
 dependency "curl"
-dependency "gcc"
 
 default_version "6.3.4"
 
@@ -52,5 +51,6 @@ build do
 
   make "-j #{workers}", env: env
   make "install", env: env
+  copy "#{install_dir}/embedded/lib/libatomic.so.1", "#{install_dir}/lib/libatomic.so.1"
   command "cd #{install_dir}/embedded/lib && ln -s libatomic.so.1.2.0 libatomic.so", env: env
 end
