@@ -1,0 +1,19 @@
+--- KeyDB-6.3.4-original/src/Makefile	2024-08-23 16:20:47.182590590 -0400
++++ KeyDB-6.3.4/src/Makefile	2024-08-23 16:21:13.045995002 -0400
+@@ -144,16 +144,6 @@
+ FINAL_LDFLAGS=$(LDFLAGS) $(KEYDB_LDFLAGS) $(DEBUG)
+ FINAL_LIBS+=-lm -lz -lcrypto
+
+-ifneq ($(uname_S),Darwin)
+-    ifneq ($(uname_S),FreeBSD)
+-	FINAL_LIBS+=-latomic
+-    endif
+-endif
+-# Linux ARM32 needs -latomic at linking time
+-ifneq (,$(findstring armv,$(uname_M)))
+-	FINAL_LIBS+=-latomic
+-endif
+-
+
+ ifeq ($(uname_S),SunOS)
+ 	# SunOS
