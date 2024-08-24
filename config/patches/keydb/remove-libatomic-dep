@@ -1,45 +1,9 @@
 --- KeyDB-6.3.4-original/src/Makefile	2024-08-23 16:20:47.182590590 -0400
 +++ KeyDB-6.3.4/src/Makefile	2024-08-23 16:21:13.045995002 -0400
-@@ -25,7 +25,7 @@
- 
- # Default settings
- STD=-pedantic -DREDIS_STATIC=''
--CXX_STD=-std=c++17 -pedantic -fno-rtti -D__STDC_FORMAT_MACROS  
-+CXX_STD=-std=c++17 -pedantic -fno-rtti -D__STDC_FORMAT_MACROS
- ifneq (,$(findstring clang,$(CC)))
-   STD+=-Wno-c11-extensions
- else
-@@ -76,7 +76,7 @@
- 	FINAL_LIBS+= -lz -lcrypto -lbz2 -lzstd -llz4 -lsnappy
- 	CXXFLAGS+= -I../deps/rocksdb/include/ -DENABLE_ROCKSDB
- 	STORAGE_OBJ+= storage/rocksdb.o storage/rocksdbfactory.o
--	FINAL_LIBS+= ../deps/rocksdb/librocksdb.a 
-+	FINAL_LIBS+= ../deps/rocksdb/librocksdb.a
- 	DEPENDENCY_TARGETS+= rocksdb
- endif
- 
-@@ -99,7 +99,7 @@
- endif
- 
- ifeq ($(COMPILER_NAME),clang)
--	CXXFLAGS+= -stdlib=libc++ 
-+	CXXFLAGS+= -stdlib=libc++
- endif
- 
- # To get ARM stack traces if KeyDB crashes we need a special C flag.
-@@ -133,7 +133,7 @@
- 
- ifeq ($(NO_LICENSE_CHECK),yes)
- 	CXXFLAGS+=-DNO_LICENSE_CHECK=1
--endif	
-+endif
- 
- # Override default settings if possible
- -include .make-settings
 @@ -144,16 +144,6 @@
  FINAL_LDFLAGS=$(LDFLAGS) $(KEYDB_LDFLAGS) $(DEBUG)
  FINAL_LIBS+=-lm -lz -lcrypto
- 
+
 -ifneq ($(uname_S),Darwin)
 -    ifneq ($(uname_S),FreeBSD)
 -	FINAL_LIBS+=-latomic
@@ -50,6 +14,6 @@
 -	FINAL_LIBS+=-latomic
 -endif
 -
- 
+
  ifeq ($(uname_S),SunOS)
  	# SunOS
