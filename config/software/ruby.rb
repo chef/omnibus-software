@@ -169,6 +169,14 @@ build do
   if windows? && version.satisfies?("~> 3.0.0")
     patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
   end
+
+  # Prior to Chef-18, we had been monkeypatching the registry.rb to solve a registry encoding
+  # problem. We had to move that patch here. We also patch the resolv class here as insurance.
+  if windows? && version.satisfies?("~> 3.1")
+    patch source: "ruby-win32_registry.patch", plevel: 1, env: patch_env
+    patch source: "ruby-win32_resolv.patch", plevel: 0, env: patch_env
+  end
+
   if suse? && version.satisfies?("= 3.1.4")
     patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
   end
@@ -228,7 +236,9 @@ build do
       patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
     end
   end
-
+  if freebsd? && version.satisfies?("~> 3.0.3")
+    patch source: "ruby-3.0.3-freebsd_13.patch", plevel: 1, env: patch_env
+  end
   # disable libpath in mkmf across all platforms, it trolls omnibus and
   # breaks the postgresql cookbook.  i'm not sure why ruby authors decided
   # this was a good idea, but it breaks our use case hard.  AIX cannot even
@@ -316,7 +326,7 @@ build do
   make "-j #{workers} install", env: env
 
   # set this here because two different clauses might use it
-  openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.0.0"
+  openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.2.0"
 
   # Remove this if clause once Ruby < 3.1 is not supported in combination with
   # OpenSSL >= 3.0

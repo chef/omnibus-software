@@ -1,0 +1,11 @@
+--- "a/ext/win32/lib/win32/registry.rb"	2023-04-01 17:44:16.000000000 +0000
++++ "b/ext/win32/lib/win32/registry.rb"	2024-06-13 21:23:53.522771500 +0000
+@@ -906,7 +906,7 @@
+ 
+     private
+ 
+-    def export_string(str, enc = Encoding.default_internal || LOCALE) # :nodoc:
++    def export_string(str, enc = Encoding.default_internal || "utf-8") # :nodoc:
+       str.encode(enc)
+     end
+   end
