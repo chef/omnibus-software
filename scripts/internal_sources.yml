@@ -26,6 +26,8 @@ software:
     sha256: be05e2de16d75088613cc998beb2938aa2946384884ed7f9142daec9a848d08c
   - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.2-1/rubyinstaller-devkit-3.1.2-1-x64.exe
     sha256: 5f0fd4a206b164a627c46e619d2babbcafb0ed4bc3e409267b9a73b6c58bdec1
+  - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.6-1/rubyinstaller-devkit-3.1.6-1-x64.exe
+    sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
 - name: ruby
   sources:
@@ -33,6 +35,8 @@ software:
     sha256: 8dc2af2802cc700cd182d5430726388ccf885b3f0a14fcd6a0f21ff249c9aa99
   - url: https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.0.tar.gz
     sha256: 96518814d9832bece92a85415a819d4893b307db5921ae1f0f751a9a89a56b7d
+  - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.6.tar.gz
+    sha256: 0d0dafb859e76763432571a3109d1537d976266be3083445651dc68deed25c22
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.2.tar.gz
     sha256: 61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.1.tar.gz
