@@ -186,7 +186,7 @@ build do
       if version.satisfies?("= 3.1.4")
         patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
       elsif version.satisfies?("= 3.1.6")
-        patch source: "ruby-3.1.6-configure.patch", plevel: 1, env: patch_en  
+        patch source: "ruby-3.1.6-configure.patch", plevel: 1, env: patch_env
       end
     end
   end
