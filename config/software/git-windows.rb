@@ -39,6 +39,7 @@ internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}-
 
 if windows_arch_i386?
   # version_list: url=https://github.com/git-for-windows/git/releases filter=PortableGit-*-32-bit.7z.exe
+  version("2.47.0") { source sha256: "b2def285b907ce1d47abd2df8df83df629b768defe08c1fcd4ad91582fc6606b" }
   version("2.41.0") { source sha256: "e1360e94cb292862fb023018578a1029022a09278b160f7264c6dc444f65c9ca" }
   version("2.33.0") { source sha256: "c3b6f1a8f8c1b5be2175b7190d35926dce07a58294780291326a437ef0694676" }
   version("2.31.1") { source sha256: "d6d48e16e3f0ecbc0a45d410ad3ebae15e5618202855ebe72cd9757e4d35b880" }
@@ -48,6 +49,7 @@ if windows_arch_i386?
   version("2.27.0") { source sha256: "8cbe1e3b57eb9d02e92cff12089454f2cf090c02958080d62e199ef8764542d3" }
 else
   # version_list: url=https://github.com/git-for-windows/git/releases filter=PortableGit-*-64-bit.7z.exe
+  version("2.47.0") { source sha256: "0b7fcd76902ebde5b4c00ebae597d7f65dff8c3dd0ae59f5059e1aaa3adace87" }
   version("2.41.0") { source sha256: "fcbaeffd24fdf435a1f7844825253509136377915e6720aa66aa256ec1f83c30" }
   version("2.33.0") { source sha256: "12c10fad2c2db17d9867dbbacff1adc8be50868b793a73d451c2b878914bb32d" }
   version("2.31.1") { source sha256: "fce2161a8891c4deefdb8d215ab76498c245072f269843ef1a489c4312baef52" }
