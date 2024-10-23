@@ -108,5 +108,13 @@ build do
     end
 
     command "#{embedded_dir}/#{msys_dir}/msys2_shell.cmd -defterm -no-start -c exit", env: { "CONFIG" => "" }
+
+    if version == "3.1.6-1"
+      openssl_gem_version = "3.2.0"
+      command "git clone https://github.com/ruby/openssl.git", cwd: "#{install_dir}"
+      command "gem build openssl.gemspec", cwd: "#{install_dir}/openssl"
+      command "gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded"
+      command "#{install_dir}/embedded/bin/gem info openssl"
+    end
   end
 end
