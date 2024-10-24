@@ -309,7 +309,7 @@ build do
     configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
 
     if version.satisfies?(">= 3.1.6")
-      configure_command << "--with-openssl-lib=#{install_dir}/lib64"
+      configure_command << "--with-openssl-lib=#{install_dir}/embedded/lib"
     end
   end
 
@@ -341,7 +341,7 @@ build do
 
     command "git clone https://github.com/ruby/openssl.git", cwd: "#{install_dir}"
     command "gem build openssl.gemspec", cwd: "#{install_dir}/openssl"
-    command "gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env, cwd: "#{install_dir}/openssl"
+    command "gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded --with-openssl-lib=#{install_dir}/embedded/lib", env: fips_env, cwd: "#{install_dir}/openssl"
 
     command "#{install_dir}/embedded/bin/gem info openssl"
   end
