@@ -307,10 +307,6 @@ build do
       project.overrides[:openssl] &&
       ChefUtils::VersionString.new(project.overrides[:openssl][:version]).satisfies?(">= 3.0")
     configure_command << "--without-openssl --with-openssl-dir=#{install_dir}/embedded"
-
-    if version.satisfies?(">= 3.1.6")
-      configure_command << "--with-openssl-lib=#{install_dir}/embedded/lib"
-    end
   end
 
   # FFS: works around a bug that infects AIX when it picks up our pkg-config
