@@ -385,6 +385,8 @@ build do
     if windows?
       puts "Finding all the rubies installed and checking their fips_mode status"
       find_command = %{
+        Get-ChildItem c:/opscode -name 'ruby.*' -recurse
+
         Get-ChildItem c:/opscode -name 'ruby.exe' -recurse | ForEach-Object {
           & $_ -e "require 'openssl'; puts OpenSSL::OPENSSL_VERSION_NUMBER.to_s(16); puts OpenSSL::OPENSSL_LIBRARY_VERSION; OpenSSL.fips_mode = 1; puts 'FIPS mode successfully activated for Ruby' + RUBY_VERSION"
         }
@@ -401,5 +403,8 @@ build do
       }
     end
     command find_command
+
+    command "echo '🤔🐴💩 <<< openssl dir >>>'"
+    command "find #{install_dir}"
   end
 end
