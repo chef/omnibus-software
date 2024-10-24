@@ -232,6 +232,6 @@ build do
     command "#{windows? ? "Perl.exe" : ""} ./util/wrap.pl -fips #{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
     command "#{install_dir}/embedded/bin/openssl list -providers"
     command "echo '🤔🐴💩 <<< openssl dir >>>'"
-    command "ls #{install_dir}"
+    command "find #{install_dir} -name '*ssl*'"
   end
 end
