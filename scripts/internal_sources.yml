@@ -1,6 +1,8 @@
 software:
 - name: libarchive
   sources:
+  - url: https://github.com/libarchive/libarchive/releases/download/v3.7.5/libarchive-3.7.5.tar.gz
+    sha256: 37556113fe44d77a7988f1ef88bf86ab68f53d11e85066ffd3c70157cc5110f1
   - url: https://github.com/libarchive/libarchive/releases/download/v3.6.1/libarchive-3.6.1.tar.gz
     sha256: c676146577d989189940f1959d9e3980d28513d74eedfbc6b7f15ea45fe54ee2
   - url: https://github.com/libarchive/libarchive/releases/download/v3.6.0/libarchive-3.6.0.tar.gz
@@ -70,6 +72,8 @@ software:
 
 - name: libxml2
   sources:
+  - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.7.tar.xz
+    sha256: 24ae78ff1363a973e6d8beba941a7945da2ac056e19b53956aeb6927fd6cfb56
   - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.5.tar.xz
     sha256: a972796696afd38073e0f59c283c3a2f5a560b5268b4babc391b286166526b21
   - url: https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.7.tar.xz
@@ -363,6 +367,10 @@ software:
 
 - name: git-windows
   sources:
+  - url: https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.1/PortableGit-2.47.0-32-bit.7z.exe
+    sha256: b2def285b907ce1d47abd2df8df83df629b768defe08c1fcd4ad91582fc6606b
+  - url: https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.1/PortableGit-2.47.0-64-bit.7z.exe
+    sha256: 0b7fcd76902ebde5b4c00ebae597d7f65dff8c3dd0ae59f5059e1aaa3adace87
   - url: https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.1/PortableGit-2.33.0-32-bit.7z.exe
     sha256: c3b6f1a8f8c1b5be2175b7190d35926dce07a58294780291326a437ef0694676
   - url: https://github.com/git-for-windows/git/releases/download/v2.31.1.windows.1/PortableGit-2.31.1-32-bit.7z.exe
