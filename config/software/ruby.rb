@@ -47,6 +47,7 @@ version("3.3.0") { source sha256: "96518814d9832bece92a85415a819d4893b307db5921a
 version("3.2.2") { source sha256: "96c57558871a6748de5bc9f274e93f4b5aad06cd8f37befa0e8d94e7b8a423bc" }
 version("3.2.0") { source sha256: "daaa78e1360b2783f98deeceb677ad900f3a36c0ffa6e2b6b19090be77abc272" }
 version("3.1.6") { source sha256: "0d0dafb859e76763432571a3109d1537d976266be3083445651dc68deed25c22" }
+version("3.1.5") { source sha256: "3685c51eeee1352c31ea039706d71976f53d00ab6d77312de6aa1abaf5cda2c5" }
 version("3.1.4") { source sha256: "a3d55879a0dfab1d7141fdf10d22a07dbf8e5cdc4415da1bde06127d5cc3c7b6" }
 version("3.1.3") { source sha256: "5ea498a35f4cd15875200a52dde42b6eb179e1264e17d78732c3a57cd1c6ab9e" }
 version("3.1.2") { source sha256: "61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e" }
@@ -348,6 +349,7 @@ build do
     dlls = [
       "libwinpthread-1",
       "libstdc++-6",
+      "libssp-0",
     ]
 
     if windows_arch_i386?
@@ -385,7 +387,7 @@ build do
     if windows?
       puts "Finding all the rubies installed and checking their fips_mode status"
       find_command = %{
-        Get-ChildItem c:/opscode -name 'ruby.exe' -recurse | ForEach-Object {
+        Get-ChildItem c:/opscode -include 'ruby.exe' -recurse | ForEach-Object {
           & $_ -e "require 'openssl'; puts OpenSSL::OPENSSL_VERSION_NUMBER.to_s(16); puts OpenSSL::OPENSSL_LIBRARY_VERSION; OpenSSL.fips_mode = 1; puts 'FIPS mode successfully activated for Ruby' + RUBY_VERSION"
         }
         Write-Output "done looking at rubies"
