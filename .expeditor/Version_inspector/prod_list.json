@@ -65,7 +65,7 @@
 		"expr": "^(libtool-)\\d[\\.\\d]*\\d(\\.tar\\.gz)$"
 	},
 	"libxml2": {
-                "url": "https://download.gnome.org/sources/libxml2/2.13/",
+                "url": "https://download.gnome.org/sources/libxml2/2.9/",
                 "expr": "^(libxml2-)\\d[\\.\\d]*\\d(\\.tar\\.xz)$"
         },
 	"libxslt": {
