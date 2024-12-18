@@ -66,7 +66,7 @@ build do
     "--without-crypto",
     "--without-profiler",
     "--without-debugger",
-    "-Wno-deprecated-declarations",
+    "--Wno-deprecated-declarations",
   ]
 
   configure(*configure_commands, env: env)
