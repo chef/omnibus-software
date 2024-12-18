@@ -15,7 +15,7 @@
 #
 
 name "libxml2"
-default_version "2.11.7"
+default_version "2.13.5"
 
 license "MIT"
 license_file "COPYING"
