@@ -31,8 +31,7 @@ version("1.1.39") { source sha256: "2a20ad621148339b0759c4d4e96719362dee64c9a096
 version("1.1.37") { source sha256: "3a4b27dc8027ccd6146725950336f1ec520928f320f144eb5fa7990ae6123ab4" }
 version("1.1.36") { source sha256: "12848f0a4408f65b530d3962cd9ff670b6ae796191cfeff37522b5772de8dc8e" }
 version("1.1.35") { source sha256: "8247f33e9a872c6ac859aa45018bc4c4d00b97e2feac9eebc10c93ce1f34dd79" }
-version("1.1.34") { source sha256: "28c47db33ab4daefa6232f31ccb3c65260c825151ec86ec461355247f3f56824" }
-version("1.1.30") { source sha256: "db1e4e26eaec47d00f885bad19a8749eb1008909b817d650101365f068ee3b24" }
+
 
 source url: "https://download.gnome.org/sources/libxslt/1.1/libxslt-#{version}.tar.xz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
