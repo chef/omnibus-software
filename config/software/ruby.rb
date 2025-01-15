@@ -321,7 +321,7 @@ build do
   make "-j #{workers} install", env: env
 
   # set this here because two different clauses might use it
-  openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.2.0"
+  openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.3.0"
 
   # Remove this if clause once Ruby < 3.1 is not supported in combination with
   # OpenSSL >= 3.0
