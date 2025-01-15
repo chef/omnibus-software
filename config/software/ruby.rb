@@ -336,8 +336,8 @@ build do
     # add OPENSSL_FIPS to the environment _if_ fips is active
     fips_env = fips_mode? ? env.merge({ "OPENSSL_FIPS" => "1" }) : env
 
-     command "git clone https://github.com/ruby/openssl.git", cwd: "#{install_dir}"
-     command "gem build openssl.gemspec", cwd: "#{install_dir}/openssl"
+    command "git clone https://github.com/ruby/openssl.git", cwd: "#{install_dir}"
+    command "gem build openssl.gemspec", cwd: "#{install_dir}/openssl"
     command "gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env, cwd: "#{install_dir}/openssl"
 
     command "#{install_dir}/embedded/bin/gem info openssl"
