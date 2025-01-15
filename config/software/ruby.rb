@@ -321,7 +321,7 @@ build do
   make "-j #{workers} install", env: env
 
   # set this here because two different clauses might use it
-  openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.3.0"
+  openssl_gem_version = project.overrides.dig(:ruby, :openssl_gem) || "3.2.0"
 
   # Remove this if clause once Ruby < 3.1 is not supported in combination with
   # OpenSSL >= 3.0
@@ -337,6 +337,8 @@ build do
     fips_env = fips_mode? ? env.merge({ "OPENSSL_FIPS" => "1" }) : env
 
      command "git clone https://github.com/ruby/openssl.git", cwd: "#{install_dir}"
+     # Checkout the specific tag for version 3.2.0
+     command "cd #{install_dir}/openssl && git checkout tags/3.2.0"
      command "gem build openssl.gemspec", cwd: "#{install_dir}/openssl"
     command "gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env, cwd: "#{install_dir}/openssl"
 
