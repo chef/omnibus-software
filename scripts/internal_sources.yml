@@ -1,6 +1,8 @@
 software:
 - name: libarchive
   sources:
+  - url: https://github.com/libarchive/libarchive/releases/download/v3.7.5/libarchive-3.7.5.tar.gz
+    sha256: 37556113fe44d77a7988f1ef88bf86ab68f53d11e85066ffd3c70157cc5110f1
   - url: https://github.com/libarchive/libarchive/releases/download/v3.6.1/libarchive-3.6.1.tar.gz
     sha256: c676146577d989189940f1959d9e3980d28513d74eedfbc6b7f15ea45fe54ee2
   - url: https://github.com/libarchive/libarchive/releases/download/v3.6.0/libarchive-3.6.0.tar.gz
@@ -26,6 +28,8 @@ software:
     sha256: be05e2de16d75088613cc998beb2938aa2946384884ed7f9142daec9a848d08c
   - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.2-1/rubyinstaller-devkit-3.1.2-1-x64.exe
     sha256: 5f0fd4a206b164a627c46e619d2babbcafb0ed4bc3e409267b9a73b6c58bdec1
+  - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.6-1/rubyinstaller-devkit-3.1.6-1-x64.exe
+    sha256: 42f71849f0ae053df8d40182e00ee82a98ac5faa69d815fa850566f2d3711174
 
 - name: ruby
   sources:
@@ -33,6 +37,8 @@ software:
     sha256: 8dc2af2802cc700cd182d5430726388ccf885b3f0a14fcd6a0f21ff249c9aa99
   - url: https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.0.tar.gz
     sha256: 96518814d9832bece92a85415a819d4893b307db5921ae1f0f751a9a89a56b7d
+  - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.6.tar.gz
+    sha256: 0d0dafb859e76763432571a3109d1537d976266be3083445651dc68deed25c22
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.2.tar.gz
     sha256: 61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.1.tar.gz
@@ -66,6 +72,10 @@ software:
 
 - name: libxml2
   sources:
+  - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.13.5.tar.xz
+    sha256: 74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6
+  - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.7.tar.xz
+    sha256: 24ae78ff1363a973e6d8beba941a7945da2ac056e19b53956aeb6927fd6cfb56
   - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.5.tar.xz
     sha256: a972796696afd38073e0f59c283c3a2f5a560b5268b4babc391b286166526b21
   - url: https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.7.tar.xz
@@ -197,8 +207,15 @@ software:
   - url: https://curl.se/ca/cacert-2021-01-19.pem
     sha256: e010c0c071a2c79a76aa3c289dc7e4ac4ed38492bfda06d766a80b707ebd2f29
 
+- name: KeyDB
+  sources:
+  - url: https://github.com/Snapchat/KeyDB/archive/refs/tags/v6.3.4.tar.gz"
+    sha256: 229190b251f921e05aff7b0d2f04b5676c198131e2abbec1e2cfb2e61215e2f3
+
 - name: libxslt
   sources:
+  - url: https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.xz
+    sha256: 85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb
   - url: https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.36.tar.xz
     sha256: 12848f0a4408f65b530d3962cd9ff670b6ae796191cfeff37522b5772de8dc8e
   - url: https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.35.tar.xz
@@ -310,6 +327,8 @@ software:
 
 - name: expat
   sources:
+  - url: https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.gz
+    sha256: fd03b7172b3bd7427a3e7a812063f74754f24542429b634e0db6511b53fb2278
   - url: https://github.com/libexpat/libexpat/releases/download/R_2_4_9/expat-2.4.9.tar.gz
     sha256: 4415710268555b32c4e5ab06a583bea9fec8ff89333b218b70b43d4ca10e38fa
   - url: https://github.com/libexpat/libexpat/releases/download/R_2_4_8/expat-2.4.8.tar.gz
@@ -354,6 +373,10 @@ software:
 
 - name: git-windows
   sources:
+  - url: https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.1/PortableGit-2.47.0-32-bit.7z.exe
+    sha256: b2def285b907ce1d47abd2df8df83df629b768defe08c1fcd4ad91582fc6606b
+  - url: https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.1/PortableGit-2.47.0-64-bit.7z.exe
+    sha256: 0b7fcd76902ebde5b4c00ebae597d7f65dff8c3dd0ae59f5059e1aaa3adace87
   - url: https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.1/PortableGit-2.33.0-32-bit.7z.exe
     sha256: c3b6f1a8f8c1b5be2175b7190d35926dce07a58294780291326a437ef0694676
   - url: https://github.com/git-for-windows/git/releases/download/v2.31.1.windows.1/PortableGit-2.31.1-32-bit.7z.exe
