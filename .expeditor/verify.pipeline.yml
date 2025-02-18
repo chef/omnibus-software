@@ -11,14 +11,14 @@ expeditor:
 
 steps:
 
-- label: run-lint-and-specs-ruby-3.0
-  command:
-    - .expeditor/run_linux_tests.sh rake
+#- label: run-lint-and-specs-ruby-3.0
+#  command:
+#    - .expeditor/run_linux_tests.sh rake
 
-  expeditor:
-    executor:
-      docker:
-        image: ruby:3.0-buster
+#  expeditor:
+#    executor:
+#      docker:
+#        image: ruby:3.0-buster
 
 - label: run-lint-and-specs-ruby-3.1
   command:
