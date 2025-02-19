@@ -67,6 +67,19 @@ build do
   configure(*configure_command, env: env)
   puts "------DEBUG-------"
   puts "------Executing the script-----"
+  puts Dir["#{project_dir}/*"]
+
+  # Check if the tar file exists
+  tar_file = "#{project_dir}/xz-#{version}.tar.xz"
+ 
+  if File.exists?(tar_file)
+    puts "Tar file exists: #{tar_file}"
+    puts "Current directory: #{Dir.pwd}"
+    puts "ls -l of tar file:"
+    puts shellout!("ls -l #{tar_file}").stdout
+  else
+    puts "Tar file not found: #{tar_file}"
+  end
 
   make "-j #{workers}", env: env
   make "install", env: env
