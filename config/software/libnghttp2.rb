@@ -23,6 +23,7 @@ license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
+version("1.64.0") { source sha256: "20e73f3cf9db3f05988996ac8b3a99ed529f4565ca91a49eb0550498e10621e8"}
 version("1.58.0") { source sha256: "9ebdfbfbca164ef72bdf5fd2a94a4e6dfb54ec39d2ef249aeb750a91ae361dfb" }
 
 source url: "https://github.com/nghttp2/nghttp2/releases/download/v#{version}/nghttp2-#{version}.tar.gz"
