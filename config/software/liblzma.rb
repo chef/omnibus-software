@@ -58,6 +58,8 @@ build do
   config_command << "--disable-nls" if windows?
 
   configure(*config_command, env: env)
+  puts "------DEBUG-------"
+  puts "------Executing the script-----"
 
   make "install", env: env
 end

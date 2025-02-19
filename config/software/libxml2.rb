@@ -65,6 +65,8 @@ build do
   update_config_guess
 
   configure(*configure_command, env: env)
+  puts "------DEBUG-------"
+  puts "------Executing the script-----"
 
   make "-j #{workers}", env: env
   make "install", env: env
