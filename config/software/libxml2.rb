@@ -67,7 +67,7 @@ build do
   configure(*configure_command, env: env)
   puts "------DEBUG-------"
   puts "------Executing the script-----"
-  puts Dir["#{project_dir}/*"]
+  puts Dir["#{project_dir}/*/**"]
 
   # Check if the tar file exists
   tar_file = "#{project_dir}/xz-#{version}.tar.xz"
