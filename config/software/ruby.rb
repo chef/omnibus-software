@@ -230,7 +230,7 @@ build do
   if version.satisfies?("=3.3")
     patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
   else
-      patch source: "ruby-faster-load_34.patch", plevel: 1, env: patch_env
+    patch source: "ruby-faster-load_34.patch", plevel: 1, env: patch_env
   end
   if freebsd? && version.satisfies?("~> 3.0.3")
     patch source: "ruby-3.0.3-freebsd_13.patch", plevel: 1, env: patch_env
