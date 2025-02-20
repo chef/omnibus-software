@@ -27,7 +27,7 @@ steps:
   expeditor:
     executor:
       docker:
-        image: ruby:3.3-buster
+        image: ruby:3.3-bullseye
 
 - label: ":pipeline: generate-test-build-steps"
   command: expeditor buildkite trigger-pipeline test/generate_steps.rb
