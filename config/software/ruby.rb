@@ -202,6 +202,18 @@ build do
   # over the top of it.  AFAIK no sane ruby code should need to do that, and the
   # cost of this behavior in core ruby is enormous.
   #
+  if version.satisfies?(">=3.3")
+    if version.satisfies?("< 3.4")
+      patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
+    else
+      patch source: "ruby-faster-load_34.patch", plevel: 1, env: patch_env
+    end
+  else
+    if version.satisfies?(">= 2.7")
+      patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
+    end
+  end 
+
   if version.satisfies?("<3.3")
     patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
   else
