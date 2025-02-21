@@ -210,7 +210,7 @@ build do
       patch source: "ruby-faster-load_34.patch", plevel: 1, env: patch_env
     else
       patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
-   end
+    end
   else
     if version.satisfies?(">= 2.7")
       patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
