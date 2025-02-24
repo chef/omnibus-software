@@ -180,6 +180,17 @@ build do
     patch source: "openssl-1.0.1q-fix-compiler-flags-table-for-msys.patch", env: env
   end
 
+tar_file = "#{project_dir}"
+ 
+if File.exists?(tar_file)
+  puts "Tar file exists: #{tar_file}"
+  puts "Current directory: #{Dir.pwd}"
+  puts "ls -l of tar file:"
+  puts shellout!("ls -l #{tar_file}").stdout
+else
+  puts "Tar file not found: #{tar_file}"
+end
+
   # Out of abundance of caution, we put the feature flags first and then
   # the crazy platform specific compiler flags at the end.
   configure_args << env["CFLAGS"]
