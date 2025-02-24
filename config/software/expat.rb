@@ -15,7 +15,7 @@
 #
 
 name "expat"
-default_version "2.5.0"
+default_version "2.6.4" # 2.6.4 is the latest version as of 2024-11-6, v2.5.0 has a CVE in it.
 
 relative_path "expat-#{version}"
 dependency "config_guess"
