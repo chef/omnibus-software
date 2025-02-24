@@ -1,7 +1,6 @@
-diff --git a/ruby-3.4.1/load.c.org b/ruby-3.4.1/load.c
---- a/ruby-3.4.1/load.c.org
-+++ b/ruby-3.4.1/load.c
-@@ -778,7 +778,7 @@ load_iseq_eval(rb_execution_context_t *ec, VALUE fname)
+--- load.c.org	2025-02-20 13:50:25
++++ load.c	2025-02-24 13:56:14
+@@ -778,7 +778,7 @@
              ast = rb_ruby_ast_data_get(ast_value);
  
              iseq = rb_iseq_new_top(ast_value, rb_fstring_lit("<top (required)>"),
