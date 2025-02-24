@@ -40,8 +40,8 @@ version("2.9.9")  { source sha256: "58a5c05a2951f8b47656b676ce1017921a29f6b1419c
 
 minor_version = version.gsub(/\.\d+\z/, "")
 source url: "https://download.gnome.org/sources/libxml2/#{minor_version}/libxml2-#{version}.tar.xz"
-# internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
-                # authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libxml2-#{version}"
 
@@ -71,7 +71,7 @@ build do
   puts Dir["#{project_dir}/*/**"]
 
   # Check if the tar file exists
-tar_file = "#{project_dir}.tar.xz"
+tar_file = "#{project_dir}"
  
 if File.exists?(tar_file)
   puts "Tar file exists: #{tar_file}"
