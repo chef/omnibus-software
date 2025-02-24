@@ -3,7 +3,7 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a  copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
@@ -41,7 +41,9 @@ dependency "libyaml"
 # system's ncurses library files thereby allowing the package built on freebsd 11 to work on freebsd 13.
 dependency "ncurses" if freebsd?
 
-# version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
+#  version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
+version("3.4.2") { source sha256: "41328ac21f2bfdd7de6b3565ef4f0dd7543354d37e96f157a1552a6bd0eb364b" }
+version("3.4.1") { source sha256: "3d385e5d22d368b064c817a13ed8e3cc3f71a7705d7ed1bae78013c33aa7c87f" }
 version("3.3.1") { source sha256: "8dc2af2802cc700cd182d5430726388ccf885b3f0a14fcd6a0f21ff249c9aa99" }
 version("3.3.0") { source sha256: "96518814d9832bece92a85415a819d4893b307db5921ae1f0f751a9a89a56b7d" }
 version("3.2.2") { source sha256: "96c57558871a6748de5bc9f274e93f4b5aad06cd8f37befa0e8d94e7b8a423bc" }
@@ -224,11 +226,15 @@ build do
   if version.satisfies?("~> 2.6.0")
     patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
   end
-  if version.satisfies?(">=3.3")
-    patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
+  if version.satisfies?(">=3.4")
+    patch source: "ruby-faster-load_34.patch", plevel: 0, env: patch_env
   else
-    if version.satisfies?(">= 2.7")
-      patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
+    if version.satisfies?(">=3.3")
+      patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
+    else
+      if version.satisfies?(">= 2.7")
+        patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
+      end
     end
   end
   if freebsd? && version.satisfies?("~> 3.0.3")
