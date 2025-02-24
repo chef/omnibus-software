@@ -63,7 +63,7 @@ build do
   puts Dir["#{project_dir}/*/**"]
 
   # Check if the tar file exists
-  tar_file = "#{project_dir}/xz-#{version}.tar.xz"
+tar_file = "#{project_dir}/xz-#{version}.tar.xz"
  
 if File.exists?(tar_file)
   puts "Tar file exists: #{tar_file}"
