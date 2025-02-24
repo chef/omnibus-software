@@ -3,7 +3,7 @@
 @@ -779,6 +779,7 @@
  
              iseq = rb_iseq_new_top(ast_value, rb_fstring_lit("<top (required)>"),
-                                    fname, realpath_internal_cached(realpath_map, fname), NULL);
+-                                   fname, realpath_internal_cached(realpath_map, fname), NULL);
 +                                   fname, fname, NULL);
              rb_ast_dispose(ast);
          }
