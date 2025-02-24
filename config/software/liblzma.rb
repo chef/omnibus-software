@@ -58,6 +58,21 @@ build do
   config_command << "--disable-nls" if windows?
 
   configure(*config_command, env: env)
+  puts "------DEBUG-------"
+  puts "------Executing the script-----"
+  puts Dir["#{project_dir}/*/**"]
+
+  # Check if the tar file exists
+tar_file = "#{project_dir}"
+ 
+if File.exists?(tar_file)
+  puts "Tar file exists: #{tar_file}"
+  puts "Current directory: #{Dir.pwd}"
+  puts "ls -l of tar file:"
+  puts shellout!("ls -l #{tar_file}").stdout
+else
+  puts "Tar file not found: #{tar_file}"
+end
 
   make "install", env: env
 end
