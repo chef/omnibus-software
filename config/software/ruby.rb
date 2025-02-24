@@ -3,7 +3,7 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may obtain a  copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
@@ -26,7 +26,7 @@ skip_transitive_dependency_licensing true
 # the default versions should always be the latest release of ruby
 # if you consume this definition it is your responsibility to pin
 # to the desired version of ruby. don't count on this not changing.
-default_version "3.4.1"
+default_version "3.1.3"
 
 dependency "zlib"
 dependency "openssl"
@@ -41,8 +41,7 @@ dependency "libyaml"
 # system's ncurses library files thereby allowing the package built on freebsd 11 to work on freebsd 13.
 dependency "ncurses" if freebsd?
 
-# version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
-
+#  version_list: url=https://cache.ruby-lang.org/pub/ruby/ filter=*.tar.gz
 version("3.4.2") { source sha256: "41328ac21f2bfdd7de6b3565ef4f0dd7543354d37e96f157a1552a6bd0eb364b" }
 version("3.4.1") { source sha256: "3d385e5d22d368b064c817a13ed8e3cc3f71a7705d7ed1bae78013c33aa7c87f" }
 version("3.3.1") { source sha256: "8dc2af2802cc700cd182d5430726388ccf885b3f0a14fcd6a0f21ff249c9aa99" }
@@ -202,27 +201,12 @@ build do
   # over the top of it.  AFAIK no sane ruby code should need to do that, and the
   # cost of this behavior in core ruby is enormous.
   #
-  if version.satisfies?(">=3.3")
-    if version.satisfies?("< 3.4")
-      patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
-    else
-      patch source: "ruby-faster-load_34.patch", plevel: 1, env: patch_env
-    end
+  if version.satisfies?("< 3.1")
+    patch source: "ruby-fast-load_26.patch", plevel: 1, env: patch_env
   else
-    if version.satisfies?(">= 2.7")
-      patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
-    end
+    patch source: "ruby-fast-load_31.patch", plevel: 1, env: patch_env
   end
 
-  if version.satisfies?("<3.3")
-    patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
-  else
-    if version.satisfies?(">= 3.4")
-      patch source: "ruby-faster-load_34.patch", plevel: 1, env: patch_env
-    else
-      patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
-    end
-  end
   # this removes a checks for windows nano in the win32-ole files.
   # windows nano is a dead platform and not supported by chef so we can avoid
   # registry lookups by patching away this code
@@ -242,10 +226,12 @@ build do
   if version.satisfies?("~> 2.6.0")
     patch source: "ruby-faster-load_26.patch", plevel: 1, env: patch_env
   end
-  if version.satisfies?("<=3.3")
+  if version.satisfies?(">=3.3")
     patch source: "ruby-faster-load_33.patch", plevel: 1, env: patch_env
   else
-    patch source: "ruby-faster-load_34.patch", plevel: 1, env: patch_env
+    if version.satisfies?(">= 2.7")
+      patch source: "ruby-faster-load_27.patch", plevel: 1, env: patch_env
+    end
   end
   if freebsd? && version.satisfies?("~> 3.0.3")
     patch source: "ruby-3.0.3-freebsd_13.patch", plevel: 1, env: patch_env
