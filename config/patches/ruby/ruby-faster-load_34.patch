@@ -1,5 +1,4 @@
 diff --git a/ruby-3.4.1/load.c.org b/ruby-3.4.1/load.c
-index 68ee9d8..8f44baa 100644
 --- a/ruby-3.4.1/load.c.org
 +++ b/ruby-3.4.1/load.c
 @@ -778,7 +778,7 @@ load_iseq_eval(rb_execution_context_t *ec, VALUE fname)
