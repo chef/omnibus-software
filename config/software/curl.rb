@@ -48,6 +48,9 @@ relative_path "curl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Prevent curl from detecting SSL_get0_group_name
+  env["ac_cv_func_SSL_get0_group_name"] = "no"
+
   if freebsd? && version.satisfies?("< 7.82.0")
     # from freebsd ports - IPv6 Hostcheck patch
     patch source: "curl-freebsd-hostcheck.patch", plevel: 1, env: env
