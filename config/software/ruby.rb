@@ -47,6 +47,8 @@ version("3.3.1") { source sha256: "8dc2af2802cc700cd182d5430726388ccf885b3f0a14f
 version("3.3.0") { source sha256: "96518814d9832bece92a85415a819d4893b307db5921ae1f0f751a9a89a56b7d" }
 version("3.2.2") { source sha256: "96c57558871a6748de5bc9f274e93f4b5aad06cd8f37befa0e8d94e7b8a423bc" }
 version("3.2.0") { source sha256: "daaa78e1360b2783f98deeceb677ad900f3a36c0ffa6e2b6b19090be77abc272" }
+version("3.1.6") { source sha256: "0d0dafb859e76763432571a3109d1537d976266be3083445651dc68deed25c22" }
+version("3.1.5") { source sha256: "3685c51eeee1352c31ea039706d71976f53d00ab6d77312de6aa1abaf5cda2c5" }
 version("3.1.4") { source sha256: "a3d55879a0dfab1d7141fdf10d22a07dbf8e5cdc4415da1bde06127d5cc3c7b6" }
 version("3.1.3") { source sha256: "5ea498a35f4cd15875200a52dde42b6eb179e1264e17d78732c3a57cd1c6ab9e" }
 version("3.1.2") { source sha256: "61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e" }
@@ -180,6 +182,10 @@ build do
   if suse? && version.satisfies?("= 3.1.4")
     patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
   end
+  if suse? && version.satisfies?("= 3.1.6")
+    patch source: "ruby-3.1.6-configure.patch", plevel: 1, env: patch_env
+  end
+
   # RHEL6 has a base compiler that does not support -fstack-protector-strong, but we
   # cannot build modern ruby on the RHEL6 base compiler, and the configure script
   # determines that it supports that flag and so includes it and then ultimately
@@ -193,6 +199,8 @@ build do
     if rhel? && platform_version.satisfies?(">=7")
       if version.satisfies?("= 3.1.4")
         patch source: "ruby-3.1.4-configure.patch", plevel: 1, env: patch_env
+      elsif version.satisfies?("= 3.1.6")
+        patch source: "ruby-3.1.6-configure.patch", plevel: 1, env: patch_env
       end
     end
   end
@@ -342,6 +350,8 @@ build do
     fips_env = fips_mode? ? env.merge({ "OPENSSL_FIPS" => "1" }) : env
 
     command "git clone https://github.com/ruby/openssl.git", cwd: "#{install_dir}"
+    # Checkout the specific tag for version 3.2.0
+    command "cd #{install_dir}/openssl && git checkout tags/v3.2.0"
     command "gem build openssl.gemspec", cwd: "#{install_dir}/openssl"
     command "gem install openssl-#{openssl_gem_version}.gem --no-document -- --with-openssl-dir=#{install_dir}/embedded", env: fips_env, cwd: "#{install_dir}/openssl"
 
@@ -354,6 +364,7 @@ build do
     dlls = [
       "libwinpthread-1",
       "libstdc++-6",
+      "libssp-0",
     ]
 
     if windows_arch_i386?
@@ -391,7 +402,7 @@ build do
     if windows?
       puts "Finding all the rubies installed and checking their fips_mode status"
       find_command = %{
-        Get-ChildItem c:/opscode -name 'ruby.exe' -recurse | ForEach-Object {
+        Get-ChildItem c:/opscode -include 'ruby.exe' -recurse | ForEach-Object {
           & $_ -e "require 'openssl'; puts OpenSSL::OPENSSL_VERSION_NUMBER.to_s(16); puts OpenSSL::OPENSSL_LIBRARY_VERSION; OpenSSL.fips_mode = 1; puts 'FIPS mode successfully activated for Ruby' + RUBY_VERSION"
         }
         Write-Output "done looking at rubies"
