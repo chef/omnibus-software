@@ -108,30 +108,10 @@ build do
 
   # Additional verification for OpenSSL linking
   if mac_os_x?
-    ruby_block "verify_curl_ssl_linking" do
-      block do
-        require 'mixlib/shellout'
+    # Check if curl is linked against the correct OpenSSL
+    command "otool -L #{install_dir}/embedded/lib/libcurl.4.dylib | grep '#{install_dir}/embedded/lib/libssl'"
 
-        # Check if curl is linked against the correct OpenSSL
-        otool_cmd = Mixlib::ShellOut.new("otool -L #{install_dir}/embedded/lib/libcurl.4.dylib")
-        otool_cmd.run_command
-        unless otool_cmd.stdout.include?("#{install_dir}/embedded/lib/libssl")
-          raise "Curl is not properly linked to embedded OpenSSL"
-        end
-
-        # Verify curl can find required OpenSSL symbols
-        curl_test = Mixlib::ShellOut.new(
-          "#{install_dir}/embedded/bin/curl --version",
-          env: {
-            "DYLD_LIBRARY_PATH" => "#{install_dir}/embedded/lib",
-            "SSL_CERT_FILE" => "#{install_dir}/embedded/ssl/certs/cacert.pem"
-          }
-        )
-        curl_test.run_command
-        unless curl_test.stdout.include?("OpenSSL")
-          raise "Curl is not properly configured with OpenSSL support"
-        end
-      end
-    end
+    # Verify curl can find required OpenSSL symbols
+    command "DYLD_LIBRARY_PATH=#{install_dir}/embedded/lib SSL_CERT_FILE=#{install_dir}/embedded/ssl/certs/cacert.pem #{install_dir}/embedded/bin/curl --version | grep OpenSSL"
   end
 end
