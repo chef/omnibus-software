@@ -1,4 +1,3 @@
-#
 # Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +16,9 @@
 name "curl"
 default_version "8.4.0"
 
-dependency "zlib"
+# Ensure OpenSSL is built first
 dependency "openssl"
+dependency "zlib"
 dependency "cacerts"
 dependency "libnghttp2" if version.satisfies?(">= 8.0")
 
@@ -62,6 +62,11 @@ build do
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
   end
 
+  # Ensure proper linking with OpenSSL
+  env["LDFLAGS"] = "-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib #{env["LDFLAGS"]}"
+  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include #{env["CPPFLAGS"]}"
+  env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig"
+
   configure_options = [
     "--prefix=#{install_dir}/embedded",
     "--disable-option-checking",
@@ -97,4 +102,36 @@ build do
 
   make "-j #{workers}", env: env
   make "install", env: env
+
+  # Verify the build
+  command "otool -L #{install_dir}/embedded/lib/libcurl.4.dylib" if mac_os_x?
+
+  # Additional verification for OpenSSL linking
+  if mac_os_x?
+    ruby_block "verify_curl_ssl_linking" do
+      block do
+        require 'mixlib/shellout'
+
+        # Check if curl is linked against the correct OpenSSL
+        otool_cmd = Mixlib::ShellOut.new("otool -L #{install_dir}/embedded/lib/libcurl.4.dylib")
+        otool_cmd.run_command
+        unless otool_cmd.stdout.include?("#{install_dir}/embedded/lib/libssl")
+          raise "Curl is not properly linked to embedded OpenSSL"
+        end
+
+        # Verify curl can find required OpenSSL symbols
+        curl_test = Mixlib::ShellOut.new(
+          "#{install_dir}/embedded/bin/curl --version",
+          env: {
+            "DYLD_LIBRARY_PATH" => "#{install_dir}/embedded/lib",
+            "SSL_CERT_FILE" => "#{install_dir}/embedded/ssl/certs/cacert.pem"
+          }
+        )
+        curl_test.run_command
+        unless curl_test.stdout.include?("OpenSSL")
+          raise "Curl is not properly configured with OpenSSL support"
+        end
+      end
+    end
+  end
 end
