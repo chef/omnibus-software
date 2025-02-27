@@ -97,7 +97,7 @@ build do
 
   configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
 
-  command "nm -gU #{install_dir}/embedded/lib/libssl.3.dylib | grep SSL_get0_group_name || echo 'OK: No SSL_get0_group_name'"
+  command "nm -gU #{install_dir}/embedded/lib/libssl.3.dylib | grep SSL_get0_group_name && { echo 'Error: SSL_get0_group_name found'; exit 1; } || echo 'OK: No SSL_get0_group_name'"
   
   configure(*configure_options, env: env)
 
