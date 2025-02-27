@@ -2,7 +2,7 @@
 # Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
+# You may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
 #     http://www.apache.org/licenses/LICENSE-2.0
@@ -48,8 +48,10 @@ relative_path "curl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Prevent curl from detecting SSL_get0_group_name
-  env["ac_cv_func_SSL_get0_group_name"] = "no"
+  # Ensure correct OpenSSL paths
+  env["LDFLAGS"] = "-L#{install_dir}/embedded/lib " + (env["LDFLAGS"] || "")
+  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include " + (env["CPPFLAGS"] || "")
+  env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig"
 
   if freebsd? && version.satisfies?("< 7.82.0")
     # from freebsd ports - IPv6 Hostcheck patch
@@ -87,6 +89,7 @@ build do
     "--without-fish-functions-dir",
     "--disable-mqtt",
     "--with-ssl=#{install_dir}/embedded",
+    "--without-openssl3",
     "--with-zlib=#{install_dir}/embedded",
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
     "--without-zstd",
@@ -94,8 +97,12 @@ build do
 
   configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
 
+  command "nm -gU #{install_dir}/embedded/lib/libssl.3.dylib | grep SSL_get0_group_name || echo 'OK: No SSL_get0_group_name'"
+  
   configure(*configure_options, env: env)
 
   make "-j #{workers}", env: env
   make "install", env: env
+
+  command "otool -L #{install_dir}/embedded/lib/libcurl.4.dylib"
 end
