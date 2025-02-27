@@ -89,7 +89,6 @@ build do
     "--without-fish-functions-dir",
     "--disable-mqtt",
     "--with-ssl=#{install_dir}/embedded",
-    "--without-openssl3",
     "--with-zlib=#{install_dir}/embedded",
     "--with-ca-bundle=#{install_dir}/embedded/ssl/certs/cacert.pem",
     "--without-zstd",
