@@ -52,6 +52,8 @@ build do
   env["LDFLAGS"] = "-L#{install_dir}/embedded/lib " + (env["LDFLAGS"] || "")
   env["CPPFLAGS"] = "-I#{install_dir}/embedded/include " + (env["CPPFLAGS"] || "")
   env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig"
+  env["DYLD_LIBRARY_PATH"] = "#{install_dir}/embedded/lib" # For macOS
+  env["LD_LIBRARY_PATH"] = "#{install_dir}/embedded/lib"  # For Linux
 
   if freebsd? && version.satisfies?("< 7.82.0")
     # from freebsd ports - IPv6 Hostcheck patch
