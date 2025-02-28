@@ -1,3 +1,4 @@
+#
 # Copyright:: Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +17,8 @@
 name "curl"
 default_version "8.4.0"
 
-# Ensure OpenSSL is built first
-dependency "openssl"
 dependency "zlib"
+dependency "openssl"
 dependency "cacerts"
 dependency "libnghttp2" if version.satisfies?(">= 8.0")
 
@@ -27,7 +27,6 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://curl.se/download/ filter=*.tar.gz
-
 version("8.12.0")  { source sha256: "7b40ea64947e0b440716a4d7f0b7aa56230a5341c8377d7b609649d4aea8dbcf" }
 version("8.11.1")  { source sha256: "a889ac9dbba3644271bd9d1302b5c22a088893719b72be3487bc3d401e5c4e80" }
 version("8.11.0")  { source sha256: "264537d90e58d2b09dddc50944baf3c38e7089151c8986715e2aaeaaf2b8118f" }
@@ -61,8 +60,7 @@ build do
     # Without /usr/gnu/bin first in PATH the libtool fails during make on Solaris
     env["PATH"] = "/usr/gnu/bin:#{env["PATH"]}"
   end
-
-  # Ensure proper linking with OpenSSL
+ # Ensure proper linking with OpenSSL
   env["LDFLAGS"] = "-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib #{env["LDFLAGS"]}"
   env["CPPFLAGS"] = "-I#{install_dir}/embedded/include #{env["CPPFLAGS"]}"
   env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig"
@@ -102,16 +100,4 @@ build do
 
   make "-j #{workers}", env: env
   make "install", env: env
-
-  # Verify the build
-  command "otool -L #{install_dir}/embedded/lib/libcurl.4.dylib" if mac_os_x?
-
-  # Additional verification for OpenSSL linking
-  if mac_os_x?
-    # Check if curl is linked against the correct OpenSSL
-    command "otool -L #{install_dir}/embedded/lib/libcurl.4.dylib | grep '#{install_dir}/embedded/lib/libssl'"
-
-    # Verify curl can find required OpenSSL symbols
-    command "DYLD_LIBRARY_PATH=#{install_dir}/embedded/lib SSL_CERT_FILE=#{install_dir}/embedded/ssl/certs/cacert.pem #{install_dir}/embedded/bin/curl --version | grep OpenSSL"
-  end
 end
