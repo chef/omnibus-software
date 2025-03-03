@@ -27,7 +27,7 @@ license_file "COPYING"
 skip_transitive_dependency_licensing true
 
 # version_list: url=https://curl.se/download/ filter=*.tar.gz
-version("8.12.0")  { source sha256: "7b40ea64947e0b440716a4d7f0b7aa56230a5341c8377d7b609649d4aea8dbcf" }
+version("8.12.0")  { source sha256: "b72ec874e403c90462dc3019c5b24cc3cdd895247402bf23893b3b59419353bc" }
 version("8.11.1")  { source sha256: "a889ac9dbba3644271bd9d1302b5c22a088893719b72be3487bc3d401e5c4e80" }
 version("8.11.0")  { source sha256: "264537d90e58d2b09dddc50944baf3c38e7089151c8986715e2aaeaaf2b8118f" }
 version("8.6.0")  { source sha256: "9c6db808160015f30f3c656c0dec125feb9dc00753596bf858a272b5dd8dc398" }
