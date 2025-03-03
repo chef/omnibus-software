@@ -21,19 +21,33 @@ license "Public-Domain"
 license_file "COPYING"
 skip_transitive_dependency_licensing true
 
-# version_list: url=http://tukaani.org/xz/ filer=*.tar.gz
+if mac_os_x?
+  platform = "darwin"
+  if intel?
+    arch = "amd64"
 
-version("5.2.10") { source sha256: "eb7a3b2623c9d0135da70ca12808a214be9c019132baaa61c9e1d198d1d9ded3" }
-version("5.2.7") { source sha256: "06327c2ddc81e126a6d9a78b0be5014b976a2c0832f492dcfc4755d7facf6d33" }
-version("5.2.6") { source sha256: "a2105abee17bcd2ebd15ced31b4f5eda6e17efd6b10f921a01cda4a44c91b3a0" }
-version("5.2.5") { source sha256: "f6f4910fd033078738bd82bfba4f49219d03b17eb0794eb91efbae419f4aba10" }
-version("5.2.4") { source sha256: "b512f3b726d3b37b6dc4c8570e137b9311e7552e8ccbab4d39d47ce5f4177145" }
-version("5.2.3") { source sha256: "71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb" }
-version("5.2.2") { source sha256: "73df4d5d34f0468bd57d09f2d8af363e95ed6cc3a4a86129d2f2c366259902a2" }
+    # version_list: url=http://tukaani.org/xz/ filer=*.tar.xz
+    version("5.6.4") do
+      source sha256: "829ccfe79d769748f7557e7a4429a64d06858e27e1e362e25d01ab7b931d9c95"
+      source url: "https://tukaani.org/xz/xz-#{version}.tar.xz"
+      internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/xz-#{version}.tar.xz",
+                     authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    end
+  end
+else
+  # version_list: url=http://tukaani.org/xz/ filer=*.tar.gz
+  version("5.2.10") { source sha256: "eb7a3b2623c9d0135da70ca12808a214be9c019132baaa61c9e1d198d1d9ded3" }
+  version("5.2.7") { source sha256: "06327c2ddc81e126a6d9a78b0be5014b976a2c0832f492dcfc4755d7facf6d33" }
+  version("5.2.6") { source sha256: "a2105abee17bcd2ebd15ced31b4f5eda6e17efd6b10f921a01cda4a44c91b3a0" }
+  version("5.2.5") { source sha256: "f6f4910fd033078738bd82bfba4f49219d03b17eb0794eb91efbae419f4aba10" }
+  version("5.2.4") { source sha256: "b512f3b726d3b37b6dc4c8570e137b9311e7552e8ccbab4d39d47ce5f4177145" }
+  version("5.2.3") { source sha256: "71928b357d0a09a12a4b4c5fafca8c31c19b0e7d3b8ebb19622e96f26dbf28cb" }
+  version("5.2.2") { source sha256: "73df4d5d34f0468bd57d09f2d8af363e95ed6cc3a4a86129d2f2c366259902a2" }
 
 source url: "https://tukaani.org/xz/xz-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/xz-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end                
 
 relative_path "xz-#{version}"
 

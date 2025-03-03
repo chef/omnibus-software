@@ -29,17 +29,6 @@ skip_transitive_dependency_licensing true
 
 relative_path "config_guess-#{version}"
 
-tar_file = "#{project_dir}"
-
-if File.exists?(tar_file)
-  puts "Tar file exists: #{tar_file}"
-  puts "Current directory: #{Dir.pwd}"
-  puts "ls -l of tar file:"
-  puts shellout!("ls -l #{tar_file}").stdout
-else
-  puts "Tar file not found: #{tar_file}"
-end
-
 build do
   mkdir "#{install_dir}/embedded/lib/config_guess"
 
