@@ -48,13 +48,6 @@ relative_path "curl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Ensure correct OpenSSL paths
-  env["LDFLAGS"] = "-L#{install_dir}/embedded/lib " + (env["LDFLAGS"] || "")
-  env["CPPFLAGS"] = "-I#{install_dir}/embedded/include " + (env["CPPFLAGS"] || "")
-  env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig"
-  env["DYLD_LIBRARY_PATH"] = "#{install_dir}/embedded/lib" # For macOS
-  env["LD_LIBRARY_PATH"] = "#{install_dir}/embedded/lib"  # For Linux
-
   if freebsd? && version.satisfies?("< 7.82.0")
     # from freebsd ports - IPv6 Hostcheck patch
     patch source: "curl-freebsd-hostcheck.patch", plevel: 1, env: env
@@ -97,13 +90,10 @@ build do
   ]
 
   configure_options += [ "--without-libpsl" ] if version.satisfies?(">=8.6.0")
-
-  command "nm -gU #{install_dir}/embedded/lib/libssl.3.dylib | grep SSL_get0_group_name && { echo 'Error: SSL_get0_group_name found'; exit 1; } || echo 'OK: No SSL_get0_group_name'"
   
   configure(*configure_options, env: env)
 
   make "-j #{workers}", env: env
   make "install", env: env
 
-  command "otool -L #{install_dir}/embedded/lib/libcurl.4.dylib"
 end
