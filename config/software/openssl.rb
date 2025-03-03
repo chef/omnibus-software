@@ -177,7 +177,6 @@ build do
     configure_args << "enable-legacy"
     patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
   end
- end
 
   if version.start_with?("1.0.2") && mac_os_x? && arm?
     patch source: "openssl-1.0.2x-darwin-arm64.patch"
