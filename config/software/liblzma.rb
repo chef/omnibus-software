@@ -15,7 +15,7 @@
 #
 
 name "liblzma"
-default_version "5.2.10"
+default_version "5.6.4"
 
 license "Public-Domain"
 license_file "COPYING"
@@ -27,15 +27,15 @@ if mac_os_x?
     arch = "amd64"
 
     # version_list: url=http://tukaani.org/xz/ filer=*.tar.xz
-    version("5.6.4") do
-      source sha256: "829ccfe79d769748f7557e7a4429a64d06858e27e1e362e25d01ab7b931d9c95"
-      source url: "https://tukaani.org/xz/xz-#{version}.tar.xz"
-      internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/xz-#{version}.tar.xz",
-                     authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    version("5.6.4") { source sha256: "829ccfe79d769748f7557e7a4429a64d06858e27e1e362e25d01ab7b931d9c95" }
+    source url: "https://tukaani.org/xz/xz-#{version}.tar.xz"
+    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/xz-#{version}.tar.xz",
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
     end
   end
 else
   # version_list: url=http://tukaani.org/xz/ filer=*.tar.gz
+  version("5.6.4") { source sha256: "269e3f2e512cbd3314849982014dc199a7b2148cf5c91cedc6db629acdf5e09b" }
   version("5.2.10") { source sha256: "eb7a3b2623c9d0135da70ca12808a214be9c019132baaa61c9e1d198d1d9ded3" }
   version("5.2.7") { source sha256: "06327c2ddc81e126a6d9a78b0be5014b976a2c0832f492dcfc4755d7facf6d33" }
   version("5.2.6") { source sha256: "a2105abee17bcd2ebd15ced31b4f5eda6e17efd6b10f921a01cda4a44c91b3a0" }
