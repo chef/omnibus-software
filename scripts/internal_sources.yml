@@ -142,6 +142,16 @@ software:
 
 - name: openssl
   sources:
+  - url: https://openssl.org/source/openssl-3.2.4.tar.gz
+    sha256: b23ad7fd9f73e43ad1767e636040e88ba7c9e5775bfa5618436a0dd2c17c3716
+  - url: https://openssl.org/source/openssl-3.3.3.tar.gz
+    sha256: 712590fd20aaa60ec75d778fe5b810d6b829ca7fb1e530577917a131f9105539
+  - url: https://openssl.org/source/openssl-3.4.1.tar.gz
+    sha256: 002a2d6b30b58bf4bea46c43bdd96365aaf8daa6c428782aa4feee06da197df3
+  - url: https://openssl.org/source/openssl-3.0.15.tar.gz
+    sha256: 23c666d0edf20f14249b3d8f0368acaee9ab585b09e1de82107c66e1f3ec9533
+  - url: https://openssl.org/source/openssl-3.0.12.tar.gz
+    sha256: f93c9e8edde5e9166119de31755fc87b4aa34863662f67ddfcba14d0b6b69b61
   - url: https://openssl.org/source/openssl-3.0.11.tar.gz
     sha256: b3425d3bb4a2218d0697eb41f7fc0cdede016ed19ca49d168b78e8d947887f55
   - url: https://openssl.org/source/openssl-3.0.9.tar.gz
