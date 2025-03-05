@@ -266,6 +266,8 @@ software:
 
 - name: curl
   sources:
+  - url: https://curl.haxx.se/download/curl-8.12.1.tar.gz
+    sha256: 7b40ea64947e0b440716a4d7f0b7aa56230a5341c8377d7b609649d4aea8dbcf
   - url: https://curl.haxx.se/download/curl-7.85.0.tar.gz
     sha256: 78a06f918bd5fde3c4573ef4f9806f56372b32ec1829c9ec474799eeee641c27
   - url: https://curl.haxx.se/download/curl-7.84.0.tar.gz
