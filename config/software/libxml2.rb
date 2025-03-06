@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require "mixlib/shellout"
 
 name "libxml2"
 default_version "2.11.7"
@@ -76,15 +77,15 @@ if File.exists?(tar_file)
   puts "Tar file exists: #{tar_file}"
   puts "Current directory: #{Dir.pwd}"
   puts "ls -l of tar file:"
-  puts shellout!("ls -l #{tar_file}").stdout
-  puts "xz version:"
-  puts shellout!("xz --version").stdout
-  puts shellout!("which xz").stdout
 else
   puts "Tar file not found: #{tar_file}"
   puts "xz version:"
-  puts shellout!("xz --version").stdout
-  puts shellout!("which xz").stdout
+  xz_version_cmd = Mixlib::ShellOut.new("xz --version")
+  xz_version_cmd.run_command
+  puts xz_version_cmd.stdout
+  which_xz_cmd = Mixlib::ShellOut.new("which xz")
+  which_xz_cmd.run_command
+  puts which_xz_cmd.stdout
 end
 
   make "-j #{workers}", env: env

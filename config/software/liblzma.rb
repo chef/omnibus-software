@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+require "mixlib/shellout"
+
 name "liblzma"
 default_version "5.6.4"
 
@@ -78,8 +80,12 @@ if File.exists?(tar_file)
 else
   puts "Tar file not found: #{tar_file}"
   puts "xz version:"
-  puts shellout!("xz --version").stdout
-  puts shellout!("which xz").stdout
+  xz_version_cmd = Mixlib::ShellOut.new("xz --version")
+  xz_version_cmd.run_command
+  puts xz_version_cmd.stdout
+  which_xz_cmd = Mixlib::ShellOut.new("which xz")
+  which_xz_cmd.run_command
+  puts which_xz_cmd.stdout
 end
 
   make "install", env: env
