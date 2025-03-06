@@ -65,8 +65,6 @@ build do
     "--without-debugger",
     "--without-deprecated-declarations",
   ]
-  # Run autoreconf to generate the configure script
-  command "autoreconf -i", env: env
   configure(*configure_commands, env: env)
 
   make "-j #{workers}", env: env
