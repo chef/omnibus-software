@@ -64,8 +64,6 @@ build do
 
   update_config_guess
 
-   # Run autoreconf to generate the configure script
-  command "autoreconf -i", env: env
 
   configure(*configure_command, env: env)
   puts "------DEBUG-------"
