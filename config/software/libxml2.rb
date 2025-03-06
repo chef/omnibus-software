@@ -29,7 +29,7 @@ dependency "config_guess"
 version("2.13.5") { source sha256: "74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6" }
 version("2.12.7") { source sha256: "24ae78ff1363a973e6d8beba941a7945da2ac056e19b53956aeb6927fd6cfb56" }
 version("2.12.5") { source sha256: "a972796696afd38073e0f59c283c3a2f5a560b5268b4babc391b286166526b21" }
-version("2.11.7") { source sha256: "2fb6259e907c916c2c07bde24a13f460f2f07e43bc6470d658dfdcfa08b1ace5" }
+version("2.11.7") { source sha256: "66772c713b6dfce644b1707e66b674a790e1869e2b235954e9f1287208724db3" }
 version("2.10.4") { source sha256: "ed0c91c5845008f1936739e4eee2035531c1c94742c6541f44ee66d885948d45" }
 version("2.9.14") { source sha256: "60d74a257d1ccec0475e749cba2f21559e48139efba6ff28224357c7c798dfee" }
 version("2.9.13") { source sha256: "276130602d12fe484ecc03447ee5e759d0465558fbc9d6bd144e3745306ebf0e" }
@@ -38,7 +38,7 @@ version("2.9.10") { source sha256: "593b7b751dd18c2d6abcd0c4bcb29efc203d0b4373a6
 version("2.9.9")  { source sha256: "58a5c05a2951f8b47656b676ce1017921a29f6b1419c45e3baed0d6435ba03f5" }
 
 minor_version = version.gsub(/\.\d+\z/, "")
-source url: "https://github.com/GNOME/libxml2/archive/refs/tags/v#{version}.tar.gz"
+#source url: "https://github.com/GNOME/libxml2/archive/refs/tags/v#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
@@ -66,7 +66,7 @@ build do
 
    # Run autoreconf to generate the configure script
   command "autoreconf -i", env: env
-  
+
   configure(*configure_command, env: env)
   puts "------DEBUG-------"
   puts "------Executing the script-----"
