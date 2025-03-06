@@ -47,6 +47,11 @@ relative_path "libxml2-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Add Homebrew ARM path for macOS to find xz
+  if Ohai["platform"] == "mac_os_x" && Ohai["kernel"]["machine"] == "arm64"
+    env["PATH"] = "/opt/homebrew/bin:#{env["PATH"]}"
+  end
+
   configure_command = [
     "--with-zlib=#{install_dir}/embedded",
     "--with-lzma=#{install_dir}/embedded",
