@@ -23,7 +23,7 @@ skip_transitive_dependency_licensing true
 
 dependency "ruby"
 
-using_prebuilt_ruby = (windows? || macos?) && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows" || project.overrides[:ruby][:version] == "ruby-macos")
+using_prebuilt_ruby = windows? && (project.overrides[:ruby].nil? || project.overrides[:ruby][:version] == "ruby-windows")
 unless using_prebuilt_ruby
   dependency "libxml2"
   dependency "libxslt"
