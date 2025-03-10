@@ -14,10 +14,9 @@
 # limitations under the License.
 #
 
-require "mixlib/shellout"
 
 name "liblzma"
-default_version "5.6.4"
+default_version "5.2.10"
 
 license "Public-Domain"
 license_file "COPYING"

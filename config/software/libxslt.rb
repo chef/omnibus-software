@@ -27,13 +27,13 @@ dependency "config_guess"
 
 # versions_list: url=https://download.gnome.org/sources/libxslt/1.1/ filter=*.tar.xz
 version("1.1.42") { source sha256: "85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb" }
-version("1.1.39") { source sha256: "e01080ffcc51e1224d8a0dd139df279418c9ea9800e540bba15f678155eedd18" }
+version("1.1.39") { source sha256: "2a20ad621148339b0759c4d4e96719362dee64c9a096dbba625ba053846349f0" }
 version("1.1.37") { source sha256: "3a4b27dc8027ccd6146725950336f1ec520928f320f144eb5fa7990ae6123ab4" }
 version("1.1.36") { source sha256: "12848f0a4408f65b530d3962cd9ff670b6ae796191cfeff37522b5772de8dc8e" }
 version("1.1.35") { source sha256: "8247f33e9a872c6ac859aa45018bc4c4d00b97e2feac9eebc10c93ce1f34dd79" }
 
-source url: "https://github.com/GNOME/libxslt/archive/refs/tags/v#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+source url: "https://github.com/GNOME/libxslt/archive/refs/tags/v#{version}.tar.xz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libxslt-#{version}"
