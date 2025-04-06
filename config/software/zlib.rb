@@ -15,7 +15,12 @@
 #
 
 name "zlib"
-default_version "1.2.13"
+# MacOS 15 requires newer zlib due to compilation issues
+if macos? && platform_version.satisfies?(">=15")
+  default_version "1.3.1"
+else
+  default_version "1.2.13"
+end
 
 # version_list: url=https://zlib.net/fossils/ filter=*.tar.gz
 
