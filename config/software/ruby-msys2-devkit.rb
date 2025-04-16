@@ -112,7 +112,7 @@ build do
       # many gems that ship with native extensions assume tar will be available
       # in the PATH.
       copy "#{tmpdir}/#{msys_dir}/usr/bin/bsdtar.exe", "#{install_dir}/bin/tar.exe"
-      if version >= "3.1.6-1" do
+      if version >= "3.1.6-1"
         copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-crypto-3.dll", "#{install_dir}/bin/msys-crypto-3.dll"
         copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-bz2-1.dll", "#{install_dir}/bin/msys-bz2-1.dll"
         copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-iconv-2.dll", "#{install_dir}/bin/msys-iconv-2.dll"
