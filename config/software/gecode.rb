@@ -36,14 +36,18 @@ internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "gecode-release-#{version}"
-puts "*************DEBUG - Building geocde ***************"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # macOS-specific configuration
   if RbConfig::CONFIG["host_os"] =~ /darwin/
-    env["CXXFLAGS"] = "-std=c++11 -Wno-deprecated-copy -Wno-new-returns-null -arch arm64"
-    env["LDFLAGS"]  = "-arch arm64"
+    # Get the actual architecture of the system
+    arch = `uname -m`.chomp
+    arch_flag = arch == "arm64" ? "arm64" : "x86_64"
+    
+    env["CXXFLAGS"] = "-std=c++11 -Wno-deprecated-copy -Wno-new-returns-null -arch #{arch_flag}"
+    env["LDFLAGS"]  = "-arch #{arch_flag}"
+    puts "*************DEBUG - Building gecode for #{arch_flag} architecture ***************"
   end
 
   # fallback for RHEL systems with GCC 4.4
