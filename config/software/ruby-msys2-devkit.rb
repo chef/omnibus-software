@@ -112,6 +112,17 @@ build do
       # many gems that ship with native extensions assume tar will be available
       # in the PATH.
       copy "#{tmpdir}/#{msys_dir}/usr/bin/bsdtar.exe", "#{install_dir}/bin/tar.exe"
+      if version >= "3.1.6-1"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-crypto-3.dll", "#{install_dir}/bin/msys-crypto-3.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-bz2-1.dll", "#{install_dir}/bin/msys-bz2-1.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-iconv-2.dll", "#{install_dir}/bin/msys-iconv-2.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-expat-1.dll", "#{install_dir}/bin/msys-expat-1.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-lzma-5.dll", "#{install_dir}/bin/msys-lzma-5.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-lz4-1.dll", "#{install_dir}/bin/msys-lz4-1.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-2.0.dll", "#{install_dir}/bin/msys-2.0.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-z.dll", "#{install_dir}/bin/msys-z.dll"
+        copy "#{tmpdir}/#{msys_dir}/usr/bin/msys-zstd-1.dll", "#{install_dir}/bin/msys-zstd-1.dll"
+      end
     end
 
     command "#{embedded_dir}/#{msys_dir}/msys2_shell.cmd -defterm -no-start -c exit", env: { "CONFIG" => "" }
