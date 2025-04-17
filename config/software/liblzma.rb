@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+
 name "liblzma"
 default_version "5.2.10"
 
@@ -23,6 +24,7 @@ skip_transitive_dependency_licensing true
 
 # version_list: url=http://tukaani.org/xz/ filer=*.tar.gz
 
+version("5.6.4") { source sha256: "269e3f2e512cbd3314849982014dc199a7b2148cf5c91cedc6db629acdf5e09b" }
 version("5.2.10") { source sha256: "eb7a3b2623c9d0135da70ca12808a214be9c019132baaa61c9e1d198d1d9ded3" }
 version("5.2.7") { source sha256: "06327c2ddc81e126a6d9a78b0be5014b976a2c0832f492dcfc4755d7facf6d33" }
 version("5.2.6") { source sha256: "a2105abee17bcd2ebd15ced31b4f5eda6e17efd6b10f921a01cda4a44c91b3a0" }
@@ -58,6 +60,32 @@ build do
   config_command << "--disable-nls" if windows?
 
   configure(*config_command, env: env)
+
+  puts "------DEBUG-------"
+  puts "------Executing the script-----"
+  puts Dir["#{project_dir}/*/**"]
+
+  # Check if the tar file exists
+  tar_file = "#{project_dir}/xz-#{version}.tar.xz"
+ 
+if File.exists?(tar_file)
+  puts "Tar file exists: #{tar_file}"
+  puts "Current directory: #{Dir.pwd}"
+  puts "ls -l of tar file:"
+  puts shellout!("ls -l #{tar_file}").stdout
+  puts "xz version:"
+  puts shellout!("xz --version").stdout
+  puts shellout!("which xz").stdout
+else
+  puts "Tar file not found: #{tar_file}"
+  puts "xz version:"
+  # xz_version_cmd = Mixlib::ShellOut.new("xz --version")
+  # xz_version_cmd.run_command
+  # puts xz_version_cmd.stdout
+  # which_xz_cmd = Mixlib::ShellOut.new("which xz")
+  # which_xz_cmd.run_command
+  # puts which_xz_cmd.stdout
+end
 
   make "install", env: env
 end

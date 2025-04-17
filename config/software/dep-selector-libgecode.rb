@@ -29,6 +29,9 @@ dependency "ruby"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # Update config.guess and config.sub to ensure compatibility with macOS
+  update_config_guess(target: "ext/gecode")
+
   # On some RHEL-based systems, the default GCC that's installed is 4.1. We
   # need to use 4.4, which is provided by the gcc44 and gcc44-c++ packages.
   # These do not use the gcc binaries so we set the flags to point to the
