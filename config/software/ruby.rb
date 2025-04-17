@@ -59,6 +59,8 @@ version("3.0.3") { source sha256: "3586861cb2df56970287f0fd83f274bd92058872d830d
 version("3.0.2") { source sha256: "5085dee0ad9f06996a8acec7ebea4a8735e6fac22f22e2d98c3f2bc3bef7e6f1" }
 version("3.0.1") { source sha256: "369825db2199f6aeef16b408df6a04ebaddb664fb9af0ec8c686b0ce7ab77727" }
 
+version("2.7.5") { source sha256: "2755b900a21235b443bb16dadd9032f784d4a88f143d852bc5d154f22b8781f1" }
+
 source url: "https://cache.ruby-lang.org/pub/ruby/#{version.match(/^(\d+\.\d+)/)[0]}/ruby-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
