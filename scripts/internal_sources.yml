@@ -16,6 +16,12 @@ software:
   - url: https://github.com/libarchive/libarchive/releases/download/v3.5.0/libarchive-3.5.0.tar.gz
     sha256: fc4bc301188376adc18780d35602454cc8df6396e1b040fbcbb0d4c0469faf54
 
+- name: libxcrypt
+  sources:
+  - url: https://github.com/besser82/libxcrypt/releases/download/v4.4.38/libxcrypt-4.4.38.tar.xz
+  - url: https://github.com/besser82/libxcrypt/releases/download/v4.4.36/libxcrypt-4.4.36.tar.xz
+    sha256: e5e1f4caee0a01de2aee26e3138807d6d3ca2b8e67287966d1fefd65e1fd8943
+
 - name: ruby-msys2-devkit
   sources:
   - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.1-1/rubyinstaller-devkit-3.3.1-1-x64.exe
