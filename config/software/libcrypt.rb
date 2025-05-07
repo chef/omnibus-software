@@ -37,12 +37,12 @@ build do
     "--enable-hashes=strong,glibc", # Modern hash algorithms
     "--enable-obsolete-api=no",     # Disable legacy .so.1 symbols
     "--disable-static",
-    "--with-pic"
+    "--with-pic",
   ]
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
-  make "install", env: env  # Sequential install for reliability
+  make "install", env: env
 
   # Post-install verification
   command "readelf -d #{install_dir}/embedded/lib/libcrypt.so | grep 'SONAME.*libcrypt.so.2'", env: env
