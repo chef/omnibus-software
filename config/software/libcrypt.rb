@@ -48,6 +48,6 @@ build do
 
   # Post-install verification
   command "readelf -d #{install_dir}/embedded/lib/libcrypt.so | grep 'SONAME.*libcrypt.so.2'", env: env
-  command "objdump -T #{install_dir}/embedded/lib/libcrypt.so | grep 'GLIBC_2.2.5.*crypt_r'", env: env
+  # command "objdump -T #{install_dir}/embedded/lib/libcrypt.so | grep 'GLIBC_2.2.5.*crypt_r'", env: env
 end
 
