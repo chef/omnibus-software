@@ -21,7 +21,7 @@ license "LGPL-2.1"
 license_file "COPYING.LIB"
 skip_transitive_dependency_licensing true
 
-version("4.4.38") { source sha256: "e5e1f4cc232668769b96b11a00fbf1597e65bf3694b4e887dfa7ac6b0a90ffd0" } # Verify actual checksum
+version("4.4.38") { source sha256: "80304b9c306ea799327f01d9a7549bdb28317789182631f1b54f4511b4206dd6" } # Verify actual checksum
 
 source url: "https://github.com/besser82/libxcrypt/releases/download/v#{version}/libxcrypt-#{version}.tar.xz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.bz2",
