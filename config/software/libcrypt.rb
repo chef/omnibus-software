@@ -29,6 +29,8 @@ internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.
 
 relative_path "libxcrypt-#{version}"
 
+# Generate the configure scrip,ince it is missing
+command "./autogen.sh", env: env
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 

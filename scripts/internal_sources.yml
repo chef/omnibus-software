@@ -16,8 +16,8 @@ software:
 
 - name: libxcrypt
   sources:
-  - url: https://github.com/besser82/libxcrypt/releases/download/v4.4.38/libxcrypt-4.4.38.tar.xz
-    sha256: 80304b9c306ea799327f01d9a7549bdb28317789182631f1b54f4511b4206dd6
+  - url: https://github.com/besser82/libxcrypt/archive/refs/tags/v4.4.38.tar.gz
+    sha256: 9fb45586b2e83727934fbe046a4fef4804017577f1d048f91d56d0d830a5a98e
 
 - name: ruby-msys2-devkit
   sources:
