@@ -21,10 +21,10 @@ license "LGPL-2.1"
 license_file "COPYING.LIB"
 skip_transitive_dependency_licensing true
 
-version("4.4.38") { source sha256: "9fb45586b2e83727934fbe046a4fef4804017577f1d048f91d56d0d830a5a98e" } # Verify actual checksum
+version("4.4.38") { source sha256: "80304b9c306ea799327f01d9a7549bdb28317789182631f1b54f4511b4206dd6" } # Verify actual checksum
 
-source url: "https://github.com/besser82/libxcrypt/archive/refs/tags/v#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+source url: "https://github.com/besser82/libxcrypt/releases/download/v#{version}/libxcrypt-#{version}.tar.xz"
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libxcrypt-#{version}"
@@ -32,8 +32,6 @@ relative_path "libxcrypt-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Generate the configure scrip,ince it is missing
-  command "./autogen.sh", env: env
   configure_command = [
     "./configure",
     "--prefix=#{install_dir}/embedded",
