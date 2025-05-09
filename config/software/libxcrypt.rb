@@ -36,7 +36,6 @@ build do
     "./configure",
     "--prefix=#{install_dir}/embedded",
     "--disable-werror",
-    "--enable-hashes=glibc",
     "--enable-obsolete-api=no",     # Disable legacy .so.1 symbols
     "--disable-static",
     "--with-pic",
