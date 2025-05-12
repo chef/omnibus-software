@@ -26,7 +26,7 @@ version("4.4.36") { source sha256: "e5e1f4caee0a01de2aee26e3138807d6d3ca2b8e6728
 
 
 source url: "https://github.com/besser82/libxcrypt/releases/download/v#{version}/libxcrypt-#{version}.tar.xz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
+# internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libxcrypt-#{version}"
