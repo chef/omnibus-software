@@ -26,6 +26,7 @@ skip_transitive_dependency_licensing true
 
 # versions_list: https://github.com/libarchive/libarchive/releases/ filter=*.tar.gz
 
+version("3.7.9") { source sha256: "aa90732c5a6bdda52fda2ad468ac98d75be981c15dde263d7b5cf6af66fd009f" }
 version("3.7.5") { source sha256: "37556113fe44d77a7988f1ef88bf86ab68f53d11e85066ffd3c70157cc5110f1" }
 version("3.7.4") { source sha256: "7875d49596286055b52439ed42f044bd8ad426aa4cc5aabd96bfe7abb971d5e8" }
 version("3.6.2") { source sha256: "ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3" }
