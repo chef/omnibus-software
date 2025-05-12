@@ -1,6 +1,8 @@
 software:
 - name: libarchive
   sources:
+  - url: https://github.com/libarchive/libarchive/releases/download/v3.7.9/libarchive-3.7.9.tar.gz
+    sha256: aa90732c5a6bdda52fda2ad468ac98d75be981c15dde263d7b5cf6af66fd009f
   - url: https://github.com/libarchive/libarchive/releases/download/v3.7.5/libarchive-3.7.5.tar.gz
     sha256: 37556113fe44d77a7988f1ef88bf86ab68f53d11e85066ffd3c70157cc5110f1
   - url: https://github.com/libarchive/libarchive/releases/download/v3.6.1/libarchive-3.6.1.tar.gz
