@@ -1,6 +1,8 @@
 software:
 - name: libarchive
   sources:
+  - url: https://github.com/libarchive/libarchive/releases/download/v3.7.9/libarchive-3.7.9.tar.gz
+    sha256: aa90732c5a6bdda52fda2ad468ac98d75be981c15dde263d7b5cf6af66fd009f
   - url: https://github.com/libarchive/libarchive/releases/download/v3.7.5/libarchive-3.7.5.tar.gz
     sha256: 37556113fe44d77a7988f1ef88bf86ab68f53d11e85066ffd3c70157cc5110f1
   - url: https://github.com/libarchive/libarchive/releases/download/v3.6.1/libarchive-3.6.1.tar.gz
@@ -17,6 +19,7 @@ software:
 - name: libxcrypt
   sources:
   - url: https://github.com/besser82/libxcrypt/releases/download/v4.4.38/libxcrypt-4.4.38.tar.xz
+    sha256: 80304b9c306ea799327f01d9a7549bdb28317789182631f1b54f4511b4206dd6 
   - url: https://github.com/besser82/libxcrypt/releases/download/v4.4.36/libxcrypt-4.4.36.tar.xz
     sha256: e5e1f4caee0a01de2aee26e3138807d6d3ca2b8e67287966d1fefd65e1fd8943
 
@@ -78,6 +81,8 @@ software:
 
 - name: libxml2
   sources:
+  - url: https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.2.tar.xz
+    sha256: 353f3c83535d4224a4e5f1e88c90b5d4563ea8fec11f6407df640fd28fc8b8c6
   - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.13.5.tar.xz
     sha256: 74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6
   - url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.7.tar.xz
@@ -230,6 +235,8 @@ software:
 
 - name: libxslt
   sources:
+  - url: https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.43.tar.xz
+    sha256: 5a3d6b383ca5afc235b171118e90f5ff6aa27e9fea3303065231a6d403f0183a
   - url: https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.xz
     sha256: 85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb
   - url: https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.36.tar.xz
