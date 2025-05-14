@@ -18,6 +18,7 @@ name "go"
 default_version "1.19.5"
 license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/golang/go/master/LICENSE"
+skip_transitive_dependency_licensing true
 
 # Defaults
 platform = "linux"
