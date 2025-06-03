@@ -42,10 +42,10 @@ version("2.9.9")   { source sha256: "58a5c05a2951f8b47656b676ce1017921a29f6b1419
 
 minor_version = version.gsub(/\.\d+\z/, "")
 if version.satisfies?("= 2.13.8")
-   source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/libxml2/libxml2-2.13.8.tar.xz"
+  source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/libxml2/libxml2-2.13.8.tar.xz"
 else
-   source url: "https://download.gnome.org/sources/libxml2/#{minor_version}/libxml2-#{version}.tar.xz"
-   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
+  source url: "https://download.gnome.org/sources/libxml2/#{minor_version}/libxml2-#{version}.tar.xz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 relative_path "libxml2-#{version}"
