@@ -44,7 +44,6 @@ minor_version = version.gsub(/\.\d+\z/, "")
   source url: "https://download.gnome.org/sources/libxml2/#{minor_version}/libxml2-#{version}.tar.xz"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-end
 relative_path "libxml2-#{version}"
 
 build do
