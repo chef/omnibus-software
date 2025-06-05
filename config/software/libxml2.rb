@@ -41,7 +41,7 @@ version("2.9.10")  { source sha256: "593b7b751dd18c2d6abcd0c4bcb29efc203d0b4373a
 version("2.9.9")   { source sha256: "58a5c05a2951f8b47656b676ce1017921a29f6b1419c45e3baed0d6435ba03f5" }
 
 minor_version = version.gsub(/\.\d+\z/, "")
-# source url: "https://download.gnome.org/sources/libxml2/#{minor_version}/libxml2-#{version}.tar.xz"
+source url: "https://download.gnome.org/sources/libxml2/#{minor_version}/libxml2-#{version}.tar.xz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "libxml2-#{version}"
