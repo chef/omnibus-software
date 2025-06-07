@@ -34,6 +34,7 @@ license "LGPL-2.1"
 # This is a (seldom updated) mirror. The primary repo is at
 # git://git.guido-flohr.net/perl/libintl-perl.git
 license_file "https://raw.githubusercontent.com/theory/libintl-perl/a92bda4e01cdecbf7e40f78c1444a8ca22e6fdfc/COPYING.LESSER"
+skip_transitive_dependency_licensing true
 
 dependency "perl"
 dependency "cpanminus"
