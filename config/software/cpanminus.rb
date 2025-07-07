@@ -32,7 +32,7 @@ version("1.7004") { source sha256: "5cef499d12418a877c68070fc14193bd700d47a286d9
 
 source url: "https://github.com/miyagawa/cpanminus/archive/#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "cpanminus-#{version}"
 
 build do
@@ -47,4 +47,3 @@ build do
 
   command "cpanm Module::Build", env: env
 end
-

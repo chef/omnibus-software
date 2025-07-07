@@ -27,7 +27,7 @@ version("0.28") { source sha256: "6b6eb31c6ec4421174578652c7e141fdaae2dabad1021f
 
 source url: "https://pkgconfig.freedesktop.org/releases/pkg-config-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "pkg-config-#{version}"
 

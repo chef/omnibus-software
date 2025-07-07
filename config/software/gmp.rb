@@ -26,7 +26,7 @@ version("6.3.0")  { source sha256: "ac28211a7cfb609bae2e2c8d6058d66c8fe96434f740
 
 source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.bz2"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.bz2",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 if version == "6.0.0a"
   # version 6.0.0a expands to 6.0.0

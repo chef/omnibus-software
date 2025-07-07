@@ -29,7 +29,7 @@ version("1.2.6")  { source sha256: "21235e08552e6feba09ea5e8d750805b3391c62fb81c
 
 source url: "https://zlib.net/fossils/zlib-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 license "Zlib"
 license_file "README"

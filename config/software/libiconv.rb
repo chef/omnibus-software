@@ -34,7 +34,7 @@ version("1.15") { source sha256: "ccf536620a45458d26ba83887a983b96827001e92a1384
 
 source url: "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libiconv-#{version}"
 

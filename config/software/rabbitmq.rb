@@ -33,17 +33,17 @@ version("2.7.1")  { source md5: "34a5f9fb6f22e6681092443fcc80324f" }
 
 version("3.7.6") do
   source(sha256: "23e61ec405fea9903c2de9532013feb124a5bc667a43a010c949276eda17e1d4",
-            url: "https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.6/rabbitmq-server-generic-unix-3.7.6.tar.xz" )
+    url: "https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.6/rabbitmq-server-generic-unix-3.7.6.tar.xz" )
 end
 
 version("3.6.15") do
   source(sha256: "04e6a291642f80e87fc892d5e8ea309fb3fab85ebb64a79a70dfe6c6cfde36fb",
-            url: "https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/rabbitmq-server-generic-unix-3.6.15.tar.xz" )
+    url: "https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/rabbitmq-server-generic-unix-3.6.15.tar.xz" )
 end
 
 version("3.6.6") do
   source(sha256: "781d17a6c8bbfbcd749d23913218de38e692a5e3093cf47eecf499532ac25d61",
-            url: "http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.6/rabbitmq-server-generic-unix-3.6.6.tar.xz" )
+    url: "http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.6/rabbitmq-server-generic-unix-3.6.6.tar.xz" )
 end
 
 relative_path "rabbitmq_server-#{version}"

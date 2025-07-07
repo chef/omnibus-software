@@ -24,7 +24,7 @@ default_version "2022-10-11"
 
 source url: "https://curl.se/ca/cacert-#{version}.pem"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/cacert-#{version}.pem",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 # versions_list: https://curl.se/docs/caextract.html
 version("2022-10-11") { source sha256: "2cff03f9efdaf52626bd1b451d700605dc1ea000c5da56bd0fc59f8f43071040" }

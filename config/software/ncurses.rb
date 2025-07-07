@@ -33,7 +33,7 @@ version("5.9") { source sha256: "9046298fb440324c9d4135ecea7879ffed8546dd1b58e59
 
 source url: "https://ftp.gnu.org/gnu/ncurses/ncurses-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "ncurses-#{version}"
 

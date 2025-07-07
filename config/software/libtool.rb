@@ -32,7 +32,7 @@ version("2.4")   { source sha256: "13df57ab63a94e196c5d6e95d64e53262834fe780d5e8
 
 source url: "https://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libtool-#{version}"
 

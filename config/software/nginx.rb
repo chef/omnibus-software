@@ -27,7 +27,7 @@ license_file "LICENSE"
 
 source url: "https://nginx.org/download/nginx-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 # versions_list: https://nginx.org/download/ filter=*.tar.gz
 version("1.21.4") { source sha256: "d1f72f474e71bcaaf465dcc7e6f7b6a4705e4b1ed95c581af31df697551f3bfe" }

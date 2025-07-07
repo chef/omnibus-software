@@ -35,7 +35,7 @@ version("5.0.14") { source sha256: "3ea5024766d983249e80d4aa9457c897a9f079957d0f
 
 source url: "https://download.redis.io/releases/redis-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "redis-#{version}"
 

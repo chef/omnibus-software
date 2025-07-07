@@ -29,7 +29,7 @@ version("3.3")   { source sha256: "72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55
 
 source url: "https://github.com/libffi/libffi/releases/download/v#{version}/libffi-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libffi-#{version}"
 

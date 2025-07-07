@@ -20,12 +20,12 @@ default_version "1.40.5"
 
 version "1.47.3" do
   source url: "https://ftp.gnu.org/gnu/help2man/help2man-1.47.3.tar.xz",
-         md5: "d1d44a7a7b2bd61755a2045d96ecaea0"
+    md5: "d1d44a7a7b2bd61755a2045d96ecaea0"
 end
 
 version "1.40.5" do
   source url: "https://ftp.gnu.org/gnu/help2man/help2man-1.40.5.tar.gz",
-         md5: "75a7d2f93765cd367aab98986a75f88c"
+    md5: "75a7d2f93765cd367aab98986a75f88c"
 end
 
 relative_path "help2man-1.40.5"

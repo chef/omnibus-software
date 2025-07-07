@@ -35,7 +35,7 @@ version("1.1.35") { source sha256: "8247f33e9a872c6ac859aa45018bc4c4d00b97e2feac
 
 source url: "https://download.gnome.org/sources/libxslt/1.1/libxslt-#{version}.tar.xz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.xz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libxslt-#{version}"
 

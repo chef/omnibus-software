@@ -40,7 +40,7 @@ version("7.79.1") { source sha256: "370b11201349816287fb0ccc995e420277fbfcaf7620
 
 source url: "https://curl.haxx.se/download/curl-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "curl-#{version}"
 

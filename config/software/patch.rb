@@ -32,7 +32,7 @@ version("2.7") { source sha256: "59c29f56faa0a924827e6a60c6accd6e2900eae5c6aaa92
 
 source url: "https://ftp.gnu.org/gnu/patch/patch-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "patch-#{version}"
 

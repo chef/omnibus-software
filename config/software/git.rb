@@ -47,11 +47,11 @@ version("2.24.1") { source sha256: "ad5334956301c86841eb1e5b1bb20884a6bad89a10a6
 
 source url: "https://www.kernel.org/pub/software/scm/git/git-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 # git builds git-core as binaries into a special directory. We need to include
 # that directory in bin_dirs so omnibus can sign them during macOS deep signing.
-bin_dirs bin_dirs.concat ["#{install_dir}/embedded/libexec/git-core"]
+bin_dirs bin_dirs.push "#{install_dir}/embedded/libexec/git-core"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -120,19 +120,19 @@ build do
   env["CFLAGS"] = "-std=c99 #{env["CFLAGS"]}"
 
   erb source: "config.mak.erb",
-      dest: "#{project_dir}/config.mak",
-      mode: 0755,
-      vars: {
-               cc: env["CC"],
-               ld: env["LD"],
-               cflags: env["CFLAGS"],
-               cppflags: env["CPPFLAGS"],
-               install: env["INSTALL"],
-               install_dir: install_dir,
-               ldflags: env["LDFLAGS"],
-               shell_path: env["SHELL_PATH"],
-               config_hash: config_hash,
-             }
+    dest: "#{project_dir}/config.mak",
+    mode: 0755,
+    vars: {
+             cc: env["CC"],
+             ld: env["LD"],
+             cflags: env["CFLAGS"],
+             cppflags: env["CPPFLAGS"],
+             install: env["INSTALL"],
+             install_dir: install_dir,
+             ldflags: env["LDFLAGS"],
+             shell_path: env["SHELL_PATH"],
+             config_hash: config_hash,
+           }
 
   #
   # NOTE - If you run ./configure the environment variables set above will not be

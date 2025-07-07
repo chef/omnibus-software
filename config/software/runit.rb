@@ -28,7 +28,7 @@ version("2.1.1") { source sha256: "ffcf2d27b32f59ac14f2d4b0772a3eb80d9342685a204
 
 source url: "http://smarden.org/runit/runit-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "admin/runit-#{version}/src"
 
 build do
@@ -57,9 +57,9 @@ build do
   copy "#{project_dir}/utmpset",    "#{install_dir}/embedded/bin"
 
   erb source: "runsvdir-start.erb",
-      dest: "#{install_dir}/embedded/bin/runsvdir-start",
-      mode: 0755,
-      vars: { install_dir: install_dir }
+    dest: "#{install_dir}/embedded/bin/runsvdir-start",
+    mode: 0755,
+    vars: { install_dir: install_dir }
 
   # Setup service directories
   touch "#{install_dir}/service/.gitkeep"

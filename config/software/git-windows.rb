@@ -35,7 +35,7 @@ arch_suffix = windows_arch_i386? ? "32" : "64"
 # that version's release.
 source url: "https://github.com/git-for-windows/git/releases/download/v#{version}.windows.1/PortableGit-#{version}-#{arch_suffix}-bit.7z.exe"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}-#{arch_suffix}-bit.7z.exe",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 if windows_arch_i386?
   # version_list: url=https://github.com/git-for-windows/git/releases filter=PortableGit-*-32-bit.7z.exe

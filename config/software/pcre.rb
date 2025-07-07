@@ -33,7 +33,7 @@ version("8.38") { source sha256: "9883e419c336c63b0cb5202b09537c140966d585e4d0da
 
 source url: "https://downloads.sourceforge.net/project/pcre/pcre/#{version}/pcre-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "pcre-#{version}"
 

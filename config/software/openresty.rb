@@ -40,7 +40,7 @@ version("1.11.2.5")    { source sha256: "f8cc203e8c0fcd69676f65506a3417097fc445f
 
 source url: "https://openresty.org/download/openresty-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "openresty-#{version}"
 

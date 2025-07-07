@@ -46,7 +46,7 @@ version("1.23") { source sha256: "60da16356c2fa89a0c542c825d626c8c2811202b6002b5
 
 source url: "https://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "libintl-perl-#{version}"
 

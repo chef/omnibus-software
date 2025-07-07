@@ -25,58 +25,58 @@ msys_dir = "msys64"
 
 version "3.3.0-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-          sha256: "01fc7d7889f161e94ae515c15fc1c22b7db506ab91af891cf7e1a764e96d8298"
+    sha256: "01fc7d7889f161e94ae515c15fc1c22b7db506ab91af891cf7e1a764e96d8298"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "3.3.1-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-          sha256: "dc590fb3d1c4254e7d33179bb84df378ead943fece2159eada5f3582bf643cc3"
+    sha256: "dc590fb3d1c4254e7d33179bb84df378ead943fece2159eada5f3582bf643cc3"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "3.0.6-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-          sha256: "c44256eae6a934db39e4f3a56d39178ac87b8b754e9b66221910417adb59a3a1"
+    sha256: "c44256eae6a934db39e4f3a56d39178ac87b8b754e9b66221910417adb59a3a1"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "3.1.2-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-          sha256: "5f0fd4a206b164a627c46e619d2babbcafb0ed4bc3e409267b9a73b6c58bdec1"
+    sha256: "5f0fd4a206b164a627c46e619d2babbcafb0ed4bc3e409267b9a73b6c58bdec1"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "3.1.4-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-          sha256: "d3dd7451bdae502894925a90c9e87685ec18fd3f73a6ca50e4282b8879d385e2"
+    sha256: "d3dd7451bdae502894925a90c9e87685ec18fd3f73a6ca50e4282b8879d385e2"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "3.1.5-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-         sha256: ""
+    sha256: ""
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "3.1.6-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-          sha256: "42f71849f0ae053df8d40182e00ee82a98ac5faa69d815fa850566f2d3711174"
+    sha256: "42f71849f0ae053df8d40182e00ee82a98ac5faa69d815fa850566f2d3711174"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 version "3.2.2-1" do
   source url: "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-#{version}/rubyinstaller-devkit-#{version}-x64.exe",
-          sha256: "678619631c7e0e9b06bd53fd50689b47770fb577a8e49a35f615d2c8691aa6b7"
+    sha256: "678619631c7e0e9b06bd53fd50689b47770fb577a8e49a35f615d2c8691aa6b7"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/rubyinstaller-devkit-#{version}-x64.exe",
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
 build do

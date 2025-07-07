@@ -32,7 +32,7 @@ version("3.1.2") { source sha256: "176043ec07f55cd02e91ee3219db141d87807b3221793
 
 source url: "https://ftp.gnu.org/gnu/mpfr/mpfr-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "mpfr-#{version}"
 

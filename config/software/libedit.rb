@@ -36,7 +36,7 @@ version("20120601-3.0") { source sha256: "51f0f4b4a97b7ebab26e7b5c2564c47628cdb3
 
 source url: "https://www.thrysoee.dk/editline/libedit-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 if version == "20141030-3.1"
   # released tar file has name discrepency in folder name for this version

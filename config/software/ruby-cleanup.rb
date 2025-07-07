@@ -262,7 +262,7 @@ build do
   block "Remove empty gem dirs from Ruby's built-in gems" do
     Dir.glob("#{install_dir}/embedded/lib/ruby/gems/*/gems/*".tr("\\", "/")).each do |d|
       # skip unless the dir is empty
-      next unless Dir.children(d).empty?
+      next unless Dir.empty?(d)
 
       puts "Deleting empty gem dir: #{d}"
       FileUtils.rm_rf(d)

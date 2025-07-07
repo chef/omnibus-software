@@ -52,10 +52,10 @@ version "8u91" do
   end
 
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/#{file}",
-         md5: md5,
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe: true
+    md5: md5,
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe: true
 
   relative_path "jdk1.8.0_91"
 end

@@ -45,84 +45,84 @@ license_cookie = "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-s
 # This is the final release of the Oracle Java under the 'Oracle Binary Code License Agreement'
 version "8u202" do
   source url: "https://download.oracle.com/otn/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/server-jre-8u202-linux-x64.tar.gz",
-         sha256: "61292e9d9ef84d9702f0e30f57b208e8fbd9a272d87cd530aece4f5213c98e4e",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
+    sha256: "61292e9d9ef84d9702f0e30f57b208e8fbd9a272d87cd530aece4f5213c98e4e",
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe:  true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_202"
 end
 
 version "8u162" do
   # https://www.oracle.com/webfolder/s/digest/8u162checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/server-jre-8u162-linux-x64.tar.gz",
-         sha256: "6942684acb6001748a01fc090a18f52ebd8cbfcf7be27ec6131981906bfa8b53",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
+    sha256: "6942684acb6001748a01fc090a18f52ebd8cbfcf7be27ec6131981906bfa8b53",
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe:  true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_162"
 end
 
 version "8u151" do
   # https://www.oracle.com/webfolder/s/digest/8u151checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/server-jre-8u151-linux-x64.tar.gz",
-         sha256: "123b1d755416aa7579abc03f01ab946e612e141b6f7564130f2ada00ed913f1d",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
+    sha256: "123b1d755416aa7579abc03f01ab946e612e141b6f7564130f2ada00ed913f1d",
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe:  true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_151"
 end
 
 version "8u144" do
   # https://www.oracle.com/webfolder/s/digest/8u144checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/server-jre-8u144-linux-x64.tar.gz",
-         sha256: "8ba6f1c692518beb0c727c6e1fb8c30a5dfcc38f8ef9f4f7c7c114c01c747ebc",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
+    sha256: "8ba6f1c692518beb0c727c6e1fb8c30a5dfcc38f8ef9f4f7c7c114c01c747ebc",
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe:  true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_144"
 end
 
 version "8u121" do
   # https://www.oracle.com/webfolder/s/digest/8u121checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/server-jre-8u121-linux-x64.tar.gz",
-         sha256: "c25a60d02475499109f2bd6aa483721462aa7bfbb86b23ca6ac59be472747e5d",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
+    sha256: "c25a60d02475499109f2bd6aa483721462aa7bfbb86b23ca6ac59be472747e5d",
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe:  true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_121"
 end
 
 version "8u111" do
   # https://www.oracle.com/webfolder/s/digest/8u111checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/server-jre-8u111-linux-x64.tar.gz",
-         sha256: "53442420cd9534ded4beca16c32c1d109cf5add637db764c86660c6eea1d88d4",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
+    sha256: "53442420cd9534ded4beca16c32c1d109cf5add637db764c86660c6eea1d88d4",
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe:  true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_111"
 end
 
 version "8u91" do
   # https://www.oracle.com/webfolder/s/digest/8u91checksum.html
   source url: "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/server-jre-8u91-linux-x64.tar.gz",
-         md5: "c8aefc3b97328d6f5197315fa6507bbf",
-         cookie: license_cookie,
-         warning: license_warning,
-         unsafe:  true
+    md5: "c8aefc3b97328d6f5197315fa6507bbf",
+    cookie: license_cookie,
+    warning: license_warning,
+    unsafe:  true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "jdk1.8.0_91"
 end
 

@@ -27,7 +27,7 @@ version("7.0.25") { source sha256: "e3dc634103f923a2276289745eb7b702b18cfc885ea4
 
 source url: "https://www.x.org/releases/individual/proto/xproto-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 license "MIT"
 license_file "COPYING"
 skip_transitive_dependency_licensing true

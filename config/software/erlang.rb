@@ -29,7 +29,7 @@ dependency "config_guess"
 # grab from github so we can get patch releases if we need to
 source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "otp-OTP-#{version}"
 
 # versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz

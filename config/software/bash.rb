@@ -36,11 +36,11 @@ license_file "COPYING"
 
 source url: "https://ftp.gnu.org/gnu/bash/bash-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 # bash builds bash as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
-lib_dirs lib_dirs.concat ["#{install_dir}/embedded/lib/bash"]
+lib_dirs lib_dirs.push "#{install_dir}/embedded/lib/bash"
 
 relative_path "bash-#{version}"
 

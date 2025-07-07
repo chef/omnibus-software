@@ -30,7 +30,7 @@ version("0.1.7") { source sha256: "8088e457264a98ba451a90b8661fcb4f9d6f478f7265d
 
 source url: "https://pyyaml.org/download/libyaml/yaml-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/yaml-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "yaml-#{version}"
 

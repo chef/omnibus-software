@@ -33,7 +33,7 @@ version("4.4.0") { source sha256: "ca261c6c876950191d4ec2f277e5bfee1c3eae8a81af9
 
 source url: "https://github.com/Gecode/gecode/archive/refs/tags/release-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "gecode-release-#{version}"
 

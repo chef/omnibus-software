@@ -29,7 +29,7 @@ version("0.28-1") { source sha256: "21b76ec4e115ee30f9b3077a2506e48e8b837332ed4d
 
 source url: "https://downloads.sourceforge.net/project/pkgconfiglite/#{version}/pkg-config-lite-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "pkg-config-lite-#{version}"
 

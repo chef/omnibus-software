@@ -27,17 +27,17 @@ skip_transitive_dependency_licensing true
 
 if ppc64?
   source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64-80.tar.xz",
-         md5: "face417c3786945c2eb458f058b8616b"
+    md5: "face417c3786945c2eb458f058b8616b"
   app_version = "ibm-java-ppc64-80"
   relative_path "ibm-java-ppc64-80"
 elsif ppc64le?
   source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64le-80.tar.xz",
-         md5: "199e3f1b5e3035bc813094e2973ffafb"
+    md5: "199e3f1b5e3035bc813094e2973ffafb"
   app_version = "ibm-java-ppc64le-80"
   relative_path "ibm-java-ppc64le-80"
 elsif s390x?
   source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-s390x-80.tar.gz",
-         md5: "722bf5ab5436add5fdddbed4b07503c7"
+    md5: "722bf5ab5436add5fdddbed4b07503c7"
   app_version = "ibm-java-s390x-80"
   relative_path "ibm-java-s390x-80"
 else

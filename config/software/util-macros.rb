@@ -25,7 +25,7 @@ version("1.18.0") { source sha256: "cf4ab0e17bfee0f7689cdcff8c7d7f164c9a710f851f
 
 source url: "https://www.x.org/releases/individual/util/util-macros-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 license "MIT"
 license_file "COPYING"

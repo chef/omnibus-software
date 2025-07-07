@@ -65,8 +65,8 @@ build do
       %w{gem bundle}.each do |binstub|
         File.open("#{install_dir}/embedded/bin/#{binstub}.bat", "w") do |f|
           f.puts <<~EOF
-          @ECHO OFF
-          "%~dp0ruby.exe" "%~dpn0" %*
+            @ECHO OFF
+            "%~dp0ruby.exe" "%~dpn0" %*
           EOF
         end
       end

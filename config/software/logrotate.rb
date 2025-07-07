@@ -25,7 +25,7 @@ dependency "popt"
 
 source url: "https://github.com/logrotate/logrotate/archive/#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 # versions_list: https://github.com/logrotate/logrotate/tags filter=*.tar.gz
 

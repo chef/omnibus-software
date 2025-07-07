@@ -26,25 +26,25 @@ dependency "openssl-fips" if fips_mode? && !(version.satisfies?(">= 3.0.0"))
 
 # Openssl builds engines as libraries into a special directory. We need to include
 # that directory in lib_dirs so omnibus can sign them during macOS deep signing.
-lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines"])
-lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-1.1"]) if version.start_with?("1.1")
+lib_dirs lib_dirs.push("#{install_dir}/embedded/lib/engines")
+lib_dirs lib_dirs.push("#{install_dir}/embedded/lib/engines-1.1") if version.start_with?("1.1")
 if version.start_with?("3.")
-  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/engines-3"])
-  lib_dirs lib_dirs.concat(["#{install_dir}/embedded/lib/ossl-modules"])
+  lib_dirs lib_dirs.push("#{install_dir}/embedded/lib/engines-3")
+  lib_dirs lib_dirs.push("#{install_dir}/embedded/lib/ossl-modules")
 end
 
 # 1.0.2u was the last public release of 1.0.2. Subsequent releases come from a support contract with OpenSSL Software Services
 if version.satisfies?("< 1.1.0")
   source url: "https://s3.amazonaws.com/chef-releng/openssl/openssl-#{version}.tar.gz", extract: :lax_tar
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz", extract: :lax_tar,
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 else
   # As of 2020-09-09 even openssl-1.0.0.tar.gz can be downloaded from /source/openssl-VERSION.tar.gz
   # However, the latest releases are not in /source/old/VERSION/openssl-VERSION.tar.gz.
   # Let's stick with the simpler one for now.
   source url: "https://www.openssl.org/source/openssl-#{version}.tar.gz", extract: :lax_tar
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz", extract: :lax_tar,
-                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+    authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 version("3.2.4") { source sha256: "b23ad7fd9f73e43ad1767e636040e88ba7c9e5775bfa5618436a0dd2c17c3716" }
 version("3.3.3") { source sha256: "712590fd20aaa60ec75d778fe5b810d6b829ca7fb1e530577917a131f9105539" }

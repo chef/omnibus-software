@@ -29,7 +29,7 @@ version("1.0.5") { source sha256: "503903d41fb5badb73cb70d7b3740c8b30fe1cc68c504
 
 source url: "https://www.x.org/releases/individual/util/makedepend-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "makedepend-#{version}"
 
