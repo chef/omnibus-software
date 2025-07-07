@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require "open3"
+require 'open3'
 
 # Get the branch to compare against (rename default to 'main' once migration occurs)
-BRANCH = ENV["BUILDKITE_PULL_REQUEST_BASE_BRANCH"] || "main"
+BRANCH = ENV['BUILDKITE_PULL_REQUEST_BASE_BRANCH'] || 'main'
 
 # Read in all the versions that are specified by SOFTWARE
 def version(version = nil)
@@ -15,7 +15,7 @@ def default_version(version = nil)
 end
 
 # Get a list of all the config/software definitions that have been added or modified
-_, status = Open3.capture2e("git config --global --add safe.directory /workdir")
+_, status = Open3.capture2e('git config --global --add safe.directory /workdir')
 exit 1 if status != 0
 _, status = Open3.capture2e("git fetch origin #{BRANCH}")
 exit 1 if status != 0
@@ -25,33 +25,32 @@ exit 1 if status != 0
 files = stdout.lines.compact.uniq.map(&:chomp)
 exit 0 if files.empty?
 
-puts "steps:"
+puts 'steps:'
 files.each do |file|
-  software = File.basename(file, ".rb")
+  software = File.basename(file, '.rb')
   $versions = []
 
   File.readlines(file).each do |line|
     # match if line starts with "default_version" or "version"
-    if line.match(/^\s*(default_)?version/)
-      # remove the beginning of any ruby block if it exists
-      line.sub!(/\s*(do|{).*/, "")
+    next unless line.match(/^\s*(default_)?version/)
 
-      # rubocop:disable Security/Eval
-      eval(line)
-    end
+    # remove the beginning of any ruby block if it exists
+    line.sub!(/\s*(do|{).*/, '')
+
+    # rubocop:disable Security/Eval
+    eval(line)
+    # rubocop:enable Security/Eval
   end
 
   # Skip health check when it is not relevant
-  health_check_skip_list = %w{ cacerts xproto util-macros }
-  deprecated_skip_list = %w{ git-windows cmake ruby-msys2-devkit }
+  health_check_skip_list = %w[cacerts xproto util-macros]
+  deprecated_skip_list = %w[git-windows cmake ruby-msys2-devkit]
 
   $versions.compact.uniq.each do |version|
     next if deprecated_skip_list.include?(software)
 
-    skip_health_check = ""
-    if health_check_skip_list.include?(software)
-      skip_health_check = "-e SKIP_HEALTH_CHECK=1"
-    end
+    skip_health_check = ''
+    skip_health_check = '-e SKIP_HEALTH_CHECK=1' if health_check_skip_list.include?(software)
     puts <<~EOH
       - label: "test-build (#{software} #{version})"
         command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} #{skip_health_check} -e CI builder

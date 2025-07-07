@@ -25,6 +25,8 @@ license_file "copyright"
 license_file "license_en.txt"
 skip_transitive_dependency_licensing true
 
+app_version = nil
+
 if ppc64?
   source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64-80.tar.xz",
     md5: "face417c3786945c2eb458f058b8616b"
@@ -42,9 +44,10 @@ elsif s390x?
   relative_path "ibm-java-s390x-80"
 else
   puts "The IBM JRE support for this platform was not found, thus it will not be installed"
+  app_version = "unsupported" 
 end
 
-default_version app_version
+default_version app_version if app_version
 
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
