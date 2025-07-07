@@ -15,46 +15,41 @@
 #
 # expeditor/ignore: deprecated 2021-04
 
-name "ibm-jre"
+name 'ibm-jre'
 
-license "IBM-Java-contractual-redistribution"
+license 'IBM-Java-contractual-redistribution'
 # This license is stange, it says it cannot be redistributed but Chef has obtained
 # a contractual agreement with IBM to repackange and redistribute the JRE free of
 # charge and without support or warranty to our mutual customers
-license_file "copyright"
-license_file "license_en.txt"
+license_file 'copyright'
+license_file 'license_en.txt'
 skip_transitive_dependency_licensing true
 
-app_version = nil
-
 if ppc64?
-  source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64-80.tar.xz",
-    md5: "face417c3786945c2eb458f058b8616b"
-  app_version = "ibm-java-ppc64-80"
-  relative_path "ibm-java-ppc64-80"
+  source url: 'https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64-80.tar.xz',
+         md5: 'face417c3786945c2eb458f058b8616b'
+  relative_path 'ibm-java-ppc64-80'
+  default_version 'ibm-java-ppc64-80'
 elsif ppc64le?
-  source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64le-80.tar.xz",
-    md5: "199e3f1b5e3035bc813094e2973ffafb"
-  app_version = "ibm-java-ppc64le-80"
-  relative_path "ibm-java-ppc64le-80"
+  source url: 'https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-ppc64le-80.tar.xz',
+         md5: '199e3f1b5e3035bc813094e2973ffafb'
+  relative_path 'ibm-java-ppc64le-80'
+  default_version 'ibm-java-ppc64le-80'
 elsif s390x?
-  source url: "https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-s390x-80.tar.gz",
-    md5: "722bf5ab5436add5fdddbed4b07503c7"
-  app_version = "ibm-java-s390x-80"
-  relative_path "ibm-java-s390x-80"
+  source url: 'https://s3.amazonaws.com/chef-releng/java/jre/ibm-java-s390x-80.tar.gz',
+         md5: '722bf5ab5436add5fdddbed4b07503c7'
+  relative_path 'ibm-java-s390x-80'
+  default_version 'ibm-java-s390x-80'
 else
-  puts "The IBM JRE support for this platform was not found, thus it will not be installed"
-  app_version = "unsupported"
+  puts 'The IBM JRE support for this platform was not found, thus it will not be installed'
 end
 
-default_version app_version if app_version
-
-whitelist_file "jre/bin/javaws"
-whitelist_file "jre/bin/policytool"
-whitelist_file "jre/lib"
-whitelist_file "jre/plugin"
-whitelist_file "jre/bin/appletviewer"
-whitelist_file "jre/bin/unpack200"
+whitelist_file 'jre/bin/javaws'
+whitelist_file 'jre/bin/policytool'
+whitelist_file 'jre/lib'
+whitelist_file 'jre/plugin'
+whitelist_file 'jre/bin/appletviewer'
+whitelist_file 'jre/bin/unpack200'
 
 build do
   mkdir "#{install_dir}/embedded/jre"
