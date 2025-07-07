@@ -44,7 +44,7 @@ elsif s390x?
   relative_path "ibm-java-s390x-80"
 else
   puts "The IBM JRE support for this platform was not found, thus it will not be installed"
-  app_version = "unsupported" 
+  app_version = "unsupported"
 end
 
 default_version app_version if app_version
