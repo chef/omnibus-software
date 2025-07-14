@@ -222,7 +222,7 @@ software:
     sha256: e010c0c071a2c79a76aa3c289dc7e4ac4ed38492bfda06d766a80b707ebd2f29
 - name: KeyDB
   sources:
-  - url: https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/KeyDB/v6.3.4.tar.gz"
+  - url: https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/KeyDB/KeyDB-6.3.4.tar.gz"
     sha256: 229190b251f921e05aff7b0d2f04b5676c198131e2abbec1e2cfb2e61215e2f3
 - name: libxslt
   sources:
