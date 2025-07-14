@@ -5,7 +5,7 @@ require "tmpdir"
 require "yaml"
 
 ARTIFACTORY_REPO_URL = ENV["ARTIFACTORY_REPO_URL"] || "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local"
-ARTIFACTORY_PASSWORD = ENV["ARTIFACTORY_PASSWORD"]
+ARTIFACTORY_PASSWORD = ENV["ARTIFACTORY_TOKEN"]
 
 def print_usage
   puts "Must provide path to internal_sources.yml file."
