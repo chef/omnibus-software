@@ -49,7 +49,7 @@ software:
   - url: https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.0.tar.gz
     sha256: 96518814d9832bece92a85415a819d4893b307db5921ae1f0f751a9a89a56b7d
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.6.tar.gz
-    sha256: 2e4db40ef3703ca9ee9d2402f48f7032400d177c936e867b926d3801f88cb3ab
+    sha256: 0d0dafb859e76763432571a3109d1537d976266be3083445651dc68deed25c22
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.7.tar.gz
     sha256: 0556acd69f141ddace03fa5dd8d76e7ea0d8f5232edf012429579bcdaab30e7b
   - url: https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.2.tar.gz
