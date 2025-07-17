@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 
-require "open3"
-
-# Get the branch to compare against (rename default to 'main' once migration occurs)
-BRANCH = ENV["BUILDKITE_PULL_REQUEST_BASE_BRANCH"] || "main"
+# Test version of generate_steps.rb that simulates the logic without git dependency
 
 # Define deprecated software versions that are end-of-life
 DEPRECATED_VERSIONS = {
@@ -69,19 +66,14 @@ def default_version(version = nil)
   $versions << version
 end
 
-# Get a list of all the config/software definitions that have been added or modified
-_, status = Open3.capture2e("git config --global --add safe.directory /workdir")
-exit 1 if status != 0
-_, status = Open3.capture2e("git fetch origin #{BRANCH}")
-exit 1 if status != 0
-stdout, status = Open3.capture2("git diff --name-status origin/#{BRANCH}...HEAD config/software | awk 'match($1, \"A\"){print $2; next} match($1, \"M\"){print $2}'")
-exit 1 if status != 0
-
-files = stdout.lines.compact.uniq.map(&:chomp)
-exit 0 if files.empty?
+# Test with a couple of software files to demonstrate the functionality
+test_files = ["../config/software/python.rb", "../config/software/openssl.rb"]
 
 puts "steps:"
-files.each do |file|
+
+test_files.each do |file|
+  next unless File.exist?(file)
+  
   software = File.basename(file, ".rb")
   $versions = []
 
