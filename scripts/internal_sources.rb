@@ -18,6 +18,7 @@ end
 
 def validate_checksum!(file_path, expected_checksum)
   actual_checksum = `sha256sum #{file_path}`.split.first
+  puts "SHA256 checksum of downloaded file: #{actual_checksum}"
   unless actual_checksum == expected_checksum
     raise "Checksum validation failed for #{file_path}. Expected: #{expected_checksum}, Actual: #{actual_checksum}"
   end
@@ -61,7 +62,7 @@ def maybe_upload(name, source)
   if exists_in_artifactory?(source["url"])
     puts "#{name} already exists in Artifactory. Skipping download and upload."
   else
-    puts "#{name} does not exist in Artifactory. Downloading and uploading..."
+    puts "#{name} does not exist in Artifactory. Downloading from #{source["url"]}..."
     raise "Failed to download #{source["url"]}" unless system("curl -s -o '#{downloaded_file}' '#{source["url"]}'")
 
     puts "Validating checksum for #{downloaded_file}"
@@ -91,6 +92,7 @@ yaml["software"].each do |software|
   next if only && software["name"] != only
 
   software["sources"].each do |source|
+    puts "Processing software: #{software["name"]}, Source URL: #{source["url"]}"
     maybe_upload(software["name"], source)
   end
 end
