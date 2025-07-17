@@ -1,0 +1,22 @@
+---
+steps:
+- label: ":file_folder: upload software to internal sources"
+  agents:
+    queue: default
+  plugins:
+    - docker#v3.5.0:
+        image: chefes/omnibus-toolchain-ubuntu-2204-x86
+        shell:
+          - "/bin/bash"
+          - "-e"
+          - "-c"
+        propagate-environment: true
+  commands:
+    - export PATH=/opt/omnibus-toolchain/bin/:/app/bin:/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+      && ./scripts/internal_sources.rb ./scripts/internal_sources.yml
+  expeditor:
+    secrets:
+      ARTIFACTORY_TOKEN:
+        path: account/static/artifactory/buildkite
+        field: token   # Ensure this matches the "token" field in Vault!
+  timeout_in_minutes: 20
