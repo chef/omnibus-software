@@ -3,6 +3,7 @@ require "net/http"
 require "openssl"
 require "tmpdir"
 require "yaml"
+require "fileutils"
 
 ARTIFACTORY_REPO_URL = ENV["ARTIFACTORY_REPO_URL"] || "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local"
 ARTIFACTORY_TOKEN = ENV["ARTIFACTORY_TOKEN"]
@@ -22,8 +23,8 @@ def validate_checksum!(file_path, expected_checksum)
   end
 end
 
-def exists_in_artifactory?(name, source)
-  uri = URI(source["url"])
+def exists_in_artifactory?(url)
+  uri = URI(url)
   request = Net::HTTP::Head.new(uri)
   request["Authorization"] = "Bearer #{ARTIFACTORY_TOKEN}" if ARTIFACTORY_TOKEN
 
@@ -32,27 +33,6 @@ def exists_in_artifactory?(name, source)
   end
 
   response.code == "200"
-end
-
-def maybe_upload(name, source)
-  dir = Dir.mktmpdir
-  file_name = File.basename(source["url"])
-  downloaded_file = File.join(dir, file_name)
-
-  puts "Downloading #{name} from #{source["url"]}"
-  raise "Failed to download #{source["url"]}" unless system("curl -s -o '#{downloaded_file}' '#{source["url"]}'")
-
-  puts "Validating checksum for #{downloaded_file}"
-  validate_checksum!(downloaded_file, source["sha256"])
-
-  if exists_in_artifactory?(name, source)
-    puts "#{name} already exists in Artifactory. Skipping upload."
-  else
-    puts "Uploading #{name} to Artifactory..."
-    upload_to_artifactory(downloaded_file, source["url"])
-  end
-ensure
-  FileUtils.remove_entry(dir) if dir
 end
 
 def upload_to_artifactory(file_path, url)
@@ -70,6 +50,28 @@ def upload_to_artifactory(file_path, url)
   end
 
   puts "Successfully uploaded #{file_path} to #{url}"
+end
+
+def maybe_upload(name, source)
+  dir = Dir.mktmpdir
+  file_name = File.basename(source["url"])
+  downloaded_file = File.join(dir, file_name)
+
+  puts "Checking if #{name} exists in Artifactory..."
+  if exists_in_artifactory?(source["url"])
+    puts "#{name} already exists in Artifactory. Skipping download and upload."
+  else
+    puts "#{name} does not exist in Artifactory. Downloading and uploading..."
+    raise "Failed to download #{source["url"]}" unless system("curl -s -o '#{downloaded_file}' '#{source["url"]}'")
+
+    puts "Validating checksum for #{downloaded_file}"
+    validate_checksum!(downloaded_file, source["sha256"])
+
+    puts "Uploading #{name} to Artifactory..."
+    upload_to_artifactory(downloaded_file, source["url"])
+  end
+ensure
+  FileUtils.remove_entry(dir) if dir
 end
 
 if ARGV.length < 1 || ARGV.length > 2
