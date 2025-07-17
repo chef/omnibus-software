@@ -44,6 +44,8 @@ software:
     sha256: 8dc2af2802cc700cd182d5430726388ccf885b3f0a14fcd6a0f21ff249c9aa99
   - url: https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/ruby/ruby-3.3.0.tar.gz
     sha256: 96518814d9832bece92a85415a819d4893b307db5921ae1f0f751a9a89a56b7d
+  - url: https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/ruby/ruby-3.2.4.tar.gz
+    sha256: c72b3c5c30482dca18b0f868c9075f3f47d8168eaf626d4e682ce5b59c858692
   - url: https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/ruby/ruby-3.1.6.tar.gz
     sha256: 0d0dafb859e76763432571a3109d1537d976266be3083445651dc68deed25c22
   - url: https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/ruby/ruby-3.1.2.tar.gz
