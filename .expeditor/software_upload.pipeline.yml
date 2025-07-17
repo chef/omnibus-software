@@ -19,7 +19,6 @@ steps:
     - export VAULT_TOKEN=$(vault login -method=aws -path=aws/private-cd -token-only header_value=vault.ps.chef.co role=ci)
     - export ARTIFACTORY_TOKEN=$(vault kv get -field token account/static/artifactory/buildkite)
     - export ARTIFACTORY_PASSWORD=$ARTIFACTORY_TOKEN
-    - echo "Artifactory token length: ${#ARTIFACTORY_TOKEN}"
     - export PATH=/opt/omnibus-toolchain/bin/:/app/bin:/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       && ./scripts/internal_sources.rb ./scripts/internal_sources.yml
   expeditor:
