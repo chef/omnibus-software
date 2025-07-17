@@ -5,7 +5,7 @@ require "tmpdir"
 require "yaml"
 
 ARTIFACTORY_REPO_URL = ENV["ARTIFACTORY_REPO_URL"] || "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local"
-ARTIFACTORY_PASSWORD = ENV["ARTIFACTORY_TOKEN"]
+ARTIFACTORY_TOKEN = ENV["ARTIFACTORY_TOKEN"]
 
 def print_usage
   puts "Must provide path to internal_sources.yml file."
@@ -15,49 +15,64 @@ def print_usage
   puts "          [only]: (Optional) Name of software to upload. Skips all others."
 end
 
-def validate_checksum!(response, source)
-  if source.key?("sha256")
-    response.header["x-checksum-sha256"] == source["sha256"]
-  elsif source.key?("md5")
-    response.header["x-checksum-md5"]  == source["md5"]
-  elsif source.key?("sha1")
-    response.header["x-checksum-sha1"] == source["sha1"]
-  else
-    raise "Unknown checksum format supplied for '#{source["url"]}'"
+def validate_checksum!(file_path, expected_checksum)
+  actual_checksum = `sha256sum #{file_path}`.split.first
+  unless actual_checksum == expected_checksum
+    raise "Checksum validation failed for #{file_path}. Expected: #{expected_checksum}, Actual: #{actual_checksum}"
   end
 end
 
 def exists_in_artifactory?(name, source)
-  uri = URI(ARTIFACTORY_REPO_URL)
-  file_name = File.basename(source["url"])
-  dir_name = name
-  path = File.join(uri.path, dir_name, file_name)
-  http = Net::HTTP.new(uri.host, uri.port)
-  http.use_ssl = true
-  response = http.head(path)
-  validate_checksum!(response, source)
+  uri = URI(source["url"])
+  request = Net::HTTP::Head.new(uri)
+  request["Authorization"] = "Bearer #{ARTIFACTORY_TOKEN}" if ARTIFACTORY_TOKEN
+
+  response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
+    http.request(request)
+  end
+
+  response.code == "200"
 end
 
 def maybe_upload(name, source)
-  unless exists_in_artifactory?(name, source)
-    Dir.mktmpdir do |dir|
-      puts "Downloading #{name} from #{source["url"]}"
-      raise "Failed to download" unless system("wget -q -P #{dir} #{source["url"]}")
+  dir = Dir.mktmpdir
+  file_name = File.basename(source["url"])
+  downloaded_file = File.join(dir, file_name)
 
-      file_name = File.basename(source["url"])
-      downloaded_file = File.join(dir, file_name)
-      repo_url = File.join(ARTIFACTORY_REPO_URL, name, file_name)
-      puts "Uploading #{downloaded_file} to #{repo_url}"
-      raise "Failed to upload" unless system("curl -s -H 'X-JFrog-Art-Api:#{ARTIFACTORY_PASSWORD}' -T '#{downloaded_file}' #{repo_url}")
+  puts "Downloading #{name} from #{source["url"]}"
+  raise "Failed to download #{source["url"]}" unless system("curl -s -o '#{downloaded_file}' '#{source["url"]}'")
 
-      puts ""
-    end
+  puts "Validating checksum for #{downloaded_file}"
+  validate_checksum!(downloaded_file, source["sha256"])
+
+  if exists_in_artifactory?(name, source)
+    puts "#{name} already exists in Artifactory. Skipping upload."
   else
-    puts "#{File.basename(source["url"])} exists in artifactory already...skipping"
+    puts "Uploading #{name} to Artifactory..."
+    upload_to_artifactory(downloaded_file, source["url"])
   end
+ensure
+  FileUtils.remove_entry(dir) if dir
 end
 
-if ARGV.size < 1 || ARGV.size > 2
+def upload_to_artifactory(file_path, url)
+  uri = URI(url)
+  request = Net::HTTP::Put.new(uri)
+  request["Authorization"] = "Bearer #{ARTIFACTORY_TOKEN}" if ARTIFACTORY_TOKEN
+  request.body = File.read(file_path)
+
+  response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
+    http.request(request)
+  end
+
+  unless response.code == "201" || response.code == "200"
+    raise "Failed to upload #{file_path} to #{url}. Response: #{response.code} #{response.message}"
+  end
+
+  puts "Successfully uploaded #{file_path} to #{url}"
+end
+
+if ARGV.length < 1 || ARGV.length > 2
   print_usage
   exit(1)
 end
@@ -69,10 +84,11 @@ unless File.exist?(file_path)
   abort("File '#{file_path}' does not exist")
 end
 
-yaml = YAML.load_file file_path
+yaml = YAML.load_file(file_path)
 yaml["software"].each do |software|
   next if only && software["name"] != only
 
-  name = software["name"]
-  software["sources"].each { |source| maybe_upload(name, source) }
+  software["sources"].each do |source|
+    maybe_upload(software["name"], source)
+  end
 end
