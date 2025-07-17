@@ -53,6 +53,8 @@ if ENV["SKIP_HEALTH_CHECK"]
   health_check false
 end
 
+fips_mode ENV["OMNIBUS_FIPS_MODE"] if ENV["OMNIBUS_FIPS_MODE"]
+
 # Load additional software
 # ------------------------------
 # software_gems ['omnibus-software', 'my-company-software']

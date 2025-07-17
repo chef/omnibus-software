@@ -19,7 +19,8 @@ name "openssl"
 license "OpenSSL"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
-default_version "1.0.2zg" # do_not_auto_update
+# Override default version if CI_OPENSSL_VERSION is set (this is used in CI for ruby software testing)
+default_version ENV["CI_OPENSSL_VERSION"] || "3.2.4"
 
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode? && !(version.satisfies?(">= 3.0.0"))
@@ -175,7 +176,7 @@ build do
   else
     patch source: "openssl-3.2.4-do-not-install-docs.patch", env: patch_env
     configure_args << "enable-legacy"
-    patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
+    patch source: "openssl-3.2.4-enable-legacy-provider.patch", env: patch_env
   end
 
   if version.start_with?("1.0.2") && mac_os_x? && arm?
@@ -216,27 +217,38 @@ build do
   make "install", env: env
 
   if fips_mode? && version.satisfies?(">= 3.0.0")
-    # running the make install_fips step to create fips artifacts
-    make "install_fips", env: env
 
+    openssl_fips_version = "3.0.9"
+
+    # Downloading the openssl-3.0.9.tar.gz file and extracting it
+    command "wget https://www.openssl.org/source/openssl-#{openssl_fips_version}.tar.gz"
+    command "tar -xf openssl-#{openssl_fips_version}.tar.gz"
+
+    # Configuring the fips provider
+    if windows?
+      platform = windows_arch_i386? ? "mingw" : "mingw64"
+      command "cd openssl-#{openssl_fips_version} && perl.exe Configure #{platform} enable-fips"
+    else
+      command "cd openssl-#{openssl_fips_version} && ./Configure enable-fips"
+    end
+
+    # Building the fips provider
+    command "cd openssl-#{openssl_fips_version} && make"
+
+    fips_provider_path = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
     fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
-    fips_module_file = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
-    command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_module_file}"
+    command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_provider_path}"
+
+    # Copying the fips provider and fipsmodule.cnf file to the embedded directory
+    command "cp openssl-#{openssl_fips_version}/providers/fips.#{windows? ? "dll" : "so"} #{install_dir}/embedded/lib/ossl-modules/"
+    command "cp openssl-#{openssl_fips_version}/providers/fipsmodule.cnf #{install_dir}/embedded/ssl/"
 
     # Updating the openssl.cnf file to enable the fips provider
-    # first, uncomment the .include line and sub in the fipsmodule.cnf path
     command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
-    # next, uncomment the fips_sect reference
     command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
 
-    # Dump the details of openssl.cnf to verify the sed worked, and ls -l the fipsmodule.cnf to verify it exists
-    # openssl list -providers should show both a default provider and a FIPS provider (also legacy providers)
-    #   before and after the update
-    command "cat #{install_dir}/embedded/ssl/openssl.cnf"
-    command "ls #{install_dir}/embedded/ssl/fipsmodule.cnf"
-    command "#{windows? ? "Perl.exe" : ""} ./util/wrap.pl -fips #{install_dir}/embedded/bin/openssl list -provider-path providers -provider fips -providers"
     command "#{install_dir}/embedded/bin/openssl list -providers"
   end
 end
