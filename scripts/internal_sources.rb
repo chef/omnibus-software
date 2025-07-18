@@ -4,6 +4,16 @@ require "openssl"
 require "tmpdir"
 require "yaml"
 
+if [[ $BUILDKITE_ORGANIZATION_SLUG != "chef-oss" ]]; then
+  export VAULT_ADDR="https://vault.ps.chef.co"
+  export VAULT_TOKEN=$(vault login -method=aws -path=aws/private-cd -token-only header_value=vault.ps.chef.co role=ci)
+  # Prefer "token" field, fallback to "password", fail gracefully if neither present
+  export ARTIFACTORY_TOKEN="$(vault kv get -field token account/static/artifactory/buildkite 2>/dev/null || vault kv get -field password account/static/artifactory/buildkite 2>/dev/null || echo '')"
+  export ARTIFACTORY_PASSWORD="$ARTIFACTORY_TOKEN"
+  # Debug line to verify that ARTIFACTORY_TOKEN is actually set (shows length only)
+  echo "Artifactory token length: ${#ARTIFACTORY_TOKEN}"
+fi
+
 ARTIFACTORY_REPO_URL = ENV["ARTIFACTORY_REPO_URL"] || "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local"
 ARTIFACTORY_TOKEN    = ENV["ARTIFACTORY_TOKEN"]
 ARTIFACTORY_PASSWORD = ENV["ARTIFACTORY_PASSWORD"]
