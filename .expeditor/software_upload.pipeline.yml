@@ -14,9 +14,4 @@ steps:
   commands:
   - export PATH=/opt/omnibus-toolchain/bin/:/app/bin:/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     && ./scripts/internal_sources.rb ./scripts/internal_sources.yml
-  expeditor:
-    secrets:
-      ARTIFACTORY_TOKEN:
-        path: account/static/artifactory/buildkite
-        field: token
   timeout_in_minutes: 20
