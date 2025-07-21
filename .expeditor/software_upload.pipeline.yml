@@ -3,8 +3,6 @@ steps:
 - label: ":file_folder: upload software to internal sources"
   agents:
     queue: default
-  env:
-      ARTIFACTORY_TOKEN: ""    # Blank value ensures it's available for environment propagation
   plugins:
   - docker#v3.5.0:
       image: chefes/omnibus-toolchain-ubuntu-2204-x86
