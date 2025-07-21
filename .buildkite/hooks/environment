@@ -1,5 +1,0 @@
-# .buildkite/hooks/environment
-if [[ $BUILDKITE_ORGANIZATION_SLUG != "chef-oss" ]]; then
-  export ARTIFACTORY_PASSWORD=$(vault kv get -field password account/static/artifactory/buildkite)
-  export ARTIFACTORY_TOKEN=$ARTIFACTORY_PASSWORD
-fi
