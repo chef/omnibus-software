@@ -8,13 +8,13 @@ ARTIFACTORY_REPO_URL = ENV["ARTIFACTORY_REPO_URL"] || "https://artifactory-inter
 ARTIFACTORY_PASSWORD = ENV["ARTIFACTORY_TOKEN"]
 
 if ENV["ARTIFACTORY_TOKEN"]
-  puts "Ruby: ARTIFACTORY_TOKEN length in internal_source.rb is: #{ENV['ARTIFACTORY_TOKEN'].size}"
+  puts "Ruby: ARTIFACTORY_TOKEN length in internal_source.rb is: #{ENV["ARTIFACTORY_TOKEN"].size}"
 else
   puts "Ruby: ARTIFACTORY_TOKEN is not set in the environment."
 end
 
 if ENV["ARTIFACTORY_PASSWORD"]
-  puts "Ruby: ARTIFACTORY_PASSWORD length in internal_source.rb is: #{ENV['ARTIFACTORY_PASSWORD'].size}"
+  puts "Ruby: ARTIFACTORY_PASSWORD length in internal_source.rb is: #{ENV["ARTIFACTORY_PASSWORD"].size}"
 else
   puts "Ruby: ARTIFACTORY_PASSWORD is not set in the environment."
 end
