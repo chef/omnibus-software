@@ -19,8 +19,9 @@ name "openssl"
 license "OpenSSL"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
+
 # Override default version if CI_OPENSSL_VERSION is set (this is used in CI for ruby software testing)
-default_version ENV["CI_OPENSSL_VERSION"] || "3.2.4"
+default_version ENV["CI_OPENSSL_VERSION"] || "1.0.2zg" # do_not_auto_update
 
 dependency "cacerts"
 dependency "openssl-fips" if fips_mode? && !(version.satisfies?(">= 3.0.0"))
