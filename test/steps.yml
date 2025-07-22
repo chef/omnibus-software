@@ -1,0 +1,2867 @@
+---
+steps:
+- env: {}
+  label: test-build (bash 5.2.15)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bash -e VERSION=5.2.15  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (bash 5.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bash -e VERSION=5.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (bash 5.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bash -e VERSION=5.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (bash 5.1.8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bash -e VERSION=5.1.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (bash 5.1.16)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bash -e VERSION=5.1.16  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (bash 5.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bash -e VERSION=5.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (bash 5.2.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bash -e VERSION=5.2.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (binutils 2.26) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=binutils -e VERSION=2.26  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (binutils 2.35)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=binutils -e VERSION=2.35  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (bzip2 1.0.8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=bzip2 -e VERSION=1.0.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cacerts 2022-10-11)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cacerts -e VERSION=2022-10-11 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cacerts 2022-07-19)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cacerts -e VERSION=2022-07-19 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cacerts 2022-04-26)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cacerts -e VERSION=2022-04-26 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cacerts 2022-03-29)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cacerts -e VERSION=2022-03-29 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cacerts 2022-02-01)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cacerts -e VERSION=2022-02-01 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cacerts 2021-10-26)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cacerts -e VERSION=2021-10-26 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cacerts 2021-09-30)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cacerts -e VERSION=2021-09-30 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (chef main)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=chef -e VERSION=main  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (chef local_source)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=chef -e VERSION=local_source  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cpanminus 1.7046)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cpanminus -e VERSION=1.7046  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cpanminus 1.7045)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cpanminus -e VERSION=1.7045  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cpanminus 1.7040)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cpanminus -e VERSION=1.7040  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (cpanminus 1.7004)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=cpanminus -e VERSION=1.7004  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 8.4.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=8.4.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 8.12.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=8.12.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 8.6.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=8.6.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 7.85.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=7.85.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 7.84.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=7.84.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 7.83.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=7.83.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 7.82.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=7.82.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 7.81.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=7.81.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 7.80.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=7.80.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (curl 7.79.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=curl -e VERSION=7.79.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (elasticsearch 5.6.16) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=elasticsearch -e VERSION=5.6.16  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (elasticsearch 6.8.22) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=elasticsearch -e VERSION=6.8.22  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (elasticsearch 6.8.23) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=elasticsearch -e VERSION=6.8.23  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 25.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=25.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 25.1.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=25.1.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 25.0.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=25.0.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 25.0.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=25.0.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 25.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=25.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 24.3.4.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=24.3.4.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 24.3.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=24.3.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 24.3.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=24.3.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 24.3.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=24.3.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (erlang 18.3) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=erlang -e VERSION=18.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.6.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.6.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.5.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.5.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.4.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.4.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.4.8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.4.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.4.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.4.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.4.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.4.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.4.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.4.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.3.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.3.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (expat 2.1.0) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=expat -e VERSION=2.1.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gecode 3.7.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gecode -e VERSION=3.7.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gecode 3.7.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gecode -e VERSION=3.7.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gecode 6.2.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gecode -e VERSION=6.2.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gecode 5.1.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gecode -e VERSION=5.1.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gecode 4.4.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gecode -e VERSION=4.4.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.39.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.39.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.39.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.39.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.37.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.37.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.37.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.37.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.37.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.37.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.37.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.37.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.36.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.36.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.36.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.36.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.35.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.35.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (git 2.24.1) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=git -e VERSION=2.24.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gmp 6.3.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gmp -e VERSION=6.3.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gmp 6.2.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gmp -e VERSION=6.2.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gmp 6.1.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gmp -e VERSION=6.1.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gmp 6.0.0a)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gmp -e VERSION=6.0.0a  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.19.5) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.19.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.23.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.23.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.22.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.22.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.21.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.21.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.21.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.21.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.21.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.21.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.19.1) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.19.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.19) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.19  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.18.5) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.18.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.18.3) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.18.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.18.2) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.18.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.17.7) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.17.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.17.6) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.17.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.17.5) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.17.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.17.2) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.17.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.17) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.17  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.16.3) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.16.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (go 1.18) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=go -e VERSION=1.18  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (google-protobuf v3.21.12)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=google-protobuf -e VERSION=v3.21.12  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gtar 1.34)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gtar -e VERSION=1.34  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gtar 1.35)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gtar -e VERSION=1.35  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gtar 1.33)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gtar -e VERSION=1.33  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gtar 1.32)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gtar -e VERSION=1.32  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gtar 1.30) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gtar -e VERSION=1.30  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (gtar 1.29) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=gtar -e VERSION=1.29  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (help2man 1.40.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=help2man -e VERSION=1.40.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (help2man 1.47.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=help2man -e VERSION=1.47.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ibm-jre ibm-java-ppc64-80)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ibm-jre -e VERSION=ibm-java-ppc64-80  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ibm-jre ibm-java-ppc64le-80)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ibm-jre -e VERSION=ibm-java-ppc64le-80  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ibm-jre ibm-java-s390x-80)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ibm-jre -e VERSION=ibm-java-s390x-80  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (jre-from-jdk 8u91)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=jre-from-jdk -e VERSION=8u91  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (keydb 6.3.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=keydb -e VERSION=6.3.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.6.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.6.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.7.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.7.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.7.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.7.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.7.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.7.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.6.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.6.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.6.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.6.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.5.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.5.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.5.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.5.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libarchive 3.5.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libarchive -e VERSION=3.5.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libedit 20120601-3.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libedit -e VERSION=20120601-3.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libedit 20221030-3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libedit -e VERSION=20221030-3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libedit 20210910-3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libedit -e VERSION=20210910-3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libedit 20210419-3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libedit -e VERSION=20210419-3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libedit 20150325-3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libedit -e VERSION=20150325-3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libedit 20141030-3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libedit -e VERSION=20141030-3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libedit 20130712-3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libedit -e VERSION=20130712-3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libffi 3.4.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libffi -e VERSION=3.4.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libffi 3.4.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libffi -e VERSION=3.4.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libffi 3.3) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libffi -e VERSION=3.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libiconv 1.17)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libiconv -e VERSION=1.17  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libiconv 1.16)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libiconv -e VERSION=1.16  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libiconv 1.15) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libiconv -e VERSION=1.15  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libintl-perl 1.23)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libintl-perl -e VERSION=1.23  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libintl-perl 1.33)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libintl-perl -e VERSION=1.33  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libintl-perl 1.32)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libintl-perl -e VERSION=1.32  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (liblzma 5.2.10)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=liblzma -e VERSION=5.2.10  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (liblzma 5.2.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=liblzma -e VERSION=5.2.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (liblzma 5.2.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=liblzma -e VERSION=5.2.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (liblzma 5.2.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=liblzma -e VERSION=5.2.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (liblzma 5.2.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=liblzma -e VERSION=5.2.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (liblzma 5.2.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=liblzma -e VERSION=5.2.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (liblzma 5.2.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=liblzma -e VERSION=5.2.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libnghttp2 1.58.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libnghttp2 -e VERSION=1.58.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libossp-uuid 1.6.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libossp-uuid -e VERSION=1.6.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libsodium 1.0.18)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libsodium -e VERSION=1.0.18  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libsodium 1.0.17)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libsodium -e VERSION=1.0.17  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libtool 2.4.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libtool -e VERSION=2.4.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libtool 2.4.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libtool -e VERSION=2.4.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libtool 2.4.2) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libtool -e VERSION=2.4.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libtool 2.4) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libtool -e VERSION=2.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libuuid 2.21)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libuuid -e VERSION=2.21  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libuuid 2.27.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libuuid -e VERSION=2.27.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxcrypt 4.4.38)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxcrypt -e VERSION=4.4.38  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxcrypt 4.4.36)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxcrypt -e VERSION=4.4.36  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.11.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.11.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.14.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.14.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.13.8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.13.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.13.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.13.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.12.10)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.12.10  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.12.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.12.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.12.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.12.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.10.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.10.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.9.14)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.9.14  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.9.13)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.9.13  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.9.12)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.9.12  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.9.10)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.9.10  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxml2 2.9.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxml2 -e VERSION=2.9.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxslt 1.1.39)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxslt -e VERSION=1.1.39  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxslt 1.1.43)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxslt -e VERSION=1.1.43  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxslt 1.1.42)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxslt -e VERSION=1.1.42  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxslt 1.1.37)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxslt -e VERSION=1.1.37  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxslt 1.1.36)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxslt -e VERSION=1.1.36  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libxslt 1.1.35)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libxslt -e VERSION=1.1.35  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libyaml 0.2.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libyaml -e VERSION=0.2.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libyaml 0.2.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libyaml -e VERSION=0.2.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (libyaml 0.1.7) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=libyaml -e VERSION=0.1.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (logrotate 3.21.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=logrotate -e VERSION=3.21.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (logrotate 3.20.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=logrotate -e VERSION=3.20.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (logrotate 3.19.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=logrotate -e VERSION=3.19.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (logrotate 3.18.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=logrotate -e VERSION=3.18.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (logrotate 3.9.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=logrotate -e VERSION=3.9.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (lua 5.4.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=lua -e VERSION=5.4.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (lua 5.4.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=lua -e VERSION=5.4.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (lua 5.4.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=lua -e VERSION=5.4.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (lua 5.4.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=lua -e VERSION=5.4.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (lua 5.3.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=lua -e VERSION=5.3.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (lua 5.2.4) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=lua -e VERSION=5.2.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (make 4.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=make -e VERSION=4.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (make 4.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=make -e VERSION=4.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (makedepend 1.0.8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=makedepend -e VERSION=1.0.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (makedepend 1.0.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=makedepend -e VERSION=1.0.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (makedepend 1.0.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=makedepend -e VERSION=1.0.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (mpc 1.3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=mpc -e VERSION=1.3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (mpc 1.2.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=mpc -e VERSION=1.2.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (mpc 1.1.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=mpc -e VERSION=1.1.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (mpfr 4.1.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=mpfr -e VERSION=4.1.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (mpfr 3.1.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=mpfr -e VERSION=3.1.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (mpfr 3.1.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=mpfr -e VERSION=3.1.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (mpfr 3.1.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=mpfr -e VERSION=3.1.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ncurses 6.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ncurses -e VERSION=6.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ncurses 6.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ncurses -e VERSION=6.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ncurses 6.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ncurses -e VERSION=6.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ncurses 6.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ncurses -e VERSION=6.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ncurses 5.9) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ncurses -e VERSION=5.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (nginx 1.21.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=nginx -e VERSION=1.21.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (nginx 1.20.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=nginx -e VERSION=1.20.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (nginx 1.19.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=nginx -e VERSION=1.19.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (nginx 1.19.8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=nginx -e VERSION=1.19.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (nodejs-binary 6.7.0) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=nodejs-binary -e VERSION=6.7.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (nodejs-binary 8.9.1) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=nodejs-binary -e VERSION=8.9.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (nodejs-binary 9.2.0) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=nodejs-binary -e VERSION=9.2.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.21.4.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.21.4.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.25.3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.25.3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.21.4.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.21.4.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.21.4.1rc1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.21.4.1rc1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.19.9.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.19.9.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.19.3.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.19.3.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.19.3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.19.3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.17.8.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.17.8.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.15.8.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.15.8.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.13.6.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.13.6.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openresty 1.11.2.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openresty -e VERSION=1.11.2.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 2.4.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=2.4.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 2.4.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=2.4.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 2.3.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=2.3.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 2.2.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=2.2.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 2.1.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=2.1.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 2.0.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=2.0.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 2.0.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=2.0.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 1.3.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=1.3.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (opensearch 1.2.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=opensearch -e VERSION=1.2.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl-fips 2.0.16) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl-fips -e VERSION=2.0.16  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl-fips 2.0.14) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl-fips -e VERSION=2.0.14  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl-fips 2.0.11) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl-fips -e VERSION=2.0.11  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl-fips 2.0.10) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl-fips -e VERSION=2.0.10  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl-fips 2.0.9) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl-fips -e VERSION=2.0.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.0.2zg) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.0.2zg  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.2.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.2.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.3.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.3.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.4.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.4.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.15)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.15  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.12)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.12  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.11)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.11  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 3.0.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=3.0.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.1.1t)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.1.1t  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.1.1q)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.1.1q  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.1.1p)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.1.1p  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.1.1o)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.1.1o  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.1.1m)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.1.1m  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.1.1l)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.1.1l  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.1.1w)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.1.1w  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.0.2zb) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.0.2zb  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.0.2za) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.0.2za  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.0.2ze) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.0.2ze  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.0.2zf) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.0.2zf  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (openssl 1.0.2zi) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=openssl -e VERSION=1.0.2zi  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patch 2.7.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patch -e VERSION=2.7.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patch 2.7.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patch -e VERSION=2.7.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patch 2.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patch -e VERSION=2.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patchelf 0.13.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patchelf -e VERSION=0.13.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patchelf 0.15.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patchelf -e VERSION=0.15.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patchelf 0.14.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patchelf -e VERSION=0.14.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patchelf 0.11)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patchelf -e VERSION=0.11  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (patchelf 0.10)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=patchelf -e VERSION=0.10  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (pcre 8.45)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=pcre -e VERSION=8.45  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (pcre 8.44)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=pcre -e VERSION=8.44  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (pcre 8.38)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=pcre -e VERSION=8.38  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl-extutils-embed 1.14)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl-extutils-embed -e VERSION=1.14  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl-extutils-makemaker 6.78)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl-extutils-makemaker -e VERSION=6.78  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl-extutils-makemaker 6.98)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl-extutils-makemaker -e VERSION=6.98  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl-extutils-makemaker 7.10)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl-extutils-makemaker -e VERSION=7.10  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl-thread-queue 3.13)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl-thread-queue -e VERSION=3.13  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl 5.36.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl -e VERSION=5.36.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl 5.34.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl -e VERSION=5.34.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl 5.34.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl -e VERSION=5.34.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl 5.32.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl -e VERSION=5.32.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl 5.30.0) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl -e VERSION=5.30.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl 5.22.1) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl -e VERSION=5.22.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl 5.18.1) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl -e VERSION=5.18.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl_pg_driver 3.16.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl_pg_driver -e VERSION=3.16.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl_pg_driver 3.17.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl_pg_driver -e VERSION=3.17.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl_pg_driver 3.15.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl_pg_driver -e VERSION=3.15.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl_pg_driver 3.15.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl_pg_driver -e VERSION=3.15.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl_pg_driver 3.14.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl_pg_driver -e VERSION=3.14.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl_pg_driver 3.5.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl_pg_driver -e VERSION=3.5.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (perl_pg_driver 3.3.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=perl_pg_driver -e VERSION=3.3.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (pkg-config-lite 0.28-1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=pkg-config-lite -e VERSION=0.28-1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (pkg-config 0.28)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=pkg-config -e VERSION=0.28  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (popt 1.19)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=popt -e VERSION=1.19  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (popt 1.18)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=popt -e VERSION=1.18  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (popt 1.16)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=popt -e VERSION=1.16  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 15.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=15.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 15.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=15.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 14.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=14.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 14.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=14.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 14.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=14.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 14.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=14.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 14.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=14.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 12.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=12.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 9.6.22) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=9.6.22  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (postgresql 9.3.25) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=postgresql -e VERSION=9.3.25  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 3.12.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=3.12.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 3.11.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=3.11.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 3.11.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=3.11.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 3.10.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=3.10.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 3.10.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=3.10.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 3.10.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=3.10.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 3.9.9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=3.9.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 2.7.18) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=2.7.18  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 2.7.14) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=2.7.14  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (python 2.7.9) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=python -e VERSION=2.7.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rabbitmq 3.6.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rabbitmq -e VERSION=3.6.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rabbitmq 3.7.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rabbitmq -e VERSION=3.7.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rabbitmq 3.6.15)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rabbitmq -e VERSION=3.6.15  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rabbitmq 3.6.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rabbitmq -e VERSION=3.6.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rabbitmq 3.3.4) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rabbitmq -e VERSION=3.3.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rabbitmq 2.8.7) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rabbitmq -e VERSION=2.8.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rabbitmq 2.7.1) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rabbitmq -e VERSION=2.7.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 7.0.8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=7.0.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 7.2.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=7.2.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 7.0.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=7.0.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 7.0.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=7.0.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 7.0.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=7.0.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 6.2.7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=6.2.7  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 6.2.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=6.2.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 6.2.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=6.2.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (redis 5.0.14)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=redis -e VERSION=5.0.14  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rsync 3.1.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rsync -e VERSION=3.1.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rsync 3.1.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rsync -e VERSION=3.1.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rsync 2.6.9) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rsync -e VERSION=2.6.9  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby-cleanup 1.0.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby-cleanup -e VERSION=1.0.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby-windows-devkit-bash 3.1.23-4-msys-1.0.18)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby-windows-devkit-bash -e VERSION=3.1.23-4-msys-1.0.18  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby-windows-devkit 4.7.2-20130224)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby-windows-devkit -e VERSION=4.7.2-20130224  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby-windows-devkit 4.5.2-20111229-1559)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby-windows-devkit -e VERSION=4.5.2-20111229-1559  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.1.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.1.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.3.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.3.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.2.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.2.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.2.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.2.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.1.6)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.1.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.1.5)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.1.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.1.4)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.1.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.1.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.1.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.1.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.1.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.0.6) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.0.6  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.0.5) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.0.5  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.0.4) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.0.4  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.0.3) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.0.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.0.2) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.0.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (ruby 3.0.1) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=ruby -e VERSION=3.0.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (runit 2.1.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=runit -e VERSION=2.1.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (runit 2.1.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=runit -e VERSION=2.1.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rust 1.37.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rust -e VERSION=1.37.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (rust 1.32.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=rust -e VERSION=1.32.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-jre 8u202)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-jre -e VERSION=8u202  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-jre 8u162)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-jre -e VERSION=8u162  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-jre 8u151)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-jre -e VERSION=8u151  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-jre 8u144)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-jre -e VERSION=8u144  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-jre 8u121)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-jre -e VERSION=8u121  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-jre 8u111)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-jre -e VERSION=8u111  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-jre 8u91)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-jre -e VERSION=8u91  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.22+7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.22+7  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.21+9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.21+9  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.20+8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.20+8  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.19+7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.19+7  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.18+10)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.18+10  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.17+8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.17+8  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.16.1+1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.16.1+1  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.15+10)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.15+10  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.14.1+1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.14.1+1  -e
+    CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.13+8)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.13+8  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.12+7)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.12+7  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.11+9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.11+9  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (server-open-jre 11.0.10+9)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=server-open-jre -e VERSION=11.0.10+9  -e CI
+    builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (shebang-cleanup 0.0.2)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=shebang-cleanup -e VERSION=0.0.2  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (sqitch 1.3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=sqitch -e VERSION=1.3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (sqitch 1.4.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=sqitch -e VERSION=1.4.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (sqitch 1.3.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=sqitch -e VERSION=1.3.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (sqitch 1.2.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=sqitch -e VERSION=1.2.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (sqitch 1.1.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=sqitch -e VERSION=1.1.0  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (sqitch 0.9999)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=sqitch -e VERSION=0.9999  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (sqitch 0.973)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=sqitch -e VERSION=0.973  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.49)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.49  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.71)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.71  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.67)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.67  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.66)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.66  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.65)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.65  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.64)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.64  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.63)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.63  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.59)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.59  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (stunnel 5.39)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=stunnel -e VERSION=5.39  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (util-macros 1.19.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=util-macros -e VERSION=1.19.3 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (util-macros 1.19.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=util-macros -e VERSION=1.19.0 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (util-macros 1.18.0)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=util-macros -e VERSION=1.18.0 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (xproto 7.0.31)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=xproto -e VERSION=7.0.31 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (xproto 7.0.28)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=xproto -e VERSION=7.0.28 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (xproto 7.0.25)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=xproto -e VERSION=7.0.25 -e SKIP_HEALTH_CHECK=1
+    -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (zlib 1.2.13)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=zlib -e VERSION=1.2.13  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (zlib 1.3.1)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=zlib -e VERSION=1.3.1  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (zlib 1.3)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=zlib -e VERSION=1.3  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (zlib 1.2.12)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=zlib -e VERSION=1.2.12  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (zlib 1.2.11)
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=zlib -e VERSION=1.2.11  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (zlib 1.2.8) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=zlib -e VERSION=1.2.8  -e CI builder
+  timeout_in_minutes: 30
+- env: {}
+  label: test-build (zlib 1.2.6) [deprecated]
+  agents:
+    queue: default-privileged
+  commands:
+  - docker-compose run --rm -e SOFTWARE=zlib -e VERSION=1.2.6  -e CI builder
+  timeout_in_minutes: 30
