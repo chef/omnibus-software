@@ -220,7 +220,7 @@ build do
   make "install", env: env
 
   if fips_mode? && version.satisfies?(">= 3.0.0")
-    openssl_fips_version = project.overrides(:openssl, :fips_version) || "3.0.9"
+    openssl_fips_version = project.overrides.dig(:openssl, :fips_version) || "3.0.9"
 
     # Downloading the openssl-3.0.9.tar.gz file and extracting it
     command "wget https://www.openssl.org/source/openssl-#{openssl_fips_version}.tar.gz"
