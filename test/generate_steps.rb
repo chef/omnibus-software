@@ -54,6 +54,7 @@ files.each do |file|
     end
     puts <<~EOH
       - label: "test-build (#{software} #{version})"
+        key: "test-build-#{software.gsub(/[^a-zA-Z0-9_-]/, "-")}-#{version.gsub(/[^a-zA-Z0-9_-]/, "-")}"
         command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} #{skip_health_check} -e CI builder
         timeout_in_minutes: 30
         expeditor:
@@ -61,5 +62,37 @@ files.each do |file|
             linux:
               privileged: true
     EOH
+
+    # Add OpenSSL validation steps
+    if software == "openssl" && Gem::Version.new(version) >= Gem::Version.new("3.0.9")
+      puts <<~EOH
+        - label: "validate-openssl-executable (#{software} #{version})"
+          key: "validate-openssl-executable-#{software.gsub(/[^a-zA-Z0-9_-]/, "-")}-#{version.gsub(/[^a-zA-Z0-9_-]/, "-")}"
+          command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} -e CI builder /omnibus-software/test/validation/build_and_validate_openssl_executable.sh
+          timeout_in_minutes: 40
+          expeditor:
+            executor:
+              linux:
+                privileged: true
+
+        - label: "validate-openssl-ruby-integration (#{software} #{version})"
+          key: "validate-openssl-ruby-integration-#{software.gsub(/[^a-zA-Z0-9_-]/, "-")}-#{version.gsub(/[^a-zA-Z0-9_-]/, "-")}"
+          command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} -e CI builder /omnibus-software/test/validation/build_and_validate_openssl_ruby.sh
+          timeout_in_minutes: 40
+          expeditor:
+            executor:
+              linux:
+                privileged: true
+
+        - label: "validate-openssl-providers-config (#{software} #{version})"
+          key: "validate-openssl-providers-config-#{software.gsub(/[^a-zA-Z0-9_-]/, "-")}-#{version.gsub(/[^a-zA-Z0-9_-]/, "-")}"
+          command: docker-compose run --rm -e SOFTWARE=#{software} -e VERSION=#{version} -e CI builder /omnibus-software/test/validation/build_and_validate_openssl_providers.sh
+          timeout_in_minutes: 40
+          expeditor:
+            executor:
+              linux:
+                privileged: true
+      EOH
+    end
   end
 end

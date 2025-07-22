@@ -27,6 +27,38 @@ For more information on writing your own software definitions, please see [the O
 
 This repository is versioned and tagged using the `YY.MM.BUILD` to allow folks to be able to access the state of the software definition at a specific point in time. We do however encourage folks to pull in the latest whenever possible.
 
+## Project Configuration Overrides
+
+Omnibus projects can override software configurations by providing override values in their project configuration. The following software projects defined in this repo have additional options.
+
+### Ruby OpenSSL Configuration
+
+When using Ruby with OpenSSL >= 3.0 in your omnibus project, you can override the OpenSSL gem version used:
+
+```ruby
+# In your omnibus project configuration
+override :ruby, version: "3.1.3", openssl_gem: "3.2.0"
+```
+
+This is particularly useful when:
+
+- Using Ruby < 3.1 with OpenSSL >= 3.0
+- FIPS mode is enabled
+- You need a specific OpenSSL gem version for compatibility
+
+_Warning_: You need to also be sure to install the same version via your `Gemfile`, as this option just grabs a copy of the `openssl.rb` for initial native gem building. The installed gem for you project needs to match or else there is a chance of breakage of OpenSSL functionality.
+
+### OpenSSL Version Configuration
+
+You can override the OpenSSL version used in your project and specify an alternative to the 3.0.9 FIPS version that is the default:
+
+```ruby
+# In your omnibus project configuration  
+override :openssl, version: "3.4.1", fips_version: "3.1.2"
+```
+
+The Ruby software definition will automatically detect when OpenSSL >= 3.0 is being used and configure the appropriate OpenSSL gem installation for compatibility. Specifying the `:fips_version` will indicate the OpenSSL library version from which the FIPS module should be used. Currently, only `3.0.9` and `3.1.2` in the software definition are validated. See [CVEs and the FIPS Provider](https://openssl-library.org/news/fips-cve/) for a list of 3.0.0 FIPS releases.
+
 ## Contributing
 
 For information on contributing to this project please see our [Contributing Documentation](https://github.com/chef/chef/blob/main/CONTRIBUTING.md)
