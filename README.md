@@ -29,7 +29,7 @@ This repository is versioned and tagged using the `YY.MM.BUILD` to allow folks t
 
 ## Project Configuration Overrides
 
-Omnibus projects can override software configurations by providing override values in their project configuration. The following override options are available for specific software components:
+Omnibus projects can override software configurations by providing override values in their project configuration. The following software projects defined in this repo have additional options.
 
 ### Ruby OpenSSL Configuration
 
@@ -46,6 +46,8 @@ This is particularly useful when:
 - FIPS mode is enabled
 - You need a specific OpenSSL gem version for compatibility
 
+_Warning_: You need to also be sure to install the same version via your `Gemfile`, as this option just grabs a copy of the `openssl.rb` for initial native gem building. The installed gem for you project needs to match or else there is a chance of breakage of OpenSSL functionality.
+
 ### OpenSSL Version Configuration
 
 You can override the OpenSSL version used in your project and specify an alternative to the 3.0.9 FIPS version that is the default:
@@ -55,7 +57,7 @@ You can override the OpenSSL version used in your project and specify an alterna
 override :openssl, version: "3.4.1", fips_version: "3.1.2"
 ```
 
-The Ruby software definition will automatically detect when OpenSSL >= 3.0 is being used and configure the appropriate OpenSSL gem installation for compatibility.
+The Ruby software definition will automatically detect when OpenSSL >= 3.0 is being used and configure the appropriate OpenSSL gem installation for compatibility. Specifying the `:fips_version` will indicate the OpenSSL library version from which the FIPS module should be used. Currently, only `3.0.9` and `3.1.2` in the software definition are validated. See [CVEs and the FIPS Provider](https://openssl-library.org/news/fips-cve/) for a list of 3.0.0 FIPS releases.
 
 ## Contributing
 
