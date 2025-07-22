@@ -135,7 +135,7 @@ build do
         "./Configure #{platform} -static-libgcc"
       end
     elsif windows?
-      platform = windows_arch_i386? ? "mingw" : "mingw64"
+      platform = "mingw64"
       "perl.exe ./Configure #{platform}"
     else
       prefix =
