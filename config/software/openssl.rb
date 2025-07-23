@@ -84,19 +84,28 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   if aix?
-    env["M4"] = "/opt/freeware/bin/m4"
-  elsif mac_os_x? && arm?
-    env["CFLAGS"] << " -Qunused-arguments"
-  elsif windows?
-    # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
-    # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
-    # and the 32-bit calling convention involving XMM registers is...  vague.
-    # Do not enable SSE2 generally because the hand optimized assembly will
-    # overwrite registers that mingw expects to get preserved.
-    env["CFLAGS"] = "-I#{install_dir}/embedded/include"
-    env["CPPFLAGS"] = env["CFLAGS"]
-    env["CXXFLAGS"] = env["CFLAGS"]
-  end
+  env["M4"] = "/opt/freeware/bin/m4"
+
+elsif mac_os_x? && arm?
+  env["CFLAGS"] << " -Qunused-arguments"
+
+elsif windows?
+  # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
+  # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
+  # and the 32-bit calling convention involving XMM registers is...  vague.
+  # Do not enable SSE2 generally because the hand optimized assembly will
+  # overwrite registers that mingw expects to get preserved.
+  env["CFLAGS"] = "-I#{install_dir}/embedded/include"
+  env["CPPFLAGS"] = env["CFLAGS"]
+  env["CXXFLAGS"] = env["CFLAGS"]
+
+elsif ohai["platform"] == "el" && ohai["platform_version"].start_with?("7") && ohai["kernel"]["machine"] == "ppc64"
+  # Specific logic for EL7 PPC64 (big endian)
+  # Avoid -m32 because gnu/stubs-32.h is missing or not available
+  env["CFLAGS"] = "-fPIC -O2"
+  env["CXXFLAGS"] = env["CFLAGS"]
+end
+
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
