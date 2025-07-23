@@ -99,11 +99,9 @@ elsif windows?
   env["CPPFLAGS"] = env["CFLAGS"]
   env["CXXFLAGS"] = env["CFLAGS"]
 
-elsif ohai["platform"] == "el" && ohai["platform_version"].start_with?("7") && ohai["kernel"]["machine"] == "ppc64"
-  # Specific logic for EL7 PPC64 (big endian)
-  # Avoid -m32 because gnu/stubs-32.h is missing or not available
-  env["CFLAGS"] = "-fPIC -O2"
-  env["CXXFLAGS"] = env["CFLAGS"]
+elsif platform.name.include?("el-7") && ppc64?
+    env["CFLAGS"] = "-fPIC -O2"
+    env["CXXFLAGS"] = env["CFLAGS"]
 end
 
 
