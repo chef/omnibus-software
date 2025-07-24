@@ -83,7 +83,10 @@ relative_path "openssl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   # Patch OpenSSL config for el7 ppc64 to replace -m32 with -m64
+
   if linux? && ppc64?
+    # Debug message for the build log
+  puts "==> ******************DEBUG [Omnibus OpenSSL] Patching #{config_file}: replacing -m32 with -m64 for el7 ppc64"
     config_file = File.join(project_dir, 'Configurations', '10-main.conf')
     command("sed -i 's/\\-m32/-m64/g' #{config_file}")
   end
