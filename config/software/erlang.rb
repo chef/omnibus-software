@@ -36,7 +36,6 @@ relative_path "otp-OTP-#{version}"
 # to get the SHA256, download the tar.gz, then calculate the SHA256 on it
 version("26.2.5.14") { source sha256: "5378dc60382c3d43ecdc0e8666c5db0f8a1df1525fff706779f720ad1d54c56c" }
 version("26.2.5.2")  { source sha256: "8e537e2d984770796cc7f0c7c079a9e5fbc67b8c368e0dcd9aa2ceaeb2844da2" }
-version("26.2.2")    { source sha256: "93c09aa8814018c23d218ac68b2bcdba188e12086223fbfa08af5cc70edd7ee1" } 
 version("25.2")      { source sha256: "d33a988f39e534aff67799c5b9635612858459c9d8890772546d71ea38de897a" }
 version("25.1.2")    { source sha256: "b9ae7becd3499aeac9f94f9379e2b1b4dced4855454fe7f200a6e3e1cf4fbc53" }
 version("25.0.4")    { source sha256: "05878cb51a64b33c86836b12a21903075c300409b609ad5e941ddb0feb8c2120" }
