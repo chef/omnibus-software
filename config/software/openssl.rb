@@ -86,8 +86,9 @@ build do
 
   if linux? && ppc64?
     # Debug message for the build log
-    puts "==> ******************DEBUG [Omnibus OpenSSL] Patching #{config_file}: replacing -m32 with -m64 for el7 ppc64"
+   
     config_file = File.join(project_dir, 'Configurations', '10-main.conf')
+    puts "==> ******************DEBUG [Omnibus OpenSSL] Patching #{config_file}: replacing -m32 with -m64 for el7 ppc64"
     command("sed -i 's/\\-m32/-m64/g' #{config_file}")
   end
 
