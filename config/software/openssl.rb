@@ -82,12 +82,6 @@ relative_path "openssl-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-
-if linux? && ppc64?
-  env["CFLAGS"] ||= ""
-  env["CFLAGS"] << " -m64"
-end
-
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
   elsif mac_os_x? && arm?
@@ -101,6 +95,10 @@ end
     env["CFLAGS"] = "-I#{install_dir}/embedded/include"
     env["CPPFLAGS"] = env["CFLAGS"]
     env["CXXFLAGS"] = env["CFLAGS"]
+  elsif el? && ppc64?
+  # Only for el-7 ppc64 platforms; ensure 64-bit, avoid -m32
+  env["CFLAGS"] = "-fPIC -O2 -m64"
+  env["CXXFLAGS"] = env["CFLAGS"]  
   end
 
 
