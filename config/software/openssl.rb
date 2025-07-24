@@ -82,14 +82,27 @@ relative_path "openssl-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
-  # Patch OpenSSL config for el7 ppc64 to replace -m32 with -m64
 
-  if linux? && ppc64?
-    # Debug message for the build log
-   
-    config_file = File.join(project_dir, 'Configurations', '10-main.conf')
-    puts "==> ******************DEBUG [Omnibus OpenSSL] Patching #{config_file}: replacing -m32 with -m64 for el7 ppc64"
-    command("sed -i 's/\\-m32/-m64/g' #{config_file}")
+  # Patch OpenSSL config for el7 ppc64 to replace -m32 with -m64
+  if version.satisfies?("= 3.1.2")
+    if linux? && ppc64?
+      # Debug message for the build log
+      config_file = File.join(project_dir, 'Configurations', '10-main.conf')
+      puts "==> ******************DEBUG [Omnibus OpenSSL] Patching #{config_file}: replacing -m32 with -m64 for el7 ppc64"
+      command("sed -i 's/\\-m32/-m64/g' #{config_file}")
+
+      # Optional patch on config.pm
+      perl_config = File.join(project_dir, "util", "perl", "OpenSSL", "config.pm")
+      if File.exist?(perl_config)
+        puts "==> DEBUG Patching #{perl_config} to replace -m32 with -m64"
+        command("sed -i 's/\\-m32/-m64/g' #{perl_config}")
+      else
+        puts "==> DEBUG Perl config file #{perl_config} not found, skipping patch"
+      end
+      # Debug grep as before
+      command("echo '==> DEBUG: Searching for any remaining -m32 flags in source tree:'")
+      command("grep -r --color=always '-m32' #{project_dir} || echo '==> No -m32 flags found in source tree'")
+    end
   end
 
   if aix?
