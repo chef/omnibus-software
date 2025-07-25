@@ -83,26 +83,6 @@ relative_path "openssl-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Patch OpenSSL config for el7 ppc64 to replace -m32 with -m64
-    if linux? && ppc64?
-      # Debug message for the build log
-      config_file = File.join(project_dir, 'Configurations', '10-main.conf')
-      puts "==> ******************DEBUG [Omnibus OpenSSL] Patching #{config_file}: replacing -m32 with -m64 for el7 ppc64"
-      command("sed -i 's/\\-m32/-m64/g' #{config_file}")
-
-      # Optional patch on config.pm
-      perl_config = File.join(project_dir, "util", "perl", "OpenSSL", "config.pm")
-      if File.exist?(perl_config)
-        puts "==> DEBUG Patching #{perl_config} to replace -m32 with -m64"
-        command("sed -i 's/\\-m32/-m64/g' #{perl_config}")
-      else
-        puts "==> DEBUG Perl config file #{perl_config} not found, skipping patch"
-      end
-      # Debug grep as before
-      command("echo '==> DEBUG: Searching for any remaining -m32 flags in source tree:'")
-      command("grep -r --color=always '-m32' #{project_dir} || echo '==> No -m32 flags found in source tree'")
-    end
-
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
   elsif mac_os_x? && arm?
@@ -246,13 +226,32 @@ build do
     # Downloading the openssl-3.0.9.tar.gz file and extracting it
     command "wget https://www.openssl.org/source/openssl-#{openssl_fips_version}.tar.gz"
     command "tar -xf openssl-#{openssl_fips_version}.tar.gz"
-
+    
     # Configuring the fips provider
     if windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
       command "cd openssl-#{openssl_fips_version} && perl.exe Configure #{platform} enable-fips"
     else
       command "cd openssl-#{openssl_fips_version} && ./Configure enable-fips"
+       # Patch OpenSSL config for el7 ppc64 to replace -m32 with -m64
+      if linux? && ppc64?
+        # Debug message for the build log
+        config_file = File.join(project_dir, 'Configurations', '10-main.conf')
+        puts "==> ******************DEBUG [Omnibus OpenSSL] Patching #{config_file}: replacing -m32 with -m64 for el7 ppc64"
+        command("sed -i 's/\\-m32/-m64/g' #{config_file}")
+
+        # Optional patch on config.pm
+        perl_config = File.join(project_dir, "util", "perl", "OpenSSL", "config.pm")
+        if File.exist?(perl_config)
+          puts "==> DEBUG Patching #{perl_config} to replace -m32 with -m64"
+          command("sed -i 's/\\-m32/-m64/g' #{perl_config}")
+        else
+          puts "==> DEBUG Perl config file #{perl_config} not found, skipping patch"
+        end
+        # Debug grep as before
+        command("echo '==> DEBUG: Searching for any remaining -m32 flags in source tree:'")
+        command("grep -r --color=always '-m32' #{project_dir} || echo '==> No -m32 flags found in source tree'")
+      end
     end
 
     # Building the fips provider
