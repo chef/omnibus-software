@@ -205,10 +205,10 @@ build do
 
     # Verify configure command used includes linux-ppc64 target
     command("cd #{fips_dir} && cat configdata.pm | grep -A5 '^my \\$target\\s*=\\s*\"linux-ppc64\"' || echo 'Configure target NOT linux-ppc64'")
-  end
-  # List the relevant source files to ensure they exist
-  command("cd #{fips_dir} && echo '==> DEBUG: Checking for PPC64 assembly source files in providers/'")
-  command("cd #{fips_dir} && ls providers/*ppc* || echo 'No PPC64 assembly source files present in providers/'")
+
+    # List the relevant source files to ensure they exist
+    command("cd #{fips_dir} && echo '==> DEBUG: Checking for PPC64 assembly source files in providers/'")
+    command("cd #{fips_dir} && ls providers/*ppc* || echo 'No PPC64 assembly source files present in providers/'")
     # Configure and build the FIPS provider
     if windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
