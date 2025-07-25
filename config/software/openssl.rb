@@ -173,6 +173,7 @@ build do
   # Special handling for FIPS builds for OpenSSL >= 3.0.0
   if fips_mode? && version.satisfies?(">= 3.0.0")
     openssl_fips_version = project.overrides.dig(:openssl, :fips_version) || "3.0.9"
+    fips_dir = "openssl-#{openssl_fips_version}"
 
     # Download and extract FIPS tarball
     command "wget https://www.openssl.org/source/openssl-#{openssl_fips_version}.tar.gz"
