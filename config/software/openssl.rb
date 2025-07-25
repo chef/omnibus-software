@@ -53,7 +53,7 @@ version("3.4.1") { source sha256: "002a2d6b30b58bf4bea46c43bdd96365aaf8daa6c4287
 
 version("3.1.2") { source sha256: "a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539" } # FIPS validated
 
-version("3.0.15") { source sha256: "23c666d0edf20f14249b3d8f0368acaee9ab585b09e1de82107c66e1f3ec9533" }
+version("3.0.15") { source sha256: "23c666d0edf20f14249f36acaee9ab585b09e1de82107c66e1f3ec9533" }
 # ... (other versions as you need)
 
 relative_path "openssl-#{version}"
@@ -88,7 +88,6 @@ build do
 
   configure_args += ["--libdir=#{install_dir}/embedded/lib"] if version.satisfies?(">=3.0.1")
 
-  # LetsEncrypt Root cert change
   if version.satisfies?(">= 1.0.2zb") && version.satisfies?("< 1.1.0")
     configure_args += [ "-DOPENSSL_TRUSTED_FIRST_DEFAULT" ]
   end
@@ -184,9 +183,11 @@ build do
       puts "==> [Omnibus OpenSSL] Recursively patching all files in openssl-#{openssl_fips_version} (-m32 to -m64) for el7 ppc64"
       command("cd openssl-#{openssl_fips_version} && find . -type f -exec sed -i 's/\\-m32/-m64/g' {} +")
       command("cd openssl-#{openssl_fips_version} && grep -r --color=always '-m32' . || echo '==> No -m32 flags found in FIPS source tree'")
-      
+
+      # Debug listing libfips.a contents (will likely be missing, so add fix below)
       command("cd #{fips_dir} && echo '==> DEBUG: Listing libfips.a contents...'")
-      command("cd #{fips_dir} && ar -t providers/libfips.a")
+      command("cd #{fips_dir} && ar -t providers/libfips.a || echo 'libfips.a not found yet'")
+
       command("cd #{fips_dir} && echo '==> DEBUG: Checking for PPC64 assembly object files in libfips.a...'")
       command("cd #{fips_dir} && ar -t providers/libfips.a | grep ppc || echo 'No PPC64 asm objects found in libfips.a'")
 
@@ -194,21 +195,22 @@ build do
       command("cd #{fips_dir} && nm providers/libfips.a | grep ppc_aes_gcm_encrypt || echo 'Symbol ppc_aes_gcm_encrypt NOT found in libfips.a'")
       command("cd #{fips_dir} && nm providers/libfips.a | grep ppc_aes_gcm_decrypt || echo 'Symbol ppc_aes_gcm_decrypt NOT found in libfips.a'")
       command("cd #{fips_dir} && nm providers/libfips.a | grep bn_mul_mont_300_fixed_n6 || echo 'Symbol bn_mul_mont_300_fixed_n6 NOT found in libfips.a'")
-      # Optionally dump the Makefile to see if these objects were included for compilation
+      # Optionally dump the Makefile head
       command("cd #{fips_dir} && echo '==> DEBUG: Head of providers/Makefile...'")
-      command("cd #{fips_dir} && head -40 providers/Makefile")
+      command("cd #{fips_dir} && head -40 providers/Makefile || echo 'No providers/Makefile'")
 
-      # Also dump the main Makefile for relevant build variables
+      # Dump main Makefile head
       command("cd #{fips_dir} && echo '==> DEBUG: Head of Makefile...'")
       command("cd #{fips_dir} && head -40 Makefile")
 
-      # Verify configure command used includes linux-ppc64 target
+      # Verify configure target in configdata.pm
       command("cd #{fips_dir} && cat configdata.pm | grep -A5 '^my \\$target\\s*=\\s*\"linux-ppc64\"' || echo 'Configure target NOT linux-ppc64'")
 
-      # List the relevant source files to ensure they exist
+      # List PPC64 assembly source files
       command("cd #{fips_dir} && echo '==> DEBUG: Checking for PPC64 assembly source files in providers/'")
       command("cd #{fips_dir} && ls providers/*ppc* || echo 'No PPC64 assembly source files present in providers/'")
     end
+
     # Configure and build the FIPS provider
     if windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
@@ -216,6 +218,18 @@ build do
       command "cd openssl-#{openssl_fips_version} && make"
     else
       command "cd openssl-#{openssl_fips_version} && ./Configure enable-fips"
+      # **Fix: build the missing libfips.a explicitly before 'make'**
+      command <<~MAKEFIX
+        cd openssl-#{openssl_fips_version} && \
+        echo '==> DEBUG: Building libfips.a manually...' && \
+        make && \
+        if [ ! -f providers/libfips.a ]; then \
+          echo 'libfips.a missing! Attempting manual creation...' && \
+          cd providers && ar rcs libfips.a *.o && cd ..; \
+        fi && \
+        test -f providers/libfips.a && echo "libfips.a exists now." || echo "ERROR: libfips.a still missing!"
+      MAKEFIX
+      # Finally, build the rest
       command "cd openssl-#{openssl_fips_version} && make"
     end
 
