@@ -84,7 +84,6 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   # Patch OpenSSL config for el7 ppc64 to replace -m32 with -m64
-  if version.satisfies?("= 3.1.2")
     if linux? && ppc64?
       # Debug message for the build log
       config_file = File.join(project_dir, 'Configurations', '10-main.conf')
@@ -103,7 +102,6 @@ build do
       command("echo '==> DEBUG: Searching for any remaining -m32 flags in source tree:'")
       command("grep -r --color=always '-m32' #{project_dir} || echo '==> No -m32 flags found in source tree'")
     end
-  end
 
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
