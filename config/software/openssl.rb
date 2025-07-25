@@ -185,6 +185,30 @@ build do
       command("cd openssl-#{openssl_fips_version} && grep -r --color=always '-m32' . || echo '==> No -m32 flags found in FIPS source tree'")
     end
 
+    command("cd #{fips_dir} && echo '==> DEBUG: Listing libfips.a contents...'")
+    command("cd #{fips_dir} && ar -t providers/libfips.a")
+
+    command("cd #{fips_dir} && echo '==> DEBUG: Checking for PPC64 assembly object files in libfips.a...'")
+    command("cd #{fips_dir} && ar -t providers/libfips.a | grep ppc || echo 'No PPC64 asm objects found in libfips.a'")
+
+    command("cd #{fips_dir} && echo '==> DEBUG: Searching for missing function symbols in libfips.a...'")
+    command("cd #{fips_dir} && nm providers/libfips.a | grep ppc_aes_gcm_encrypt || echo 'Symbol ppc_aes_gcm_encrypt NOT found in libfips.a'")
+    command("cd #{fips_dir} && nm providers/libfips.a | grep ppc_aes_gcm_decrypt || echo 'Symbol ppc_aes_gcm_decrypt NOT found in libfips.a'")
+    command("cd #{fips_dir} && nm providers/libfips.a | grep bn_mul_mont_300_fixed_n6 || echo 'Symbol bn_mul_mont_300_fixed_n6 NOT found in libfips.a'")
+      # Optionally dump the Makefile to see if these objects were included for compilation
+    command("cd #{fips_dir} && echo '==> DEBUG: Head of providers/Makefile...'")
+    command("cd #{fips_dir} && head -40 providers/Makefile")
+
+    # Also dump the main Makefile for relevant build variables
+    command("cd #{fips_dir} && echo '==> DEBUG: Head of Makefile...'")
+    command("cd #{fips_dir} && head -40 Makefile")
+
+    # Verify configure command used includes linux-ppc64 target
+    command("cd #{fips_dir} && cat configdata.pm | grep -A5 '^my \\$target\\s*=\\s*\"linux-ppc64\"' || echo 'Configure target NOT linux-ppc64'")
+  end
+  # List the relevant source files to ensure they exist
+  command("cd #{fips_dir} && echo '==> DEBUG: Checking for PPC64 assembly source files in providers/'")
+  command("cd #{fips_dir} && ls providers/*ppc* || echo 'No PPC64 assembly source files present in providers/'")
     # Configure and build the FIPS provider
     if windows?
       platform = windows_arch_i386? ? "mingw" : "mingw64"
