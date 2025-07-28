@@ -119,7 +119,19 @@ build do
   if version.satisfies?("< 3.0.0")
     configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
   else
-    configure_args += ["enable-fips"] if fips_mode?
+    if fips_mode?
+      configure_args += [
+        "enable-fips",
+        "--with-fipsdir=#{install_dir}/embedded",
+        "--with-provider-path=#{install_dir}/embedded/lib/ossl-modules",
+        "--with-module-path=#{install_dir}/embedded/lib/ossl-modules",
+        "--with-fips-libdir=#{install_dir}/embedded/lib",
+        "--with-fips-include-dir=#{install_dir}/embedded/include",
+        "--with-default-properties=fips=yes",
+        "--with-fips",
+        "--with-fips-module-path=#{install_dir}/embedded/lib/ossl-modules"
+      ]
+    end
   end
 
   configure_cmd =
