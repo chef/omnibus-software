@@ -120,6 +120,14 @@ build do
     configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
   else
     if fips_mode?
+      # First, set environment variables for paths
+      env["OPENSSL_FIPS_DIR"] = install_dir + "/embedded"
+      env["OPENSSL_PROVIDER_PATH"] = install_dir + "/embedded/lib/ossl-modules"
+      env["OPENSSL_MODULE_PATH"] = install_dir + "/embedded/lib/ossl-modules"
+      env["OPENSSL_FIPS_LIBDIR"] = install_dir + "/embedded/lib"
+      env["OPENSSL_FIPS_INCDIR"] = install_dir + "/embedded/include"
+      env["OPENSSL_DEFAULT_PROPERTIES"] = "fips=yes"
+      
       configure_args += [
         "enable-fips",
         "--with-fipsdir=#{install_dir}/embedded",
@@ -127,8 +135,6 @@ build do
         "--with-module-path=#{install_dir}/embedded/lib/ossl-modules",
         "--with-fips-libdir=#{install_dir}/embedded/lib",
         "--with-fips-include-dir=#{install_dir}/embedded/include",
-        "--with-default-properties=fips=yes",
-        "--with-fips",
         "--with-fips-module-path=#{install_dir}/embedded/lib/ossl-modules"
       ]
     end
