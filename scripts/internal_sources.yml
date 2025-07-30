@@ -5,6 +5,8 @@ software:
     sha256: 5378dc60382c3d43ecdc0e8666c5db0f8a1df1525fff706779f720ad1d54c56c
 - name: libarchive
   sources:
+  - url: https://github.com/libarchive/libarchive/releases/download/v3.8.1/libarchive-3.8.1.tar.gz
+    sha256: bde832a5e3344dc723cfe9cc37f8e54bde04565bfe6f136bc1bd31ab352e9fab
   - url: https://github.com/libarchive/libarchive/releases/download/v3.7.9/libarchive-3.7.9.tar.gz
     sha256: aa90732c5a6bdda52fda2ad468ac98d75be981c15dde263d7b5cf6af66fd009f
   - url: https://github.com/libarchive/libarchive/releases/download/v3.7.5/libarchive-3.7.5.tar.gz
