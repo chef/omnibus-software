@@ -1,0 +1,19 @@
+diff --git a/auto/lib/openssl/conf b/auto/lib/openssl/conf
+index 8d0c9a35..8eda6f37 100644
+--- a/auto/lib/openssl/conf
++++ b/auto/lib/openssl/conf
+@@ -96,6 +96,14 @@ else
+     have=NGX_OPENSSL . auto/have
+ 
+     have=NGX_SSL . auto/have
++
++    # Set default SSL cipher suite that's compatible with OpenSSL 3.2.x
++    cat >> $NGX_AUTO_CONFIG_H << END
++
++#ifndef NGX_DEFAULT_CIPHERS
++#define NGX_DEFAULT_CIPHERS "HIGH:!aNULL:!MD5:!RC4:!DES:!EXPORT:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256"
++#endif
++END
+ fi
+ 
+ 

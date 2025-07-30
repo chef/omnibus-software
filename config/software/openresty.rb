@@ -18,7 +18,7 @@ name "openresty"
 license "BSD-2-Clause"
 license_file "README.markdown"
 skip_transitive_dependency_licensing true
-default_version "1.21.4.1"
+default_version "1.27.1.2"
 
 dependency "pcre"
 dependency "openssl"
@@ -48,6 +48,11 @@ relative_path "openresty-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   env["PATH"] += "#{env["PATH"]}:/usr/sbin:/sbin"
+
+  # Apply patch for OpenSSL 3.2.4 compatibility
+  if version.satisfies?(">= 1.25")
+    patch source: "openssl-3.2.4-compatibility.patch", plevel: 1
+  end
 
   configure = [
     "./configure",
