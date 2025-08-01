@@ -63,10 +63,7 @@ build do
       env["CPPFLAGS"] = env.fetch("CPPFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
       env["AR"] = "ar"
       env["ARFLAGS"] = "cr"
-      # Remove -Wall, -Wformat, -Wformat-security from Makefile.in and configure scripts
-      command %Q{find . -type f -exec sed -i.bak 's/ -Wall//g; s/ -Wformat//g; s/ -Wformat-security//g;' {} +}
-      # Force ARFLAGS to "cr" (not "cru") instead of being left empty or as "cru"
-      command %Q{find . -type f -exec sed -i.bak 's/ARFLAGS = cru/ARFLAGS = cr/g; s/AR_FLAGS = cru/AR_FLAGS = cr/g;' {} +}
+      patch source: "libarchive_aix_3.8.1.patch", plevel: 1, env: env
     end
   end
   configure_args = [
