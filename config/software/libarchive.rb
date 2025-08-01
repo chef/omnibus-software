@@ -52,6 +52,24 @@ dependency "liblzma"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
+  
+  # Remove problematic flags from env *before* calling configure
+  if aix? && Gem::Version.new(version) >= Gem::Version.new("3.8.1")
+    flags_to_remove = ["-Wall", "-Wformat", "-Wformat-security"]
+    env["CFLAGS"] = env.fetch("CFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
+    env["CCFLAGS"] = env.fetch("CCFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
+    env["CPPFLAGS"] = env.fetch("CPPFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
+    env["AR"] = "ar"
+    env["ARFLAGS"] = "cr"
+  end
+
+  # PATCH Makefile.in and configure for GCC flags and archiver issues
+  if aix? && Gem::Version.new(version) >= Gem::Version.new("3.8.1")
+    # Remove -Wall, -Wformat, -Wformat-security from Makefile.in and configure scripts
+    command %Q{find . -type f -exec sed -i.bak 's/ -Wall//g; s/ -Wformat//g; s/ -Wformat-security//g;' {} +}
+    # Force ARFLAGS to "cr" (not "cru") instead of being left empty or as "cru"
+    command %Q{find . -type f -exec sed -i.bak 's/ARFLAGS = cru/ARFLAGS = cr/g; s/AR_FLAGS = cru/AR_FLAGS = cr/g;' {} +}
+  end
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
@@ -66,10 +84,6 @@ build do
     "--without-zstd",
     "--without-lz4",
   ]
-  if aix? && Gem::Version.new(version) >= Gem::Version.new("3.8.1")
-    flags_to_remove = ["-Wall", "-Wformat", "-Wformat-security"]
-    env["CFLAGS"] = env.fetch("CFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
-  end
 
   if s390x?
     configure_args << "--disable-xattr --disable-acl"
