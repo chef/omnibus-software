@@ -66,6 +66,10 @@ build do
     "--without-zstd",
     "--without-lz4",
   ]
+  if aix? && Gem::Version.new(version) >= Gem::Version.new("3.8.1")
+    flags_to_remove = ["-Wall", "-Wformat", "-Wformat-security"]
+    env["CFLAGS"] = env.fetch("CFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
+  end
 
   if s390x?
     configure_args << "--disable-xattr --disable-acl"
