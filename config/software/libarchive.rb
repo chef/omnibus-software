@@ -52,9 +52,7 @@ dependency "liblzma"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
-  
   # Remove problematic flags from env *before* calling configure
-  
   if aix?
     if version.satisfies?("= 3.8.1")
       flags_to_remove = ["-Wall", "-Wformat", "-Wformat-security"]
