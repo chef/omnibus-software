@@ -63,7 +63,7 @@ build do
       env["CPPFLAGS"] = env.fetch("CPPFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
       env["AR"] = "ar"
       env["ARFLAGS"] = "cr"
-      patch source: "libarchive_aix_3.8.1.patch", plevel: 1, env: env
+      patch source: "libarchive_aix_3.8.1.patch", plevel: 0, env: env
     end
   end
   configure_args = [
