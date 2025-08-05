@@ -52,7 +52,18 @@ dependency "liblzma"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
-
+  # Remove problematic flags from env *before* calling configure
+  if aix?
+    if version.satisfies?("= 3.8.1")
+      flags_to_remove = ["-Wall", "-Wformat", "-Wformat-security"]
+      env["CFLAGS"] = env.fetch("CFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
+      env["CCFLAGS"] = env.fetch("CCFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
+      env["CPPFLAGS"] = env.fetch("CPPFLAGS", "").split.reject { |f| flags_to_remove.include?(f) }.join(" ")
+      env["AR"] = "ar"
+      env["ARFLAGS"] = "cr"
+      patch source: "libarchive_aix_3.8.1.patch", plevel: 0, env: env
+    end
+  end
   configure_args = [
     "--prefix=#{install_dir}/embedded",
     "--without-lzo2",
