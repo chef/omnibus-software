@@ -40,7 +40,7 @@ license_warning = "By including the JRE, you accept the terms of AdoptOpenJRE."
 
 version "11.0.28+6" do
   source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz",
-  sha256: "ddbd5d7ef14aa06784fb94d1e0e7177868dfdd0aa216a8a2e654869968ef7392",
+  sha256: "32dcf760664f93531594b72ce9226e9216567de5705a23c9ff5a77c797948054",
   warning: license_warning,
   unsafe: true
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
