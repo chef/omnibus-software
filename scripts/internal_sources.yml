@@ -501,3 +501,8 @@ software:
   sources:
   - url: https://downloads.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1.tar.gz
     sha256: 21b76ec4e115ee30f9b3077a2506e48e8b837332ed4d30c9776502e69c6a29e5
+
+- name: server-open-jre
+  sources:
+  - url: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz
+    sha256: ddbd5d7ef14aa06784fb94d1e0e7177868dfdd0aa216a8a2e654869968ef7392
