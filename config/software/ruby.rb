@@ -347,9 +347,8 @@ build do
     command "#{install_dir}/embedded/bin/gem info openssl"
   end
 
-  # Remove typeprof gem for Ruby versions < 3.3.0 as it causes issues
-  if version.satisfies?("< 3.3.0")
-    command "#{install_dir}/embedded/bin/gem uninstall --all typeprof", returns: [0, 1]
+  (project.overrides.dig(:ruby, :unbundle_gems) || []).each do |gem|
+    command "#{install_dir}/embedded/bin/gem uninstall --all #{gem}", returns: [0, 1]
   end
 
   if windows?
