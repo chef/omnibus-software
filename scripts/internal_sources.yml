@@ -506,3 +506,8 @@ software:
   sources:
   - url: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz
     sha256: ddbd5d7ef14aa06784fb94d1e0e7177868dfdd0aa216a8a2e654869968ef7392
+
+- name: openresty
+  sources:
+  - url: https://openresty.org/download/openresty-1.25.3.1.tar.gz
+    sha256: 32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a57cd79df
