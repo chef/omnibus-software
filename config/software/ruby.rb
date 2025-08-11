@@ -348,7 +348,7 @@ build do
   end
 
   (project.overrides.dig(:ruby, :unbundle_gems) || []).each do |gem|
-    command "#{install_dir}/embedded/bin/gem uninstall --all #{gem}", returns: [0, 1]
+    command "#{install_dir}/embedded/bin/gem uninstall --force -x --all #{gem}", returns: [0, 1]
   end
 
   if windows?
