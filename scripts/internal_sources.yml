@@ -155,6 +155,8 @@ software:
     sha256: 540fb721619a6aba3bdeef7d940d8e9e0e6d2c193595bc243241b77ff9e93620
   - url: https://github.com/libffi/libffi/releases/download/v3.3/libffi-3.3.tar.gz
     sha256: 72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056
+  - url: https://github.com/libffi/libffi/releases/download/v3.3/libffi-4.4.tar.gz
+    sha256: d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676
 
 - name: libyaml
   sources:
@@ -511,3 +513,58 @@ software:
   sources:
   - url: https://openresty.org/download/openresty-1.25.3.1.tar.gz
     sha256: 32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a57cd79df
+
+- name: config_guess
+  sources:
+  - url: https://github.com/chef/config-mirror/archive/84f04b02a7e2fc8eaa9d52deee5f6d57b06fe447.tar.gz
+    sha256: e2fd1d29db7f762f6addd3eec6b6aa849d8010223901c64d97527a0b88952a51
+
+- name: haproxy
+  sources:
+  - url: http://www.haproxy.org/download/3.0/src/haproxy-3.0.11.tar.gz
+    sha256: a133e2d550c5fd9a849b5c7ab17bb945bcdad209ca140d41f45ebf31943ae783
+
+- name: libnghttp2
+  sources:
+  - url: https://github.com/nghttp2/nghttp2/releases/download/v1.58.0/nghttp2-1.58.0.tar.gz
+    sha256: 9ebdfbfbca164ef72bdf5fd2a94a4e6dfb54ec39d2ef249aeb750a91ae361dfb
+
+- name: libossp-uuid
+  sources:
+  - url: https://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-1.6.2.tar.gz
+    sha256: 11a615225baa5f8bb686824423f50e4427acd3f70d394765bdff32801f0fd5b0
+
+- name: logrotate
+  sources:
+  - url: https://github.com/logrotate/logrotate/archive/3.19.0.tar.gz
+    sha256: 7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930
+
+- name: opensearch
+  sources:
+  - url: https://artifacts.opensearch.org/releases/bundle/opensearch/1.3.20/opensearch-1.3.20-linux-x64.tar.gz
+    sha256: a786fe52b4d25db85cc49f34df6118f19c434b25935f28bd98c0f874ae77ccc3
+
+- name: popt
+  sources:
+  - url: http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz
+    sha256: c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9
+
+- name: postgresql13
+  sources:
+  - url: https://ftp.postgresql.org/pub/source/v13.21/postgresql-13.21.tar.bz2
+    sha256: dcda1294df45f033b0656cf7a8e4afbbc624c25e1b144aec79530f74d7ef4ab4
+
+- name: postgresql96-bin
+  sources:
+  - url: https://ftp.postgresql.org/pub/source/v9.6.23/postgresql-9.6.23.tar.bz2
+    sha256: a849f798401ab8c6dfa653ebbcd853b43f2200b4e3bc1ea3cb5bec9a691947b9
+
+- name: runit
+  sources:
+  - url: http://smarden.org/runit/runit-2.1.1.tar.gz
+    sha256: ffcf2d27b32f59ac14f2d4b0772a3eb80d9342685a2042b7fbbc472c07cf2a2c
+
+- name: sqitch
+  sources:
+  - url: https://github.com/theory/sqitch/releases/download/v0.973/app-sqitch-0.973.tar.gz
+    sha256: 95fc7f18fff786c5d2579133e2e3ac56779e54bb3a06a1af1117054e9f49ab32
