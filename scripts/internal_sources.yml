@@ -48,6 +48,21 @@ software:
   - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.7-1/rubyinstaller-devkit-3.1.7-1-x64.exe
     sha256: c643bf00680aa21f20b34587aa0613e9970d9b63adaef2c0228925a7f9cdfc7a
 
+- name: libnghttp2
+  sources:
+  - url: https://github.com/nghttp2/nghttp2/releases/download/v1.58.0/nghttp2-1.58.0.tar.gz
+    sha256: 9ebdfbfbca164ef72bdf5fd2a94a4e6dfb54ec39d2ef249aeb750a91ae361dfb
+
+- name: libossp-uuid
+  sources:
+  - url: https://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-1.6.2.tar.gz
+    sha256: 11a615225baa5f8bb686824423f50e4427acd3f70d394765bdff32801f0fd5b0
+
+- name: libuuid
+  sources:
+  - url: https://www.kernel.org/pub/linux/utils/util-linux/v2.27/util-linux-2.27.1.tar.gz
+    md5: e9c73747eadf5201b2a198530add4f87
+
 - name: ruby
   sources:
   - url: https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.tar.gz
