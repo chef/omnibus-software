@@ -31,7 +31,7 @@ version("6.2") { source sha256: "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227
 version("6.1") { source sha256: "aa057eeeb4a14d470101eff4597d5833dcef5965331be3528c08d99cebaa0d17" }
 version("5.9") { source sha256: "9046298fb440324c9d4135ecea7879ffed8546dd1b58e59430ea07a4633f563b" }
 
-source url: "https://ftp.gnu.org/gnu/ncurses/ncurses-#{version}.tar.gz"
+source url: "https://mirror.team-cymru.com/gnu/ncurses/ncurses-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
