@@ -561,6 +561,15 @@ software:
   - url: https://ftp.gnu.org/gnu/patch/patch-2.7.tar.gz
     sha256: 59c29f56faa0a924827e6a60c6accd6e2900eae5c6aaa922268c717f06a62048
 
+- name: patchelf
+  sources:
+  - url: https://github.com/NixOS/patchelf/releases/download/0.13.1/patchelf-0.13.1.tar.gz
+    sha256: 08c0237e89be74d61ddf8f6ff218439cdd62af572d568fb38913b53e222831de
+  - url: https://github.com/NixOS/patchelf/releases/download/0.13.1/patchelf-0.14.5.tar.gz
+    sha256: 113ada3f1ace08f0a7224aa8500f1fa6b08320d8f7df05ff58585286ec5faa6f
+  - url: https://github.com/NixOS/patchelf/releases/download/0.13.1/patchelf-0.15.0.tar.gz
+    sha256: 53a8d58ed4e060412b8fdcb6489562b3c62be6f65cee5af30eba60f4423bfa0f
+
 - name: pkg-config-lite
   sources:
   - url: https://downloads.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1.tar.gz
