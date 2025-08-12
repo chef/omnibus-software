@@ -37,14 +37,14 @@ whitelist_file "jre/bin/appletviewer"
 license_warning = "By including the JRE, you accept the terms of AdoptOpenJRE."
 
 # version_list: url=https://github.com/adoptium/temurin11-binaries/releases filter=*.tar.gz
-name-folder = "server-open-jre"
+name_folder = "server-open-jre"
 
 version "11.0.28+6" do
   source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz",
   sha256: "ddbd5d7ef14aa06784fb94d1e0e7177868dfdd0aa216a8a2e654869968ef7392",
   warning: license_warning,
   unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name-folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz",
           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
@@ -53,7 +53,7 @@ version "11.0.22+7" do
   sha256: "3a0fec1b9ef38d6abd86cf11f6001772b086096b6ec2588d2a02f1fa86b2b1de",
   warning: license_warning,
   unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name-folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.22_7.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.22_7.tar.gz",
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
@@ -62,7 +62,7 @@ version "11.0.21+9" do
   sha256: "156861bb901ef18759e05f6f008595220c7d1318a46758531b957b0c950ef2c3",
   warning: license_warning,
   unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name-folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.21_9.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.21_9.tar.gz",
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
@@ -71,7 +71,7 @@ version "11.0.20+8" do
   sha256: "ffb070c26ea22771f78769c569c9db3412e6486434dc6df1fd3c3438285766e7",
   warning: license_warning,
   unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name-folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.20_8.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.20_8.tar.gz",
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
@@ -81,7 +81,7 @@ version "11.0.15+10" do
   sha256: "22831fd097dfb39e844cb34f42064ff26a0ada9cd13621d7b8bca8e9b9d3a5ee",
   warning: license_warning,
   unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name-folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.15_10.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.15_10.tar.gz",
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
@@ -90,7 +90,7 @@ version "11.0.14.1+1" do
   sha256: "b5a6960bc6bb0b1a967e307f908ea9b06ad7adbbd9df0b8954ab51374faa8a98",
   warning: license_warning,
   unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name-folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.14.1_1.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.14.1_1.tar.gz",
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
