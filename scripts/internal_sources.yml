@@ -338,8 +338,20 @@ software:
     sha256: 2cf78b2e468912f8101d695db5340cf313c2e9f68a612fb71427524e8c9a977a
   - url: https://ftp.postgresql.org/pub/source/v14.1/postgresql-14.1.tar.bz2
     sha256: 4d3c101ea7ae38982f06bdc73758b53727fb6402ecd9382006fa5ecc7c2ca41f
+  - url: https://ftp.postgresql.org/pub/source/v13.21/postgresql-13.21.tar.bz2
+    sha256: dcda1294df45f033b0656cf7a8e4afbbc624c25e1b144aec79530f74d7ef4ab4
+  - url: https://ftp.postgresql.org/pub/source/v13.18/postgresql-13.18.tar.bz2
+    sha256: ceea92abee2a8c19408d278b68de6a78b6bd3dbb4fa2d653fa7ca745d666aab1
+  - url: https://ftp.postgresql.org/pub/source/v13.14/postgresql-13.14.tar.bz2
+    sha256: b8df078551898960bd500dc5d38a177e9905376df81fe7f2b660a1407fa6a5ed
+  - url: https://ftp.postgresql.org/pub/source/v13.6/postgresql-13.6.tar.bz2
+    sha256: bafc7fa3d9d4da8fe71b84c63ba8bdfe8092935c30c0aa85c24b2c08508f67fc
+  - url: https://ftp.postgresql.org/pub/source/v13.5/postgresql-13.5.tar.bz2
+    sha256: 9b81067a55edbaabc418aacef457dd8477642827499560b00615a6ea6c13f6b3
   - url: https://ftp.postgresql.org/pub/source/v12.7/postgresql-12.7.tar.bz2
     sha256: 8490741f47c88edc8b6624af009ce19fda4dc9b31c4469ce2551d84075d5d995
+  - url: https://ftp.postgresql.org/pub/source/v9.6.23/postgresql-9.6.23.tar.bz2
+    sha256: a849f798401ab8c6dfa653ebbcd853b43f2200b4e3bc1ea3cb5bec9a691947b9
   - url: https://ftp.postgresql.org/pub/source/v9.6.22/postgresql-9.6.22.tar.bz2
     sha256: 3d32cd101025a0556813397c69feff3df3d63736adb8adeaf365c522f39f2930
   - url: https://ftp.postgresql.org/pub/source/v9.3.25/postgresql-9.3.25.tar.bz2
