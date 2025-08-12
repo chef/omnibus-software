@@ -27,7 +27,7 @@ source url: "https://www.kernel.org/pub/linux/utils/util-linux/v#{version}/util-
 version "2.27.1" do
   source md5: "e9c73747eadf5201b2a198530add4f87",
          url: "https://www.kernel.org/pub/linux/utils/util-linux/v2.27/util-linux-2.27.1.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/util-linux-#{version}.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/util-linux-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 version "2.21" do
