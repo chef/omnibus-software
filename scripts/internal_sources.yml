@@ -336,6 +336,8 @@ software:
     sha256: dab997c9b08cb4a636a03f2f7f985eaba33279c1c52692430018fae4a4878dc7
   - url: https://curl.haxx.se/download/curl-7.79.1.tar.gz
     sha256: 370b11201349816287fb0ccc995e420277fbfcaf76206e309b3f60f0eda090c2
+  - url: https://curl.haxx.se/download/curl-8.4.0.tar.gz
+    sha256: 816e41809c043ff285e8c0f06a75a1fa250211bbfb2dc0a037eeef39f1a9e427
 
 - name: postgresql
   sources:
