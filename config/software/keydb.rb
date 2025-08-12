@@ -30,7 +30,7 @@ default_version "6.3.4"
 source url: "https://github.com/Snapchat/KeyDB/archive/refs/tags/v#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-relative_path "KeyDB-#{version}"
+relative_path "keydb-#{version}"
 
 # version_list: url=https://github.com/Snapchat/KeyDB/archive/refs/tags/ filter=*.tar.gz
 version("6.3.4") { source sha256: "229190b251f921e05aff7b0d2f04b5676c198131e2abbec1e2cfb2e61215e2f3" }
