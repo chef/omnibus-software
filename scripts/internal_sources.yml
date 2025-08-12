@@ -377,6 +377,13 @@ software:
   - url: https://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz
     sha256: 9046298fb440324c9d4135ecea7879ffed8546dd1b58e59430ea07a4633f563b
 
+-name: lpeg
+  sources:
+  - url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-1.0.1.tar.gz
+    sha256: "62d9f7a9ea3c1f215c77e0cadd8534c6ad9af0fb711c3f89188a8891c72f026b"
+  - url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-0.12.tar.gz
+    md5: "4abb3c28cd8b6565c6a65e88f06c9162"
+
 - name: libedit
   sources:
   - url: https://www.thrysoee.dk/editline/libedit-20210910-3.1.tar.gz
