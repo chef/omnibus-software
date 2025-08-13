@@ -149,6 +149,11 @@ software:
   - url: https://fossies.org/linux/misc/bzip2-1.0.8.tar.gz
     sha256: ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269
 
+- name: logrotate
+  sources:
+  - url: https://github.com/logrotate/logrotate/archive/3.19.0.tar.gz
+    sha256: 7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930
+
 - name: zlib
   sources:
   - url: https://zlib.net/fossils/zlib-1.2.12.tar.gz
