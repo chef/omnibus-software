@@ -43,7 +43,7 @@ if version >= "1.1.0"
   relative_path "App-Sqitch-v#{version}"
 else
   source url: "https://github.com/theory/#{name}/releases/download/v#{version}/app-sqitch-#{version}.tar.gz"
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/app-sqitch-#{version}.tar.gz",
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   relative_path "App-Sqitch-#{version}"
 end

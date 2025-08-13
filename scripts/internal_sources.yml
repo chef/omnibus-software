@@ -313,6 +313,11 @@ software:
   - url: https://www.x.org/releases/individual/proto/xproto-7.0.25.tar.gz
     sha256: e3dc634103f923a2276289745eb7b702b18cfc885ea4b2382bd35a8cc3d935cb
 
+- name: gecode
+  sources:
+  - url: https://github.com/Gecode/gecode/archive/refs/tags/release-3.7.3.tar.gz
+    sha256: 75faaaa025a154ec0aef8b3b6ed9e78113efb543a92b8f4b2b971a0b0e898108
+
 - name: git
   sources:
   - url: https://www.kernel.org/pub/software/scm/git/git-2.37.3.tar.gz
@@ -422,6 +427,11 @@ software:
     sha256: "62d9f7a9ea3c1f215c77e0cadd8534c6ad9af0fb711c3f89188a8891c72f026b"
   - url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-0.12.tar.gz
     md5: "4abb3c28cd8b6565c6a65e88f06c9162"
+
+-name: logrotate
+ sources:
+ - url: https://github.com/logrotate/logrotate/archive/3.19.0.tar.gz
+   sha256: 7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930
 
 - name: libintl-perl
   sources:
