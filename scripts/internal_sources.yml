@@ -187,6 +187,10 @@ software:
   - url: https://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz
     sha256: 8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729
 
+- name: perl
+  sources:
+  - url: https://www.cpan.org/src/5.0/perl-5.34.0.tar.gz
+    sha256: 551efc818b968b05216024fb0b727ef2ad4c100f8cb6b43fab615fa78ae5be9a
 - name: openssl
   sources:
   - url: https://openssl.org/source/openssl-3.2.4.tar.gz
