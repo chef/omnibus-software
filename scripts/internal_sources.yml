@@ -60,9 +60,9 @@ software:
 
 - name: libuuid
   sources:
-  - url: https://www.kernel.org/pub/linux/utils/util-linux/v2.27/util-linux-2.27.1.tar.gz
-    md5: e9c73747eadf5201b2a198530add4f87
-
+  - url: https://www.kernel.org/pub/linux/utils/util-linux/v2.21/util-linux-2.21.1.tar.gz
+    md5: 4222aa8c2a1b78889e959a4722f1881a
+  -url: 
 - name: ruby
   sources:
   - url: https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.tar.gz
