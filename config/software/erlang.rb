@@ -30,7 +30,7 @@ dependency "config_guess"
 source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/otp_src_#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-relative_path "otp_src_#{version}"
+relative_path "otp-OTP_#{version}"
 
 # versions_list: https://github.com/erlang/otp/tags filter=*.tar.gz
 # to get the SHA256, download the tar.gz, then calculate the SHA256 on it
