@@ -140,6 +140,10 @@ software:
   - url: https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.9.tar.xz
     sha256: 58a5c05a2951f8b47656b676ce1017921a29f6b1419c45e3baed0d6435ba03f5
 
+- name: gecode
+  sources:
+  - url: https://github.com/Gecode/gecode/archive/refs/tags/release-3.7.3.tar.gz
+    sha256: 75faaaa025a154ec0aef8b3b6ed9e78113efb543a92b8f4b2b971a0b0e898108
 - name: bzip2
   sources:
   - url: https://fossies.org/linux/misc/bzip2-1.0.8.tar.gz

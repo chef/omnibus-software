@@ -32,7 +32,7 @@ version("5.1.0") { source sha256: "77863f4638c6b77d24a29bf6aeac370c56cd808fe9aab
 version("4.4.0") { source sha256: "ca261c6c876950191d4ec2f277e5bfee1c3eae8a81af9b5c970d9b0c2930db37" }
 
 source url: "https://github.com/Gecode/gecode/archive/refs/tags/release-#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/release-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "gecode-release-#{version}"
