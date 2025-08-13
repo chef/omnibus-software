@@ -28,7 +28,7 @@ dependency "curl"
 default_version "6.3.4"
 
 source url: "https://github.com/Snapchat/KeyDB/archive/refs/tags/v#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{version}.tar.gz",
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/v#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "KeyDB-#{version}"
 
