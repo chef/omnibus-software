@@ -423,6 +423,11 @@ software:
   - url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-0.12.tar.gz
     md5: "4abb3c28cd8b6565c6a65e88f06c9162"
 
+- name: libintl-perl
+  sources:
+  - url: https://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-1.23.tar.gz
+    sha256: 60da16356c2fa89a0c542c825d626c8c2811202b6002b56d8574b928a1379ffa
+
 - name: libedit
   sources:
   - url: https://www.thrysoee.dk/editline/libedit-20210910-3.1.tar.gz
