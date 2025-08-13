@@ -21,7 +21,7 @@ software:
     sha256: 9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a
   - url: https://github.com/libarchive/libarchive/releases/download/v3.5.0/libarchive-3.5.0.tar.gz
     sha256: fc4bc301188376adc18780d35602454cc8df6396e1b040fbcbb0d4c0469faf54
-  -url:  https://github.com/libarchive/libarchive/releases/download/v3.6.2/libarchive-3.6.2.tar.gz
+  - url:  https://github.com/libarchive/libarchive/releases/download/v3.6.2/libarchive-3.6.2.tar.gz
     sha256: ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3
 
 - name: libxcrypt
