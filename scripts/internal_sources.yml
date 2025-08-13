@@ -428,7 +428,7 @@ software:
   - url: http://www.inf.puc-rio.br/~roberto/lpeg/lpeg-0.12.tar.gz
     md5: "4abb3c28cd8b6565c6a65e88f06c9162"
 
--name: logrotate
+- name: logrotate
  sources:
  - url: https://github.com/logrotate/logrotate/archive/3.19.0.tar.gz
    sha256: 7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930
