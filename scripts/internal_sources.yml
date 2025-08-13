@@ -1,4 +1,8 @@
 software:
+- name: cpanminus
+  sources:
+  - url: https://github.com/miyagawa/cpanminus/archive/1.7046.tar.gz
+    sha256: cefc58349f9f741aba82b8ed3d672265b53ca4e4183f72613fce06d6ab97d30c
 - name: erlang
   sources:
   - url: https://github.com/erlang/otp/releases/download/OTP-26.2.5.14/otp_src_26.2.5.14.tar.gz
