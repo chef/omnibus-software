@@ -24,10 +24,9 @@ license_file "COPYING"
 
 source url: "https://www.kernel.org/pub/linux/utils/util-linux/v#{version}/util-linux-#{version}.tar.gz"
 # We use the version in util-linux, and only build the libuuid subdirectory
-version "2.27.1" do
-  source md5: "e9c73747eadf5201b2a198530add4f87",
-         url: "https://www.kernel.org/pub/linux/utils/util-linux/v2.27/util-linux-2.27.1.tar.gz"
-end
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/util-linux-#{version}.tar.gz",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+
 version "2.21" do
   source md5: "4222aa8c2a1b78889e959a4722f1881a"
 end
