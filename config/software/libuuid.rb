@@ -26,7 +26,7 @@ source url: "https://www.kernel.org/pub/linux/utils/util-linux/v#{version}/util-
 # We use the version in util-linux, and only build the libuuid subdirectory
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/util-linux-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-end
+
 version "2.21" do
   source md5: "4222aa8c2a1b78889e959a4722f1881a"
 end
