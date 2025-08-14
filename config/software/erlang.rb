@@ -28,7 +28,7 @@ dependency "config_guess"
 
 # grab from github so we can get patch releases if we need to
 source url: "https://github.com/erlang/otp/archive/OTP-#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/OTP-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "otp-OTP-#{version}"
 
@@ -37,7 +37,6 @@ relative_path "otp-OTP-#{version}"
 version("26.2.5.14") { source sha256: "5378dc60382c3d43ecdc0e8666c5db0f8a1df1525fff706779f720ad1d54c56c" }
 version("26.2.5.2")  { source sha256: "8e537e2d984770796cc7f0c7c079a9e5fbc67b8c368e0dcd9aa2ceaeb2844da2" }
 version("25.2")      { source sha256: "d33a988f39e534aff67799c5b9635612858459c9d8890772546d71ea38de897a" }
-version("25.1.2")    { source sha256: "b9ae7becd3499aeac9f94f9379e2b1b4dced4855454fe7f200a6e3e1cf4fbc53" }
 version("25.0.4")    { source sha256: "05878cb51a64b33c86836b12a21903075c300409b609ad5e941ddb0feb8c2120" }
 version("25.0.2")    { source sha256: "f78764c6fd504f7b264c47e469c0fcb86a01c92344dc9d625dfd42f6c3ed8224" }
 version("25.0")      { source sha256: "5988e3bca208486494446e885ca2149fe487ee115cbc3770535fd22a795af5d2" }

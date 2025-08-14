@@ -24,15 +24,13 @@ skip_transitive_dependency_licensing true
 # version_list: url=https://github.com/Gecode/gecode/releases/ filter=gecode-release-*.tar.gz
 
 version("3.7.3") { source sha256: "75faaaa025a154ec0aef8b3b6ed9e78113efb543a92b8f4b2b971a0b0e898108" }
-version("3.7.1") { source sha256: "e8d1404929a707efe39d3e93403ef9019e416d90841f76d73fb4466095922c48" }
-
 # Major version, have not tried yet
 version("6.2.0") { source sha256: "27d91721a690db1e96fa9bb97cec0d73a937e9dc8062c3327f8a4ccb08e951fd" }
 version("5.1.0") { source sha256: "77863f4638c6b77d24a29bf6aeac370c56cd808fe9aabc1fca96655581f6c83d" }
 version("4.4.0") { source sha256: "ca261c6c876950191d4ec2f277e5bfee1c3eae8a81af9b5c970d9b0c2930db37" }
 
 source url: "https://github.com/Gecode/gecode/archive/refs/tags/release-#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.tar.gz",
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/release-#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 relative_path "gecode-release-#{version}"
