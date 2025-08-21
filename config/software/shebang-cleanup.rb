@@ -73,13 +73,14 @@ build do
     end
   else
     block "Update shebangs to point to embedded Ruby" do
-      # Fix the shebang for binaries with shebangs that have:
+      # Fix the shebang for knife binary specifically
       # #!/usr/bin/env ruby
-      Dir.glob("#{install_dir}/embedded/bin/*") do |bin_file|
+      knife_file = "#{install_dir}/embedded/bin/knife"
+      if File.exist?(knife_file)
         update_shebang = false
         rest_of_the_file = ""
 
-        File.open(bin_file) do |f|
+        File.open(knife_file) do |f|
           shebang = f.readline
           if shebang.start_with?("#!") &&
               shebang.include?("ruby") &&
@@ -90,7 +91,7 @@ build do
         end
 
         if update_shebang
-          File.open(bin_file, "w+") do |f|
+          File.open(knife_file, "w+") do |f|
             f.puts("#!#{install_dir}/embedded/bin/ruby")
             f.puts(rest_of_the_file)
           end
