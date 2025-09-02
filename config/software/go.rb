@@ -33,6 +33,7 @@ if windows?
   version("1.23.9")  { source sha256: "16409aa244b672de037389e9e39115cbf82633e5fa0d4db6ec1a9191ca00a1e1" }
   version("1.22.5")  { source sha256: "59968438b8d90f108fd240d4d2f95b037e59716995f7409e0a322dcb996e9f42" }
   version("1.21.5")  { source sha256: "bbe603cde7c9dee658f45164b4d06de1eff6e6e6b800100824e7c00d56a9a92f" }
+  version("1.19.5")  { source sha256: "167db91a2e40aeb453d3e59d213ecab06f62e1c4a84d13a06ccda1d999961caa" }
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
@@ -47,7 +48,7 @@ elsif mac_os_x?
     version("1.23.9")  { source sha256: "50200cba5173100a6e880098cf3b2db4063394beaf7374e9766b6c19bb18012d" }
     version("1.22.5")  { source sha256: "95d9933cdcf45f211243c42c7705c37353cccd99f27eb4d8e2d1bf2f4165cb50" }
     version("1.21.5")  { source sha256: "a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923" }
-
+    version("1.19.5")  { source sha256: "23d22bb6571bbd60197bee8aaa10e702f9802786c2e2ddce5c84527e86b66aa0" }
   else
     arch = "arm64"
     # version_list: url=https://golang.org/dl/ filter=*.darwin-arm64.tar.gz
@@ -69,6 +70,7 @@ elsif armhf?
   version("1.23.9")  { source sha256: "ade33880caacb8919b48767e0957e9880f2cdf634e137402a6f22552504136dd" }
   version("1.22.5")  { source sha256: "8c4587cf3e63c9aefbcafa92818c4d9d51683af93ea687bf6c7508d6fa36f85e" }
   version("1.21.5")  { source sha256: "837f4bf4e22fcdf920ffeaa4abf3d02d1314e03725431065f4d44c46a01b42fe" }
+  version("1.19.5")  { source sha256: "ec14f04bdaf4a62bdcf8b55b9b6434cc27c2df7d214d0bb7076a7597283b026a" }
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
@@ -81,6 +83,7 @@ elsif arm?
   version("1.23.9")  { source sha256: "3dc4dd64bdb0275e3ec65a55ecfc2597009c7c46a1b256eefab2f2172a53a602" }
   version("1.22.5")  { source sha256: "8d21325bfcf431be3660527c1a39d3d9ad71535fabdf5041c826e44e31642b5a" }
   version("1.21.5")  { source sha256: "841cced7ecda9b2014f139f5bab5ae31785f35399f236b8b3e75dff2a2978d96" }
+  version("1.19.5")  { source sha256: "fc0aa29c933cec8d76f5435d859aaf42249aa08c74eb2d154689ae44c08d23b3" }
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
@@ -92,6 +95,7 @@ else
   version("1.23.9")  { source sha256: "de03e45d7a076c06baaa9618d42b3b6a0561125b87f6041c6397680a71e5bb26" }
   version("1.22.5")  { source sha256: "904b924d435eaea086515bc63235b192ea441bd8c9b198c507e85009e6e4c7f0" }
   version("1.21.5")  { source sha256: "e2bc0b3e4b64111ec117295c088bde5f00eeed1567999ff77bc859d7df70078e" }
+  version("1.19.5")  { source sha256: "36519702ae2fd573c9869461990ae550c8c0d955cd28d2827a6b159fda81ff95" }
 end
 
 source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
