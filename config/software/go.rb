@@ -56,7 +56,6 @@ elsif mac_os_x?
     version("1.23.9")  { source sha256: "2bf624b6399e41248255858b2d61abae2703eecafad39808449951f3f1ab3766" }
     version("1.22.5")  { source sha256: "4cd1bcb05be03cecb77bccd765785d5ff69d79adf4dd49790471d00c06b41133" }
     version("1.21.5")  { source sha256: "d0f8ac0c4fb3efc223a833010901d02954e3923cfe2c9a2ff0e4254a777cc9cc" }
-    version("1.21.4")  { source sha256: "8b7caf2ac60bdff457dba7d4ff2a01def889592b834453431ae3caecf884f6a5" }
   end
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
