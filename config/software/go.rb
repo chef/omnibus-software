@@ -37,5 +37,5 @@ build do
   mkdir "#{install_dir}/embedded/bin"
   %w{go gofmt}.each do |bin|
     link "#{install_dir}/embedded/go/bin/#{bin}", "#{install_dir}/embedded/bin/#{bin}"
+  end
 end
-
