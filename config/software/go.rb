@@ -92,7 +92,7 @@ else
   version("1.23.9")  { source sha256: "de03e45d7a076c06baaa9618d42b3b6a0561125b87f6041c6397680a71e5bb26" }
   version("1.22.5")  { source sha256: "904b924d435eaea086515bc63235b192ea441bd8c9b198c507e85009e6e4c7f0" }
   version("1.21.5")  { source sha256: "e2bc0b3e4b64111ec117295c088bde5f00eeed1567999ff77bc859d7df70078e" }
-  end
+end
 
 source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
