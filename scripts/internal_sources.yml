@@ -667,3 +667,5 @@ software:
     sha256: 36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d
   - url: https://zlib.net/fossils/zlib-1.2.6.tar.gz
     sha256: 21235e08552e6feba09ea5e8d750805b3391c62fb81c71a235c0044dc7a8a61b
+  - url: https://zlib.net/fossils/zlib-1.3.1.tar.gz
+    sha256: 9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23
