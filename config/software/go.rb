@@ -36,7 +36,7 @@ if windows?
   version("1.19.5")  { source sha256: "167db91a2e40aeb453d3e59d213ecab06f62e1c4a84d13a06ccda1d999961caa" }
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.windows-amd64.zip",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}#{version}.windows-amd64.zip",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 elsif mac_os_x?
@@ -50,7 +50,7 @@ elsif mac_os_x?
     version("1.21.5")  { source sha256: "a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923" }
     version("1.19.5")  { source sha256: "23d22bb6571bbd60197bee8aaa10e702f9802786c2e2ddce5c84527e86b66aa0" }
     source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.darwin-amd64.tar.gz",
+    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}#{version}.darwin-amd64.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   else
     arch = "arm64"
@@ -61,7 +61,7 @@ elsif mac_os_x?
     version("1.21.5")  { source sha256: "d0f8ac0c4fb3efc223a833010901d02954e3923cfe2c9a2ff0e4254a777cc9cc" }
 
     source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.darwin-arm64.tar.gz",
+    internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}#{version}.darwin-arm64.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   end
 elsif armhf?
@@ -74,7 +74,7 @@ elsif armhf?
   version("1.19.5")  { source sha256: "ec14f04bdaf4a62bdcf8b55b9b6434cc27c2df7d214d0bb7076a7597283b026a" }
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.linux-armv6l.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}#{version}.linux-armv6l.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 elsif arm?
@@ -87,7 +87,7 @@ elsif arm?
   version("1.19.5")  { source sha256: "fc0aa29c933cec8d76f5435d859aaf42249aa08c74eb2d154689ae44c08d23b3" }
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.linux-arm64.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}#{version}.linux-arm64.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 else
@@ -99,7 +99,7 @@ else
   version("1.19.5")  { source sha256: "36519702ae2fd573c9869461990ae550c8c0d955cd28d2827a6b159fda81ff95" }
 
   source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.linux-amd64.tar.gz",
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}#{version}.linux-amd64.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 build do
