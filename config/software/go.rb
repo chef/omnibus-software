@@ -52,7 +52,7 @@ elsif armhf?
   # arch = "armv6l"
   version("1.23.12") { source sha256: "9704eba01401a3793f54fac162164b9c5d8cc6f3cab5cee72684bb72294d9f41" }
 
-  source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/#{name}/#{name}-#{version}.linux-armv6l.tar.gz"
+  source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/#{name}/#{name}#{version}.linux-armv6l.tar.gz"
 
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
@@ -62,7 +62,7 @@ elsif arm?
   # version_list: url=https://golang.org/dl/ filter=*.linux-arm64.tar.gz
   version("1.23.12") { source sha256: "52ce172f96e21da53b1ae9079808560d49b02ac86cecfa457217597f9bc28ab3" }
 
-  source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/#{name}/#{name}-#{version}.linux-arm64.tar.gz"
+  source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/#{name}/#{name}#{version}.linux-arm64.tar.gz"
 
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
@@ -72,7 +72,7 @@ else
   version("1.23.12") { source sha256: "d3847fef834e9db11bf64e3fb34db9c04db14e068eeb064f49af747010454f90" }
 end
 
-source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/#{name}/#{name}-#{version}.linux-amd64.tar.gz"
+source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/#{name}/#{name}#{version}.linux-amd64.tar.gz"
 
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
