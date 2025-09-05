@@ -56,7 +56,6 @@ elsif mac_os_x?
   platform = "darwin"
   if intel?
     arch = "amd64"
-    # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
     version "1.23.12" do
       source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/go/go1.23.12.darwin-amd64.tar.gz",
              sha256: "0f6efdc3ffc6f03b230016acca0aef43c229de022d0ff401e7aa4ad4862eca8e"
@@ -83,7 +82,6 @@ elsif mac_os_x?
 
   else
     arch = "arm64"
-    # version_list: url=https://golang.org/dl/ filter=*.darwin-arm64.tar.gz
     version "1.23.12" do
       source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/go/go1.23.12.darwin-arm64.tar.gz",
              sha256: "5bfa117e401ae64e7ffb960243c448b535fe007e682a13ff6c7371f4a6f0ccaa"
@@ -94,7 +92,6 @@ elsif mac_os_x?
     version("1.21.4")  { source sha256: "8b7caf2ac60bdff457dba7d4ff2a01def889592b834453431ae3caecf884f6a5" }
   end
 
-  # source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
   source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
@@ -102,7 +99,6 @@ elsif mac_os_x?
 
 elsif armhf?
   arch = "armv6l"
-  # version_list: url=https://golang.org/dl/ filter=*.linux-armv6l.tar.gz
   version("1.23.12") { source sha256: "9704eba01401a3793f54fac162164b9c5d8cc6f3cab5cee72684bb72294d9f41" }
   version("1.23.9")  { source sha256: "ade33880caacb8919b48767e0957e9880f2cdf634e137402a6f22552504136dd" }
   version("1.22.5")  { source sha256: "8c4587cf3e63c9aefbcafa92818c4d9d51683af93ea687bf6c7508d6fa36f85e" }
@@ -122,8 +118,8 @@ elsif armhf?
   version("1.17")    { source sha256: "ae89d33f4e4acc222bdb04331933d5ece4ae71039812f6ccd7493cb3e8ddfb4e" }
   version("1.16.3")  { source sha256: "0dae30385e3564a557dac7f12a63eedc73543e6da0f6017990e214ce8cc8797c" }
 
-  source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-
+  source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
@@ -149,8 +145,9 @@ elsif arm?
   version("1.17")    { source sha256: "01a9af009ada22122d3fcb9816049c1d21842524b38ef5d5a0e2ee4b26d7c3e7" }
   version("1.16.3")  { source sha256: "566b1d6f17d2bc4ad5f81486f0df44f3088c3ed47a3bec4099d8ed9939e90d5d" }
 
-  source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+  source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 else
@@ -176,7 +173,8 @@ else
   version("1.16.3")  { source sha256: "951a3c7c6ce4e56ad883f97d9db74d3d6d80d5fec77455c6ada6c1f7ac4776d2" }
 end
 
-source url: "https://dl.google.com/go/go#{version}.%{platform}-%{arch}.%{ext}" % { platform: platform, arch: arch, ext: ext }
+source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
+                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
