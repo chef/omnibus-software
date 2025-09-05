@@ -20,9 +20,7 @@ license "BSD-3-Clause"
 license_file "https://raw.githubusercontent.com/golang/go/master/LICENSE"
 
 # Defaults
-platform = "linux"
 arch = "amd64"
-ext = "tar.gz"
 
 if windows?
   platform = "windows"
@@ -92,8 +90,7 @@ elsif mac_os_x?
     version("1.21.4")  { source sha256: "8b7caf2ac60bdff457dba7d4ff2a01def889592b834453431ae3caecf884f6a5" }
   end
 
-  source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
@@ -118,8 +115,8 @@ elsif armhf?
   version("1.17")    { source sha256: "ae89d33f4e4acc222bdb04331933d5ece4ae71039812f6ccd7493cb3e8ddfb4e" }
   version("1.16.3")  { source sha256: "0dae30385e3564a557dac7f12a63eedc73543e6da0f6017990e214ce8cc8797c" }
 
-  source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}"
+
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
@@ -145,8 +142,8 @@ elsif arm?
   version("1.17")    { source sha256: "01a9af009ada22122d3fcb9816049c1d21842524b38ef5d5a0e2ee4b26d7c3e7" }
   version("1.16.3")  { source sha256: "566b1d6f17d2bc4ad5f81486f0df44f3088c3ed47a3bec4099d8ed9939e90d5d" }
 
-  source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+  source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}"
+
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
@@ -173,8 +170,8 @@ else
   version("1.16.3")  { source sha256: "951a3c7c6ce4e56ad883f97d9db74d3d6d80d5fec77455c6ada6c1f7ac4776d2" }
 end
 
-source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
-                authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}"
+
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.%{platform}-%{arch}.%{ext}",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
