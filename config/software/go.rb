@@ -57,6 +57,10 @@ elsif mac_os_x?
   if intel?
     arch = "amd64"
     # version_list: url=https://golang.org/dl/ filter=*.darwin-amd64.tar.gz
+    version "1.23.12" do
+      source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/go/go1.23.12.darwin-amd64.tar.gz",
+             sha256: "0f6efdc3ffc6f03b230016acca0aef43c229de022d0ff401e7aa4ad4862eca8e"
+    end
     version("1.23.12") { source sha256: "0f6efdc3ffc6f03b230016acca0aef43c229de022d0ff401e7aa4ad4862eca8e" }
     version("1.23.9")  { source sha256: "50200cba5173100a6e880098cf3b2db4063394beaf7374e9766b6c19bb18012d" }
     version("1.22.5")  { source sha256: "95d9933cdcf45f211243c42c7705c37353cccd99f27eb4d8e2d1bf2f4165cb50" }
@@ -80,7 +84,10 @@ elsif mac_os_x?
   else
     arch = "arm64"
     # version_list: url=https://golang.org/dl/ filter=*.darwin-arm64.tar.gz
-    version("1.23.12") { source sha256: "5bfa117e401ae64e7ffb960243c448b535fe007e682a13ff6c7371f4a6f0ccaa" }
+    version "1.23.12" do
+      source url: "https://artifactory-internal.ps.chef.co/ui/repos/tree/General/omnibus-software-local/go/go1.23.12.darwin-arm64.tar.gz",
+             sha256: "5bfa117e401ae64e7ffb960243c448b535fe007e682a13ff6c7371f4a6f0ccaa"
+    end
     version("1.23.9")  { source sha256: "2bf624b6399e41248255858b2d61abae2703eecafad39808449951f3f1ab3766" }
     version("1.22.5")  { source sha256: "4cd1bcb05be03cecb77bccd765785d5ff69d79adf4dd49790471d00c06b41133" }
     version("1.21.5")  { source sha256: "d0f8ac0c4fb3efc223a833010901d02954e3923cfe2c9a2ff0e4254a777cc9cc" }
