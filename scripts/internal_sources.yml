@@ -1,9 +1,4 @@
 software:
-- name: autoconf
-  sources:
-  - url: https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
-    sha256: 954bd69b391edc12d6a4a51a2dd1476543da5c6bbf05a95b59dc0dd6fd4c2969
-
 - name: bash
   sources:
   - url: https://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz
@@ -169,63 +164,6 @@ software:
   - url: https://github.com/git-for-windows/git/releases/download/v2.27.0.windows.1/PortableGit-2.27.0-64-bit.7z.exe
     sha256: 0fd2218ba73e07e5a664d06e0ce514edcd241a2de0ba29ceca123e7d36aa8f58
 
-- name: go
-  sources:
-  - url: https://dl.google.com/go/go1.23.12.windows-amd64.zip
-    sha256: 07c35866cdd864b81bb6f1cfbf25ac7f87ddc3a976ede1bf5112acbb12dfe6dc
-  - url: https://dl.google.com/go/go1.23.9.windows-amd64.zip
-    sha256: 16409aa244b672de037389e9e39115cbf82633e5fa0d4db6ec1a9191ca00a1e1
-  - url: https://dl.google.com/go/go1.22.5.windows-amd64.zip
-    sha256: 59968438b8d90f108fd240d4d2f95b037e59716995f7409e0a322dcb996e9f42
-  - url: https://dl.google.com/go/go1.21.5.windows-amd64.zip
-    sha256: bbe603cde7c9dee658f45164b4d06de1eff6e6e6b800100824e7c00d56a9a92f
-
-  - url: https://dl.google.com/go/go1.23.12.darwin-amd64.tar.gz
-    sha256: 0f6efdc3ffc6f03b230016acca0aef43c229de022d0ff401e7aa4ad4862eca8e
-  - url: https://dl.google.com/go/go1.23.9.darwin-amd64.tar.gz
-    sha256: 50200cba5173100a6e880098cf3b2db4063394beaf7374e9766b6c19bb18012d
-  - url: https://dl.google.com/go/go1.22.5.darwin-amd64.tar.gz
-    sha256: 95d9933cdcf45f211243c42c7705c37353cccd99f27eb4d8e2d1bf2f4165cb50
-  - url: https://dl.google.com/go/go1.21.5.darwin-amd64.tar.gz
-    sha256: a2e1d5743e896e5fe1e7d96479c0a769254aed18cf216cf8f4c3a2300a9b3923
-
-  - url: https://dl.google.com/go/go1.23.12.darwin-arm64.tar.gz
-    sha256: 5bfa117e401ae64e7ffb960243c448b535fe007e682a13ff6c7371f4a6f0ccaa
-  - url: https://dl.google.com/go/go1.23.9.darwin-arm64.tar.gz
-    sha256: 2bf624b6399e41248255858b2d61abae2703eecafad39808449951f3f1ab3766
-  - url: https://dl.google.com/go/go1.22.5.darwin-arm64.tar.gz
-    sha256: 4cd1bcb05be03cecb77bccd765785d5ff69d79adf4dd49790471d00c06b41133
-  - url: https://dl.google.com/go/go1.21.5.darwin-arm64.tar.gz
-    sha256: d0f8ac0c4fb3efc223a833010901d02954e3923cfe2c9a2ff0e4254a777cc9cc
-  - url: https://dl.google.com/go/go1.21.4.darwin-arm64.tar.gz
-    sha256: 8b7caf2ac60bdff457dba7d4ff2a01def889592b834453431ae3caecf884f6a5
-
-  - url: https://dl.google.com/go/go1.23.12.linux-armv6l.tar.gz
-    sha256: 9704eba01401a3793f54fac162164b9c5d8cc6f3cab5cee72684bb72294d9f41
-  - url: https://dl.google.com/go/go1.23.9.linux-armv6l.tar.gz
-    sha256: ade33880caacb8919b48767e0957e9880f2cdf634e137402a6f22552504136dd
-  - url: https://dl.google.com/go/go1.22.5.linux-armv6l.tar.gz
-    sha256: 8c4587cf3e63c9aefbcafa92818c4d9d51683af93ea687bf6c7508d6fa36f85e
-  - url: https://dl.google.com/go/go1.21.5.linux-armv6l.tar.gz
-    sha256: 837f4bf4e22fcdf920ffeaa4abf3d02d1314e03725431065f4d44c46a01b42fe
-
-  - url: https://dl.google.com/go/go1.23.12.linux-arm64.tar.gz
-    sha256: 52ce172f96e21da53b1ae9079808560d49b02ac86cecfa457217597f9bc28ab3
-  - url: https://dl.google.com/go/go1.23.9.linux-arm64.tar.gz
-    sha256: 3dc4dd64bdb0275e3ec65a55ecfc2597009c7c46a1b256eefab2f2172a53a602
-  - url: https://dl.google.com/go/go1.22.5.linux-arm64.tar.gz
-    sha256: 8d21325bfcf431be3660527c1a39d3d9ad71535fabdf5041c826e44e31642b5a
-  - url: https://dl.google.com/go/go1.21.5.linux-arm64.tar.gz
-    sha256: 841cced7ecda9b2014f139f5bab5ae31785f35399f236b8b3e75dff2a2978d96
-
-  - url: https://dl.google.com/go/go1.23.12.linux-amd64.tar.gz
-    sha256: d3847fef834e9db11bf64e3fb34db9c04db14e068eeb064f49af747010454f90
-  - url: https://dl.google.com/go/go1.23.9.linux-amd64.tar.gz
-    sha256: de03e45d7a076c06baaa9618d42b3b6a0561125b87f6041c6397680a71e5bb26
-  - url: https://dl.google.com/go/go1.22.5.linux-amd64.tar.gz
-    sha256: 904b924d435eaea086515bc63235b192ea441bd8c9b198c507e85009e6e4c7f0
-  - url: https://dl.google.com/go/go1.21.5.linux-amd64.tar.gz
-    sha256: e2bc0b3e4b64111ec117295c088bde5f00eeed1567999ff77bc859d7df70078e
 - name: gtar
   sources:
   - url: https://ftp.gnu.org/gnu/tar/tar-1.34.tar.gz
@@ -411,6 +349,16 @@ software:
 
 - name: logrotate
   sources:
+  - url: https://github.com/logrotate/logrotate/archive/3.21.0.tar.gz
+    sha256: 7f58d6ab7e4eab3403528a88d3747a91b03e83e866a8fb966551016e0df527bb
+  - url: https://github.com/logrotate/logrotate/archive/3.20.1.tar.gz
+    sha256: f37458dee3b4adab6719767ad4b93ff9ec8948755d1148b76f7f4c2c68d3e457
+  - url: https://github.com/logrotate/logrotate/archive/3.19.0.tar.gz
+    sha256: 7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930
+  - url: https://github.com/logrotate/logrotate/archive/3.18.1.tar.gz
+    sha256: 18e9c9b85dd185e79f097f4e7982bc5b8c137300756a7878e8fa24731f2f8e21
+  - url: https://github.com/logrotate/logrotate/archive/3.9.2.tar.gz
+    sha256: 2de00c65e23fa9d7909cae6594e550b9abe9a7eb1553669ddeaca92d30f97009
   - url: https://github.com/logrotate/logrotate/archive/3.19.0.tar.gz
     sha256: 7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930
 
@@ -425,11 +373,6 @@ software:
     sha256: 845f6708fc850bf53f5b1d0fb4352c4feab3949f140b26f71b22faba354c3365
   - url: https://www.x.org/releases/individual/util/makedepend-1.0.5.tar.gz
     sha256: 503903d41fb5badb73cb70d7b3740c8b30fe1cc68c504d3b6a85e6644c4e5004
-
-- name: m4
-  sources:
-  - url: https://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.gz
-    sha256: ab2633921a5cd38e48797bf5521ad259bdc4b979078034a3b790d7fec5493fab
 
 - name: ncurses
   sources:
@@ -487,6 +430,28 @@ software:
   - url: https://s3.amazonaws.com/chef-releng/openssl/openssl-1.0.2zi.tar.gz
     sha256: 80b6c07995fc92456e31c61cf1b2a18f75e314063189bb183af6ae66d0261d84
 
+- name: openresty
+  sources:
+  - url: https://openresty.org/download/openresty-1.25.3.1.tar.gz
+    sha256: 32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a57cd79df
+  - url: https://openresty.org/download/openresty-1.21.4.2.tar.gz
+    sha256: 5b1eded25c1d4ed76c0336dfae50bd94d187af9c85ead244135dd5ae363b2e2a
+  - url: https://openresty.org/download/openresty-1.21.4.1.tar.gz
+    sha256: 0c5093b64f7821e85065c99e5d4e6cc31820cfd7f37b9a0dec84209d87a2af99
+  - url: https://openresty.org/download/openresty-1.21.4.1rc1.tar.gz
+    sha256: 1cb216bc57a253149cb5c4b815bfe00e1c0713e7355774bbc26cf306d2ff632f
+  - url: https://openresty.org/download/openresty-1.19.9.1.tar.gz
+    sha256: 576ff4e546e3301ce474deef9345522b7ef3a9d172600c62057f182f3a68c1f6
+  - url: https://openresty.org/download/openresty-1.19.3.2.tar.gz
+    sha256: ce40e764990fbbeb782e496eb63e214bf19b6f301a453d13f70c4f363d1e5bb9
+  - url: https://openresty.org/download/openresty-1.19.3.1.tar.gz
+    sha256: f36fcd9c51f4f9eb8aaab8c7f9e21018d5ce97694315b19cacd6ccf53ab03d5d
+  - url: https://openresty.org/download/openresty-1.17.8.2.tar.gz
+    sha256: 2f321ab11cb228117c840168f37094ee97f8f0316eac413766305409c7e023a0
+  - url: https://openresty.org/download/openresty-1.15.8.1.tar.gz
+    sha256: 89a1238ca177692d6903c0adbea5bdf2a0b82c383662a73c03ebf5ef9f570842
+  - url: https://openresty.org/download/openresty-1.13.6.2.tar.gz
+    sha256: 946e1958273032db43833982e2cec0766154a9b5cb8e67868944113208ff2942
 
 - name: openssl-fips
   sources:
@@ -573,6 +538,27 @@ software:
   - url: https://ftp.postgresql.org/pub/source/v9.3.25/postgresql-9.3.25.tar.bz2
     sha256: e4953e80415d039ccd33d34be74526a090fd585cf93f296cd9c593972504b6db
 
+- name: redis
+  sources:
+  - url: https://download.redis.io/releases/redis-7.2.3.tar.gz
+    sha256: 3e2b196d6eb4ddb9e743088bfc2915ccbb42d40f5a8a3edd8cb69c716ec34be7
+  - url: https://download.redis.io/releases/redis-7.0.8.tar.gz
+    sha256: 06a339e491306783dcf55b97f15a5dbcbdc01ccbde6dc23027c475cab735e914
+  - url: https://download.redis.io/releases/redis-7.0.4.tar.gz
+    sha256: f0e65fda74c44a3dd4fa9d512d4d4d833dd0939c934e946a5c622a630d057f2f
+  - url: https://download.redis.io/releases/redis-7.0.2.tar.gz
+    sha256: 5e57eafe7d4ac5ecb6a7d64d6b61db775616dbf903293b3fcc660716dbda5eeb
+  - url: https://download.redis.io/releases/redis-7.0.0.tar.gz
+    sha256: 284d8bd1fd85d6a55a05ee4e7c31c31977ad56cbf344ed83790beeb148baa720
+  - url: https://download.redis.io/releases/redis-6.2.7.tar.gz
+    sha256: b7a79cc3b46d3c6eb52fa37dde34a4a60824079ebdfb3abfbbfa035947c55319
+  - url: https://download.redis.io/releases/redis-6.2.6.tar.gz
+    sha256: 5b2b8b7a50111ef395bf1c1d5be11e6e167ac018125055daa8b5c2317ae131ab
+  - url: https://download.redis.io/releases/redis-6.2.5.tar.gz
+    sha256: 4b9a75709a1b74b3785e20a6c158cab94cf52298aa381eea947a678a60d551ae
+  - url: https://download.redis.io/releases/redis-5.0.14.tar.gz
+    sha256: 3ea5024766d983249e80d4aa9457c897a9f079957d0fb1f35682df233f997f32
+
 - name: ruby
   sources:
   - url: https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.tar.gz
@@ -633,6 +619,11 @@ software:
   - url: https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.7-1/rubyinstaller-devkit-3.1.7-1-x64.exe
     sha256: c643bf00680aa21f20b34587aa0613e9970d9b63adaef2c0228925a7f9cdfc7a
 
+- name: runit
+  sources:
+  - url: https://smarden.org/runit/runit-2.1.1.tar.gz
+    sha256: ffcf2d27b32f59ac14f2d4b0772a3eb80d9342685a2042b7fbbc472c07cf2a2c
+
 - name: server-open-jre
   sources:
   - url: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz
@@ -642,11 +633,6 @@ software:
   sources:
   - url: https://github.com/theory/sqitch/releases/download/v0.973/app-sqitch-0.973.tar.gz
     sha256: 95fc7f18fff786c5d2579133e2e3ac56779e54bb3a06a1af1117054e9f49ab32
-
-- name: stunnel
-  sources:
-  - url: https://www.stunnel.org/archive/5.x/stunnel-5.71.tar.gz
-    sha256: f023aae837c2d32deb920831a5ee1081e11c78a5d57340f8e6f0829f031017f5
 
 - name: lpeg
   sources:
@@ -683,5 +669,3 @@ software:
     sha256: 36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d
   - url: https://zlib.net/fossils/zlib-1.2.6.tar.gz
     sha256: 21235e08552e6feba09ea5e8d750805b3391c62fb81c71a235c0044dc7a8a61b
-  - url: https://zlib.net/fossils/zlib-1.3.1.tar.gz
-    sha256: 9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23
