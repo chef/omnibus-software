@@ -20,7 +20,6 @@ default_version "1.3.1"
 
 license "Apache-2.0"
 license_file "https://raw.githubusercontent.com/chef/dep-selector-libgecode/master/LICENSE"
-
 # dep-selector-libgecode does not have any dependencies. We only install it from
 # rubygems here.
 skip_transitive_dependency_licensing true
@@ -30,27 +29,18 @@ dependency "ruby"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # On some RHEL-based systems, the default GCC that's installed is 4.1. We
-  # need to use 4.4, which is provided by the gcc44 and gcc44-c++ packages.
-  if File.exist?("/usr/bin/gcc44")
-    env["CC"]  = "gcc44"
-    env["CXX"] = "g++44"
-  end
-
-  # Ruby DevKit ships with BSD Tar
-  env["PROG_TAR"] = "bsdtar" if windows?
-  env["ARFLAGS"] = "rv #{env["ARFLAGS"]}" if env["ARFLAGS"]
-
-  # --- Fix for Ubuntu 24.04 and modern Linux distros ---
-  # On modern Ubuntu (24.04+), we should use system Gecode instead of vendored.
-  # This avoids bison/flex compatibility errors during build.
-  extra_configure = ""
   if linux? && ohai["platform_family"] == "debian"
-    extra_configure = "--with-system-gecode"
-    puts ">>> Using system Gecode for dep-selector-libgecode on Debian/Ubuntu"
+    # Patch missing config.guess/config.sub
+    guess = `which config.guess`.strip
+    sub   = `which config.sub`.strip
+    if File.exist?(guess) && File.exist?(sub)
+      FileUtils.cp(guess, "ext/libgecode3/vendor/gecode-3.7.3/config.guess")
+      FileUtils.cp(sub,   "ext/libgecode3/vendor/gecode-3.7.3/config.sub")
+      puts ">>> Patched config.guess/config.sub for Gecode build"
+    end
   end
 
   gem "install dep-selector-libgecode" \
       " --version '#{version}'" \
-      " --no-document -- #{extra_configure}", env: env
+      " --no-document", env: env
 end
