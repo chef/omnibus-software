@@ -85,6 +85,8 @@ build do
 
   if aix?
     env["M4"] = "/opt/freeware/bin/m4"
+  elsif freebsd?
+    patch source: "openssl-1.0.2zb-freebsd.patch"
   elsif mac_os_x? && arm?
     env["CFLAGS"] << " -Qunused-arguments"
   elsif windows?
