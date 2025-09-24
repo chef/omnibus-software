@@ -51,10 +51,15 @@ dependency "liblzma"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+  env.merge!("LDFLAGS" => "-brtl") if aix?
+  #  env.merge!("LDFLAGS" => "-brtl", "LIBS" => "-llzma") if aix?
+
   update_config_guess(target: "build/autoconf/")
 
   configure_args = [
     "--prefix=#{install_dir}/embedded",
+    "--with-zlib=#{install_dir}/embedded",
+    "--with-lzma=#{install_dir}/embedded",
     "--without-lzo2",
     "--without-nettle",
     "--without-expat",
@@ -71,7 +76,10 @@ build do
     configure_args << "--disable-xattr --disable-acl"
   end
 
-  configure configure_args.join(" "), env: env
+  # configure_args << " ; cat config.log" if aix?
+  configure_args << "; ls #{install_dir}/embedded" if aix?
+  configure_args << "; find #{install_dir}/embedded -name '*lzma*' -print" if aix?
+  configure configure_args, env: env
 
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
