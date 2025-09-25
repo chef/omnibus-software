@@ -87,6 +87,12 @@ build do
     env["M4"] = "/opt/freeware/bin/m4"
   elsif mac_os_x? && arm?
     env["CFLAGS"] << " -Qunused-arguments"
+  elsif amazon_linux?
+    # Amazon Linux specific environment setup for FIPS builds
+    env["CFLAGS"] << " -fPIC"
+    env["CXXFLAGS"] << " -fPIC"
+    # Ensure we have the right paths for Amazon Linux
+    env["PKG_CONFIG_PATH"] = "#{install_dir}/embedded/lib/pkgconfig"
   elsif windows?
     # XXX: OpenSSL explicitly sets -march=i486 and expects that to be honored.
     # It has OPENSSL_IA32_SSE2 controlling whether it emits optimized SSE2 code
@@ -149,6 +155,9 @@ build do
           # With gcc > 4.3 on s390x there is an error building
           # with inline asm enabled
           "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
+        elsif amazon_linux?
+          # Explicitly configure for Amazon Linux 2 and 2023 with x86_64 architecture for FIPS support
+          "./Configure linux-x86_64"
         else
           "./config"
         end
@@ -221,37 +230,80 @@ build do
   make "install", env: env
 
   if fips_mode? && version.satisfies?(">= 3.0.0")
-    openssl_fips_version = project.overrides.dig(:openssl, :fips_version) || "3.0.9"
-
-    # Downloading the openssl-3.0.9.tar.gz file and extracting it
-    command "wget https://www.openssl.org/source/openssl-#{openssl_fips_version}.tar.gz"
-    command "tar -xf openssl-#{openssl_fips_version}.tar.gz"
-
-    # Configuring the fips provider
-    if windows?
-      platform = windows_arch_i386? ? "mingw" : "mingw64"
-      command "cd openssl-#{openssl_fips_version} && perl.exe Configure #{platform} enable-fips"
-    else
-      command "cd openssl-#{openssl_fips_version} && ./Configure enable-fips"
-    end
-
-    # Building the fips provider
-    command "cd openssl-#{openssl_fips_version} && make"
-
+    # First, check if FIPS module was built with the main OpenSSL build
     fips_provider_path = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
     fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
+    
+    # Check if FIPS module exists from the main build
+    command "ls -la #{install_dir}/embedded/lib/ossl-modules/ || echo 'ossl-modules directory not found'"
+    
+    # If FIPS module doesn't exist from main build, try building it separately
+    if_command_fails = lambda do
+      openssl_fips_version = project.overrides.dig(:openssl, :fips_version) || "3.0.9"
 
-    # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
-    command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_provider_path}"
+      # Downloading the openssl-3.0.9.tar.gz file and extracting it
+      command "wget https://www.openssl.org/source/openssl-#{openssl_fips_version}.tar.gz"
+      command "tar -xf openssl-#{openssl_fips_version}.tar.gz"
 
-    # Copying the fips provider and fipsmodule.cnf file to the embedded directory
-    command "cp openssl-#{openssl_fips_version}/providers/fips.#{windows? ? "dll" : "so"} #{install_dir}/embedded/lib/ossl-modules/"
-    command "cp openssl-#{openssl_fips_version}/providers/fipsmodule.cnf #{install_dir}/embedded/ssl/"
+      # Configuring the fips provider
+      if windows?
+        platform = windows_arch_i386? ? "mingw" : "mingw64"
+        command "cd openssl-#{openssl_fips_version} && perl.exe Configure #{platform} enable-fips"
+      elsif amazon_linux?
+        # Amazon Linux specific FIPS configuration
+        command "cd openssl-#{openssl_fips_version} && ./Configure linux-x86_64 enable-fips"
+      else
+        command "cd openssl-#{openssl_fips_version} && ./Configure enable-fips"
+      end
 
-    # Updating the openssl.cnf file to enable the fips provider
-    command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
-    command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
+      # Building the fips provider
+      command "cd openssl-#{openssl_fips_version} && make"
 
+      # Copying the fips provider to the embedded directory
+      command "cp openssl-#{openssl_fips_version}/providers/fips.#{windows? ? "dll" : "so"} #{install_dir}/embedded/lib/ossl-modules/"
+    end
+
+    # Try to use the FIPS module that should have been built
+    begin
+      # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
+      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_provider_path}"
+    rescue
+      # If that fails, build FIPS separately
+      if_command_fails.call
+      command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_provider_path}"
+    end
+
+    # Create or update the openssl.cnf file to enable the fips provider
+    # First check if openssl.cnf exists and has FIPS configuration
+    existing_config = command("cat #{install_dir}/embedded/ssl/openssl.cnf 2>/dev/null || echo ''")
+    
+    if existing_config.include?('openssl_conf') && existing_config.include?('providers')
+      # Update existing configuration
+      command "sed -i -e 's|# .include fipsmodule.cnf|.include #{fips_cnf_file}|g' #{install_dir}/embedded/ssl/openssl.cnf"
+      command "sed -i -e 's|# fips = fips_sect|fips = fips_sect|g' #{install_dir}/embedded/ssl/openssl.cnf"
+    else
+      # Create new FIPS-enabled configuration for Amazon Linux
+      command "cat >> #{install_dir}/embedded/ssl/openssl.cnf << 'EOF'
+
+# FIPS Configuration for Amazon Linux
+.include #{fips_cnf_file}
+
+[openssl_init]
+providers = provider_sect
+
+[provider_sect]
+fips = fips_sect
+base = base_sect
+
+[fips_sect]
+activate = 1
+
+[base_sect]
+activate = 1
+EOF"
+    end
+
+    # Verify FIPS provider is available
     command "#{install_dir}/embedded/bin/openssl list -providers"
   end
 end
