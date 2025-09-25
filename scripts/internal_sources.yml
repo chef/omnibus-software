@@ -521,6 +521,8 @@ software:
     sha256: 4d3c101ea7ae38982f06bdc73758b53727fb6402ecd9382006fa5ecc7c2ca41f
   - url: https://ftp.postgresql.org/pub/source/v13.21/postgresql-13.21.tar.bz2
     sha256: dcda1294df45f033b0656cf7a8e4afbbc624c25e1b144aec79530f74d7ef4ab4
+  - url: https://ftp.postgresql.org/pub/source/v13.20/postgresql-13.22.tar.bz2
+    sha256: d36d83dc89e625502cf6fb1d0529642ba1266bd614b4e4a41cefd1dddcf09080
   - url: https://ftp.postgresql.org/pub/source/v13.18/postgresql-13.18.tar.bz2
     sha256: ceea92abee2a8c19408d278b68de6a78b6bd3dbb4fa2d653fa7ca745d666aab1
   - url: https://ftp.postgresql.org/pub/source/v13.14/postgresql-13.14.tar.bz2
