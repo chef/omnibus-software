@@ -89,6 +89,7 @@ build do
     env["CFLAGS"] << " -Qunused-arguments"
   elsif amazon_linux?
     # Amazon Linux specific environment setup for FIPS builds
+    puts "*** Detected Amazon Linux - configuring for FIPS support ***"
     env["CFLAGS"] << " -fPIC"
     env["CXXFLAGS"] << " -fPIC"
     # Ensure we have the right paths for Amazon Linux
@@ -125,7 +126,14 @@ build do
   if version.satisfies?("< 3.0.0")
     configure_args += ["--with-fipsdir=#{install_dir}/embedded", "fips"] if fips_mode?
   else
-    configure_args += ["enable-fips"] if fips_mode?
+    # Enable FIPS for OpenSSL 3.x
+    if fips_mode?
+      configure_args += ["enable-fips"]
+    elsif amazon_linux? && version.satisfies?(">= 3.0.0")
+      # Force enable FIPS for Amazon Linux 2 and 2023 with OpenSSL 3.x
+      configure_args += ["enable-fips"]
+      puts "*** FIPS enabled for Amazon Linux with OpenSSL #{version} ***"
+    end
   end
 
   configure_cmd =
@@ -157,6 +165,7 @@ build do
           "./Configure linux64-s390x -DOPENSSL_NO_INLINE_ASM"
         elsif amazon_linux?
           # Explicitly configure for Amazon Linux 2 and 2023 with x86_64 architecture for FIPS support
+          puts "*** Using linux-x86_64 configuration for Amazon Linux ***"
           "./Configure linux-x86_64"
         else
           "./config"
@@ -206,6 +215,13 @@ build do
   configure_args << env["CFLAGS"]
 
   configure_command = configure_args.unshift(configure_cmd).join(" ")
+  
+  puts "*** OpenSSL Configure Command: #{configure_command} ***"
+  if amazon_linux?
+    puts "*** Amazon Linux detected - FIPS should be enabled if version >= 3.0.0 ***"
+    puts "*** Current version: #{version} ***"
+    puts "*** FIPS mode: #{fips_mode?} ***"
+  end
 
   command configure_command, env: env, in_msys_bash: true
 
@@ -229,7 +245,9 @@ build do
 
   make "install", env: env
 
-  if fips_mode? && version.satisfies?(">= 3.0.0")
+  # Enable FIPS configuration for OpenSSL 3.x when FIPS mode is enabled OR for Amazon Linux
+  if (fips_mode? || amazon_linux?) && version.satisfies?(">= 3.0.0")
+    puts "*** Setting up FIPS configuration for OpenSSL #{version} ***"
     # First, check if FIPS module was built with the main OpenSSL build
     fips_provider_path = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
     fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
