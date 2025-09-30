@@ -432,6 +432,8 @@ software:
 
 - name: openresty
   sources:
+  - url: https://openresty.org/download/openresty-1.27.1.2.tar.gz
+    sha256: 74f076f7e364b2a99a6c5f9bb531c27610c78985abe956b442b192a2295f7548
   - url: https://openresty.org/download/openresty-1.25.3.1.tar.gz
     sha256: 32ec1a253a5a13250355a075fe65b7d63ec45c560bbe213350f0992a57cd79df
   - url: https://openresty.org/download/openresty-1.21.4.2.tar.gz
