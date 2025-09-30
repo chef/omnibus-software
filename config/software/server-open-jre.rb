@@ -106,7 +106,7 @@ relative_path "jdk-#{version.sub('_', '+')}-jre"
 
 build do
   mkdir "#{install_dir}/embedded/open-jre"
-  sync  "#{project_dir}/jdk-#{version.sub('_', '+')}-jre/", "#{install_dir}/embedded/open-jre"
+  sync  "#{project_dir}/*", "#{install_dir}/embedded/open-jre"
   new_rpath = "#{install_dir}/embedded/open-jre/lib/jli:#{install_dir}/embedded/lib:$ORIGIN/../lib"
   command "#{install_dir}/embedded/bin/patchelf --set-rpath #{new_rpath} #{install_dir}/embedded/open-jre/bin/*"
 end
