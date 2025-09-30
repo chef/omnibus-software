@@ -106,8 +106,7 @@ relative_path "jdk-#{version}-jre"
 
 build do
   mkdir "#{install_dir}/embedded/open-jre"
-  sync  "#{project_dir}/#{relative_path}/", "#{install_dir}/embedded/open-jre"
-
+  sync  "#{project_dir}/", "#{install_dir}/embedded/open-jre"
   # Since we are using a precompiled-jre, it will look for zlib in the following path:
   # vagrant@default-ubuntu-1604:~$ chrpath jdk-11.0.4+11-jre/bin/java
   # jdk-11.0.4+11-jre/bin/java: RPATH=$ORIGIN/../lib/jli:$ORIGIN/../lib
