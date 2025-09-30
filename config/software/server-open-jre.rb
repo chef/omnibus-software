@@ -25,7 +25,7 @@ end
 
 license "GPL-2.0 (with the Classpath Exception)"
 
-license_file "https://openjdk.org/legal/gplv2+ce.html"
+license_file "files/openjdk-gplv2+ce.html"
 skip_transitive_dependency_licensing true
 
 whitelist_file "jre/bin/javaws"
@@ -106,14 +106,7 @@ relative_path "jdk-#{version.sub('_', '+')}-jre"
 
 build do
   mkdir "#{install_dir}/embedded/open-jre"
-  sync  "#{project_dir}/", "#{install_dir}/embedded/open-jre"
-  # Since we are using a precompiled-jre, it will look for zlib in the following path:
-  # vagrant@default-ubuntu-1604:~$ chrpath jdk-11.0.4+11-jre/bin/java
-  # jdk-11.0.4+11-jre/bin/java: RPATH=$ORIGIN/../lib/jli:$ORIGIN/../lib
-  # This errors since it cannot find the libz.so.1 file that is installed
-  # as a part of the omnibus environment.
-  # We need to change the RPATH of the binary to be able to find omnibus installed zlib.
-
+  sync  "#{project_dir}/jdk-#{version.sub('_', '+')}-jre/", "#{install_dir}/embedded/open-jre"
   new_rpath = "#{install_dir}/embedded/open-jre/lib/jli:#{install_dir}/embedded/lib:$ORIGIN/../lib"
   command "#{install_dir}/embedded/bin/patchelf --set-rpath #{new_rpath} #{install_dir}/embedded/open-jre/bin/*"
 end
