@@ -18,7 +18,7 @@ name "openresty"
 license "BSD-2-Clause"
 license_file "README.markdown"
 skip_transitive_dependency_licensing true
-default_version "1.21.4.1"
+default_version "1.27.1.2"
 
 dependency "pcre"
 dependency "openssl"
