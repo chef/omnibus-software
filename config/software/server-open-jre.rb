@@ -25,7 +25,7 @@ end
 
 license "GPL-2.0 (with the Classpath Exception)"
 
-license_file "files/openjdk-gplv2+ce.html"
+license_file "http://openjdk.java.net/legal/gplv2+ce.html"
 skip_transitive_dependency_licensing true
 
 whitelist_file "jre/bin/javaws"
@@ -102,11 +102,19 @@ version "11.0.14.1+1" do
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
-relative_path "jdk-#{version.sub('_', '+')}-jre"
+relative_path "jdk-#{version}-jre"
 
 build do
   mkdir "#{install_dir}/embedded/open-jre"
-  sync  "#{project_dir}/*", "#{install_dir}/embedded/open-jre"
-  new_rpath = "#{install_dir}/embedded/open-jre/lib/jli:#{install_dir}/embedded/lib:$ORIGIN/../lib"
-  command "#{install_dir}/embedded/bin/patchelf --set-rpath #{new_rpath} #{install_dir}/embedded/open-jre/bin/*"
+  sync  "#{project_dir}/", "#{install_dir}/embedded/open-jre"
+
+  # Find the libjli.so directory inside the JRE
+  libjli_dirs = Dir.glob("#{install_dir}/embedded/open-jre/**/libjli.so").map { |f| File.dirname(f) }
+  raise "libjli.so not found in open-jre!" if libjli_dirs.empty?
+  libjli_dir = libjli_dirs.first
+
+  # Set RPATH for all binaries in bin/
+  Dir.glob("#{install_dir}/embedded/open-jre/bin/*").each do |binary|
+    command "#{install_dir}/embedded/bin/patchelf --set-rpath #{libjli_dir}:#{install_dir}/embedded/lib:$ORIGIN/../lib #{binary}"
+  end
 end
