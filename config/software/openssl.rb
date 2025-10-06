@@ -240,6 +240,16 @@ build do
 
     fips_provider_path = "#{install_dir}/embedded/lib/ossl-modules/fips.#{windows? ? "dll" : "so"}"
     fips_cnf_file = "#{install_dir}/embedded/ssl/fipsmodule.cnf"
+    #  DEBUG STATEMENT
+    puts "*************DEBUG STATEMENTS*************"
+    puts "FIPS provider path: #{fips_provider_path}"
+
+    command "ls -l #{install_dir}/embedded/ssl/"
+    command "ls -l #{install_dir}/embedded/lib/ossl-modules/"
+    command "cat #{install_dir}/embedded/ssl/openssl.cnf || echo 'openssl.cnf missing!'"
+    command "cat #{install_dir}/embedded/ssl/fipsmodule.cnf || echo 'fipsmodule.cnf missing!'"
+    command "grep '\\[fips_sect\\]' #{install_dir}/embedded/ssl/fipsmodule.cnf || echo '[fips_sect] missing!'"
+    command "grep '\\[provider_sect\\]' #{install_dir}/embedded/ssl/openssl.cnf || echo '[provider_sect] missing!'"
 
     # Running the `openssl fipsinstall -out fipsmodule.cnf -module fips.so` command
     command "#{install_dir}/embedded/bin/openssl fipsinstall -out #{fips_cnf_file} -module #{fips_provider_path}"
