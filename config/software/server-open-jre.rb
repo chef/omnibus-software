@@ -25,8 +25,8 @@ end
 
 license "GPL-2.0 (with the Classpath Exception)"
 
-# since the license url is getting timeouts and not reachable from some build nodes.
-# we are using a local copy of the license file to avoid external network download issues. see below error
+# since the official license url is getting timeout and not reachable from some build nodes.
+# using an another reliable source for the license file to avoid external network download issues. see below error
 #  [Licensing] I | 2025-10-06T14:48:00+00:00 | Retrying failed download due to Net::ReadTimeout (1 retries left)...
 #               [Licensing] E | 2025-10-06T14:50:05+00:00 | Download failed - Net::ReadTimeout!
 #               [Licensing] W | 2025-10-06T14:50:05+00:00 | Can not download license file 'https://openjdk.org/legal/gplv2+ce.html' for software 'server-open-jre'.
