@@ -30,7 +30,7 @@ license "GPL-2.0 (with the Classpath Exception)"
 #  [Licensing] I | 2025-10-06T14:48:00+00:00 | Retrying failed download due to Net::ReadTimeout (1 retries left)...
 #               [Licensing] E | 2025-10-06T14:50:05+00:00 | Download failed - Net::ReadTimeout!
 #               [Licensing] W | 2025-10-06T14:50:05+00:00 | Can not download license file 'https://openjdk.org/legal/gplv2+ce.html' for software 'server-open-jre'.
-license_file "licenses/gplv2+ce.html"
+license_file "licenses/server-open-jre/gplv2+ce.html"
 skip_transitive_dependency_licensing true
 
 whitelist_file "jre/bin/javaws"
