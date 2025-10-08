@@ -632,6 +632,8 @@ software:
   sources:
   - url: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz
     sha256: ddbd5d7ef14aa06784fb94d1e0e7177868dfdd0aa216a8a2e654869968ef7392
+  - url: https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jre_x64_linux_hotspot_17.0.9_9.tar.gz
+    sha256: c37f729200b572884b8f8e157852c739be728d61d9a1da0f920104876d324733
 
 - name: sqitch
   sources:

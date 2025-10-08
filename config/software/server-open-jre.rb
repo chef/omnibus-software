@@ -17,7 +17,7 @@ dependency "zlib"
 dependency "patchelf"
 
 name "server-open-jre"
-default_version "11.0.28+6"
+default_version "17.0.9+9"
 
 unless _64_bit?
   raise "Server-open-jre can only be installed on x86_64 systems."
@@ -25,7 +25,12 @@ end
 
 license "GPL-2.0 (with the Classpath Exception)"
 
-license_file "http://openjdk.java.net/legal/gplv2+ce.html"
+# since the official license url is getting timeout and not reachable from some build nodes.
+# using an another reliable source for the license file to avoid external network download issues. see below error
+#  [Licensing] I | 2025-10-06T14:48:00+00:00 | Retrying failed download due to Net::ReadTimeout (1 retries left)...
+#               [Licensing] E | 2025-10-06T14:50:05+00:00 | Download failed - Net::ReadTimeout!
+#               [Licensing] W | 2025-10-06T14:50:05+00:00 | Can not download license file 'https://openjdk.org/legal/gplv2+ce.html' for software 'server-open-jre'.
+license_file "https://raw.githubusercontent.com/microsoft/openjdk-jdk17u/main/LICENSE"
 skip_transitive_dependency_licensing true
 
 whitelist_file "jre/bin/javaws"
@@ -38,6 +43,15 @@ license_warning = "By including the JRE, you accept the terms of AdoptOpenJRE."
 
 # version_list: url=https://github.com/adoptium/temurin11-binaries/releases filter=*.tar.gz
 name_folder = "server-open-jre"
+
+version "17.0.9+9" do
+  source url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jre_x64_linux_hotspot_17.0.9_9.tar.gz",
+         sha256: "c37f729200b572884b8f8e157852c739be728d61d9a1da0f920104876d324733",
+         warning: license_warning,
+         unsafe: true
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK17U-jre_x64_linux_hotspot_17.0.9_9.tar.gz",
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end
 
 version "11.0.28+6" do
   source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jre_x64_linux_hotspot_11.0.28_6.tar.gz",
@@ -66,46 +80,22 @@ version "11.0.21+9" do
            authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 end
 
-version "11.0.20+8" do
-  source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.20%2B8/OpenJDK11U-jre_x64_linux_hotspot_11.0.20_8.tar.gz",
-  sha256: "ffb070c26ea22771f78769c569c9db3412e6486434dc6df1fd3c3438285766e7",
-  warning: license_warning,
-  unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.20_8.tar.gz",
-           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-end
-
-version "11.0.15+10" do
-  source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.15%2B10/OpenJDK11U-jre_x64_linux_hotspot_11.0.15_10.tar.gz",
-  sha256: "22831fd097dfb39e844cb34f42064ff26a0ada9cd13621d7b8bca8e9b9d3a5ee",
-  warning: license_warning,
-  unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.15_10.tar.gz",
-           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-end
-
-version "11.0.14.1+1" do
-  source url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.14.1%2B1/OpenJDK11U-jre_x64_linux_hotspot_11.0.14.1_1.tar.gz",
-  sha256: "b5a6960bc6bb0b1a967e307f908ea9b06ad7adbbd9df0b8954ab51374faa8a98",
-  warning: license_warning,
-  unsafe: true
-  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name_folder}/OpenJDK11U-jre_x64_linux_hotspot_11.0.14.1_1.tar.gz",
-           authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-end
-
 relative_path "jdk-#{version}-jre"
 
 build do
   mkdir "#{install_dir}/embedded/open-jre"
   sync  "#{project_dir}/", "#{install_dir}/embedded/open-jre"
 
-  # Since we are using a precompiled-jre, it will look for zlib in the following path:
-  # vagrant@default-ubuntu-1604:~$ chrpath jdk-11.0.4+11-jre/bin/java
-  # jdk-11.0.4+11-jre/bin/java: RPATH=$ORIGIN/../lib/jli:$ORIGIN/../lib
-  # This errors since it cannot find the libz.so.1 file that is installed
-  # as a part of the omnibus environment.
-  # We need to change the RPATH of the binary to be able to find omnibus installed zlib.
-
+  # Patch RPATH so Java binaries can locate required shared libraries (e.g., libjli.so, libz.so)
+  # in both the embedded OpenJRE and Omnibus environment.
   new_rpath = "#{install_dir}/embedded/open-jre/lib/jli:#{install_dir}/embedded/lib:$ORIGIN/../lib"
-  command "#{install_dir}/embedded/bin/patchelf --set-rpath #{new_rpath} #{install_dir}/embedded/open-jre/bin/*"
+
+  Dir.glob("#{install_dir}/embedded/open-jre/bin/**/*").each do |bin|
+    next unless File.file?(bin) && File.executable?(bin) && !File.symlink?(bin)
+
+    file_output = shellout!("file -b #{bin}").stdout
+    next unless file_output.include?("ELF")
+
+    shellout!("#{install_dir}/embedded/bin/patchelf --set-rpath #{new_rpath} #{bin}")
+  end
 end
