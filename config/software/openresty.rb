@@ -48,6 +48,11 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   env["PATH"] += "#{env["PATH"]}:/usr/sbin:/sbin"
 
+  # Apply patch for OpenSSL 3.2.4 compatibility
+  if version.satisfies?(">= 1.25")
+    patch source: "openssl-3.2.4-compatibility.patch", plevel: 1
+  end
+
   configure = [
     "./configure",
     "--prefix=#{install_dir}/embedded",
