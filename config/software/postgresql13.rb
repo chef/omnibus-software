@@ -34,8 +34,8 @@ internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{name}-#{version}.
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 
 version("13.22") do
-  source url: "#{ENV['ARTIFACTORY_REPO_URL']}/postgresql13/#{name}-#{version}.tuxcare.1.0.0.tar.bz2",
-         authorization: "X-JFrog-Art-Api:#{ENV['ARTIFACTORY_TOKEN']}",
+  source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/postgresql13/#{name}-#{version}.tuxcare.1.0.0.tar.bz2",
+         authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}",
          sha256: "d36d83dc89e625502cf6fb1d0529642ba1266bd614b4e4a41cefd1dddcf09080"
 end
 version("13.21") { source sha256: "dcda1294df45f033b0656cf7a8e4afbbc624c25e1b144aec79530f74d7ef4ab4" }
