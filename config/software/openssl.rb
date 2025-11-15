@@ -51,6 +51,7 @@ end
 version("3.2.4") { source sha256: "b23ad7fd9f73e43ad1767e636040e88ba7c9e5775bfa5618436a0dd2c17c3716" }
 version("3.3.3") { source sha256: "712590fd20aaa60ec75d778fe5b810d6b829ca7fb1e530577917a131f9105539" }
 version("3.4.1") { source sha256: "002a2d6b30b58bf4bea46c43bdd96365aaf8daa6c428782aa4feee06da197df3" }
+version("3.6.0") { source sha256: "b6a5f44b7eb69e3fa35dbf15524405b44837a481d43d81daddde3ff21fcbb8e9" }
 
 version("3.1.2") { source sha256: "a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539" } # FIPS validated
 
@@ -177,8 +178,12 @@ build do
     # This patch will enable the legacy providers!
     configure_args << "enable-legacy"
     patch source: "openssl-3.0.0-enable-legacy-provider.patch", env: patch_env
-  else
+  elsif version.satisfies?(">= 3.2.4", "< 3.6")
     patch source: "openssl-3.2.4-do-not-install-docs.patch", env: patch_env
+    configure_args << "enable-legacy"
+    patch source: "openssl-3.2.4-enable-legacy-provider.patch", env: patch_env
+  elsif version.satisfies?(">= 3.6.0")
+    patch source: "openssl-3.6.0-do-not-install-docs.patch", env: patch_env
     configure_args << "enable-legacy"
     patch source: "openssl-3.2.4-enable-legacy-provider.patch", env: patch_env
   end
