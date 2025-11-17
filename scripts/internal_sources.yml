@@ -675,3 +675,8 @@ software:
     sha256: 36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d
   - url: https://zlib.net/fossils/zlib-1.2.6.tar.gz
     sha256: 21235e08552e6feba09ea5e8d750805b3391c62fb81c71a235c0044dc7a8a61b
+
+- name: google-protobuf
+  sources:
+  - url: https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.25.5.tar.gz
+    sha256: 4356e78744dfb2df3890282386c8568c85868116317d9b3ad80eb11c2aecf2ff
