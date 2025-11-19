@@ -362,7 +362,7 @@ software:
   - url: https://github.com/logrotate/logrotate/archive/3.19.0.tar.gz
     sha256: 7de1796cb99ce4ed21770b5dae0b4e6f81de0b4df310a58a1617d8061b1e0930
 
-name: make
+- name: make
   sources:
   - url: https://ftp.gnu.org/gnu/make/make-4.3.tar.gz
     sha256: e05fdde47c5f7ca45cb697e973894ff4f5d79e13b750ed57d7b66d8defc78e19
