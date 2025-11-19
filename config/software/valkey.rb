@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-name "keydb"
+name "valkey"
 
 license "BSD-3-Clause"
 license_file "COPYING"
@@ -25,15 +25,15 @@ dependency "openssl"
 dependency "libuuid"
 dependency "curl"
 
-default_version "6.3.4"
+default_version "9.0.0"
 
-source url: "https://github.com/Snapchat/KeyDB/archive/refs/tags/v#{version}.tar.gz"
+source url: "https://github.com/valkey-io/valkey/archive/refs/tags/#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/v#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "KeyDB-#{version}"
 
-# version_list: url=https://github.com/Snapchat/KeyDB/archive/refs/tags/ filter=*.tar.gz
-version("6.3.4") { source sha256: "229190b251f921e05aff7b0d2f04b5676c198131e2abbec1e2cfb2e61215e2f3" }
+# version_list: url=https://github.com/valkey-io/valkey/archive/refs/tags/ filter=*.tar.gz
+version("9.0.0") { source sha256: "088f47e167eb640ea31af48c81c5d62ee56321f25a4b05d4e54a0ef34232724b" }
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
@@ -41,14 +41,14 @@ build do
   )
   env["CFLAGS"] << " -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << " -L#{install_dir}/embedded/lib"
-  if version.satisfies?(">=6.3.4")
-    patch source: "remove-libatomic-dep", env: env
-  end
-  if suse?
-    env["CFLAGS"] << " -fno-lto"
-    env["CXXFLAGS"] << " -fno-lto"
-  end
-  update_config_guess
+  # if version.satisfies?(">=6.3.4")
+  #   patch source: "remove-libatomic-dep", env: env
+  # end
+  # if suse?
+  #   env["CFLAGS"] << " -fno-lto"
+  #   env["CXXFLAGS"] << " -fno-lto"
+  # end
+  
 
   make "-j #{workers}", env: env
   make "install", env: env
