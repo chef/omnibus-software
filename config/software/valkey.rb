@@ -28,7 +28,7 @@ dependency "curl"
 default_version "9.0.0"
 
 source url: "https://github.com/valkey-io/valkey/archive/refs/tags/#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/v#{version}.tar.gz",
+internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 relative_path "valkey-#{version}"
 
