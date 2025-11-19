@@ -49,7 +49,7 @@ build do
   #   env["CXXFLAGS"] << " -fno-lto"
   # end
   if suse?
-    patch source: "config-sles.patch", plevel: 1, env: patch_env
+    patch source: "config-sles.patch", plevel: 1, env: env
   end
   make "-j #{workers}", env: env
   make "install", env: env
