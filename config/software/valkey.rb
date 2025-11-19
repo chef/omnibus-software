@@ -48,7 +48,6 @@ build do
   #   env["CFLAGS"] << " -fno-lto"
   #   env["CXXFLAGS"] << " -fno-lto"
   # end
-  
 
   make "-j #{workers}", env: env
   make "install", env: env
