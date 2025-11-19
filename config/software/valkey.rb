@@ -30,7 +30,7 @@ default_version "9.0.0"
 source url: "https://github.com/valkey-io/valkey/archive/refs/tags/#{version}.tar.gz"
 internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/v#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
-relative_path "KeyDB-#{version}"
+relative_path "valkey-#{version}"
 
 # version_list: url=https://github.com/valkey-io/valkey/archive/refs/tags/ filter=*.tar.gz
 version("9.0.0") { source sha256: "088f47e167eb640ea31af48c81c5d62ee56321f25a4b05d4e54a0ef34232724b" }
