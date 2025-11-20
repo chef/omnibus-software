@@ -52,8 +52,9 @@ build do
     block do
       puts "Current directory before patch: #{Dir.pwd}"
     end
-    patch source: "config-sles.patch", env: env
+    patch source: "fix-sles-build.patch", plevel: 1, env: env
   end
+  
   update_config_guess
   make "-j #{workers}", env: env
   make "install", env: env
