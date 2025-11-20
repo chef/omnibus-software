@@ -49,10 +49,8 @@ build do
   #   env["CXXFLAGS"] << " -fno-lto"
   # end
   if suse?
-    block do
-      puts "Current directory before patch: #{Dir.pwd}"
-    end
-    patch source: "fix-sles-build.patch", plevel: 1, env: env
+    env["CFLAGS"] << " -fno-lto"
+    env["CXXFLAGS"] << " -fno-lto"
   end
   
   update_config_guess
