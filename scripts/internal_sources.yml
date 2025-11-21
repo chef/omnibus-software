@@ -137,6 +137,10 @@ software:
 
 - name: git-windows
   sources:
+  - url: https://github.com/git-for-windows/git/releases/download/v2.48.1.windows.1/PortableGit-2.48.1-32-bit.7z.exe
+    sha256: 63ddbc7ea11ea8a1375f39f45d38f928dbec564360ad12dd11d0d649474063a0
+  - url: https://github.com/git-for-windows/git/releases/download/v2.48.1.windows.1/PortableGit-2.48.1-64-bit.7z.exe
+    sha256: a4335111b3363871cac632be93d7466154d8eb08782ff55103866b67d6722257
   - url: https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.1/PortableGit-2.47.0-32-bit.7z.exe
     sha256: b2def285b907ce1d47abd2df8df83df629b768defe08c1fcd4ad91582fc6606b
   - url: https://github.com/git-for-windows/git/releases/download/v2.47.0.windows.1/PortableGit-2.47.0-64-bit.7z.exe
@@ -330,7 +334,7 @@ software:
 - name: libxcrypt
   sources:
   - url: https://github.com/besser82/libxcrypt/releases/download/v4.4.38/libxcrypt-4.4.38.tar.xz
-    sha256: 80304b9c306ea799327f01d9a7549bdb28317789182631f1b54f4511b4206dd6 
+    sha256: 80304b9c306ea799327f01d9a7549bdb28317789182631f1b54f4511b4206dd6
   - url: https://github.com/besser82/libxcrypt/releases/download/v4.4.36/libxcrypt-4.4.36.tar.xz
     sha256: e5e1f4caee0a01de2aee26e3138807d6d3ca2b8e67287966d1fefd65e1fd8943
 
