@@ -53,7 +53,11 @@ build do
     env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
   end
-
+  # Copy the custom stdatomic.h shim into the source include path before building
+  # Adjust the target path inside the source to wherever headers are expected,
+  # e.g., here copying to `deps/jemalloc/include/jemalloc/internal/stdatomic.h`
+  copy "#{Omnibus::Config.project_root}/omnibus-software/config/patches/stdatomic.h",
+       "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
   update_config_guess
   make "-j #{workers}", env: env
   make "install", env: env
