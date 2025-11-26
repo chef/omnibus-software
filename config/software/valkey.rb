@@ -63,7 +63,7 @@ build do
   #   copy # Omnibus software definition example
   # copy "#{project_dir}/config/patches/stdatomic.h", "#{install_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
   # Omnibus software definition example
-  command "ls -al #{project_dir}/config/patches"
+  command "ls -al #{project_dir}/"
   copy "#{project_dir}/config/patches/stdatomic.h",
      "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
   command "ls -al #{project_dir}/deps/jemalloc/include/jemalloc/internal/"
