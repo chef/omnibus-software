@@ -295,6 +295,8 @@ software:
 
 - name: libxml2
   sources:
+  - url: https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.4.tar.xz
+    sha256: 24175ec30a97cfa86bdf9befb7ccf4613f8f4b2713c5103e0dd0bc9c711a2773
   - url: https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.2.tar.xz
     sha256: 353f3c83535d4224a4e5f1e88c90b5d4563ea8fec11f6407df640fd28fc8b8c6
   - url: https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.8.tar.xz
