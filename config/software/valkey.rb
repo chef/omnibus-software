@@ -53,21 +53,18 @@ build do
     env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
   end
-    # Debug: print message before copying
+
+  # Debug: print message before copying
   puts "*** Copying custom stdatomic.h to source tree ***"
-  # Copy the custom stdatomic.h shim into the source include path before building
-  # Adjust the target path inside the source to wherever headers are expected,
-  # e.g., here copying to `deps/jemalloc/include/jemalloc/internal/stdatomic.h`
-  # copy "#{Omnibus::Config.project_root}/omnibus-software/config/patches/stdatomic.h",
-       "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
+
   # Copy the custom stdatomic.h shim into the source include path before building
   source_path = "#{Omnibus::Config.project_root}/omnibus-software/config/patches/stdatomic.h"
   target_path = "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
-
   copy source_path, target_path
-  puts "*** TARGET PATH ****"
+
   # Debug: list the copied file
   system("ls -l #{target_path}")
+
   update_config_guess
   make "-j #{workers}", env: env
   make "install", env: env
