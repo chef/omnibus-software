@@ -58,13 +58,15 @@ build do
   puts "*** Copying custom stdatomic.h to source tree ***"
 
   # Copy the custom stdatomic.h shim into the source include path before building
-  source_path = "#{Omnibus::Config.project_root}/omnibus-software/config/patches/stdatomic.h"
-  target_path = "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
-  copy source_path, target_path
-
-  # Debug: list the copied file
-  system("ls -l #{target_path}")
-
+  #   source_path = "#{Omnibus::Config.project_root}/omnibus-software/config/patches/stdatomic.h"
+  #   target_path = "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
+  #   copy # Omnibus software definition example
+  # copy "#{project_dir}/config/patches/stdatomic.h", "#{install_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
+  # Omnibus software definition example
+  command "ls -al #{project_dir}/config/patches"
+  copy "#{project_dir}/config/patches/stdatomic.h",
+     "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
+  command "ls -al #{project_dir}/deps/jemalloc/include/jemalloc/internal/"
   update_config_guess
   make "-j #{workers}", env: env
   make "install", env: env
