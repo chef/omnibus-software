@@ -56,16 +56,19 @@ build do
 
   # Debug: print message before copying
   puts "*** Copying custom stdatomic.h to source tree ***"
+  patch_src = "#{Omnibus::Config.project_root}/config/patches/stdatomic.h"
+  patch_dst = "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
 
-  # Copy the custom stdatomic.h shim into the source include path before building
-  #   source_path = "#{Omnibus::Config.project_root}/omnibus-software/config/patches/stdatomic.h"
-  #   target_path = "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
-  #   copy # Omnibus software definition example
-  # copy "#{project_dir}/config/patches/stdatomic.h", "#{install_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
-  # Omnibus software definition example
-  command "ls -al #{project_dir}/"
-  copy "#{project_dir}/config/patches/stdatomic.h",
-     "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
+  # Print directory of the patch file (guaranteed to exist if you have it in your repo)
+  command "ls -al #{Omnibus::Config.project_root}/config/patches"
+
+  unless File.exist?(patch_src)
+    raise "Patch file not found: #{patch_src}"
+  end
+
+  # Copy patch into the source tree
+  copy patch_src, patch_dst
+
   command "ls -al #{project_dir}/deps/jemalloc/include/jemalloc/internal/"
   update_config_guess
   make "-j #{workers}", env: env
