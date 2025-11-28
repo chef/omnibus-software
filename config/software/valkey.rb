@@ -26,10 +26,14 @@ dependency "libuuid"
 dependency "curl"
 
 default_version "9.0.0"
-
-source url: "https://github.com/valkey-io/valkey/archive/refs/tags/#{version}.tar.gz"
-internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{version}.tar.gz",
+if suse?
+  source url: "https://artifactory-internal.ps.chef.co/artifactory/omnibus-software-local/valkey/9.0.0-sles12-compat.tar.gz
+end
+else
+  source url: "https://github.com/valkey-io/valkey/archive/refs/tags/#{version}.tar.gz"
+  internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{version}.tar.gz",
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
+end
 relative_path "valkey-#{version}"
 
 # version_list: url=https://github.com/valkey-io/valkey/archive/refs/tags/ filter=*.tar.gz
@@ -53,32 +57,6 @@ build do
     env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
   end
-
-  # Debug: print message before copying
-  puts "********DEBUG*******"
-  # Search entire Omnibus project root for stdatomic.h
-  puts "echo 'Searching for stdatomic.h in project root:'"
-  command "find ./ -name stdatomic.h"
-
-  # (Optional) Search in the build dir too:
-  command "echo 'Searching for stdatomic.h in build directory:'"
-  command "find #{project_dir} -name stdatomic.h"
-  
-  puts "*** Copying custom stdatomic.h to source tree ***"
-  patch_src = "#{project_dir}/config/patches/stdatomic.h"
-  patch_dst = "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
-
-  # Print directory of the patch file (guaranteed to exist if you have it in your repo)
-  command "ls -al #{Omnibus::Config.project_root}/config/patches"
-
-  unless File.exist?(patch_src)
-    raise "Patch file not found: #{patch_src}"
-  end
-
-  # Copy patch into the source tree
-  copy patch_src, patch_dst
-
-  command "ls -al #{project_dir}/deps/jemalloc/include/jemalloc/internal/"
   update_config_guess
   make "-j #{workers}", env: env
   make "install", env: env
