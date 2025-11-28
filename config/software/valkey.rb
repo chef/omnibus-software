@@ -57,7 +57,7 @@ build do
   # Debug: print message before copying
   puts "********DEBUG*******"
   # Search entire Omnibus project root for stdatomic.h
-  command "echo 'Searching for stdatomic.h in project root:'"
+  puts "echo 'Searching for stdatomic.h in project root:'"
   command "find ./ -name stdatomic.h"
 
   # (Optional) Search in the build dir too:
@@ -65,7 +65,7 @@ build do
   command "find #{project_dir} -name stdatomic.h"
   
   puts "*** Copying custom stdatomic.h to source tree ***"
-  patch_src = "#{Omnibus::Config.project_root}/config/patches/stdatomic.h"
+  patch_src = "#{project_dir}/config/patches/stdatomic.h"
   patch_dst = "#{project_dir}/deps/jemalloc/include/jemalloc/internal/stdatomic.h"
 
   # Print directory of the patch file (guaranteed to exist if you have it in your repo)
