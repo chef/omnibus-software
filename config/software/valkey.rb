@@ -39,10 +39,8 @@ else
                 authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
   # version_list: url=https://github.com/valkey-io/valkey/archive/refs/tags/ filter=*.tar.gz
   version("9.0.0") { source sha256: "088f47e167eb640ea31af48c81c5d62ee56321f25a4b05d4e54a0ef34232724b" }
-
 end
 relative_path "valkey-#{version}"
-
 
 build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
