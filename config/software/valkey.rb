@@ -30,7 +30,7 @@ default_version "9.0.0"
 if suse?
   source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/valkey/9.0.0-sles12-compat.tar.gz",
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}",
-                  sha256: "f4d059b8348f067d5a490ee5e01a5b9ecb653c02560181366d1e2bc86589faf9"
+                  sha256: "4b3dc21f876b442293b0397c65a0795158a3cd053e7cc775dedabfa2135c38b6"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/valkey/9.0.0-sles12-compat.tar.gz",
                   authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 else
