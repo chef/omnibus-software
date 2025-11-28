@@ -60,6 +60,8 @@ build do
     env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
     env["CFLAGS"] << " -std=c11"
+    env["MALLOC"] = "libc"
+    env["CFLAGS"] << " -DMALLOC=libc"  # Ensure zmalloc.h skips jemalloc
   end
   update_config_guess
   make "-j #{workers}", env: env
