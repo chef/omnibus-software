@@ -58,7 +58,7 @@ build do
   puts "********DEBUG*******"
   # Search entire Omnibus project root for stdatomic.h
   command "echo 'Searching for stdatomic.h in project root:'"
-  command "find #{Omnibus::Config.project_root} -name stdatomic.h"
+  command "find ./ -name stdatomic.h"
 
   # (Optional) Search in the build dir too:
   command "echo 'Searching for stdatomic.h in build directory:'"
