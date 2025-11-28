@@ -29,10 +29,10 @@ default_version "9.0.0"
 
 if suse?
   source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/valkey/9.0.0-sles12-compat.tar.gz",
-                  authorization: "X-JFrog-Art-Api:#{ENV['ARTIFACTORY_TOKEN']}",
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}",
                   sha256: "f4d059b8348f067d5a490ee5e01a5b9ecb653c02560181366d1e2bc86589faf9"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/valkey/9.0.0-sles12-compat.tar.gz",
-                  authorization: "X-JFrog-Art-Api:#{ENV['ARTIFACTORY_TOKEN']}"
+                  authorization: "X-JFrog-Art-Api:#{ENV["ARTIFACTORY_TOKEN"]}"
 else
   source url: "https://github.com/valkey-io/valkey/archive/refs/tags/#{version}.tar.gz"
   internal_source url: "#{ENV["ARTIFACTORY_REPO_URL"]}/#{name}/#{version}.tar.gz",
