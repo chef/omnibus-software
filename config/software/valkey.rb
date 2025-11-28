@@ -59,6 +59,7 @@ build do
     patch source: "config-sles.patch", plevel: 0, env: env
     env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
+    env["CFLAGS"] << " -std=c11"
   end
   update_config_guess
   make "-j #{workers}", env: env
