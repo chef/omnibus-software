@@ -26,6 +26,7 @@ dependency "liblzma"
 dependency "config_guess"
 
 # version_list: url=https://download.gnome.org/sources/libxml2/ filter=*.tar.xz
+version("2.14.4")  { source sha256: "24175ec30a97cfa86bdf9befb7ccf4613f8f4b2713c5103e0dd0bc9c711a2773" }
 version("2.14.2")  { source sha256: "353f3c83535d4224a4e5f1e88c90b5d4563ea8fec11f6407df640fd28fc8b8c6" }
 version("2.13.8")  { source sha256: "277294cb33119ab71b2bc81f2f445e9bc9435b893ad15bb2cd2b0e859a0ee84a" }
 version("2.13.5")  { source sha256: "74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6" }
