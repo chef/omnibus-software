@@ -48,22 +48,19 @@ build do
   )
   env["CFLAGS"] << " -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << " -L#{install_dir}/embedded/lib"
-  # if version.satisfies?(">=6.3.4")
-  #   patch source: "remove-libatomic-dep", env: env
-  # end
-  # if suse?
-  #   env["CFLAGS"] << " -fno-lto"
-  #   env["CXXFLAGS"] << " -fno-lto"
-  # end
+
   if suse?
     patch source: "config-sles.patch", plevel: 0, env: env
-    env["CFLAGS"] << " -fno-lto"
+    env["CFLAGS"] << " -fno-lto -std=c11 -DMALLOC=libc"
     env["CXXFLAGS"] << " -fno-lto"
-    env["CFLAGS"] << " -std=c11"
     env["MALLOC"] = "libc"
-    env["CFLAGS"] << " -DMALLOC=libc"  # Ensure zmalloc.h skips jemalloc
   end
+
   update_config_guess
+
+  # CRITICAL: Clean previous build artifacts before make
+  command "make -C #{project_dir} distclean", env: env rescue nil
+
   make "-j #{workers}", env: env
   make "install", env: env
 end
