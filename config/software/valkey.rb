@@ -67,7 +67,7 @@ build do
 
   # Clean out any previous jemalloc / config state so MALLOC=libc is honored
   command "make -C #{project_dir} distclean", env: env rescue nil
-  command "rm -f #{project_dir}/config.mak #{project_dir}/src/config.h", env: env rescue nil
+  # command "rm -f #{project_dir}/config.mak #{project_dir}/src/config.h", env: env rescue nil
 
   make "-j #{workers}", env: env
   make "install", env: env
