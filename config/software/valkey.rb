@@ -52,6 +52,7 @@ build do
   if suse? && ohai["platform_version"].to_s.start_with?("12")
     # SLES12: no LTO, C11 for stdatomic shim, and force libc allocator
     patch source: "config-sles.patch", plevel: 0, env: env
+    patch source: "no-jemalloc-sles12.patch", plevel: 1, env: env  # plevel:1 for your exact hunk
     env["CFLAGS"]  << " -fno-lto -std=c11 -DMALLOC=libc"
     env["CXXFLAGS"] << " -fno-lto"
     env["MALLOC"]   = "libc"
