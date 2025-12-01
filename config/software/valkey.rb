@@ -46,20 +46,20 @@ build do
   env = with_standard_compiler_flags(with_embedded_path).merge(
     "PREFIX" => "#{install_dir}/embedded"
   )
-  env["CFLAGS"]  << " -I#{install_dir}/embedded/include"
+  env["CFLAGS"] << " -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << " -L#{install_dir}/embedded/lib"
 
   if suse? && ohai["platform_version"].to_s.start_with?("12")
     # SLES12: no LTO, C11 for stdatomic shim, and force libc allocator
     patch source: "config-sles.patch", plevel: 0, env: env
-    patch source: "no-jemalloc-sles12.patch", plevel: 1, env: env  # plevel:1 for your exact hunk
-    env["CFLAGS"]  << " -fno-lto -std=c11 -DMALLOC=libc"
+    patch source: "no-jemalloc-sles12.patch", plevel: 1, env: env
+    env["CFLAGS"] << " -fno-lto -std=c11 -DMALLOC=libc"
     env["CXXFLAGS"] << " -fno-lto"
-    env["MALLOC"]   = "libc"
+    env["MALLOC"] = "libc"
   elsif suse?
     # SLES15+: keep existing behavior (jemalloc OK)
     patch source: "config-sles.patch", plevel: 0, env: env
-    env["CFLAGS"]  << " -fno-lto"
+    env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
   end
 
