@@ -42,7 +42,6 @@ build do
   env["CFLAGS"] << " -I#{install_dir}/embedded/include"
   env["LDFLAGS"] << " -L#{install_dir}/embedded/lib"
   if suse?
-    patch source: "config-sles.patch", plevel: 0, env: env
     env["CFLAGS"] << " -fno-lto"
     env["CXXFLAGS"] << " -fno-lto"
   end
