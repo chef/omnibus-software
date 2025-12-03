@@ -49,4 +49,13 @@ build do
   update_config_guess
   make "-j #{workers}", env: env
   make "install", env: env
+
+  # Add this block to copy config.rb.example to config.rb
+  partybus_config_dir = "#{install_dir}/embedded/service/partybus"
+  example_config = "#{partybus_config_dir}/config.rb.example"
+  actual_config  = "#{partybus_config_dir}/config.rb"
+
+  if File.exist?(example_config)
+    copy(example_config, actual_config)
+  end
 end
