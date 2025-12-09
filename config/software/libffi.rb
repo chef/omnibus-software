@@ -21,7 +21,7 @@ license "MIT"
 license_file "LICENSE"
 skip_transitive_dependency_licensing true
 
-# version_list: url=   filter=*.tar.gz
+# version_list: url=https://github.com/libffi/libffi/releases  filter=*.tar.gz
 
 version("3.4.6") { source sha256: "b0dea9df23c863a7a50e825440f3ebffabd65df1497108e5d437747843895a4e" }
 version("3.4.4") { source sha256: "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676" }
