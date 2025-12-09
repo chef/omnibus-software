@@ -48,6 +48,10 @@ build do
     patch source: "libffi-3.3-arm64.patch", plevel: 1, env: env
   end
 
+  if version == "3.4.4" && rhel? && platform_version.satisfies?("~> 10.0")
+    patch source: "0001-Forward-declare-open_temp_exec_file.patch", plevel: 1, env: env
+  end
+
   # AIX's old version of patch doesn't like the patch here
   unless aix?
     # disable multi-os-directory via configure flag (don't use /lib64)
