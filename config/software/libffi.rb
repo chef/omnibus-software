@@ -49,7 +49,7 @@ build do
   end
 
   if version == "3.4.4" && rhel? && platform_version.satisfies?("~> 10.0")
-    patch source: "0001-Forward-declare-open_temp_exec_file.patch", plevel: 1, env: env
+    patch source: "libffi-rhel10-3.4.4-Forward-declare-open_temp_exec_file.patch", plevel: 1, env: env
   end
 
   # AIX's old version of patch doesn't like the patch here
