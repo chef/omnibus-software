@@ -37,7 +37,11 @@ build do
     env["CC"]  = "gcc44"
     env["CXX"] = "g++44"
   end
-
+  # Only on RHEL 10.x, relax deprecated-copy errors for Gecode
+  if rhel? && platform_version.satisfies?("~> 10.0")
+    existing = env["CXXFLAGS"] || ""
+    env["CXXFLAGS"] = [existing, "-Wno-error=deprecated-copy"].reject(&:empty?).join(" ")
+  end
   # Ruby DevKit ships with BSD Tar
   env["PROG_TAR"] = "bsdtar" if windows?
   env["ARFLAGS"] = "rv #{env["ARFLAGS"]}" if env["ARFLAGS"]
