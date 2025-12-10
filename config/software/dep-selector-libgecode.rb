@@ -39,6 +39,8 @@ build do
   end
   # Only on RHEL 10.x, relax deprecated-copy errors for Gecode
   if rhel? && platform_version.satisfies?("~> 10.0")
+    env["CC"]  = "/usr/bin/gcc-13"
+    env["CXX"] = "/usr/bin/g++-13"
     existing = env["CXXFLAGS"] || ""
     env["CXXFLAGS"] = [existing, "-Wno-error=deprecated-copy"].reject(&:empty?).join(" ")
   end
