@@ -1,3 +1,4 @@
+
 #
 # Copyright 2014-2018 Chef Software, Inc.
 #
@@ -29,18 +30,20 @@ dependency "ruby"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  if linux? && ohai["platform_family"] == "debian"
-    # Patch missing config.guess/config.sub
-    guess = `which config.guess`.strip
-    sub   = `which config.sub`.strip
-    if File.exist?(guess) && File.exist?(sub)
-      FileUtils.cp(guess, "ext/libgecode3/vendor/gecode-3.7.3/config.guess")
-      FileUtils.cp(sub,   "ext/libgecode3/vendor/gecode-3.7.3/config.sub")
-      puts ">>> Patched config.guess/config.sub for Gecode build"
-    end
+  # On some RHEL-based systems, the default GCC that's installed is 4.1. We
+  # need to use 4.4, which is provided by the gcc44 and gcc44-c++ packages.
+  # These do not use the gcc binaries so we set the flags to point to the
+  # correct version here.
+  if File.exist?("/usr/bin/gcc44")
+    env["CC"]  = "gcc44"
+    env["CXX"] = "g++44"
   end
+
+  # Ruby DevKit ships with BSD Tar
+  env["PROG_TAR"] = "bsdtar" if windows?
+  env["ARFLAGS"] = "rv #{env["ARFLAGS"]}" if env["ARFLAGS"]
 
   gem "install dep-selector-libgecode" \
       " --version '#{version}'" \
-      " --no-document", env: env
+      "  --no-document", env: env
 end
