@@ -53,6 +53,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
   update_config_guess(target: "build/autoconf/")
 
+  env["LDFLAGS"] << " -Wl,--disable-new-dtags"
   configure_args = [
     "--prefix=#{install_dir}/embedded",
     "--without-lzo2",
@@ -70,6 +71,8 @@ build do
   if s390x?
     configure_args << "--disable-xattr --disable-acl"
   end
+
+  configure_args << "--libdir=#{install_dir}/embedded/lib"
 
   configure configure_args.join(" "), env: env
 
