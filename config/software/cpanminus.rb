@@ -25,6 +25,7 @@ dependency "perl"
 
 # version_list: url=https://metacpan.org/pod/App::cpanminus filter=*.tar.gz
 
+version("1.7047") { source sha256: "c387e70053d4c50e73840de7e37a27d2fd772f80fffc9a09b7ee73631da2520b" }
 version("1.7046") { source sha256: "cefc58349f9f741aba82b8ed3d672265b53ca4e4183f72613fce06d6ab97d30c" }
 version("1.7045") { source sha256: "f2ab7e18a695960ac07f072b369c1bf113ae278bf81aa807b3f4bdaf098df34d" }
 version("1.7040") { source sha256: "48a747c040689445f7db0edd169da0abd709a37cfece3ceecff0816c09beab0e" }
