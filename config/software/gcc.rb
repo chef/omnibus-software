@@ -17,7 +17,7 @@
 
 # do_not_auto_update
 name "gcc"
-default_version "4.9.2"
+default_version "7.5.0"
 
 dependency "gmp"
 dependency "mpfr"
@@ -55,6 +55,9 @@ build do
   # on any other platforms we may use this with)
   # gcc also has issues on a lot of platforms when running a multithreaded job,
   # so unfortunately we have to build with 1 worker :(
+  if version.satisfies?(">= 7.5.0")
+    command "cd #{install_dir}/embedded/lib && ln -s libatomic.so.1.2.0 libatomic.so", env: env
+  end
   make env: env, timeout: 14400
   make "install", env: env
 end
