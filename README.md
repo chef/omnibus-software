@@ -97,7 +97,7 @@ Omnibus git caching is enabled for the build so you can rerun the build command 
 The following command will clean the omnibus project and purge the packages and caches.
 
 ```
-bundle exec omnibus clean test --purge
+bundle exec omnibus clean test --purge ---
 ```
 
 The container will automatically be destroyed when you exit it without requiring any further cleanup.
