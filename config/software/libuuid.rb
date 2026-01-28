@@ -21,6 +21,7 @@ default_version "2.21"
 
 license "LGPL-2.1"
 license_file "COPYING"
+skip_transitive_dependency_licensing true
 
 source url: "https://www.kernel.org/pub/linux/utils/util-linux/v#{version}/util-linux-#{version}.tar.gz"
 # We use the version in util-linux, and only build the libuuid subdirectory
