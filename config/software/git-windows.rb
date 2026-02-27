@@ -50,6 +50,7 @@ if windows_arch_i386?
   version("2.27.0") { source sha256: "8cbe1e3b57eb9d02e92cff12089454f2cf090c02958080d62e199ef8764542d3" }
 else
   # version_list: url=https://github.com/git-for-windows/git/releases filter=PortableGit-*-64-bit.7z.exe
+  version("2.49.1") { source sha256: "643def94eaa15215ebe1018804d2ac3a458e80a2fc27aef6e5139411728f3a7d" }
   version("2.48.1") { source sha256: "a4335111b3363871cac632be93d7466154d8eb08782ff55103866b67d6722257" }
   version("2.47.0") { source sha256: "0b7fcd76902ebde5b4c00ebae597d7f65dff8c3dd0ae59f5059e1aaa3adace87" }
   version("2.41.0") { source sha256: "fcbaeffd24fdf435a1f7844825253509136377915e6720aa66aa256ec1f83c30" }
