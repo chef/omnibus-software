@@ -255,7 +255,6 @@ build do
                        "--without-tk",
                        "--disable-dtrace",
                        "--disable-jit-support"]
-  configure_command << "--with-bundled-md5" if fips_mode?
 
   # resolve C99 code accidentally introduced in Ruby 2.6.7 and it's still in 2.6.8 :(
   patch source: "ruby-2.6.7_c99.patch", plevel: 1, env: patch_env if version.satisfies?("~> 2.6.7", "< 2.6.10")
