@@ -60,13 +60,17 @@ build do
   gem_command = [ "install nokogiri" ]
   gem_command << "--version '#{version}'" unless version.nil?
 
+  # Force nokogiri to use ruby platform regardless of platform
+  # This ensures compatibility with systems that have older glibc versions
+  gem_command << "--platform=ruby"
+  
   # windows uses the 'fat' precompiled binaries'
   unless using_prebuilt_ruby
     # Tell nokogiri to use the system libraries instead of compiling its own
     env["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
+    env["FORCE_NOKOGIRI_PLATFORM"] = "ruby"
 
     gem_command += [
-      "--platform ruby",
       "--conservative",
       "--minimal-deps",
       "--",
