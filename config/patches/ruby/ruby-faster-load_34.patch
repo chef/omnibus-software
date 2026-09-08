@@ -1,0 +1,20 @@
+--- ruby-3.4.0/load.c.org	2026-09-08 00:00:00
++++ ruby-3.4.0/load.c	2026-09-08 00:00:01
+@@ -761,7 +761,7 @@
+ 
+             if (error == Qnil) {
+                 int error_state;
+-                iseq = pm_iseq_new_top(&result.node, rb_fstring_lit("<top (required)>"), fname, realpath_internal_cached(realpath_map, fname), NULL, &error_state);
++                iseq = pm_iseq_new_top(&result.node, rb_fstring_lit("<top (required)>"), fname, fname, NULL, &error_state);
+ 
+                 pm_parse_result_free(&result);
+ 
+@@ -786,7 +786,7 @@
+             ast = rb_ruby_ast_data_get(ast_value);
+ 
+             iseq = rb_iseq_new_top(ast_value, rb_fstring_lit("<top (required)>"),
+-                                   fname, realpath_internal_cached(realpath_map, fname), NULL);
++                                   fname, fname, NULL);
+             rb_ast_dispose(ast);
+         }
+ 
